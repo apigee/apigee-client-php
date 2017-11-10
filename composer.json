@@ -1,0 +1,74 @@
+{
+    "name": "apigee/edge-php-sdk",
+    "type": "library",
+    "description": "Apigee Edge API client.",
+    "keywords": [
+        "apigee",
+        "edge",
+        "api",
+        "sdk",
+        "web service"
+    ],
+    "homepage": "http://github.com/apigee/edge-php-sdk",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Dezső Biczó",
+            "email": "mxr576@gmail.com",
+            "homepage": "http://biczodezso.hu/",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^7.1",
+        "ext-json": "*",
+        "psr/http-message": "^1.0",
+        "php-http/client-implementation": "^1.0",
+        "php-http/httplug": "^1.0",
+        "php-http/message": "^1.0",
+        "php-http/message-factory": "^1.0",
+        "php-http/discovery": "^1.0",
+        "php-http/client-common": "^1.6",
+        "psr/cache": "^1.0",
+        "php-http/cache-plugin": "^1.4"
+    },
+    "require-dev": {
+        "guzzlehttp/psr7": "^1.0",
+        "php-http/guzzle6-adapter": "^1.1",
+        "php-http/mock-client": "^1.0",
+        "phpdocumentor/phpdocumentor": "^2.9",
+        "phpmetrics/phpmetrics": "^2.3",
+        "phpunit/phpunit": "^6.4.0",
+        "squizlabs/php_codesniffer": "^3.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Apigee\\Edge\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Apigee\\Edge\\Tests\\": "tests"
+        }
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "update-with-dependencies": true,
+        "preferred-install": "dist",
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "scripts": {
+        "test": "phpunit",
+        "metrics": "phpmetrics .",
+        "metrics-html": "phpmetrics . --report-html=report",
+        "check-style": "phpcs -p --standard=PSR2 --runtime-set ignore_errors_on_exit 1 --runtime-set ignore_warnings_on_exit 1 src",
+        "fix-style": "phpcbf -p --standard=PSR2 --runtime-set ignore_errors_on_exit 1 --runtime-set ignore_warnings_on_exit 1 src"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-2.x-dev": "2.0.x-dev"
+        }
+    }
+}

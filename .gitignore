@@ -1,0 +1,5 @@
+.idea
+/report
+/*.php
+/vendor
+/composer.lock
