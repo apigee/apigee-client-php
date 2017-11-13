@@ -13,10 +13,31 @@ class PropertiesProperty extends KeyValueMap
     /**
      * @inheritdoc
      */
+    public function __construct(array $values = [])
+    {
+        $values = $this->transform($values);
+        parent::__construct($values);
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function set(array $values): void
     {
-        // Flatten the array returned by the Edge.
-        // Example: $values = ['property' => [['name' => 'foo', 'value' => 'bar']]].
+        $values = $this->transform($values);
+        parent::set($values);
+    }
+
+    /**
+     * Flatten the array returned by the Edge.
+     *
+     * Example: $values = ['property' => [['name' => 'foo', 'value' => 'bar']]].
+     *
+     * @param array $values
+     * @return array
+     */
+    protected function transform(array $values): array
+    {
         if (array_key_exists('property', $values) && is_array($values['property'])) {
             $flatten = [];
             foreach ($values['property'] as $value) {
@@ -24,7 +45,7 @@ class PropertiesProperty extends KeyValueMap
             }
             $values = $flatten;
         }
-        parent::set($values);
+        return $values;
     }
 
     /**

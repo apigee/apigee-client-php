@@ -2,6 +2,8 @@
 
 namespace Apigee\Edge\Api\Management\Controller;
 
+use Apigee\Edge\Api\Management\Entity\DeveloperInterface;
+use Apigee\Edge\Api\Management\Exception\DeveloperNotFoundException;
 use Apigee\Edge\Entity\StatusAwareEntityController;
 use Psr\Http\Message\UriInterface;
 
@@ -13,6 +15,8 @@ use Psr\Http\Message\UriInterface;
  */
 class DeveloperController extends StatusAwareEntityController implements DeveloperControllerInterface
 {
+    use AttributesAwareEntityControllerTrait;
+
     /**
      * Returns the API endpoint that the controller communicates with.
      *
@@ -24,5 +28,24 @@ class DeveloperController extends StatusAwareEntityController implements Develop
     {
         return $this->client->getHttpClientBuilder()->getUriFactory()
             ->createUri(sprintf('organizations/%s/developers', $this->organization));
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getDeveloperByApp(string $appName): DeveloperInterface
+    {
+        $uri = $this->getBaseEndpointUri()->withQuery(http_build_query(['app' => $appName]));
+        $responseArray = $this->parseResponseToArray($this->client->get($uri));
+        // When developer has not found by app we are still getting back HTTP 200 with an empty developer array.
+        if (empty($responseArray['developer'])) {
+            throw new DeveloperNotFoundException(
+                $this->client->getJournal()->getLastResponse(),
+                $this->client->getJournal()->getLastRequest()
+            );
+        }
+        $values = reset($responseArray['developer']);
+        /** @noinspection PhpIncompatibleReturnTypeInspection */
+        return $this->entityFactory->getEntityByController($this)::create($values);
     }
 }

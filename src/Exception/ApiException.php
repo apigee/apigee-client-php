@@ -27,6 +27,9 @@ class ApiException extends \RuntimeException
     /** @var FullHttpMessageFormatter */
     protected $formatter;
 
+    /** @var string */
+    protected $edgeErrorCode;
+
     /**
      * ApiException constructor.
      * @param ResponseInterface $response
@@ -44,7 +47,17 @@ class ApiException extends \RuntimeException
         $this->formatter = $formatter ?: new FullHttpMessageFormatter();
         $this->request = $request;
         $this->response = $response;
-        parent::__construct($response->getReasonPhrase(), $response->getStatusCode(), $previous);
+        $message = $response->getReasonPhrase();
+        // Try to parse Edge error message and error code from the response body.
+        $contentTypeHeader = $response->getHeaderLine('Content-Type');
+        if ($contentTypeHeader && strpos($contentTypeHeader, 'application/json') !== false) {
+            $array = json_decode($response->getBody(), true);
+            if (json_last_error() === JSON_ERROR_NONE) {
+                $this->edgeErrorCode = $array['code'];
+                $message = $array['message'];
+            }
+        }
+        parent::__construct($message, $response->getStatusCode(), $previous);
     }
 
     /**
@@ -69,6 +82,14 @@ class ApiException extends \RuntimeException
     public function getFormatter(): Formatter
     {
         return $this->formatter;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getEdgeErrorCode(): ?string
+    {
+        return $this->edgeErrorCode;
     }
 
     public function __toString()
