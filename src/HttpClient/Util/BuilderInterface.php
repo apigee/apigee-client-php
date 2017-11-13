@@ -66,12 +66,14 @@ interface BuilderInterface
      * Add plugin to the client.
      *
      * @param Plugin $plugin
+     *
      * @return mixed
      */
     public function addPlugin(Plugin $plugin): void;
 
     /**
      * @param string $fqcn Fully qualified class name of the plugin.
+     *
      * @return mixed
      */
     public function removePlugin(string $fqcn): void;

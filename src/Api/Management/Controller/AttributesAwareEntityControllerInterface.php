@@ -24,6 +24,7 @@ interface AttributesAwareEntityControllerInterface
      * Returns a list of all entity attributes.
      *
      * @param string $entityId
+     *
      * @return AttributesProperty
      */
     public function getAttributes(string $entityId): AttributesProperty;
@@ -33,6 +34,7 @@ interface AttributesAwareEntityControllerInterface
      *
      * @param string $entityId
      * @param string $name
+     *
      * @return string
      */
     public function getAttribute(string $entityId, string $name): string;
@@ -46,6 +48,7 @@ interface AttributesAwareEntityControllerInterface
      *
      * @param string $entityId
      * @param AttributesProperty $attributes
+     *
      * @return string
      */
     public function updateAttributes(string $entityId, AttributesProperty $attributes): string;
@@ -56,6 +59,7 @@ interface AttributesAwareEntityControllerInterface
      * @param string $entityId
      * @param string $name
      * @param string $value
+     *
      * @return string
      * @throws ClientErrorException If attribute does not exist.
      */

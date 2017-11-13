@@ -12,6 +12,7 @@ class EntityNotFoundException extends \Exception
 {
     /**
      * EntityNotFoundException constructor.
+     *
      * @param string $fqcn Fully wualified name of the class.
      * @param int $code
      * @param \Throwable|null $previous

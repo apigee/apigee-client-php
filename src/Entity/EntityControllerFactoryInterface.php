@@ -12,6 +12,7 @@ interface EntityControllerFactoryInterface
 {
     /**
      * @param string $path
+     *
      * @return BaseEntityControllerInterface
      *
      * @throws \Apigee\Edge\Exception\UnknownEndpointException

@@ -23,6 +23,7 @@ interface DeveloperControllerInterface extends
      * Get developer entity by app.
      *
      * @param string $appName
+     *
      * @return DeveloperInterface
      * @throws DeveloperNotFoundException
      * @link https://docs.apigee.com/management/apis/get/organizations/%7Borg_name%7D/developers-0

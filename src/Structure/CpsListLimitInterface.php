@@ -18,6 +18,7 @@ interface CpsListLimitInterface
     /**
      * @param string $startKey
      *    The primary key of the entity that the list will start.
+     *
      * @return string
      */
     public function setStartKey(string $startKey): string;
@@ -30,6 +31,7 @@ interface CpsListLimitInterface
     /**
      * @param int $limit
      *   Number of entities to return.
+     *
      * @return int
      */
     public function setLimit(int $limit): int;

@@ -12,6 +12,7 @@ class UnknownEndpointException extends \InvalidArgumentException
 {
     /**
      * UnknownEndpointException constructor.
+     *
      * @param string $endpoint
      * @param \Throwable|null $previous
      */

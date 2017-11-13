@@ -73,6 +73,7 @@ trait AttributesAwareEntityControllerTrait
      * Returns the base URI of an entity type's attributes.
      *
      * @param string $entityId
+     *
      * @return UriInterface
      */
     protected function getEntityAttributesUri(string $entityId): UriInterface
@@ -88,6 +89,7 @@ trait AttributesAwareEntityControllerTrait
      *
      * @param string $entityId
      * @param string $name
+     *
      * @return UriInterface
      */
     protected function getEntityAttributeUri(string $entityId, string $name): UriInterface

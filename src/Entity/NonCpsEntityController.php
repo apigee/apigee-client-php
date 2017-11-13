@@ -2,7 +2,6 @@
 
 namespace Apigee\Edge\Entity;
 
-
 /**
  * Class NonCpsEntityController.
  *

@@ -54,6 +54,7 @@ class Builder implements BuilderInterface
 
     /**
      * Builder constructor.
+     *
      * @param HttpClient|null $httpClient
      * @param RequestFactory|null $requestFactory
      * @param StreamFactory|null $streamFactory
@@ -132,6 +133,7 @@ class Builder implements BuilderInterface
      * Set or remove rebuild flag from the client.
      *
      * @param bool $rebuild
+     *
      * @return bool
      */
     private function needsRebuild(bool $rebuild = true): bool

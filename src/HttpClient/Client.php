@@ -86,6 +86,7 @@ class Client implements ClientInterface
      * Sets or removes rebuild flag from the underlying HTTP client.
      *
      * @param bool $rebuild
+     *
      * @return bool
      */
     private function needsRebuild(bool $rebuild = true): bool

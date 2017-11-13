@@ -49,6 +49,7 @@ class Developer extends Entity implements DeveloperInterface
 
     /**
      * Developer constructor.
+     *
      * @param array $values
      */
     public function __construct(array $values = [])

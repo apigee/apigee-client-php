@@ -33,6 +33,7 @@ interface DeveloperInterface extends
 
     /**
      * @param string $appName Name of app.
+     *
      * @return bool
      */
     public function hasApp(string $appName): bool;
@@ -44,6 +45,7 @@ interface DeveloperInterface extends
 
     /**
      * @param string $companyName Name of company.
+     *
      * @return bool
      */
     public function hasCompany(string $companyName): bool;

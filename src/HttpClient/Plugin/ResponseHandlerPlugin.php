@@ -23,6 +23,7 @@ final class ResponseHandlerPlugin implements Plugin
 
     /**
      * ResponseHandlerPlugin constructor.
+     *
      * @param Formatter|null $formatter
      */
     public function __construct(Formatter $formatter = null)
@@ -43,6 +44,7 @@ final class ResponseHandlerPlugin implements Plugin
     /**
      * @param ResponseInterface $response
      * @param RequestInterface $request
+     *
      * @return ResponseInterface
      */
     private function decodeResponse(ResponseInterface $response, RequestInterface $request)

@@ -17,6 +17,7 @@ interface CompaniesPropertyInterface
 
     /**
      * @param string $companyName Company name
+     *
      * @return bool
      */
     public function hasCompany(string $companyName): bool;

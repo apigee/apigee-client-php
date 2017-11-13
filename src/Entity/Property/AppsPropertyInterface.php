@@ -17,6 +17,7 @@ interface AppsPropertyInterface
 
     /**
      * @param string $appName App name.
+     *
      * @return bool
      */
     public function hasApp(string $appName): bool;

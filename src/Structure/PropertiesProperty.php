@@ -34,6 +34,7 @@ class PropertiesProperty extends KeyValueMap
      * Example: $values = ['property' => [['name' => 'foo', 'value' => 'bar']]].
      *
      * @param array $values
+     *
      * @return array
      */
     protected function transform(array $values): array

@@ -30,6 +30,7 @@ class EntityControllerFactory implements EntityControllerFactoryInterface
 
     /**
      * EntityControllerFactory constructor.
+     *
      * @param string $organization
      * @param ClientInterface $client
      * @param EntityFactoryInterface|null $entityFactory

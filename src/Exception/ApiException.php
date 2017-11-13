@@ -32,6 +32,7 @@ class ApiException extends \RuntimeException
 
     /**
      * ApiException constructor.
+     *
      * @param ResponseInterface $response
      * @param RequestInterface $request
      * @param Formatter|null $formatter
@@ -100,5 +101,4 @@ class ApiException extends \RuntimeException
             $this->formatter->formatResponse($this->response)
         );
     }
-
 }

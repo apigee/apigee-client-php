@@ -14,6 +14,7 @@ interface BaseEntityControllerInterface
      * Loads an entity by ID from Edge.
      *
      * @param string $entityId
+     *
      * @return EntityInterface
      */
     public function load(string $entityId): EntityInterface;
@@ -22,6 +23,7 @@ interface BaseEntityControllerInterface
      * Saves (create or update) an entity to Edge.
      *
      * @param EntityInterface $entity
+     *
      * @return EntityInterface
      */
     public function save(EntityInterface $entity): EntityInterface;
@@ -30,6 +32,7 @@ interface BaseEntityControllerInterface
      * Removes an entity from Edge.
      *
      * @param string $entityId
+     *
      * @return EntityInterface
      */
     public function delete(string $entityId): EntityInterface;

@@ -20,6 +20,7 @@ class InvalidJsonException extends ApiException
 
     /**
      * InvalidJsonException constructor.
+     *
      * @param string $jsonErrorMessage
      * @param ResponseInterface $response
      * @param RequestInterface $request

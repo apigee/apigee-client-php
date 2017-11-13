@@ -21,6 +21,7 @@ interface KeyValueMapInterface extends \IteratorAggregate, \JsonSerializable
      * Returns value of a key from the store.
      *
      * @param null|string $key
+     *
      * @return null|string
      */
     public function getValue(string $key): ?string;
@@ -51,6 +52,7 @@ interface KeyValueMapInterface extends \IteratorAggregate, \JsonSerializable
      * Checks whether a key exists in the store.
      *
      * @param string $key
+     *
      * @return bool
      */
     public function has(string $key): bool;

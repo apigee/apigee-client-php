@@ -22,6 +22,7 @@ interface EntityControllerInterface extends BaseEntityControllerInterface
 
     /**
      * @param string $orgName The name of the organization that the entity belongs.
+     *
      * @return string
      *   The organization name.
      */
@@ -31,6 +32,7 @@ interface EntityControllerInterface extends BaseEntityControllerInterface
      * Returns list of entities from Edge. The returned number of entities can be limited.
      *
      * @param CpsListLimitInterface|null $cpsLimit
+     *
      * @return array
      */
     public function getEntities(CpsListLimitInterface $cpsLimit = null): array;
@@ -39,6 +41,7 @@ interface EntityControllerInterface extends BaseEntityControllerInterface
      * Returns list of entity ids from Edge. The returned number of entities can be limited.
      *
      * @param CpsListLimitInterface|null $cpsLimit
+     *
      * @return array
      */
     public function getEntityIds(CpsListLimitInterface $cpsLimit = null): array;
@@ -53,6 +56,7 @@ interface EntityControllerInterface extends BaseEntityControllerInterface
      *    The primary key of the entity that the list should start.
      * @param int $limit
      *    Number of entities to return.
+     *
      * @return CpsListLimitInterface
      *
      * @link https://docs.apigee.com/api-services/content/api-reference-getting-started#cps

@@ -31,6 +31,7 @@ abstract class AbstractEntityController implements BaseEntityControllerInterface
 
     /**
      * AbstractEntityController constructor.
+     *
      * @param ClientInterface|null $client
      * @param EntityFactoryInterface|null $entityFactory
      */
@@ -53,6 +54,7 @@ abstract class AbstractEntityController implements BaseEntityControllerInterface
      * Returns the entity type specific base url for an API call.
      *
      * @param string $entityId
+     *
      * @return UriInterface
      */
     protected function getEntityEndpointUri(string $entityId): UriInterface
@@ -64,6 +66,7 @@ abstract class AbstractEntityController implements BaseEntityControllerInterface
      * Parse an Apigee Edge API response to an associative array.
      *
      * @param ResponseInterface $response
+     *
      * @return array
      */
     protected function parseResponseToArray(ResponseInterface $response): array

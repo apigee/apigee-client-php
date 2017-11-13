@@ -53,6 +53,7 @@ interface ClientInterface extends HttpClient
      * Add a custom prefix to the default SDK user agent.
      *
      * @param string $prefix
+     *
      * @return string
      */
     public function addUserAgentPrefix(string $prefix): string;
@@ -68,6 +69,7 @@ interface ClientInterface extends HttpClient
      * Changes the endpoint that the client communicates.
      *
      * @param string $endpoint
+     *
      * @return string
      */
     public function setEndpoint(string $endpoint): string;
@@ -90,6 +92,7 @@ interface ClientInterface extends HttpClient
      *
      * @param \Psr\Http\Message\UriInterface|string $uri
      * @param array $headers
+     *
      * @return ResponseInterface
      */
     public function get($uri, array $headers = []): ResponseInterface;
@@ -99,6 +102,7 @@ interface ClientInterface extends HttpClient
      *
      * @param \Psr\Http\Message\UriInterface|string $uri
      * @param array $headers
+     *
      * @return ResponseInterface
      */
     public function head($uri, array $headers = []): ResponseInterface;
@@ -109,6 +113,7 @@ interface ClientInterface extends HttpClient
      * @param \Psr\Http\Message\UriInterface|string $uri
      * @param null|\Psr\Http\Message\StreamInterface|resource|string $body
      * @param array $headers
+     *
      * @return ResponseInterface
      */
     public function post($uri, $body = null, array $headers = []): ResponseInterface;
@@ -119,6 +124,7 @@ interface ClientInterface extends HttpClient
      * @param \Psr\Http\Message\UriInterface|string $uri
      * @param null|\Psr\Http\Message\StreamInterface|resource|string $body
      * @param array $headers
+     *
      * @return ResponseInterface
      */
     public function put($uri, $body = null, array $headers = []): ResponseInterface;
@@ -129,6 +135,7 @@ interface ClientInterface extends HttpClient
      * @param \Psr\Http\Message\UriInterface|string $uri
      * @param null|\Psr\Http\Message\StreamInterface|resource|string $body
      * @param array $headers
+     *
      * @return ResponseInterface
      */
     public function delete($uri, $body = null, array $headers = []): ResponseInterface;
@@ -140,6 +147,7 @@ interface ClientInterface extends HttpClient
      * @param \Psr\Http\Message\UriInterface|string $uri
      * @param null|\Psr\Http\Message\StreamInterface|resource|string $body
      * @param array $headers
+     *
      * @return ResponseInterface
      */
     public function send($method, $uri, array $headers = [], $body = null): ResponseInterface;
