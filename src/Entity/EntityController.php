@@ -2,7 +2,6 @@
 
 namespace Apigee\Edge\Entity;
 
-use Apigee\Edge\Api\Management\Controller\OrganizationController;
 use Apigee\Edge\Exception\CpsNotEnabledException;
 use Apigee\Edge\HttpClient\ClientInterface;
 use Apigee\Edge\Structure\CpsListLimitInterface;
@@ -18,6 +17,9 @@ abstract class EntityController extends AbstractEntityController implements Enti
     /** @var string Name of the organization that the entity belongs to. */
     protected $organization;
 
+    /** @var \Apigee\Edge\Entity\EntityControllerFactory */
+    protected $entityControllerFactory;
+
     /**
      * EntityController constructor.
      *
@@ -25,15 +27,17 @@ abstract class EntityController extends AbstractEntityController implements Enti
      *   Name of the organization that the entities belongs to.
      * @param ClientInterface|null $client
      * @param EntityFactoryInterface|null $entityFactory
+     * @param EntityControllerFactoryInterface $entityControllerFactory
      */
     public function __construct(
         string $organization,
         ClientInterface $client = null,
-        EntityFactoryInterface $entityFactory = null
-    )
-    {
+        EntityFactoryInterface $entityFactory = null,
+        EntityControllerFactoryInterface $entityControllerFactory = null
+    ) {
         $this->organization = $organization;
         parent::__construct($client, $entityFactory);
+        $this->entityControllerFactory = $entityControllerFactory ?: new EntityControllerFactory($organization, $this->client, $this->entityFactory);
     }
 
     /**
@@ -98,8 +102,7 @@ abstract class EntityController extends AbstractEntityController implements Enti
      */
     public function createCpsLimit(string $startKey, int $limit): CpsListLimitInterface
     {
-        // TODO Should we inject EntityControllerFactoryInterface to entity controllers?
-        $orgController = new OrganizationController($this->client, $this->entityFactory);
+        $orgController = $this->entityControllerFactory->getControllerByEndpoint('organizations');
         $organization = $orgController->load($this->organization);
         if (!$organization->getPropertyValue('features.isCpsEnabled')) {
             throw new CpsNotEnabledException($this->organization);

@@ -43,8 +43,7 @@ class ApiException extends \RuntimeException
         RequestInterface $request,
         Formatter $formatter = null,
         Throwable $previous = null
-    )
-    {
+    ) {
         $this->formatter = $formatter ?: new FullHttpMessageFormatter();
         $this->request = $request;
         $this->response = $response;

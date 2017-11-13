@@ -33,8 +33,7 @@ class InvalidJsonException extends ApiException
         RequestInterface $request,
         Formatter $formatter = null,
         Throwable $previous = null
-    )
-    {
+    ) {
         $this->jsonErrorMessage = $jsonErrorMessage;
         parent::__construct($response, $request, $formatter, $previous);
     }

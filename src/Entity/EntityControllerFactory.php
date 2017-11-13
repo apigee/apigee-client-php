@@ -39,8 +39,7 @@ class EntityControllerFactory implements EntityControllerFactoryInterface
         string $organization,
         ClientInterface $client,
         EntityFactoryInterface $entityFactory = null
-    )
-    {
+    ) {
         $this->organization = $organization;
         $this->client = $client;
         $this->entityFactory = $entityFactory ?: new EntityFactory();

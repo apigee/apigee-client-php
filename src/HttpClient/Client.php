@@ -75,8 +75,7 @@ class Client implements ClientInterface
         Authentication $auth = null,
         BuilderInterface $builder = null,
         string $endpoint = null
-    )
-    {
+    ) {
         $this->auth = $auth;
         $this->endpoint = $endpoint;
         $this->builder = $builder ?: new Builder();
