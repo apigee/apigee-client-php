@@ -3,6 +3,7 @@
 namespace Apigee\Edge\Entity;
 
 use Apigee\Edge\Api\Management\Entity\Organization;
+use Apigee\Edge\Util\ArrayConversionInterface;
 
 /**
  * Base representation of an Edge entity.
@@ -66,7 +67,7 @@ class Entity implements EntityInterface
      */
     public static function create(array $values): EntityInterface
     {
-        return new static($values);
+        return static::fromArray($values);
     }
 
     /**
@@ -83,6 +84,52 @@ class Entity implements EntityInterface
     public function idProperty(): string
     {
         return self::DEFAULT_ID_FIELD;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public static function fromArray(array $values): ArrayConversionInterface
+    {
+        return new static($values);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function toArray(): array
+    {
+        $array = [];
+        $ro = new \ReflectionObject($this);
+        foreach ($ro->getProperties() as $property) {
+            $getter = 'get' . ucfirst($property->getName());
+            if ($ro->hasMethod($getter)) {
+                $value = $this->{$getter}();
+                if (!is_object($value)) {
+                    $array[$property->getName()] = $value;
+                } else {
+                    $vro = new \ReflectionObject($value);
+                    if ($vro->implementsInterface(ArrayConversionInterface::class)) {
+                        /** @var ArrayConversionInterface $value */
+                        $value = $value->toArray();
+                    } else {
+                        // Fall-back solution for the worsts case, but this does not work on our classes
+                        // because they do not have public properties.
+                        $value = json_decode(json_encode($value), true);
+                    }
+                    $array[$property->getName()] = $value;
+                }
+            }
+        }
+        return $array;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getIterator()
+    {
+        return new \ArrayIterator($this->toArray());
     }
 
     /**

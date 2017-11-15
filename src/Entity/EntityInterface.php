@@ -2,6 +2,8 @@
 
 namespace Apigee\Edge\Entity;
 
+use Apigee\Edge\Util\ArrayConversionInterface;
+
 /**
  * Interface EntityInterface.
  *
@@ -10,7 +12,7 @@ namespace Apigee\Edge\Entity;
  * @package Apigee\Edge\Entity
  * @author Dezső Biczó <mxr576@gmail.com>
  */
-interface EntityInterface extends \JsonSerializable
+interface EntityInterface extends ArrayConversionInterface, \IteratorAggregate, \JsonSerializable
 {
     /**
      * Returns the primary id of an entity.

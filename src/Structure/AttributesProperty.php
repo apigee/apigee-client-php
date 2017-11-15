@@ -40,8 +40,13 @@ class AttributesProperty extends KeyValueMap
     protected function transform(array $values): array
     {
         $flatten = [];
-        foreach ($values as $item) {
-            $flatten[$item['name']] = $item['value'];
+        foreach ($values as $key => $item) {
+            // Do not transform proper arrays. Ex.: ['foo' => 'bar', 'bar' => 'baz'].
+            if (is_array($item)) {
+                $flatten[$item['name']] = $item['value'];
+            } else {
+                $flatten[$key] = $item;
+            }
         }
         $values = $flatten;
         return $values;
