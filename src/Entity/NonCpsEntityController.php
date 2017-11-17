@@ -21,7 +21,7 @@ abstract class NonCpsEntityController extends AbstractEntityController implement
         $response = $this->client->get($uri);
         $responseArray = $this->parseResponseToArray($response);
         foreach ($responseArray as $item) {
-            $tmp = $this->entityFactory->getEntityByController($this)::create($item);
+            $tmp = $this->entityFactory->getEntityByController($this)::fromArray($item);
             $entities[$tmp->id()] = $tmp;
         }
         return $entities;

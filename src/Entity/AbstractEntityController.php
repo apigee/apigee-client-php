@@ -73,7 +73,7 @@ abstract class AbstractEntityController implements BaseEntityControllerInterface
     {
         $array = [];
         if ($response->getHeaderLine('Content-Type') &&
-            strpos($response->getHeaderLine('Content-Type'), 'application/json') !== false) {
+            strpos($response->getHeaderLine('Content-Type'), 'application/json') === 0) {
             $array = json_decode($response->getBody(), true);
             if (json_last_error() !== JSON_ERROR_NONE) {
                 throw new InvalidJsonException(
@@ -93,7 +93,7 @@ abstract class AbstractEntityController implements BaseEntityControllerInterface
     public function load(string $entityId): EntityInterface
     {
         $response = $this->client->get($this->getEntityEndpointUri($entityId));
-        return $this->entityFactory->getEntityByController($this)::create($this->parseResponseToArray($response));
+        return $this->entityFactory->getEntityByController($this)::fromArray($this->parseResponseToArray($response));
     }
 
     /**
@@ -109,7 +109,7 @@ abstract class AbstractEntityController implements BaseEntityControllerInterface
             // Update an existing entity.
             $response = $this->client->put($uri, json_encode($entity));
         }
-        return $this->entityFactory->getEntityByController($this)::create($this->parseResponseToArray($response));
+        return $this->entityFactory->getEntityByController($this)::fromArray($this->parseResponseToArray($response));
     }
 
     /**
@@ -118,6 +118,6 @@ abstract class AbstractEntityController implements BaseEntityControllerInterface
     public function delete(string $entityId): EntityInterface
     {
         $response = $this->client->delete($this->getEntityEndpointUri($entityId));
-        return $this->entityFactory->getEntityByController($this)::create($this->parseResponseToArray($response));
+        return $this->entityFactory->getEntityByController($this)::fromArray($this->parseResponseToArray($response));
     }
 }

@@ -29,16 +29,6 @@ interface EntityInterface extends ArrayConversionInterface, \IteratorAggregate, 
     public function id(): string;
 
     /**
-     * Creates an entity.
-     *
-     * @param array $values
-     *   Associative array with entity properties and their values.
-     *
-     * @return EntityInterface
-     */
-    public static function create(array $values): EntityInterface;
-
-    /**
      * Ensure that it is implemented on all descendants.
      *
      * @return string

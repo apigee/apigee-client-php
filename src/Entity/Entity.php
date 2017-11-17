@@ -65,14 +65,6 @@ class Entity implements EntityInterface
     /**
      * @inheritdoc
      */
-    public static function create(array $values): EntityInterface
-    {
-        return static::fromArray($values);
-    }
-
-    /**
-     * @inheritdoc
-     */
     public function id(): string
     {
         return $this->{$this->idProperty()};
@@ -113,7 +105,7 @@ class Entity implements EntityInterface
                         /** @var ArrayConversionInterface $value */
                         $value = $value->toArray();
                     } else {
-                        // Fall-back solution for the worsts case, but this does not work on our classes
+                        // Fall-back solution for the worst case, but this does not work on our classes
                         // because they do not have public properties.
                         $value = json_decode(json_encode($value), true);
                     }

@@ -76,7 +76,7 @@ abstract class EntityController extends AbstractEntityController implements Enti
         // Ignore entity type key from response, ex.: developer.
         $responseArray = reset($responseArray);
         foreach ($responseArray as $item) {
-            $tmp = $this->entityFactory->getEntityByController($this)::create($item);
+            $tmp = $this->entityFactory->getEntityByController($this)::fromArray($item);
             $entities[$tmp->id()] = $tmp;
         }
         return $entities;

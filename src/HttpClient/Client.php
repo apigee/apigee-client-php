@@ -49,8 +49,19 @@ class Client implements ClientInterface
     /** @var Authentication */
     private $auth;
 
-    /** @var BuilderInterface */
-    private $builder;
+    /**
+     * Stores the originally passed builder in case of rebuild.
+     *
+     * @var \Apigee\Edge\HttpClient\Util\BuilderInterface
+     */
+    private $originalBuilder;
+
+    /**
+     * Stores the current, altered builder instance.
+     *
+     * @var \Apigee\Edge\HttpClient\Util\Builder
+     */
+    private $currentBuilder;
 
     /** @var CacheItemPoolInterface */
     private $cachePool;
@@ -70,15 +81,20 @@ class Client implements ClientInterface
      * @param Authentication|null $auth
      * @param BuilderInterface|null $builder
      * @param string|null $endpoint
+     * @param string $userAgentPrefix
      */
     public function __construct(
         Authentication $auth = null,
         BuilderInterface $builder = null,
-        string $endpoint = null
-    ) {
+        string $endpoint = null,
+        string $userAgentPrefix = ''
+    )
+    {
         $this->auth = $auth;
         $this->endpoint = $endpoint;
-        $this->builder = $builder ?: new Builder();
+        $this->currentBuilder = $builder ?: new Builder();
+        $this->originalBuilder = $this->currentBuilder;
+        $this->userAgentPrefix = $userAgentPrefix;
     }
 
     /**
@@ -151,11 +167,10 @@ class Client implements ClientInterface
     /**
      * @inheritdoc
      */
-    public function addUserAgentPrefix(string $prefix): string
+    public function setUserAgentPrefix(string $prefix)
     {
         $this->needsRebuild(true);
         $this->userAgentPrefix = $prefix;
-        return $this->userAgentPrefix;
     }
 
     /**
@@ -201,17 +216,15 @@ class Client implements ClientInterface
     {
         if ($this->rebuild()) {
             $this->needsRebuild(false);
-            $this->builder->clearHeaders();
-            $this->builder->clearPlugins();
-            $this->builder->removeCache();
+            $this->currentBuilder = clone $this->originalBuilder;
             foreach ($this->getDefaultPlugins() as $plugin) {
-                $this->builder->addPlugin($plugin);
+                $this->currentBuilder->addPlugin($plugin);
             }
             if ($this->cachePool) {
-                $this->builder->addCache($this->cachePool, $this->cacheConfig);
+                $this->currentBuilder->addCache($this->cachePool, $this->cacheConfig);
             }
         }
-        return $this->builder;
+        return $this->currentBuilder;
     }
 
     /**

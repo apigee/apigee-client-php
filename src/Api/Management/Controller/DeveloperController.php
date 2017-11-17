@@ -47,7 +47,6 @@ class DeveloperController extends EntityController implements DeveloperControlle
             );
         }
         $values = reset($responseArray['developer']);
-        /** @noinspection PhpIncompatibleReturnTypeInspection */
-        return $this->entityFactory->getEntityByController($this)::create($values);
+        return $this->entityFactory->getEntityByController($this)::fromArray($values);
     }
 }

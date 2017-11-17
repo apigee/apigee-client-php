@@ -53,10 +53,8 @@ interface ClientInterface extends HttpClient
      * Add a custom prefix to the default SDK user agent.
      *
      * @param string $prefix
-     *
-     * @return string
      */
-    public function addUserAgentPrefix(string $prefix): string;
+    public function setUserAgentPrefix(string $prefix);
 
     /**
      * Returns the endpoint that the client currently communicates with.
