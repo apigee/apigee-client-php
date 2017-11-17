@@ -1,0 +1,24 @@
+{
+    "apps": [],
+    "email": "phpunit-edited@apigee.com",
+    "developerId": "f43ffa3c-e147-47de-8cd6-f5b34429a531",
+    "firstName": "(Edited) Php",
+    "lastName": "Unit",
+    "userName": "phpunit",
+    "organizationName": "test",
+    "status": "active",
+    "attributes": [
+        {
+            "name": "bar",
+            "value": "baz"
+        },
+        {
+            "name": "foo",
+            "value": "foo"
+        }
+    ],
+    "createdAt": 1510746439133,
+    "createdBy": "phpunit@apigee.com",
+    "lastModifiedAt": 1510746439133,
+    "lastModifiedBy": "phpunit@apigee.com"
+}

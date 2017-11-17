@@ -22,20 +22,21 @@
     "require": {
         "php": "^7.1",
         "ext-json": "*",
-        "psr/http-message": "^1.0",
+        "cweagans/composer-patches": "^1.6",
+        "php-http/cache-plugin": "^1.4",
+        "php-http/client-common": "^1.6",
         "php-http/client-implementation": "^1.0",
+        "php-http/discovery": "^1.0",
         "php-http/httplug": "^1.0",
         "php-http/message": "^1.0",
         "php-http/message-factory": "^1.0",
-        "php-http/discovery": "^1.0",
-        "php-http/client-common": "^1.6",
         "psr/cache": "^1.0",
-        "php-http/cache-plugin": "^1.4"
+        "psr/http-message": "^1.0"
     },
     "require-dev": {
         "guzzlehttp/psr7": "^1.0",
         "php-http/guzzle6-adapter": "^1.1",
-        "php-http/mock-client": "^1.0",
+        "php-http/mock-client": "dev-master",
         "phpmetrics/phpmetrics": "^2.3",
         "phpunit/phpunit": "^6.4.0",
         "squizlabs/php_codesniffer": "^3.1"
@@ -59,7 +60,7 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "scripts": {
-        "test": "phpunit",
+        "test": "phpunit -v",
         "metrics": "phpmetrics .",
         "metrics-html": "phpmetrics . --report-html=report",
         "check-style": "phpcs -p --standard=PSR2 --runtime-set ignore_errors_on_exit 1 --runtime-set ignore_warnings_on_exit 1 src",
@@ -68,6 +69,11 @@
     "extra": {
         "branch-alias": {
             "dev-2.x-dev": "2.0.x-dev"
+        },
+        "patches": {
+            "php-http/mock-client": {
+                "Allow to easily extend the Mock client": "https://patch-diff.githubusercontent.com/raw/php-http/mock-client/pull/24.diff"
+            }
         }
     }
 }
