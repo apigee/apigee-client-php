@@ -9,7 +9,6 @@ use Http\Client\HttpClient;
 use Http\Discovery\HttpClientDiscovery;
 use Http\Discovery\MessageFactoryDiscovery;
 use Http\Discovery\StreamFactoryDiscovery;
-use Http\Discovery\UriFactoryDiscovery;
 use Http\Message\RequestFactory;
 use Http\Message\StreamFactory;
 use Http\Message\UriFactory;
@@ -58,6 +57,7 @@ class Builder implements BuilderInterface
      * @param HttpClient|null $httpClient
      * @param RequestFactory|null $requestFactory
      * @param StreamFactory|null $streamFactory
+     * @param \Http\Message\UriFactory|null $uriFactory
      */
     public function __construct(
         HttpClient $httpClient = null,
@@ -90,42 +90,6 @@ class Builder implements BuilderInterface
         }
 
         return $this->pluginClient;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function getStreamFactory(): StreamFactory
-    {
-        if ($this->streamFactory === null) {
-            $this->streamFactory = StreamFactoryDiscovery::find();
-        }
-
-        return $this->streamFactory;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function getRequestFactory(): RequestFactory
-    {
-        if ($this->requestFactory === null) {
-            $this->requestFactory = RequestFactory::find();
-        }
-
-        return $this->requestFactory;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function getUriFactory(): UriFactory
-    {
-        if ($this->uriFactory === null) {
-            $this->uriFactory = UriFactoryDiscovery::find();
-        }
-
-        return $this->uriFactory;
     }
 
     /**
@@ -235,7 +199,7 @@ class Builder implements BuilderInterface
      */
     public function addCache(CacheItemPoolInterface $cache, array $config = []): void
     {
-        $this->cachePlugin = Plugin\CachePlugin::clientCache($cache, $this->getStreamFactory(), $config);
+        $this->cachePlugin = Plugin\CachePlugin::clientCache($cache, $this->streamFactory, $config);
         $this->needsRebuild(true);
     }
 

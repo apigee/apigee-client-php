@@ -9,12 +9,12 @@
     "status": "active",
     "attributes": [
         {
-            "name": "bar",
-            "value": "baz"
-        },
-        {
             "name": "foo",
             "value": "foo"
+        },
+        {
+            "name": "bar",
+            "value": "baz"
         }
     ],
     "createdAt": 1510746439133,

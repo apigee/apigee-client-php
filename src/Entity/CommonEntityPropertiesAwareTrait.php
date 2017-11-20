@@ -6,8 +6,8 @@ namespace Apigee\Edge\Entity;
  * Trait CommonEntityPropertiesAwareTrait.
  *
  * Contains default implementation of common Apigee Edge properties and their accessors.
- * Common properties are usually auto-generated and this is the reason why those properties's setters are protected and
- * marked as internal.
+ * Common properties are usually auto-generated and this is the reason why those properties's setters are marked as
+ * internal.
  *
  * @package Apigee\Edge\Entity
  * @author Dezső Biczó <mxr576@gmail.com>
@@ -51,7 +51,7 @@ trait CommonEntityPropertiesAwareTrait
      *
      * @internal
      */
-    protected function setCreatedAt(string $timestamp): void
+    public function setCreatedAt(string $timestamp): void
     {
         $this->createdAt = $timestamp;
     }
@@ -72,7 +72,7 @@ trait CommonEntityPropertiesAwareTrait
      *
      * @internal
      */
-    protected function setCreatedBy(string $email): void
+    public function setCreatedBy(string $email): void
     {
         $this->createdBy = $email;
     }
@@ -93,7 +93,7 @@ trait CommonEntityPropertiesAwareTrait
      *
      * @internal
      */
-    protected function setLastModifiedAt(string $timestamp): void
+    public function setLastModifiedAt(string $timestamp): void
     {
         $this->lastModifiedAt = $timestamp;
     }
@@ -114,7 +114,7 @@ trait CommonEntityPropertiesAwareTrait
      *
      * @internal
      */
-    protected function setLastModifiedBy(string $email): void
+    public function setLastModifiedBy(string $email): void
     {
         $this->lastModifiedBy = $email;
     }

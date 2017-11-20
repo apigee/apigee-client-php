@@ -48,30 +48,28 @@ abstract class EntityControllerValidator extends BaseEntityControllerValidator
     {
         /** @var \Apigee\Edge\Entity\EntityControllerInterface $controller */
         $controller = $this->getEntityController();
-        $entity = self::$entityFactory->getEntityByController($controller);
-        $values = $this->sampleDataForEntityCreate();
-        $id = $values[$idField];
+        $sampleEntity = $this->sampleDataForEntityCreate();
+        $sampleEntityId = call_user_func([$sampleEntity, 'get' . $idField]);
         $cpsTestData = [];
         for ($i = 1; $i <= 5; $i++) {
-            $cpsTestData[$i] = $values;
-            $cpsTestData[$i][$idField] = "{$i}{$id}";
+            $cpsTestData[$i] = clone $sampleEntity;
+            $cpsTestData[$i]->{'set' . $idField}($i.$sampleEntityId);
         }
         // Create test data on the server or do not do anything if an offline client is in use.
         if (strpos(self::$client->getUserAgent(), TestClientFactory::OFFLINE_CLIENT_USER_AGENT_PREFIX) === false) {
-            foreach ($cpsTestData as $row) {
-                $entity = $entity::fromArray($row);
-                $entity = $controller->save($entity);
-                self::$createdEntities[$entity->id()] = $entity;
+            foreach ($cpsTestData as $item) {
+                /** @var \Apigee\Edge\Entity\EntityInterface $item */
+                $tmp = $controller->save($item);
+                self::$createdEntities[$tmp->id()] = $tmp;
             }
         }
-        $startKey = "3{$id}";
+        $startKey = "3{$sampleEntityId}";
         $limit = 2;
         $cpsLimit = $controller->createCpsLimit($startKey, $limit);
         $result = $controller->getEntityIds($cpsLimit);
         $this->assertEquals($startKey, $result[0]);
         $this->assertEquals($limit, count($result));
     }
-
 
     /**
      * @return array

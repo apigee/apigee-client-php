@@ -4,9 +4,6 @@ namespace Apigee\Edge\HttpClient\Util;
 
 use Http\Client\Common\Plugin;
 use Http\Client\HttpClient;
-use Http\Message\RequestFactory;
-use Http\Message\StreamFactory;
-use Http\Message\UriFactory;
 use Psr\Cache\CacheItemPoolInterface;
 
 /**
@@ -23,21 +20,6 @@ interface BuilderInterface
      * @return HttpClient
      */
     public function getHttpClient(): HttpClient;
-
-    /**
-     * @return StreamFactory
-     */
-    public function getStreamFactory(): StreamFactory;
-
-    /**
-     * @return RequestFactory
-     */
-    public function getRequestFactory(): RequestFactory;
-
-    /**
-     * @return UriFactory
-     */
-    public function getUriFactory(): UriFactory;
 
     /**
      * @param array $headers Associate array of HTTP headers.

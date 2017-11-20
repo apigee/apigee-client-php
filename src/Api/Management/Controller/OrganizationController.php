@@ -19,6 +19,6 @@ class OrganizationController extends NonCpsEntityController implements Organizat
      */
     public function getBaseEndpointUri(): UriInterface
     {
-        return $this->client->getHttpClientBuilder()->getUriFactory()->createUri('organizations');
+        return $this->client->getUriFactory()->createUri('/organizations');
     }
 }

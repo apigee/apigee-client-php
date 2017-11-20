@@ -2,6 +2,8 @@
 
 namespace Apigee\Edge\Entity\Property;
 
+use Apigee\Edge\Structure\PropertiesProperty;
+
 /**
  * Interface PropertiesPropertyInterface.
  *
@@ -16,9 +18,9 @@ interface PropertiesPropertyInterface
     public function getProperties(): array;
 
     /**
-     * @param array $properties
+     * @param PropertiesProperty $properties
      */
-    public function setProperties(array $properties): void;
+    public function setProperties(PropertiesProperty $properties): void;
 
     /**
      * @param string $property

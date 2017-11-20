@@ -35,7 +35,7 @@ trait StatusPropertyAwareTrait
      * @see \Apigee\Edge\Entity\Property\StatusPropertyInterface
      * @internal
      */
-    protected function setStatus(string $status): void
+    public function setStatus(string $status): void
     {
         $this->status = $status;
     }

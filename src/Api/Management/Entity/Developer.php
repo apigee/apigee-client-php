@@ -91,13 +91,15 @@ class Developer extends Entity implements DeveloperInterface
     /**
      * Set app names from an Edge API response.
      *
-     * @param array $apps Array of app names.
+     * Apps of a developer can not be changed by modifying this property's value.
+     *
+     * @param KeyValueMap $apps
      *
      * @internal
      */
-    protected function setApps(array $apps): void
+    public function setApps(KeyValueMap $apps): void
     {
-        $this->apps->set($apps);
+        $this->apps = $apps;
     }
 
     /**
@@ -111,15 +113,15 @@ class Developer extends Entity implements DeveloperInterface
     /**
      * Set company names from an Edge API response.
      *
-     * Company memberships of a developer can not be modified by using this endpoint.
+     * Company memberships of a developer can not be changed by modifying this property's value.
      *
-     * @param array $companies Array of company names.
+     * @param KeyValueMap $companies
      *
      * @internal
      */
-    protected function setCompanies(array $companies): void
+    public function setCompanies(KeyValueMap $companies): void
     {
-        $this->companies->set($companies);
+        $this->companies = $companies;
     }
 
     /**
@@ -145,7 +147,7 @@ class Developer extends Entity implements DeveloperInterface
      *
      * @internal
      */
-    protected function setDeveloperId(string $developerId): void
+    public function setDeveloperId(string $developerId): void
     {
         $this->developerId = $developerId;
     }

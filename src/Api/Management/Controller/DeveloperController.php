@@ -28,8 +28,8 @@ class DeveloperController extends EntityController implements DeveloperControlle
      */
     protected function getBaseEndpointUri(): UriInterface
     {
-        return $this->client->getHttpClientBuilder()->getUriFactory()
-            ->createUri(sprintf('organizations/%s/developers', $this->organization));
+        return $this->client->getUriFactory()
+            ->createUri(sprintf('/organizations/%s/developers', $this->organization));
     }
 
     /**
@@ -47,6 +47,6 @@ class DeveloperController extends EntityController implements DeveloperControlle
             );
         }
         $values = reset($responseArray['developer']);
-        return $this->entityFactory->getEntityByController($this)::fromArray($values);
+        return $this->entitySerializer->denormalize($values, $this->entityFactory->getEntityByController($this));
     }
 }

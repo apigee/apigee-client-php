@@ -5,8 +5,11 @@ namespace Apigee\Edge\Entity;
 use Apigee\Edge\Exception\InvalidJsonException;
 use Apigee\Edge\HttpClient\Client;
 use Apigee\Edge\HttpClient\ClientInterface;
+use Http\Message\Exception\UnexpectedValueException;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\UriInterface;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Serializer;
 
 /**
  * Class AbstractEntityController.
@@ -25,6 +28,14 @@ abstract class AbstractEntityController implements BaseEntityControllerInterface
     protected $entityFactory;
 
     /**
+     * @var \Symfony\Component\Serializer\SerializerInterface
+     */
+    protected $entitySerializer;
+
+    /** @var \Symfony\Component\Serializer\Normalizer\ObjectNormalizer */
+    protected $entityNormalizer;
+
+    /**
      * @var ClientInterface Client interface that should be used for communication.
      */
     protected $client;
@@ -35,10 +46,17 @@ abstract class AbstractEntityController implements BaseEntityControllerInterface
      * @param ClientInterface|null $client
      * @param EntityFactoryInterface|null $entityFactory
      */
-    public function __construct(ClientInterface $client = null, EntityFactoryInterface $entityFactory = null)
-    {
+    public function __construct(
+        ClientInterface $client = null,
+        EntityFactoryInterface $entityFactory = null
+    ) {
         $this->client = $client ?: new Client();
         $this->entityFactory = $entityFactory ?: new EntityFactory();
+        $this->entityNormalizer = new EntityNormalizer();
+        $this->entitySerializer = new Serializer(
+            [$this->entityNormalizer],
+            [new JsonEncoder()]
+        );
     }
 
     /**
@@ -65,26 +83,36 @@ abstract class AbstractEntityController implements BaseEntityControllerInterface
     /**
      * Parse an Apigee Edge API response to an associative array.
      *
+     * The SDK only works with JSON responses, but let's be prepared for the unexpected.
+     *
      * @param ResponseInterface $response
      *
      * @return array
+     *
+     * @throws \RuntimeException If response can not be decoded as an array, because the input format is unknown.
+     * @throws InvalidJsonException If there was an error with decoding a JSON response.
      */
     protected function parseResponseToArray(ResponseInterface $response): array
     {
-        $array = [];
         if ($response->getHeaderLine('Content-Type') &&
             strpos($response->getHeaderLine('Content-Type'), 'application/json') === 0) {
-            $array = json_decode($response->getBody(), true);
-            if (json_last_error() !== JSON_ERROR_NONE) {
+            try {
+                return $this->entitySerializer->decode($response->getBody(), 'json');
+            } catch (UnexpectedValueException $e) {
                 throw new InvalidJsonException(
-                    json_last_error_msg(),
+                    $e->getMessage(),
                     $response,
                     $this->client->getJournal()->getLastRequest()
                 );
             }
         }
-        // TODO Should we throw exception if the parsed input is empty?
-        return $array;
+        throw new \RuntimeException(
+            sprintf(
+                'Unable to parse response with %s type. Response body: %s',
+                $response->getHeaderLine('Content-Type') ?: 'unknown',
+                $response->getBody()
+            )
+        );
     }
 
     /**
@@ -93,7 +121,11 @@ abstract class AbstractEntityController implements BaseEntityControllerInterface
     public function load(string $entityId): EntityInterface
     {
         $response = $this->client->get($this->getEntityEndpointUri($entityId));
-        return $this->entityFactory->getEntityByController($this)::fromArray($this->parseResponseToArray($response));
+        return $this->entitySerializer->deserialize(
+            $response->getBody(),
+            get_class($this->entityFactory->getEntityByController($this)),
+            'json'
+        );
     }
 
     /**
@@ -101,15 +133,22 @@ abstract class AbstractEntityController implements BaseEntityControllerInterface
      */
     public function save(EntityInterface $entity): EntityInterface
     {
+        $json = $this->entitySerializer->serialize($entity, 'json');
         if (!$entity->id()) {
             // Create new entity, because its id field is empty.
-            $response = $this->client->post($this->getBaseEndpointUri(), json_encode($entity));
+            $response = $this->client->post(
+                $this->getBaseEndpointUri(),
+                $json
+            );
         } else {
             $uri = $this->getEntityEndpointUri($entity->id());
             // Update an existing entity.
-            $response = $this->client->put($uri, json_encode($entity));
+            $response = $this->client->put(
+                $uri,
+                $json
+            );
         }
-        return $this->entityFactory->getEntityByController($this)::fromArray($this->parseResponseToArray($response));
+        return $this->entitySerializer->deserialize($response->getBody(), get_class($entity), 'json');
     }
 
     /**
@@ -118,6 +157,10 @@ abstract class AbstractEntityController implements BaseEntityControllerInterface
     public function delete(string $entityId): EntityInterface
     {
         $response = $this->client->delete($this->getEntityEndpointUri($entityId));
-        return $this->entityFactory->getEntityByController($this)::fromArray($this->parseResponseToArray($response));
+        return $this->entitySerializer->deserialize(
+            $response->getBody(),
+            get_class($this->entityFactory->getEntityByController($this)),
+            'json'
+        );
     }
 }

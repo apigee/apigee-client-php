@@ -15,7 +15,7 @@ interface AttributesPropertyInterface
 {
     public function getAttributes(): AttributesProperty;
 
-    public function setAttributes(array $attributes): void;
+    public function setAttributes(AttributesProperty $attributes): void;
 
     public function getAttributeValue(string $attribute): ?string;
 

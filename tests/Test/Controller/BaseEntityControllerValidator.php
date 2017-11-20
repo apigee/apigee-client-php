@@ -5,10 +5,11 @@ namespace Apigee\Edge\Tests\Test\Controller;
 use Apigee\Edge\Entity\BaseEntityControllerInterface;
 use Apigee\Edge\Entity\EntityFactory;
 use Apigee\Edge\Entity\EntityInterface;
-use Apigee\Edge\Tests\Test\FrameWork\Constrait\EntityHasValues;
 use Apigee\Edge\Tests\Test\Mock\TestClientFactory;
 use PHPUnit\Framework\TestCase;
 use PHPUnit\Runner\Exception;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
 
 /**
  * Class BaseEntityControllerValidator.
@@ -27,8 +28,11 @@ abstract class BaseEntityControllerValidator extends TestCase
     /** @var \Apigee\Edge\Entity\EntityFactoryInterface */
     protected static $entityFactory;
 
+    /** @var ObjectNormalizer */
+    protected static $objectNormalizer;
+
     /** @var EntityInterface[] */
-    protected static $createdEntities;
+    protected static $createdEntities = [];
 
     /** @var string */
     protected static $onlyOnlineClientSkipMessage = 'Test can be executed only with real Apigee Edge connection.';
@@ -40,6 +44,8 @@ abstract class BaseEntityControllerValidator extends TestCase
     {
         self::$entityFactory = new EntityFactory();
         self::$client = (new TestClientFactory())->getClient();
+        self::$objectNormalizer = new ObjectNormalizer();
+        self::$objectNormalizer->setSerializer(new Serializer());
         parent::setUpBeforeClass();
     }
 
@@ -76,25 +82,25 @@ abstract class BaseEntityControllerValidator extends TestCase
     /**
      * Returns test data that can be used to test creation of entity.
      *
-     * @return array
+     * @return EntityInterface
      */
-    abstract protected function sampleDataForEntityCreate(): array;
+    abstract protected function sampleDataForEntityCreate(): EntityInterface;
 
     /**
      * Returns test data that can be used to test entity update.
      *
      * (Data should be the altered version of the returned data by sampleDataForEntityCreate)
      *
-     * @return array
+     * @return EntityInterface
      */
-    abstract protected function sampleDataForEntityUpdate(): array;
+    abstract protected function sampleDataForEntityUpdate(): EntityInterface;
 
     /**
      * Returns the expected values of an entity after it has been created.
      *
-     * @return array
+     * @return EntityInterface
      */
-    protected function expectedValuesAfterEntityCreate(): array
+    protected function expectedAfterEntityCreate(): EntityInterface
     {
         return $this->sampleDataForEntityCreate();
     }
@@ -104,18 +110,20 @@ abstract class BaseEntityControllerValidator extends TestCase
      */
     public function testCreate()
     {
-        /** @var EntityInterface $entity */
-        $entity = self::$entityFactory->getEntityByController($this->getEntityController());
         // Data providers could not be used instead of directly calling this function, because this function would
         // require two input arguments: the entity values for creation and the expected values after entity has been
         // created. If we would use more than on data provider on this function then it would get the merged result
         // of providers as a _single_ value.
-        $entity = $entity::fromArray($this->sampleDataForEntityCreate());
+        /** @var EntityInterface $entity */
+        $entity = $this->sampleDataForEntityCreate();
         $entity = $this->getEntityController()->save($entity);
         self::$createdEntities[$entity->id()] = $entity;
         // Validate properties that values are either auto generated or we do not know in the current context.
         $this->assertEntityHasAllPropertiesSet($entity);
-        $this->assertEntityHasProperValues($entity, $this->expectedValuesAfterEntityCreate());
+        $this->assertArraySubset(
+            array_filter(self::$objectNormalizer->normalize($this->expectedAfterEntityCreate())),
+            self::$objectNormalizer->normalize($entity)
+        );
         return $entity->id();
     }
 
@@ -131,7 +139,10 @@ abstract class BaseEntityControllerValidator extends TestCase
         $entity = $this->getEntityController()->load($entityId);
         // Validate properties that values are either auto generated or we do not know in the current context.
         $this->assertEntityHasAllPropertiesSet($entity);
-        $this->assertEntityHasProperValues($entity, $this->expectedValuesAfterEntityCreate());
+        $this->assertArraySubset(
+            array_filter(self::$objectNormalizer->normalize($this->expectedAfterEntityCreate())),
+            self::$objectNormalizer->normalize($entity)
+        );
         return $entityId;
     }
 
@@ -145,19 +156,26 @@ abstract class BaseEntityControllerValidator extends TestCase
     public function testUpdate(string $entityId)
     {
         /** @var EntityInterface $entity */
-        $entity = $this->getEntityController()->load($entityId);
-        // Nested arrays will be overridden by the update data, but it is fine, we do want to test that too.
-        // If nested array element should be kept as-is then it should be added to update data.
-        $update = array_merge($entity->toArray(), $this->sampleDataForEntityUpdate());
-        // Of course, this property's value will change.
-        if (isset($update['lastModifiedAt'])) {
-            unset($update['lastModifiedAt']);
-        }
-        $entity = $entity::fromArray($update);
+        $entity = $this->sampleDataForEntityUpdate();
+        call_user_func([$entity, 'set' . ucfirst($this->sampleDataForEntityUpdate()->idProperty())], $entityId);
         $entity = $this->getEntityController()->save($entity);
         // Validate properties that values are either auto generated or we do not know in the current context.
         $this->assertEntityHasAllPropertiesSet($entity);
-        $this->assertEntityHasProperValues($entity, $update);
+        $entityAsArray = self::$objectNormalizer->normalize($entity);
+        $changesAsArray = array_filter(self::$objectNormalizer->normalize($this->sampleDataForEntityUpdate()));
+        $expectedToRemainTheSame = array_diff_key($entityAsArray, $changesAsArray);
+        // Of course, this property's value will change.
+        if (isset($expectedToRemainTheSame['lastModifiedAt'])) {
+            unset($expectedToRemainTheSame['lastModifiedAt']);
+        }
+        $this->assertArraySubset(
+            $changesAsArray,
+            $entityAsArray
+        );
+        $this->assertArraySubset(
+            $expectedToRemainTheSame,
+            $entityAsArray
+        );
     }
 
     /**
@@ -172,16 +190,5 @@ abstract class BaseEntityControllerValidator extends TestCase
                 $this->assertObjectHasAttribute($property->getName(), $entity);
             }
         }
-    }
-
-    /**
-     * @param \Apigee\Edge\Entity\EntityInterface $entity
-     * @param array $expected
-     * @param string $message
-     */
-    public static function assertEntityHasProperValues(EntityInterface $entity, array $expected, string $message = '')
-    {
-        $constraint = new EntityHasValues($expected, true);
-        static::assertThat($entity->toArray(), $constraint, $message);
     }
 }

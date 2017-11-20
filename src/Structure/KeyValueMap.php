@@ -2,8 +2,6 @@
 
 namespace Apigee\Edge\Structure;
 
-use Apigee\Edge\Util\ArrayConversionInterface;
-
 /**
  * Class KeyValueMap.
  *
@@ -81,42 +79,6 @@ class KeyValueMap implements KeyValueMapInterface
      */
     public function getIterator(): \Traversable
     {
-        return new \ArrayIterator($this->toArray());
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public static function fromArray(array $values): ArrayConversionInterface
-    {
-        return new static($values);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function toArray(): array
-    {
-        return $this->values();
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function jsonSerialize()
-    {
-        $return = [];
-        foreach ($this->values as $key => $value) {
-            $return[] = (object)['name' => $key, 'value' => $value];
-        }
-        return $return;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function __toString()
-    {
-        return json_encode($this, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+        return new \ArrayIterator($this->values());
     }
 }

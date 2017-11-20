@@ -27,9 +27,9 @@ trait AttributesPropertyAwareTrait
     /**
      * @inheritdoc
      */
-    public function setAttributes(array $attributes): void
+    public function setAttributes(AttributesProperty $attributes): void
     {
-        $this->attributes->set($attributes);
+        $this->attributes = $attributes;
     }
 
     /**

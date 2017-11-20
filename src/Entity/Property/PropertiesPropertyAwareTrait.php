@@ -26,9 +26,9 @@ trait PropertiesPropertyAwareTrait
     /**
      * @inheritdoc
      */
-    public function setProperties(array $properties): void
+    public function setProperties(PropertiesProperty $properties): void
     {
-        $this->properties->set($properties);
+        $this->properties = $properties;
     }
 
     /**

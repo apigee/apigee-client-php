@@ -2,15 +2,13 @@
 
 namespace Apigee\Edge\Structure;
 
-use Apigee\Edge\Util\ArrayConversionInterface;
-
 /**
  * Interface KeyValueMapInterface.
  *
  * @package Apigee\Edge\Structure
  * @author Dezső Biczó <mxr576@gmail.com>
  */
-interface KeyValueMapInterface extends ArrayConversionInterface, \IteratorAggregate, \JsonSerializable
+interface KeyValueMapInterface extends \IteratorAggregate
 {
     /**
      * Returns values from the store.

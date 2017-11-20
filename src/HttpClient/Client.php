@@ -6,15 +6,16 @@ use Apigee\Edge\HttpClient\Plugin\ResponseHandlerPlugin;
 use Apigee\Edge\HttpClient\Util\Builder;
 use Apigee\Edge\HttpClient\Util\BuilderInterface;
 use Apigee\Edge\HttpClient\Util\Journal;
-use Http\Client\Common\Plugin\AddHostPlugin;
-use Http\Client\Common\Plugin\AddPathPlugin;
 use Http\Client\Common\Plugin\AuthenticationPlugin;
+use Http\Client\Common\Plugin\BaseUriPlugin;
 use Http\Client\Common\Plugin\DecoderPlugin;
 use Http\Client\Common\Plugin\HeaderDefaultsPlugin;
 use Http\Client\Common\Plugin\HistoryPlugin;
 use Http\Client\HttpClient;
+use Http\Discovery\MessageFactoryDiscovery;
 use Http\Discovery\UriFactoryDiscovery;
 use Http\Message\Authentication;
+use Http\Message\UriFactory;
 use Psr\Cache\CacheItemPoolInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -63,6 +64,9 @@ class Client implements ClientInterface
      */
     private $currentBuilder;
 
+    /** @var UriFactory */
+    protected $uriFactory;
+
     /** @var CacheItemPoolInterface */
     private $cachePool;
 
@@ -74,6 +78,10 @@ class Client implements ClientInterface
 
     /** @var bool */
     private $rebuild = true;
+    /**
+     * @var \Http\Message\RequestFactory|null
+     */
+    private $requestFactory;
 
     /**
      * Client constructor.
@@ -82,19 +90,23 @@ class Client implements ClientInterface
      * @param BuilderInterface|null $builder
      * @param string|null $endpoint
      * @param string $userAgentPrefix
+     * @param \Http\Message\RequestFactory|null $requestFactory
+     * @param \Http\Message\UriFactory|null $uriFactory
      */
     public function __construct(
         Authentication $auth = null,
         BuilderInterface $builder = null,
         string $endpoint = null,
         string $userAgentPrefix = ''
-    )
-    {
+    ) {
         $this->auth = $auth;
-        $this->endpoint = $endpoint;
         $this->currentBuilder = $builder ?: new Builder();
         $this->originalBuilder = $this->currentBuilder;
+        $this->endpoint = $endpoint;
         $this->userAgentPrefix = $userAgentPrefix;
+        $this->uriFactory = UriFactoryDiscovery::find();
+        $this->requestFactory = MessageFactoryDiscovery::find();
+        $this->journal = new Journal();
     }
 
     /**
@@ -141,10 +153,9 @@ class Client implements ClientInterface
     protected function getDefaultPlugins(): array
     {
         $plugins = [
-            new AddHostPlugin($this->getBaseUri(), ['replace' => true]),
-            new AddPathPlugin(UriFactoryDiscovery::find()->createUri(self::API_VERSION)),
+            new BaseUriPlugin($this->getBaseUri()->withPath(self::API_VERSION), ['replace' => true]),
             new HeaderDefaultsPlugin($this->getDefaultHeaders()),
-            new HistoryPlugin($this->getJournal()),
+            new HistoryPlugin($this->journal),
             new DecoderPlugin(),
             new ResponseHandlerPlugin(),
         ];
@@ -161,7 +172,15 @@ class Client implements ClientInterface
      */
     protected function getBaseUri(): UriInterface
     {
-        return UriFactoryDiscovery::find()->createUri($this->getEndpoint());
+        return $this->uriFactory->createUri($this->getEndpoint());
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getJournal(): Journal
+    {
+        return $this->journal;
     }
 
     /**
@@ -196,23 +215,7 @@ class Client implements ClientInterface
     /**
      * @inheritdoc
      */
-    public function sendRequest(RequestInterface $request): ResponseInterface
-    {
-        return $this->getHttpClient()->sendRequest($request);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function getHttpClient(): HttpClient
-    {
-        return $this->getHttpClientBuilder()->getHttpClient();
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function getHttpClientBuilder(): BuilderInterface
+    protected function getHttpClientBuilder(): BuilderInterface
     {
         if ($this->rebuild()) {
             $this->needsRebuild(false);
@@ -225,6 +228,22 @@ class Client implements ClientInterface
             }
         }
         return $this->currentBuilder;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    protected function getHttpClient(): HttpClient
+    {
+        return $this->getHttpClientBuilder()->getHttpClient();
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getUriFactory(): UriFactory
+    {
+        return $this->uriFactory;
     }
 
     /**
@@ -262,17 +281,6 @@ class Client implements ClientInterface
     public function getClientVersion(): string
     {
         return sprintf('Apigee Edge PHP SDK %s', self::CLIENT_VERSION);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function getJournal(): Journal
-    {
-        if ($this->journal === null) {
-            $this->journal = new Journal();
-        }
-        return $this->journal;
     }
 
     /**
@@ -326,11 +334,19 @@ class Client implements ClientInterface
      */
     public function send($method, $uri, array $headers = [], $body = null): ResponseInterface
     {
-        return $this->sendRequest($this->getHttpClientBuilder()->getRequestFactory()->createRequest(
+        return $this->sendRequest($this->requestFactory->createRequest(
             $method,
             $uri,
             $headers,
             $body
         ));
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function sendRequest(RequestInterface $request): ResponseInterface
+    {
+        return $this->getHttpClient()->sendRequest($request);
     }
 }

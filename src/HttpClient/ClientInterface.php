@@ -2,9 +2,9 @@
 
 namespace Apigee\Edge\HttpClient;
 
-use Apigee\Edge\HttpClient\Util\BuilderInterface;
 use Apigee\Edge\HttpClient\Util\Journal;
 use Http\Client\HttpClient;
+use Http\Message\UriFactory;
 use Psr\Cache\CacheItemPoolInterface;
 use Psr\Http\Message\ResponseInterface;
 
@@ -19,21 +19,16 @@ use Psr\Http\Message\ResponseInterface;
 interface ClientInterface extends HttpClient
 {
     /**
-     * @return BuilderInterface
-     */
-    public function getHttpClientBuilder(): BuilderInterface;
-
-    /**
-     * @return HttpClient
-     */
-    public function getHttpClient(): HttpClient;
-
-    /**
      * Allows access to the last request, response and exception.
      *
      * @return Journal
      */
     public function getJournal(): Journal;
+
+    /**
+     * @inheritdoc
+     */
+    public function getUriFactory(): UriFactory;
 
     /**
      * Returns the version of the API client.

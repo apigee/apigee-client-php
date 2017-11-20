@@ -5,6 +5,8 @@ namespace Apigee\Edge\Tests\Api\Management\Controller;
 use Apigee\Edge\Api\Management\Controller\DeveloperController;
 use Apigee\Edge\Api\Management\Entity\Developer;
 use Apigee\Edge\Entity\BaseEntityControllerInterface;
+use Apigee\Edge\Entity\EntityInterface;
+use Apigee\Edge\Structure\AttributesProperty;
 use Apigee\Edge\Tests\Test\Controller\EntityControllerValidator;
 use Apigee\Edge\Tests\Test\Mock\TestClientFactory;
 
@@ -77,32 +79,29 @@ class DeveloperControllerTest extends EntityControllerValidator
     /**
      * @inheritdoc
      */
-    protected function sampleDataForEntityCreate(): array
+    protected function sampleDataForEntityCreate(): EntityInterface
     {
-        return [
+        return new Developer([
             'email' => 'phpunit@apigee.com',
             'firstName' => 'Php',
             'lastName' => 'Unit',
             'userName' => 'phpunit',
-            'attributes' => [
-                'foo' => 'bar',
-            ]];
+            'attributes' => new AttributesProperty(['foo' => 'bar']),
+        ]);
     }
 
     /**
      * @inheritdoc
      */
-    protected function sampleDataForEntityUpdate(): array
+    protected function sampleDataForEntityUpdate(): EntityInterface
     {
-        return [
+        return new Developer([
             'email' => 'phpunit-edited@apigee.com',
             'firstName' => '(Edited) Php',
             'lastName' => 'Unit',
             'userName' => 'phpunit',
-            'attributes' => [
-                'foo' => 'foo',
-                'bar' => 'baz',
-            ]];
+            'attributes' => new AttributesProperty(['foo' => 'foo', 'bar' => 'baz']),
+        ]);
     }
 
     /**
@@ -117,12 +116,13 @@ class DeveloperControllerTest extends EntityControllerValidator
     /**
      * @inheritdoc
      */
-    protected function expectedValuesAfterEntityCreate(): array
+    protected function expectedAfterEntityCreate(): EntityInterface
     {
-        $values = parent::expectedValuesAfterEntityCreate();
+        /** @var Developer $entity */
+        $entity = parent::expectedAfterEntityCreate();
         // We can be sure one another thing, the status of the created developer is active by default.
-        $values['status'] = Developer::STATUS_ACTIVE;
-        return $values;
+        $entity->setStatus(Developer::STATUS_ACTIVE);
+        return $entity;
     }
 
     /**

@@ -37,7 +37,8 @@ abstract class EntityController extends AbstractEntityController implements Enti
     ) {
         $this->organization = $organization;
         parent::__construct($client, $entityFactory);
-        $this->entityControllerFactory = $entityControllerFactory ?: new EntityControllerFactory($organization, $this->client, $this->entityFactory);
+        $this->entityControllerFactory = $entityControllerFactory ?:
+            new EntityControllerFactory($organization, $this->client, $this->entityFactory);
     }
 
     /**
@@ -76,7 +77,8 @@ abstract class EntityController extends AbstractEntityController implements Enti
         // Ignore entity type key from response, ex.: developer.
         $responseArray = reset($responseArray);
         foreach ($responseArray as $item) {
-            $tmp = $this->entityFactory->getEntityByController($this)::fromArray($item);
+            /** @var \Apigee\Edge\Entity\EntityInterface $tmp */
+            $tmp = $this->entityNormalizer->denormalize($item, $this->entityFactory->getEntityByController($this));
             $entities[$tmp->id()] = $tmp;
         }
         return $entities;
