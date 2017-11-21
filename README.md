@@ -35,7 +35,7 @@ $ composer test
 ```
 
 Testing of new changes does not require Apigee Edge connection. By default, unit tests are using the content of the
-[offline-test-data](offline-test-data) folder to make testing quicker and easier. If you would like to run units tests
+[offline-test-data](tests/offline-test-data) folder to make testing quicker and easier. If you would like to run units tests
 with a real Apigee Edge instance you have to specify the following environment variables (without brackets):
 
 ```shell
