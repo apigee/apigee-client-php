@@ -1,6 +1,6 @@
 {
     "apps": [],
-    "email": "phpunit@apigee.com",
+    "email": "phpunit@example.com",
     "developerId": "f43ffa3c-e147-47de-8cd6-f5b34429a531",
     "firstName": "Php",
     "lastName": "Unit",
@@ -14,7 +14,7 @@
         }
     ],
     "createdAt": 1510746439133,
-    "createdBy": "phpunit@apigee.com",
+    "createdBy": "phpunit@example.com",
     "lastModifiedAt": 1510746439133,
-    "lastModifiedBy": "phpunit@apigee.com"
+    "lastModifiedBy": "phpunit@example.com"
 }

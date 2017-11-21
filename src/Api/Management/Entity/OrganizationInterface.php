@@ -32,7 +32,7 @@ interface OrganizationInterface extends
     /**
      * @param string $type
      *
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     public function setType(string $type): void;
 

@@ -29,7 +29,7 @@ class DeveloperControllerTest extends EntityControllerValidator
         if (strpos(self::$client->getUserAgent(), TestClientFactory::OFFLINE_CLIENT_USER_AGENT_PREFIX) === 0) {
             $this->markTestSkipped(self::$onlyOnlineClientSkipMessage);
         }
-        $entity = new Developer(['email' => 'developer-create-exception@apigee.com']);
+        $entity = new Developer(['email' => 'developer-create-exception@example.com']);
         self::getEntityController()->save($entity);
     }
 
@@ -82,7 +82,7 @@ class DeveloperControllerTest extends EntityControllerValidator
     protected function sampleDataForEntityCreate(): EntityInterface
     {
         return new Developer([
-            'email' => 'phpunit@apigee.com',
+            'email' => 'phpunit@example.com',
             'firstName' => 'Php',
             'lastName' => 'Unit',
             'userName' => 'phpunit',
@@ -96,7 +96,7 @@ class DeveloperControllerTest extends EntityControllerValidator
     protected function sampleDataForEntityUpdate(): EntityInterface
     {
         return new Developer([
-            'email' => 'phpunit-edited@apigee.com',
+            'email' => 'phpunit-edited@example.com',
             'firstName' => '(Edited) Php',
             'lastName' => 'Unit',
             'userName' => 'phpunit',

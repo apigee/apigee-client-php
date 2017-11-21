@@ -78,7 +78,7 @@ abstract class EntityController extends AbstractEntityController implements Enti
         $responseArray = reset($responseArray);
         foreach ($responseArray as $item) {
             /** @var \Apigee\Edge\Entity\EntityInterface $tmp */
-            $tmp = $this->entityNormalizer->denormalize($item, $this->entityFactory->getEntityByController($this));
+            $tmp = $this->entitySerializer->denormalize($item, $this->entityFactory->getEntityByController($this));
             $entities[$tmp->id()] = $tmp;
         }
         return $entities;

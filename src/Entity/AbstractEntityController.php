@@ -32,9 +32,6 @@ abstract class AbstractEntityController implements BaseEntityControllerInterface
      */
     protected $entitySerializer;
 
-    /** @var \Symfony\Component\Serializer\Normalizer\ObjectNormalizer */
-    protected $entityNormalizer;
-
     /**
      * @var ClientInterface Client interface that should be used for communication.
      */
@@ -52,9 +49,8 @@ abstract class AbstractEntityController implements BaseEntityControllerInterface
     ) {
         $this->client = $client ?: new Client();
         $this->entityFactory = $entityFactory ?: new EntityFactory();
-        $this->entityNormalizer = new EntityNormalizer();
         $this->entitySerializer = new Serializer(
-            [$this->entityNormalizer],
+            [new EntityNormalizer()],
             [new JsonEncoder()]
         );
     }

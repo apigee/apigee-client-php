@@ -22,7 +22,6 @@
     "require": {
         "php": "^7.1",
         "ext-json": "*",
-        "cweagans/composer-patches": "^1.6",
         "php-http/cache-plugin": "^1.4",
         "php-http/client-common": "^1.6",
         "php-http/client-implementation": "^1.0",
@@ -38,8 +37,9 @@
     },
     "require-dev": {
         "guzzlehttp/psr7": "^1.0",
+        "league/flysystem": "^1.0",
         "php-http/guzzle6-adapter": "^1.1",
-        "php-http/mock-client": "dev-master",
+        "php-http/mock-client": "dev-master#5edc24d40d9ee2515cb3ef8d49c3766e95fa23f3",
         "phpmetrics/phpmetrics": "^2.3",
         "phpunit/phpunit": "^6.4.0",
         "squizlabs/php_codesniffer": "^3.1"
@@ -72,11 +72,6 @@
     "extra": {
         "branch-alias": {
             "dev-2.x-dev": "2.0.x-dev"
-        },
-        "patches": {
-            "php-http/mock-client": {
-                "Allow to easily extend the Mock client": "https://patch-diff.githubusercontent.com/raw/php-http/mock-client/pull/24.diff"
-            }
         }
     }
 }

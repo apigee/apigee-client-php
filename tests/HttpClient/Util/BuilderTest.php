@@ -56,7 +56,7 @@ class BuilderTest extends TestCase
         $client = $builder->getHttpClient();
         $builder->setHeaders($headers);
         $this->assertNotEquals($client, $builder->getHttpClient());
-        $builder->getHttpClient()->sendRequest(new Request('GET', 'http://apigee.com'));
+        $builder->getHttpClient()->sendRequest(new Request('GET', 'http://example.com'));
         $sent_request = self::$httpClient->getLastRequest();
         $this->assertEquals($sent_request->getHeaderLine('Foo'), $headers['Foo']);
         return $builder;
@@ -73,7 +73,7 @@ class BuilderTest extends TestCase
         $builder->setHeaderValue('Foo', 'baz');
         $builder->setHeaderValue('Apigee', 'Edge');
         $this->assertNotEquals($client, $builder->getHttpClient());
-        $request = new Request('GET', 'http://apigee.com');
+        $request = new Request('GET', 'http://example.com');
         $builder->getHttpClient()->sendRequest($request);
         $sent_request = self::$httpClient->getLastRequest();
         $this->assertEquals('bar, baz', $sent_request->getHeaderLine('Foo'));
@@ -90,7 +90,7 @@ class BuilderTest extends TestCase
         $client = $builder->getHttpClient();
         $builder->removeHeader('Foo');
         $this->assertNotEquals($client, $builder->getHttpClient());
-        $request = new Request('GET', 'http://apigee.com');
+        $request = new Request('GET', 'http://example.com');
         $builder->getHttpClient()->sendRequest($request);
         $sent_request = self::$httpClient->getLastRequest();
         $this->assertArrayNotHasKey('Foo', $sent_request->getHeaders());
@@ -106,7 +106,7 @@ class BuilderTest extends TestCase
         $client = $builder->getHttpClient();
         $builder->clearHeaders();
         $this->assertNotEquals($client, $builder->getHttpClient());
-        $request = new Request('GET', 'http://apigee.com');
+        $request = new Request('GET', 'http://example.com');
         $builder->getHttpClient()->sendRequest($request);
         $sent_request = self::$httpClient->getLastRequest();
         $this->assertArrayNotHasKey('Foo', $sent_request->getHeaders());
@@ -122,7 +122,7 @@ class BuilderTest extends TestCase
         $addPathPlugin = new Plugin\AddPathPlugin($uriFactory->createUri('edge'));
         $builder->addPlugin($addPathPlugin);
         $this->assertNotEquals($client, $builder->getHttpClient());
-        $request = new Request('GET', 'http://apigee.com');
+        $request = new Request('GET', 'http://example.com');
         $builder->getHttpClient()->sendRequest($request);
         $sent_request = self::$httpClient->getLastRequest();
         $this->assertEquals('/edge', $sent_request->getUri()->getPath());
@@ -139,7 +139,7 @@ class BuilderTest extends TestCase
         $client = $builder->getHttpClient();
         $builder->removePlugin(Plugin\AddPathPlugin::class);
         $this->assertNotEquals($client, $builder->getHttpClient());
-        $request = new Request('GET', 'http://apigee.com');
+        $request = new Request('GET', 'http://example.com');
         $builder->getHttpClient()->sendRequest($request);
         $sent_request = self::$httpClient->getLastRequest();
         $this->assertEmpty($sent_request->getUri()->getPath());

@@ -108,7 +108,7 @@ class ClientTest extends TestCase
         $sent_request = self::$httpClient->getLastRequest();
         $this->assertEquals('bar', $sent_request->getHeaderLine('Foo'));
         // Trigger something that rebuilds the underlying HTTP client.
-        $client->setEndpoint('http://apigee.com');
+        $client->setEndpoint('http://example.com');
         $this->assertNotEquals($originalClient, $client);
         $client->get('/');
         $sent_request = self::$httpClient->getLastRequest();

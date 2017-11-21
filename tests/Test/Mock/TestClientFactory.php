@@ -7,7 +7,6 @@ use Apigee\Edge\HttpClient\ClientInterface;
 use Apigee\Edge\HttpClient\Util\Builder;
 use Http\Client\HttpClient;
 use Http\Message\Authentication\BasicAuth;
-use Http\Mock\ClientInterface as MockClientInterface;
 
 /**
  * Class TestClientFactory.

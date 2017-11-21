@@ -3,6 +3,13 @@
 namespace Apigee\Edge\Tests\Test\Mock;
 
 use GuzzleHttp\Psr7\Response;
+use Http\Client\Common\HttpAsyncClientEmulator;
+use Http\Client\Exception\RequestException;
+use Http\Client\HttpClient;
+use League\Flysystem\Adapter\Local;
+use League\Flysystem\AdapterInterface;
+use League\Flysystem\FileNotFoundException;
+use League\Flysystem\Filesystem;
 use Psr\Http\Message\RequestInterface;
 
 /**
@@ -13,41 +20,65 @@ use Psr\Http\Message\RequestInterface;
  * @package Apigee\Edge\Tests\Test\Mock
  * @author Dezső Biczó <mxr576@gmail.com>
  */
-class FileSystemMockClient extends MockHttpClient
+class FileSystemMockClient implements MockClientInterface
 {
+    use HttpAsyncClientEmulator;
+
+    protected $filesystem;
+
     /**
-     * @inheritdoc
+     * FileSystemMockClient constructor.
+     *
+     * @param \League\Flysystem\AdapterInterface|null $adapter
+     */
+    public function __construct(AdapterInterface $adapter = null)
+    {
+        if ($adapter === null) {
+            $adapter = new Local('./tests/offline-test-data');
+        }
+        $this->filesystem = new Filesystem($adapter);
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @see HttpClient::sendRequest
      */
     public function sendRequest(RequestInterface $request)
     {
-        $response = parent::sendRequest($request);
-        $default_response = $this->responseFactory->createResponse();
-        // If parent has not responded with a default response then return with that.
-        if ($response != $default_response) {
-            return $response;
+        $path = $this->transformRequestToPath($request);
+        try {
+            $content = $this->filesystem->read($path);
+        } catch (FileNotFoundException $e) {
+            throw new RequestException($e->getMessage(), $request, $e);
         }
-        // Parse URI to a valid file system path.
+        if (!$content) {
+            throw new RequestException(sprintf('Unable to read content of file at %s path.', $path), $request);
+        }
+        return new Response(200, ['Content-Type' => 'application/json'], $content);
+    }
+
+    /**
+     * Transforms a request to a valid file system path.
+     *
+     * @param \Psr\Http\Message\RequestInterface $request
+     *
+     * @return string
+     */
+    protected function transformRequestToPath(RequestInterface $request) : string
+    {
         $filePath = rtrim($request->getUri()->getPath(), '/');
-        $pattern = '/[\.+=@]/';
-        $filePath = preg_replace($pattern, '-', $filePath);
-        $filePath = "./tests/offline-test-data{$filePath}/";
         $fileName = $request->getMethod();
         if ($request->getUri()->getQuery()) {
-            $fileName .= '-';
-            $params = explode('&', $request->getUri()->getQuery());
-            foreach ($params as $param) {
-                list($key, $value) = explode('=', $param);
-                $fileName .= "{$key}-{$value}_";
-                $fileName = preg_replace($pattern, '-', rawurldecode($fileName));
-            }
-            $fileName = rtrim($fileName, '_');
+            $fileName .= '_';
+            $raw_query_params = [];
+            parse_str($request->getUri()->getQuery(), $raw_query_params);
+            ksort($raw_query_params);
+            $query_params = http_build_query($raw_query_params, null, '-');
+            $fileName .= $query_params;
         }
         $fileName .= '.json';
-        $filePath .= $fileName;
-        $file = file_get_contents($filePath);
-        if (!$file) {
-            throw new \Exception(sprintf('Unable to load file %s.', $filePath));
-        }
-        return new Response(200, ['Content-Type' => 'application/json'], $file);
+        $filePath .= '/' . $fileName;
+        return rawurldecode($filePath);
     }
 }

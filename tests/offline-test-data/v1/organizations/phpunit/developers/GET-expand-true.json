@@ -3,7 +3,7 @@
         {
             "apps": [],
             "companies": [],
-            "email": "2phpunit@apigee.com",
+            "email": "2phpunit@example.com",
             "developerId": "0adb86d9-5acb-43e9-91f7-698d7bfcf260",
             "firstName": "Php",
             "lastName": "Unit",
@@ -17,14 +17,14 @@
                 }
             ],
             "createdAt": 1510844453751,
-            "createdBy": "phpunit@apigee.com",
+            "createdBy": "phpunit@example.com",
             "lastModifiedAt": 1510844453751,
-            "lastModifiedBy": "phpunit@apigee.com"
+            "lastModifiedBy": "phpunit@example.com"
         },
         {
             "apps": [],
             "companies": [],
-            "email": "phpunit@apigee.com",
+            "email": "phpunit@example.com",
             "developerId": "1e49b20f-aad4-4c6d-b335-64c7973c0495",
             "firstName": "Php",
             "lastName": "Unit",
@@ -38,14 +38,14 @@
                 }
             ],
             "createdAt": 1473346072998,
-            "createdBy": "phpunit@apigee.com",
+            "createdBy": "phpunit@example.com",
             "lastModifiedAt": 1510563812291,
-            "lastModifiedBy": "phpunit@apigee.com"
+            "lastModifiedBy": "phpunit@example.com"
         },
         {
             "apps": [],
             "companies": [],
-            "email": "phpunit@apigee.com",
+            "email": "phpunit@example.com",
             "developerId": "2ce1a3bb-d85e-43bf-9cf4-cb6f2bd4c0d7",
             "firstName": "Php",
             "lastName": "Unit",
@@ -59,14 +59,14 @@
                 }
             ],
             "createdAt": 1510844424142,
-            "createdBy": "phpunit@apigee.com",
+            "createdBy": "phpunit@example.com",
             "lastModifiedAt": 1510844424142,
-            "lastModifiedBy": "phpunit@apigee.com"
+            "lastModifiedBy": "phpunit@example.com"
         },
         {
             "apps": [],
             "companies": [],
-            "email": "4phpunit@apigee.com",
+            "email": "4phpunit@example.com",
             "developerId": "36e2b5cf-9064-43fe-b528-8a50e8cc4eb4",
             "firstName": "Php",
             "lastName": "Unit",
@@ -80,14 +80,14 @@
                 }
             ],
             "createdAt": 1510844455320,
-            "createdBy": "phpunit@apigee.com",
+            "createdBy": "phpunit@example.com",
             "lastModifiedAt": 1510844455320,
-            "lastModifiedBy": "phpunit@apigee.com"
+            "lastModifiedBy": "phpunit@example.com"
         },
         {
             "apps": [],
             "companies": [],
-            "email": "5phpunit@apigee.com",
+            "email": "5phpunit@example.com",
             "developerId": "51b0b24f-8d47-4512-84ae-aad66dc96b82",
             "firstName": "Php",
             "lastName": "Unit",
@@ -101,14 +101,14 @@
                 }
             ],
             "createdAt": 1510844456227,
-            "createdBy": "phpunit@apigee.com",
+            "createdBy": "phpunit@example.com",
             "lastModifiedAt": 1510844456227,
-            "lastModifiedBy": "phpunit@apigee.com"
+            "lastModifiedBy": "phpunit@example.com"
         },
         {
             "apps": [],
             "companies": [],
-            "email": "1phpunit@apigee.com",
+            "email": "1phpunit@example.com",
             "developerId": "f078e9d6-c151-4db3-bdb8-a5c6e00915b1",
             "firstName": "Php",
             "lastName": "Unit",
@@ -122,14 +122,14 @@
                 }
             ],
             "createdAt": 1510844452883,
-            "createdBy": "phpunit@apigee.com",
+            "createdBy": "phpunit@example.com",
             "lastModifiedAt": 1510844452883,
-            "lastModifiedBy": "phpunit@apigee.com"
+            "lastModifiedBy": "phpunit@example.com"
         },
         {
             "apps": [],
             "companies": [],
-            "email": "3phpunit@apigee.com",
+            "email": "3phpunit@example.com",
             "developerId": "fb454422-e17d-4c48-81bd-7b32e9c3c448",
             "firstName": "Php",
             "lastName": "Unit",
@@ -143,9 +143,9 @@
                 }
             ],
             "createdAt": 1510844454530,
-            "createdBy": "phpunit@apigee.com",
+            "createdBy": "phpunit@example.com",
             "lastModifiedAt": 1510844454530,
-            "lastModifiedBy": "phpunit@apigee.com"
+            "lastModifiedBy": "phpunit@example.com"
         }
     ]
 }
