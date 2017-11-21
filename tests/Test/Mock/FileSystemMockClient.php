@@ -34,7 +34,8 @@ class FileSystemMockClient implements MockClientInterface
     public function __construct(AdapterInterface $adapter = null)
     {
         if ($adapter === null) {
-            $adapter = new Local('./tests/offline-test-data');
+            $folder = getenv('APIGEE_PHP_SDK_OFFLINE_TEST_DATA_FOLDER') ?: './tests/offline-test-data';
+            $adapter = new Local($folder);
         }
         $this->filesystem = new Filesystem($adapter);
     }
