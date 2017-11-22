@@ -10,7 +10,7 @@ use Apigee\Edge\Entity\Property\PropertiesPropertyAwareTrait;
 use Apigee\Edge\Structure\PropertiesProperty;
 
 /**
- * Class Organization.
+ * Describes an Organization entity.
  *
  * @package Apigee\Edge\Api\Management\Entity
  * @author Dezső Biczó <mxr576@gmail.com>
@@ -28,7 +28,7 @@ class Organization extends Entity implements OrganizationInterface
     ];
 
     /** @var string */
-    protected $type = '';
+    protected $type;
 
     /**
      * Organization constructor.
@@ -45,7 +45,7 @@ class Organization extends Entity implements OrganizationInterface
     /**
      * @inheritdoc
      */
-    public function getType(): string
+    public function getType(): ?string
     {
         return $this->type;
     }

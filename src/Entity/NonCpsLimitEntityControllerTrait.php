@@ -3,12 +3,13 @@
 namespace Apigee\Edge\Entity;
 
 /**
- * Class NonCpsEntityController.
+ * Trait NonCpsLimitEntityControllerTrait.
  *
  * @package Apigee\Edge\Entity
  * @author Dezső Biczó <mxr576@gmail.com>
+ * @see \Apigee\Edge\Entity\NonCpsLimitEntityControllerInterface
  */
-abstract class NonCpsEntityController extends AbstractEntityController implements NonCpsEntityControllerInterface
+trait NonCpsLimitEntityControllerTrait
 {
     /**
      * @inheritdoc
@@ -16,7 +17,9 @@ abstract class NonCpsEntityController extends AbstractEntityController implement
     public function getEntities(): array
     {
         $entities = [];
-        $query_params = [];
+        $query_params = [
+            'expand' => 'true',
+        ];
         $uri = $this->getBaseEndpointUri()->withQuery(http_build_query($query_params));
         $response = $this->client->get($uri);
         $responseArray = $this->parseResponseToArray($response);
@@ -34,7 +37,7 @@ abstract class NonCpsEntityController extends AbstractEntityController implement
     public function getEntityIds(): array
     {
         $query_params = [
-            'expand' => 'true',
+            'expand' => 'false',
         ];
         $uri = $this->getBaseEndpointUri()->withQuery(http_build_query($query_params));
         $response = $this->client->get($uri);

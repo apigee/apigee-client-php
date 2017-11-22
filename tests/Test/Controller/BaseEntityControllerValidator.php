@@ -46,6 +46,9 @@ abstract class BaseEntityControllerValidator extends TestCase
         self::$client = (new TestClientFactory())->getClient();
         self::$objectNormalizer = new ObjectNormalizer();
         self::$objectNormalizer->setSerializer(new Serializer());
+        // The "new" property is an internal, SDK only property.
+        // @see \Apigee\Edge\Entity\Entity
+        self::$objectNormalizer->setIgnoredAttributes(['new']);
         parent::setUpBeforeClass();
     }
 
@@ -62,6 +65,7 @@ abstract class BaseEntityControllerValidator extends TestCase
         try {
             foreach (self::$createdEntities as $entity) {
                 static::getEntityController()->delete($entity->id());
+                unset(static::$createdEntities[$entity->id()]);
             }
         } catch (Exception $e) {
             printf("Unable to delete %s entity with %s id.\n", strtolower(get_class($entity)), $entity->id());
@@ -89,7 +93,7 @@ abstract class BaseEntityControllerValidator extends TestCase
     /**
      * Returns test data that can be used to test entity update.
      *
-     * (Data should be the altered version of the returned data by sampleDataForEntityCreate)
+     * Data should be the altered version of the returned data by sampleDataForEntityCreate.
      *
      * @return EntityInterface
      */
@@ -116,7 +120,7 @@ abstract class BaseEntityControllerValidator extends TestCase
         // of providers as a _single_ value.
         /** @var EntityInterface $entity */
         $entity = $this->sampleDataForEntityCreate();
-        $entity = $this->getEntityController()->save($entity);
+        $entity = $this->getEntityController()->create($entity);
         self::$createdEntities[$entity->id()] = $entity;
         // Validate properties that values are either auto generated or we do not know in the current context.
         $this->assertEntityHasAllPropertiesSet($entity);
@@ -152,13 +156,15 @@ abstract class BaseEntityControllerValidator extends TestCase
      * @depends testLoad
      *
      * @param string $entityId
+     *
+     * @return string
      */
     public function testUpdate(string $entityId)
     {
         /** @var EntityInterface $entity */
         $entity = $this->sampleDataForEntityUpdate();
         call_user_func([$entity, 'set' . ucfirst($this->sampleDataForEntityUpdate()->idProperty())], $entityId);
-        $entity = $this->getEntityController()->save($entity);
+        $entity = $this->getEntityController()->update($entity);
         // Validate properties that values are either auto generated or we do not know in the current context.
         $this->assertEntityHasAllPropertiesSet($entity);
         $entityAsArray = self::$objectNormalizer->normalize($entity);
@@ -176,6 +182,7 @@ abstract class BaseEntityControllerValidator extends TestCase
             $expectedToRemainTheSame,
             $entityAsArray
         );
+        return $entityId;
     }
 
     /**

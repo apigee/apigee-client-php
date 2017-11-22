@@ -19,8 +19,6 @@ use Symfony\Component\Serializer\Serializer;
  */
 abstract class AbstractEntityController implements BaseEntityControllerInterface
 {
-    use CommonEntityPropertiesAwareTrait;
-
     /**
      * @var EntityFactoryInterface Entity factory that can return an entity which can be used as an internal
      * representation of the Apigee Edge API response.
@@ -127,23 +125,26 @@ abstract class AbstractEntityController implements BaseEntityControllerInterface
     /**
      * @inheritdoc
      */
-    public function save(EntityInterface $entity): EntityInterface
+    public function create(EntityInterface $entity): EntityInterface
     {
-        $json = $this->entitySerializer->serialize($entity, 'json');
-        if (!$entity->id()) {
-            // Create new entity, because its id field is empty.
-            $response = $this->client->post(
-                $this->getBaseEndpointUri(),
-                $json
-            );
-        } else {
-            $uri = $this->getEntityEndpointUri($entity->id());
-            // Update an existing entity.
-            $response = $this->client->put(
-                $uri,
-                $json
-            );
-        }
+        $response = $this->client->post(
+            $this->getBaseEndpointUri(),
+            $this->entitySerializer->serialize($entity, 'json')
+        );
+        return $this->entitySerializer->deserialize($response->getBody(), get_class($entity), 'json');
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function update(EntityInterface $entity): EntityInterface
+    {
+        $uri = $this->getEntityEndpointUri($entity->id());
+        // Update an existing entity.
+        $response = $this->client->put(
+            $uri,
+            $this->entitySerializer->serialize($entity, 'json')
+        );
         return $this->entitySerializer->deserialize($response->getBody(), get_class($entity), 'json');
     }
 

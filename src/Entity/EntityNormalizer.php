@@ -50,7 +50,7 @@ class EntityNormalizer implements NormalizerInterface, DenormalizerInterface
      */
     public function normalize($object, $format = null, array $context = [])
     {
-        $json = [];
+        $asArray = [];
         $ro = new \ReflectionObject($object);
         foreach ($ro->getProperties() as $property) {
             $getter = 'get' . ucfirst($property->getName());
@@ -64,14 +64,14 @@ class EntityNormalizer implements NormalizerInterface, DenormalizerInterface
                         $value = call_user_func([$propertyNormalizerClass, 'normalize'], $value, $format, $context);
                     }
                 }
-                $json[$property->getName()] = $value;
+                $asArray[$property->getName()] = $value;
             }
         }
         // Exclude empty values from the output, even if PATCH is not supported on Apigee Edge
         // sending a smaller portion of data in POST/PUT is always a good practice.
-        $json = array_filter($json);
-        ksort($json);
-        return (object)$json;
+        $asArray = array_filter($asArray);
+        ksort($asArray);
+        return (object)$asArray;
     }
 
     /**

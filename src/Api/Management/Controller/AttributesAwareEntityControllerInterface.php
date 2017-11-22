@@ -49,9 +49,9 @@ interface AttributesAwareEntityControllerInterface
      * @param string $entityId
      * @param AttributesProperty $attributes
      *
-     * @return string
+     * @return AttributesProperty
      */
-    public function updateAttributes(string $entityId, AttributesProperty $attributes): string;
+    public function updateAttributes(string $entityId, AttributesProperty $attributes): AttributesProperty;
 
     /**
      * Updates the value of an entity attribute.

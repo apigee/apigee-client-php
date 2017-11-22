@@ -5,13 +5,11 @@ namespace Apigee\Edge\Api\Management\Entity;
 use Apigee\Edge\Entity\Entity;
 use Apigee\Edge\Entity\Property\AttributesPropertyAwareTrait;
 use Apigee\Edge\Entity\Property\OrganizationNamePropertyAwareTrait;
-use Apigee\Edge\Entity\Property\OrganizationPropertyAwareTrait;
 use Apigee\Edge\Entity\Property\StatusPropertyAwareTrait;
 use Apigee\Edge\Structure\AttributesProperty;
-use Apigee\Edge\Structure\KeyValueMap;
 
 /**
- * Class Developer.
+ * Describes a Developer entity.
  *
  * @package Apigee\Edge\Api\Management\Entity
  * @author Dezső Biczó <mxr576@gmail.com>
@@ -27,25 +25,25 @@ class Developer extends Entity implements DeveloperInterface
     public const STATUS_INACTIVE = 'inactive';
 
     /** @var string UUID of the developer entity. */
-    protected $developerId = '';
+    protected $developerId;
 
     /** @var string */
-    protected $userName = '';
+    protected $userName;
 
     /** @var string */
-    protected $email = '';
+    protected $email;
 
     /** @var string */
-    protected $firstName = '';
+    protected $firstName;
 
     /** @var string */
-    protected $lastName = '';
+    protected $lastName;
 
-    /** @var KeyValueMap */
-    protected $apps;
+    /** @var string[] */
+    protected $apps = [];
 
-    /** @var KeyValueMap */
-    protected $companies;
+    /** @var string[] */
+    protected $companies = [];
 
     /**
      * Developer constructor.
@@ -54,8 +52,6 @@ class Developer extends Entity implements DeveloperInterface
      */
     public function __construct(array $values = [])
     {
-        $this->apps = new KeyValueMap();
-        $this->companies = new KeyValueMap();
         $this->attributes = new AttributesProperty();
         parent::__construct($values);
     }
@@ -77,7 +73,7 @@ class Developer extends Entity implements DeveloperInterface
      */
     public function getApps(): array
     {
-        return $this->apps->values();
+        return $this->apps;
     }
 
     /**
@@ -85,7 +81,7 @@ class Developer extends Entity implements DeveloperInterface
      */
     public function hasApp(string $appName): bool
     {
-        return in_array($appName, $this->apps->values());
+        return in_array($appName, $this->apps);
     }
 
     /**
@@ -93,11 +89,11 @@ class Developer extends Entity implements DeveloperInterface
      *
      * Apps of a developer can not be changed by modifying this property's value.
      *
-     * @param KeyValueMap $apps
+     * @param string[] $apps
      *
      * @internal
      */
-    public function setApps(KeyValueMap $apps): void
+    public function setApps(array $apps): void
     {
         $this->apps = $apps;
     }
@@ -107,7 +103,7 @@ class Developer extends Entity implements DeveloperInterface
      */
     public function getCompanies(): array
     {
-        return $this->companies->values();
+        return $this->companies;
     }
 
     /**
@@ -115,11 +111,11 @@ class Developer extends Entity implements DeveloperInterface
      *
      * Company memberships of a developer can not be changed by modifying this property's value.
      *
-     * @param KeyValueMap $companies
+     * @param string[] $companies
      *
      * @internal
      */
-    public function setCompanies(KeyValueMap $companies): void
+    public function setCompanies(array $companies): void
     {
         $this->companies = $companies;
     }
@@ -129,13 +125,13 @@ class Developer extends Entity implements DeveloperInterface
      */
     public function hasCompany(string $companyName): bool
     {
-        return in_array($companyName, $this->companies->values());
+        return in_array($companyName, $this->companies);
     }
 
     /**
      * @inheritdoc
      */
-    public function getDeveloperId(): string
+    public function getDeveloperId(): ?string
     {
         return $this->developerId;
     }
@@ -155,7 +151,7 @@ class Developer extends Entity implements DeveloperInterface
     /**
      * @inheritdoc
      */
-    public function getUserName(): string
+    public function getUserName(): ?string
     {
         return $this->userName;
     }
@@ -171,7 +167,7 @@ class Developer extends Entity implements DeveloperInterface
     /**
      * @inheritdoc
      */
-    public function getEmail(): string
+    public function getEmail(): ?string
     {
         return $this->email;
     }
@@ -187,7 +183,7 @@ class Developer extends Entity implements DeveloperInterface
     /**
      * @inheritdoc
      */
-    public function getFirstName(): string
+    public function getFirstName(): ?string
     {
         return $this->firstName;
     }
@@ -203,7 +199,7 @@ class Developer extends Entity implements DeveloperInterface
     /**
      * @inheritdoc
      */
-    public function getLastName(): string
+    public function getLastName(): ?string
     {
         return $this->lastName;
     }

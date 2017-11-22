@@ -1,0 +1,19 @@
+{
+    "apiResources": [],
+    "approvalType": "auto",
+    "attributes": [
+        {
+            "name": "foo",
+            "value": "bar"
+        }
+    ],
+    "createdAt": 648345600000,
+    "createdBy": "phpunit@example.com",
+    "displayName": "PHP Unit Test product",
+    "environments": [],
+    "lastModifiedAt": 648345600000,
+    "lastModifiedBy": "phpunit@example.com",
+    "name": "phpunit_test",
+    "proxies": [],
+    "scopes": []
+}

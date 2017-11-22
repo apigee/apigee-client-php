@@ -2,6 +2,7 @@
 
 namespace Apigee\Edge\Entity;
 
+use Apigee\Edge\Api\Management\Controller\ApiProductController;
 use Apigee\Edge\Api\Management\Controller\DeveloperController;
 use Apigee\Edge\Api\Management\Controller\OrganizationController;
 use Apigee\Edge\Exception\UnknownEndpointException;
@@ -58,6 +59,9 @@ class EntityControllerFactory implements EntityControllerFactoryInterface
 
             case 'developers':
                 return new DeveloperController($this->organization, $this->client, $this->entityFactory);
+
+            case 'apiproducts':
+                return new ApiProductController($this->organization, $this->client, $this->entityFactory);
 
             default:
                 throw new UnknownEndpointException($path);

@@ -2,7 +2,8 @@
 
 namespace Apigee\Edge\Api\Management\Controller;
 
-use Apigee\Edge\Entity\NonCpsEntityController;
+use Apigee\Edge\Entity\AbstractEntityController;
+use Apigee\Edge\Entity\NonCpsLimitEntityControllerTrait;
 use Psr\Http\Message\UriInterface;
 
 /**
@@ -10,9 +11,11 @@ use Psr\Http\Message\UriInterface;
  *
  * @package Apigee\Edge\Api\Management\Controller
  * @author Dezső Biczó <mxr576@gmail.com>
+ * @link https://docs.apigee.com/api/organizations-0
  */
-class OrganizationController extends NonCpsEntityController implements OrganizationControllerInterface
+class OrganizationController extends AbstractEntityController implements OrganizationControllerInterface
 {
+    use NonCpsLimitEntityControllerTrait;
 
     /**
      * @inheritdoc

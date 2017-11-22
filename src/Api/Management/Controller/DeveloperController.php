@@ -4,7 +4,7 @@ namespace Apigee\Edge\Api\Management\Controller;
 
 use Apigee\Edge\Api\Management\Entity\DeveloperInterface;
 use Apigee\Edge\Api\Management\Exception\DeveloperNotFoundException;
-use Apigee\Edge\Entity\EntityController;
+use Apigee\Edge\Entity\CpsLimitEntityController;
 use Apigee\Edge\Entity\StatusAwareEntityControllerTrait;
 use Psr\Http\Message\UriInterface;
 
@@ -14,10 +14,10 @@ use Psr\Http\Message\UriInterface;
  * @package Apigee\Edge\Api\Management\Controller
  * @author Dezső Biczó <mxr576@gmail.com>
  */
-class DeveloperController extends EntityController implements DeveloperControllerInterface
+class DeveloperController extends CpsLimitEntityController implements DeveloperControllerInterface
 {
-    use StatusAwareEntityControllerTrait;
     use AttributesAwareEntityControllerTrait;
+    use StatusAwareEntityControllerTrait;
 
     /**
      * Returns the API endpoint that the controller communicates with.

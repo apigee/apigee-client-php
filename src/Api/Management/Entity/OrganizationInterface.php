@@ -2,13 +2,11 @@
 
 namespace Apigee\Edge\Api\Management\Entity;
 
-use Apigee\Edge\Entity\CommonEntityPropertiesInterface;
 use Apigee\Edge\Entity\EntityInterface;
 use Apigee\Edge\Entity\Property\DisplayNamePropertyInterface;
 use Apigee\Edge\Entity\Property\EnvironmentsPropertyInterface;
 use Apigee\Edge\Entity\Property\NamePropertyInterface;
 use Apigee\Edge\Entity\Property\PropertiesPropertyInterface;
-use Psr\Log\InvalidArgumentException;
 
 /**
  * Interface OrganizationInterface.
@@ -18,16 +16,15 @@ use Psr\Log\InvalidArgumentException;
  */
 interface OrganizationInterface extends
     EntityInterface,
-    CommonEntityPropertiesInterface,
     DisplayNamePropertyInterface,
     EnvironmentsPropertyInterface,
     NamePropertyInterface,
     PropertiesPropertyInterface
 {
     /**
-     * @return string
+     * @return null|string
      */
-    public function getType(): string;
+    public function getType(): ?string;
 
     /**
      * @param string $type

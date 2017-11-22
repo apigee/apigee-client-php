@@ -20,13 +20,22 @@ interface BaseEntityControllerInterface
     public function load(string $entityId): EntityInterface;
 
     /**
-     * Saves (create or update) an entity to Edge.
+     * Creates an entity to Edge.
      *
      * @param EntityInterface $entity
      *
      * @return EntityInterface
      */
-    public function save(EntityInterface $entity): EntityInterface;
+    public function create(EntityInterface $entity): EntityInterface;
+
+    /**
+     * Updates an entity to Edge.
+     *
+     * @param EntityInterface $entity
+     *
+     * @return EntityInterface
+     */
+    public function update(EntityInterface $entity): EntityInterface;
 
     /**
      * Removes an entity from Edge.

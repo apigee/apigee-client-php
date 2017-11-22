@@ -25,4 +25,32 @@ interface EntityInterface
      * @return string
      */
     public function id(): string;
+
+    /**
+     * Returns creation date of entity.
+     *
+     * @return string Unix timestamp.
+     */
+    public function getCreatedAt(): string;
+
+    /**
+     * Returns the email address of the user/developer who created the entity.
+     *
+     * @return string Email address.
+     */
+    public function getCreatedBy(): string;
+
+    /**
+     * Returns last modification date of entity.
+     *
+     * @return string Unix timestamp.
+     */
+    public function getLastModifiedAt(): string;
+
+    /**
+     * Returns the email address of the user/developer who modified the entity the last time.
+     *
+     * @return string Email address.
+     */
+    public function getLastModifiedBy(): string;
 }

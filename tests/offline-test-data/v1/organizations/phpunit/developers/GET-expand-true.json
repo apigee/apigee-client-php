@@ -16,9 +16,9 @@
                     "value": "bar"
                 }
             ],
-            "createdAt": 1510844453751,
+            "createdAt": 648345600000,
             "createdBy": "phpunit@example.com",
-            "lastModifiedAt": 1510844453751,
+            "lastModifiedAt": 648345600000,
             "lastModifiedBy": "phpunit@example.com"
         },
         {
@@ -37,9 +37,9 @@
                     "value": "bar"
                 }
             ],
-            "createdAt": 1473346072998,
+            "createdAt": 648345600000,
             "createdBy": "phpunit@example.com",
-            "lastModifiedAt": 1510563812291,
+            "lastModifiedAt": 648345600000,
             "lastModifiedBy": "phpunit@example.com"
         },
         {
@@ -58,9 +58,9 @@
                     "value": "bar"
                 }
             ],
-            "createdAt": 1510844424142,
+            "createdAt": 648345600000,
             "createdBy": "phpunit@example.com",
-            "lastModifiedAt": 1510844424142,
+            "lastModifiedAt": 648345600000,
             "lastModifiedBy": "phpunit@example.com"
         },
         {
@@ -79,9 +79,9 @@
                     "value": "bar"
                 }
             ],
-            "createdAt": 1510844455320,
+            "createdAt": 648345600000,
             "createdBy": "phpunit@example.com",
-            "lastModifiedAt": 1510844455320,
+            "lastModifiedAt": 648345600000,
             "lastModifiedBy": "phpunit@example.com"
         },
         {
@@ -100,9 +100,9 @@
                     "value": "bar"
                 }
             ],
-            "createdAt": 1510844456227,
+            "createdAt": 648345600000,
             "createdBy": "phpunit@example.com",
-            "lastModifiedAt": 1510844456227,
+            "lastModifiedAt": 648345600000,
             "lastModifiedBy": "phpunit@example.com"
         },
         {
@@ -121,9 +121,9 @@
                     "value": "bar"
                 }
             ],
-            "createdAt": 1510844452883,
+            "createdAt": 648345600000,
             "createdBy": "phpunit@example.com",
-            "lastModifiedAt": 1510844452883,
+            "lastModifiedAt": 648345600000,
             "lastModifiedBy": "phpunit@example.com"
         },
         {
@@ -142,9 +142,9 @@
                     "value": "bar"
                 }
             ],
-            "createdAt": 1510844454530,
+            "createdAt": 648345600000,
             "createdBy": "phpunit@example.com",
-            "lastModifiedAt": 1510844454530,
+            "lastModifiedAt": 648345600000,
             "lastModifiedBy": "phpunit@example.com"
         }
     ]

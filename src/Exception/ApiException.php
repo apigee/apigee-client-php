@@ -53,8 +53,12 @@ class ApiException extends \RuntimeException
         if ($contentTypeHeader && strpos($contentTypeHeader, 'application/json') !== false) {
             $array = json_decode($response->getBody(), true);
             if (json_last_error() === JSON_ERROR_NONE) {
-                $this->edgeErrorCode = $array['code'];
-                $message = $array['message'];
+                if (array_key_exists('code', $array)) {
+                    $this->edgeErrorCode = $array['code'];
+                }
+                if (array_key_exists('message', $array)) {
+                    $message = $array['message'];
+                }
             }
         }
         parent::__construct($message, $response->getStatusCode(), $previous);

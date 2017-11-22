@@ -7,7 +7,8 @@ use Apigee\Edge\Api\Management\Entity\Developer;
 use Apigee\Edge\Entity\BaseEntityControllerInterface;
 use Apigee\Edge\Entity\EntityInterface;
 use Apigee\Edge\Structure\AttributesProperty;
-use Apigee\Edge\Tests\Test\Controller\EntityControllerValidator;
+use Apigee\Edge\Tests\Test\Controller\AttributesAwareEntityControllerTestTrait;
+use Apigee\Edge\Tests\Test\Controller\CpsLimitEntityControllerValidator;
 use Apigee\Edge\Tests\Test\Mock\TestClientFactory;
 
 /**
@@ -18,8 +19,62 @@ use Apigee\Edge\Tests\Test\Mock\TestClientFactory;
  *
  * @group controller
  */
-class DeveloperControllerTest extends EntityControllerValidator
+class DeveloperControllerTest extends CpsLimitEntityControllerValidator
 {
+    use AttributesAwareEntityControllerTestTrait;
+
+    /**
+     * @inheritdoc
+     */
+    protected static function getEntityController(): BaseEntityControllerInterface
+    {
+        static $controller;
+        if (!$controller) {
+            $controller = new DeveloperController(static::$organization, static::$client);
+        }
+        return $controller;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    protected function sampleDataForEntityCreate(): EntityInterface
+    {
+        return new Developer([
+            'email' => 'phpunit@example.com',
+            'firstName' => 'Php',
+            'lastName' => 'Unit',
+            'userName' => 'phpunit',
+            'attributes' => new AttributesProperty(['foo' => 'bar']),
+        ]);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    protected function sampleDataForEntityUpdate(): EntityInterface
+    {
+        return new Developer([
+            'email' => 'phpunit-edited@example.com',
+            'firstName' => '(Edited) Php',
+            'lastName' => 'Unit',
+            'userName' => 'phpunit',
+            'attributes' => new AttributesProperty(['foo' => 'foo', 'bar' => 'baz']),
+        ]);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    protected function expectedAfterEntityCreate(): EntityInterface
+    {
+        /** @var Developer $entity */
+        $entity = parent::expectedAfterEntityCreate();
+        // We can be sure one another thing, the status of the created developer is active by default.
+        $entity->setStatus(Developer::STATUS_ACTIVE);
+        return $entity;
+    }
+
     /**
      * @group online
      * @expectedException \Apigee\Edge\Exception\ClientErrorException
@@ -30,7 +85,7 @@ class DeveloperControllerTest extends EntityControllerValidator
             $this->markTestSkipped(self::$onlyOnlineClientSkipMessage);
         }
         $entity = new Developer(['email' => 'developer-create-exception@example.com']);
-        self::getEntityController()->save($entity);
+        self::getEntityController()->create($entity);
     }
 
     /**
@@ -79,61 +134,9 @@ class DeveloperControllerTest extends EntityControllerValidator
     /**
      * @inheritdoc
      */
-    protected function sampleDataForEntityCreate(): EntityInterface
-    {
-        return new Developer([
-            'email' => 'phpunit@example.com',
-            'firstName' => 'Php',
-            'lastName' => 'Unit',
-            'userName' => 'phpunit',
-            'attributes' => new AttributesProperty(['foo' => 'bar']),
-        ]);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    protected function sampleDataForEntityUpdate(): EntityInterface
-    {
-        return new Developer([
-            'email' => 'phpunit-edited@example.com',
-            'firstName' => '(Edited) Php',
-            'lastName' => 'Unit',
-            'userName' => 'phpunit',
-            'attributes' => new AttributesProperty(['foo' => 'foo', 'bar' => 'baz']),
-        ]);
-    }
-
-    /**
-     * @inheritdoc
-     */
     public function cpsLimitTestIdFieldProvider()
     {
         // This override makes easier the offline testing.
         return [['email']];
-    }
-
-    /**
-     * @inheritdoc
-     */
-    protected function expectedAfterEntityCreate(): EntityInterface
-    {
-        /** @var Developer $entity */
-        $entity = parent::expectedAfterEntityCreate();
-        // We can be sure one another thing, the status of the created developer is active by default.
-        $entity->setStatus(Developer::STATUS_ACTIVE);
-        return $entity;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    protected static function getEntityController(): BaseEntityControllerInterface
-    {
-        static $controller;
-        if (!$controller) {
-            $controller = new DeveloperController(static::$organization, static::$client);
-        }
-        return $controller;
     }
 }

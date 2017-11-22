@@ -36,8 +36,10 @@ final class EntityFactory implements EntityFactoryInterface
         // Add "Entity" instead.
         $fcdn_parts[] = 'Entity';
         $entityControllerClassNameParts = preg_split('/(?=[A-Z])/', $entityControllerClass);
-        // Add "Developer" from the interface name.
-        $fcdn_parts[] = $entityControllerClassNameParts[1];
+        // First index is an empty string, the last one is "Controller". Let's get rid of those.
+        array_shift($entityControllerClassNameParts);
+        array_pop($entityControllerClassNameParts);
+        $fcdn_parts[] = implode('', $entityControllerClassNameParts);
         $fcdn = implode('\\', $fcdn_parts);
         if (!class_exists($fcdn)) {
             throw new EntityNotFoundException($fcdn);
