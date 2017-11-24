@@ -13,7 +13,7 @@ use Apigee\Edge\Structure\AttributesProperty;
  */
 trait AttributesPropertyAwareTrait
 {
-    /** @var AttributesProperty */
+    /** @var \Apigee\Edge\Structure\AttributesProperty */
     protected $attributes;
 
     /**
@@ -43,7 +43,7 @@ trait AttributesPropertyAwareTrait
     /**
      * @inheritdoc
      */
-    public function addAttribute(string $name, string $value): void
+    public function setAttribute(string $name, string $value): void
     {
         $this->attributes->add($name, $value);
     }

@@ -19,7 +19,7 @@ namespace Apigee\Edge\Entity\Property;
 interface StatusPropertyInterface
 {
     /**
-     * @return string Status of the entity.
+     * @return null|string Status of the entity.
      */
-    public function getStatus(): string;
+    public function getStatus(): ?string;
 }

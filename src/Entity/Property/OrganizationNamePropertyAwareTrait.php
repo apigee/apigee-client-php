@@ -15,15 +15,15 @@ trait OrganizationNamePropertyAwareTrait
     protected $organizationName = '';
 
     /**
-     * @return string Name of the organization that this entity belongs to.
+     * @inheritdoc
      */
-    public function getOrganizationName(): string
+    public function getOrganizationName(): ?string
     {
         return $this->organizationName;
     }
 
     /**
-     * @param string $orgName Name of the organization that this entity belongs to.
+     * @inheritdoc
      */
     public function setOrganizationName(string $orgName): void
     {

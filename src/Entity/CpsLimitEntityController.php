@@ -2,6 +2,8 @@
 
 namespace Apigee\Edge\Entity;
 
+use Apigee\Edge\Api\Management\Controller\OrganizationController;
+use Apigee\Edge\Api\Management\Controller\OrganizationControllerInterface;
 use Apigee\Edge\Exception\CpsNotEnabledException;
 use Apigee\Edge\Structure\CpsListLimitInterface;
 
@@ -14,6 +16,27 @@ use Apigee\Edge\Structure\CpsListLimitInterface;
  */
 abstract class CpsLimitEntityController extends EntityController
 {
+    /** @var \Apigee\Edge\Api\Management\Controller\OrganizationControllerInterface */
+    protected $organizationController;
+
+    /**
+     * CpsLimitEntityController constructor.
+     *
+     * @param string $organization
+     * @param null $client
+     * @param null $entityFactory
+     * @param \Apigee\Edge\Api\Management\Controller\OrganizationControllerInterface $organizationController
+     */
+    public function __construct(
+        $organization,
+        $client = null,
+        $entityFactory = null,
+        OrganizationControllerInterface $organizationController = null
+    ) {
+        parent::__construct($organization, $client, $entityFactory);
+        $this->organizationController = $organizationController ?: new OrganizationController($client, $entityFactory);
+    }
+
     /**
      * @inheritdoc
      */
@@ -65,8 +88,8 @@ abstract class CpsLimitEntityController extends EntityController
      */
     public function createCpsLimit(string $startKey, int $limit): CpsListLimitInterface
     {
-        $orgController = $this->entityControllerFactory->getControllerByEndpoint('organizations');
-        $organization = $orgController->load($this->organization);
+        /** @var \Apigee\Edge\Api\Management\Entity\OrganizationInterface $organization */
+        $organization = $this->organizationController->load($this->organization);
         if (!$organization->getPropertyValue('features.isCpsEnabled')) {
             throw new CpsNotEnabledException($this->organization);
         }

@@ -79,7 +79,7 @@ class ApiProductControllerTest extends EntityControllerValidator
         $entity = $this->sampleDataForEntityCreate();
         $unexpected = 'should_not_appear';
         $entity->setName($unexpected);
-        $entity->addAttribute('foo', 'foo');
+        $entity->setAttribute('foo', 'foo');
         $entity = $controller->create($entity);
         self::$createdEntities[$entity->id()] = $entity;
         $ids = $controller->searchByAttribute('foo', 'bar');

@@ -11,7 +11,7 @@ namespace Apigee\Edge\Entity\Property;
 interface CompaniesPropertyInterface
 {
     /**
-     * @return string[] Company names that this developer is a member.
+     * @return string[] Company names that this entity belongs.
      */
     public function getCompanies(): array;
 

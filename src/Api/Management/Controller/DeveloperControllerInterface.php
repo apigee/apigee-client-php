@@ -14,7 +14,7 @@ use Apigee\Edge\Entity\StatusAwareEntityControllerInterface;
  *
  * @package Apigee\Edge\Api\Management\Controller
  * @author Dezső Biczó <mxr576@gmail.com>
- * @link https://docs.apigee.com/api/developers-0.
+ * @link https://docs.apigee.com/api/developers-0
  */
 interface DeveloperControllerInterface extends
     AttributesAwareEntityControllerInterface,

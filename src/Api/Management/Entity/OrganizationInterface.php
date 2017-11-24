@@ -2,6 +2,7 @@
 
 namespace Apigee\Edge\Api\Management\Entity;
 
+use Apigee\Edge\Entity\CommonEntityPropertiesInterface;
 use Apigee\Edge\Entity\EntityInterface;
 use Apigee\Edge\Entity\Property\DisplayNamePropertyInterface;
 use Apigee\Edge\Entity\Property\EnvironmentsPropertyInterface;
@@ -16,6 +17,7 @@ use Apigee\Edge\Entity\Property\PropertiesPropertyInterface;
  */
 interface OrganizationInterface extends
     EntityInterface,
+    CommonEntityPropertiesInterface,
     DisplayNamePropertyInterface,
     EnvironmentsPropertyInterface,
     NamePropertyInterface,

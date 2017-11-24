@@ -13,7 +13,7 @@ interface DescriptionPropertyInterface
     /**
      * @return string
      */
-    public function getDescription(): string;
+    public function getDescription(): ?string;
 
     /**
      * @param string $description

@@ -22,6 +22,7 @@
     "require": {
         "php": "^7.1",
         "ext-json": "*",
+        "ext-reflection": "*",
         "php-http/cache-plugin": "^1.4",
         "php-http/client-common": "^1.6",
         "php-http/client-implementation": "^1.0",

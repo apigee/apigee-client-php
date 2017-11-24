@@ -12,7 +12,7 @@ use Apigee\Edge\Structure\PropertiesProperty;
  */
 trait PropertiesPropertyAwareTrait
 {
-    /** @var PropertiesProperty */
+    /** @var \Apigee\Edge\Structure\PropertiesProperty */
     protected $properties;
 
     /**

@@ -6,12 +6,6 @@ use Symfony\Component\PropertyInfo\Extractor\PhpDocExtractor;
 use Symfony\Component\PropertyInfo\Extractor\ReflectionExtractor;
 use Symfony\Component\PropertyInfo\PropertyInfoExtractor;
 use Symfony\Component\PropertyInfo\Type;
-use Symfony\Component\Serializer\Exception\BadMethodCallException;
-use Symfony\Component\Serializer\Exception\ExtraAttributesException;
-use Symfony\Component\Serializer\Exception\InvalidArgumentException;
-use Symfony\Component\Serializer\Exception\LogicException;
-use Symfony\Component\Serializer\Exception\RuntimeException;
-use Symfony\Component\Serializer\Exception\UnexpectedValueException;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
@@ -27,6 +21,9 @@ class EntityNormalizer implements NormalizerInterface, DenormalizerInterface
 {
     protected $propertyTypeExtractor;
 
+    /**
+     * EntityNormalizer constructor.
+     */
     public function __construct()
     {
         $reflectionExtractor = new ReflectionExtractor();
@@ -75,12 +72,7 @@ class EntityNormalizer implements NormalizerInterface, DenormalizerInterface
     }
 
     /**
-     * Checks whether the given class is supported for normalization by this normalizer.
-     *
-     * @param mixed $data Data to normalize
-     * @param string $format The format being (de-)serialized from or into
-     *
-     * @return bool
+     * @inheritdoc
      */
     public function supportsNormalization($data, $format = null)
     {
@@ -88,21 +80,7 @@ class EntityNormalizer implements NormalizerInterface, DenormalizerInterface
     }
 
     /**
-     * Denormalizes data back into an object of the given class.
-     *
-     * @param mixed $data Data to restore
-     * @param string $class The expected class to instantiate
-     * @param string $format Format the given data was extracted from
-     * @param array $context Options available to the denormalizer
-     *
-     * @return object
-     *
-     * @throws BadMethodCallException   Occurs when the normalizer is not called in an expected context
-     * @throws InvalidArgumentException Occurs when the arguments are not coherent or not supported
-     * @throws UnexpectedValueException Occurs when the item cannot be hydrated with the given data
-     * @throws ExtraAttributesException Occurs when the item doesn't have attribute to receive given data
-     * @throws LogicException           Occurs when the normalizer is not supposed to denormalize
-     * @throws RuntimeException         Occurs if the class cannot be instantiated
+     * @inheritdoc
      */
     public function denormalize($data, $class, $format = null, array $context = [])
     {
@@ -114,29 +92,54 @@ class EntityNormalizer implements NormalizerInterface, DenormalizerInterface
         return new $class($denormalized);
     }
 
+    /**
+     * @inheritdoc
+     */
     protected function denormalizeProperty($data, $attribute, $class, $format = null, array $context = [])
     {
-        if (null === $this->propertyTypeExtractor ||
-            null === $types = $this->propertyTypeExtractor->getTypes($class, $attribute)) {
+        if (null === $types = $this->propertyTypeExtractor->getTypes($class, $attribute)) {
             return $data;
         }
+        $denormalized = $data;
         /** @var \Symfony\Component\PropertyInfo\Type[] $types */
         foreach ($types as $type) {
             if (null === $data && $type->isNullable()) {
                 return $data;
             }
-            $builtinType = $type->getBuiltinType();
-            $class = $type->getClassName();
+
+            if ($type->isCollection() && null !== ($collectionValueType = $type->getCollectionValueType())
+                && Type::BUILTIN_TYPE_OBJECT === $collectionValueType->getBuiltinType()) {
+                $builtinType = Type::BUILTIN_TYPE_OBJECT;
+                $class = $collectionValueType->getClassName();
+
+                if (null !== $collectionKeyType = $type->getCollectionKeyType()) {
+                    $context['key_type'] = $collectionKeyType;
+                }
+            } else {
+                $builtinType = $type->getBuiltinType();
+                $class = $type->getClassName();
+            }
+
             if (Type::BUILTIN_TYPE_OBJECT === $builtinType) {
                 $propertyNormalizerClass = "{$class}Normalizer";
                 if (class_exists($propertyNormalizerClass) &&
                     in_array(DenormalizerInterface::class, class_implements($propertyNormalizerClass))) {
-                    $data = call_user_func([$propertyNormalizerClass, 'denormalize'], $data, $class, $format, $context);
+                    $rc = new \ReflectionClass($propertyNormalizerClass);
+                    // Initialize a new object instead of calling this function in static.
+                    $propertyNormalizer = $rc->newInstance();
+                    if ($type->isCollection()) {
+                        foreach ($data as $key => $value) {
+                            $denormalized[$key] =
+                                call_user_func([$propertyNormalizer, 'denormalize'], $value, $class, $format, $context);
+                        }
+                    } else {
+                        $denormalized =
+                            call_user_func([$propertyNormalizer, 'denormalize'], $data, $class, $format, $context);
+                    }
                 }
             }
         }
-
-        return $data;
+        return $denormalized;
     }
 
     /**

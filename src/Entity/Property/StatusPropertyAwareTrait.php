@@ -13,12 +13,12 @@ namespace Apigee\Edge\Entity\Property;
 trait StatusPropertyAwareTrait
 {
     /** @var string */
-    protected $status = '';
+    protected $status;
 
     /**
      * @inheritdoc
      */
-    public function getStatus(): string
+    public function getStatus(): ?string
     {
         return $this->status;
     }
@@ -27,7 +27,7 @@ trait StatusPropertyAwareTrait
      * Set status of this entity from an Edge API response.
      *
      * The status of an entity can not be changed by modifying the value of this property. Read more about this in
-     * the docBlock of StatusPropertyInterface.
+     * the header of the StatusPropertyInterface.
      *
      * @param string $status
      *   Status of the entity.

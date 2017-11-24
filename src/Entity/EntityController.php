@@ -15,9 +15,6 @@ abstract class EntityController extends AbstractEntityController implements Enti
     /** @var string Name of the organization that the entity belongs to. */
     protected $organization;
 
-    /** @var \Apigee\Edge\Entity\EntityControllerFactory */
-    protected $entityControllerFactory;
-
     /**
      * EntityController constructor.
      *
@@ -25,18 +22,14 @@ abstract class EntityController extends AbstractEntityController implements Enti
      *   Name of the organization that the entities belongs to.
      * @param ClientInterface|null $client
      * @param EntityFactoryInterface|null $entityFactory
-     * @param EntityControllerFactoryInterface $entityControllerFactory
      */
     public function __construct(
         string $organization,
         ClientInterface $client = null,
-        EntityFactoryInterface $entityFactory = null,
-        EntityControllerFactoryInterface $entityControllerFactory = null
+        EntityFactoryInterface $entityFactory = null
     ) {
         $this->organization = $organization;
         parent::__construct($client, $entityFactory);
-        $this->entityControllerFactory = $entityControllerFactory ?:
-            new EntityControllerFactory($organization, $this->client, $this->entityFactory);
     }
 
     /**

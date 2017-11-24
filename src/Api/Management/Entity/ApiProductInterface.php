@@ -2,12 +2,14 @@
 
 namespace Apigee\Edge\Api\Management\Entity;
 
+use Apigee\Edge\Entity\CommonEntityPropertiesInterface;
 use Apigee\Edge\Entity\EntityInterface;
 use Apigee\Edge\Entity\Property\AttributesPropertyInterface;
 use Apigee\Edge\Entity\Property\DescriptionPropertyInterface;
 use Apigee\Edge\Entity\Property\DisplayNamePropertyInterface;
 use Apigee\Edge\Entity\Property\EnvironmentsPropertyInterface;
 use Apigee\Edge\Entity\Property\NamePropertyInterface;
+use Apigee\Edge\Entity\Property\ScopesPropertyInterface;
 
 /**
  * Interface ApiProductInterface.
@@ -18,10 +20,12 @@ use Apigee\Edge\Entity\Property\NamePropertyInterface;
 interface ApiProductInterface extends
     EntityInterface,
     AttributesPropertyInterface,
+    CommonEntityPropertiesInterface,
     DescriptionPropertyInterface,
     DisplayNamePropertyInterface,
     EnvironmentsPropertyInterface,
-    NamePropertyInterface
+    NamePropertyInterface,
+    ScopesPropertyInterface
 {
     /**
      * @return string[]

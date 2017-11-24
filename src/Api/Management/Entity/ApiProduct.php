@@ -2,12 +2,14 @@
 
 namespace Apigee\Edge\Api\Management\Entity;
 
+use Apigee\Edge\Entity\CommonEntityPropertiesAwareTrait;
 use Apigee\Edge\Entity\Entity;
 use Apigee\Edge\Entity\Property\AttributesPropertyAwareTrait;
 use Apigee\Edge\Entity\Property\DescriptionPropertyAwareTrait;
 use Apigee\Edge\Entity\Property\DisplayNamePropertyAwareTrait;
 use Apigee\Edge\Entity\Property\EnvironmentsPropertyAwareTrait;
 use Apigee\Edge\Entity\Property\NamePropertyAwareTrait;
+use Apigee\Edge\Entity\Property\ScopesPropertyAwareTrait;
 use Apigee\Edge\Structure\AttributesProperty;
 
 /**
@@ -19,10 +21,12 @@ use Apigee\Edge\Structure\AttributesProperty;
 class ApiProduct extends Entity implements ApiProductInterface
 {
     use AttributesPropertyAwareTrait;
+    use CommonEntityPropertiesAwareTrait;
     use DescriptionPropertyAwareTrait;
     use DisplayNamePropertyAwareTrait;
     use EnvironmentsPropertyAwareTrait;
     use NamePropertyAwareTrait;
+    use ScopesPropertyAwareTrait;
 
     public const APPROVAL_TYPE_AUTO = 'auto';
 

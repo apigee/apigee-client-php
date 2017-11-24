@@ -2,10 +2,12 @@
 
 namespace Apigee\Edge\Api\Management\Entity;
 
+use Apigee\Edge\Entity\CommonEntityPropertiesInterface;
 use Apigee\Edge\Entity\EntityInterface;
 use Apigee\Edge\Entity\Property\AppsPropertyInterface;
 use Apigee\Edge\Entity\Property\AttributesPropertyInterface;
 use Apigee\Edge\Entity\Property\CompaniesPropertyInterface;
+use Apigee\Edge\Entity\Property\DeveloperIdPropertyInterface;
 use Apigee\Edge\Entity\Property\OrganizationNamePropertyInterface;
 use Apigee\Edge\Entity\Property\StatusPropertyInterface;
 
@@ -19,7 +21,9 @@ interface DeveloperInterface extends
     EntityInterface,
     AppsPropertyInterface,
     AttributesPropertyInterface,
+    CommonEntityPropertiesInterface,
     CompaniesPropertyInterface,
+    DeveloperIdPropertyInterface,
     OrganizationNamePropertyInterface,
     StatusPropertyInterface
 {

@@ -11,9 +11,9 @@ namespace Apigee\Edge\Entity\Property;
 interface OrganizationNamePropertyInterface
 {
     /**
-     * @return string Name of the organization that this entity belongs to.
+     * @return null|string Name of the organization that this entity belongs to.
      */
-    public function getOrganizationName(): string;
+    public function getOrganizationName(): ?string;
 
     /**
      * @param string $orgName Name of the organization that this entity belongs to.

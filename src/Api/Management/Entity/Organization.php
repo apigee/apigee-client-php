@@ -2,6 +2,7 @@
 
 namespace Apigee\Edge\Api\Management\Entity;
 
+use Apigee\Edge\Entity\CommonEntityPropertiesAwareTrait;
 use Apigee\Edge\Entity\Entity;
 use Apigee\Edge\Entity\Property\DisplayNamePropertyAwareTrait;
 use Apigee\Edge\Entity\Property\EnvironmentsPropertyAwareTrait;
@@ -18,6 +19,7 @@ use Apigee\Edge\Structure\PropertiesProperty;
 class Organization extends Entity implements OrganizationInterface
 {
     use DisplayNamePropertyAwareTrait;
+    use CommonEntityPropertiesAwareTrait;
     use EnvironmentsPropertyAwareTrait;
     use NamePropertyAwareTrait;
     use PropertiesPropertyAwareTrait;
