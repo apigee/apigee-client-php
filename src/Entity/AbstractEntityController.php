@@ -5,10 +5,10 @@ namespace Apigee\Edge\Entity;
 use Apigee\Edge\Exception\InvalidJsonException;
 use Apigee\Edge\HttpClient\Client;
 use Apigee\Edge\HttpClient\ClientInterface;
-use Http\Message\Exception\UnexpectedValueException;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\UriInterface;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Exception\UnexpectedValueException;
 use Symfony\Component\Serializer\Serializer;
 
 /**
@@ -17,7 +17,7 @@ use Symfony\Component\Serializer\Serializer;
  * @package Apigee\Edge\Entity
  * @author Dezső Biczó <mxr576@gmail.com>
  */
-abstract class AbstractEntityController implements BaseEntityControllerInterface
+abstract class AbstractEntityController
 {
     /**
      * @var EntityFactoryInterface Entity factory that can return an entity which can be used as an internal
@@ -48,7 +48,7 @@ abstract class AbstractEntityController implements BaseEntityControllerInterface
         $this->client = $client ?: new Client();
         $this->entityFactory = $entityFactory ?: new EntityFactory();
         $this->entitySerializer = new Serializer(
-            [new EntityNormalizer()],
+            [new EntityNormalizer(), new EntityDenormalizer()],
             [new JsonEncoder()]
         );
     }
@@ -106,58 +106,6 @@ abstract class AbstractEntityController implements BaseEntityControllerInterface
                 $response->getHeaderLine('Content-Type') ?: 'unknown',
                 $response->getBody()
             )
-        );
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function load(string $entityId): EntityInterface
-    {
-        $response = $this->client->get($this->getEntityEndpointUri($entityId));
-        return $this->entitySerializer->deserialize(
-            $response->getBody(),
-            get_class($this->entityFactory->getEntityByController($this)),
-            'json'
-        );
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function create(EntityInterface $entity): EntityInterface
-    {
-        $response = $this->client->post(
-            $this->getBaseEndpointUri(),
-            $this->entitySerializer->serialize($entity, 'json')
-        );
-        return $this->entitySerializer->deserialize($response->getBody(), get_class($entity), 'json');
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function update(EntityInterface $entity): EntityInterface
-    {
-        $uri = $this->getEntityEndpointUri($entity->id());
-        // Update an existing entity.
-        $response = $this->client->put(
-            $uri,
-            $this->entitySerializer->serialize($entity, 'json')
-        );
-        return $this->entitySerializer->deserialize($response->getBody(), get_class($entity), 'json');
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function delete(string $entityId): EntityInterface
-    {
-        $response = $this->client->delete($this->getEntityEndpointUri($entityId));
-        return $this->entitySerializer->deserialize(
-            $response->getBody(),
-            get_class($this->entityFactory->getEntityByController($this)),
-            'json'
         );
     }
 }

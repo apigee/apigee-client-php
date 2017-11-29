@@ -13,21 +13,28 @@ use Apigee\Edge\Exception\EntityNotFoundException;
 final class EntityFactory implements EntityFactoryInterface
 {
     /**
-     * Object cache.
+     * Stores mapping of entity classes by controllers.
+     *
+     * @var string[]
+     */
+    static private $classMappingCache = [];
+
+    /**
+     * Entity object cache.
      *
      * @var EntityInterface[]
      */
-    static private $mapping = [];
+    static private $objectCache = [];
 
     /**
      * @inheritdoc
      */
-    public function getEntityByController(BaseEntityControllerInterface $entityController): EntityInterface
+    public function getEntityTypeByController($entityController): string
     {
-        $className = get_class($entityController);
+        $className = $this->getClassName($entityController);
         // Try to find it in the static cache first.
-        if (isset(self::$mapping[$className])) {
-            return clone self::$mapping[$className];
+        if (isset(self::$classMappingCache[$className])) {
+            return self::$classMappingCache[$className];
         }
         $fcdn_parts = explode('\\', $className);
         $entityControllerClass = array_pop($fcdn_parts);
@@ -45,7 +52,36 @@ final class EntityFactory implements EntityFactoryInterface
             throw new EntityNotFoundException($fcdn);
         }
         // Add it to to object cache.
-        self::$mapping[$className] = new $fcdn();
-        return clone self::$mapping[$className];
+        self::$classMappingCache[$className] = $fcdn;
+        return self::$classMappingCache[$className];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getEntityByController($entityController): EntityInterface
+    {
+        $className = $this->getClassName($entityController);
+        $fcdn = self::getEntityTypeByController($entityController);
+        // Add it to to object cache.
+        self::$objectCache[$className] = new $fcdn();
+        return clone self::$objectCache[$className];
+    }
+
+    /**
+     * Helper function that returns the FQCN of a class.
+     *
+     * @param string|\Apigee\Edge\Entity\AbstractEntityController $entityController
+     *   Fully qualified class name or an object.
+     *
+     * @return string
+     */
+    private function getClassName($entityController): string
+    {
+        $className = $entityController;
+        if (is_object($entityController)) {
+            $className = get_class($entityController);
+        }
+        return $className;
     }
 }

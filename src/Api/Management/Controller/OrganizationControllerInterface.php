@@ -2,6 +2,7 @@
 
 namespace Apigee\Edge\Api\Management\Controller;
 
+use Apigee\Edge\Entity\EntityCrudOperationsInterface;
 use Apigee\Edge\Entity\NonCpsLimitEntityControllerInterface;
 
 /**
@@ -19,6 +20,8 @@ use Apigee\Edge\Entity\NonCpsLimitEntityControllerInterface;
  * @package Apigee\Edge\Api\Management\Controller
  * @author Dezső Biczó <mxr576@gmail.com>
  */
-interface OrganizationControllerInterface extends NonCpsLimitEntityControllerInterface
+interface OrganizationControllerInterface extends
+    EntityCrudOperationsInterface,
+    NonCpsLimitEntityControllerInterface
 {
 }

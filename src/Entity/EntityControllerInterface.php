@@ -11,7 +11,7 @@ namespace Apigee\Edge\Entity;
  * @package Apigee\Edge\Entity
  * @author Dezső Biczó <mxr576@gmail.com>
  */
-interface EntityControllerInterface extends BaseEntityControllerInterface
+interface EntityControllerInterface
 {
     /**
      * @return string The name of the organization.

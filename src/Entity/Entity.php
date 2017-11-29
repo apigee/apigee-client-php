@@ -64,4 +64,38 @@ class Entity implements EntityInterface
     {
         return self::DEFAULT_ID_FIELD;
     }
+
+    /**
+     * Deep clone for entity structures.
+     *
+     * Inspired by https://github.com/kore/DataObject/blob/master/src/Kore/DataObject/DataObject.php
+     */
+    public function __clone()
+    {
+        foreach ($this as $property => $value) {
+            if (is_object($value)) {
+                $this->{$property} = clone $value;
+            }
+            if (is_array($value)) {
+                $this->cloneArray($this->{$property});
+            }
+        }
+    }
+
+    /**
+     * Deep clone for arrays.
+     *
+     * @param array $array
+     */
+    private function cloneArray(array &$array) : void
+    {
+        foreach ($array as $key => $value) {
+            if (is_object($value)) {
+                $array[$key] = clone $value;
+            }
+            if (is_array($value)) {
+                $this->cloneArray($array[$key]);
+            }
+        }
+    }
 }

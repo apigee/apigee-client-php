@@ -57,7 +57,6 @@ class Builder implements BuilderInterface
      * @param HttpClient|null $httpClient
      * @param RequestFactory|null $requestFactory
      * @param StreamFactory|null $streamFactory
-     * @param \Http\Message\UriFactory|null $uriFactory
      */
     public function __construct(
         HttpClient $httpClient = null,

@@ -8,12 +8,12 @@ use Apigee\Edge\Entity\Property\ScopesPropertyInterface;
 use Apigee\Edge\Entity\Property\StatusPropertyInterface;
 
 /**
- * Interface CredentialInterface.
+ * Interface AppCredentialInterface.
  *
  * @package Apigee\Edge\Api\Management\Entity
  * @author Dezső Biczó <mxr576@gmail.com>
  */
-interface CredentialInterface extends
+interface AppCredentialInterface extends
     EntityInterface,
     AttributesPropertyInterface,
     ScopesPropertyInterface,

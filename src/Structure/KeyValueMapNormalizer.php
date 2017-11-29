@@ -2,7 +2,6 @@
 
 namespace Apigee\Edge\Structure;
 
-use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 /**
@@ -11,7 +10,7 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
  * @package Apigee\Edge\Structure
  * @author Dezső Biczó <mxr576@gmail.com>
  */
-class KeyValueMapNormalizer implements NormalizerInterface, DenormalizerInterface
+class KeyValueMapNormalizer implements NormalizerInterface
 {
     /**
      * @inheritdoc
@@ -31,21 +30,5 @@ class KeyValueMapNormalizer implements NormalizerInterface, DenormalizerInterfac
     public function supportsNormalization($data, $format = null)
     {
         return $data instanceof KeyValueMapInterface;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function denormalize($data, $class, $format = null, array $context = [])
-    {
-        return new $class($data);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function supportsDenormalization($data, $type, $format = null)
-    {
-        return $type instanceof KeyValueMapInterface;
     }
 }

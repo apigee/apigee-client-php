@@ -59,7 +59,7 @@ abstract class CpsLimitEntityController extends EntityController
             /** @var \Apigee\Edge\Entity\EntityInterface $tmp */
             $tmp = $this->entitySerializer->denormalize(
                 $item,
-                get_class($this->entityFactory->getEntityByController($this))
+                $this->entityFactory->getEntityTypeByController($this)
             );
             $entities[$tmp->id()] = $tmp;
         }

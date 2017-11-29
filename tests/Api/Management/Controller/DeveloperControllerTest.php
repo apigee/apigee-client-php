@@ -4,11 +4,12 @@ namespace Apigee\Edge\Tests\Api\Management\Controller;
 
 use Apigee\Edge\Api\Management\Controller\DeveloperController;
 use Apigee\Edge\Api\Management\Entity\Developer;
-use Apigee\Edge\Entity\BaseEntityControllerInterface;
+use Apigee\Edge\Entity\EntityCrudOperationsInterface;
 use Apigee\Edge\Entity\EntityInterface;
 use Apigee\Edge\Structure\AttributesProperty;
 use Apigee\Edge\Tests\Test\Controller\AttributesAwareEntityControllerTestTrait;
 use Apigee\Edge\Tests\Test\Controller\CpsLimitEntityControllerValidator;
+use Apigee\Edge\Tests\Test\Controller\OrganizationAwareEntityControllerValidatorTrait;
 use Apigee\Edge\Tests\Test\Mock\TestClientFactory;
 
 /**
@@ -22,15 +23,16 @@ use Apigee\Edge\Tests\Test\Mock\TestClientFactory;
 class DeveloperControllerTest extends CpsLimitEntityControllerValidator
 {
     use AttributesAwareEntityControllerTestTrait;
+    use OrganizationAwareEntityControllerValidatorTrait;
 
     /**
      * @inheritdoc
      */
-    protected static function getEntityController(): BaseEntityControllerInterface
+    protected static function getEntityController(): EntityCrudOperationsInterface
     {
         static $controller;
         if (!$controller) {
-            $controller = new DeveloperController(static::$organization, static::$client);
+            $controller = new DeveloperController(static::getOrganization(), static::$client);
         }
         return $controller;
     }

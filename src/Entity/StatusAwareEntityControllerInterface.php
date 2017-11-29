@@ -17,7 +17,7 @@ use Apigee\Edge\Entity\Property\StatusPropertyAwareTrait;
  * @author Dezső Biczó <mxr576@gmail.com>
  * @see StatusPropertyAwareTrait
  */
-interface StatusAwareEntityControllerInterface extends EntityControllerInterface
+interface StatusAwareEntityControllerInterface
 {
     public function setStatus(string $entityId, string $status): void;
 }

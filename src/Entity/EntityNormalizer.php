@@ -2,11 +2,6 @@
 
 namespace Apigee\Edge\Entity;
 
-use Symfony\Component\PropertyInfo\Extractor\PhpDocExtractor;
-use Symfony\Component\PropertyInfo\Extractor\ReflectionExtractor;
-use Symfony\Component\PropertyInfo\PropertyInfoExtractor;
-use Symfony\Component\PropertyInfo\Type;
-use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 /**
@@ -17,31 +12,8 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
  * @package Apigee\Edge\Entity
  * @author Dezső Biczó <mxr576@gmail.com>
  */
-class EntityNormalizer implements NormalizerInterface, DenormalizerInterface
+class EntityNormalizer implements NormalizerInterface
 {
-    protected $propertyTypeExtractor;
-
-    /**
-     * EntityNormalizer constructor.
-     */
-    public function __construct()
-    {
-        $reflectionExtractor = new ReflectionExtractor();
-        $phpDocExtractor = new PhpDocExtractor();
-
-        $this->propertyTypeExtractor = new PropertyInfoExtractor(
-            [
-                $reflectionExtractor,
-                $phpDocExtractor
-            ],
-            // Type extractors
-            [
-                $phpDocExtractor,
-                $reflectionExtractor
-            ]
-        );
-    }
-
     /**
      * @inheritdoc
      */
@@ -58,7 +30,10 @@ class EntityNormalizer implements NormalizerInterface, DenormalizerInterface
                     $propertyNormalizerClass = "{$class}Normalizer";
                     if (class_exists($propertyNormalizerClass) &&
                         in_array(NormalizerInterface::class, class_implements($propertyNormalizerClass))) {
-                        $value = call_user_func([$propertyNormalizerClass, 'normalize'], $value, $format, $context);
+                        $rc = new \ReflectionClass($propertyNormalizerClass);
+                        // Initialize a new object instead of calling this function in static.
+                        $propertyNormalizer = $rc->newInstance();
+                        $value = call_user_func([$propertyNormalizer, 'normalize'], $value, $format, $context);
                     }
                 }
                 $asArray[$property->getName()] = $value;
@@ -77,76 +52,5 @@ class EntityNormalizer implements NormalizerInterface, DenormalizerInterface
     public function supportsNormalization($data, $format = null)
     {
         return $data instanceof EntityInterface;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function denormalize($data, $class, $format = null, array $context = [])
-    {
-        $denormalized = [];
-        foreach ($data as $key => $value) {
-            $denormalized[$key] = $this->denormalizeProperty($value, $key, $class);
-        }
-
-        return new $class($denormalized);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    protected function denormalizeProperty($data, $attribute, $class, $format = null, array $context = [])
-    {
-        if (null === $types = $this->propertyTypeExtractor->getTypes($class, $attribute)) {
-            return $data;
-        }
-        $denormalized = $data;
-        /** @var \Symfony\Component\PropertyInfo\Type[] $types */
-        foreach ($types as $type) {
-            if (null === $data && $type->isNullable()) {
-                return $data;
-            }
-
-            if ($type->isCollection() && null !== ($collectionValueType = $type->getCollectionValueType())
-                && Type::BUILTIN_TYPE_OBJECT === $collectionValueType->getBuiltinType()) {
-                $builtinType = Type::BUILTIN_TYPE_OBJECT;
-                $class = $collectionValueType->getClassName();
-
-                if (null !== $collectionKeyType = $type->getCollectionKeyType()) {
-                    $context['key_type'] = $collectionKeyType;
-                }
-            } else {
-                $builtinType = $type->getBuiltinType();
-                $class = $type->getClassName();
-            }
-
-            if (Type::BUILTIN_TYPE_OBJECT === $builtinType) {
-                $propertyNormalizerClass = "{$class}Normalizer";
-                if (class_exists($propertyNormalizerClass) &&
-                    in_array(DenormalizerInterface::class, class_implements($propertyNormalizerClass))) {
-                    $rc = new \ReflectionClass($propertyNormalizerClass);
-                    // Initialize a new object instead of calling this function in static.
-                    $propertyNormalizer = $rc->newInstance();
-                    if ($type->isCollection()) {
-                        foreach ($data as $key => $value) {
-                            $denormalized[$key] =
-                                call_user_func([$propertyNormalizer, 'denormalize'], $value, $class, $format, $context);
-                        }
-                    } else {
-                        $denormalized =
-                            call_user_func([$propertyNormalizer, 'denormalize'], $data, $class, $format, $context);
-                    }
-                }
-            }
-        }
-        return $denormalized;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function supportsDenormalization($data, $type, $format = null)
-    {
-        return class_exists($type);
     }
 }

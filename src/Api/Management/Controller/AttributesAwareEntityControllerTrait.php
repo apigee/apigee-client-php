@@ -3,6 +3,7 @@
 namespace Apigee\Edge\Api\Management\Controller;
 
 use Apigee\Edge\Structure\AttributesProperty;
+use Apigee\Edge\Structure\AttributesPropertyDenormalizer;
 use Apigee\Edge\Structure\AttributesPropertyNormalizer;
 use Psr\Http\Message\UriInterface;
 
@@ -16,6 +17,9 @@ use Psr\Http\Message\UriInterface;
 trait AttributesAwareEntityControllerTrait
 {
 
+    /**
+     * @return \Apigee\Edge\Structure\AttributesPropertyNormalizer
+     */
     protected function getAttributesPropertyNormalizer(): AttributesPropertyNormalizer
     {
         static $normalizer;
@@ -26,12 +30,24 @@ trait AttributesAwareEntityControllerTrait
     }
 
     /**
+     * @return \Apigee\Edge\Structure\AttributesPropertyDenormalizer
+     */
+    protected function getAttributesPropertyDenormalizer(): AttributesPropertyDenormalizer
+    {
+        static $denormalizer;
+        if (!$denormalizer) {
+            $denormalizer = new AttributesPropertyDenormalizer();
+        }
+        return $denormalizer;
+    }
+
+    /**
      * @inheritdoc
      */
     public function getAttributes(string $entityId): AttributesProperty
     {
         $responseArray = $this->parseResponseToArray($this->client->get($this->getEntityAttributesUri($entityId)));
-        return $this->getAttributesPropertyNormalizer()->denormalize(
+        return $this->getAttributesPropertyDenormalizer()->denormalize(
             $responseArray['attribute'],
             AttributesProperty::class
         );
@@ -59,7 +75,7 @@ trait AttributesAwareEntityControllerTrait
                 json_encode((object)['attribute' => $this->getAttributesPropertyNormalizer()->normalize($attributes)])
             )
         );
-        return $this->getAttributesPropertyNormalizer()->denormalize(
+        return $this->getAttributesPropertyDenormalizer()->denormalize(
             $responseArray['attribute'],
             AttributesProperty::class
         );

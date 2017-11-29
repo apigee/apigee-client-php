@@ -8,12 +8,12 @@ use Apigee\Edge\Entity\Property\ScopesPropertyAwareTrait;
 use Apigee\Edge\Entity\Property\StatusPropertyAwareTrait;
 
 /**
- * Class Credential.
+ * Class AppCredential.
  *
  * @package Apigee\Edge\Api\Management\Entity
  * @author Dezső Biczó <mxr576@gmail.com>
  */
-class Credential extends Entity implements CredentialInterface
+class AppCredential extends Entity implements AppCredentialInterface
 {
     use AttributesPropertyAwareTrait;
     use ScopesPropertyAwareTrait;
@@ -28,8 +28,15 @@ class Credential extends Entity implements CredentialInterface
     /** @var string */
     protected $consumerSecret;
 
-    /** @var string Unix epoch time, but it can be -1. */
-    protected $expiresAt;
+    /**
+     * Unix epoch time, but it can be -1.
+     *
+     * We set this to -1 by default because it could happen that this value is missing from the
+     * API response which means the same, this key will never expire.
+     *
+     * @var string
+     */
+    protected $expiresAt = '-1';
 
     /** @var string Unix epoch time. */
     protected $issuedAt;

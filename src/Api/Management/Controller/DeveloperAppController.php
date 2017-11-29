@@ -3,7 +3,7 @@
 namespace Apigee\Edge\Api\Management\Controller;
 
 use Apigee\Edge\Entity\EntityController;
-use Apigee\Edge\Entity\EntityControllerFactoryInterface;
+use Apigee\Edge\Entity\EntityCrudOperationsTrait;
 use Apigee\Edge\Entity\EntityFactoryInterface;
 use Apigee\Edge\Entity\NonCpsLimitEntityControllerTrait;
 use Apigee\Edge\Entity\StatusAwareEntityControllerTrait;
@@ -19,30 +19,29 @@ use Psr\Http\Message\UriInterface;
 class DeveloperAppController extends EntityController implements DeveloperAppControllerInterface
 {
     use AttributesAwareEntityControllerTrait;
+    use EntityCrudOperationsTrait;
     use NonCpsLimitEntityControllerTrait;
     use StatusAwareEntityControllerTrait;
 
     /** @var string Developer email or id. */
-    protected $developer;
+    protected $developerId;
 
     /**
      * DeveloperAppController constructor.
      *
      * @param string $organization
-     * @param \Apigee\Edge\HttpClient\ClientInterface|null $developer
+     * @param null|string $developerId
      * @param \Apigee\Edge\HttpClient\ClientInterface|null $client
      * @param \Apigee\Edge\Entity\EntityFactoryInterface|null $entityFactory
-     * @param \Apigee\Edge\Entity\EntityControllerFactoryInterface|null $entityControllerFactory
      */
     public function __construct(
-        $organization,
-        $developer,
+        string $organization,
+        string $developerId,
         ClientInterface $client = null,
-        EntityFactoryInterface $entityFactory = null,
-        EntityControllerFactoryInterface $entityControllerFactory = null
+        EntityFactoryInterface $entityFactory = null
     ) {
-        $this->developer = $developer;
-        parent::__construct($organization, $client, $entityFactory, $entityControllerFactory);
+        $this->developerId = $developerId;
+        parent::__construct($organization, $client, $entityFactory);
     }
 
     /**
@@ -51,6 +50,6 @@ class DeveloperAppController extends EntityController implements DeveloperAppCon
     protected function getBaseEndpointUri(): UriInterface
     {
         return $this->client->getUriFactory()
-            ->createUri(sprintf('/organizations/%s/developers/%s/apps', $this->organization, $this->developer));
+            ->createUri(sprintf('/organizations/%s/developers/%s/apps', $this->organization, $this->developerId));
     }
 }

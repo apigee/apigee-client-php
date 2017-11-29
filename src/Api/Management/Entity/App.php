@@ -30,7 +30,7 @@ abstract class App extends Entity implements AppInterface
     /** @var string Url, used for "three-legged" OAuth grant type flows. */
     protected $callbackUrl;
 
-    /** @var \Apigee\Edge\Api\Management\Entity\Credential[] */
+    /** @var \Apigee\Edge\Api\Management\Entity\AppCredential[] */
     protected $credentials;
 
     /**
@@ -152,7 +152,7 @@ abstract class App extends Entity implements AppInterface
      *
      * Credentials, included in app, should not be changed by modifying them on the entity level.
      *
-     * @param \Apigee\Edge\Api\Management\Entity\Credential[] $credentials
+     * @param \Apigee\Edge\Api\Management\Entity\AppCredential[] $credentials
      *
      * @internal
      */

@@ -12,13 +12,13 @@ namespace Apigee\Edge\Entity;
  * @package Apigee\Edge\Entity
  * @author Dezső Biczó <mxr576@gmail.com>
  */
-interface NonCpsLimitEntityControllerInterface extends BaseEntityControllerInterface
+interface NonCpsLimitEntityControllerInterface
 {
 
     /**
      * Returns list of entities from Edge. The returned number of entities can _not_ be limited.
      *
-     * @return BaseEntityControllerInterface[]
+     * @return EntityCrudOperationsInterface[]
      * @see \Apigee\Edge\Entity\EntityController::getEntities()
      */
     public function getEntities(): array;

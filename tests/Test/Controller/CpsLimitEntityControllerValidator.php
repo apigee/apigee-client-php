@@ -13,7 +13,7 @@ use Apigee\Edge\Tests\Test\Mock\TestClientFactory;
  * @author Dezső Biczó <mxr576@gmail.com>
  * @see \Apigee\Edge\Entity\CpsLimitEntityControllerInterface
  */
-abstract class CpsLimitEntityControllerValidator extends EntityControllerValidator
+abstract class CpsLimitEntityControllerValidator extends EntityCrudOperationsValidator
 {
     /**
      * @dataProvider cpsLimitTestIdFieldProvider
@@ -22,7 +22,7 @@ abstract class CpsLimitEntityControllerValidator extends EntityControllerValidat
      */
     public function testCpsLimit(string $idField)
     {
-        /** @var \Apigee\Edge\Entity\EntityControllerInterface $controller */
+        /** @var \Apigee\Edge\Entity\EntityCrudOperationsInterface $controller */
         $controller = $this->getEntityController();
         $sampleEntity = $this->sampleDataForEntityCreate();
         $sampleEntityId = call_user_func([$sampleEntity, 'get' . $idField]);

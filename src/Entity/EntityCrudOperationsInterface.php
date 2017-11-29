@@ -8,7 +8,7 @@ namespace Apigee\Edge\Entity;
  * @package Apigee\Edge\Entity
  * @author Dezső Biczó <mxr576@gmail.com>
  */
-interface BaseEntityControllerInterface
+interface EntityCrudOperationsInterface
 {
     /**
      * Loads an entity by ID from Edge.

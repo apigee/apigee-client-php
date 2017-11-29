@@ -10,7 +10,7 @@ use Apigee\Edge\HttpClient\ClientInterface;
  * @package Apigee\Edge\Entity
  * @author Dezső Biczó <mxr576@gmail.com>
  */
-abstract class EntityController extends AbstractEntityController implements EntityControllerInterface
+abstract class EntityController extends AbstractEntityController
 {
     /** @var string Name of the organization that the entity belongs to. */
     protected $organization;

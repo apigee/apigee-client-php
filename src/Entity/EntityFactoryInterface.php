@@ -10,5 +10,23 @@ namespace Apigee\Edge\Entity;
  */
 interface EntityFactoryInterface
 {
-    public function getEntityByController(BaseEntityControllerInterface $entityController): EntityInterface;
+    /**
+     * Returns the FQCN of the entity class that belongs to an entity controller.
+     *
+     * @param string|\Apigee\Edge\Entity\AbstractEntityController $entityController
+     *   Fully qualified class name or an object.
+     *
+     * @return string
+     */
+    public function getEntityTypeByController($entityController): string;
+
+    /**
+     * Returns a new instance of entity that belongs to an entity controller.
+     *
+     * @param string|\Apigee\Edge\Entity\AbstractEntityController $entityController
+     *   Fully qualified class name or an object.
+     *
+     * @return \Apigee\Edge\Entity\EntityInterface
+     */
+    public function getEntityByController($entityController): EntityInterface;
 }

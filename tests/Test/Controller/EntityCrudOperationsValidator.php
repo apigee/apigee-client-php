@@ -2,7 +2,7 @@
 
 namespace Apigee\Edge\Tests\Test\Controller;
 
-use Apigee\Edge\Entity\BaseEntityControllerInterface;
+use Apigee\Edge\Entity\EntityCrudOperationsInterface;
 use Apigee\Edge\Entity\EntityFactory;
 use Apigee\Edge\Entity\EntityInterface;
 use Apigee\Edge\Tests\Test\Mock\TestClientFactory;
@@ -12,15 +12,15 @@ use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
 
 /**
- * Class BaseEntityControllerValidator.
+ * Class EntityCrudOperationsValidator.
  *
- * Helps in validation of all entity controllers that implements BaseEntityControllerInterface.
+ * Helps in validation of all entity controllers that implements EntityCrudOperationsInterface.
  *
  * @package Apigee\Edge\Tests\Test\Controller
  * @author Dezső Biczó <mxr576@gmail.com>
- * @see BaseEntityControllerInterface
+ * @see EntityCrudOperationsInterface
  */
-abstract class BaseEntityControllerValidator extends TestCase
+abstract class EntityCrudOperationsValidator extends TestCase
 {
     /** @var \Apigee\Edge\HttpClient\ClientInterface */
     protected static $client;
@@ -46,9 +46,6 @@ abstract class BaseEntityControllerValidator extends TestCase
         self::$client = (new TestClientFactory())->getClient();
         self::$objectNormalizer = new ObjectNormalizer();
         self::$objectNormalizer->setSerializer(new Serializer());
-        // The "new" property is an internal, SDK only property.
-        // @see \Apigee\Edge\Entity\Entity
-        self::$objectNormalizer->setIgnoredAttributes(['new']);
         parent::setUpBeforeClass();
     }
 
@@ -79,9 +76,9 @@ abstract class BaseEntityControllerValidator extends TestCase
      * attribute of a test class because it can be misleading later whether the self::$controller should be called in
      * a test method or this getter.
      *
-     * @return \Apigee\Edge\Entity\BaseEntityControllerInterface
+     * @return \Apigee\Edge\Entity\EntityCrudOperationsInterface
      */
-    abstract protected static function getEntityController(): BaseEntityControllerInterface;
+    abstract protected static function getEntityController(): EntityCrudOperationsInterface;
 
     /**
      * Returns test data that can be used to test creation of entity.

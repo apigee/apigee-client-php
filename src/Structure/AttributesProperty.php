@@ -10,4 +10,14 @@ namespace Apigee\Edge\Structure;
  */
 class AttributesProperty extends KeyValueMap
 {
+    /**
+     * AttributesProperty constructor.
+     *
+     * @param array $values
+     *   Ex.: [['name' => 'value'], ['foo' => 'bar']]
+     */
+    public function __construct(array $values = [])
+    {
+        parent::__construct($values);
+    }
 }

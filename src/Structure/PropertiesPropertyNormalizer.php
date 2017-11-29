@@ -22,27 +22,4 @@ class PropertiesPropertyNormalizer extends KeyValueMapNormalizer
         ];
         return $return;
     }
-
-    /**
-     * @inheritdoc
-     */
-    public function supportsNormalization($data, $format = null)
-    {
-        return $data instanceof PropertiesProperty;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function denormalize($data, $class, $format = null, array $context = [])
-    {
-        if (array_key_exists('property', $data) && is_array($data['property'])) {
-            $flatten = [];
-            foreach ($data['property'] as $value) {
-                $flatten[$value['name']] = $value['value'];
-            }
-            $data = $flatten;
-        }
-        return parent::denormalize($data, $class, $format, $context);
-    }
 }

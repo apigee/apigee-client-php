@@ -4,11 +4,12 @@ namespace Apigee\Edge\Tests\Api\Management\Controller;
 
 use Apigee\Edge\Api\Management\Controller\ApiProductController;
 use Apigee\Edge\Api\Management\Entity\ApiProduct;
-use Apigee\Edge\Entity\BaseEntityControllerInterface;
+use Apigee\Edge\Entity\EntityCrudOperationsInterface;
 use Apigee\Edge\Entity\EntityInterface;
 use Apigee\Edge\Structure\AttributesProperty;
 use Apigee\Edge\Tests\Test\Controller\AttributesAwareEntityControllerTestTrait;
-use Apigee\Edge\Tests\Test\Controller\EntityControllerValidator;
+use Apigee\Edge\Tests\Test\Controller\NonCpsLimitEntityControllerValidator;
+use Apigee\Edge\Tests\Test\Controller\OrganizationAwareEntityControllerValidatorTrait;
 
 /**
  * Class ApiProductControllerTest.
@@ -16,18 +17,19 @@ use Apigee\Edge\Tests\Test\Controller\EntityControllerValidator;
  * @package Apigee\Edge\Tests\Api\Management\Controller
  * @author Dezső Biczó <mxr576@gmail.com>
  */
-class ApiProductControllerTest extends EntityControllerValidator
+class ApiProductControllerTest extends NonCpsLimitEntityControllerValidator
 {
     use AttributesAwareEntityControllerTestTrait;
+    use OrganizationAwareEntityControllerValidatorTrait;
 
     /**
      * @inheritdoc
      */
-    protected static function getEntityController(): BaseEntityControllerInterface
+    protected static function getEntityController(): EntityCrudOperationsInterface
     {
         static $controller;
         if (!$controller) {
-            $controller = new ApiProductController(static::$organization, static::$client);
+            $controller = new ApiProductController(static::getOrganization(), static::$client);
         }
         return $controller;
     }
