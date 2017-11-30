@@ -66,21 +66,6 @@ interface AppCredentialControllerInterface extends
     public function addProducts(string $consumerKey, array $apiProducts): AppCredentialInterface;
 
     /**
-     * Modify attributes of a customer key.
-     *
-     * Existing attributes can be removed if those are not included in the passed $attributes variable!
-     *
-     * @link https://docs.apigee.com/management/apis/post/organizations/%7Borg_name%7D/developers/%7Bdeveloper_email_or_id%7D/apps/%7Bapp_name%7D/keys/%7Bconsumer_key%7D
-     *
-     * @param string $consumerKey
-     *   The consumer key to modify.
-     * @param \Apigee\Edge\Structure\AttributesProperty $attributes
-     *
-     * @return \Apigee\Edge\Api\Management\Entity\AppCredentialInterface
-     */
-    public function modifyAttributes(string $consumerKey, AttributesProperty $attributes): AppCredentialInterface;
-
-    /**
      * Approve or revoke specific key of a developer app.
      *
      * @link https://docs.apigee.com/management/apis/post/organizations/%7Borg_name%7D/developers/%7Bdeveloper_email_or_id%7D/apps/%7Bapp_name%7D/keys/%7Bconsumer_key%7D-0
@@ -134,4 +119,36 @@ interface AppCredentialControllerInterface extends
      * @return \Apigee\Edge\Entity\EntityInterface
      */
     public function load(string $consumerKey);
+
+    /**
+     * Modify (override) attributes of a customer key.
+     *
+     * It is called override, because previous attributes can be removed if those are not included in the
+     * passed $attributes variable.
+     *
+     * @link https://docs.apigee.com/management/apis/post/organizations/%7Borg_name%7D/developers/%7Bdeveloper_email_or_id%7D/apps/%7Bapp_name%7D/keys/%7Bconsumer_key%7D
+     *
+     * @param string $consumerKey
+     *   The consumer key to modify.
+     * @param \Apigee\Edge\Structure\AttributesProperty $attributes
+     *
+     * @return \Apigee\Edge\Api\Management\Entity\AppCredentialInterface
+     */
+    public function overrideAttributes(string $consumerKey, AttributesProperty $attributes): AppCredentialInterface;
+
+    /**
+     * Modify (override) scopes of a customer key.
+     *
+     * It is called override, because previous scopes can be removed if those are not included in the
+     * passed $scopes variable.
+     *
+     * @link https://docs.apigee.com/management/apis/put/organizations/{org_name}/developers/{developer_email_or_id}/apps/{app_name}/keys/{consumer_key}
+     *
+     * @param string $consumerKey
+     *   The consumer key to modify.
+     * @param string[] $scopes
+     *
+     * @return \Apigee\Edge\Api\Management\Entity\AppCredentialInterface
+     */
+    public function overrideScopes(string $consumerKey, array $scopes): AppCredentialInterface;
 }
