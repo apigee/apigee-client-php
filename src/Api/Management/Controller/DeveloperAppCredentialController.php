@@ -12,12 +12,12 @@ use Apigee\Edge\Structure\KeyValueMapNormalizer;
 use Psr\Http\Message\UriInterface;
 
 /**
- * Class AppCredentialController.
+ * Class DeveloperAppCredentialController.
  *
  * @package Apigee\Edge\Api\Management\Controller
  * @author Dezső Biczó <mxr576@gmail.com>
  */
-class AppCredentialController extends EntityController implements AppCredentialControllerInterface
+class DeveloperAppCredentialController extends EntityController implements DeveloperAppCredentialControllerInterface
 {
     use StatusAwareEntityControllerTrait;
 
@@ -89,7 +89,7 @@ class AppCredentialController extends EntityController implements AppCredentialC
         );
         return $this->entitySerializer->deserialize(
             $response->getBody(),
-            $this->entityFactory->getEntityTypeByController(AppCredentialController::class),
+            $this->entityFactory->getEntityTypeByController(DeveloperAppCredentialController::class),
             'json'
         );
     }
@@ -99,7 +99,8 @@ class AppCredentialController extends EntityController implements AppCredentialC
      */
     public function generate(
         array $apiProducts,
-        AttributesProperty $attributes,
+        AttributesProperty $attributes = null,
+        array $scopes = [],
         string $keyExpiresIn = '-1'
     ): AppCredentialInterface {
         $normalizer = new KeyValueMapNormalizer();
@@ -107,7 +108,8 @@ class AppCredentialController extends EntityController implements AppCredentialC
             $this->getBaseEndpointUri(),
             json_encode((object)[
                 'apiProducts' => $apiProducts,
-                'attributes' => $normalizer->normalize($attributes),
+                'attributes' => $attributes ? $normalizer->normalize($attributes) : [],
+                'scopes' => $scopes,
                 'keyExpiresIn' => $keyExpiresIn
             ])
         );
@@ -117,7 +119,7 @@ class AppCredentialController extends EntityController implements AppCredentialC
         $credentialArray = reset($responseArray['credentials']);
         return $this->entitySerializer->denormalize(
             $credentialArray,
-            $this->entityFactory->getEntityTypeByController(AppCredentialController::class)
+            $this->entityFactory->getEntityTypeByController(DeveloperAppCredentialController::class)
         );
     }
 
@@ -132,7 +134,7 @@ class AppCredentialController extends EntityController implements AppCredentialC
         );
         return $this->entitySerializer->deserialize(
             $response->getBody(),
-            $this->entityFactory->getEntityTypeByController(AppCredentialController::class),
+            $this->entityFactory->getEntityTypeByController(DeveloperAppCredentialController::class),
             'json'
         );
     }
@@ -149,7 +151,7 @@ class AppCredentialController extends EntityController implements AppCredentialC
         );
         return $this->entitySerializer->deserialize(
             $response->getBody(),
-            $this->entityFactory->getEntityTypeByController(AppCredentialController::class),
+            $this->entityFactory->getEntityTypeByController(DeveloperAppCredentialController::class),
             'json'
         );
     }
@@ -191,7 +193,7 @@ class AppCredentialController extends EntityController implements AppCredentialC
         );
         return $this->entitySerializer->deserialize(
             $response->getBody(),
-            $this->entityFactory->getEntityTypeByController(AppCredentialController::class),
+            $this->entityFactory->getEntityTypeByController(DeveloperAppCredentialController::class),
             'json'
         );
     }

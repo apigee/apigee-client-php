@@ -20,8 +20,10 @@ $ composer require apigee/edge:2.*
 
 ```
 
-General API usage
+Usage examples
 ----------
+
+### Basic API usage
 
 
 ```php
@@ -73,6 +75,10 @@ try {
 }
 
 ```
+
+### Advanced examples
+
+* [Create new developer app with a custom- and an auto-generated credential](examples/create_new_app_with_credential.php)
 
 Unit Tests
 ----------

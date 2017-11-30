@@ -7,6 +7,7 @@ use Apigee\Edge\Entity\Entity;
 use Apigee\Edge\Entity\Property\AttributesPropertyAwareTrait;
 use Apigee\Edge\Entity\Property\NamePropertyAwareTrait;
 use Apigee\Edge\Entity\Property\ScopesPropertyAwareTrait;
+use Apigee\Edge\Entity\Property\StatusPropertyAwareTrait;
 
 /**
  * Class App.
@@ -19,7 +20,11 @@ abstract class App extends Entity implements AppInterface
     use AttributesPropertyAwareTrait;
     use CommonEntityPropertiesAwareTrait;
     use NamePropertyAwareTrait;
-    use ScopesPropertyAwareTrait;
+    use StatusPropertyAwareTrait;
+    use ScopesPropertyAwareTrait {
+        // App entities should have only internal setter methods therefore we had to alias this one.
+        ScopesPropertyAwareTrait::setScopes as private privateSetScopes;
+    }
 
     /** @var string */
     protected $appFamily;
@@ -31,7 +36,7 @@ abstract class App extends Entity implements AppInterface
     protected $callbackUrl;
 
     /** @var \Apigee\Edge\Api\Management\Entity\AppCredential[] */
-    protected $credentials;
+    protected $credentials = [];
 
     /**
      * @internal
@@ -88,7 +93,7 @@ abstract class App extends Entity implements AppInterface
     /**
      * @inheritdoc
      */
-    public function getAppFamily(): string
+    public function getAppFamily(): ?string
     {
         return $this->appFamily;
     }
@@ -104,7 +109,7 @@ abstract class App extends Entity implements AppInterface
     /**
      * @inheritdoc
      */
-    public function getAppId(): string
+    public function getAppId(): ?string
     {
         return $this->appId;
     }
@@ -126,7 +131,7 @@ abstract class App extends Entity implements AppInterface
     /**
      * @inheritdoc
      */
-    public function getCallbackUrl(): string
+    public function getCallbackUrl(): ?string
     {
         return $this->callbackUrl;
     }
@@ -150,7 +155,7 @@ abstract class App extends Entity implements AppInterface
     /**
      * Set credentials from an Edge API response.
      *
-     * Credentials, included in app, should not be changed by modifying them on the entity level.
+     * Credentials, included in app, can not be changed by modifying them on the entity level.
      *
      * @param \Apigee\Edge\Api\Management\Entity\AppCredential[] $credentials
      *
@@ -159,5 +164,20 @@ abstract class App extends Entity implements AppInterface
     public function setCredentials(array $credentials)
     {
         $this->credentials = $credentials;
+    }
+
+    /**
+     * Set OAuth scopes from an Edge API response.
+     *
+     * Scopes of an app should not be changed on the entity level. You should modify them by using the app credential
+     * controllers.
+     *
+     * @param string[] $scopes
+     *
+     * @internal
+     */
+    public function setScopes(array $scopes): void
+    {
+        $this->privateSetScopes($scopes);
     }
 }

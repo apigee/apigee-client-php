@@ -9,13 +9,13 @@ use Apigee\Edge\Entity\StatusAwareEntityControllerInterface;
 use Apigee\Edge\Structure\AttributesProperty;
 
 /**
- * Interface AppCredentialControllerInterface.
+ * Interface DeveloperAppCredentialControllerInterface.
  *
  * @package Apigee\Edge\Api\Management\Controller
  * @author Dezső Biczó <mxr576@gmail.com>
  * @see link https://docs.apigee.com/api/developer-app-keys
  */
-interface AppCredentialControllerInterface extends
+interface DeveloperAppCredentialControllerInterface extends
     EntityControllerInterface,
     StatusAwareEntityControllerInterface
 {
@@ -29,6 +29,8 @@ interface AppCredentialControllerInterface extends
      * @return \Apigee\Edge\Api\Management\Entity\AppCredentialInterface
      *
      * @link https://docs.apigee.com/management/apis/post/organizations/%7Borg_name%7D/developers/%7Bdeveloper_email_or_id%7D/apps/%7Bapp_name%7D/keys/create
+     *
+     * @throws \Apigee\Edge\Exception\ClientErrorException
      */
     public function create(string $consumerKey, string $consumerSecret): AppCredentialInterface;
 
@@ -41,12 +43,19 @@ interface AppCredentialControllerInterface extends
      *   API Product names.
      * @param \Apigee\Edge\Structure\AttributesProperty $attributes
      *   Custom attributes.
+     * @param string[] $scopes
+     *   List of OAuth scopes (from API products).
      * @param string $keyExpiresIn
      *   In milliseconds. A value of -1 means the key/secret pair never expire.
      *
      * @return \Apigee\Edge\Api\Management\Entity\AppCredentialInterface
      */
-    public function generate(array $apiProducts, AttributesProperty $attributes, string $keyExpiresIn = '-1'): AppCredentialInterface;
+    public function generate(
+        array $apiProducts,
+        AttributesProperty $attributes = null,
+        array $scopes = [],
+        string $keyExpiresIn = '-1'
+    ): AppCredentialInterface;
 
     /**
      * Adds API products to a consumer key.

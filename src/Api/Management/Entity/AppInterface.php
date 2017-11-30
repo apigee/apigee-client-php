@@ -8,7 +8,6 @@ use Apigee\Edge\Entity\Property\AttributesPropertyInterface;
 use Apigee\Edge\Entity\Property\DescriptionPropertyInterface;
 use Apigee\Edge\Entity\Property\DisplayNamePropertyInterface;
 use Apigee\Edge\Entity\Property\NamePropertyInterface;
-use Apigee\Edge\Entity\Property\ScopesPropertyInterface;
 
 /**
  * Interface AppInterface.
@@ -22,13 +21,22 @@ interface AppInterface extends
     CommonEntityPropertiesInterface,
     DescriptionPropertyInterface,
     DisplayNamePropertyInterface,
-    NamePropertyInterface,
-    ScopesPropertyInterface
+    NamePropertyInterface
 {
+    /**
+     * Get OAuth scopes.
+     *
+     * Scopes of app can not be modified on the entity level therefore we could not extend the ScopesPropertyInterface
+     * here.
+     *
+     * @return string[]
+     */
+    public function getScopes(): array;
+
     /**
      * @return string
      */
-    public function getAppFamily(): string;
+    public function getAppFamily(): ?string;
 
     /**
      * @param string $appFamily
@@ -38,12 +46,12 @@ interface AppInterface extends
     /**
      * @return string
      */
-    public function getAppId(): string;
+    public function getAppId(): ?string;
 
     /**
      * @return string
      */
-    public function getCallbackUrl(): string;
+    public function getCallbackUrl(): ?string;
 
     /**
      * @param string $callbackUrl

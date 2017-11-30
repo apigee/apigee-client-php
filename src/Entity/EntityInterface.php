@@ -24,5 +24,5 @@ interface EntityInterface
      *
      * @return string
      */
-    public function id(): string;
+    public function id(): ?string;
 }
