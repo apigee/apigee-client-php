@@ -17,6 +17,61 @@ So if you prefer Guzzle 6 then you can install this library like this:
 ```
 $ composer require php-http/guzzle6-adapter
 $ composer require apigee/edge:2.*
+
+```
+
+General API usage
+----------
+
+
+```php
+<?php
+
+use Apigee\Edge\Api\Management\Controller\DeveloperController;
+use Apigee\Edge\Api\Management\Entity\Developer;
+use Apigee\Edge\Exception\ApiException;
+use Apigee\Edge\Exception\ClientErrorException;
+use Apigee\Edge\Exception\ServerErrorException;
+use Apigee\Edge\HttpClient\Client;
+use Http\Message\Authentication\BasicAuth;
+
+include_once 'vendor/autoload.php';
+
+$username = 'my-email-address@example.com';
+$password = 'my-secure-password';
+$organization = 'my-organization';
+
+$auth = new BasicAuth($username, $password);
+// Initialize a client and use basic authentication for all API calls.
+$client = new Client($auth);
+
+// Initialize a controller for making API calls, for example a developer controller to working with developer entities.
+$ec = new DeveloperController($organization, $client);
+
+try {
+    /** @var \Apigee\Edge\Api\Management\Entity\Developer $entity */
+    $entity = $ec->load('developer1@example.com');
+    $entity->setEmail('developer2@example.com');
+    $ec->update($entity);
+    // Some setters on entities are intentionally marked as @internal because the underlying entity properties can not
+    // be changed on the entity level. Those must be modified by using dedicated API calls.
+    // So instead of this:
+    $entity->setStatus(Developer::STATUS_INACTIVE);
+    // You should use this:
+    $ec->setStatus($entity->id(), Developer::STATUS_INACTIVE);
+} catch (ClientErrorException $e) {
+    // HTTP code >= 400 and < 500. Ex.: 401 Unauthorised.
+    if ($e->getEdgeErrorCode()) {
+        print $e->getEdgeErrorCode();
+    } else {
+        print $e;
+    }
+} catch (ServerErrorException $e) {
+    // HTTP code >= 500 and < 600. Ex.: 500 Server error.
+} catch (ApiException $e) {
+    // Anything else, because this is the parent class of all the above.
+}
+
 ```
 
 Unit Tests
