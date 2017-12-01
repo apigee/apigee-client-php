@@ -22,9 +22,9 @@ abstract class CpsLimitEntityControllerValidator extends EntityCrudOperationsVal
      */
     public function testCpsLimit(string $idField)
     {
-        /** @var \Apigee\Edge\Entity\EntityCrudOperationsInterface $controller */
+        /** @var \Apigee\Edge\Entity\CpsLimitEntityControllerInterface $controller */
         $controller = $this->getEntityController();
-        $sampleEntity = $this->sampleDataForEntityCreate();
+        $sampleEntity = static::sampleDataForEntityCreate();
         $sampleEntityId = call_user_func([$sampleEntity, 'get' . $idField]);
         $cpsTestData = [];
         for ($i = 1; $i <= 5; $i++) {
@@ -32,11 +32,11 @@ abstract class CpsLimitEntityControllerValidator extends EntityCrudOperationsVal
             $cpsTestData[$i]->{'set' . $idField}($i.$sampleEntityId);
         }
         // Create test data on the server or do not do anything if an offline client is in use.
-        if (strpos(self::$client->getUserAgent(), TestClientFactory::OFFLINE_CLIENT_USER_AGENT_PREFIX) === false) {
+        if (strpos(static::$client->getUserAgent(), TestClientFactory::OFFLINE_CLIENT_USER_AGENT_PREFIX) === false) {
             foreach ($cpsTestData as $item) {
                 /** @var \Apigee\Edge\Entity\EntityInterface $item */
                 $tmp = $controller->create($item);
-                self::$createdEntities[$tmp->id()] = $tmp;
+                static::$createdEntities[$tmp->id()] = $tmp;
             }
         }
         $startKey = "3{$sampleEntityId}";
@@ -53,7 +53,7 @@ abstract class CpsLimitEntityControllerValidator extends EntityCrudOperationsVal
     public function cpsLimitTestIdFieldProvider()
     {
         $controller = $this->getEntityController();
-        $entity = self::$entityFactory->getEntityByController($controller);
+        $entity = static::$entityFactory->getEntityByController($controller);
         return [[$entity->id()]];
     }
 }

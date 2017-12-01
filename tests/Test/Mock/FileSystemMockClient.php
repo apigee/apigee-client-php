@@ -34,7 +34,13 @@ class FileSystemMockClient implements MockClientInterface
     public function __construct(AdapterInterface $adapter = null)
     {
         if ($adapter === null) {
-            $defaultFolder =  realpath(dirname(__FILE__) . '/../../offline-test-data');
+            $defaultFolder = realpath(sprintf(
+                '%s%s..%s..%soffline-test-data',
+                dirname(__FILE__),
+                DIRECTORY_SEPARATOR,
+                DIRECTORY_SEPARATOR,
+                DIRECTORY_SEPARATOR
+            ));
             $folder = getenv('APIGEE_PHP_SDK_OFFLINE_TEST_DATA_FOLDER') ?: $defaultFolder;
             $adapter = new Local($folder);
         }
@@ -67,9 +73,9 @@ class FileSystemMockClient implements MockClientInterface
      *
      * @return string
      */
-    protected function transformRequestToPath(RequestInterface $request) : string
+    protected function transformRequestToPath(RequestInterface $request): string
     {
-        $filePath = rtrim($request->getUri()->getPath(), '/');
+        $filePath = rtrim($request->getUri()->getPath(), DIRECTORY_SEPARATOR);
         $fileName = $request->getMethod();
         if ($request->getUri()->getQuery()) {
             $fileName .= '_';
@@ -80,7 +86,7 @@ class FileSystemMockClient implements MockClientInterface
             $fileName .= $query_params;
         }
         $fileName .= '.json';
-        $filePath .= '/' . $fileName;
+        $filePath .= DIRECTORY_SEPARATOR . $fileName;
         return rawurldecode($filePath);
     }
 }

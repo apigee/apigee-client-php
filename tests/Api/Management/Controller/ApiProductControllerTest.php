@@ -16,6 +16,8 @@ use Apigee\Edge\Tests\Test\Controller\OrganizationAwareEntityControllerValidator
  *
  * @package Apigee\Edge\Tests\Api\Management\Controller
  * @author Dezső Biczó <mxr576@gmail.com>
+ *
+ * @group controller
  */
 class ApiProductControllerTest extends NonCpsLimitEntityControllerValidator
 {
@@ -37,20 +39,21 @@ class ApiProductControllerTest extends NonCpsLimitEntityControllerValidator
     /**
      * @inheritdoc
      */
-    protected function sampleDataForEntityCreate(): EntityInterface
+    public static function sampleDataForEntityCreate(): EntityInterface
     {
         return new ApiProduct([
             'name' => 'phpunit_test',
             'displayName' => 'PHP Unit Test product',
             'approvalType' => ApiProduct::APPROVAL_TYPE_AUTO,
             'attributes' => new AttributesProperty(['foo' => 'bar']),
+            'scopes' => ['scope 1', 'scope 2']
         ]);
     }
 
     /**
      * @inheritdoc
      */
-    protected function sampleDataForEntityUpdate(): EntityInterface
+    public static function sampleDataForEntityUpdate(): EntityInterface
     {
         return new ApiProduct([
             'displayName' => '(Edited) PHP Unit Test product',
@@ -78,7 +81,7 @@ class ApiProductControllerTest extends NonCpsLimitEntityControllerValidator
         /** @var ApiProductController $controller */
         $controller = $this->getEntityController();
         /** @var \Apigee\Edge\Entity\Property\AttributesPropertyAwareTrait $entity */
-        $entity = $this->sampleDataForEntityCreate();
+        $entity = self::sampleDataForEntityCreate();
         $unexpected = 'should_not_appear';
         $entity->setName($unexpected);
         $entity->setAttribute('foo', 'foo');

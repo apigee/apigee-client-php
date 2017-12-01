@@ -40,7 +40,7 @@ class DeveloperControllerTest extends CpsLimitEntityControllerValidator
     /**
      * @inheritdoc
      */
-    protected function sampleDataForEntityCreate(): EntityInterface
+    public static function sampleDataForEntityCreate(): EntityInterface
     {
         return new Developer([
             'email' => 'phpunit@example.com',
@@ -54,7 +54,7 @@ class DeveloperControllerTest extends CpsLimitEntityControllerValidator
     /**
      * @inheritdoc
      */
-    protected function sampleDataForEntityUpdate(): EntityInterface
+    public static function sampleDataForEntityUpdate(): EntityInterface
     {
         return new Developer([
             'email' => 'phpunit-edited@example.com',
@@ -68,10 +68,10 @@ class DeveloperControllerTest extends CpsLimitEntityControllerValidator
     /**
      * @inheritdoc
      */
-    protected function expectedAfterEntityCreate(): EntityInterface
+    protected static function expectedAfterEntityCreate(): EntityInterface
     {
         /** @var Developer $entity */
-        $entity = parent::expectedAfterEntityCreate();
+        $entity = static::sampleDataForEntityCreate();
         // We can be sure one another thing, the status of the created developer is active by default.
         $entity->setStatus(Developer::STATUS_ACTIVE);
         return $entity;

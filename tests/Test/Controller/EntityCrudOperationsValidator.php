@@ -7,7 +7,6 @@ use Apigee\Edge\Entity\EntityFactory;
 use Apigee\Edge\Entity\EntityInterface;
 use Apigee\Edge\Tests\Test\Mock\TestClientFactory;
 use PHPUnit\Framework\TestCase;
-use PHPUnit\Runner\Exception;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
 
@@ -42,10 +41,10 @@ abstract class EntityCrudOperationsValidator extends TestCase
      */
     public static function setUpBeforeClass()
     {
-        self::$entityFactory = new EntityFactory();
-        self::$client = (new TestClientFactory())->getClient();
-        self::$objectNormalizer = new ObjectNormalizer();
-        self::$objectNormalizer->setSerializer(new Serializer());
+        static::$entityFactory = new EntityFactory();
+        static::$client = (new TestClientFactory())->getClient();
+        static::$objectNormalizer = new ObjectNormalizer();
+        static::$objectNormalizer->setSerializer(new Serializer());
         parent::setUpBeforeClass();
     }
 
@@ -54,17 +53,17 @@ abstract class EntityCrudOperationsValidator extends TestCase
      */
     public static function tearDownAfterClass()
     {
-        if (strpos(self::$client->getUserAgent(), TestClientFactory::OFFLINE_CLIENT_USER_AGENT_PREFIX) === 0) {
+        if (strpos(static::$client->getUserAgent(), TestClientFactory::OFFLINE_CLIENT_USER_AGENT_PREFIX) === 0) {
             return;
         }
 
         // Remove created entities on Apigee Edge.
         try {
-            foreach (self::$createdEntities as $entity) {
+            foreach (static::$createdEntities as $entity) {
                 static::getEntityController()->delete($entity->id());
                 unset(static::$createdEntities[$entity->id()]);
             }
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             printf("Unable to delete %s entity with %s id.\n", strtolower(get_class($entity)), $entity->id());
         }
     }
@@ -73,7 +72,7 @@ abstract class EntityCrudOperationsValidator extends TestCase
      * Returns the entity controller that is tested.
      *
      * It is recommended to use static cache on the controller instance, however it should not be added as an
-     * attribute of a test class because it can be misleading later whether the self::$controller should be called in
+     * attribute of a test class because it can be misleading later whether the static::$controller should be called in
      * a test method or this getter.
      *
      * @return \Apigee\Edge\Entity\EntityCrudOperationsInterface
@@ -85,7 +84,7 @@ abstract class EntityCrudOperationsValidator extends TestCase
      *
      * @return EntityInterface
      */
-    abstract protected function sampleDataForEntityCreate(): EntityInterface;
+    abstract public static function sampleDataForEntityCreate(): EntityInterface;
 
     /**
      * Returns test data that can be used to test entity update.
@@ -94,16 +93,16 @@ abstract class EntityCrudOperationsValidator extends TestCase
      *
      * @return EntityInterface
      */
-    abstract protected function sampleDataForEntityUpdate(): EntityInterface;
+    abstract public static function sampleDataForEntityUpdate(): EntityInterface;
 
     /**
      * Returns the expected values of an entity after it has been created.
      *
      * @return EntityInterface
      */
-    protected function expectedAfterEntityCreate(): EntityInterface
+    protected static function expectedAfterEntityCreate(): EntityInterface
     {
-        return $this->sampleDataForEntityCreate();
+        return static::sampleDataForEntityCreate();
     }
 
     /**
@@ -116,14 +115,14 @@ abstract class EntityCrudOperationsValidator extends TestCase
         // created. If we would use more than on data provider on this function then it would get the merged result
         // of providers as a _single_ value.
         /** @var EntityInterface $entity */
-        $entity = $this->sampleDataForEntityCreate();
+        $entity = static::sampleDataForEntityCreate();
         $entity = $this->getEntityController()->create($entity);
-        self::$createdEntities[$entity->id()] = $entity;
+        static::$createdEntities[$entity->id()] = $entity;
         // Validate properties that values are either auto generated or we do not know in the current context.
         $this->assertEntityHasAllPropertiesSet($entity);
         $this->assertArraySubset(
-            array_filter(self::$objectNormalizer->normalize($this->expectedAfterEntityCreate())),
-            self::$objectNormalizer->normalize($entity)
+            array_filter(static::$objectNormalizer->normalize(static::expectedAfterEntityCreate())),
+            static::$objectNormalizer->normalize($entity)
         );
         return $entity->id();
     }
@@ -141,8 +140,8 @@ abstract class EntityCrudOperationsValidator extends TestCase
         // Validate properties that values are either auto generated or we do not know in the current context.
         $this->assertEntityHasAllPropertiesSet($entity);
         $this->assertArraySubset(
-            array_filter(self::$objectNormalizer->normalize($this->expectedAfterEntityCreate())),
-            self::$objectNormalizer->normalize($entity)
+            array_filter(static::$objectNormalizer->normalize(static::expectedAfterEntityCreate())),
+            static::$objectNormalizer->normalize($entity)
         );
         return $entityId;
     }
@@ -159,13 +158,13 @@ abstract class EntityCrudOperationsValidator extends TestCase
     public function testUpdate(string $entityId)
     {
         /** @var EntityInterface $entity */
-        $entity = $this->sampleDataForEntityUpdate();
-        call_user_func([$entity, 'set' . ucfirst($this->sampleDataForEntityUpdate()->idProperty())], $entityId);
+        $entity = static::sampleDataForEntityUpdate();
+        call_user_func([$entity, 'set' . ucfirst(static::sampleDataForEntityUpdate()->idProperty())], $entityId);
         $entity = $this->getEntityController()->update($entity);
         // Validate properties that values are either auto generated or we do not know in the current context.
         $this->assertEntityHasAllPropertiesSet($entity);
-        $entityAsArray = self::$objectNormalizer->normalize($entity);
-        $changesAsArray = array_filter(self::$objectNormalizer->normalize($this->sampleDataForEntityUpdate()));
+        $entityAsArray = static::$objectNormalizer->normalize($entity);
+        $changesAsArray = array_filter(static::$objectNormalizer->normalize(static::sampleDataForEntityUpdate()));
         $expectedToRemainTheSame = array_diff_key($entityAsArray, $changesAsArray);
         // Of course, this property's value will change.
         if (isset($expectedToRemainTheSame['lastModifiedAt'])) {
