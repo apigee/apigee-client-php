@@ -31,30 +31,26 @@ $client = new Client($auth);
 $dac = new DeveloperAppController($organization, $developerMail, $client);
 
 try {
+    // Create a new developer app.
     /** @var \Apigee\Edge\Api\Management\Entity\DeveloperApp $developerApp */
     $developerApp = new \Apigee\Edge\Api\Management\Entity\DeveloperApp(['name' => 'test_app_1']);
     $developerApp->setDisplayName('My first app');
     $dac->create($developerApp);
-} catch (ClientErrorException $e) {
-    // HTTP code >= 400 and < 500. Ex.: 401 Unauthorised.
-    if ($e->getEdgeErrorCode()) {
-        print $e->getEdgeErrorCode();
-    } else {
-        print $e;
-    }
-} catch (ServerErrorException $e) {
-    // HTTP code >= 500 and < 600. Ex.: 500 Server error.
-} catch (ApiException $e) {
-    // Anything else, because this is the parent class of all the above.
-}
 
-$dacc = new DeveloperAppCredentialController($organization, $developerMail, $developerApp->id(), $client);
-$apiProducts = ['product_1', 'product_2'];
-$scopes = ['scope 1', 'scope 2'];
-
-try {
-    // Create a new, auto generated key that expires after 1 week.
+    $dacc = new DeveloperAppCredentialController($organization, $developerMail, $developerApp->id(), $client);
     $attributes = new AttributesProperty(['foo' => 'bar']);
+    $apiProducts = ['product_1', 'product_2'];
+    $scopes = ['scope 1', 'scope 2'];
+
+    // Add products, attributes, and scopes to the auto-generated credential that was created along with the app.
+    $credentials = $developerApp->getCredentials();
+    /** @var \Apigee\Edge\Api\Management\Entity\AppCredential $credential */
+    $credential = reset($credentials);
+    $dacc->addProducts($credential->id(), $apiProducts);
+    $dacc->overrideAttributes($credential->id(), $attributes);
+    $dacc->overrideScopes($credential->id(), $scopes);
+
+    // Create a new, auto-generated credential that expires after 1 week.
     $dacc->generate($apiProducts, $attributes, $scopes, 604800000);
 
     // Create a credential with a specific key and secret and add the same products, attributes and scopes to it.
