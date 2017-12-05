@@ -16,7 +16,7 @@ namespace Apigee\Edge\Entity;
 trait CommonEntityPropertiesAwareTrait
 {
     /**
-     * @var string Unix timestamp.
+     * @var string Unix epoch timestamp.
      */
     protected $createdAt = '';
 
@@ -26,7 +26,7 @@ trait CommonEntityPropertiesAwareTrait
     protected $createdBy = '';
 
     /**
-     * @var string Unix timestamp.
+     * @var string Unix epoch timestamp.
      */
     protected $lastModifiedAt = '';
 

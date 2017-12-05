@@ -16,7 +16,7 @@ interface CommonEntityPropertiesInterface
     /**
      * Returns creation date of entity.
      *
-     * @return string Unix timestamp.
+     * @return string Unix epoch timestamp.
      */
     public function getCreatedAt(): string;
 
@@ -30,7 +30,7 @@ interface CommonEntityPropertiesInterface
     /**
      * Returns last modification date of entity.
      *
-     * @return string Unix timestamp.
+     * @return string Unix epoch timestamp.
      */
     public function getLastModifiedAt(): string;
 

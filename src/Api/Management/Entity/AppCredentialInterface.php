@@ -19,5 +19,30 @@ interface AppCredentialInterface extends
     ScopesPropertyInterface,
     StatusPropertyInterface
 {
+    /**
+     * Get list of API products included in this credential with their statuses.
+     *
+     * @return \Apigee\Edge\Structure\CredentialProduct[]
+     */
+    public function getApiProducts(): array;
 
+    /**
+     * @return string
+     */
+    public function getConsumerKey(): string;
+
+    /**
+     * @return string
+     */
+    public function getConsumerSecret(): string;
+
+    /**
+     * @return string
+     */
+    public function getExpiresAt(): string;
+
+    /**
+     * @return string
+     */
+    public function getIssuedAt(): string;
 }

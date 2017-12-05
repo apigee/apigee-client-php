@@ -2,7 +2,8 @@
 
 namespace Apigee\Edge\Api\Management\Controller;
 
-use Apigee\Edge\Entity\EntityCrudOperationsInterface;
+use Apigee\Edge\Entity\EntityControllerInterface;
+use Apigee\Edge\Entity\EntityCrudOperationsControllerInterface;
 use Apigee\Edge\Entity\NonCpsLimitEntityControllerInterface;
 use Apigee\Edge\Entity\StatusAwareEntityControllerInterface;
 
@@ -15,7 +16,8 @@ use Apigee\Edge\Entity\StatusAwareEntityControllerInterface;
  */
 interface DeveloperAppControllerInterface extends
     AttributesAwareEntityControllerInterface,
-    EntityCrudOperationsInterface,
+    EntityControllerInterface,
+    EntityCrudOperationsControllerInterface,
     NonCpsLimitEntityControllerInterface,
     StatusAwareEntityControllerInterface
 {

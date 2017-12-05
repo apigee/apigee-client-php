@@ -3,13 +3,13 @@
 namespace Apigee\Edge\Entity;
 
 /**
- * Trait EntityCrudOperationsTrait.
+ * Trait EntityCrudOperationsControllerTrait.
  *
  * @package Apigee\Edge\Entity
  * @author Dezső Biczó <mxr576@gmail.com>
- * @see \Apigee\Edge\Entity\EntityCrudOperationsInterface
+ * @see \Apigee\Edge\Entity\EntityCrudOperationsControllerInterface
  */
-trait EntityCrudOperationsTrait
+trait EntityCrudOperationsControllerTrait
 {
     /**
      * @inheritdoc

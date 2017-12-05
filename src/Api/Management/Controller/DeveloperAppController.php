@@ -3,7 +3,7 @@
 namespace Apigee\Edge\Api\Management\Controller;
 
 use Apigee\Edge\Entity\EntityController;
-use Apigee\Edge\Entity\EntityCrudOperationsTrait;
+use Apigee\Edge\Entity\EntityCrudOperationsControllerTrait;
 use Apigee\Edge\Entity\EntityFactoryInterface;
 use Apigee\Edge\Entity\NonCpsLimitEntityControllerTrait;
 use Apigee\Edge\Entity\StatusAwareEntityControllerTrait;
@@ -19,7 +19,7 @@ use Psr\Http\Message\UriInterface;
 class DeveloperAppController extends EntityController implements DeveloperAppControllerInterface
 {
     use AttributesAwareEntityControllerTrait;
-    use EntityCrudOperationsTrait;
+    use EntityCrudOperationsControllerTrait;
     use NonCpsLimitEntityControllerTrait;
     use StatusAwareEntityControllerTrait;
 

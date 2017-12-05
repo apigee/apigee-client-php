@@ -36,23 +36,35 @@ final class EntityFactory implements EntityFactoryInterface
         if (isset(self::$classMappingCache[$className])) {
             return self::$classMappingCache[$className];
         }
-        $fcdn_parts = explode('\\', $className);
-        $entityControllerClass = array_pop($fcdn_parts);
+        $fqcn_parts = explode('\\', $className);
+        $entityControllerClass = array_pop($fqcn_parts);
+        // Special handling of DeveloperAppCredentialController and CompanyAppCredentialController entity controllers,
+        // because those uses the same entity, AppCredential.
+        $appCredentialController = 'AppCredentialController';
+        $isAppCredentialController = (0 === substr_compare(
+            $entityControllerClass,
+            $appCredentialController,
+            strlen($entityControllerClass) - strlen($appCredentialController),
+            strlen($appCredentialController)
+        ));
+        if ($isAppCredentialController) {
+            $entityControllerClass = $appCredentialController;
+        }
         // Get rid of "Controller" from the namespace.
-        array_pop($fcdn_parts);
+        array_pop($fqcn_parts);
         // Add "Entity" instead.
-        $fcdn_parts[] = 'Entity';
+        $fqcn_parts[] = 'Entity';
         $entityControllerClassNameParts = preg_split('/(?=[A-Z])/', $entityControllerClass);
         // First index is an empty string, the last one is "Controller". Let's get rid of those.
         array_shift($entityControllerClassNameParts);
         array_pop($entityControllerClassNameParts);
-        $fcdn_parts[] = implode('', $entityControllerClassNameParts);
-        $fcdn = implode('\\', $fcdn_parts);
-        if (!class_exists($fcdn)) {
-            throw new EntityNotFoundException($fcdn);
+        $fqcn_parts[] = implode('', $entityControllerClassNameParts);
+        $fqcn = implode('\\', $fqcn_parts);
+        if (!class_exists($fqcn)) {
+            throw new EntityNotFoundException($fqcn);
         }
         // Add it to to object cache.
-        self::$classMappingCache[$className] = $fcdn;
+        self::$classMappingCache[$className] = $fqcn;
         return self::$classMappingCache[$className];
     }
 
@@ -62,9 +74,9 @@ final class EntityFactory implements EntityFactoryInterface
     public function getEntityByController($entityController): EntityInterface
     {
         $className = $this->getClassName($entityController);
-        $fcdn = self::getEntityTypeByController($entityController);
+        $fqcn = self::getEntityTypeByController($entityController);
         // Add it to to object cache.
-        self::$objectCache[$className] = new $fcdn();
+        self::$objectCache[$className] = new $fqcn();
         return clone self::$objectCache[$className];
     }
 
@@ -75,6 +87,7 @@ final class EntityFactory implements EntityFactoryInterface
      *   Fully qualified class name or an object.
      *
      * @return string
+     *   Fully qualified class name.
      */
     private function getClassName($entityController): string
     {

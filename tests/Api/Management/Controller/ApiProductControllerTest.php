@@ -4,7 +4,7 @@ namespace Apigee\Edge\Tests\Api\Management\Controller;
 
 use Apigee\Edge\Api\Management\Controller\ApiProductController;
 use Apigee\Edge\Api\Management\Entity\ApiProduct;
-use Apigee\Edge\Entity\EntityCrudOperationsInterface;
+use Apigee\Edge\Entity\EntityControllerInterface;
 use Apigee\Edge\Entity\EntityInterface;
 use Apigee\Edge\Structure\AttributesProperty;
 use Apigee\Edge\Tests\Test\Controller\AttributesAwareEntityControllerTestTrait;
@@ -27,7 +27,7 @@ class ApiProductControllerTest extends NonCpsLimitEntityControllerValidator
     /**
      * @inheritdoc
      */
-    protected static function getEntityController(): EntityCrudOperationsInterface
+    protected static function getEntityController(): EntityControllerInterface
     {
         static $controller;
         if (!$controller) {

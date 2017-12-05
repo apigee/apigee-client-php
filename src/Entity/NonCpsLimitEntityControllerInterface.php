@@ -18,7 +18,7 @@ interface NonCpsLimitEntityControllerInterface
     /**
      * Returns list of entities from Edge. The returned number of entities can _not_ be limited.
      *
-     * @return EntityCrudOperationsInterface[]
+     * @return EntityCrudOperationsControllerInterface[]
      * @see \Apigee\Edge\Entity\EntityController::getEntities()
      */
     public function getEntities(): array;

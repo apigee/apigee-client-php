@@ -6,12 +6,12 @@ use Apigee\Edge\Entity\EntityNormalizer;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 /**
- * Class CredentialNormalizer.
+ * Class AppCredentialNormalizer.
  *
  * @package Apigee\Edge\Api\Management\Entity
  * @author Dezső Biczó <mxr576@gmail.com>
  */
-class CredentialNormalizer extends EntityNormalizer implements NormalizerInterface
+class AppCredentialNormalizer extends EntityNormalizer implements NormalizerInterface
 {
     /**
      * @inheritdoc

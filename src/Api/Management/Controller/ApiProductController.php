@@ -3,7 +3,7 @@
 namespace Apigee\Edge\Api\Management\Controller;
 
 use Apigee\Edge\Entity\EntityController;
-use Apigee\Edge\Entity\EntityCrudOperationsTrait;
+use Apigee\Edge\Entity\EntityCrudOperationsControllerTrait;
 use Apigee\Edge\Entity\NonCpsLimitEntityControllerTrait;
 use Psr\Http\Message\UriInterface;
 
@@ -16,7 +16,7 @@ use Psr\Http\Message\UriInterface;
 class ApiProductController extends EntityController implements ApiProductControllerInterface
 {
     use AttributesAwareEntityControllerTrait;
-    use EntityCrudOperationsTrait;
+    use EntityCrudOperationsControllerTrait;
     use NonCpsLimitEntityControllerTrait;
 
     /**

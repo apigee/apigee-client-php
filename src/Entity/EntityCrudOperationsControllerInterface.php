@@ -3,12 +3,12 @@
 namespace Apigee\Edge\Entity;
 
 /**
- * Interface BaseEntityControllerInterface.
+ * Interface EntityCrudOperationsControllerInterface.
  *
  * @package Apigee\Edge\Entity
  * @author Dezső Biczó <mxr576@gmail.com>
  */
-interface EntityCrudOperationsInterface
+interface EntityCrudOperationsControllerInterface
 {
     /**
      * Loads an entity by ID from Edge.

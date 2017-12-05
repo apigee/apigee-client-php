@@ -5,7 +5,8 @@ namespace Apigee\Edge\Api\Management\Controller;
 use Apigee\Edge\Api\Management\Entity\DeveloperInterface;
 use Apigee\Edge\Api\Management\Exception\DeveloperNotFoundException;
 use Apigee\Edge\Entity\CpsLimitEntityControllerInterface;
-use Apigee\Edge\Entity\EntityCrudOperationsInterface;
+use Apigee\Edge\Entity\EntityControllerInterface;
+use Apigee\Edge\Entity\EntityCrudOperationsControllerInterface;
 use Apigee\Edge\Entity\StatusAwareEntityControllerInterface;
 
 /**
@@ -19,7 +20,8 @@ use Apigee\Edge\Entity\StatusAwareEntityControllerInterface;
  */
 interface DeveloperControllerInterface extends
     AttributesAwareEntityControllerInterface,
-    EntityCrudOperationsInterface,
+    EntityControllerInterface,
+    EntityCrudOperationsControllerInterface,
     CpsLimitEntityControllerInterface,
     StatusAwareEntityControllerInterface
 {

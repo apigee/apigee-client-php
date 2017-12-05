@@ -4,7 +4,7 @@ namespace Apigee\Edge\Api\Management\Controller;
 
 use Apigee\Edge\Api\Management\Entity\AppCredentialInterface;
 use Apigee\Edge\Entity\EntityController;
-use Apigee\Edge\Entity\EntityCrudOperationsTrait;
+use Apigee\Edge\Entity\EntityCrudOperationsControllerTrait;
 use Apigee\Edge\Entity\EntityInterface;
 use Apigee\Edge\Entity\StatusAwareEntityControllerTrait;
 use Apigee\Edge\Structure\AttributesProperty;
@@ -21,11 +21,11 @@ class DeveloperAppCredentialController extends EntityController implements Devel
 {
     use StatusAwareEntityControllerTrait;
 
-    use EntityCrudOperationsTrait {
+    use EntityCrudOperationsControllerTrait {
         // These methods are not supported on this endpoint in the same way as on the others so do not allow to
         // use them here.
-        EntityCrudOperationsTrait::create as private privateCreate;
-        EntityCrudOperationsTrait::update as private privateUpdate;
+        EntityCrudOperationsControllerTrait::create as private privateCreate;
+        EntityCrudOperationsControllerTrait::update as private privateUpdate;
     }
 
     /** @var string Developer email or id. */
@@ -99,16 +99,13 @@ class DeveloperAppCredentialController extends EntityController implements Devel
      */
     public function generate(
         array $apiProducts,
-        AttributesProperty $attributes = null,
         array $scopes = [],
         string $keyExpiresIn = '-1'
     ): AppCredentialInterface {
-        $normalizer = new KeyValueMapNormalizer();
         $response = $this->client->post(
             $this->getBaseEndpointUri(),
             json_encode((object)[
                 'apiProducts' => $apiProducts,
-                'attributes' => $attributes ? $normalizer->normalize($attributes) : [],
                 'scopes' => $scopes,
                 'keyExpiresIn' => $keyExpiresIn
             ])

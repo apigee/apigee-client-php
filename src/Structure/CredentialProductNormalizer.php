@@ -2,7 +2,6 @@
 
 namespace Apigee\Edge\Structure;
 
-use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\scalar;
 
@@ -12,24 +11,8 @@ use Symfony\Component\Serializer\Normalizer\scalar;
  * @package Apigee\Edge\Structure
  * @author Dezső Biczó <mxr576@gmail.com>
  */
-class CredentialProductNormalizer implements NormalizerInterface, DenormalizerInterface
+class CredentialProductNormalizer implements NormalizerInterface
 {
-    /**
-     * @inheritdoc
-     */
-    public function denormalize($data, $class, $format = null, array $context = [])
-    {
-        return new CredentialProduct($data['apiproduct'], $data['status']);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function supportsDenormalization($data, $type, $format = null)
-    {
-        return $type instanceof CredentialProductInterface;
-    }
-
     /**
      * @inheritdoc
      *

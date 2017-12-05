@@ -5,7 +5,7 @@ namespace Apigee\Edge\Tests\Test\Controller;
 use Apigee\Edge\Tests\Test\Mock\TestClientFactory;
 
 /**
- * Trait CpsLimitEntityControllerTest.
+ * Class CpsLimitEntityControllerValidator.
  *
  * Helps in validation of those entity controllers that implements CpsLimitEntityControllerInterface.
  *
@@ -13,7 +13,7 @@ use Apigee\Edge\Tests\Test\Mock\TestClientFactory;
  * @author Dezső Biczó <mxr576@gmail.com>
  * @see \Apigee\Edge\Entity\CpsLimitEntityControllerInterface
  */
-abstract class CpsLimitEntityControllerValidator extends EntityCrudOperationsValidator
+abstract class CpsLimitEntityControllerValidator extends EntityCrudOperationsControllerValidator
 {
     /**
      * @dataProvider cpsLimitTestIdFieldProvider
@@ -44,7 +44,7 @@ abstract class CpsLimitEntityControllerValidator extends EntityCrudOperationsVal
         $cpsLimit = $controller->createCpsLimit($startKey, $limit);
         $result = $controller->getEntityIds($cpsLimit);
         $this->assertEquals($startKey, $result[0]);
-        $this->assertEquals($limit, count($result));
+        $this->assertCount($limit, $result);
     }
 
     /**

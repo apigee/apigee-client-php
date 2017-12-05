@@ -41,8 +41,6 @@ interface DeveloperAppCredentialControllerInterface extends
      *
      * @param string[] $apiProducts
      *   API Product names.
-     * @param \Apigee\Edge\Structure\AttributesProperty $attributes
-     *   Custom attributes.
      * @param string[] $scopes
      *   List of OAuth scopes (from API products).
      * @param string $keyExpiresIn
@@ -52,7 +50,6 @@ interface DeveloperAppCredentialControllerInterface extends
      */
     public function generate(
         array $apiProducts,
-        AttributesProperty $attributes = null,
         array $scopes = [],
         string $keyExpiresIn = '-1'
     ): AppCredentialInterface;

@@ -6,12 +6,12 @@ use Apigee\Edge\Entity\EntityDenormalizer;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 
 /**
- * Class CredentialDenormalizer.
+ * Class AppCredentialDenormalizer.
  *
  * @package Apigee\Edge\Api\Management\Entity
  * @author Dezső Biczó <mxr576@gmail.com>
  */
-class CredentialDenormalizer extends EntityDenormalizer implements DenormalizerInterface
+class AppCredentialDenormalizer extends EntityDenormalizer implements DenormalizerInterface
 {
     /**
      * @inheritdoc

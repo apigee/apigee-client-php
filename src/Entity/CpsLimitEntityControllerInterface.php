@@ -13,7 +13,7 @@ use Apigee\Edge\Structure\CpsListLimitInterface;
  * @package Apigee\Edge\Entity
  * @author Dezső Biczó <mxr576@gmail.com>
  */
-interface CpsLimitEntityControllerInterface extends EntityCrudOperationsInterface
+interface CpsLimitEntityControllerInterface extends EntityCrudOperationsControllerInterface
 {
     /**
      * Returns list of entities from Edge. The returned number of entities can be limited.

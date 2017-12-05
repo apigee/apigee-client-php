@@ -29,7 +29,7 @@ class AppCredential extends Entity implements AppCredentialInterface
     protected $consumerSecret;
 
     /**
-     * Unix epoch time, but it can be -1.
+     * Unix epoch timestamp, but it can be -1 which means "never".
      *
      * We set this to -1 by default because it could happen that this value is missing from the
      * API response which means the same, this key will never expire.
@@ -38,7 +38,7 @@ class AppCredential extends Entity implements AppCredentialInterface
      */
     protected $expiresAt = '-1';
 
-    /** @var string Unix epoch time. */
+    /** @var string Unix epoch timestamp. */
     protected $issuedAt;
 
     /**
@@ -60,6 +60,10 @@ class AppCredential extends Entity implements AppCredentialInterface
     }
 
     /**
+     * Set api products included in an app credential from an Edge API response.
+     *
+     * Included API products in an app credential can not be changed by modifying this property's value.
+     *
      * @param \Apigee\Edge\Structure\CredentialProduct[] $apiProducts
      *
      * @internal
@@ -78,6 +82,10 @@ class AppCredential extends Entity implements AppCredentialInterface
     }
 
     /**
+     * Set consumer key of an app credential from an Edge API response.
+     *
+     * Consumer key can not be changed by modifying this property's value.
+     *
      * @param string $consumerKey
      *
      * @internal
@@ -88,7 +96,7 @@ class AppCredential extends Entity implements AppCredentialInterface
     }
 
     /**
-     * @return string
+     * @inheritdoc
      */
     public function getConsumerSecret(): string
     {
@@ -96,7 +104,13 @@ class AppCredential extends Entity implements AppCredentialInterface
     }
 
     /**
+     * Set consumer secret of an app credential from an Edge API response.
+     *
+     * Consumer secret can not be changed by modifying this property's value.
+     *
      * @param string $consumerSecret
+     *
+     * @internal
      */
     public function setConsumerSecret(string $consumerSecret)
     {
@@ -104,23 +118,30 @@ class AppCredential extends Entity implements AppCredentialInterface
     }
 
     /**
-     * @return mixed
+     * @inheritdoc
      */
-    public function getExpiresAt()
+    public function getExpiresAt() : string
     {
         return $this->expiresAt;
     }
 
     /**
-     * @param mixed $expiresAt
+     * Set expiration date of an app credential from an Edge API response.
+     *
+     * Expiration date can not be changed by modifying this property's value.
+     *
+     * @param string $expiresAt
+     *   Unix epoch timestamp.
+     *
+     * @internal
      */
-    public function setExpiresAt($expiresAt)
+    public function setExpiresAt(string $expiresAt) : void
     {
         $this->expiresAt = $expiresAt;
     }
 
     /**
-     * @return string
+     * @inheritdoc
      */
     public function getIssuedAt(): string
     {
@@ -128,7 +149,12 @@ class AppCredential extends Entity implements AppCredentialInterface
     }
 
     /**
+     * Set issued date of an app credential from an Edge API response.
+     *
+     * Consumer key can not be changed by modifying this property's value.
+     *
      * @param string $issuedAt
+     *   Unit epoch timestamp.
      *
      * @internal
      */
