@@ -60,7 +60,7 @@ trait DeveloperAppControllerTestTrait
      */
     public static function tearDownAfterClass()
     {
-        if (strpos(self::$client->getUserAgent(), TestClientFactory::OFFLINE_CLIENT_USER_AGENT_PREFIX) === 0) {
+        if (strpos(static::$client->getUserAgent(), TestClientFactory::OFFLINE_CLIENT_USER_AGENT_PREFIX) === 0) {
             return;
         }
 

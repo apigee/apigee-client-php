@@ -19,6 +19,22 @@ class AppCredential extends Entity implements AppCredentialInterface
     use ScopesPropertyAwareTrait;
     use StatusPropertyAwareTrait;
 
+    /**
+     * Status of an approved app credential returned by Edge.
+     *
+     * The status that you should send to the API to change status of an app credential is in the controller!
+     * @see \Apigee\Edge\Api\Management\Controller\DeveloperAppCredentialController.
+     */
+    public const STATUS_APPROVED = 'approved';
+
+    /**
+     * Status of a revoked app credential returned by Edge.
+     *
+     * The status that you should send to the API to change status of an app credential is in the controller!
+     * @see \Apigee\Edge\Api\Management\Controller\DeveloperAppCredentialController.
+     */
+    public const STATUS_REVOKED = 'revoked';
+
     /** @var \Apigee\Edge\Structure\CredentialProduct[] */
     protected $apiProducts = [];
 

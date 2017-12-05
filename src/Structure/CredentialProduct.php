@@ -14,6 +14,24 @@ class CredentialProduct implements CredentialProductInterface
 {
     use StatusPropertyAwareTrait;
 
+    /**
+     * Status of an approved api product in ann app credential returned by Edge.
+     *
+     * The status that you should send to the API to change status of an api product in an app credential is in the
+     * controller!
+     * @see \Apigee\Edge\Api\Management\Controller\DeveloperAppCredentialController.
+     */
+    public const STATUS_APPROVED = 'approved';
+
+    /**
+     * Status of a revoked api product in ann app credential returned by Edge.
+     *
+     * The status that you should send to the API to change status of an api product in an app credential is in the
+     * controller!
+     * @see \Apigee\Edge\Api\Management\Controller\DeveloperAppCredentialController.
+     */
+    public const STATUS_REVOKED = 'revoked';
+
     /** @var string Name of the API product entity. */
     protected $apiproduct;
 

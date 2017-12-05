@@ -42,7 +42,7 @@ abstract class EntityControllerValidator extends TestCase
         static::$entityFactory = new EntityFactory();
         static::$client = (new TestClientFactory())->getClient();
         static::$objectNormalizer = new ObjectNormalizer();
-        static::$objectNormalizer->setSerializer(new Serializer());
+        static::$objectNormalizer->setSerializer(new Serializer([static::$objectNormalizer]));
         parent::setUpBeforeClass();
     }
 

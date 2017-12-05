@@ -83,11 +83,11 @@ class DeveloperControllerTest extends CpsLimitEntityControllerValidator
      */
     public function testCreateWithIncorrectData()
     {
-        if (strpos(self::$client->getUserAgent(), TestClientFactory::OFFLINE_CLIENT_USER_AGENT_PREFIX) === 0) {
-            $this->markTestSkipped(self::$onlyOnlineClientSkipMessage);
+        if (strpos(static::$client->getUserAgent(), TestClientFactory::OFFLINE_CLIENT_USER_AGENT_PREFIX) === 0) {
+            $this->markTestSkipped(static::$onlyOnlineClientSkipMessage);
         }
         $entity = new Developer(['email' => 'developer-create-exception@example.com']);
-        self::getEntityController()->create($entity);
+        static::getEntityController()->create($entity);
     }
 
     /**
@@ -119,17 +119,17 @@ class DeveloperControllerTest extends CpsLimitEntityControllerValidator
      */
     public function testStatusChange(string $entityId)
     {
-        if (strpos(self::$client->getUserAgent(), TestClientFactory::OFFLINE_CLIENT_USER_AGENT_PREFIX) === 0) {
-            $this->markTestSkipped(self::$onlyOnlineClientSkipMessage);
+        if (strpos(static::$client->getUserAgent(), TestClientFactory::OFFLINE_CLIENT_USER_AGENT_PREFIX) === 0) {
+            $this->markTestSkipped(static::$onlyOnlineClientSkipMessage);
         }
-        $entity = $this->getEntityController()->load($entityId);
-        self::getEntityController()->setStatus($entity->id(), Developer::STATUS_INACTIVE);
+        $entity = static::getEntityController()->load($entityId);
+        static::getEntityController()->setStatus($entity->id(), Developer::STATUS_INACTIVE);
         /** @var \Apigee\Edge\Api\Management\Entity\DeveloperInterface $entity */
-        $entity = self::getEntityController()->load($entity->id());
+        $entity = static::getEntityController()->load($entity->id());
         $this->assertEquals($entity->getStatus(), Developer::STATUS_INACTIVE);
-        self::getEntityController()->setStatus($entity->id(), Developer::STATUS_ACTIVE);
+        static::getEntityController()->setStatus($entity->id(), Developer::STATUS_ACTIVE);
         /** @var \Apigee\Edge\Api\Management\Entity\DeveloperInterface $entity */
-        $entity = self::getEntityController()->load($entity->id());
+        $entity = static::getEntityController()->load($entity->id());
         $this->assertEquals($entity->getStatus(), Developer::STATUS_ACTIVE);
     }
 

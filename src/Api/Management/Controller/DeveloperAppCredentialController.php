@@ -19,14 +19,23 @@ use Psr\Http\Message\UriInterface;
  */
 class DeveloperAppCredentialController extends EntityController implements DeveloperAppCredentialControllerInterface
 {
-    use StatusAwareEntityControllerTrait;
-
     use EntityCrudOperationsControllerTrait {
         // These methods are not supported on this endpoint in the same way as on the others so do not allow to
         // use them here.
         EntityCrudOperationsControllerTrait::create as private privateCreate;
         EntityCrudOperationsControllerTrait::update as private privateUpdate;
     }
+    use StatusAwareEntityControllerTrait;
+
+    /**
+     * String that should be sent to the API to change the status of a credential to approved.
+     */
+    public const STATUS_APPROVE = 'approve';
+
+    /**
+     * String that should be sent to the API to change the status of a credential to revoked.
+     */
+    public const STATUS_REVOKE = 'revoke';
 
     /** @var string Developer email or id. */
     protected $developerId;
@@ -184,7 +193,7 @@ class DeveloperAppCredentialController extends EntityController implements Devel
      */
     public function overrideScopes(string $consumerKey, array $scopes): AppCredentialInterface
     {
-        $response = $this->client->post(
+        $response = $this->client->put(
             $this->getEntityEndpointUri($consumerKey),
             json_encode((object)['scopes' => $scopes])
         );

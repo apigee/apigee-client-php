@@ -4,9 +4,12 @@ namespace Apigee\Edge\Tests\Api\Management\Controller;
 
 use Apigee\Edge\Api\Management\Controller\DeveloperAppController;
 use Apigee\Edge\Api\Management\Controller\DeveloperAppCredentialController;
+use Apigee\Edge\Api\Management\Entity\AppCredential;
+use Apigee\Edge\Api\Management\Entity\AppCredentialInterface;
 use Apigee\Edge\Entity\EntityControllerInterface;
 use Apigee\Edge\Exception\ClientErrorException;
 use Apigee\Edge\Structure\AttributesProperty;
+use Apigee\Edge\Structure\CredentialProduct;
 use Apigee\Edge\Tests\Test\Controller\EntityControllerValidator;
 use Apigee\Edge\Tests\Test\Controller\OrganizationAwareEntityControllerValidatorTrait;
 use Apigee\Edge\Tests\Test\Mock\TestClientFactory;
@@ -71,10 +74,7 @@ class DeveloperAppCredentialControllerTest extends EntityControllerValidator
      */
     public static function tearDownAfterClass()
     {
-        parent::tearDownAfterClass();
-        static::cleanUpAfterDeveloperApp();
-
-        if (strpos(self::$client->getUserAgent(), TestClientFactory::OFFLINE_CLIENT_USER_AGENT_PREFIX) === 0) {
+        if (strpos(static::$client->getUserAgent(), TestClientFactory::OFFLINE_CLIENT_USER_AGENT_PREFIX) === 0) {
             return;
         }
 
@@ -93,6 +93,9 @@ class DeveloperAppCredentialControllerTest extends EntityControllerValidator
                 );
             }
         }
+
+        parent::tearDownAfterClass();
+        static::cleanUpAfterDeveloperApp();
     }
 
     public function testCreatedAppHasAnEmptyCredential()
@@ -112,6 +115,8 @@ class DeveloperAppCredentialControllerTest extends EntityControllerValidator
 
     /**
      * @depends testCreatedAppHasAnEmptyCredential
+     *
+     * @return \Apigee\Edge\Api\Management\Entity\AppCredentialInterface
      */
     public function testCreate()
     {
@@ -124,11 +129,30 @@ class DeveloperAppCredentialControllerTest extends EntityControllerValidator
         $this->assertEquals($key, $credential->getConsumerKey());
         $this->assertEquals($secret, $credential->getConsumerSecret());
         $this->assertEquals('-1', $credential->getExpiresAt());
-        return $credential->id();
+        return $credential;
     }
 
     /**
      * @depends testCreate
+     *
+     * @param \Apigee\Edge\Api\Management\Entity\AppCredentialInterface $credential
+     *
+     * @return string
+     */
+    public function testLoad(AppCredentialInterface $credential)
+    {
+        /** @var \Apigee\Edge\Api\Management\Controller\DeveloperAppCredentialControllerInterface $controller */
+        $controller = $this->getEntityController();
+        $loaded = $controller->load($credential->id());
+        $this->assertArraySubset(
+            static::$objectNormalizer->normalize($credential),
+            static::$objectNormalizer->normalize($loaded)
+        );
+        return $credential->id();
+    }
+
+    /**
+     * @depends testLoad
      *
      * @param string $entityId
      */
@@ -145,12 +169,17 @@ class DeveloperAppCredentialControllerTest extends EntityControllerValidator
     }
 
     /**
-     * @depends testCreate
+     * @depends testLoad
      *
      * @param string $entityId
      */
     public function testOverrideAttributes(string $entityId)
     {
+        // We can either test this or testApiProductStatusChange() with the offline client, we can not test both
+        // because they are using the same path with the same HTTP method.
+        if (strpos(static::$client->getUserAgent(), TestClientFactory::OFFLINE_CLIENT_USER_AGENT_PREFIX) === 0) {
+            $this->markTestSkipped(static::$onlyOnlineClientSkipMessage);
+        }
         /** @var \Apigee\Edge\Api\Management\Controller\DeveloperAppCredentialControllerInterface $controller */
         $controller = $this->getEntityController();
         /** @var \Apigee\Edge\Api\Management\Entity\AppCredentialInterface $credential */
@@ -164,7 +193,7 @@ class DeveloperAppCredentialControllerTest extends EntityControllerValidator
     }
 
     /**
-     * @depends testCreate
+     * @depends testLoad
      *
      * @param string $entityId
      */
@@ -177,13 +206,80 @@ class DeveloperAppCredentialControllerTest extends EntityControllerValidator
         $this->assertEmpty($credential->getScopes());
         $credential = $controller->overrideScopes($entityId, ['scope 1']);
         $this->assertContains('scope 1', $credential->getScopes());
+        if (strpos(static::$client->getUserAgent(), TestClientFactory::OFFLINE_CLIENT_USER_AGENT_PREFIX) === 0) {
+            $this->markTestIncomplete('Test can be completed only with real Apigee Edge connection');
+        }
         $credential = $controller->overrideScopes($entityId, ['scope 2']);
         $this->assertNotContains('scope 1', $credential->getScopes());
         $this->assertContains('scope 2', $credential->getScopes());
     }
 
+    /**
+     * @depends testLoad
+     *
+     * @param string $entityId
+     */
+    public function testStatusChange(string $entityId)
+    {
+        if (strpos(static::$client->getUserAgent(), TestClientFactory::OFFLINE_CLIENT_USER_AGENT_PREFIX) === 0) {
+            $this->markTestSkipped(static::$onlyOnlineClientSkipMessage);
+        }
+        /** @var \Apigee\Edge\Api\Management\Controller\DeveloperAppCredentialControllerInterface $controller */
+        $controller = static::getEntityController();
+        /** @var AppCredentialInterface $credential */
+        $controller->setStatus($entityId, DeveloperAppCredentialController::STATUS_REVOKE);
+        $credential = $controller->load($entityId);
+        $this->assertEquals($credential->getStatus(), AppCredential::STATUS_REVOKED);
+        $controller->setStatus($entityId, DeveloperAppCredentialController::STATUS_APPROVE);
+        $credential = $controller->load($entityId);
+        $this->assertEquals($credential->getStatus(), AppCredential::STATUS_APPROVED);
+    }
+
+    /**
+     * @depends testLoad
+     *
+     * @param string $entityId
+     */
+    public function testApiProductStatusChange(string $entityId)
+    {
+        if (strpos(static::$client->getUserAgent(), TestClientFactory::OFFLINE_CLIENT_USER_AGENT_PREFIX) === 0) {
+            $this->markTestSkipped(static::$onlyOnlineClientSkipMessage);
+        }
+        /** @var \Apigee\Edge\Api\Management\Controller\DeveloperAppCredentialControllerInterface $controller */
+        $controller = static::getEntityController();
+        /** @var AppCredentialInterface $credential */
+        $controller->setApiProductStatus(
+            $entityId,
+            static::$apiProductName,
+            DeveloperAppCredentialController::STATUS_REVOKE
+        );
+        $credential = $controller->load($entityId);
+        /** @var CredentialProduct $product */
+        foreach ($credential->getApiProducts() as $product) {
+            if ($product->getApiproduct() === static::$apiProductName) {
+                $this->assertEquals($product->getStatus(), CredentialProduct::STATUS_REVOKED);
+                break;
+            }
+        }
+        $controller->setApiProductStatus(
+            $entityId,
+            static::$apiProductName,
+            DeveloperAppCredentialController::STATUS_APPROVE
+        );
+        $credential = $controller->load($entityId);
+        foreach ($credential->getApiProducts() as $product) {
+            if ($product->getApiproduct() === static::$apiProductName) {
+                $this->assertEquals($product->getStatus(), CredentialProduct::STATUS_APPROVED);
+                break;
+            }
+        }
+    }
+
     public function testGenerate()
     {
+        if (strpos(static::$client->getUserAgent(), TestClientFactory::OFFLINE_CLIENT_USER_AGENT_PREFIX) === 0) {
+            $this->markTestSkipped(static::$onlyOnlineClientSkipMessage);
+        }
         /** @var \Apigee\Edge\Api\Management\Controller\DeveloperAppCredentialControllerInterface $controller */
         $controller = $this->getEntityController();
         /** @var \Apigee\Edge\Api\Management\Entity\AppCredentialInterface $credential */
