@@ -4,7 +4,7 @@ namespace Apigee\Edge\Api\Management\Controller;
 
 use Apigee\Edge\Entity\EntityControllerInterface;
 use Apigee\Edge\Entity\EntityCrudOperationsControllerInterface;
-use Apigee\Edge\Entity\NonCpsLimitEntityControllerInterface;
+use Apigee\Edge\Entity\NonCpsListingEntityControllerInterface;
 
 /**
  * Interface ApiProductControllerInterface.
@@ -17,7 +17,7 @@ interface ApiProductControllerInterface extends
     AttributesAwareEntityControllerInterface,
     EntityControllerInterface,
     EntityCrudOperationsControllerInterface,
-    NonCpsLimitEntityControllerInterface
+    NonCpsListingEntityControllerInterface
 {
 
     /**

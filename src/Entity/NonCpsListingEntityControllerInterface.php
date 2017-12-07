@@ -3,7 +3,7 @@
 namespace Apigee\Edge\Entity;
 
 /**
- * Interface NonCpsLimitEntityControllerInterface.
+ * Interface NonCpsListingEntityControllerInterface.
  *
  * For entities that does not support CPS limits in their listing API calls, ex.: organization, api product.
  * @link https://docs.apigee.com/management/apis/get/organizations
@@ -12,7 +12,7 @@ namespace Apigee\Edge\Entity;
  * @package Apigee\Edge\Entity
  * @author Dezső Biczó <mxr576@gmail.com>
  */
-interface NonCpsLimitEntityControllerInterface
+interface NonCpsListingEntityControllerInterface
 {
 
     /**

@@ -13,26 +13,8 @@ use Apigee\Edge\Structure\CpsListLimitInterface;
  * @package Apigee\Edge\Entity
  * @author Dezső Biczó <mxr576@gmail.com>
  */
-interface CpsLimitEntityControllerInterface extends EntityCrudOperationsControllerInterface
+interface CpsLimitEntityControllerInterface
 {
-    /**
-     * Returns list of entities from Edge. The returned number of entities can be limited.
-     *
-     * @param CpsListLimitInterface|null $cpsLimit
-     *
-     * @return array
-     */
-    public function getEntities(CpsListLimitInterface $cpsLimit = null): array;
-
-    /**
-     * Returns list of entity ids from Edge. The returned number of entities can be limited.
-     *
-     * @param CpsListLimitInterface|null $cpsLimit
-     *
-     * @return array
-     */
-    public function getEntityIds(CpsListLimitInterface $cpsLimit = null): array;
-
     /**
      * Returns a representation of a Core Persistence Services (CPS) limit.
      *

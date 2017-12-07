@@ -5,7 +5,7 @@ namespace Apigee\Edge\Api\Management\Controller;
 use Apigee\Edge\Entity\EntityController;
 use Apigee\Edge\Entity\EntityCrudOperationsControllerTrait;
 use Apigee\Edge\Entity\EntityFactoryInterface;
-use Apigee\Edge\Entity\NonCpsLimitEntityControllerTrait;
+use Apigee\Edge\Entity\NonCpsListingEntityControllerTrait;
 use Apigee\Edge\Entity\StatusAwareEntityControllerTrait;
 use Apigee\Edge\HttpClient\ClientInterface;
 use Psr\Http\Message\UriInterface;
@@ -20,7 +20,7 @@ class DeveloperAppController extends EntityController implements DeveloperAppCon
 {
     use AttributesAwareEntityControllerTrait;
     use EntityCrudOperationsControllerTrait;
-    use NonCpsLimitEntityControllerTrait;
+    use NonCpsListingEntityControllerTrait;
     use StatusAwareEntityControllerTrait;
 
     /** @var string Developer email or id. */

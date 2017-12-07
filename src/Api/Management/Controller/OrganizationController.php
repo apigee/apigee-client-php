@@ -4,7 +4,7 @@ namespace Apigee\Edge\Api\Management\Controller;
 
 use Apigee\Edge\Entity\AbstractEntityController;
 use Apigee\Edge\Entity\EntityCrudOperationsControllerTrait;
-use Apigee\Edge\Entity\NonCpsLimitEntityControllerTrait;
+use Apigee\Edge\Entity\NonCpsListingEntityControllerTrait;
 use Psr\Http\Message\UriInterface;
 
 /**
@@ -17,7 +17,7 @@ use Psr\Http\Message\UriInterface;
 class OrganizationController extends AbstractEntityController implements OrganizationControllerInterface
 {
     use EntityCrudOperationsControllerTrait;
-    use NonCpsLimitEntityControllerTrait;
+    use NonCpsListingEntityControllerTrait;
 
     /**
      * @inheritdoc

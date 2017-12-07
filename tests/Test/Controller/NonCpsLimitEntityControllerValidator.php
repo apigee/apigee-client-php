@@ -9,7 +9,7 @@ namespace Apigee\Edge\Tests\Test\Controller;
  *
  * @package Apigee\Edge\Tests\Test\Controller
  * @author Dezső Biczó <mxr576@gmail.com>
- * @see \Apigee\Edge\Entity\NonCpsLimitEntityControllerInterface
+ * @see \Apigee\Edge\Entity\NonCpsListingEntityControllerInterface
  */
 abstract class NonCpsLimitEntityControllerValidator extends EntityCrudOperationsControllerValidator
 {
@@ -18,7 +18,7 @@ abstract class NonCpsLimitEntityControllerValidator extends EntityCrudOperations
      */
     public function testGetEntityIds()
     {
-        /** @var \Apigee\Edge\Entity\NonCpsLimitEntityControllerInterface $controller */
+        /** @var \Apigee\Edge\Entity\NonCpsListingEntityControllerInterface $controller */
         $controller = $this->getEntityController();
         $this->assertNotEmpty($controller->getEntityIds());
     }

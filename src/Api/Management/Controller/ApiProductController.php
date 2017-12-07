@@ -4,7 +4,7 @@ namespace Apigee\Edge\Api\Management\Controller;
 
 use Apigee\Edge\Entity\EntityController;
 use Apigee\Edge\Entity\EntityCrudOperationsControllerTrait;
-use Apigee\Edge\Entity\NonCpsLimitEntityControllerTrait;
+use Apigee\Edge\Entity\NonCpsListingEntityControllerTrait;
 use Psr\Http\Message\UriInterface;
 
 /**
@@ -17,7 +17,7 @@ class ApiProductController extends EntityController implements ApiProductControl
 {
     use AttributesAwareEntityControllerTrait;
     use EntityCrudOperationsControllerTrait;
-    use NonCpsLimitEntityControllerTrait;
+    use NonCpsListingEntityControllerTrait;
 
     /**
      * Returns the API endpoint that the controller communicates with.

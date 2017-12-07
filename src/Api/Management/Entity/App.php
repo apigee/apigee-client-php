@@ -26,6 +26,10 @@ abstract class App extends Entity implements AppInterface
         ScopesPropertyAwareTrait::setScopes as private privateSetScopes;
     }
 
+    public const STATUS_APPROVED = 'approved';
+
+    public const STATUS_REVOKED = 'revoked';
+
     /** @var string */
     protected $appFamily;
 
