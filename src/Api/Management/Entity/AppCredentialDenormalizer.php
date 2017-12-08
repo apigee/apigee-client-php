@@ -18,6 +18,6 @@ class AppCredentialDenormalizer extends EntityDenormalizer implements Denormaliz
      */
     public function supportsDenormalization($data, $type, $format = null)
     {
-        return $type instanceof AppCredentialInterface;
+        return in_array(AppCredential::class, class_parents($type));
     }
 }

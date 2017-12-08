@@ -111,8 +111,13 @@ class EntityDenormalizer implements DenormalizerInterface
      *
      * @return mixed
      */
-    private function denormalizeObjectProperty(bool $isCollection, $data, string $class, string $format = null, array $context = [])
-    {
+    private function denormalizeObjectProperty(
+        bool $isCollection,
+        $data,
+        string $class,
+        string $format = null,
+        array $context = []
+    ) {
         $denormalized = $data;
         $propertyDenormalizerClass = "{$class}Denormalizer";
         if (class_exists($propertyDenormalizerClass) &&
@@ -161,6 +166,6 @@ class EntityDenormalizer implements DenormalizerInterface
      */
     public function supportsDenormalization($data, $type, $format = null)
     {
-        return class_exists($type);
+        return in_array(Entity::class, class_parents($type));
     }
 }

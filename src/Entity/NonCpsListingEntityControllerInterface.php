@@ -14,7 +14,6 @@ namespace Apigee\Edge\Entity;
  */
 interface NonCpsListingEntityControllerInterface
 {
-
     /**
      * Returns list of entities from Edge. The returned number of entities can _not_ be limited.
      *
