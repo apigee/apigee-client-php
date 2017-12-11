@@ -34,9 +34,9 @@ abstract class CpsLimitEntityControllerValidator extends EntityCrudOperationsCon
         // Create test data on the server or do not do anything if an offline client is in use.
         if (strpos(static::$client->getUserAgent(), TestClientFactory::OFFLINE_CLIENT_USER_AGENT_PREFIX) === false) {
             foreach ($cpsTestData as $item) {
-                /** @var \Apigee\Edge\Entity\EntityInterface $item */
-                $tmp = $controller->create($item);
-                static::$createdEntities[$tmp->id()] = $tmp;
+                /** @var \Apigee\Edge\Entity\EntityCrudOperationsControllerInterface $item */
+                $controller->create($item);
+                static::$createdEntities[$item->id()] = $item;
             }
         }
         $startKey = "3{$sampleEntityId}";

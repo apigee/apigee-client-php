@@ -8,6 +8,7 @@ use Apigee\Edge\Structure\CpsListLimitInterface;
  * Interface CpsLimitEntityControllerInterface.
  *
  * For entities that supports CPS limit in their listing API calls, ex.: developer.
+ *
  * @link https://docs.apigee.com/management/apis/get/organizations/%7Borg_name%7D/developers
  *
  * @package Apigee\Edge\Entity

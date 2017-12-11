@@ -22,8 +22,8 @@ class DeveloperAppCredentialController extends EntityController implements Devel
     use EntityCrudOperationsControllerTrait {
         // These methods are not supported on this endpoint in the same way as on the others so do not allow to
         // use them here.
-        EntityCrudOperationsControllerTrait::create as private privateCreate;
-        EntityCrudOperationsControllerTrait::update as private privateUpdate;
+        create as private privateCreate;
+        update as private privateUpdate;
     }
     use StatusAwareEntityControllerTrait;
 

@@ -23,19 +23,15 @@ interface EntityCrudOperationsControllerInterface
      * Creates an entity to Edge.
      *
      * @param EntityInterface $entity
-     *
-     * @return EntityInterface
      */
-    public function create(EntityInterface $entity): EntityInterface;
+    public function create(EntityInterface $entity): void;
 
     /**
      * Updates an entity to Edge.
      *
      * @param EntityInterface $entity
-     *
-     * @return EntityInterface
      */
-    public function update(EntityInterface $entity): EntityInterface;
+    public function update(EntityInterface $entity): void;
 
     /**
      * Removes an entity from Edge.

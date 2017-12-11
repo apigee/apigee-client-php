@@ -87,7 +87,7 @@ class Entity implements EntityInterface
      *
      * @param array $array
      */
-    private function cloneArray(array &$array) : void
+    private function cloneArray(array &$array): void
     {
         foreach ($array as $key => $value) {
             if (is_object($value)) {

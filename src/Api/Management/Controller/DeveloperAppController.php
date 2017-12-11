@@ -30,7 +30,7 @@ class DeveloperAppController extends EntityController implements DeveloperAppCon
      * DeveloperAppController constructor.
      *
      * @param string $organization
-     * @param null|string $developerId
+     * @param string $developerId
      * @param \Apigee\Edge\HttpClient\ClientInterface|null $client
      * @param \Apigee\Edge\Entity\EntityFactoryInterface|null $entityFactory
      */

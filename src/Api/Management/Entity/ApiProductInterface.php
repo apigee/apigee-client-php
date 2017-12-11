@@ -38,17 +38,17 @@ interface ApiProductInterface extends
     public function setProxies(array $proxy);
 
     /**
-     * @return int
+     * @return int|null
      */
     public function getQuota(): ?int;
 
     /**
-     * @param int $quota
+     * @param int|null $quota
      */
     public function setQuota(int $quota);
 
     /**
-     * @return int
+     * @return int|null
      */
     public function getQuotaInterval(): ?int;
 

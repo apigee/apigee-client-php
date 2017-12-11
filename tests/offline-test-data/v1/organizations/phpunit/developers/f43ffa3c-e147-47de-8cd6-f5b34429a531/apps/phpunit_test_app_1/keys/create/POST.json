@@ -1,8 +1,8 @@
 {
     "apiProducts" : [ ],
     "attributes" : [ ],
-    "consumerKey" : "phpunit_test_app_1_key",
-    "consumerSecret" : "phpunit_test_app_1_secret",
+    "consumerKey" : "phpunit_test_app_key",
+    "consumerSecret" : "phpunit_test_app_secret",
     "issuedAt" : 648345600000,
     "scopes" : [ ],
     "status" : "approved"

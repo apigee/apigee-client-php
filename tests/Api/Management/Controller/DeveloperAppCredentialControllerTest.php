@@ -23,8 +23,8 @@ use Apigee\Edge\Tests\Test\Mock\TestClientFactory;
 class DeveloperAppCredentialControllerTest extends EntityControllerValidator
 {
     use DeveloperAppControllerTestTrait {
-        DeveloperAppControllerTestTrait::setUpBeforeClass as protected setupBeforeDeveloperApp;
-        DeveloperAppControllerTestTrait::tearDownAfterClass as protected cleanUpAfterDeveloperApp;
+        setUpBeforeClass as protected setupBeforeDeveloperApp;
+        tearDownAfterClass as protected cleanUpAfterDeveloperApp;
     }
     use OrganizationAwareEntityControllerValidatorTrait;
 
@@ -63,7 +63,8 @@ class DeveloperAppCredentialControllerTest extends EntityControllerValidator
             static::$appName = $entity->id();
         } catch (ClientErrorException $e) {
             if ($e->getEdgeErrorCode() && 'developer.service.AppDoesNotExist' === $e->getEdgeErrorCode()) {
-                $entity = $dac->create(DeveloperAppControllerTest::sampleDataForEntityCreate());
+                $entity = DeveloperAppControllerTest::sampleDataForEntityCreate();
+                $dac->create($entity);
                 static::$appName = $entity->id();
             }
         }

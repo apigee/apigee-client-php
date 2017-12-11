@@ -36,7 +36,7 @@ interface AppInterface extends
     /**
      * @return string
      */
-    public function getAppFamily(): ?string;
+    public function getAppFamily(): string;
 
     /**
      * @param string $appFamily

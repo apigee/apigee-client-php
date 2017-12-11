@@ -81,11 +81,11 @@ class ApiProductControllerTest extends NonCpsLimitEntityControllerValidator
         /** @var ApiProductController $controller */
         $controller = $this->getEntityController();
         /** @var \Apigee\Edge\Entity\Property\AttributesPropertyAwareTrait $entity */
-        $entity = static::sampleDataForEntityCreate();
+        $entity = clone static::sampleDataForEntityCreate();
         $unexpected = 'should_not_appear';
         $entity->setName($unexpected);
         $entity->setAttribute('foo', 'foo');
-        $entity = $controller->create($entity);
+        $controller->create($entity);
         static::$createdEntities[$entity->id()] = $entity;
         $ids = $controller->searchByAttribute('foo', 'bar');
         $this->assertContains('phpunit_test', $ids);

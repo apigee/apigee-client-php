@@ -4,6 +4,7 @@ namespace Apigee\Edge\Api\Management\Controller;
 
 use Apigee\Edge\Api\Management\Entity\AppInterface;
 use Apigee\Edge\Entity\CpsLimitEntityControllerInterface;
+use Apigee\Edge\Entity\EntityControllerInterface;
 use Apigee\Edge\Structure\CpsListLimitInterface;
 
 /**
@@ -13,7 +14,7 @@ use Apigee\Edge\Structure\CpsListLimitInterface;
  * @author Dezső Biczó <mxr576@gmail.com>
  * @link https://docs.apigee.com/api/apps-0
  */
-interface AppControllerInterface extends CpsLimitEntityControllerInterface
+interface AppControllerInterface extends CpsLimitEntityControllerInterface, EntityControllerInterface
 {
     /**
      * Loads a developer or a company app from Edge based on its UUID.

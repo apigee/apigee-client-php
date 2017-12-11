@@ -15,7 +15,7 @@ interface ScopesPropertyInterface
      *
      * @return string[]
      */
-    public function getScopes() : array;
+    public function getScopes(): array;
 
     /**
      * Set OAuth scopes.

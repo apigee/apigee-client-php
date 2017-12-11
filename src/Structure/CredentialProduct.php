@@ -19,6 +19,7 @@ class CredentialProduct implements CredentialProductInterface
      *
      * The status that you should send to the API to change status of an api product in an app credential is in the
      * controller!
+     *
      * @see \Apigee\Edge\Api\Management\Controller\DeveloperAppCredentialController.
      */
     public const STATUS_APPROVED = 'approved';
@@ -28,6 +29,7 @@ class CredentialProduct implements CredentialProductInterface
      *
      * The status that you should send to the API to change status of an api product in an app credential is in the
      * controller!
+     *
      * @see \Apigee\Edge\Api\Management\Controller\DeveloperAppCredentialController.
      */
     public const STATUS_REVOKED = 'revoked';

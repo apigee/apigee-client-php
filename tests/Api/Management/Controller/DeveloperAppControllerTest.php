@@ -23,12 +23,10 @@ class DeveloperAppControllerTest extends NonCpsLimitEntityControllerValidator
 {
     use AttributesAwareEntityControllerTestTrait;
     use DeveloperAppControllerTestTrait {
-        DeveloperAppControllerTestTrait::setUpBeforeClass as protected setupBeforeDeveloperApp;
-        DeveloperAppControllerTestTrait::tearDownAfterClass as protected cleanUpAfterDeveloperApp;
+        setUpBeforeClass as protected setupBeforeDeveloperApp;
+        tearDownAfterClass as protected cleanUpAfterDeveloperApp;
     }
     use OrganizationAwareEntityControllerValidatorTrait;
-
-    protected static $developerId;
 
     /**
      * @inheritdoc
@@ -70,12 +68,12 @@ class DeveloperAppControllerTest extends NonCpsLimitEntityControllerValidator
     public static function sampleDataForEntityCreate(): EntityInterface
     {
         $entity = new DeveloperApp([
-            'name' => 'phpunit_test_app_1',
+            'name' => 'phpunit_test_app',
             'apiProducts' => [ApiProductControllerTest::sampleDataForEntityCreate()->id()],
             'attributes' => new AttributesProperty(['foo' => 'bar']),
             'callbackUrl' => 'http://example.com',
         ]);
-        $entity->setDisplayName('PHP Unit: Test app 1');
+        $entity->setDisplayName('PHP Unit: Test app');
         return $entity;
     }
 
@@ -88,7 +86,7 @@ class DeveloperAppControllerTest extends NonCpsLimitEntityControllerValidator
             'attributes' => new AttributesProperty(['foo' => 'foo', 'bar' => 'baz']),
             'callbackUrl' => 'http://foo.example.com',
         ]);
-        $entity->setDisplayName('(Edited) PHP Unit: Test app 1');
+        $entity->setDisplayName('(Edited) PHP Unit: Test app');
         return $entity;
     }
 

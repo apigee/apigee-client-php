@@ -38,7 +38,8 @@ trait DeveloperAppControllerTestTrait
             static::$developerId = $entity->id();
         } catch (ClientErrorException $e) {
             if ($e->getEdgeErrorCode() && 'developer.service.DeveloperDoesNotExist' === $e->getEdgeErrorCode()) {
-                $entity = $dc->create(DeveloperControllerTest::sampleDataForEntityCreate());
+                $entity = clone DeveloperControllerTest::sampleDataForEntityCreate();
+                $dc->create($entity);
                 static::$developerId = $entity->id();
             }
         }
@@ -49,7 +50,8 @@ trait DeveloperAppControllerTestTrait
             static::$apiProductName = $entity->id();
         } catch (ClientErrorException $e) {
             if ($e->getEdgeErrorCode() && 'keymanagement.service.apiproduct_doesnot_exist' === $e->getEdgeErrorCode()) {
-                $entity = $apc->create(ApiProductControllerTest::sampleDataForEntityCreate());
+                $entity = ApiProductControllerTest::sampleDataForEntityCreate();
+                $apc->create($entity);
                 static::$apiProductName = $entity->id();
             }
         }

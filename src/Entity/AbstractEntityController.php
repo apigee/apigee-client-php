@@ -26,7 +26,7 @@ abstract class AbstractEntityController
     protected $entityFactory;
 
     /**
-     * @var \Symfony\Component\Serializer\SerializerInterface
+     * @var \Symfony\Component\Serializer\Serializer
      */
     protected $entitySerializer;
 

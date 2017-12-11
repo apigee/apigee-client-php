@@ -10,7 +10,7 @@ use Apigee\Edge\Entity\Property\DeveloperIdPropertyAwareTrait;
  * @package Apigee\Edge\Api\Management\Entity
  * @author Dezső Biczó <mxr576@gmail.com>
  */
-class DeveloperApp extends App
+class DeveloperApp extends App implements DeveloperAppInterface
 {
     use DeveloperIdPropertyAwareTrait;
 }

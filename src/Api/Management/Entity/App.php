@@ -23,15 +23,21 @@ abstract class App extends Entity implements AppInterface
     use StatusPropertyAwareTrait;
     use ScopesPropertyAwareTrait {
         // App entities should have only internal setter methods therefore we had to alias this one.
-        ScopesPropertyAwareTrait::setScopes as private privateSetScopes;
+        setScopes as private privateSetScopes;
     }
 
     public const STATUS_APPROVED = 'approved';
 
     public const STATUS_REVOKED = 'revoked';
 
-    /** @var string */
-    protected $appFamily;
+    /**
+     * We had to hard-code "default" here as default value because this property does not always returned by Edge.
+     * Ex.: \Apigee\Edge\Entity\EntityCrudOperationsControllerInterface::create() does not return this for
+     * a Developer app.
+     *
+     * @var string
+     */
+    protected $appFamily = 'default';
 
     /** @var string UUID */
     protected $appId;
@@ -57,7 +63,7 @@ abstract class App extends Entity implements AppInterface
      *
      * Just like on the Management UI, we simulates the existence of this property in this SDK as well.
      *
-     * @return null|string
+     * @return string|null
      */
     public function getDescription(): ?string
     {
@@ -79,7 +85,7 @@ abstract class App extends Entity implements AppInterface
      *
      * Just like on the Management UI, we simulates the existence of this property in this SDK as well.
      *
-     * @return null|string
+     * @return string|null
      */
     public function getDisplayName(): ?string
     {
@@ -99,7 +105,7 @@ abstract class App extends Entity implements AppInterface
     /**
      * @inheritdoc
      */
-    public function getAppFamily(): ?string
+    public function getAppFamily(): string
     {
         return $this->appFamily;
     }
