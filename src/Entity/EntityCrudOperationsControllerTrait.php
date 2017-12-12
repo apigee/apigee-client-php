@@ -88,13 +88,17 @@ trait EntityCrudOperationsControllerTrait
         foreach ($ro->getProperties() as $property) {
             $setter = 'set' . ucfirst($property->getName());
             $getter = 'get' . ucfirst($property->getName());
-            $rm = new \ReflectionMethod($entity, $setter);
-            $value = $tmp->{$getter}();
-            // Exclude null values.
-            // (An entity property value is null (internally) if it is scalar and the Edge response from
-            // the entity object has been created did not contain value for the property.)
-            if ($value !== null) {
-                $rm->invoke($entity, $value);
+            // Ensure that these methods are exist. This is always true for all SDK entities but we can not be sure
+            // about custom implementation.
+            if ($ro->hasMethod($setter) && $ro->hasMethod($getter)) {
+                $rm = new \ReflectionMethod($entity, $setter);
+                $value = $tmp->{$getter}();
+                // Exclude null values.
+                // (An entity property value is null (internally) if it is scalar and the Edge response from
+                // the entity object has been created did not contain value for the property.)
+                if ($value !== null) {
+                    $rm->invoke($entity, $value);
+                }
             }
         }
     }

@@ -8,6 +8,8 @@ use Apigee\Edge\Entity\Property\AttributesPropertyInterface;
 use Apigee\Edge\Entity\Property\DescriptionPropertyInterface;
 use Apigee\Edge\Entity\Property\DisplayNamePropertyInterface;
 use Apigee\Edge\Entity\Property\NamePropertyInterface;
+use Apigee\Edge\Entity\Property\ScopesPropertyInterface;
+use Apigee\Edge\Entity\Property\StatusPropertyInterface;
 
 /**
  * Interface AppInterface.
@@ -21,7 +23,9 @@ interface AppInterface extends
     CommonEntityPropertiesInterface,
     DescriptionPropertyInterface,
     DisplayNamePropertyInterface,
-    NamePropertyInterface
+    NamePropertyInterface,
+    ScopesPropertyInterface,
+    StatusPropertyInterface
 {
     /**
      * Get OAuth scopes.

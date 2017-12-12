@@ -51,7 +51,7 @@ abstract class EntityCrudOperationsControllerValidator extends EntityControllerV
         // created. If we would use more than on data provider on this function then it would get the merged result
         // of providers as a _single_ value.
         /** @var EntityInterface $entity */
-        $entity = clone static::sampleDataForEntityCreate();
+        $entity = static::sampleDataForEntityCreate();
         $this->getEntityController()->create($entity);
         static::$createdEntities[$entity->id()] = $entity;
         // Validate properties that values are either auto generated or we do not know in the current context.
@@ -94,7 +94,7 @@ abstract class EntityCrudOperationsControllerValidator extends EntityControllerV
     public function testUpdate(string $entityId)
     {
         /** @var EntityInterface $entity */
-        $entity = clone static::sampleDataForEntityUpdate();
+        $entity = static::sampleDataForEntityUpdate();
         call_user_func([$entity, 'set' . ucfirst(static::sampleDataForEntityUpdate()->idProperty())], $entityId);
         $this->getEntityController()->update($entity);
         // Validate properties that values are either auto generated or we do not know in the current context.

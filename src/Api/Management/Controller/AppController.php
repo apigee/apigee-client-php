@@ -17,6 +17,16 @@ use Psr\Http\Message\UriInterface;
  */
 class AppController extends CpsLimitEntityController implements AppControllerInterface
 {
+    /**
+     * String that should be sent to the API to change the status of a credential to approved.
+     */
+    public const STATUS_APPROVE = 'approve';
+
+    /**
+     * String that should be sent to the API to change the status of a credential to revoked.
+     */
+    public const STATUS_REVOKE = 'revoke';
+
     /** @var \Apigee\Edge\Api\Management\Entity\AppDenormalizer */
     protected $appEntityDenormalizer;
 

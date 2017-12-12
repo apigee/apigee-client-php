@@ -81,7 +81,7 @@ class ApiProductControllerTest extends NonCpsLimitEntityControllerValidator
         /** @var ApiProductController $controller */
         $controller = $this->getEntityController();
         /** @var \Apigee\Edge\Entity\Property\AttributesPropertyAwareTrait $entity */
-        $entity = clone static::sampleDataForEntityCreate();
+        $entity = static::sampleDataForEntityCreate();
         $unexpected = 'should_not_appear';
         $entity->setName($unexpected);
         $entity->setAttribute('foo', 'foo');

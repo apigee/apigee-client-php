@@ -7,6 +7,7 @@ use Apigee\Edge\Api\Management\Controller\DeveloperAppCredentialController;
 use Apigee\Edge\Api\Management\Entity\AppCredential;
 use Apigee\Edge\Api\Management\Entity\AppCredentialInterface;
 use Apigee\Edge\Entity\EntityControllerInterface;
+use Apigee\Edge\Exception\ApiException;
 use Apigee\Edge\Exception\ClientErrorException;
 use Apigee\Edge\Structure\AttributesProperty;
 use Apigee\Edge\Structure\CredentialProduct;
@@ -52,21 +53,28 @@ class DeveloperAppCredentialControllerTest extends EntityControllerValidator
      */
     public static function setUpBeforeClass()
     {
-        parent::setUpBeforeClass();
-        static::setupBeforeDeveloperApp();
-
-        $dac = new DeveloperAppController(static::getOrganization(), static::$developerId, static::$client);
         try {
-            // We have to keep a copy of phpunit@example.com developer's data because of this for offline tests.
-            // See: offline-test-data/v1/organizations/phpunit/developers/phpunit@example.com .
-            $entity = $dac->load(DeveloperAppControllerTest::sampleDataForEntityCreate()->id());
-            static::$appName = $entity->id();
-        } catch (ClientErrorException $e) {
-            if ($e->getEdgeErrorCode() && 'developer.service.AppDoesNotExist' === $e->getEdgeErrorCode()) {
-                $entity = DeveloperAppControllerTest::sampleDataForEntityCreate();
-                $dac->create($entity);
+            parent::setUpBeforeClass();
+            static::setupBeforeDeveloperApp();
+
+            $dac = new DeveloperAppController(static::getOrganization(), static::$developerId, static::$client);
+            try {
+                // We have to keep a copy of phpunit@example.com developer's data because of this for offline tests.
+                // See: offline-test-data/v1/organizations/phpunit/developers/phpunit@example.com .
+                $entity = $dac->load(DeveloperAppControllerTest::sampleDataForEntityCreate()->id());
                 static::$appName = $entity->id();
+            } catch (ClientErrorException $e) {
+                if ($e->getEdgeErrorCode() && 'developer.service.AppDoesNotExist' === $e->getEdgeErrorCode()) {
+                    $entity = DeveloperAppControllerTest::sampleDataForEntityCreate();
+                    $dac->create($entity);
+                    static::$appName = $entity->id();
+                }
             }
+        } catch (ApiException $e) {
+            // Ensure that created test data always gets removed after an API call fails here.
+            // (By default tearDownAfterClass() is not called if (any) exception occurred here.)
+            static::tearDownAfterClass();
+            throw $e;
         }
     }
 
