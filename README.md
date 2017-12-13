@@ -2,6 +2,13 @@
 
 **Currently the 2.x version is under active development. Use it on your own risk or install the latest 1.x version!**
 
+[![Build Status](https://travis-ci.org/apigee/edge-php-sdk.svg?branch=2.x-dev)](https://travis-ci.org/apigee/edge-php-sdk)
+[![Latest Stable Version](https://poser.pugx.org/apigee/edge/v/stable)](https://packagist.org/packages/apigee/edge)
+[![Total Downloads](https://poser.pugx.org/apigee/edge/downloads)](https://packagist.org/packages/apigee/edge)
+[![Latest Unstable Version](https://poser.pugx.org/apigee/edge/v/unstable)](https://packagist.org/packages/apigee/edge)
+[![Minimum PHP Version](https://img.shields.io/packagist/php-v/apigee/edge-php-sdk.svg?style=flat-square)](https://php.net/)
+[![License](https://poser.pugx.org/apigee/edge/license)](https://packagist.org/packages/apigee/edge)
+
 Getting started
 ---------- 
 
