@@ -32,14 +32,14 @@
         "php-http/message-factory": "^1.0",
         "psr/cache": "^1.0",
         "psr/http-message": "^1.0",
-        "symfony/property-access": "^3.2",
-        "symfony/property-info": "^3.2",
-        "symfony/serializer": "^3.2"
+        "symfony/property-access": "^3.2 || ^4.0",
+        "symfony/property-info": "^3.2 || ^4.0",
+        "symfony/serializer": "^3.2 || ^4.0"
     },
     "require-dev": {
         "guzzlehttp/psr7": "^1.0",
         "league/flysystem": "^1.0",
-        "php-http/guzzle6-adapter": "^1.1",
+        "php-http/guzzle6-adapter": "^1.1.1",
         "php-http/mock-client": "dev-master#5edc24d40d9ee2515cb3ef8d49c3766e95fa23f3",
         "phpmetrics/phpmetrics": "^2.3",
         "phpunit/phpunit": "^6.4.0",
