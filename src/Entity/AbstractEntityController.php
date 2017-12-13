@@ -91,7 +91,7 @@ abstract class AbstractEntityController
         if ($response->getHeaderLine('Content-Type') &&
             strpos($response->getHeaderLine('Content-Type'), 'application/json') === 0) {
             try {
-                return $this->entitySerializer->decode($response->getBody(), 'json');
+                return $this->entitySerializer->decode((string) $response->getBody(), 'json');
             } catch (UnexpectedValueException $e) {
                 throw new InvalidJsonException(
                     $e->getMessage(),
