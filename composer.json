@@ -45,6 +45,9 @@
         "phpunit/phpunit": "^6.5.0",
         "squizlabs/php_codesniffer": "^3.1"
     },
+    "conflict": {
+        "phpdocumentor/reflection-docblock": "<3.2.3"
+    },
     "autoload": {
         "psr-4": {
             "Apigee\\Edge\\": "src"
