@@ -15,7 +15,7 @@ can find the complete list of available clients and adapters [here](http://docs.
 So if you prefer Guzzle 6 then you can install this library like this:
 
 ```
-$ composer require php-http/guzzle6-adapter
+$ composer require php-http/guzzle6-adapter:^1.1.1
 $ composer require apigee/edge:2.*
 
 ```

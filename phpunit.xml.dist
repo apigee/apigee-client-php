@@ -4,7 +4,8 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/6.4/phpunit.xsd"
          colors="true"
-         bootstrap="./vendor/autoload.php">
+         bootstrap="./vendor/autoload.php"
+         verbose="true">
     <testsuites>
         <testsuite name="All Apigee Edge PHP SDK Tests">
             <directory>tests/</directory>

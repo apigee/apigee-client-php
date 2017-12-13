@@ -5,3 +5,4 @@
 /composer.lock
 /phpunit.xml*
 !/phpunit.xml.dist
+.DS_Store
