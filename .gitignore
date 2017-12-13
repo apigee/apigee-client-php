@@ -1,8 +1,16 @@
-.idea
+# Custom
 /report
 /*.php
 /vendor
 /composer.lock
 /phpunit.xml*
 !/phpunit.xml.dist
+/.cc_token
+/clover.xml
+
+# OS specific files
 .DS_Store
+Thumbs.db
+
+# IDE specific files
+.idea
