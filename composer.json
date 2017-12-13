@@ -47,7 +47,8 @@
     },
     "conflict": {
         "phpdocumentor/type-resolver": "<0.4.0",
-        "guzzlehttp/guzzle": "<6.0.2"
+        "guzzlehttp/guzzle": "<6.0.2",
+        "guzzlehttp/psr7": "<1.4.1"
     },
     "autoload": {
         "psr-4": {
