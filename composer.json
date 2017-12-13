@@ -69,7 +69,7 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "scripts": {
-        "test": "phpunit -v --coverage-clover clover.xml",
+        "test": "phpunit",
         "metrics": "phpmetrics .",
         "metrics-html": "phpmetrics . --report-html=report",
         "check-style": "phpcs -p --standard=PSR2 --runtime-set ignore_errors_on_exit 1 --runtime-set ignore_warnings_on_exit 1 src",
