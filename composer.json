@@ -42,7 +42,7 @@
         "php-http/guzzle6-adapter": "^1.1.1",
         "php-http/mock-client": "dev-master#5edc24d40d9ee2515cb3ef8d49c3766e95fa23f3",
         "phpmetrics/phpmetrics": "^2.3",
-        "phpunit/phpunit": "^6.5.0",
+        "phpunit/phpunit": "^6.4.0",
         "squizlabs/php_codesniffer": "^3.1"
     },
     "conflict": {
