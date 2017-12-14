@@ -1,0 +1,21 @@
+<?php
+
+$finder = PhpCsFixer\Finder::create()
+    ->in(['./src', './tests']);
+
+return PhpCsFixer\Config::create()
+    ->setRules([
+        '@PSR2' => true,
+        '@Symfony' => true,
+        'array_syntax' => ['syntax' => 'short'],
+        'class_definition' => ['singleLine' => false, 'singleItemSingleLine' => true],
+        'concat_space' => ['spacing' => 'one'],
+        'ordered_class_elements' => true,
+        'ordered_imports' => true,
+        'phpdoc_align' => false,
+        'phpdoc_annotation_without_dot' => false,
+        'phpdoc_indent' => false,
+        'phpdoc_inline_tag' => false,
+        'phpdoc_order' => true,
+    ])
+    ->setFinder($finder);

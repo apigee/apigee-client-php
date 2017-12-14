@@ -29,7 +29,9 @@ install:
   - if [[ "$DEPENDENCIES" = 'lowest' ]]; then travis_retry composer update --no-suggest --prefer-lowest; fi
 
 script:
+  - composer check-style
   - composer test
+  - if [[ $(phpenv version-name) == "7.1" ]] && [[ "$DEPENDENCIES" = 'highest' ]]; then composer metrics; fi
 
 after_success:
   - if [[ $(phpenv version-name) == "7.1" ]] && [[ "$DEPENDENCIES" = 'highest' ]]; then bash <(curl -s https://codecov.io/bash) -f ./clover.xml; fi

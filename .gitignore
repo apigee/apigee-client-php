@@ -1,16 +1,17 @@
-# Custom
-/report
-/*.php
+# Custom ignored paths and files.
 /vendor
 /composer.lock
-/phpunit.xml*
+/report
+/*.php
+/*.xml
+/.php_cs
+/.php_cs.cache
 !/phpunit.xml.dist
 /.cc_token
-/clover.xml
 
-# OS specific files
+# OS specific files.
 .DS_Store
 Thumbs.db
 
-# IDE specific files
+# IDE specific files.
 .idea
