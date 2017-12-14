@@ -90,8 +90,6 @@ class Client implements ClientInterface
      * @param BuilderInterface|null $builder
      * @param string|null $endpoint
      * @param string $userAgentPrefix
-     * @param \Http\Message\RequestFactory|null $requestFactory
-     * @param \Http\Message\UriFactory|null $uriFactory
      */
     public function __construct(
         Authentication $auth = null,
@@ -102,7 +100,7 @@ class Client implements ClientInterface
         $this->auth = $auth;
         $this->currentBuilder = $builder ?: new Builder();
         $this->originalBuilder = $this->currentBuilder;
-        $this->endpoint = $endpoint;
+        $this->endpoint = $endpoint ?: self::ENTERPRISE_URL;
         $this->userAgentPrefix = $userAgentPrefix;
         $this->uriFactory = UriFactoryDiscovery::find();
         $this->requestFactory = MessageFactoryDiscovery::find();
@@ -251,7 +249,7 @@ class Client implements ClientInterface
      */
     public function getEndpoint(): string
     {
-        return $this->endpoint ?: self::ENTERPRISE_URL;
+        return $this->endpoint;
     }
 
     /**
