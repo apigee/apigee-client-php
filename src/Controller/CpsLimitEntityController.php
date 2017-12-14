@@ -1,6 +1,6 @@
 <?php
 
-namespace Apigee\Edge\Entity;
+namespace Apigee\Edge\Controller;
 
 use Apigee\Edge\Api\Management\Controller\OrganizationController;
 use Apigee\Edge\Api\Management\Controller\OrganizationControllerInterface;
@@ -12,7 +12,7 @@ use Apigee\Edge\Structure\CpsListLimitInterface;
  *
  * @author Dezső Biczó <mxr576@gmail.com>
  *
- * @see \Apigee\Edge\Entity\CpsLimitEntityControllerInterface
+ * @see \Apigee\Edge\Controller\CpsLimitEntityControllerInterface
  */
 abstract class CpsLimitEntityController extends EntityController
 {

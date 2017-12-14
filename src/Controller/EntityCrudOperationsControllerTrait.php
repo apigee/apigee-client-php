@@ -1,7 +1,8 @@
 <?php
 
-namespace Apigee\Edge\Entity;
+namespace Apigee\Edge\Controller;
 
+use Apigee\Edge\Entity\EntityInterface;
 use Psr\Http\Message\ResponseInterface;
 
 /**
@@ -9,7 +10,7 @@ use Psr\Http\Message\ResponseInterface;
  *
  * @author Dezső Biczó <mxr576@gmail.com>
  *
- * @see \Apigee\Edge\Entity\EntityCrudOperationsControllerInterface
+ * @see \Apigee\Edge\Controller\EntityCrudOperationsControllerInterface
  */
 trait EntityCrudOperationsControllerTrait
 {

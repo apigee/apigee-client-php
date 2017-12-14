@@ -31,7 +31,7 @@ abstract class App extends Entity implements AppInterface
 
     /**
      * We had to hard-code "default" here as default value because this property does not always returned by Edge.
-     * Ex.: \Apigee\Edge\Entity\EntityCrudOperationsControllerInterface::create() does not return this for
+     * Ex.: \Apigee\Edge\Controller\EntityCrudOperationsControllerInterface::create() does not return this for
      * a Developer app.
      *
      * @var string

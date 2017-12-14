@@ -2,7 +2,7 @@
 
 namespace Apigee\Edge\Tests\Test\Controller;
 
-use Apigee\Edge\Entity\EntityControllerInterface;
+use Apigee\Edge\Controller\EntityControllerInterface;
 use Apigee\Edge\Entity\EntityFactory;
 use Apigee\Edge\Tests\Test\Mock\TestClientFactory;
 use PHPUnit\Framework\TestCase;

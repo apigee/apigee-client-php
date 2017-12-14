@@ -2,11 +2,11 @@
 
 namespace Apigee\Edge\Api\Management\Controller;
 
-use Apigee\Edge\Entity\EntityController;
-use Apigee\Edge\Entity\EntityCrudOperationsControllerTrait;
+use Apigee\Edge\Controller\EntityController;
+use Apigee\Edge\Controller\EntityCrudOperationsControllerTrait;
+use Apigee\Edge\Controller\NonCpsListingEntityControllerTrait;
+use Apigee\Edge\Controller\StatusAwareEntityControllerTrait;
 use Apigee\Edge\Entity\EntityFactoryInterface;
-use Apigee\Edge\Entity\NonCpsListingEntityControllerTrait;
-use Apigee\Edge\Entity\StatusAwareEntityControllerTrait;
 use Apigee\Edge\HttpClient\ClientInterface;
 use Psr\Http\Message\UriInterface;
 

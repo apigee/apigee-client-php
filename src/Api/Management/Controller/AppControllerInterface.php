@@ -3,8 +3,8 @@
 namespace Apigee\Edge\Api\Management\Controller;
 
 use Apigee\Edge\Api\Management\Entity\AppInterface;
-use Apigee\Edge\Entity\CpsLimitEntityControllerInterface;
-use Apigee\Edge\Entity\EntityControllerInterface;
+use Apigee\Edge\Controller\CpsLimitEntityControllerInterface;
+use Apigee\Edge\Controller\EntityControllerInterface;
 use Apigee\Edge\Structure\CpsListLimitInterface;
 
 /**

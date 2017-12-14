@@ -1,6 +1,6 @@
 <?php
 
-namespace Apigee\Edge\Entity;
+namespace Apigee\Edge\Controller;
 
 /**
  * Interface NonCpsListingEntityControllerInterface.
@@ -19,7 +19,7 @@ interface NonCpsListingEntityControllerInterface
      *
      * @return EntityCrudOperationsControllerInterface[]
      *
-     * @see \Apigee\Edge\Entity\EntityController::getEntities()
+     * @see \Apigee\Edge\Controller\EntityController::getEntities()
      */
     public function getEntities(): array;
 
@@ -28,7 +28,7 @@ interface NonCpsListingEntityControllerInterface
      *
      * @return array
      *
-     * @see \Apigee\Edge\Entity\EntityController::getEntityIds()
+     * @see \Apigee\Edge\Controller\EntityController::getEntityIds()
      */
     public function getEntityIds(): array;
 }

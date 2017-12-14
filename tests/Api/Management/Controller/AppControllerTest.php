@@ -6,7 +6,7 @@ use Apigee\Edge\Api\Management\Controller\AppController;
 use Apigee\Edge\Api\Management\Controller\DeveloperAppController;
 use Apigee\Edge\Api\Management\Entity\App;
 use Apigee\Edge\Api\Management\Entity\DeveloperAppInterface;
-use Apigee\Edge\Entity\EntityControllerInterface;
+use Apigee\Edge\Controller\EntityControllerInterface;
 use Apigee\Edge\Exception\ApiException;
 use Apigee\Edge\Tests\Test\Controller\EntityControllerValidator;
 use Apigee\Edge\Tests\Test\Controller\OrganizationAwareEntityControllerValidatorTrait;

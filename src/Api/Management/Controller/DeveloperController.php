@@ -4,10 +4,10 @@ namespace Apigee\Edge\Api\Management\Controller;
 
 use Apigee\Edge\Api\Management\Entity\DeveloperInterface;
 use Apigee\Edge\Api\Management\Exception\DeveloperNotFoundException;
-use Apigee\Edge\Entity\CpsLimitEntityController;
-use Apigee\Edge\Entity\CpsListingEntityControllerTrait;
-use Apigee\Edge\Entity\EntityCrudOperationsControllerTrait;
-use Apigee\Edge\Entity\StatusAwareEntityControllerTrait;
+use Apigee\Edge\Controller\CpsLimitEntityController;
+use Apigee\Edge\Controller\CpsListingEntityControllerTrait;
+use Apigee\Edge\Controller\EntityCrudOperationsControllerTrait;
+use Apigee\Edge\Controller\StatusAwareEntityControllerTrait;
 use Psr\Http\Message\UriInterface;
 
 /**

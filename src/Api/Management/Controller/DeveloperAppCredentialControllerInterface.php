@@ -3,9 +3,9 @@
 namespace Apigee\Edge\Api\Management\Controller;
 
 use Apigee\Edge\Api\Management\Entity\AppCredentialInterface;
-use Apigee\Edge\Entity\EntityControllerInterface;
+use Apigee\Edge\Controller\EntityControllerInterface;
+use Apigee\Edge\Controller\StatusAwareEntityControllerInterface;
 use Apigee\Edge\Entity\EntityInterface;
-use Apigee\Edge\Entity\StatusAwareEntityControllerInterface;
 use Apigee\Edge\Structure\AttributesProperty;
 
 /**

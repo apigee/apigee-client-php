@@ -11,7 +11,7 @@ namespace Apigee\Edge\Entity\Property;
  * ex.: const STATUS_ACTIVE = 'active' to make SDK consumers' life easier.
  *
  * @see \Apigee\Edge\Api\Management\Controller\DeveloperController
- * @see \Apigee\Edge\Entity\StatusAwareEntityControllerInterface
+ * @see \Apigee\Edge\Controller\StatusAwareEntityControllerInterface
  *
  * @author Dezső Biczó <mxr576@gmail.com>
  */

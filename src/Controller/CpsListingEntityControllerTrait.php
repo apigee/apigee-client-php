@@ -1,6 +1,6 @@
 <?php
 
-namespace Apigee\Edge\Entity;
+namespace Apigee\Edge\Controller;
 
 use Apigee\Edge\Structure\CpsListLimitInterface;
 
@@ -9,7 +9,7 @@ use Apigee\Edge\Structure\CpsListLimitInterface;
  *
  * @author Dezső Biczó <mxr576@gmail.com>
  *
- * @see \Apigee\Edge\Entity\CpsListingEntityControllerInterface
+ * @see \Apigee\Edge\Controller\CpsListingEntityControllerInterface
  */
 trait CpsListingEntityControllerTrait
 {

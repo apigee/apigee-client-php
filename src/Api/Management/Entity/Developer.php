@@ -64,7 +64,7 @@ class Developer extends Entity implements DeveloperInterface
         // The developerId is also a primary key of a developer entity. Other entities are usually
         // referencing to a developer with email address (except developer apps) but we should not use it
         // as a primary key, because email address can be changed and without a workaround it would cause problems when
-        // \Apigee\Edge\Entity\BaseEntityControllerInterface::save() gets called.
+        // \Apigee\Edge\Controller\BaseEntityControllerInterface::save() gets called.
         return 'developerId';
     }
 

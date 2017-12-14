@@ -84,7 +84,7 @@ final class EntityFactory implements EntityFactoryInterface
     /**
      * Helper function that returns the FQCN of a class.
      *
-     * @param string|\Apigee\Edge\Entity\AbstractEntityController $entityController
+     * @param string|\Apigee\Edge\Controller\AbstractEntityController $entityController
      *   Fully qualified class name or an object.
      *
      * @return string

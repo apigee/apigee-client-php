@@ -3,10 +3,10 @@
 namespace Apigee\Edge\Api\Management\Controller;
 
 use Apigee\Edge\Api\Management\Entity\AppCredentialInterface;
-use Apigee\Edge\Entity\EntityController;
-use Apigee\Edge\Entity\EntityCrudOperationsControllerTrait;
+use Apigee\Edge\Controller\EntityController;
+use Apigee\Edge\Controller\EntityCrudOperationsControllerTrait;
+use Apigee\Edge\Controller\StatusAwareEntityControllerTrait;
 use Apigee\Edge\Entity\EntityInterface;
-use Apigee\Edge\Entity\StatusAwareEntityControllerTrait;
 use Apigee\Edge\Structure\AttributesProperty;
 use Apigee\Edge\Structure\KeyValueMapNormalizer;
 use Psr\Http\Message\UriInterface;

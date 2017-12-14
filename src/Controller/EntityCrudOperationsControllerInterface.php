@@ -1,6 +1,8 @@
 <?php
 
-namespace Apigee\Edge\Entity;
+namespace Apigee\Edge\Controller;
+
+use Apigee\Edge\Entity\EntityInterface;
 
 /**
  * Interface EntityCrudOperationsControllerInterface.

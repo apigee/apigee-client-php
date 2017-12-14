@@ -1,7 +1,11 @@
 <?php
 
-namespace Apigee\Edge\Entity;
+namespace Apigee\Edge\Controller;
 
+use Apigee\Edge\Entity\EntityDenormalizer;
+use Apigee\Edge\Entity\EntityFactory;
+use Apigee\Edge\Entity\EntityFactoryInterface;
+use Apigee\Edge\Entity\EntityNormalizer;
 use Apigee\Edge\Exception\InvalidJsonException;
 use Apigee\Edge\HttpClient\Client;
 use Apigee\Edge\HttpClient\ClientInterface;

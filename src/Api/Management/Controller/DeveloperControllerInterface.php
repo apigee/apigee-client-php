@@ -4,11 +4,11 @@ namespace Apigee\Edge\Api\Management\Controller;
 
 use Apigee\Edge\Api\Management\Entity\DeveloperInterface;
 use Apigee\Edge\Api\Management\Exception\DeveloperNotFoundException;
-use Apigee\Edge\Entity\CpsLimitEntityControllerInterface;
-use Apigee\Edge\Entity\CpsListingEntityControllerInterface;
-use Apigee\Edge\Entity\EntityControllerInterface;
-use Apigee\Edge\Entity\EntityCrudOperationsControllerInterface;
-use Apigee\Edge\Entity\StatusAwareEntityControllerInterface;
+use Apigee\Edge\Controller\CpsLimitEntityControllerInterface;
+use Apigee\Edge\Controller\CpsListingEntityControllerInterface;
+use Apigee\Edge\Controller\EntityControllerInterface;
+use Apigee\Edge\Controller\EntityCrudOperationsControllerInterface;
+use Apigee\Edge\Controller\StatusAwareEntityControllerInterface;
 
 /**
  * Interface DeveloperControllerInterface.

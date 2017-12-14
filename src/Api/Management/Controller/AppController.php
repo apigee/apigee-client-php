@@ -4,7 +4,7 @@ namespace Apigee\Edge\Api\Management\Controller;
 
 use Apigee\Edge\Api\Management\Entity\AppDenormalizer;
 use Apigee\Edge\Api\Management\Entity\AppInterface;
-use Apigee\Edge\Entity\CpsLimitEntityController;
+use Apigee\Edge\Controller\CpsLimitEntityController;
 use Apigee\Edge\Structure\CpsListLimitInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\UriInterface;

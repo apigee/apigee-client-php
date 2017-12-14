@@ -2,9 +2,9 @@
 
 namespace Apigee\Edge\Api\Management\Controller;
 
-use Apigee\Edge\Entity\AbstractEntityController;
-use Apigee\Edge\Entity\EntityCrudOperationsControllerTrait;
-use Apigee\Edge\Entity\NonCpsListingEntityControllerTrait;
+use Apigee\Edge\Controller\AbstractEntityController;
+use Apigee\Edge\Controller\EntityCrudOperationsControllerTrait;
+use Apigee\Edge\Controller\NonCpsListingEntityControllerTrait;
 use Psr\Http\Message\UriInterface;
 
 /**

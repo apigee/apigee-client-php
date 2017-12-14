@@ -12,7 +12,7 @@ interface EntityFactoryInterface
     /**
      * Returns the FQCN of the entity class that belongs to an entity controller.
      *
-     * @param string|\Apigee\Edge\Entity\AbstractEntityController $entityController
+     * @param string|\Apigee\Edge\Controller\AbstractEntityController $entityController
      *   Fully qualified class name or an object.
      *
      * @return string
@@ -22,7 +22,7 @@ interface EntityFactoryInterface
     /**
      * Returns a new instance of entity that belongs to an entity controller.
      *
-     * @param string|\Apigee\Edge\Entity\AbstractEntityController $entityController
+     * @param string|\Apigee\Edge\Controller\AbstractEntityController $entityController
      *   Fully qualified class name or an object.
      *
      * @return \Apigee\Edge\Entity\EntityInterface

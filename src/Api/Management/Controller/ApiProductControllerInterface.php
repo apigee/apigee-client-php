@@ -2,9 +2,9 @@
 
 namespace Apigee\Edge\Api\Management\Controller;
 
-use Apigee\Edge\Entity\EntityControllerInterface;
-use Apigee\Edge\Entity\EntityCrudOperationsControllerInterface;
-use Apigee\Edge\Entity\NonCpsListingEntityControllerInterface;
+use Apigee\Edge\Controller\EntityControllerInterface;
+use Apigee\Edge\Controller\EntityCrudOperationsControllerInterface;
+use Apigee\Edge\Controller\NonCpsListingEntityControllerInterface;
 
 /**
  * Interface ApiProductControllerInterface.
