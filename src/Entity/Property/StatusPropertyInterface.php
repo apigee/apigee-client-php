@@ -13,7 +13,6 @@ namespace Apigee\Edge\Entity\Property;
  * @see \Apigee\Edge\Api\Management\Controller\DeveloperController
  * @see \Apigee\Edge\Entity\StatusAwareEntityControllerInterface
  *
- * @package Apigee\Edge\Entity\Property
  * @author Dezső Biczó <mxr576@gmail.com>
  */
 interface StatusPropertyInterface

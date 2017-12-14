@@ -9,9 +9,8 @@ use Apigee\Edge\Structure\CpsListLimitInterface;
  *
  * For entities that supports CPS limit in their listing API calls, ex.: developer.
  *
- * @link https://docs.apigee.com/management/apis/get/organizations/%7Borg_name%7D/developers
+ * @see https://docs.apigee.com/management/apis/get/organizations/%7Borg_name%7D/developers
  *
- * @package Apigee\Edge\Entity
  * @author Dezső Biczó <mxr576@gmail.com>
  */
 interface CpsLimitEntityControllerInterface
@@ -29,7 +28,7 @@ interface CpsLimitEntityControllerInterface
      *
      * @return CpsListLimitInterface
      *
-     * @link https://docs.apigee.com/api-services/content/api-reference-getting-started#cps
+     * @see https://docs.apigee.com/api-services/content/api-reference-getting-started#cps
      */
     public function createCpsLimit(string $startKey, int $limit): CpsListLimitInterface;
 }

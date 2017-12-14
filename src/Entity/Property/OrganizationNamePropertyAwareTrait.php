@@ -5,8 +5,8 @@ namespace Apigee\Edge\Entity\Property;
 /**
  * Trait OrganizationNamePropertyAwareTrait.
  *
- * @package Apigee\Edge\Entity\Property
  * @author Dezső Biczó <mxr576@gmail.com>
+ *
  * @see OrganizationNamePropertyInterface
  */
 trait OrganizationNamePropertyAwareTrait

@@ -7,7 +7,6 @@ use Apigee\Edge\HttpClient\ClientInterface;
 /**
  * Class EntityController.
  *
- * @package Apigee\Edge\Entity
  * @author Dezső Biczó <mxr576@gmail.com>
  */
 abstract class EntityController extends AbstractEntityController
@@ -46,6 +45,7 @@ abstract class EntityController extends AbstractEntityController
     public function setOrganisation(string $orgName): string
     {
         $this->organization = $orgName;
+
         return $this->organization;
     }
 }

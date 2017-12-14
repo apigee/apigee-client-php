@@ -19,7 +19,6 @@ use Psr\Cache\CacheItemPoolInterface;
  *
  * Helper class that makes creation of HTTP client instances easier.
  *
- * @package Apigee\Edge\HttpClient\Util
  * @author Dezső Biczó <mxr576@gmail.com>
  */
 class Builder implements BuilderInterface
@@ -76,7 +75,7 @@ class Builder implements BuilderInterface
         if ($this->rebuild()) {
             $this->needsRebuild(true);
 
-            if ($this->httpClient === null) {
+            if (null === $this->httpClient) {
                 $this->httpClient = HttpClientDiscovery::find();
             }
 
@@ -89,28 +88,6 @@ class Builder implements BuilderInterface
         }
 
         return $this->pluginClient;
-    }
-
-    /**
-     * Set or remove rebuild flag from the client.
-     *
-     * @param bool $rebuild
-     *
-     * @return bool
-     */
-    private function needsRebuild(bool $rebuild = true): bool
-    {
-        return $this->rebuild = $rebuild;
-    }
-
-    /**
-     * Indicates whether the client has to be rebuilt before a new request after a latest change.
-     *
-     * @return bool
-     */
-    private function rebuild(): bool
-    {
-        return $this->rebuild;
     }
 
     /**
@@ -140,7 +117,7 @@ class Builder implements BuilderInterface
         if (!isset($this->headers[$header])) {
             $this->headers[$header] = $value;
         } else {
-            $this->headers[$header] = array_merge((array)$this->headers[$header], [$value]);
+            $this->headers[$header] = array_merge((array) $this->headers[$header], [$value]);
         }
 
         $this->removePlugin(HeaderAppendPlugin::class);
@@ -209,5 +186,27 @@ class Builder implements BuilderInterface
     {
         $this->cachePlugin = null;
         $this->needsRebuild(true);
+    }
+
+    /**
+     * Set or remove rebuild flag from the client.
+     *
+     * @param bool $rebuild
+     *
+     * @return bool
+     */
+    private function needsRebuild(bool $rebuild = true): bool
+    {
+        return $this->rebuild = $rebuild;
+    }
+
+    /**
+     * Indicates whether the client has to be rebuilt before a new request after a latest change.
+     *
+     * @return bool
+     */
+    private function rebuild(): bool
+    {
+        return $this->rebuild;
     }
 }

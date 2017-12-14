@@ -13,7 +13,6 @@ use Psr\Http\Message\UriInterface;
 /**
  * Class DeveloperController.
  *
- * @package Apigee\Edge\Api\Management\Controller
  * @author Dezső Biczó <mxr576@gmail.com>
  */
 class DeveloperController extends CpsLimitEntityController implements DeveloperControllerInterface
@@ -22,19 +21,6 @@ class DeveloperController extends CpsLimitEntityController implements DeveloperC
     use CpsListingEntityControllerTrait;
     use EntityCrudOperationsControllerTrait;
     use StatusAwareEntityControllerTrait;
-
-    /**
-     * Returns the API endpoint that the controller communicates with.
-     *
-     * In case of an entity that belongs to an organisation it should return organization/[orgName]/[endpoint].
-     *
-     * @return UriInterface
-     */
-    protected function getBaseEndpointUri(): UriInterface
-    {
-        return $this->client->getUriFactory()
-            ->createUri(sprintf('/organizations/%s/developers', $this->organization));
-    }
 
     /**
      * @inheritdoc
@@ -51,6 +37,20 @@ class DeveloperController extends CpsLimitEntityController implements DeveloperC
             );
         }
         $values = reset($responseArray['developer']);
+
         return $this->entitySerializer->denormalize($values, $this->entityFactory->getEntityByController($this));
+    }
+
+    /**
+     * Returns the API endpoint that the controller communicates with.
+     *
+     * In case of an entity that belongs to an organisation it should return organization/[orgName]/[endpoint].
+     *
+     * @return UriInterface
+     */
+    protected function getBaseEndpointUri(): UriInterface
+    {
+        return $this->client->getUriFactory()
+            ->createUri(sprintf('/organizations/%s/developers', $this->organization));
     }
 }

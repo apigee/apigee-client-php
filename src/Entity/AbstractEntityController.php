@@ -14,7 +14,6 @@ use Symfony\Component\Serializer\Serializer;
 /**
  * Class AbstractEntityController.
  *
- * @package Apigee\Edge\Entity
  * @author Dezső Biczó <mxr576@gmail.com>
  */
 abstract class AbstractEntityController
@@ -81,15 +80,15 @@ abstract class AbstractEntityController
      *
      * @param ResponseInterface $response
      *
-     * @return array
-     *
      * @throws \RuntimeException If response can not be decoded as an array, because the input format is unknown.
      * @throws InvalidJsonException If there was an error with decoding a JSON response.
+     *
+     * @return array
      */
     protected function parseResponseToArray(ResponseInterface $response): array
     {
         if ($response->getHeaderLine('Content-Type') &&
-            strpos($response->getHeaderLine('Content-Type'), 'application/json') === 0) {
+            0 === strpos($response->getHeaderLine('Content-Type'), 'application/json')) {
             try {
                 return $this->entitySerializer->decode((string) $response->getBody(), 'json');
             } catch (UnexpectedValueException $e) {

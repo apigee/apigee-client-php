@@ -10,43 +10,19 @@ use Psr\Http\Message\UriInterface;
 /**
  * Trait AttributesAwareEntityControllerTrait.
  *
- * @package Apigee\Edge\Api\Management\Controller
  * @author Dezső Biczó <mxr576@gmail.com>
+ *
  * @see AttributesAwareEntityControllerInterface
  */
 trait AttributesAwareEntityControllerTrait
 {
-
-    /**
-     * @return \Apigee\Edge\Structure\AttributesPropertyNormalizer
-     */
-    protected function getAttributesPropertyNormalizer(): AttributesPropertyNormalizer
-    {
-        static $normalizer;
-        if (!$normalizer) {
-            $normalizer = new AttributesPropertyNormalizer();
-        }
-        return $normalizer;
-    }
-
-    /**
-     * @return \Apigee\Edge\Structure\AttributesPropertyDenormalizer
-     */
-    protected function getAttributesPropertyDenormalizer(): AttributesPropertyDenormalizer
-    {
-        static $denormalizer;
-        if (!$denormalizer) {
-            $denormalizer = new AttributesPropertyDenormalizer();
-        }
-        return $denormalizer;
-    }
-
     /**
      * @inheritdoc
      */
     public function getAttributes(string $entityId): AttributesProperty
     {
         $responseArray = $this->parseResponseToArray($this->client->get($this->getEntityAttributesUri($entityId)));
+
         return $this->getAttributesPropertyDenormalizer()->denormalize(
             $responseArray['attribute'],
             AttributesProperty::class
@@ -61,6 +37,7 @@ trait AttributesAwareEntityControllerTrait
         $responseArray = $this->parseResponseToArray($this->client->get(
             $this->getEntityAttributeUri($entityId, $name)
         ));
+
         return $responseArray['value'];
     }
 
@@ -72,9 +49,10 @@ trait AttributesAwareEntityControllerTrait
         $responseArray = $this->parseResponseToArray(
             $this->client->post(
                 $this->getEntityAttributesUri($entityId),
-                json_encode((object)['attribute' => $this->getAttributesPropertyNormalizer()->normalize($attributes)])
+                json_encode((object) ['attribute' => $this->getAttributesPropertyNormalizer()->normalize($attributes)])
             )
         );
+
         return $this->getAttributesPropertyDenormalizer()->denormalize(
             $responseArray['attribute'],
             AttributesProperty::class
@@ -86,11 +64,12 @@ trait AttributesAwareEntityControllerTrait
      */
     public function updateAttribute(string $entityId, string $name, string $value): string
     {
-        $value = json_encode((object)['value' => $value]);
+        $value = json_encode((object) ['value' => $value]);
         $responseArray = $this->parseResponseToArray($this->client->post(
             $this->getEntityAttributeUri($entityId, $name),
             $value
         ));
+
         return $responseArray['value'];
     }
 
@@ -100,6 +79,32 @@ trait AttributesAwareEntityControllerTrait
     public function deleteAttribute(string $entityId, string $name): void
     {
         $this->client->delete($this->getEntityAttributeUri($entityId, $name));
+    }
+
+    /**
+     * @return \Apigee\Edge\Structure\AttributesPropertyNormalizer
+     */
+    protected function getAttributesPropertyNormalizer(): AttributesPropertyNormalizer
+    {
+        static $normalizer;
+        if (!$normalizer) {
+            $normalizer = new AttributesPropertyNormalizer();
+        }
+
+        return $normalizer;
+    }
+
+    /**
+     * @return \Apigee\Edge\Structure\AttributesPropertyDenormalizer
+     */
+    protected function getAttributesPropertyDenormalizer(): AttributesPropertyDenormalizer
+    {
+        static $denormalizer;
+        if (!$denormalizer) {
+            $denormalizer = new AttributesPropertyDenormalizer();
+        }
+
+        return $denormalizer;
     }
 
     /**
@@ -114,6 +119,7 @@ trait AttributesAwareEntityControllerTrait
         $uri = $this->getEntityEndpointUri($entityId)->withPath(
             $this->getEntityEndpointUri($entityId) . '/attributes'
         );
+
         return $uri;
     }
 
@@ -130,6 +136,7 @@ trait AttributesAwareEntityControllerTrait
         $uri = $this->getEntityAttributesUri($entityId)->withPath(
             $this->getEntityAttributesUri($entityId) . '/' . $name
         );
+
         return $uri;
     }
 }

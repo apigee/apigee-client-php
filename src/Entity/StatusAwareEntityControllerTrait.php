@@ -5,8 +5,8 @@ namespace Apigee\Edge\Entity;
 /**
  * Trait StatusAwareEntityControllerTrait.
  *
- * @package Apigee\Edge\Entity
  * @author Dezső Biczó <mxr576@gmail.com>
+ *
  * @see StatusAwareEntityControllerInterface
  */
 trait StatusAwareEntityControllerTrait

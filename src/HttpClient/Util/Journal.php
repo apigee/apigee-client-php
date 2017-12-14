@@ -13,13 +13,12 @@ use Psr\Http\Message\ResponseInterface;
  *
  * Stores the last request, response and response exception by using the HistoryPlugin.
  *
- * @package Apigee\Edge\HttpClient\Util
  * @author Dezső Biczó <mxr576@gmail.com>
+ *
  * @see HistoryPlugin
  */
 class Journal implements JournalInterface
 {
-
     /** @var RequestInterface */
     protected $lastRequest;
 

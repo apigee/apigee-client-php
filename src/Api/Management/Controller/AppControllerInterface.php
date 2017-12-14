@@ -10,9 +10,9 @@ use Apigee\Edge\Structure\CpsListLimitInterface;
 /**
  * Interface AppControllerInterface.
  *
- * @package Apigee\Edge\Api\Management\Controller
  * @author Dezső Biczó <mxr576@gmail.com>
- * @link https://docs.apigee.com/api/apps-0
+ *
+ * @see https://docs.apigee.com/api/apps-0
  */
 interface AppControllerInterface extends CpsLimitEntityControllerInterface, EntityControllerInterface
 {

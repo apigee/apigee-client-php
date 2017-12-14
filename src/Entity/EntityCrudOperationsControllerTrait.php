@@ -7,8 +7,8 @@ use Psr\Http\Message\ResponseInterface;
 /**
  * Trait EntityCrudOperationsControllerTrait.
  *
- * @package Apigee\Edge\Entity
  * @author Dezső Biczó <mxr576@gmail.com>
+ *
  * @see \Apigee\Edge\Entity\EntityCrudOperationsControllerInterface
  */
 trait EntityCrudOperationsControllerTrait
@@ -19,6 +19,7 @@ trait EntityCrudOperationsControllerTrait
     public function load(string $entityId): EntityInterface
     {
         $response = $this->client->get($this->getEntityEndpointUri($entityId));
+
         return $this->entitySerializer->deserialize(
             $response->getBody(),
             $this->entityFactory->getEntityTypeByController($this),
@@ -58,6 +59,7 @@ trait EntityCrudOperationsControllerTrait
     public function delete(string $entityId): EntityInterface
     {
         $response = $this->client->delete($this->getEntityEndpointUri($entityId));
+
         return $this->entitySerializer->deserialize(
             $response->getBody(),
             $this->entityFactory->getEntityTypeByController($this),
@@ -96,7 +98,7 @@ trait EntityCrudOperationsControllerTrait
                 // Exclude null values.
                 // (An entity property value is null (internally) if it is scalar and the Edge response from
                 // the entity object has been created did not contain value for the property.)
-                if ($value !== null) {
+                if (null !== $value) {
                     $rm->invoke($entity, $value);
                 }
             }

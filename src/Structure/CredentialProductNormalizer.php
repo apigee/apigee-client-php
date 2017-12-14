@@ -3,12 +3,10 @@
 namespace Apigee\Edge\Structure;
 
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-use Symfony\Component\Serializer\Normalizer\scalar;
 
 /**
  * Class CredentialProductNormalizer.
  *
- * @package Apigee\Edge\Structure
  * @author Dezső Biczó <mxr576@gmail.com>
  */
 class CredentialProductNormalizer implements NormalizerInterface

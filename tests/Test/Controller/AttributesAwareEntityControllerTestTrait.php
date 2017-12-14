@@ -5,7 +5,6 @@ namespace Apigee\Edge\Tests\Test\Controller;
 /**
  * Trait AttributesAwareEntityControllerTestTrait.
  *
- * @package Apigee\Edge\Tests\Test\Controller
  * @author Dezső Biczó <mxr576@gmail.com>
  */
 trait AttributesAwareEntityControllerTestTrait
@@ -37,6 +36,7 @@ trait AttributesAwareEntityControllerTestTrait
         $this->assertArrayHasKey('name2', $newAttributes);
         $this->assertEquals('value1', $newAttributes['name1']);
         $this->assertEquals('value2', $newAttributes['name2']);
+
         return $entityId;
     }
 

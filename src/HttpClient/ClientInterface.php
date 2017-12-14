@@ -13,7 +13,6 @@ use Psr\Http\Message\ResponseInterface;
  *
  * Describes the public methods of an Apigee Edge API client.
  *
- * @package Apigee\Edge\HttpClient
  * @author Dezső Biczó <mxr576@gmail.com>
  */
 interface ClientInterface extends HttpClient

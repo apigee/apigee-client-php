@@ -5,8 +5,8 @@ namespace Apigee\Edge\Entity\Property;
 /**
  * Trait DescriptionPropertyAwareTrait.
  *
- * @package Apigee\Edge\Entity\Property
  * @author Dezső Biczó <mxr576@gmail.com>
+ *
  * @see \Apigee\Edge\Entity\Property\DescriptionPropertyInterface
  */
 trait DescriptionPropertyAwareTrait

@@ -7,7 +7,6 @@ use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 /**
  * Class CredentialProductDenormalizer.
  *
- * @package Apigee\Edge\Structure
  * @author Dezső Biczó <mxr576@gmail.com>
  */
 class CredentialProductDenormalizer implements DenormalizerInterface

@@ -13,7 +13,6 @@ use Psr\Http\Message\ResponseInterface;
 /**
  * Class ResponseHandlerPlugin.
  *
- * @package Apigee\Edge\HttpClient\Plugin
  * @author Dezső Biczó <mxr576@gmail.com>
  */
 final class ResponseHandlerPlugin implements Plugin
@@ -54,6 +53,7 @@ final class ResponseHandlerPlugin implements Plugin
         } elseif ($response->getStatusCode() >= 500 && $response->getStatusCode() < 600) {
             throw new ServerErrorException($response, $request, $this->formatter);
         }
+
         return $response;
     }
 }

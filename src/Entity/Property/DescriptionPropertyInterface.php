@@ -5,7 +5,6 @@ namespace Apigee\Edge\Entity\Property;
 /**
  * Interface DescriptionPropertyInterface.
  *
- * @package Apigee\Edge\Entity\Property
  * @author Dezső Biczó <mxr576@gmail.com>
  */
 interface DescriptionPropertyInterface

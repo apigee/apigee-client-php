@@ -5,7 +5,6 @@ namespace Apigee\Edge\Structure;
 /**
  * Class CpsListLimitInterface.
  *
- * @package Apigee\Edge\Structure
  * @author Dezső Biczó <mxr576@gmail.com>
  */
 interface CpsListLimitInterface

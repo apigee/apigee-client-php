@@ -9,8 +9,8 @@ use Apigee\Edge\Entity\EntityInterface;
  *
  * Helps in validation of all entity controllers that implements EntityCrudOperationsControllerInterface.
  *
- * @package Apigee\Edge\Tests\Test\Controller
  * @author Dezső Biczó <mxr576@gmail.com>
+ *
  * @see \Apigee\Edge\Entity\EntityCrudOperationsControllerInterface
  */
 abstract class EntityCrudOperationsControllerValidator extends EntityControllerValidator
@@ -32,16 +32,6 @@ abstract class EntityCrudOperationsControllerValidator extends EntityControllerV
     abstract public static function sampleDataForEntityUpdate(): EntityInterface;
 
     /**
-     * Returns the expected values of an entity after it has been created.
-     *
-     * @return \Apigee\Edge\Entity\EntityInterface
-     */
-    protected static function expectedAfterEntityCreate(): EntityInterface
-    {
-        return static::sampleDataForEntityCreate();
-    }
-
-    /**
      * @return string
      */
     public function testCreate()
@@ -60,6 +50,7 @@ abstract class EntityCrudOperationsControllerValidator extends EntityControllerV
             array_filter(static::$objectNormalizer->normalize(static::expectedAfterEntityCreate())),
             static::$objectNormalizer->normalize($entity)
         );
+
         return $entity->id();
     }
 
@@ -79,6 +70,7 @@ abstract class EntityCrudOperationsControllerValidator extends EntityControllerV
             array_filter(static::$objectNormalizer->normalize(static::expectedAfterEntityCreate())),
             static::$objectNormalizer->normalize($entity)
         );
+
         return $entityId;
     }
 
@@ -114,7 +106,18 @@ abstract class EntityCrudOperationsControllerValidator extends EntityControllerV
             $expectedToRemainTheSame,
             $entityAsArray
         );
+
         return $entityId;
+    }
+
+    /**
+     * Returns the expected values of an entity after it has been created.
+     *
+     * @return \Apigee\Edge\Entity\EntityInterface
+     */
+    protected static function expectedAfterEntityCreate(): EntityInterface
+    {
+        return static::sampleDataForEntityCreate();
     }
 
     /**

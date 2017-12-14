@@ -7,7 +7,6 @@ namespace Apigee\Edge\Entity;
  *
  * Describes public behaviour of all Apigee Edge entity.
  *
- * @package Apigee\Edge\Entity
  * @author Dezső Biczó <mxr576@gmail.com>
  */
 interface EntityInterface

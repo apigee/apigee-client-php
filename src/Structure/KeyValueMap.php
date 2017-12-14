@@ -5,7 +5,6 @@ namespace Apigee\Edge\Structure;
 /**
  * Class KeyValueMap.
  *
- * @package Apigee\Edge\Structure
  * @author Dezső Biczó <mxr576@gmail.com>
  */
 class KeyValueMap implements KeyValueMapInterface
@@ -39,6 +38,7 @@ class KeyValueMap implements KeyValueMapInterface
         if (array_key_exists($key, $this->values())) {
             return $this->values[$key];
         }
+
         return null;
     }
 

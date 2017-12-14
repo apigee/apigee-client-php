@@ -11,7 +11,6 @@ use PHPUnit\Framework\TestCase;
 /**
  * Class ClientTest.
  *
- * @package Apigee\Edge\Tests\HttpClient
  * @author Dezső Biczó <mxr576@gmail.com>
  *
  * @group client
@@ -42,9 +41,10 @@ class ClientTest extends TestCase
         $client = new Client(null, $builder);
         $client->get('/');
         $sent_request = self::$httpClient->getLastRequest();
-        $this->assertEquals('https://api.enterprise.apigee.com/v1/', (string)$sent_request->getUri());
+        $this->assertEquals('https://api.enterprise.apigee.com/v1/', (string) $sent_request->getUri());
         $this->assertEquals($client->getUserAgent(), $sent_request->getHeaderLine('User-Agent'));
         $this->assertEquals('application/json; charset=utf-8', $sent_request->getHeaderLine('Accept'));
+
         return $client;
     }
 

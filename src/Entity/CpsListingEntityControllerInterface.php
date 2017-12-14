@@ -7,7 +7,6 @@ use Apigee\Edge\Structure\CpsListLimitInterface;
 /**
  * Interface CpsListingEntityControllerInterface.
  *
- * @package Apigee\Edge\Entity
  * @author Dezső Biczó <mxr576@gmail.com>
  */
 interface CpsListingEntityControllerInterface

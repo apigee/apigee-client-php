@@ -9,8 +9,8 @@ use Apigee\Edge\Tests\Test\Mock\TestClientFactory;
  *
  * Helps in validation of those entity controllers that implements CpsLimitEntityControllerInterface.
  *
- * @package Apigee\Edge\Tests\Test\Controller
  * @author Dezső Biczó <mxr576@gmail.com>
+ *
  * @see \Apigee\Edge\Entity\CpsLimitEntityControllerInterface
  */
 abstract class CpsLimitEntityControllerValidator extends EntityCrudOperationsControllerValidator
@@ -27,14 +27,14 @@ abstract class CpsLimitEntityControllerValidator extends EntityCrudOperationsCon
         $sampleEntity = static::sampleDataForEntityCreate();
         $sampleEntityId = call_user_func([$sampleEntity, 'get' . $idField]);
         $cpsTestData = [];
-        for ($i = 1; $i <= 5; $i++) {
+        for ($i = 1; $i <= 5; ++$i) {
             $cpsTestData[$i] = clone $sampleEntity;
-            $cpsTestData[$i]->{'set' . $idField}($i.$sampleEntityId);
+            $cpsTestData[$i]->{'set' . $idField}($i . $sampleEntityId);
         }
         // Create test data on the server or do not do anything if an offline client is in use.
-        if (strpos(static::$client->getUserAgent(), TestClientFactory::OFFLINE_CLIENT_USER_AGENT_PREFIX) === false) {
+        if (false === strpos(static::$client->getUserAgent(), TestClientFactory::OFFLINE_CLIENT_USER_AGENT_PREFIX)) {
             foreach ($cpsTestData as $item) {
-                /** @var \Apigee\Edge\Entity\EntityCrudOperationsControllerInterface $item */
+                /* @var \Apigee\Edge\Entity\EntityCrudOperationsControllerInterface $item */
                 $controller->create($item);
                 static::$createdEntities[$item->id()] = $item;
             }
@@ -54,6 +54,7 @@ abstract class CpsLimitEntityControllerValidator extends EntityCrudOperationsCon
     {
         $controller = $this->getEntityController();
         $entity = static::$entityFactory->getEntityByController($controller);
+
         return [[$entity->id()]];
     }
 }

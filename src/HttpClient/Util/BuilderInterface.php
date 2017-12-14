@@ -11,7 +11,6 @@ use Psr\Cache\CacheItemPoolInterface;
  *
  * Describes the public methods of a class that helps in building an Http client.
  *
- * @package Apigee\Edge\HttpClient\Util
  * @author Dezső Biczó <mxr576@gmail.com>
  */
 interface BuilderInterface

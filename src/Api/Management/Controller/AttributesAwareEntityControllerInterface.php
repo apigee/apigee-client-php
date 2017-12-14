@@ -11,11 +11,11 @@ use Apigee\Edge\Structure\AttributesProperty;
  * Contains reusable methods for those entities' controllers that supports attributes and attributes can be
  * modified on dedicated endpoints. Example: Developers, API products, etc.
  *
- * @link https://docs.apigee.com/api/developers-0
- * @link https://docs.apigee.com/api/api-products-1
+ * @see https://docs.apigee.com/api/developers-0
+ * @see https://docs.apigee.com/api/api-products-1
  *
- * @package Apigee\Edge\Api\Management\Controller
  * @author Dezső Biczó <mxr576@gmail.com>
+ *
  * @see AttributesAwareEntityControllerTrait
  */
 interface AttributesAwareEntityControllerInterface
@@ -60,8 +60,9 @@ interface AttributesAwareEntityControllerInterface
      * @param string $name
      * @param string $value
      *
-     * @return string
      * @throws ClientErrorException If attribute does not exist.
+     *
+     * @return string
      */
     public function updateAttribute(string $entityId, string $name, string $value): string;
 

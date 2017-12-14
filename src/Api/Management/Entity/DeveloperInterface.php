@@ -14,7 +14,6 @@ use Apigee\Edge\Entity\Property\StatusPropertyInterface;
 /**
  * Interface DeveloperInterface.
  *
- * @package Apigee\Edge\Api\Management\Entity
  * @author Dezső Biczó <mxr576@gmail.com>
  */
 interface DeveloperInterface extends

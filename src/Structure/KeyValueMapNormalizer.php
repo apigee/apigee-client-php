@@ -7,7 +7,6 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 /**
  * Class KeyValueMapNormalizer.
  *
- * @package Apigee\Edge\Structure
  * @author Dezső Biczó <mxr576@gmail.com>
  */
 class KeyValueMapNormalizer implements NormalizerInterface
@@ -19,8 +18,9 @@ class KeyValueMapNormalizer implements NormalizerInterface
     {
         $return = [];
         foreach ($object->values() as $key => $value) {
-            $return[] = (object)['name' => $key, 'value' => $value];
+            $return[] = (object) ['name' => $key, 'value' => $value];
         }
+
         return $return;
     }
 

@@ -9,9 +9,9 @@ use Apigee\Edge\Entity\NonCpsListingEntityControllerInterface;
 /**
  * Interface ApiProductControllerInterface.
  *
- * @package Apigee\Edge\Api\Management\Controller
  * @author Dezső Biczó <mxr576@gmail.com>
- * @link https://docs.apigee.com/api/api-products-1
+ *
+ * @see https://docs.apigee.com/api/api-products-1
  */
 interface ApiProductControllerInterface extends
     AttributesAwareEntityControllerInterface,
@@ -19,7 +19,6 @@ interface ApiProductControllerInterface extends
     EntityCrudOperationsControllerInterface,
     NonCpsListingEntityControllerInterface
 {
-
     /**
      * Search API products by their attributes.
      *
@@ -29,7 +28,7 @@ interface ApiProductControllerInterface extends
      * @return array
      *   Array of API product names.
      *
-     * @link https://docs.apigee.com/management/apis/get/organizations/%7Borg_name%7D/apiproducts
+     * @see https://docs.apigee.com/management/apis/get/organizations/%7Borg_name%7D/apiproducts
      */
     public function searchByAttribute(string $attributeName, string $attributeValue): array;
 }

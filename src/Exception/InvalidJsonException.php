@@ -10,7 +10,6 @@ use Throwable;
 /**
  * Class InvalidJsonException.
  *
- * @package Apigee\Edge\Exception
  * @author Dezső Biczó <mxr576@gmail.com>
  */
 class InvalidJsonException extends ApiException
@@ -39,18 +38,18 @@ class InvalidJsonException extends ApiException
     }
 
     /**
-     * @return string
-     */
-    public function getJsonErrorMessage()
-    {
-        return $this->jsonErrorMessage;
-    }
-
-    /**
      * @inheritdoc
      */
     public function __toString()
     {
         return sprintf("%s\n%s", $this->jsonErrorMessage, parent::__toString());
+    }
+
+    /**
+     * @return string
+     */
+    public function getJsonErrorMessage()
+    {
+        return $this->jsonErrorMessage;
     }
 }

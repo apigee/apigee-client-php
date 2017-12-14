@@ -14,7 +14,6 @@ use Apigee\Edge\Entity\Property\ScopesPropertyInterface;
 /**
  * Interface ApiProductInterface.
  *
- * @package Apigee\Edge\Api\Management\Entity
  * @author Dezső Biczó <mxr576@gmail.com>
  */
 interface ApiProductInterface extends

@@ -13,7 +13,6 @@ use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
  *
  * Denormalizes an entity from Apigee Edge's response to our internal structure.
  *
- * @package Apigee\Edge\Entity
  * @author Dezső Biczó <mxr576@gmail.com>
  */
 class EntityDenormalizer implements DenormalizerInterface
@@ -31,12 +30,12 @@ class EntityDenormalizer implements DenormalizerInterface
         $this->propertyTypeExtractor = new PropertyInfoExtractor(
             [
                 $reflectionExtractor,
-                $phpDocExtractor
+                $phpDocExtractor,
             ],
             // Type extractors
             [
                 $phpDocExtractor,
-                $reflectionExtractor
+                $reflectionExtractor,
             ]
         );
     }
@@ -52,6 +51,14 @@ class EntityDenormalizer implements DenormalizerInterface
         }
 
         return new $class($denormalized);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function supportsDenormalization($data, $type, $format = null)
+    {
+        return in_array(Entity::class, class_parents($type));
     }
 
     /**
@@ -94,6 +101,7 @@ class EntityDenormalizer implements DenormalizerInterface
                     ->denormalizeObjectProperty($type->isCollection(), $data, $class, $format, $context);
             }
         }
+
         return $denormalized;
     }
 
@@ -135,6 +143,7 @@ class EntityDenormalizer implements DenormalizerInterface
                     call_user_func([$propertyDenormalizer, 'denormalize'], $data, $class, $format, $context);
             }
         }
+
         return $denormalized;
     }
 
@@ -154,18 +163,11 @@ class EntityDenormalizer implements DenormalizerInterface
             $class = $collectionValueType->getClassName();
             $collectionKeyType = $type->getCollectionKeyType();
         }
+
         return [
             'builtInType' => $builtinType,
             'class' => $class,
             'collectionKeyType' => $collectionKeyType,
         ];
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function supportsDenormalization($data, $type, $format = null)
-    {
-        return in_array(Entity::class, class_parents($type));
     }
 }

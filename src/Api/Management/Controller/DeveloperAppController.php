@@ -13,7 +13,6 @@ use Psr\Http\Message\UriInterface;
 /**
  * Class DeveloperAppController.
  *
- * @package Apigee\Edge\Api\Management\Controller
  * @author Dezső Biczó <mxr576@gmail.com>
  */
 class DeveloperAppController extends EntityController implements DeveloperAppControllerInterface

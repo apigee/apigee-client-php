@@ -14,7 +14,6 @@ use Symfony\Component\Serializer\Serializer;
  *
  * Base class that helps validation of entity controllers.
  *
- * @package Apigee\Edge\Tests\Test\Controller
  * @author Dezső Biczó <mxr576@gmail.com>
  */
 abstract class EntityControllerValidator extends TestCase
@@ -51,7 +50,7 @@ abstract class EntityControllerValidator extends TestCase
      */
     public static function tearDownAfterClass()
     {
-        if (strpos(static::$client->getUserAgent(), TestClientFactory::OFFLINE_CLIENT_USER_AGENT_PREFIX) === 0) {
+        if (0 === strpos(static::$client->getUserAgent(), TestClientFactory::OFFLINE_CLIENT_USER_AGENT_PREFIX)) {
             return;
         }
 

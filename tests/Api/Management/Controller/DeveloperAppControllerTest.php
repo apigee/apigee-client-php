@@ -14,7 +14,6 @@ use Apigee\Edge\Tests\Test\Controller\OrganizationAwareEntityControllerValidator
 /**
  * Class DeveloperAppControllerTest.
  *
- * @package Apigee\Edge\Tests\Api\Management\Controller
  * @author Dezső Biczó <mxr576@gmail.com>
  *
  * @group controller
@@ -49,22 +48,6 @@ class DeveloperAppControllerTest extends NonCpsLimitEntityControllerValidator
     /**
      * @inheritdoc
      */
-    protected static function getEntityController(): EntityControllerInterface
-    {
-        static $controller;
-        if (!$controller) {
-            $controller = new DeveloperAppController(
-                static::getOrganization(),
-                static::$developerId,
-                static::$client
-            );
-        }
-        return $controller;
-    }
-
-    /**
-     * @inheritdoc
-     */
     public static function sampleDataForEntityCreate(): EntityInterface
     {
         $entity = new DeveloperApp([
@@ -74,6 +57,7 @@ class DeveloperAppControllerTest extends NonCpsLimitEntityControllerValidator
             'callbackUrl' => 'http://example.com',
         ]);
         $entity->setDisplayName('PHP Unit: Test app');
+
         return $entity;
     }
 
@@ -87,17 +71,7 @@ class DeveloperAppControllerTest extends NonCpsLimitEntityControllerValidator
             'callbackUrl' => 'http://foo.example.com',
         ]);
         $entity->setDisplayName('(Edited) PHP Unit: Test app');
-        return $entity;
-    }
 
-    /**
-     * @inheritdoc
-     */
-    protected static function expectedAfterEntityCreate(): EntityInterface
-    {
-        /** @var DeveloperApp $entity */
-        $entity = parent::expectedAfterEntityCreate();
-        $entity->setStatus('approved');
         return $entity;
     }
 
@@ -110,5 +84,34 @@ class DeveloperAppControllerTest extends NonCpsLimitEntityControllerValidator
     public function testCreate()
     {
         return parent::testCreate();
+    }
+
+    /**
+     * @inheritdoc
+     */
+    protected static function getEntityController(): EntityControllerInterface
+    {
+        static $controller;
+        if (!$controller) {
+            $controller = new DeveloperAppController(
+                static::getOrganization(),
+                static::$developerId,
+                static::$client
+            );
+        }
+
+        return $controller;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    protected static function expectedAfterEntityCreate(): EntityInterface
+    {
+        /** @var DeveloperApp $entity */
+        $entity = parent::expectedAfterEntityCreate();
+        $entity->setStatus('approved');
+
+        return $entity;
     }
 }

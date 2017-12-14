@@ -9,7 +9,6 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
  *
  * Normalizes entity data to Apigee Edge's format.
  *
- * @package Apigee\Edge\Entity
  * @author Dezső Biczó <mxr576@gmail.com>
  */
 class EntityNormalizer implements NormalizerInterface
@@ -43,7 +42,8 @@ class EntityNormalizer implements NormalizerInterface
         // sending a smaller portion of data in POST/PUT is always a good practice.
         $asArray = array_filter($asArray);
         ksort($asArray);
-        return (object)$asArray;
+
+        return (object) $asArray;
     }
 
     /**

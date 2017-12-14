@@ -13,7 +13,6 @@ use Apigee\Edge\Structure\AttributesProperty;
 /**
  * Describes a Developer entity.
  *
- * @package Apigee\Edge\Api\Management\Entity
  * @author Dezső Biczó <mxr576@gmail.com>
  */
 class Developer extends Entity implements DeveloperInterface

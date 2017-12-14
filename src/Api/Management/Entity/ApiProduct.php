@@ -15,7 +15,6 @@ use Apigee\Edge\Structure\AttributesProperty;
 /**
  * Describes an API product entity.
  *
- * @package Apigee\Edge\Api\Management\Entity
  * @author Dezső Biczó <mxr576@gmail.com>
  */
 class ApiProduct extends Entity implements ApiProductInterface

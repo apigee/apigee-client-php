@@ -10,9 +10,8 @@ use Psr\Http\Message\RequestInterface;
  *
  * Adds an additional getter to the Mock client until this PR is not going to be merged.
  *
- * @link https://github.com/php-http/mock-client/pull/23
+ * @see https://github.com/php-http/mock-client/pull/23
  *
- * @package Apigee\Edge\Tests\Test\Mock
  * @author Dezső Biczó <mxr576@gmail.com>
  */
 class MockHttpClient extends Client implements MockClientInterface
@@ -22,6 +21,7 @@ class MockHttpClient extends Client implements MockClientInterface
     public function sendRequest(RequestInterface $request)
     {
         $this->lastRequest = $request;
+
         return parent::sendRequest($request);
     }
 

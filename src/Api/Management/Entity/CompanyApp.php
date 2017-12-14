@@ -5,7 +5,6 @@ namespace Apigee\Edge\Api\Management\Entity;
 /**
  * Class CompanyApp.
  *
- * @package Apigee\Edge\Api\Management\Entity
  * @author Dezső Biczó <mxr576@gmail.com>
  */
 class CompanyApp extends App implements CompanyAppInterface

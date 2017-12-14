@@ -14,7 +14,6 @@ use Psr\Http\Message\UriInterface;
 /**
  * Class DeveloperAppCredentialController.
  *
- * @package Apigee\Edge\Api\Management\Controller
  * @author Dezső Biczó <mxr576@gmail.com>
  */
 class DeveloperAppCredentialController extends EntityController implements DeveloperAppCredentialControllerInterface
@@ -67,38 +66,17 @@ class DeveloperAppCredentialController extends EntityController implements Devel
     /**
      * @inheritdoc
      */
-    protected function getBaseEndpointUri(): UriInterface
-    {
-        return $this->client->getUriFactory()
-            ->createUri(sprintf(
-                '/organizations/%s/developers/%s/apps/%s',
-                $this->organization,
-                $this->developerId,
-                $this->appName
-            ));
-    }
-
-    /**
-     * @inheritdoc
-     */
-    protected function getEntityEndpointUri(string $entityId): UriInterface
-    {
-        return $this->getBaseEndpointUri()->withPath(sprintf('%s/keys/%s', $this->getBaseEndpointUri(), $entityId));
-    }
-
-    /**
-     * @inheritdoc
-     */
     public function create(string $consumerKey, string $consumerSecret): AppCredentialInterface
     {
         $response = $this->client->post(
             // Just to spare some extra lines of code.
             $this->getEntityEndpointUri('create'),
-            json_encode((object)['consumerKey' => $consumerKey, 'consumerSecret' => $consumerSecret])
+            json_encode((object) ['consumerKey' => $consumerKey, 'consumerSecret' => $consumerSecret])
         );
+
         return $this->entitySerializer->deserialize(
             $response->getBody(),
-            $this->entityFactory->getEntityTypeByController(DeveloperAppCredentialController::class),
+            $this->entityFactory->getEntityTypeByController(self::class),
             'json'
         );
     }
@@ -113,19 +91,20 @@ class DeveloperAppCredentialController extends EntityController implements Devel
     ): AppCredentialInterface {
         $response = $this->client->post(
             $this->getBaseEndpointUri(),
-            json_encode((object)[
+            json_encode((object) [
                 'apiProducts' => $apiProducts,
                 'scopes' => $scopes,
-                'keyExpiresIn' => $keyExpiresIn
+                'keyExpiresIn' => $keyExpiresIn,
             ])
         );
         // It returns a complete developer app entity, but we only returns the newly created credential for the
         // sake of consistency.
         $responseArray = $this->parseResponseToArray($response);
         $credentialArray = reset($responseArray['credentials']);
+
         return $this->entitySerializer->denormalize(
             $credentialArray,
-            $this->entityFactory->getEntityTypeByController(DeveloperAppCredentialController::class)
+            $this->entityFactory->getEntityTypeByController(self::class)
         );
     }
 
@@ -136,11 +115,12 @@ class DeveloperAppCredentialController extends EntityController implements Devel
     {
         $response = $this->client->post(
             $this->getEntityEndpointUri($consumerKey),
-            json_encode((object)['apiProducts' => $apiProducts])
+            json_encode((object) ['apiProducts' => $apiProducts])
         );
+
         return $this->entitySerializer->deserialize(
             $response->getBody(),
-            $this->entityFactory->getEntityTypeByController(DeveloperAppCredentialController::class),
+            $this->entityFactory->getEntityTypeByController(self::class),
             'json'
         );
     }
@@ -153,11 +133,12 @@ class DeveloperAppCredentialController extends EntityController implements Devel
         $normalizer = new KeyValueMapNormalizer();
         $response = $this->client->post(
             $this->getEntityEndpointUri($consumerKey),
-            json_encode((object)['attributes' => $normalizer->normalize($attributes)])
+            json_encode((object) ['attributes' => $normalizer->normalize($attributes)])
         );
+
         return $this->entitySerializer->deserialize(
             $response->getBody(),
-            $this->entityFactory->getEntityTypeByController(DeveloperAppCredentialController::class),
+            $this->entityFactory->getEntityTypeByController(self::class),
             'json'
         );
     }
@@ -181,6 +162,7 @@ class DeveloperAppCredentialController extends EntityController implements Devel
         $uri = $this->getBaseEndpointUri()
             ->withPath(sprintf('%s/keys/%s/apiproducts/%s', $this->getBaseEndpointUri(), $consumerKey, $apiProduct));
         $response = $this->client->delete($uri);
+
         return $this->entitySerializer->deserialize(
             $response->getBody(),
             $this->entityFactory->getEntityTypeByController($this),
@@ -195,12 +177,35 @@ class DeveloperAppCredentialController extends EntityController implements Devel
     {
         $response = $this->client->put(
             $this->getEntityEndpointUri($consumerKey),
-            json_encode((object)['scopes' => $scopes])
+            json_encode((object) ['scopes' => $scopes])
         );
+
         return $this->entitySerializer->deserialize(
             $response->getBody(),
-            $this->entityFactory->getEntityTypeByController(DeveloperAppCredentialController::class),
+            $this->entityFactory->getEntityTypeByController(self::class),
             'json'
         );
+    }
+
+    /**
+     * @inheritdoc
+     */
+    protected function getBaseEndpointUri(): UriInterface
+    {
+        return $this->client->getUriFactory()
+            ->createUri(sprintf(
+                '/organizations/%s/developers/%s/apps/%s',
+                $this->organization,
+                $this->developerId,
+                $this->appName
+            ));
+    }
+
+    /**
+     * @inheritdoc
+     */
+    protected function getEntityEndpointUri(string $entityId): UriInterface
+    {
+        return $this->getBaseEndpointUri()->withPath(sprintf('%s/keys/%s', $this->getBaseEndpointUri(), $entityId));
     }
 }

@@ -17,8 +17,6 @@ use Apigee\Edge\Api\Management\Entity\Organization;
  * - Entity properties with object or array types must be initialized.
  *
  * @author Dezső Biczó <mxr576@gmail.com>
- *
- * @package Apigee\Edge\Entity
  */
 class Entity implements EntityInterface
 {
@@ -50,22 +48,6 @@ class Entity implements EntityInterface
     }
 
     /**
-     * @inheritdoc
-     */
-    public function id(): ?string
-    {
-        return $this->{$this->idProperty()};
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function idProperty(): string
-    {
-        return self::DEFAULT_ID_FIELD;
-    }
-
-    /**
      * Deep clone for entity structures.
      *
      * Inspired by https://github.com/kore/DataObject/blob/master/src/Kore/DataObject/DataObject.php
@@ -80,6 +62,22 @@ class Entity implements EntityInterface
                 $this->cloneArray($this->{$property});
             }
         }
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function id(): ?string
+    {
+        return $this->{$this->idProperty()};
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function idProperty(): string
+    {
+        return self::DEFAULT_ID_FIELD;
     }
 
     /**

@@ -13,7 +13,6 @@ use Throwable;
  *
  * General exception class for API communication errors.
  *
- * @package Apigee\Edge\Exception
  * @author Dezső Biczó <mxr576@gmail.com>
  */
 class ApiException extends \RuntimeException
@@ -50,9 +49,9 @@ class ApiException extends \RuntimeException
         $message = $response->getReasonPhrase();
         // Try to parse Edge error message and error code from the response body.
         $contentTypeHeader = $response->getHeaderLine('Content-Type');
-        if ($contentTypeHeader && strpos($contentTypeHeader, 'application/json') !== false) {
+        if ($contentTypeHeader && false !== strpos($contentTypeHeader, 'application/json')) {
             $array = json_decode($response->getBody(), true);
-            if (json_last_error() === JSON_ERROR_NONE) {
+            if (JSON_ERROR_NONE === json_last_error()) {
                 if (array_key_exists('code', $array)) {
                     $this->edgeErrorCode = $array['code'];
                 }
@@ -62,6 +61,15 @@ class ApiException extends \RuntimeException
             }
         }
         parent::__construct($message, $response->getStatusCode(), $previous);
+    }
+
+    public function __toString()
+    {
+        return sprintf(
+            "Request:\n%s\nResponse:\n%s\n",
+            $this->formatter->formatRequest($this->request),
+            $this->formatter->formatResponse($this->response)
+        );
     }
 
     /**
@@ -94,14 +102,5 @@ class ApiException extends \RuntimeException
     public function getEdgeErrorCode(): ?string
     {
         return $this->edgeErrorCode;
-    }
-
-    public function __toString()
-    {
-        return sprintf(
-            "Request:\n%s\nResponse:\n%s\n",
-            $this->formatter->formatRequest($this->request),
-            $this->formatter->formatResponse($this->response)
-        );
     }
 }

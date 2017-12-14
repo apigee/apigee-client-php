@@ -12,7 +12,6 @@ use Apigee\Edge\Entity\Property\StatusPropertyAwareTrait;
 /**
  * Class App.
  *
- * @package Apigee\Edge\Api\Management\Entity
  * @author Dezső Biczó <mxr576@gmail.com>
  */
 abstract class App extends Entity implements AppInterface

@@ -7,7 +7,6 @@ use Apigee\Edge\Structure\PropertiesProperty;
 /**
  * Trait PropertiesPropertyAwareTrait.
  *
- * @package Apigee\Edge\Entity\Property
  * @author Dezső Biczó <mxr576@gmail.com>
  */
 trait PropertiesPropertyAwareTrait

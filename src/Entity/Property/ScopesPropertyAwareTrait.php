@@ -5,8 +5,8 @@ namespace Apigee\Edge\Entity\Property;
 /**
  * Trait ScopesPropertyAwareTrait.
  *
- * @package Apigee\Edge\Entity\Property
  * @author Dezső Biczó <mxr576@gmail.com>
+ *
  * @see \Apigee\Edge\Entity\Property\ScopesPropertyInterface
  */
 trait ScopesPropertyAwareTrait

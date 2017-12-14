@@ -7,8 +7,8 @@ namespace Apigee\Edge\Entity;
  *
  * Accessor methods for common Apigee Edge entities.
  *
- * @package Apigee\Edge\Entity
  * @author Dezső Biczó <mxr576@gmail.com>
+ *
  * @see CommonEntityPropertiesAwareTrait
  */
 interface CommonEntityPropertiesInterface

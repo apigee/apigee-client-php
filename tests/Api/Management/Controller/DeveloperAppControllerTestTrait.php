@@ -11,7 +11,6 @@ use Apigee\Edge\Tests\Test\Mock\TestClientFactory;
 /**
  * Trait DeveloperAppControllerTestTrait.
  *
- * @package Apigee\Edge\Tests\Api\Management\Controller
  * @author Dezső Biczó <mxr576@gmail.com>
  */
 trait DeveloperAppControllerTestTrait
@@ -70,11 +69,11 @@ trait DeveloperAppControllerTestTrait
      */
     public static function tearDownAfterClass()
     {
-        if (strpos(static::$client->getUserAgent(), TestClientFactory::OFFLINE_CLIENT_USER_AGENT_PREFIX) === 0) {
+        if (0 === strpos(static::$client->getUserAgent(), TestClientFactory::OFFLINE_CLIENT_USER_AGENT_PREFIX)) {
             return;
         }
 
-        if (static::$developerId !== null) {
+        if (null !== static::$developerId) {
             $dc = new DeveloperController(static::getOrganization(), static::$client);
             try {
                 $dc->delete(static::$developerId);
@@ -86,7 +85,7 @@ trait DeveloperAppControllerTestTrait
             }
         }
 
-        if (static::$apiProductName !== null) {
+        if (null !== static::$apiProductName) {
             $apc = new ApiProductController(static::getOrganization(), static::$client);
             try {
                 $apc->delete(static::$apiProductName);

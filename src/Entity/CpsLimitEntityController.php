@@ -10,8 +10,8 @@ use Apigee\Edge\Structure\CpsListLimitInterface;
 /**
  * Class CpsLimitEntityController.
  *
- * @package Apigee\Edge\Entity
  * @author Dezső Biczó <mxr576@gmail.com>
+ *
  * @see \Apigee\Edge\Entity\CpsLimitEntityControllerInterface
  */
 abstract class CpsLimitEntityController extends EntityController
@@ -50,8 +50,7 @@ abstract class CpsLimitEntityController extends EntityController
 
         // Create an anonymous class here because this class should not exist and be in use
         // in those controllers that do not work with entities that belongs to an organization.
-        $cpsLimit = new class() implements CpsListLimitInterface
-        {
+        $cpsLimit = new class() implements CpsListLimitInterface {
             protected $startKey;
 
             protected $limit;
@@ -75,17 +74,20 @@ abstract class CpsLimitEntityController extends EntityController
             public function setStartKey(string $startKey): string
             {
                 $this->startKey = $startKey;
+
                 return $this->startKey;
             }
 
             public function setLimit(int $limit): int
             {
                 $this->limit = $limit;
+
                 return $this->limit;
             }
         };
         $cpsLimit->setStartKey($startKey);
         $cpsLimit->setLimit($limit);
+
         return $cpsLimit;
     }
 }

@@ -9,14 +9,12 @@ use Http\Client\Common\Plugin;
 use Http\Client\Common\Plugin\CachePlugin;
 use Http\Discovery\UriFactoryDiscovery;
 use Http\Message\StreamFactory;
-use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Psr\Cache\CacheItemPoolInterface;
 
 /**
  * Class BuilderTest.
  *
- * @package Apigee\Edge\Tests\HttpClient\Mock
  * @author Dezső Biczó <mxr576@gmail.com>
  *
  * @group client
@@ -59,6 +57,7 @@ class BuilderTest extends TestCase
         $builder->getHttpClient()->sendRequest(new Request('GET', 'http://example.com'));
         $sent_request = self::$httpClient->getLastRequest();
         $this->assertEquals($sent_request->getHeaderLine('Foo'), $headers['Foo']);
+
         return $builder;
     }
 
@@ -126,6 +125,7 @@ class BuilderTest extends TestCase
         $builder->getHttpClient()->sendRequest($request);
         $sent_request = self::$httpClient->getLastRequest();
         $this->assertEquals('/edge', $sent_request->getUri()->getPath());
+
         return $builder;
     }
 
@@ -146,7 +146,7 @@ class BuilderTest extends TestCase
     }
 
     /**
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function testShouldNotAddCachePlugin()
     {
@@ -163,6 +163,7 @@ class BuilderTest extends TestCase
         $client = $builder->getHttpClient();
         $builder->addCache($cachePoolMock);
         $this->assertNotEquals($client, $builder->getHttpClient());
+
         return $builder;
     }
 

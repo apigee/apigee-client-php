@@ -12,7 +12,6 @@ use Psr\Http\Message\UriInterface;
 /**
  * Class AppController.
  *
- * @package Apigee\Edge\Api\Management\Controller
  * @author Dezső Biczó <mxr576@gmail.com>
  */
 class AppController extends CpsLimitEntityController implements AppControllerInterface
@@ -51,18 +50,10 @@ class AppController extends CpsLimitEntityController implements AppControllerInt
     /**
      * @inheritdoc
      */
-    protected function getBaseEndpointUri(): UriInterface
-    {
-        return $this->client->getUriFactory()
-            ->createUri(sprintf('/organizations/%s/apps', $this->organization));
-    }
-
-    /**
-     * @inheritdoc
-     */
     public function loadApp(string $appId): AppInterface
     {
         $response = $this->client->get($this->getEntityEndpointUri($appId));
+
         return $this->appEntityDenormalizer->denormalize(
             $this->parseResponseToArray($response),
             AppInterface::class
@@ -78,6 +69,7 @@ class AppController extends CpsLimitEntityController implements AppControllerInt
             'expand' => 'false',
         ];
         $response = $this->request($queryParams, $cpsLimit);
+
         return $this->parseResponseToArray($response);
     }
 
@@ -103,6 +95,7 @@ class AppController extends CpsLimitEntityController implements AppControllerInt
             );
             $entities[$tmp->id()] = $tmp;
         }
+
         return $entities;
     }
 
@@ -116,6 +109,7 @@ class AppController extends CpsLimitEntityController implements AppControllerInt
             'status' => $status,
         ];
         $response = $this->request($queryParams, $cpsLimit);
+
         return $this->parseResponseToArray($response);
     }
 
@@ -145,6 +139,7 @@ class AppController extends CpsLimitEntityController implements AppControllerInt
             );
             $entities[$tmp->id()] = $tmp;
         }
+
         return $entities;
     }
 
@@ -158,6 +153,7 @@ class AppController extends CpsLimitEntityController implements AppControllerInt
             'apptype' => $appType,
         ];
         $response = $this->request($queryParams, $cpsLimit);
+
         return $this->parseResponseToArray($response);
     }
 
@@ -171,7 +167,17 @@ class AppController extends CpsLimitEntityController implements AppControllerInt
             'appfamily' => $appFamily,
         ];
         $response = $this->request($queryParams, $cpsLimit);
+
         return $this->parseResponseToArray($response);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    protected function getBaseEndpointUri(): UriInterface
+    {
+        return $this->client->getUriFactory()
+            ->createUri(sprintf('/organizations/%s/apps', $this->organization));
     }
 
     /**
@@ -191,6 +197,7 @@ class AppController extends CpsLimitEntityController implements AppControllerInt
             $queryParams['count'] = $cpsLimit->getLimit();
         }
         $uri = $this->getBaseEndpointUri()->withQuery(http_build_query($queryParams));
+
         return $this->client->get($uri);
     }
 }

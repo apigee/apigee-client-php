@@ -5,7 +5,6 @@ namespace Apigee\Edge\Structure;
 /**
  * Class PropertiesPropertyNormalizer.
  *
- * @package Apigee\Edge\Structure
  * @author Dezső Biczó <mxr576@gmail.com>
  */
 class PropertiesPropertyNormalizer extends KeyValueMapNormalizer
@@ -20,6 +19,7 @@ class PropertiesPropertyNormalizer extends KeyValueMapNormalizer
         $return = [
             'property' => parent::normalize($object, $format, $context),
         ];
+
         return $return;
     }
 }

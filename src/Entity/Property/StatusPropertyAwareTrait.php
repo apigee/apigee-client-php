@@ -5,7 +5,6 @@ namespace Apigee\Edge\Entity\Property;
 /**
  * Trait StatusPropertyAwareTrait.
  *
- * @package Apigee\Edge\Entity\Property
  * @author Dezső Biczó <mxr576@gmail.com>
  *
  * @see StatusPropertyInterface
@@ -33,6 +32,7 @@ trait StatusPropertyAwareTrait
      *   Status of the entity.
      *
      * @see \Apigee\Edge\Entity\Property\StatusPropertyInterface
+     *
      * @internal
      */
     public function setStatus(string $status): void

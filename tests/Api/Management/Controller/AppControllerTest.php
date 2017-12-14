@@ -15,7 +15,6 @@ use Apigee\Edge\Tests\Test\Mock\TestClientFactory;
 /**
  * Class AppControllerTest.
  *
- * @package Apigee\Edge\Tests\Api\Management\Controller
  * @author Dezső Biczó <mxr576@gmail.com>
  */
 class AppControllerTest extends EntityControllerValidator
@@ -52,12 +51,12 @@ class AppControllerTest extends EntityControllerValidator
             $idField = $sampleEntity->idProperty();
             /** @var DeveloperAppInterface[] $testDeveloperApps */
             $testDeveloperApps = [$sampleEntity];
-            for ($i = 1; $i <= 5; $i++) {
+            for ($i = 1; $i <= 5; ++$i) {
                 $testDeveloperApps[$i] = clone $sampleEntity;
                 $testDeveloperApps[$i]->{'set' . $idField}($i . $sampleEntity->id());
             }
             // Create test data on the server or do not do anything if an offline client is in use.
-            if (strpos(static::$client->getUserAgent(), TestClientFactory::OFFLINE_CLIENT_USER_AGENT_PREFIX) === false) {
+            if (false === strpos(static::$client->getUserAgent(), TestClientFactory::OFFLINE_CLIENT_USER_AGENT_PREFIX)) {
                 $i = 0;
                 foreach ($testDeveloperApps as $item) {
                     /** @var \Apigee\Edge\Api\Management\Entity\AppInterface $item */
@@ -69,7 +68,7 @@ class AppControllerTest extends EntityControllerValidator
                         $item = static::$developerAppController->load($item->id());
                     }
                     static::$createdDeveloperApps[$item->getAppId()] = $item;
-                    $i++;
+                    ++$i;
                 }
             } else {
                 // Ensure that testLoadApp() can be executed as an offline test.
@@ -92,7 +91,7 @@ class AppControllerTest extends EntityControllerValidator
     {
         parent::tearDownAfterClass();
 
-        if (strpos(static::$client->getUserAgent(), TestClientFactory::OFFLINE_CLIENT_USER_AGENT_PREFIX) === 0) {
+        if (0 === strpos(static::$client->getUserAgent(), TestClientFactory::OFFLINE_CLIENT_USER_AGENT_PREFIX)) {
             return;
         }
 
@@ -109,21 +108,6 @@ class AppControllerTest extends EntityControllerValidator
         static::cleanUpAfterDeveloperApp();
     }
 
-    /**
-     * @inheritdoc
-     */
-    protected static function getEntityController(): EntityControllerInterface
-    {
-        static $controller;
-        if (!$controller) {
-            $controller = new AppController(
-                static::getOrganization(),
-                static::$client
-            );
-        }
-        return $controller;
-    }
-
     public function testLoadApp()
     {
         /** @var \Apigee\Edge\Api\Management\Controller\AppControllerInterface $controller */
@@ -138,7 +122,7 @@ class AppControllerTest extends EntityControllerValidator
 
     public function testListAppIds()
     {
-        if (strpos(static::$client->getUserAgent(), TestClientFactory::OFFLINE_CLIENT_USER_AGENT_PREFIX) === 0) {
+        if (0 === strpos(static::$client->getUserAgent(), TestClientFactory::OFFLINE_CLIENT_USER_AGENT_PREFIX)) {
             $this->markTestSkipped(static::$onlyOnlineClientSkipMessage);
         }
         /** @var \Apigee\Edge\Api\Management\Controller\AppControllerInterface $controller */
@@ -152,7 +136,7 @@ class AppControllerTest extends EntityControllerValidator
 
     public function testListApp()
     {
-        if (strpos(static::$client->getUserAgent(), TestClientFactory::OFFLINE_CLIENT_USER_AGENT_PREFIX) === 0) {
+        if (0 === strpos(static::$client->getUserAgent(), TestClientFactory::OFFLINE_CLIENT_USER_AGENT_PREFIX)) {
             $this->markTestSkipped(static::$onlyOnlineClientSkipMessage);
         }
         /** @var \Apigee\Edge\Api\Management\Controller\AppControllerInterface $controller */
@@ -171,7 +155,7 @@ class AppControllerTest extends EntityControllerValidator
 
     public function testListAppIdsByStatus()
     {
-        if (strpos(static::$client->getUserAgent(), TestClientFactory::OFFLINE_CLIENT_USER_AGENT_PREFIX) === 0) {
+        if (0 === strpos(static::$client->getUserAgent(), TestClientFactory::OFFLINE_CLIENT_USER_AGENT_PREFIX)) {
             $this->markTestSkipped(static::$onlyOnlineClientSkipMessage);
         }
         /** @var \Apigee\Edge\Api\Management\Controller\AppControllerInterface $controller */
@@ -180,7 +164,7 @@ class AppControllerTest extends EntityControllerValidator
         $revokedIDs = $controller->listAppIdsByStatus(App::STATUS_REVOKED);
         /** @var \Apigee\Edge\Api\Management\Entity\AppInterface $app */
         foreach (static::$createdDeveloperApps as $app) {
-            if ($app->getStatus() === App::STATUS_APPROVED) {
+            if (App::STATUS_APPROVED === $app->getStatus()) {
                 $this->assertContains($app->getAppId(), $approvedIDs);
             } else {
                 $this->assertContains($app->getAppId(), $revokedIDs);
@@ -190,7 +174,7 @@ class AppControllerTest extends EntityControllerValidator
 
     public function testListAppIdsByType()
     {
-        if (strpos(static::$client->getUserAgent(), TestClientFactory::OFFLINE_CLIENT_USER_AGENT_PREFIX) === 0) {
+        if (0 === strpos(static::$client->getUserAgent(), TestClientFactory::OFFLINE_CLIENT_USER_AGENT_PREFIX)) {
             $this->markTestSkipped(static::$onlyOnlineClientSkipMessage);
         }
         // TODO Implement after company apps are being supported.
@@ -199,11 +183,27 @@ class AppControllerTest extends EntityControllerValidator
 
     public function testListAppIdsByFamily()
     {
-        /**
+        /*
          * @link https://docs.apigee.com/management/apis/post/organizations/%7Borg_name%7D/developers/%7Bdeveloper_email_or_id%7D/appfamilies.
          */
         $this->markTestSkipped(
             'App families API seems to be deprecated.'
         );
+    }
+
+    /**
+     * @inheritdoc
+     */
+    protected static function getEntityController(): EntityControllerInterface
+    {
+        static $controller;
+        if (!$controller) {
+            $controller = new AppController(
+                static::getOrganization(),
+                static::$client
+            );
+        }
+
+        return $controller;
     }
 }

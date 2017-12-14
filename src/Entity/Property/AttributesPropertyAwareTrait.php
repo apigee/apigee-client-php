@@ -7,8 +7,8 @@ use Apigee\Edge\Structure\AttributesProperty;
 /**
  * Trait AttributesPropertyAwareTrait.
  *
- * @package Apigee\Edge\Entity\Property
  * @author Dezső Biczó <mxr576@gmail.com>
+ *
  * @see AttributesPropertyInterface
  */
 trait AttributesPropertyAwareTrait

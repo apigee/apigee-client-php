@@ -7,7 +7,6 @@ use Apigee\Edge\Exception\EntityNotFoundException;
 /**
  * Class EntityFactory.
  *
- * @package Apigee\Edge\Entity
  * @author Dezső Biczó <mxr576@gmail.com>
  */
 final class EntityFactory implements EntityFactoryInterface
@@ -17,14 +16,14 @@ final class EntityFactory implements EntityFactoryInterface
      *
      * @var string[]
      */
-    static private $classMappingCache = [];
+    private static $classMappingCache = [];
 
     /**
      * Entity object cache.
      *
      * @var EntityInterface[]
      */
-    static private $objectCache = [];
+    private static $objectCache = [];
 
     /**
      * @inheritdoc
@@ -65,6 +64,7 @@ final class EntityFactory implements EntityFactoryInterface
         }
         // Add it to to object cache.
         self::$classMappingCache[$className] = $fqcn;
+
         return self::$classMappingCache[$className];
     }
 
@@ -77,6 +77,7 @@ final class EntityFactory implements EntityFactoryInterface
         $fqcn = self::getEntityTypeByController($entityController);
         // Add it to to object cache.
         self::$objectCache[$className] = new $fqcn();
+
         return clone self::$objectCache[$className];
     }
 
@@ -95,6 +96,7 @@ final class EntityFactory implements EntityFactoryInterface
         if (is_object($entityController)) {
             $className = get_class($entityController);
         }
+
         return $className;
     }
 }

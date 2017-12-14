@@ -5,7 +5,6 @@ namespace Apigee\Edge\Structure;
 /**
  * Class PropertiesPropertyDenormalizer.
  *
- * @package Apigee\Edge\Structure
  * @author Dezső Biczó <mxr576@gmail.com>
  */
 class PropertiesPropertyDenormalizer extends KeyValueMapDenormalizer
@@ -30,6 +29,7 @@ class PropertiesPropertyDenormalizer extends KeyValueMapDenormalizer
             }
             $data = $flatten;
         }
+
         return parent::denormalize($data, $class, $format, $context);
     }
 }

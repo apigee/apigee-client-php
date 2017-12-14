@@ -10,9 +10,9 @@ use Apigee\Edge\Entity\StatusAwareEntityControllerInterface;
 /**
  * Interface DeveloperAppControllerInterface.
  *
- * @package Apigee\Edge\Api\Management\Controller
  * @author Dezső Biczó <mxr576@gmail.com>
- * @link https://docs.apigee.com/api/apps-developer
+ *
+ * @see https://docs.apigee.com/api/apps-developer
  */
 interface DeveloperAppControllerInterface extends
     AttributesAwareEntityControllerInterface,
@@ -21,5 +21,4 @@ interface DeveloperAppControllerInterface extends
     NonCpsListingEntityControllerInterface,
     StatusAwareEntityControllerInterface
 {
-
 }

@@ -26,7 +26,6 @@ use Psr\Http\Message\UriInterface;
  *
  * Default API client implementation for Apigee Edge.
  *
- * @package Apigee\Edge\HttpClient
  * @author Dezső Biczó <mxr576@gmail.com>
  */
 class Client implements ClientInterface
@@ -36,6 +35,9 @@ class Client implements ClientInterface
     private const ENTERPRISE_URL = 'https://api.enterprise.apigee.com';
 
     private const API_VERSION = 'v1';
+
+    /** @var UriFactory */
+    protected $uriFactory;
 
     /** @var string */
     private $userAgentPrefix = '';
@@ -63,9 +65,6 @@ class Client implements ClientInterface
      * @var \Apigee\Edge\HttpClient\Util\Builder
      */
     private $currentBuilder;
-
-    /** @var UriFactory */
-    protected $uriFactory;
 
     /** @var CacheItemPoolInterface */
     private $cachePool;
@@ -108,72 +107,6 @@ class Client implements ClientInterface
     }
 
     /**
-     * Sets or removes rebuild flag from the underlying HTTP client.
-     *
-     * @param bool $rebuild
-     *
-     * @return bool
-     */
-    private function needsRebuild(bool $rebuild = true): bool
-    {
-        return $this->rebuild = $rebuild;
-    }
-
-    /**
-     * Indicates whether the underlying HTTP clients needs to be rebuilt before the next API call.
-     *
-     * @return bool
-     */
-    private function rebuild(): bool
-    {
-        return $this->rebuild;
-    }
-
-    /**
-     * Returns default HTTP headers sent by the underlying HTTP client.
-     *
-     * @return array
-     */
-    protected function getDefaultHeaders(): array
-    {
-        return [
-            'User-Agent' => $this->getUserAgent(),
-            'Accept' => 'application/json; charset=utf-8',
-            'Accept-Encoding' => 'gzip',
-        ];
-    }
-
-    /**
-     * Returns default plugins used by the underlying HTTP client.
-     *
-     * @return array
-     */
-    protected function getDefaultPlugins(): array
-    {
-        $plugins = [
-            new BaseUriPlugin($this->getBaseUri()->withPath(self::API_VERSION), ['replace' => true]),
-            new HeaderDefaultsPlugin($this->getDefaultHeaders()),
-            new HistoryPlugin($this->journal),
-            new DecoderPlugin(),
-            new ResponseHandlerPlugin(),
-        ];
-        if ($this->auth) {
-            $plugins[] = new AuthenticationPlugin($this->auth);
-        }
-        return $plugins;
-    }
-
-    /**
-     * Returns Apigee Edge endpoint as am URI.
-     *
-     * @return UriInterface
-     */
-    protected function getBaseUri(): UriInterface
-    {
-        return $this->uriFactory->createUri($this->getEndpoint());
-    }
-
-    /**
      * @inheritdoc
      */
     public function getJournal(): Journal
@@ -213,32 +146,6 @@ class Client implements ClientInterface
     /**
      * @inheritdoc
      */
-    protected function getHttpClientBuilder(): BuilderInterface
-    {
-        if ($this->rebuild()) {
-            $this->needsRebuild(false);
-            $this->currentBuilder = clone $this->originalBuilder;
-            foreach ($this->getDefaultPlugins() as $plugin) {
-                $this->currentBuilder->addPlugin($plugin);
-            }
-            if ($this->cachePool) {
-                $this->currentBuilder->addCache($this->cachePool, $this->cacheConfig);
-            }
-        }
-        return $this->currentBuilder;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    protected function getHttpClient(): HttpClient
-    {
-        return $this->getHttpClientBuilder()->getHttpClient();
-    }
-
-    /**
-     * @inheritdoc
-     */
     public function getUriFactory(): UriFactory
     {
         return $this->uriFactory;
@@ -259,6 +166,7 @@ class Client implements ClientInterface
     {
         $this->needsRebuild(true);
         $this->endpoint = $endpoint;
+
         return $this->endpoint;
     }
 
@@ -270,6 +178,7 @@ class Client implements ClientInterface
         if ($this->userAgentPrefix) {
             return sprintf('%s (%s)', $this->userAgentPrefix, $this->getClientVersion());
         }
+
         return $this->getClientVersion();
     }
 
@@ -305,6 +214,7 @@ class Client implements ClientInterface
         if (!isset($headers['Content-Type'])) {
             $headers['Content-Type'] = 'application/json; charset=utf-8';
         }
+
         return $this->send('POST', $uri, $headers, $body);
     }
 
@@ -316,6 +226,7 @@ class Client implements ClientInterface
         if (!isset($headers['Content-Type'])) {
             $headers['Content-Type'] = 'application/json; charset=utf-8';
         }
+
         return $this->send('PUT', $uri, $headers, $body);
     }
 
@@ -346,5 +257,99 @@ class Client implements ClientInterface
     public function sendRequest(RequestInterface $request): ResponseInterface
     {
         return $this->getHttpClient()->sendRequest($request);
+    }
+
+    /**
+     * Returns default HTTP headers sent by the underlying HTTP client.
+     *
+     * @return array
+     */
+    protected function getDefaultHeaders(): array
+    {
+        return [
+            'User-Agent' => $this->getUserAgent(),
+            'Accept' => 'application/json; charset=utf-8',
+            'Accept-Encoding' => 'gzip',
+        ];
+    }
+
+    /**
+     * Returns default plugins used by the underlying HTTP client.
+     *
+     * @return array
+     */
+    protected function getDefaultPlugins(): array
+    {
+        $plugins = [
+            new BaseUriPlugin($this->getBaseUri()->withPath(self::API_VERSION), ['replace' => true]),
+            new HeaderDefaultsPlugin($this->getDefaultHeaders()),
+            new HistoryPlugin($this->journal),
+            new DecoderPlugin(),
+            new ResponseHandlerPlugin(),
+        ];
+        if ($this->auth) {
+            $plugins[] = new AuthenticationPlugin($this->auth);
+        }
+
+        return $plugins;
+    }
+
+    /**
+     * Returns Apigee Edge endpoint as am URI.
+     *
+     * @return UriInterface
+     */
+    protected function getBaseUri(): UriInterface
+    {
+        return $this->uriFactory->createUri($this->getEndpoint());
+    }
+
+    /**
+     * @inheritdoc
+     */
+    protected function getHttpClientBuilder(): BuilderInterface
+    {
+        if ($this->rebuild()) {
+            $this->needsRebuild(false);
+            $this->currentBuilder = clone $this->originalBuilder;
+            foreach ($this->getDefaultPlugins() as $plugin) {
+                $this->currentBuilder->addPlugin($plugin);
+            }
+            if ($this->cachePool) {
+                $this->currentBuilder->addCache($this->cachePool, $this->cacheConfig);
+            }
+        }
+
+        return $this->currentBuilder;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    protected function getHttpClient(): HttpClient
+    {
+        return $this->getHttpClientBuilder()->getHttpClient();
+    }
+
+    /**
+     * Sets or removes rebuild flag from the underlying HTTP client.
+     *
+     * @param bool $rebuild
+     *
+     * @return bool
+     */
+    private function needsRebuild(bool $rebuild = true): bool
+    {
+        return $this->rebuild = $rebuild;
+    }
+
+    /**
+     * Indicates whether the underlying HTTP clients needs to be rebuilt before the next API call.
+     *
+     * @return bool
+     */
+    private function rebuild(): bool
+    {
+        return $this->rebuild;
     }
 }

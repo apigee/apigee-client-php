@@ -10,9 +10,9 @@ use Psr\Http\Message\UriInterface;
 /**
  * Class OrganizationController.
  *
- * @package Apigee\Edge\Api\Management\Controller
  * @author Dezső Biczó <mxr576@gmail.com>
- * @link https://docs.apigee.com/api/organizations-0
+ *
+ * @see https://docs.apigee.com/api/organizations-0
  */
 class OrganizationController extends AbstractEntityController implements OrganizationControllerInterface
 {

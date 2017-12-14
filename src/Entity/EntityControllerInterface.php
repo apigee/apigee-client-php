@@ -8,7 +8,6 @@ namespace Apigee\Edge\Entity;
  * Describes public behavior of entity controllers that works with entities that belongs to an organization on Edge.
  * (99% of entities belongs to an organization on Edge, except the organization entity itself.)
  *
- * @package Apigee\Edge\Entity
  * @author Dezső Biczó <mxr576@gmail.com>
  */
 interface EntityControllerInterface

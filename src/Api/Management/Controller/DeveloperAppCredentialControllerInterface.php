@@ -11,33 +11,32 @@ use Apigee\Edge\Structure\AttributesProperty;
 /**
  * Interface DeveloperAppCredentialControllerInterface.
  *
- * @package Apigee\Edge\Api\Management\Controller
  * @author Dezső Biczó <mxr576@gmail.com>
+ *
  * @see link https://docs.apigee.com/api/developer-app-keys
  */
 interface DeveloperAppCredentialControllerInterface extends
     EntityControllerInterface,
     StatusAwareEntityControllerInterface
 {
-
     /**
      * Creates a new consumer key and secret for an app.
      *
      * @param string $consumerKey
      * @param string $consumerSecret
      *
+     * @throws \Apigee\Edge\Exception\ClientErrorException
+     *
      * @return \Apigee\Edge\Api\Management\Entity\AppCredentialInterface
      *
-     * @link https://docs.apigee.com/management/apis/post/organizations/%7Borg_name%7D/developers/%7Bdeveloper_email_or_id%7D/apps/%7Bapp_name%7D/keys/create
-     *
-     * @throws \Apigee\Edge\Exception\ClientErrorException
+     * @see https://docs.apigee.com/management/apis/post/organizations/%7Borg_name%7D/developers/%7Bdeveloper_email_or_id%7D/apps/%7Bapp_name%7D/keys/create
      */
     public function create(string $consumerKey, string $consumerSecret): AppCredentialInterface;
 
     /**
      * Generates a new key pair for an app.
      *
-     * @link https://docs.apigee.com/management/apis/post/organizations/%7Borg_name%7D/developers/%7Bdeveloper_email_or_id%7D/apps/%7Bapp_name%7D-0
+     * @see https://docs.apigee.com/management/apis/post/organizations/%7Borg_name%7D/developers/%7Bdeveloper_email_or_id%7D/apps/%7Bapp_name%7D-0
      *
      * @param string[] $apiProducts
      *   API Product names.
@@ -57,7 +56,7 @@ interface DeveloperAppCredentialControllerInterface extends
     /**
      * Adds API products to a consumer key.
      *
-     * @link https://docs.apigee.com/management/apis/post/organizations/%7Borg_name%7D/developers/%7Bdeveloper_email_or_id%7D/apps/%7Bapp_name%7D/keys/%7Bconsumer_key%7D
+     * @see https://docs.apigee.com/management/apis/post/organizations/%7Borg_name%7D/developers/%7Bdeveloper_email_or_id%7D/apps/%7Bapp_name%7D/keys/%7Bconsumer_key%7D
      *
      * Modifying attributes of a consumer key is intentionally separated because attributes can not just be added but
      * existing ones can be removed if they are missing from the payload.
@@ -74,7 +73,7 @@ interface DeveloperAppCredentialControllerInterface extends
     /**
      * Approve or revoke specific key of a developer app.
      *
-     * @link https://docs.apigee.com/management/apis/post/organizations/%7Borg_name%7D/developers/%7Bdeveloper_email_or_id%7D/apps/%7Bapp_name%7D/keys/%7Bconsumer_key%7D-0
+     * @see https://docs.apigee.com/management/apis/post/organizations/%7Borg_name%7D/developers/%7Bdeveloper_email_or_id%7D/apps/%7Bapp_name%7D/keys/%7Bconsumer_key%7D-0
      *
      * @param string $consumerKey
      * @param string $status
@@ -84,7 +83,7 @@ interface DeveloperAppCredentialControllerInterface extends
     /**
      * Approve or revoke API product for an API key.
      *
-     * @link https://docs.apigee.com/management/apis/post/organizations/%7Borg_name%7D/developers/%7Bdeveloper_email_or_id%7D/apps/%7Bapp_name%7D/keys/%7Bconsumer_key%7D/apiproducts/%7Bapiproduct_name%7D
+     * @see https://docs.apigee.com/management/apis/post/organizations/%7Borg_name%7D/developers/%7Bdeveloper_email_or_id%7D/apps/%7Bapp_name%7D/keys/%7Bconsumer_key%7D/apiproducts/%7Bapiproduct_name%7D
      *
      * @param string $consumerKey
      * @param string $apiProduct
@@ -95,7 +94,7 @@ interface DeveloperAppCredentialControllerInterface extends
     /**
      * Delete key for an developer app.
      *
-     * @link https://docs.apigee.com/management/apis/delete/organizations/%7Borg_name%7D/developers/%7Bdeveloper_email_or_id%7D/apps/%7Bapp_name%7D/keys/%7Bconsumer_key%7D
+     * @see https://docs.apigee.com/management/apis/delete/organizations/%7Borg_name%7D/developers/%7Bdeveloper_email_or_id%7D/apps/%7Bapp_name%7D/keys/%7Bconsumer_key%7D
      *
      * @param string $consumerKey
      *
@@ -106,7 +105,7 @@ interface DeveloperAppCredentialControllerInterface extends
     /**
      * Remove API product for a consumer key for an developer app.
      *
-     * @link https://docs.apigee.com/management/apis/delete/organizations/%7Borg_name%7D/developers/%7Bdeveloper_email_or_id%7D/apps/%7Bapp_name%7D/keys/%7Bconsumer_key%7D
+     * @see https://docs.apigee.com/management/apis/delete/organizations/%7Borg_name%7D/developers/%7Bdeveloper_email_or_id%7D/apps/%7Bapp_name%7D/keys/%7Bconsumer_key%7D
      *
      * @param string $consumerKey
      * @param string $apiProduct
@@ -118,7 +117,7 @@ interface DeveloperAppCredentialControllerInterface extends
     /**
      * Get key details for a developer app.
      *
-     * @link https://docs.apigee.com/management/apis/get/organizations/%7Borg_name%7D/developers/%7Bdeveloper_email_or_id%7D/apps/%7Bapp_name%7D/keys/%7Bconsumer_key%7D
+     * @see https://docs.apigee.com/management/apis/get/organizations/%7Borg_name%7D/developers/%7Bdeveloper_email_or_id%7D/apps/%7Bapp_name%7D/keys/%7Bconsumer_key%7D
      *
      * @param string $consumerKey
      *
@@ -132,7 +131,7 @@ interface DeveloperAppCredentialControllerInterface extends
      * It is called override, because previous attributes can be removed if those are not included in the
      * passed $attributes variable.
      *
-     * @link https://docs.apigee.com/management/apis/post/organizations/%7Borg_name%7D/developers/%7Bdeveloper_email_or_id%7D/apps/%7Bapp_name%7D/keys/%7Bconsumer_key%7D
+     * @see https://docs.apigee.com/management/apis/post/organizations/%7Borg_name%7D/developers/%7Bdeveloper_email_or_id%7D/apps/%7Bapp_name%7D/keys/%7Bconsumer_key%7D
      *
      * @param string $consumerKey
      *   The consumer key to modify.
@@ -148,7 +147,7 @@ interface DeveloperAppCredentialControllerInterface extends
      * It is called override, because previous scopes can be removed if those are not included in the
      * passed $scopes variable.
      *
-     * @link https://docs.apigee.com/management/apis/put/organizations/{org_name}/developers/{developer_email_or_id}/apps/{app_name}/keys/{consumer_key}
+     * @see https://docs.apigee.com/management/apis/put/organizations/{org_name}/developers/{developer_email_or_id}/apps/{app_name}/keys/{consumer_key}
      *
      * @param string $consumerKey
      *   The consumer key to modify.

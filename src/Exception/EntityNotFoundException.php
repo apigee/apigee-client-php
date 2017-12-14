@@ -5,7 +5,6 @@ namespace Apigee\Edge\Exception;
 /**
  * Class EntityNotFoundException.
  *
- * @package Apigee\Edge\Exception
  * @author Dezső Biczó <mxr576@gmail.com>
  */
 class EntityNotFoundException extends \Exception

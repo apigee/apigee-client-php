@@ -13,7 +13,6 @@ use Apigee\Edge\Structure\PropertiesProperty;
 /**
  * Describes an Organization entity.
  *
- * @package Apigee\Edge\Api\Management\Entity
  * @author Dezső Biczó <mxr576@gmail.com>
  */
 class Organization extends Entity implements OrganizationInterface
@@ -42,7 +41,6 @@ class Organization extends Entity implements OrganizationInterface
         $this->properties = new PropertiesProperty();
         parent::__construct($values);
     }
-
 
     /**
      * @inheritdoc
@@ -76,6 +74,6 @@ class Organization extends Entity implements OrganizationInterface
      */
     public function isCpsEnabled(): bool
     {
-        return (bool)$this->getPropertyValue('features.isCpsEnabled');
+        return (bool) $this->getPropertyValue('features.isCpsEnabled');
     }
 }

@@ -8,7 +8,6 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 /**
  * Class AppCredentialNormalizer.
  *
- * @package Apigee\Edge\Api\Management\Entity
  * @author Dezső Biczó <mxr576@gmail.com>
  */
 class AppCredentialNormalizer extends EntityNormalizer implements NormalizerInterface

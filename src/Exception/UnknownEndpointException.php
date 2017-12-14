@@ -5,7 +5,6 @@ namespace Apigee\Edge\Exception;
 /**
  * Class UnknownEndpointException.
  *
- * @package Apigee\Edge\Exception
  * @author Dezső Biczó <mxr576@gmail.com>
  */
 class UnknownEndpointException extends \InvalidArgumentException

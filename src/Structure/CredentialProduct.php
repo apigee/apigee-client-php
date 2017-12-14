@@ -7,7 +7,6 @@ use Apigee\Edge\Entity\Property\StatusPropertyAwareTrait;
 /**
  * Describes a item in the list of API products included in a credential.
  *
- * @package Apigee\Edge\Structure
  * @author Dezső Biczó <mxr576@gmail.com>
  */
 class CredentialProduct implements CredentialProductInterface

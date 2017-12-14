@@ -11,7 +11,6 @@ use Http\Message\Authentication\BasicAuth;
 /**
  * Class TestClientFactory.
  *
- * @package Apigee\Edge\Tests\Test\Mock
  * @author Dezső Biczó <mxr576@gmail.com>
  */
 class TestClientFactory
@@ -42,6 +41,7 @@ class TestClientFactory
             $auth = new BasicAuth($user, $password);
         }
         $builder = new Builder($rc->newInstance());
+
         return new Client($auth, $builder, null, $userAgentPrefix);
     }
 }

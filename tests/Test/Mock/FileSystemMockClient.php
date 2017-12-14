@@ -17,7 +17,6 @@ use Psr\Http\Message\RequestInterface;
  *
  * Loads the content of an HTTP response from the file system.
  *
- * @package Apigee\Edge\Tests\Test\Mock
  * @author Dezső Biczó <mxr576@gmail.com>
  */
 class FileSystemMockClient implements MockClientInterface
@@ -33,7 +32,7 @@ class FileSystemMockClient implements MockClientInterface
      */
     public function __construct(AdapterInterface $adapter = null)
     {
-        if ($adapter === null) {
+        if (null === $adapter) {
             $defaultFolder = realpath(sprintf(
                 '%s%s..%s..%soffline-test-data',
                 dirname(__FILE__),
@@ -63,6 +62,7 @@ class FileSystemMockClient implements MockClientInterface
         if (!$content) {
             throw new RequestException(sprintf('Unable to read content of file at %s path.', $path), $request);
         }
+
         return new Response(200, ['Content-Type' => 'application/json'], $content);
     }
 
@@ -87,6 +87,7 @@ class FileSystemMockClient implements MockClientInterface
         }
         $fileName .= '.json';
         $filePath .= DIRECTORY_SEPARATOR . $fileName;
+
         return rawurldecode($filePath);
     }
 }

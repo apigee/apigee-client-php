@@ -15,7 +15,6 @@ use Apigee\Edge\Tests\Test\Mock\TestClientFactory;
 /**
  * Class DeveloperControllerTest.
  *
- * @package Apigee\Edge\Tests\Api\Management\Controller
  * @author Dezső Biczó <mxr576@gmail.com>
  *
  * @group controller
@@ -24,18 +23,6 @@ class DeveloperControllerTest extends CpsLimitEntityControllerValidator
 {
     use AttributesAwareEntityControllerTestTrait;
     use OrganizationAwareEntityControllerValidatorTrait;
-
-    /**
-     * @inheritdoc
-     */
-    protected static function getEntityController(): EntityControllerInterface
-    {
-        static $controller;
-        if (!$controller) {
-            $controller = new DeveloperController(static::getOrganization(), static::$client);
-        }
-        return $controller;
-    }
 
     /**
      * @inheritdoc
@@ -66,24 +53,12 @@ class DeveloperControllerTest extends CpsLimitEntityControllerValidator
     }
 
     /**
-     * @inheritdoc
-     */
-    protected static function expectedAfterEntityCreate(): EntityInterface
-    {
-        /** @var Developer $entity */
-        $entity = static::sampleDataForEntityCreate();
-        // We can be sure one another thing, the status of the created developer is active by default.
-        $entity->setStatus(Developer::STATUS_ACTIVE);
-        return $entity;
-    }
-
-    /**
      * @group online
      * @expectedException \Apigee\Edge\Exception\ClientErrorException
      */
     public function testCreateWithIncorrectData()
     {
-        if (strpos(static::$client->getUserAgent(), TestClientFactory::OFFLINE_CLIENT_USER_AGENT_PREFIX) === 0) {
+        if (0 === strpos(static::$client->getUserAgent(), TestClientFactory::OFFLINE_CLIENT_USER_AGENT_PREFIX)) {
             $this->markTestSkipped(static::$onlyOnlineClientSkipMessage);
         }
         $entity = new Developer(['email' => 'developer-create-exception@example.com']);
@@ -119,7 +94,7 @@ class DeveloperControllerTest extends CpsLimitEntityControllerValidator
      */
     public function testStatusChange(string $entityId)
     {
-        if (strpos(static::$client->getUserAgent(), TestClientFactory::OFFLINE_CLIENT_USER_AGENT_PREFIX) === 0) {
+        if (0 === strpos(static::$client->getUserAgent(), TestClientFactory::OFFLINE_CLIENT_USER_AGENT_PREFIX)) {
             $this->markTestSkipped(static::$onlyOnlineClientSkipMessage);
         }
         $entity = static::getEntityController()->load($entityId);
@@ -140,5 +115,31 @@ class DeveloperControllerTest extends CpsLimitEntityControllerValidator
     {
         // This override makes easier the offline testing.
         return [['email']];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    protected static function getEntityController(): EntityControllerInterface
+    {
+        static $controller;
+        if (!$controller) {
+            $controller = new DeveloperController(static::getOrganization(), static::$client);
+        }
+
+        return $controller;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    protected static function expectedAfterEntityCreate(): EntityInterface
+    {
+        /** @var Developer $entity */
+        $entity = static::sampleDataForEntityCreate();
+        // We can be sure one another thing, the status of the created developer is active by default.
+        $entity->setStatus(Developer::STATUS_ACTIVE);
+
+        return $entity;
     }
 }

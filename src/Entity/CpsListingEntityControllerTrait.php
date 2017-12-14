@@ -7,8 +7,8 @@ use Apigee\Edge\Structure\CpsListLimitInterface;
 /**
  * Trait CpsListingEntityControllerTrait.
  *
- * @package Apigee\Edge\Entity
  * @author Dezső Biczó <mxr576@gmail.com>
+ *
  * @see \Apigee\Edge\Entity\CpsListingEntityControllerInterface
  */
 trait CpsListingEntityControllerTrait
@@ -39,6 +39,7 @@ trait CpsListingEntityControllerTrait
             );
             $entities[$tmp->id()] = $tmp;
         }
+
         return $entities;
     }
 
@@ -56,6 +57,7 @@ trait CpsListingEntityControllerTrait
         }
         $uri = $this->getBaseEndpointUri()->withQuery(http_build_query($query_params));
         $response = $this->client->get($uri);
+
         return $this->parseResponseToArray($response);
     }
 }

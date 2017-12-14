@@ -9,7 +9,6 @@ use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 /**
  * Class AppDenormalizer.
  *
- * @package Apigee\Edge\Api\Management\Controller
  * @author Dezső Biczó <mxr576@gmail.com>
  */
 class AppDenormalizer extends EntityDenormalizer implements DenormalizerInterface
@@ -34,6 +33,6 @@ class AppDenormalizer extends EntityDenormalizer implements DenormalizerInterfac
      */
     public function supportsDenormalization($data, $type, $format = null)
     {
-        return $type === AppInterface::class || $type instanceof AppInterface;
+        return AppInterface::class === $type || $type instanceof AppInterface;
     }
 }
