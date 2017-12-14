@@ -1,6 +1,8 @@
 <?php
 
 $finder = PhpCsFixer\Finder::create()
+    ->files()
+    ->name('*.php')
     ->in(['./src', './tests']);
 
 return PhpCsFixer\Config::create()
