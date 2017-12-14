@@ -1,17 +1,19 @@
-# Custom ignored paths and files.
+# Ignore all hidden files exept these.
+.*
+!/.gitignore
+!/.gitattributes
+!/.editorconfig
+!/.travis.yml
+!.gitkeep
+
+# Other ignored paths and files.
+/*.php
+/*.xml
+!/.php_cs.dist
+!/phpunit.xml.dist
 /vendor
 /composer.lock
 /report
-/*.php
-/*.xml
-/.php_cs
-/.php_cs.cache
-!/phpunit.xml.dist
-/.cc_token
 
 # OS specific files.
-.DS_Store
 Thumbs.db
-
-# IDE specific files.
-.idea
