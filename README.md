@@ -6,8 +6,8 @@
 [![Code Coverage](https://codecov.io/gh/apigee/edge-php-sdk/branch/2.x-dev/graph/badge.svg)](https://codecov.io/gh/apigee/edge-php-sdk/branch/2.x-dev)
 [![Latest Stable Version](https://poser.pugx.org/apigee/edge/v/stable)](https://packagist.org/packages/apigee/edge)
 [![Total Downloads](https://poser.pugx.org/apigee/edge/downloads)](https://packagist.org/packages/apigee/edge)
-[![Latest Unstable Version](https://poser.pugx.org/apigee/edge/v/unstable)](https://packagist.org/packages/apigee/edge)
-[![Minimum PHP Version](https://img.shields.io/packagist/php-v/apigee/edge-php-sdk.svg?style=flat-square)](https://php.net/)
+[![Latest Unstable Version](https://img.shields.io/badge/unstable-2.x--dev-orange.svg?style=flat-square)](https://packagist.org/packages/apigee/edge)
+[![Minimum PHP Version](https://img.shields.io/badge/PHP-%3E%3D%207.1-8892BF.svg?style=flat-square)](https://php.net/)
 [![License](https://poser.pugx.org/apigee/edge/license)](https://packagist.org/packages/apigee/edge)
 
 Getting started
