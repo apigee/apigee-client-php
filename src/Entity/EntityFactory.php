@@ -63,9 +63,9 @@ final class EntityFactory implements EntityFactoryInterface
             throw new EntityNotFoundException($fqcn);
         }
         // Add it to to object cache.
-        self::$classMappingCache[$className] = $fqcn;
+        static::$classMappingCache[$className] = $fqcn;
 
-        return self::$classMappingCache[$className];
+        return static::$classMappingCache[$className];
     }
 
     /**
@@ -78,7 +78,7 @@ final class EntityFactory implements EntityFactoryInterface
         // Add it to to object cache.
         static::$objectCache[$className] = new $fqcn();
 
-        return clone self::$objectCache[$className];
+        return clone static::$objectCache[$className];
     }
 
     /**

@@ -21,7 +21,15 @@ trait NamePropertyAwareTrait
     }
 
     /**
-     * @inheritdoc
+     * Set the name of this entity from an Edge API response.
+     *
+     * The name of an entity can not be changed by modifying the value of this property because it is a primary key
+     * when it is available.
+     *
+     * @param string $name
+     *   Name of the entity.
+     *
+     * @internal
      */
     public function setName(string $name): void
     {

@@ -25,7 +25,7 @@ trait NonCpsListingEntityControllerTrait
         $responseArray = $this->parseResponseToArray($response);
         foreach ($responseArray as $item) {
             /** @var \Apigee\Edge\Entity\EntityInterface $tmp */
-            $tmp = $this->entitySerializer->denormalize($item, $this->entityFactory->getEntityByController($this));
+            $tmp = $this->entitySerializer->denormalize($item, $this->entityFactory->getEntityTypeByController($this));
             $entities[$tmp->id()] = $tmp;
         }
 

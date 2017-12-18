@@ -34,6 +34,9 @@ class ApiProductControllerTest extends NonCpsLimitEntityControllerValidator
             'approvalType' => ApiProduct::APPROVAL_TYPE_AUTO,
             'attributes' => new AttributesProperty(['foo' => 'bar']),
             'scopes' => ['scope 1', 'scope 2'],
+            'quota' => 10,
+            'quotaInterval' => 1,
+            'quotaTimeUnit' => ApiProduct::QUOTA_INTERVAL_MINUTE,
         ]);
     }
 
@@ -46,6 +49,9 @@ class ApiProductControllerTest extends NonCpsLimitEntityControllerValidator
             'displayName' => '(Edited) PHP Unit Test product',
             'approvalType' => ApiProduct::APPROVAL_TYPE_MANUAL,
             'attributes' => new AttributesProperty(['foo' => 'foo', 'bar' => 'baz']),
+            'quota' => 1000,
+            'quotaInterval' => 12,
+            'quotaTimeUnit' => ApiProduct::QUOTA_INTERVAL_HOUR,
         ]);
     }
 

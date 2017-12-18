@@ -154,10 +154,7 @@ class DeveloperAppCredentialControllerTest extends EntityControllerValidator
         /** @var \Apigee\Edge\Api\Management\Controller\DeveloperAppCredentialControllerInterface $controller */
         $controller = $this->getEntityController();
         $credential = $controller->addProducts($entityId, [static::$apiProductName]);
-        $productNames = array_map(function ($product) {
-            /* @var \Apigee\Edge\Structure\CredentialProduct $product */
-            return $product->getApiproduct();
-        }, $credential->getApiProducts());
+        $productNames = $this->getCredentialProducts($credential);
         $this->assertContains(static::$apiProductName, $productNames);
     }
 
@@ -268,7 +265,10 @@ class DeveloperAppCredentialControllerTest extends EntityControllerValidator
         }
     }
 
-    public function testGenerate(): void
+    /**
+     * @return string
+     */
+    public function testGenerate(): string
     {
         if (0 === strpos(static::$client->getUserAgent(), TestClientFactory::OFFLINE_CLIENT_USER_AGENT_PREFIX)) {
             $this->markTestSkipped(static::$onlyOnlineClientSkipMessage);
@@ -281,14 +281,37 @@ class DeveloperAppCredentialControllerTest extends EntityControllerValidator
             ['scope 1'],
             604800000
         );
-        $productNames = array_map(function ($product) {
-            /* @var \Apigee\Edge\Structure\CredentialProduct $product */
-            return $product->getApiproduct();
-        }, $credential->getApiProducts());
+        $productNames = $this->getCredentialProducts($credential);
         $this->assertContains(static::$apiProductName, $productNames);
         $this->assertContains('scope 1', $credential->getScopes());
         // Thanks for the offline tests, we can not expect a concrete value here.
         $this->assertNotEquals('-1', $credential->getExpiresAt());
+
+        return $credential->id();
+    }
+
+    /**
+     * @depends testGenerate
+     */
+    public function testDeleteApiProduct(string $entityId): void
+    {
+        if (0 === strpos(static::$client->getUserAgent(), TestClientFactory::OFFLINE_CLIENT_USER_AGENT_PREFIX)) {
+            $this->markTestSkipped(static::$onlyOnlineClientSkipMessage);
+        }
+        /** @var \Apigee\Edge\Api\Management\Controller\DeveloperAppCredentialControllerInterface $controller */
+        $controller = static::getEntityController();
+        /** @var AppCredentialInterface $credential */
+        $credential = $controller->load($entityId);
+        $productNames = $this->getCredentialProducts($credential);
+        $this->assertContains(static::$apiProductName, $productNames);
+        /* @var AppCredentialInterface $credential */
+        $controller->deleteApiProduct(
+            $entityId,
+            static::$apiProductName
+        );
+        $credential = $controller->load($entityId);
+        $productNames = $this->getCredentialProducts($credential);
+        $this->assertNotContains(static::$apiProductName, $productNames);
     }
 
     /**
@@ -307,5 +330,13 @@ class DeveloperAppCredentialControllerTest extends EntityControllerValidator
         }
 
         return $controller;
+    }
+
+    private function getCredentialProducts(AppCredentialInterface $credential)
+    {
+        return array_map(function ($product) {
+            /* @var \Apigee\Edge\Structure\CredentialProduct $product */
+            return $product->getApiproduct();
+        }, $credential->getApiProducts());
     }
 }

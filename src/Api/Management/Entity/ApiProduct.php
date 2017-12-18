@@ -135,7 +135,7 @@ class ApiProduct extends Entity implements ApiProductInterface
     /**
      * @inheritdoc
      */
-    public function getApprovalType(): string
+    public function getApprovalType(): ?string
     {
         return $this->approvalType;
     }

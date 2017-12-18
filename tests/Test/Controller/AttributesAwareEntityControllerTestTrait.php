@@ -2,6 +2,9 @@
 
 namespace Apigee\Edge\Tests\Test\Controller;
 
+use Apigee\Edge\Exception\ApiException;
+use Apigee\Edge\Tests\Test\Mock\TestClientFactory;
+
 /**
  * Trait AttributesAwareEntityControllerTestTrait.
  *
@@ -76,13 +79,38 @@ trait AttributesAwareEntityControllerTestTrait
      * @depends testAddAttributesToEntity
      *
      * @param string $entityId
+     *
+     * @return string
      */
-    public function testUpdateAttribute(string $entityId): void
+    public function testUpdateAttribute(string $entityId): string
     {
         /** @var \Apigee\Edge\Api\Management\Controller\AttributesAwareEntityControllerInterface $controller */
         $controller = $this->getEntityController();
         $expected = 'value1-edited';
         $value = $controller->updateAttribute($entityId, 'name1', $expected);
         $this->assertEquals($expected, $value);
+
+        return $entityId;
+    }
+
+    /**
+     * @depends testUpdateAttribute
+     *
+     * @param string $entityId
+     */
+    public function testDeleteAttribute(string $entityId): void
+    {
+        if (0 === strpos(static::$client->getUserAgent(), TestClientFactory::OFFLINE_CLIENT_USER_AGENT_PREFIX)) {
+            $this->markTestSkipped(static::$onlyOnlineClientSkipMessage);
+        }
+        /** @var \Apigee\Edge\Api\Management\Controller\AttributesAwareEntityControllerInterface $controller */
+        $controller = $this->getEntityController();
+        $attribute = 'name1';
+        $controller->deleteAttribute($entityId, 'name1', $attribute);
+        try {
+            $controller->getAttribute($entityId, $attribute);
+        } catch (ApiException $e) {
+            $this->assertEquals('organizations.keymanagement.AttributeDoesntExist', $e->getEdgeErrorCode());
+        }
     }
 }

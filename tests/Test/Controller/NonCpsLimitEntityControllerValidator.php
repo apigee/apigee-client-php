@@ -22,4 +22,25 @@ abstract class NonCpsLimitEntityControllerValidator extends EntityCrudOperations
         $controller = $this->getEntityController();
         $this->assertNotEmpty($controller->getEntityIds());
     }
+
+    /**
+     * @depends testCreate
+     */
+    public function testGetEntities(): void
+    {
+        /** @var \Apigee\Edge\Controller\NonCpsListingEntityControllerInterface $controller */
+        $controller = $this->getEntityController();
+        $entities = $controller->getEntities();
+        $this->assertNotEmpty($entities);
+        /** @var \Apigee\Edge\Entity\EntityInterface $entity */
+        foreach ($entities as $entity) {
+            $this->assertEntityHasAllPropertiesSet($entity);
+            if ($entity->id() == static::expectedAfterEntityCreate()->id()) {
+                $this->assertArraySubset(
+                    array_filter(static::$objectNormalizer->normalize(static::expectedAfterEntityCreate())),
+                    static::$objectNormalizer->normalize($entity)
+                );
+            }
+        }
+    }
 }

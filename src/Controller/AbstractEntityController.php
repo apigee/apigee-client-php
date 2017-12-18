@@ -107,7 +107,7 @@ abstract class AbstractEntityController
             sprintf(
                 'Unable to parse response with %s type. Response body: %s',
                 $response->getHeaderLine('Content-Type') ?: 'unknown',
-                $response->getBody()
+                (string) $response->getBody()
             )
         );
     }

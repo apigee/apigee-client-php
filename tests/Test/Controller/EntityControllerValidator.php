@@ -61,7 +61,12 @@ abstract class EntityControllerValidator extends TestCase
                 unset(static::$createdEntities[$entity->id()]);
             }
         } catch (\Exception $e) {
-            printf("Unable to delete %s entity with %s id.\n", strtolower(get_class($entity)), $entity->id());
+            printf(
+                "Unable to delete %s entity with %s id.\n %s",
+                strtolower(get_class($entity)),
+                $entity->id(),
+                $e->getMessage()
+            );
         }
     }
 
@@ -72,7 +77,7 @@ abstract class EntityControllerValidator extends TestCase
      * attribute of a test class because it can be misleading later whether the static::$controller should be called in
      * a test method or this getter.
      *
-     * @return \Apigee\Edge\Entity\EntityControllerInterface
+     * @return \Apigee\Edge\Controller\EntityControllerInterface
      */
     abstract protected static function getEntityController(): EntityControllerInterface;
 }

@@ -3,6 +3,9 @@
 namespace Apigee\Edge\Tests\Test\Controller;
 
 use Apigee\Edge\Entity\EntityInterface;
+use Apigee\Edge\Entity\EntityNormalizer;
+use Apigee\Edge\Exception\ApiException;
+use Apigee\Edge\Tests\Test\Mock\TestClientFactory;
 
 /**
  * Class EntityCrudOperationsValidator.
@@ -30,6 +33,24 @@ abstract class EntityCrudOperationsControllerValidator extends EntityControllerV
      * @return \Apigee\Edge\Entity\EntityInterface
      */
     abstract public static function sampleDataForEntityUpdate(): EntityInterface;
+
+    /**
+     * Validates that an empty entity object can be normalized with our custom entity normalizer.
+     *
+     * The assertion is a dummy one here, but this test is highly important because it ensures that entity properties
+     * were properly initialized (ex.: $attributes is an AttributesProperty object and not null) and getters are
+     * returning the type that they should.
+     *
+     * @group mock
+     * @group offline
+     * @small
+     */
+    public function testEntityCanBeNormalized(): void
+    {
+        $entity = static::$entityFactory->getEntityByController(static::getEntityController());
+        $normalizer = new EntityNormalizer();
+        $this->assertNotEmpty($normalizer->normalize($entity));
+    }
 
     /**
      * @return string
@@ -92,7 +113,7 @@ abstract class EntityCrudOperationsControllerValidator extends EntityControllerV
         // Validate properties that values are either auto generated or we do not know in the current context.
         $this->assertEntityHasAllPropertiesSet($entity);
         $entityAsArray = static::$objectNormalizer->normalize($entity);
-        $changesAsArray = array_filter(static::$objectNormalizer->normalize(static::sampleDataForEntityUpdate()));
+        $changesAsArray = array_filter(static::$objectNormalizer->normalize(static::expectedAfterEntityUpdate()));
         $expectedToRemainTheSame = array_diff_key($entityAsArray, $changesAsArray);
         // Of course, this property's value will change.
         if (isset($expectedToRemainTheSame['lastModifiedAt'])) {
@@ -110,6 +131,25 @@ abstract class EntityCrudOperationsControllerValidator extends EntityControllerV
         return $entityId;
     }
 
+    public function testDelete(): void
+    {
+        if (0 === strpos(static::$client->getUserAgent(), TestClientFactory::OFFLINE_CLIENT_USER_AGENT_PREFIX)) {
+            $this->markTestSkipped(static::$onlyOnlineClientSkipMessage);
+        }
+        /** @var EntityInterface $entity */
+        $entity = static::sampleDataForEntityCreate();
+        $entity->{'set' . ucfirst($entity->idProperty())}($entity->id() . '_delete');
+        $this->getEntityController()->create($entity);
+        static::$createdEntities[$entity->id()] = $entity;
+        $this->getEntityController()->delete($entity->id());
+        try {
+            $this->getEntityController()->load($entity->id());
+        } catch (ApiException $e) {
+            $this->assertContains(' does not exist', $e->getMessage());
+            unset(static::$createdEntities[$entity->id()]);
+        }
+    }
+
     /**
      * Returns the expected values of an entity after it has been created.
      *
@@ -118,6 +158,16 @@ abstract class EntityCrudOperationsControllerValidator extends EntityControllerV
     protected static function expectedAfterEntityCreate(): EntityInterface
     {
         return static::sampleDataForEntityCreate();
+    }
+
+    /**
+     * Returns the expected values of an entity after it has been updated.
+     *
+     * @return \Apigee\Edge\Entity\EntityInterface
+     */
+    protected static function expectedAfterEntityUpdate(): EntityInterface
+    {
+        return static::sampleDataForEntityUpdate();
     }
 
     /**

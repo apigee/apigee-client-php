@@ -1,29 +1,38 @@
 {
-    "appId" : "f98678b9-4d1b-4927-ba17-62e6efaadfb3",
-    "attributes" : [ {
-        "name" : "foo",
-        "value" : "bar"
-    }, {
-        "name" : "DisplayName",
-        "value" : "PHP Unit: Test app"
-    } ],
-    "callbackUrl" : "http://example.com",
-    "createdAt" : 648345600000,
-    "createdBy" : "phpunit@example.com",
-    "credentials" : [ {
-        "apiProducts" : [ ],
-        "attributes" : [ ],
-        "consumerKey" : "0YQxigR9Fcbo1vKLBrM5QRWgXx6nU1k1",
-        "consumerSecret" : "6DwTp11hKT4fap65",
-        "expiresAt" : -1,
-        "issuedAt" : 648345600000,
-        "scopes" : [ ],
-        "status" : "approved"
-    } ],
-    "developerId" : "f43ffa3c-e147-47de-8cd6-f5b34429a531",
-    "lastModifiedAt" : 648345600000,
-    "lastModifiedBy" : "phpunit@example.com",
-    "name" : "phpunit_test_app",
-    "scopes" : [ ],
-    "status" : "approved"
+    "appId": "f98678b9-4d1b-4927-ba17-62e6efaadfb3",
+    "attributes": [
+        {
+            "name": "foo",
+            "value": "bar"
+        },
+        {
+            "name": "DisplayName",
+            "value": "PHP Unit: Test app"
+        },
+        {
+            "name": "Notes",
+            "value": "This is a test app created by PHP Unit."
+        }
+    ],
+    "callbackUrl": "http://example.com",
+    "createdAt": 648345600000,
+    "createdBy": "phpunit@example.com",
+    "credentials": [
+        {
+            "apiProducts": [],
+            "attributes": [],
+            "consumerKey": "0YQxigR9Fcbo1vKLBrM5QRWgXx6nU1k1",
+            "consumerSecret": "6DwTp11hKT4fap65",
+            "expiresAt": -1,
+            "issuedAt": 648345600000,
+            "scopes": [],
+            "status": "approved"
+        }
+    ],
+    "developerId": "f43ffa3c-e147-47de-8cd6-f5b34429a531",
+    "lastModifiedAt": 648345600000,
+    "lastModifiedBy": "phpunit@example.com",
+    "name": "phpunit_test_app",
+    "scopes": [],
+    "status": "approved"
 }

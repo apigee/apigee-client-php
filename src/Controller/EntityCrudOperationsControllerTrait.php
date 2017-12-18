@@ -22,7 +22,7 @@ trait EntityCrudOperationsControllerTrait
         $response = $this->client->get($this->getEntityEndpointUri($entityId));
 
         return $this->entitySerializer->deserialize(
-            $response->getBody(),
+            (string) $response->getBody(),
             $this->entityFactory->getEntityTypeByController($this),
             'json'
         );
@@ -62,7 +62,7 @@ trait EntityCrudOperationsControllerTrait
         $response = $this->client->delete($this->getEntityEndpointUri($entityId));
 
         return $this->entitySerializer->deserialize(
-            $response->getBody(),
+            (string) $response->getBody(),
             $this->entityFactory->getEntityTypeByController($this),
             'json'
         );
@@ -82,7 +82,7 @@ trait EntityCrudOperationsControllerTrait
         // This is a crucial step because Edge response must be transformed before we would be able use it with some
         // of our setters (ex.: attributes).
         $tmp = $this->entitySerializer->deserialize(
-            $response->getBody(),
+            (string) $response->getBody(),
             get_class($entity),
             'json'
         );

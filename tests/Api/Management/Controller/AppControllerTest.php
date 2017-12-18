@@ -117,7 +117,6 @@ class AppControllerTest extends EntityControllerValidator
         $this->assertContains(DeveloperAppInterface::class, class_implements($entity));
         $this->assertEquals($firstEntity, $entity);
         // TODO Validate the same for company apps.
-        $this->markTestIncomplete('Company apps support is required for complete testing.');
     }
 
     public function testListAppIds(): void
@@ -131,10 +130,9 @@ class AppControllerTest extends EntityControllerValidator
             $this->assertContains($id, $controller->listAppIds());
         }
         // TODO Validate the same for company apps.
-        $this->markTestIncomplete('Company apps support is required for complete testing.');
     }
 
-    public function testListApp(): void
+    public function testListApps(): void
     {
         if (0 === strpos(static::$client->getUserAgent(), TestClientFactory::OFFLINE_CLIENT_USER_AGENT_PREFIX)) {
             $this->markTestSkipped(static::$onlyOnlineClientSkipMessage);
@@ -150,7 +148,6 @@ class AppControllerTest extends EntityControllerValidator
         $firstApp = reset($apps);
         $this->assertEmpty($firstApp->getCredentials());
         // TODO Validate the same for company apps.
-        $this->markTestIncomplete('Company apps support is required for complete testing.');
     }
 
     public function testListAppIdsByStatus(): void

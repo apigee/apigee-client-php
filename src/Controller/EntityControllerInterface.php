@@ -19,9 +19,6 @@ interface EntityControllerInterface
 
     /**
      * @param string $orgName The name of the organization that the entity belongs.
-     *
-     * @return string
-     *   The organization name.
      */
-    public function setOrganisation(string $orgName): string;
+    public function setOrganisation(string $orgName): void;
 }

@@ -64,17 +64,17 @@ interface ApiProductInterface extends
     /**
      * @param string $quotaTimeUnit
      */
-    public function setQuotaTimeUnit(string $quotaTimeUnit);
+    public function setQuotaTimeUnit(string $quotaTimeUnit): void;
 
     /**
      * @return string
      */
-    public function getApprovalType(): string;
+    public function getApprovalType(): ?string;
 
     /**
      * @param string $approvalType
      */
-    public function setApprovalType(string $approvalType);
+    public function setApprovalType(string $approvalType): void;
 
     /**
      * @return string[]
@@ -84,5 +84,5 @@ interface ApiProductInterface extends
     /**
      * @param string[] $apiResources
      */
-    public function setApiResources(array $apiResources);
+    public function setApiResources(array $apiResources): void;
 }

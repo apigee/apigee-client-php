@@ -37,14 +37,17 @@ class BuilderTest extends TestCase
         parent::setUpBeforeClass();
     }
 
-    /**
-     * @small
-     */
     public function testShouldReturnTheSameInstance(): void
     {
         $builder = new Builder(self::$httpClient);
         $client = $builder->getHttpClient();
         $this->assertEquals($client, $builder->getHttpClient());
+    }
+
+    public function testShouldReturnANewInstance(): void
+    {
+        $builder = new Builder();
+        $this->assertNotNull($builder->getHttpClient());
     }
 
     public function testShouldSetHeaders()
@@ -142,6 +145,27 @@ class BuilderTest extends TestCase
         $request = new Request('GET', 'http://example.com');
         $builder->getHttpClient()->sendRequest($request);
         $sent_request = self::$httpClient->getLastRequest();
+        $this->assertEmpty($sent_request->getUri()->getPath());
+    }
+
+    public function testShouldRemoveAllPlugins(): void
+    {
+        $builder = new Builder(self::$httpClient);
+        $uriFactory = UriFactoryDiscovery::find();
+        $addPathPlugin = new Plugin\AddPathPlugin($uriFactory->createUri('edge'));
+        $builder->addPlugin($addPathPlugin);
+        $headers = ['Foo' => 'bar'];
+        $builder->setHeaders($headers);
+        $client = $builder->getHttpClient();
+        $builder->getHttpClient()->sendRequest(new Request('GET', 'http://example.com'));
+        $sent_request = self::$httpClient->getLastRequest();
+        $this->assertEquals($sent_request->getHeaderLine('Foo'), $headers['Foo']);
+        $this->assertEquals('/edge', $sent_request->getUri()->getPath());
+        $builder->clearPlugins();
+        $builder->getHttpClient()->sendRequest(new Request('GET', 'http://example.com'));
+        $sent_request = self::$httpClient->getLastRequest();
+        $this->assertNotEquals($client, $builder->getHttpClient());
+        $this->assertEmpty($sent_request->getHeaderLine('Foo'));
         $this->assertEmpty($sent_request->getUri()->getPath());
     }
 

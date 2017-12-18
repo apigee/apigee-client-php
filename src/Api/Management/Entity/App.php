@@ -8,6 +8,7 @@ use Apigee\Edge\Entity\Property\AttributesPropertyAwareTrait;
 use Apigee\Edge\Entity\Property\NamePropertyAwareTrait;
 use Apigee\Edge\Entity\Property\ScopesPropertyAwareTrait;
 use Apigee\Edge\Entity\Property\StatusPropertyAwareTrait;
+use Apigee\Edge\Structure\AttributesProperty;
 
 /**
  * Class App.
@@ -46,6 +47,17 @@ abstract class App extends Entity implements AppInterface
 
     /** @var \Apigee\Edge\Api\Management\Entity\AppCredential[] */
     protected $credentials = [];
+
+    /**
+     * App constructor.
+     *
+     * @param array $values
+     */
+    public function __construct(array $values = [])
+    {
+        parent::__construct($values);
+        $this->attributes = new AttributesProperty();
+    }
 
     /**
      * @inheritdoc

@@ -12,6 +12,8 @@ use Apigee\Edge\Api\Management\Entity\Organization;
  * Rules:
  * - Name of an entity property should be the same as the one in the Edge response.
  * - Entity properties should not be public, but they should have public getters and setters.
+ *   (Public setters and getters are required by symfony/serializer implementations, ex.: ObjectNormalizer,
+ *   EntityNormalizer, etc.)
  * - An entity should not have other properties than what Edge returns for a related API call, but it could have
  *   additional helper methods that make developers life easier. @see Organization::isCpsEnabled()
  * - Entity properties with object or array types must be initialized.

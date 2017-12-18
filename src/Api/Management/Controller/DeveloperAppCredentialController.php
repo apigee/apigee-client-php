@@ -77,7 +77,7 @@ class DeveloperAppCredentialController extends EntityController implements Devel
         );
 
         return $this->entitySerializer->deserialize(
-            $response->getBody(),
+            (string) $response->getBody(),
             $this->entityFactory->getEntityTypeByController(self::class),
             'json'
         );
@@ -121,7 +121,7 @@ class DeveloperAppCredentialController extends EntityController implements Devel
         );
 
         return $this->entitySerializer->deserialize(
-            $response->getBody(),
+            (string) $response->getBody(),
             $this->entityFactory->getEntityTypeByController(self::class),
             'json'
         );
@@ -139,7 +139,7 @@ class DeveloperAppCredentialController extends EntityController implements Devel
         );
 
         return $this->entitySerializer->deserialize(
-            $response->getBody(),
+            (string) $response->getBody(),
             $this->entityFactory->getEntityTypeByController(self::class),
             'json'
         );
@@ -166,7 +166,7 @@ class DeveloperAppCredentialController extends EntityController implements Devel
         $response = $this->client->delete($uri);
 
         return $this->entitySerializer->deserialize(
-            $response->getBody(),
+            (string) $response->getBody(),
             $this->entityFactory->getEntityTypeByController($this),
             'json'
         );
@@ -183,7 +183,7 @@ class DeveloperAppCredentialController extends EntityController implements Devel
         );
 
         return $this->entitySerializer->deserialize(
-            $response->getBody(),
+            (string) $response->getBody(),
             $this->entityFactory->getEntityTypeByController(self::class),
             'json'
         );

@@ -43,10 +43,8 @@ abstract class EntityController extends AbstractEntityController
     /**
      * @inheritdoc
      */
-    public function setOrganisation(string $orgName): string
+    public function setOrganisation(string $orgName): void
     {
         $this->organization = $orgName;
-
-        return $this->organization;
     }
 }
