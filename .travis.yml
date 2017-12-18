@@ -27,6 +27,7 @@ install:
   - composer global require hirak/prestissimo:^0.3.7
   - if [[ "$DEPENDENCIES" = 'highest' ]]; then travis_retry composer update --no-suggest; fi
   - if [[ "$DEPENDENCIES" = 'lowest' ]]; then travis_retry composer update --no-suggest --prefer-lowest; fi
+  - composer show
 
 script:
   - composer check-style
