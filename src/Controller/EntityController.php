@@ -2,6 +2,7 @@
 
 namespace Apigee\Edge\Controller;
 
+use Apigee\Edge\Entity\EntityFactoryInterface;
 use Apigee\Edge\HttpClient\ClientInterface;
 
 /**
@@ -20,7 +21,7 @@ abstract class EntityController extends AbstractEntityController
      * @param string $organization
      *   Name of the organization that the entities belongs to.
      * @param ClientInterface|null $client
-     * @param EntityFactoryInterface|null $entityFactory
+     * @param \Apigee\Edge\Entity\EntityFactoryInterface|null $entityFactory
      */
     public function __construct(
         string $organization,

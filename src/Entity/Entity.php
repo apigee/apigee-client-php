@@ -12,8 +12,8 @@ use Apigee\Edge\Api\Management\Entity\Organization;
  * Rules:
  * - Name of an entity property should be the same as the one in the Edge response.
  * - Entity properties should not be public, but they should have public getters and setters.
- * - An entity should not have other properties than what Edge's returns for an API call, but it could have additional
- *   helper methods that make developers life easier. @see Organization::isCpsEnabled()
+ * - An entity should not have other properties than what Edge returns for a related API call, but it could have
+ *   additional helper methods that make developers life easier. @see Organization::isCpsEnabled()
  * - Entity properties with object or array types must be initialized.
  *
  * @author Dezső Biczó <mxr576@gmail.com>
@@ -54,12 +54,16 @@ class Entity implements EntityInterface
      */
     public function __clone()
     {
-        foreach ($this as $property => $value) {
+        $ro = new \ReflectionObject($this);
+        foreach ($ro->getProperties() as $property) {
+            $property->setAccessible(true);
+            $value = $property->getValue($this);
             if (is_object($value)) {
-                $this->{$property} = clone $value;
+                $this->{$property->getName()} = clone $value;
             }
             if (is_array($value)) {
-                $this->cloneArray($this->{$property});
+                $this->cloneArray($value);
+                $this->{$property->getName()} = $value;
             }
         }
     }

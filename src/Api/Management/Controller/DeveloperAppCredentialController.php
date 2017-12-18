@@ -6,7 +6,9 @@ use Apigee\Edge\Api\Management\Entity\AppCredentialInterface;
 use Apigee\Edge\Controller\EntityController;
 use Apigee\Edge\Controller\EntityCrudOperationsControllerTrait;
 use Apigee\Edge\Controller\StatusAwareEntityControllerTrait;
+use Apigee\Edge\Entity\EntityFactoryInterface;
 use Apigee\Edge\Entity\EntityInterface;
+use Apigee\Edge\HttpClient\ClientInterface;
 use Apigee\Edge\Structure\AttributesProperty;
 use Apigee\Edge\Structure\KeyValueMapNormalizer;
 use Psr\Http\Message\UriInterface;
@@ -48,15 +50,15 @@ class DeveloperAppCredentialController extends EntityController implements Devel
      * @param string $organization
      * @param string $developerId
      * @param string $appName
-     * @param null $client
-     * @param null $entityFactory
+     * @param \Apigee\Edge\HttpClient\ClientInterface|null $client
+     * @param \Apigee\Edge\Entity\EntityFactoryInterface $entityFactory
      */
     public function __construct(
         string $organization,
         string $developerId,
         string $appName,
-        $client = null,
-        $entityFactory = null
+        ClientInterface $client = null,
+        EntityFactoryInterface $entityFactory = null
     ) {
         parent::__construct($organization, $client, $entityFactory);
         $this->developerId = $developerId;
@@ -71,7 +73,7 @@ class DeveloperAppCredentialController extends EntityController implements Devel
         $response = $this->client->post(
             // Just to spare some extra lines of code.
             $this->getEntityEndpointUri('create'),
-            json_encode((object) ['consumerKey' => $consumerKey, 'consumerSecret' => $consumerSecret])
+            (string) json_encode((object) ['consumerKey' => $consumerKey, 'consumerSecret' => $consumerSecret])
         );
 
         return $this->entitySerializer->deserialize(
@@ -91,7 +93,7 @@ class DeveloperAppCredentialController extends EntityController implements Devel
     ): AppCredentialInterface {
         $response = $this->client->post(
             $this->getBaseEndpointUri(),
-            json_encode((object) [
+            (string) json_encode((object) [
                 'apiProducts' => $apiProducts,
                 'scopes' => $scopes,
                 'keyExpiresIn' => $keyExpiresIn,
@@ -115,7 +117,7 @@ class DeveloperAppCredentialController extends EntityController implements Devel
     {
         $response = $this->client->post(
             $this->getEntityEndpointUri($consumerKey),
-            json_encode((object) ['apiProducts' => $apiProducts])
+            (string) json_encode((object) ['apiProducts' => $apiProducts])
         );
 
         return $this->entitySerializer->deserialize(
@@ -133,7 +135,7 @@ class DeveloperAppCredentialController extends EntityController implements Devel
         $normalizer = new KeyValueMapNormalizer();
         $response = $this->client->post(
             $this->getEntityEndpointUri($consumerKey),
-            json_encode((object) ['attributes' => $normalizer->normalize($attributes)])
+            (string) json_encode((object) ['attributes' => $normalizer->normalize($attributes)])
         );
 
         return $this->entitySerializer->deserialize(
@@ -177,7 +179,7 @@ class DeveloperAppCredentialController extends EntityController implements Devel
     {
         $response = $this->client->put(
             $this->getEntityEndpointUri($consumerKey),
-            json_encode((object) ['scopes' => $scopes])
+            (string) json_encode((object) ['scopes' => $scopes])
         );
 
         return $this->entitySerializer->deserialize(

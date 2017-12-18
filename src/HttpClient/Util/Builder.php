@@ -11,7 +11,6 @@ use Http\Discovery\MessageFactoryDiscovery;
 use Http\Discovery\StreamFactoryDiscovery;
 use Http\Message\RequestFactory;
 use Http\Message\StreamFactory;
-use Http\Message\UriFactory;
 use Psr\Cache\CacheItemPoolInterface;
 
 /**
@@ -35,16 +34,13 @@ class Builder implements BuilderInterface
     /** @var RequestFactory */
     private $requestFactory;
 
-    /** @var UriFactory */
-    private $uriFactory;
-
     /** @var array */
     private $headers = [];
 
     /** @var array */
     private $plugins = [];
 
-    /** @var Plugin\CachePlugin */
+    /** @var Plugin\CachePlugin|null */
     private $cachePlugin;
 
     /** @var bool */

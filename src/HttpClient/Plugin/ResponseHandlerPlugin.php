@@ -17,13 +17,13 @@ use Psr\Http\Message\ResponseInterface;
  */
 final class ResponseHandlerPlugin implements Plugin
 {
-    /** @var FullHttpMessageFormatter */
+    /** @var \Http\Message\Formatter */
     private $formatter;
 
     /**
      * ResponseHandlerPlugin constructor.
      *
-     * @param Formatter|null $formatter
+     * @param \Http\Message\Formatter|null $formatter
      */
     public function __construct(Formatter $formatter = null)
     {

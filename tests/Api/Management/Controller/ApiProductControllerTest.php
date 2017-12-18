@@ -63,7 +63,7 @@ class ApiProductControllerTest extends NonCpsLimitEntityControllerValidator
     /**
      * @depends testCreate
      */
-    public function testSearchByAttribute()
+    public function testSearchByAttribute(): void
     {
         /** @var ApiProductController $controller */
         $controller = $this->getEntityController();

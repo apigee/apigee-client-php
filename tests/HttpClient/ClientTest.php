@@ -28,7 +28,7 @@ class ClientTest extends TestCase
     /**
      * @inheritdoc
      */
-    public static function setUpBeforeClass()
+    public static function setUpBeforeClass(): void
     {
         // Use the Mock HTTP Client for all requests.
         self::$httpClient = new MockHttpClient();
@@ -53,7 +53,7 @@ class ClientTest extends TestCase
      *
      * @param \Apigee\Edge\HttpClient\Client $client
      */
-    public function testEndpointShouldBeOverridden(Client $client)
+    public function testEndpointShouldBeOverridden(Client $client): void
     {
         $originalClient = clone $client;
         $onPremHost = 'http://on-prem-edge.dev';
@@ -75,7 +75,7 @@ class ClientTest extends TestCase
         );
     }
 
-    public function testUserAgentShouldBeOverridden()
+    public function testUserAgentShouldBeOverridden(): void
     {
         $builder = new Builder(self::$httpClient);
         $userAgentPrefix = 'Awesome ';
@@ -98,7 +98,7 @@ class ClientTest extends TestCase
         );
     }
 
-    public function testRebuildShouldNotRemoveCustomPlugin()
+    public function testRebuildShouldNotRemoveCustomPlugin(): void
     {
         $builder = new Builder(self::$httpClient);
         $builder->addPlugin(new HeaderAppendPlugin(['Foo' => 'bar']));

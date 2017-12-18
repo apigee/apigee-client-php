@@ -34,7 +34,7 @@ class AppControllerTest extends EntityControllerValidator
     /**
      * @inheritdoc
      */
-    public static function setUpBeforeClass()
+    public static function setUpBeforeClass(): void
     {
         try {
             parent::setUpBeforeClass();
@@ -87,7 +87,7 @@ class AppControllerTest extends EntityControllerValidator
     /**
      * @inheritdoc
      */
-    public static function tearDownAfterClass()
+    public static function tearDownAfterClass(): void
     {
         parent::tearDownAfterClass();
 
@@ -108,7 +108,7 @@ class AppControllerTest extends EntityControllerValidator
         static::cleanUpAfterDeveloperApp();
     }
 
-    public function testLoadApp()
+    public function testLoadApp(): void
     {
         /** @var \Apigee\Edge\Api\Management\Controller\AppControllerInterface $controller */
         $controller = $this->getEntityController();
@@ -120,7 +120,7 @@ class AppControllerTest extends EntityControllerValidator
         $this->markTestIncomplete('Company apps support is required for complete testing.');
     }
 
-    public function testListAppIds()
+    public function testListAppIds(): void
     {
         if (0 === strpos(static::$client->getUserAgent(), TestClientFactory::OFFLINE_CLIENT_USER_AGENT_PREFIX)) {
             $this->markTestSkipped(static::$onlyOnlineClientSkipMessage);
@@ -134,7 +134,7 @@ class AppControllerTest extends EntityControllerValidator
         $this->markTestIncomplete('Company apps support is required for complete testing.');
     }
 
-    public function testListApp()
+    public function testListApp(): void
     {
         if (0 === strpos(static::$client->getUserAgent(), TestClientFactory::OFFLINE_CLIENT_USER_AGENT_PREFIX)) {
             $this->markTestSkipped(static::$onlyOnlineClientSkipMessage);
@@ -153,7 +153,7 @@ class AppControllerTest extends EntityControllerValidator
         $this->markTestIncomplete('Company apps support is required for complete testing.');
     }
 
-    public function testListAppIdsByStatus()
+    public function testListAppIdsByStatus(): void
     {
         if (0 === strpos(static::$client->getUserAgent(), TestClientFactory::OFFLINE_CLIENT_USER_AGENT_PREFIX)) {
             $this->markTestSkipped(static::$onlyOnlineClientSkipMessage);
@@ -172,7 +172,7 @@ class AppControllerTest extends EntityControllerValidator
         }
     }
 
-    public function testListAppIdsByType()
+    public function testListAppIdsByType(): void
     {
         if (0 === strpos(static::$client->getUserAgent(), TestClientFactory::OFFLINE_CLIENT_USER_AGENT_PREFIX)) {
             $this->markTestSkipped(static::$onlyOnlineClientSkipMessage);
@@ -181,7 +181,7 @@ class AppControllerTest extends EntityControllerValidator
         $this->markTestIncomplete('Company apps support is required for complete testing.');
     }
 
-    public function testListAppIdsByFamily()
+    public function testListAppIdsByFamily(): void
     {
         /*
          * @link https://docs.apigee.com/management/apis/post/organizations/%7Borg_name%7D/developers/%7Bdeveloper_email_or_id%7D/appfamilies.

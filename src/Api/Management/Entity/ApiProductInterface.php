@@ -34,7 +34,7 @@ interface ApiProductInterface extends
     /**
      * @param string[] $proxy
      */
-    public function setProxies(array $proxy);
+    public function setProxies(array $proxy): void;
 
     /**
      * @return int|null
@@ -54,7 +54,7 @@ interface ApiProductInterface extends
     /**
      * @param int $quotaInterval
      */
-    public function setQuotaInterval(int $quotaInterval);
+    public function setQuotaInterval(int $quotaInterval): void;
 
     /**
      * @return string

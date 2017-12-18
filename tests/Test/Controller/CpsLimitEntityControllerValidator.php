@@ -20,9 +20,9 @@ abstract class CpsLimitEntityControllerValidator extends EntityCrudOperationsCon
      *
      * @param string $idField
      */
-    public function testCpsLimit(string $idField)
+    public function testCpsLimit(string $idField): void
     {
-        /** @var \Apigee\Edge\Entity\CpsLimitEntityControllerInterface $controller */
+        /** @var \Apigee\Edge\Tests\Test\Controller\CpsLimitEntityControllerInterface $controller */
         $controller = $this->getEntityController();
         $sampleEntity = static::sampleDataForEntityCreate();
         $sampleEntityId = call_user_func([$sampleEntity, 'get' . $idField]);

@@ -79,7 +79,7 @@ class ApiProduct extends Entity implements ApiProductInterface
     /**
      * @inheritdoc
      */
-    public function setProxies(array $proxies)
+    public function setProxies(array $proxies): void
     {
         $this->proxies = $proxies;
     }
@@ -95,7 +95,7 @@ class ApiProduct extends Entity implements ApiProductInterface
     /**
      * @inheritdoc
      */
-    public function setQuota(int $quota)
+    public function setQuota(int $quota): void
     {
         $this->quota = $quota;
     }
@@ -111,7 +111,7 @@ class ApiProduct extends Entity implements ApiProductInterface
     /**
      * @inheritdoc
      */
-    public function setQuotaInterval(int $quotaInterval)
+    public function setQuotaInterval(int $quotaInterval): void
     {
         $this->quotaInterval = $quotaInterval;
     }
@@ -127,7 +127,7 @@ class ApiProduct extends Entity implements ApiProductInterface
     /**
      * @inheritdoc
      */
-    public function setQuotaTimeUnit(string $quotaTimeUnit)
+    public function setQuotaTimeUnit(string $quotaTimeUnit): void
     {
         $this->quotaTimeUnit = $quotaTimeUnit;
     }
@@ -143,7 +143,7 @@ class ApiProduct extends Entity implements ApiProductInterface
     /**
      * @inheritdoc
      */
-    public function setApprovalType(string $approvalType)
+    public function setApprovalType(string $approvalType): void
     {
         $this->approvalType = $approvalType;
     }
@@ -159,7 +159,7 @@ class ApiProduct extends Entity implements ApiProductInterface
     /**
      * @inheritdoc
      */
-    public function setApiResources(array $apiResources)
+    public function setApiResources(array $apiResources): void
     {
         $this->apiResources = $apiResources;
     }

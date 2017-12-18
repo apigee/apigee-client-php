@@ -16,9 +16,9 @@ abstract class NonCpsLimitEntityControllerValidator extends EntityCrudOperations
     /**
      * @depends testCreate
      */
-    public function testGetEntityIds()
+    public function testGetEntityIds(): void
     {
-        /** @var \Apigee\Edge\Entity\NonCpsListingEntityControllerInterface $controller */
+        /** @var \Apigee\Edge\Controller\NonCpsListingEntityControllerInterface $controller */
         $controller = $this->getEntityController();
         $this->assertNotEmpty($controller->getEntityIds());
     }

@@ -30,7 +30,7 @@ class BuilderTest extends TestCase
     /**
      * @inheritdoc
      */
-    public static function setUpBeforeClass()
+    public static function setUpBeforeClass(): void
     {
         // Use the Mock HTTP Client for all requests.
         self::$httpClient = new MockHttpClient();
@@ -40,7 +40,7 @@ class BuilderTest extends TestCase
     /**
      * @small
      */
-    public function testShouldReturnTheSameInstance()
+    public function testShouldReturnTheSameInstance(): void
     {
         $builder = new Builder(self::$httpClient);
         $client = $builder->getHttpClient();
@@ -66,7 +66,7 @@ class BuilderTest extends TestCase
      *
      * @param \Apigee\Edge\HttpClient\Util\Builder $builder
      */
-    public function testShouldSetHeaderValue(Builder $builder)
+    public function testShouldSetHeaderValue(Builder $builder): void
     {
         $client = $builder->getHttpClient();
         $builder->setHeaderValue('Foo', 'baz');
@@ -84,7 +84,7 @@ class BuilderTest extends TestCase
      *
      * @param \Apigee\Edge\HttpClient\Util\Builder $builder
      */
-    public function testShouldRemoveHeader(Builder $builder)
+    public function testShouldRemoveHeader(Builder $builder): void
     {
         $client = $builder->getHttpClient();
         $builder->removeHeader('Foo');
@@ -100,7 +100,7 @@ class BuilderTest extends TestCase
      *
      * @param \Apigee\Edge\HttpClient\Util\Builder $builder
      */
-    public function testShouldRemoveAllHeaders(Builder $builder)
+    public function testShouldRemoveAllHeaders(Builder $builder): void
     {
         $client = $builder->getHttpClient();
         $builder->clearHeaders();
@@ -134,7 +134,7 @@ class BuilderTest extends TestCase
      *
      * @param \Apigee\Edge\HttpClient\Util\Builder $builder
      */
-    public function testShouldRemovePlugin(Builder $builder)
+    public function testShouldRemovePlugin(Builder $builder): void
     {
         $client = $builder->getHttpClient();
         $builder->removePlugin(Plugin\AddPathPlugin::class);
@@ -148,7 +148,7 @@ class BuilderTest extends TestCase
     /**
      * @expectedException \InvalidArgumentException
      */
-    public function testShouldNotAddCachePlugin()
+    public function testShouldNotAddCachePlugin(): void
     {
         $cachePoolMock = $this->createMock(CacheItemPoolInterface::class);
         $streamFactoryMock = $this->createMock(StreamFactory::class);
@@ -170,7 +170,7 @@ class BuilderTest extends TestCase
     /**
      * @depends testShouldAddCachePlugin
      */
-    public function testShouldRemoveCachePlugin(Builder $builder)
+    public function testShouldRemoveCachePlugin(Builder $builder): void
     {
         $client = $builder->getHttpClient();
         $builder->removeCache();

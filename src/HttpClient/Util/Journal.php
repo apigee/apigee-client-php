@@ -19,13 +19,13 @@ use Psr\Http\Message\ResponseInterface;
  */
 class Journal implements JournalInterface
 {
-    /** @var RequestInterface */
+    /** @var \Psr\Http\Message\RequestInterface */
     protected $lastRequest;
 
-    /** @var ResponseInterface */
+    /** @var \Psr\Http\Message\ResponseInterface */
     protected $lastResponse;
 
-    /** @var \Exception */
+    /** @var \Http\Client\Exception */
     protected $lastException;
 
     /**
@@ -38,10 +38,10 @@ class Journal implements JournalInterface
     /**
      * Record a successful call.
      *
-     * @param RequestInterface $request Request use to make the call
-     * @param ResponseInterface $response Response returned by the call
+     * @param \Psr\Http\Message\RequestInterface $request Request use to make the call
+     * @param \Psr\Http\Message\ResponseInterface $response Response returned by the call
      */
-    public function addSuccess(RequestInterface $request, ResponseInterface $response)
+    public function addSuccess(RequestInterface $request, ResponseInterface $response): void
     {
         $this->lastRequest = $request;
         $this->lastResponse = $response;
@@ -51,17 +51,17 @@ class Journal implements JournalInterface
     /**
      * Record a failed call.
      *
-     * @param RequestInterface $request Request use to make the call
-     * @param Exception $exception Exception returned by the call
+     * @param \Psr\Http\Message\RequestInterface $request Request use to make the call
+     * @param \Http\Client\Exception $exception Exception returned by the call
      */
-    public function addFailure(RequestInterface $request, Exception $exception)
+    public function addFailure(RequestInterface $request, Exception $exception): void
     {
         $this->lastRequest = $request;
         $this->lastException = $exception;
     }
 
     /**
-     * @return RequestInterface
+     * @return \Psr\Http\Message\RequestInterface
      */
     public function getLastRequest()
     {
@@ -69,7 +69,7 @@ class Journal implements JournalInterface
     }
 
     /**
-     * @return ResponseInterface
+     * @return \Psr\Http\Message\ResponseInterface
      */
     public function getLastResponse()
     {
@@ -77,7 +77,7 @@ class Journal implements JournalInterface
     }
 
     /**
-     * @return \Exception
+     * @return \Http\Client\Exception
      */
     public function getLastException()
     {

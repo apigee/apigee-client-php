@@ -85,7 +85,7 @@ class AppCredential extends Entity implements AppCredentialInterface
      *
      * @internal
      */
-    public function setApiProducts(array $apiProducts)
+    public function setApiProducts(array $apiProducts): void
     {
         $this->apiProducts = $apiProducts;
     }
@@ -107,7 +107,7 @@ class AppCredential extends Entity implements AppCredentialInterface
      *
      * @internal
      */
-    public function setConsumerKey(string $consumerKey)
+    public function setConsumerKey(string $consumerKey): void
     {
         $this->consumerKey = $consumerKey;
     }
@@ -129,7 +129,7 @@ class AppCredential extends Entity implements AppCredentialInterface
      *
      * @internal
      */
-    public function setConsumerSecret(string $consumerSecret)
+    public function setConsumerSecret(string $consumerSecret): void
     {
         $this->consumerSecret = $consumerSecret;
     }
@@ -175,7 +175,7 @@ class AppCredential extends Entity implements AppCredentialInterface
      *
      * @internal
      */
-    public function setIssuedAt(string $issuedAt)
+    public function setIssuedAt(string $issuedAt): void
     {
         $this->issuedAt = $issuedAt;
     }

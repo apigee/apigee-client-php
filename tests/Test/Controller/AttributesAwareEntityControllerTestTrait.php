@@ -45,7 +45,7 @@ trait AttributesAwareEntityControllerTestTrait
      *
      * @param string $entityId
      */
-    public function testGetAttributes(string $entityId)
+    public function testGetAttributes(string $entityId): void
     {
         /** @var \Apigee\Edge\Api\Management\Controller\AttributesAwareEntityControllerInterface $controller */
         $controller = $this->getEntityController();
@@ -64,7 +64,7 @@ trait AttributesAwareEntityControllerTestTrait
      *
      * @param string $entityId
      */
-    public function testGetAttribute(string $entityId)
+    public function testGetAttribute(string $entityId): void
     {
         /** @var \Apigee\Edge\Api\Management\Controller\AttributesAwareEntityControllerInterface $controller */
         $controller = $this->getEntityController();
@@ -77,7 +77,7 @@ trait AttributesAwareEntityControllerTestTrait
      *
      * @param string $entityId
      */
-    public function testUpdateAttribute(string $entityId)
+    public function testUpdateAttribute(string $entityId): void
     {
         /** @var \Apigee\Edge\Api\Management\Controller\AttributesAwareEntityControllerInterface $controller */
         $controller = $this->getEntityController();

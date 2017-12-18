@@ -67,7 +67,7 @@ class CredentialProduct implements CredentialProductInterface
     /**
      * @param string $apiproduct
      */
-    public function setApiproduct(string $apiproduct)
+    public function setApiproduct(string $apiproduct): void
     {
         $this->apiproduct = $apiproduct;
     }

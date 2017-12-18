@@ -15,7 +15,7 @@ class AppCredentialDenormalizer extends EntityDenormalizer implements Denormaliz
     /**
      * @inheritdoc
      */
-    public function supportsDenormalization($data, $type, $format = null)
+    public function supportsDenormalization($data, $type, $format = null): bool
     {
         return in_array(AppCredential::class, class_parents($type));
     }

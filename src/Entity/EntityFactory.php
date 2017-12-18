@@ -74,9 +74,9 @@ final class EntityFactory implements EntityFactoryInterface
     public function getEntityByController($entityController): EntityInterface
     {
         $className = $this->getClassName($entityController);
-        $fqcn = self::getEntityTypeByController($entityController);
+        $fqcn = $this->getEntityTypeByController($entityController);
         // Add it to to object cache.
-        self::$objectCache[$className] = new $fqcn();
+        static::$objectCache[$className] = new $fqcn();
 
         return clone self::$objectCache[$className];
     }
@@ -92,11 +92,6 @@ final class EntityFactory implements EntityFactoryInterface
      */
     private function getClassName($entityController): string
     {
-        $className = $entityController;
-        if (is_object($entityController)) {
-            $className = get_class($entityController);
-        }
-
-        return $className;
+        return is_object($entityController) ? get_class($entityController) : $entityController;
     }
 }

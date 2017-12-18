@@ -30,6 +30,7 @@ install:
 
 script:
   - composer check-style
+  - composer analyze
   - composer test
   - if [[ $(phpenv version-name) == "7.1" ]] && [[ "$DEPENDENCIES" = 'highest' ]]; then composer metrics; fi
 

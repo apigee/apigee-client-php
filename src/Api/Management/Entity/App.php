@@ -48,7 +48,7 @@ abstract class App extends Entity implements AppInterface
     protected $credentials = [];
 
     /**
-     * @internal
+     * @inheritdoc
      */
     public function idProperty(): string
     {
@@ -112,7 +112,7 @@ abstract class App extends Entity implements AppInterface
     /**
      * @inheritdoc
      */
-    public function setAppFamily(string $appFamily)
+    public function setAppFamily(string $appFamily): void
     {
         $this->appFamily = $appFamily;
     }
@@ -134,7 +134,7 @@ abstract class App extends Entity implements AppInterface
      *
      * @internal
      */
-    public function setAppId(string $appId)
+    public function setAppId(string $appId): void
     {
         $this->appId = $appId;
     }
@@ -150,7 +150,7 @@ abstract class App extends Entity implements AppInterface
     /**
      * @inheritdoc
      */
-    public function setCallbackUrl(string $callbackUrl)
+    public function setCallbackUrl(string $callbackUrl): void
     {
         $this->callbackUrl = $callbackUrl;
     }
@@ -172,7 +172,7 @@ abstract class App extends Entity implements AppInterface
      *
      * @internal
      */
-    public function setCredentials(array $credentials)
+    public function setCredentials(array $credentials): void
     {
         $this->credentials = $credentials;
     }

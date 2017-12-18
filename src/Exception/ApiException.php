@@ -17,13 +17,13 @@ use Throwable;
  */
 class ApiException extends \RuntimeException
 {
-    /** @var RequestInterface */
+    /** @var \Psr\Http\Message\RequestInterface */
     protected $request;
 
-    /** @var ResponseInterface */
+    /** @var \Psr\Http\Message\ResponseInterface */
     protected $response;
 
-    /** @var FullHttpMessageFormatter */
+    /** @var \Http\Message\Formatter */
     protected $formatter;
 
     /** @var string */
@@ -32,9 +32,9 @@ class ApiException extends \RuntimeException
     /**
      * ApiException constructor.
      *
-     * @param ResponseInterface $response
-     * @param RequestInterface $request
-     * @param Formatter|null $formatter
+     * @param \Psr\Http\Message\ResponseInterface $response
+     * @param \Psr\Http\Message\RequestInterface $request
+     * @param \Http\Message\Formatter|null $formatter
      * @param Throwable|null $previous
      */
     public function __construct(
@@ -50,7 +50,7 @@ class ApiException extends \RuntimeException
         // Try to parse Edge error message and error code from the response body.
         $contentTypeHeader = $response->getHeaderLine('Content-Type');
         if ($contentTypeHeader && false !== strpos($contentTypeHeader, 'application/json')) {
-            $array = json_decode($response->getBody(), true);
+            $array = json_decode((string) $response->getBody(), true);
             if (JSON_ERROR_NONE === json_last_error()) {
                 if (array_key_exists('code', $array)) {
                     $this->edgeErrorCode = $array['code'];
@@ -63,6 +63,9 @@ class ApiException extends \RuntimeException
         parent::__construct($message, $response->getStatusCode(), $previous);
     }
 
+    /**
+     * @inheritdoc
+     */
     public function __toString()
     {
         return sprintf(
@@ -73,7 +76,7 @@ class ApiException extends \RuntimeException
     }
 
     /**
-     * @return RequestInterface
+     * @return \Psr\Http\Message\RequestInterface
      */
     public function getRequest(): RequestInterface
     {
@@ -81,7 +84,7 @@ class ApiException extends \RuntimeException
     }
 
     /**
-     * @return ResponseInterface
+     * @return \Psr\Http\Message\ResponseInterface
      */
     public function getResponse(): ResponseInterface
     {
@@ -89,7 +92,7 @@ class ApiException extends \RuntimeException
     }
 
     /**
-     * @return Formatter
+     * @return \Http\Message\Formatter
      */
     public function getFormatter(): Formatter
     {

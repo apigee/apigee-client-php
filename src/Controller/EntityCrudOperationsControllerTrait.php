@@ -76,7 +76,7 @@ trait EntityCrudOperationsControllerTrait
      * @param \Apigee\Edge\Entity\EntityInterface $entity
      *   Entity that properties should be updated.
      */
-    private function setPropertiesFromResponse(ResponseInterface $response, EntityInterface $entity)
+    private function setPropertiesFromResponse(ResponseInterface $response, EntityInterface $entity): void
     {
         // Parse Edge response to a temporary entity (with the same type as $entity).
         // This is a crucial step because Edge response must be transformed before we would be able use it with some

@@ -24,7 +24,7 @@ trait DeveloperAppControllerTestTrait
     /**
      * @inheritdoc
      */
-    public static function setUpBeforeClass()
+    public static function setUpBeforeClass(): void
     {
         try {
             // Create required entities for testing this controller on Edge.
@@ -67,7 +67,7 @@ trait DeveloperAppControllerTestTrait
     /**
      * @inheritdoc
      */
-    public static function tearDownAfterClass()
+    public static function tearDownAfterClass(): void
     {
         if (0 === strpos(static::$client->getUserAgent(), TestClientFactory::OFFLINE_CLIENT_USER_AGENT_PREFIX)) {
             return;

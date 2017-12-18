@@ -49,7 +49,9 @@ trait AttributesAwareEntityControllerTrait
         $responseArray = $this->parseResponseToArray(
             $this->client->post(
                 $this->getEntityAttributesUri($entityId),
-                json_encode((object) ['attribute' => $this->getAttributesPropertyNormalizer()->normalize($attributes)])
+                (string) json_encode((object) [
+                    'attribute' => $this->getAttributesPropertyNormalizer()->normalize($attributes),
+                ])
             )
         );
 
@@ -64,7 +66,7 @@ trait AttributesAwareEntityControllerTrait
      */
     public function updateAttribute(string $entityId, string $name, string $value): string
     {
-        $value = json_encode((object) ['value' => $value]);
+        $value = (string) json_encode((object) ['value' => $value]);
         $responseArray = $this->parseResponseToArray($this->client->post(
             $this->getEntityAttributeUri($entityId, $name),
             $value

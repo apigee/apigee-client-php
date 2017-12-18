@@ -33,7 +33,7 @@ class DeveloperAppCredentialControllerTest extends EntityControllerValidator
     /**
      * @inheritdoc
      */
-    public static function setUpBeforeClass()
+    public static function setUpBeforeClass(): void
     {
         try {
             parent::setUpBeforeClass();
@@ -63,7 +63,7 @@ class DeveloperAppCredentialControllerTest extends EntityControllerValidator
     /**
      * @inheritdoc
      */
-    public static function tearDownAfterClass()
+    public static function tearDownAfterClass(): void
     {
         if (0 === strpos(static::$client->getUserAgent(), TestClientFactory::OFFLINE_CLIENT_USER_AGENT_PREFIX)) {
             return;
@@ -89,7 +89,7 @@ class DeveloperAppCredentialControllerTest extends EntityControllerValidator
         static::cleanUpAfterDeveloperApp();
     }
 
-    public function testCreatedAppHasAnEmptyCredential()
+    public function testCreatedAppHasAnEmptyCredential(): void
     {
         $dac = new DeveloperAppController(static::getOrganization(), static::$developerId, static::$client);
         /** @var \Apigee\Edge\Api\Management\Entity\DeveloperAppInterface $entity */
@@ -149,7 +149,7 @@ class DeveloperAppCredentialControllerTest extends EntityControllerValidator
      *
      * @param string $entityId
      */
-    public function testAddProducts(string $entityId)
+    public function testAddProducts(string $entityId): void
     {
         /** @var \Apigee\Edge\Api\Management\Controller\DeveloperAppCredentialControllerInterface $controller */
         $controller = $this->getEntityController();
@@ -166,7 +166,7 @@ class DeveloperAppCredentialControllerTest extends EntityControllerValidator
      *
      * @param string $entityId
      */
-    public function testOverrideAttributes(string $entityId)
+    public function testOverrideAttributes(string $entityId): void
     {
         // We can either test this or testApiProductStatusChange() with the offline client, we can not test both
         // because they are using the same path with the same HTTP method.
@@ -190,7 +190,7 @@ class DeveloperAppCredentialControllerTest extends EntityControllerValidator
      *
      * @param string $entityId
      */
-    public function testOverrideScopes(string $entityId)
+    public function testOverrideScopes(string $entityId): void
     {
         /** @var \Apigee\Edge\Api\Management\Controller\DeveloperAppCredentialControllerInterface $controller */
         $controller = $this->getEntityController();
@@ -212,7 +212,7 @@ class DeveloperAppCredentialControllerTest extends EntityControllerValidator
      *
      * @param string $entityId
      */
-    public function testStatusChange(string $entityId)
+    public function testStatusChange(string $entityId): void
     {
         if (0 === strpos(static::$client->getUserAgent(), TestClientFactory::OFFLINE_CLIENT_USER_AGENT_PREFIX)) {
             $this->markTestSkipped(static::$onlyOnlineClientSkipMessage);
@@ -233,7 +233,7 @@ class DeveloperAppCredentialControllerTest extends EntityControllerValidator
      *
      * @param string $entityId
      */
-    public function testApiProductStatusChange(string $entityId)
+    public function testApiProductStatusChange(string $entityId): void
     {
         if (0 === strpos(static::$client->getUserAgent(), TestClientFactory::OFFLINE_CLIENT_USER_AGENT_PREFIX)) {
             $this->markTestSkipped(static::$onlyOnlineClientSkipMessage);
@@ -268,7 +268,7 @@ class DeveloperAppCredentialControllerTest extends EntityControllerValidator
         }
     }
 
-    public function testGenerate()
+    public function testGenerate(): void
     {
         if (0 === strpos(static::$client->getUserAgent(), TestClientFactory::OFFLINE_CLIENT_USER_AGENT_PREFIX)) {
             $this->markTestSkipped(static::$onlyOnlineClientSkipMessage);

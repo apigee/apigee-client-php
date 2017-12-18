@@ -56,7 +56,7 @@ class DeveloperControllerTest extends CpsLimitEntityControllerValidator
      * @group online
      * @expectedException \Apigee\Edge\Exception\ClientErrorException
      */
-    public function testCreateWithIncorrectData()
+    public function testCreateWithIncorrectData(): void
     {
         if (0 === strpos(static::$client->getUserAgent(), TestClientFactory::OFFLINE_CLIENT_USER_AGENT_PREFIX)) {
             $this->markTestSkipped(static::$onlyOnlineClientSkipMessage);
@@ -92,7 +92,7 @@ class DeveloperControllerTest extends CpsLimitEntityControllerValidator
      *
      * @param string $entityId
      */
-    public function testStatusChange(string $entityId)
+    public function testStatusChange(string $entityId): void
     {
         if (0 === strpos(static::$client->getUserAgent(), TestClientFactory::OFFLINE_CLIENT_USER_AGENT_PREFIX)) {
             $this->markTestSkipped(static::$onlyOnlineClientSkipMessage);

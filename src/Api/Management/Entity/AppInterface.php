@@ -44,7 +44,7 @@ interface AppInterface extends
     /**
      * @param string $appFamily
      */
-    public function setAppFamily(string $appFamily);
+    public function setAppFamily(string $appFamily): void;
 
     /**
      * @return string
@@ -59,7 +59,7 @@ interface AppInterface extends
     /**
      * @param string $callbackUrl
      */
-    public function setCallbackUrl(string $callbackUrl);
+    public function setCallbackUrl(string $callbackUrl): void;
 
     /**
      * @return \Apigee\Edge\Api\Management\Entity\AppCredential[]

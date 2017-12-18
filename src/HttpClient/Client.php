@@ -36,7 +36,7 @@ class Client implements ClientInterface
 
     private const API_VERSION = 'v1';
 
-    /** @var UriFactory */
+    /** @var \Http\Message\UriFactory */
     protected $uriFactory;
 
     /** @var string */
@@ -45,11 +45,11 @@ class Client implements ClientInterface
     /**
      * On-prem Apigee Endpoint endpoint.
      *
-     * @var null|string
+     * @var string
      */
-    private $endpoint = '';
+    private $endpoint;
 
-    /** @var Authentication */
+    /** @var \Http\Message\Authentication|null */
     private $auth;
 
     /**
@@ -62,11 +62,11 @@ class Client implements ClientInterface
     /**
      * Stores the current, altered builder instance.
      *
-     * @var \Apigee\Edge\HttpClient\Util\Builder
+     * @var \Apigee\Edge\HttpClient\Util\BuilderInterface
      */
     private $currentBuilder;
 
-    /** @var CacheItemPoolInterface */
+    /** @var \Psr\Cache\CacheItemPoolInterface|null */
     private $cachePool;
 
     /** @var array */
@@ -78,15 +78,15 @@ class Client implements ClientInterface
     /** @var bool */
     private $rebuild = true;
     /**
-     * @var \Http\Message\RequestFactory|null
+     * @var \Http\Message\RequestFactory
      */
     private $requestFactory;
 
     /**
      * Client constructor.
      *
-     * @param Authentication|null $auth
-     * @param BuilderInterface|null $builder
+     * @param \Http\Message\Authentication|null $auth
+     * @param \Apigee\Edge\HttpClient\Util\BuilderInterface|null $builder
      * @param string|null $endpoint
      * @param string $userAgentPrefix
      */
@@ -117,7 +117,7 @@ class Client implements ClientInterface
     /**
      * @inheritdoc
      */
-    public function setUserAgentPrefix(string $prefix)
+    public function setUserAgentPrefix(string $prefix): void
     {
         $this->needsRebuild(true);
         $this->userAgentPrefix = $prefix;

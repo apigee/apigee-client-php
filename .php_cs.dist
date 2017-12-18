@@ -6,6 +6,7 @@ $finder = PhpCsFixer\Finder::create()
     ->in(['./src', './tests']);
 
 return PhpCsFixer\Config::create()
+    ->setRiskyAllowed(true)
     ->setRules([
         '@PSR2' => true,
         '@Symfony' => true,
@@ -19,5 +20,6 @@ return PhpCsFixer\Config::create()
         'phpdoc_indent' => false,
         'phpdoc_inline_tag' => false,
         'phpdoc_order' => true,
+        'void_return' => true,
     ])
     ->setFinder($finder);

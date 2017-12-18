@@ -5,6 +5,8 @@ namespace Apigee\Edge\Api\Management\Controller;
 use Apigee\Edge\Api\Management\Entity\AppDenormalizer;
 use Apigee\Edge\Api\Management\Entity\AppInterface;
 use Apigee\Edge\Controller\CpsLimitEntityController;
+use Apigee\Edge\Entity\EntityFactoryInterface;
+use Apigee\Edge\HttpClient\ClientInterface;
 use Apigee\Edge\Structure\CpsListLimitInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\UriInterface;
@@ -33,14 +35,14 @@ class AppController extends CpsLimitEntityController implements AppControllerInt
      * AppController constructor.
      *
      * @param string $organization
-     * @param null $client
-     * @param null $entityFactory
+     * @param \Apigee\Edge\HttpClient\ClientInterface|null $client
+     * @param \Apigee\Edge\Entity\EntityFactoryInterface|null $entityFactory
      * @param \Apigee\Edge\Api\Management\Controller\OrganizationControllerInterface|null $organizationController
      */
     public function __construct(
         string $organization,
-        $client = null,
-        $entityFactory = null,
+        ClientInterface $client = null,
+        EntityFactoryInterface $entityFactory = null,
         OrganizationControllerInterface $organizationController = null
     ) {
         parent::__construct($organization, $client, $entityFactory, $organizationController);
