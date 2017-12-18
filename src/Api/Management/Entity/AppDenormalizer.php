@@ -3,7 +3,7 @@
 namespace Apigee\Edge\Api\Management\Entity;
 
 use Apigee\Edge\Entity\EntityDenormalizer;
-use Symfony\Component\Serializer\Exception\NotNormalizableValueException;
+use Symfony\Component\Serializer\Exception\UnexpectedValueException;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 
 /**
@@ -23,7 +23,7 @@ class AppDenormalizer extends EntityDenormalizer implements DenormalizerInterfac
         } elseif (isset($data['companyName'])) {
             return parent::denormalize($data, CompanyApp::class);
         }
-        throw new NotNormalizableValueException(
+        throw new UnexpectedValueException(
             'Unable to denormalize data because both "developerId" and "companyName" are missing from data.'
         );
     }

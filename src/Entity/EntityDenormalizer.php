@@ -21,6 +21,10 @@ class EntityDenormalizer implements DenormalizerInterface
 
     /**
      * EntityDenormalizer constructor.
+     *
+     * @psalm-suppress InvalidArgument This can be removed when minimum symfony/property-info dependency changes to 3.3.
+     *
+     * @see https://github.com/symfony/property-info/commit/b7637b4afd31879461141a5fa0c7b40b08b46f2e
      */
     public function __construct()
     {
