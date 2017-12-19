@@ -55,8 +55,8 @@ abstract class App extends Entity implements AppInterface
      */
     public function __construct(array $values = [])
     {
-        parent::__construct($values);
         $this->attributes = new AttributesProperty();
+        parent::__construct($values);
     }
 
     /**

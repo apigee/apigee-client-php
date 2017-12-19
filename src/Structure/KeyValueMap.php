@@ -16,6 +16,7 @@ class KeyValueMap implements KeyValueMapInterface
      * KeyValueMapAwareTrait constructor.
      *
      * @param array $values
+     *   Associative array. Ex.: ['foo' => 'bar']
      */
     public function __construct(array $values = [])
     {
