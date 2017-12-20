@@ -74,6 +74,25 @@ class DeveloperAppCredentialControllerTest extends EntityControllerValidator
         }
 
         $dac = new DeveloperAppController(static::getOrganization(), static::$developerId, static::$client);
+        $dacc = new DeveloperAppCredentialController(
+            static::getOrganization(),
+            static::$developerId,
+            static::$appName,
+            static::$client
+        );
+        // First, we have to delete all credentials of the created test app otherwise we are not going to be able to
+        // delete the created test API product because Edge still thinks that there is an app associated with
+        // the API product. After that the test API product becomes a ghost and it can not be removed without
+        // additional help.
+        try {
+            /** @var \Apigee\Edge\Api\Management\Entity\DeveloperAppInterface $app */
+            $app = $dac->load(static::$appName);
+            foreach ($app->getCredentials() as $credential) {
+                $dacc->delete($credential->getConsumerKey());
+            }
+        } catch (ClientErrorException $e) {
+            // Hope that we can still remove the created test API product.
+        }
         try {
             $dac->delete(static::$appName);
         } catch (ClientErrorException $e) {
