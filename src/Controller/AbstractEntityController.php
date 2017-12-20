@@ -11,6 +11,7 @@ use Apigee\Edge\HttpClient\Client;
 use Apigee\Edge\HttpClient\ClientInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\UriInterface;
+use Symfony\Component\Serializer\Encoder\JsonDecode;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Exception\UnexpectedValueException;
 use Symfony\Component\Serializer\Serializer;
@@ -52,7 +53,8 @@ abstract class AbstractEntityController
         $this->entityFactory = $entityFactory ?: new EntityFactory();
         $this->entitySerializer = new Serializer(
             [new EntityNormalizer(), new EntityDenormalizer()],
-            [new JsonEncoder()]
+            // Keep the same structure that we get from Edge, do not transforms objects to arrays.
+            [new JsonEncoder(null, new JsonDecode())]
         );
     }
 
@@ -78,23 +80,23 @@ abstract class AbstractEntityController
     }
 
     /**
-     * Parse an Apigee Edge API response to an associative array.
+     * Decodes an Apigee Edge API response to an associative array.
      *
      * The SDK only works with JSON responses, but let's be prepared for the unexpected.
      *
      * @param ResponseInterface $response
      *
-     * @throws \RuntimeException If response can not be decoded as an array, because the input format is unknown.
+     * @throws \RuntimeException If response can not be decoded, because the input format is unknown.
      * @throws InvalidJsonException If there was an error with decoding a JSON response.
      *
      * @return array
      */
-    protected function parseResponseToArray(ResponseInterface $response): array
+    protected function responseToArray(ResponseInterface $response): array
     {
         if ($response->getHeaderLine('Content-Type') &&
             0 === strpos($response->getHeaderLine('Content-Type'), 'application/json')) {
             try {
-                return $this->entitySerializer->decode((string) $response->getBody(), 'json');
+                return (array) $this->entitySerializer->decode((string) $response->getBody(), 'json');
             } catch (UnexpectedValueException $e) {
                 throw new InvalidJsonException(
                     $e->getMessage(),

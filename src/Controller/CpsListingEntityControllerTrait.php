@@ -15,6 +15,8 @@ trait CpsListingEntityControllerTrait
 {
     /**
      * @inheritdoc
+     *
+     * @psalm-suppress PossiblyNullArrayOffset $tmp->id() is always not null here.
      */
     public function getEntities(CpsListLimitInterface $cpsLimit = null): array
     {
@@ -28,7 +30,7 @@ trait CpsListingEntityControllerTrait
         }
         $uri = $this->getBaseEndpointUri()->withQuery(http_build_query($query_params));
         $response = $this->client->get($uri);
-        $responseArray = $this->parseResponseToArray($response);
+        $responseArray = $this->responseToArray($response);
         // Ignore entity type key from response, ex.: developer.
         $responseArray = reset($responseArray);
         foreach ($responseArray as $item) {
@@ -58,6 +60,6 @@ trait CpsListingEntityControllerTrait
         $uri = $this->getBaseEndpointUri()->withQuery(http_build_query($query_params));
         $response = $this->client->get($uri);
 
-        return $this->parseResponseToArray($response);
+        return $this->responseToArray($response);
     }
 }

@@ -30,7 +30,7 @@ class ApiProductController extends EntityController implements ApiProductControl
         $uri = $this->getBaseEndpointUri()->withQuery(http_build_query($query_params));
         $response = $this->client->get($uri);
 
-        return $this->parseResponseToArray($response);
+        return $this->responseToArray($response);
     }
 
     /**

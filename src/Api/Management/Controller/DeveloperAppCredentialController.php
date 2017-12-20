@@ -101,7 +101,7 @@ class DeveloperAppCredentialController extends EntityController implements Devel
         );
         // It returns a complete developer app entity, but we only returns the newly created credential for the
         // sake of consistency.
-        $responseArray = $this->parseResponseToArray($response);
+        $responseArray = $this->responseToArray($response);
         $credentialArray = reset($responseArray['credentials']);
 
         return $this->entitySerializer->denormalize(

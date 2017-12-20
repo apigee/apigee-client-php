@@ -20,6 +20,6 @@ class PropertiesPropertyNormalizer extends KeyValueMapNormalizer
             'property' => parent::normalize($object, $format, $context),
         ];
 
-        return $return;
+        return (object) $return;
     }
 }

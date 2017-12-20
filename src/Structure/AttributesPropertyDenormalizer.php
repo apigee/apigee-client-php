@@ -23,8 +23,6 @@ class AttributesPropertyDenormalizer extends KeyValueMapDenormalizer
      * Acceptable inputs:
      *   - Edge response format: $data = [{'name' => 'foo', 'value' => 'bar'}, {'name' => 'bar', 'value' => 'baz'}]
      *     (from the EntityNormalizer for example)
-     *   - Edge response format decoded by json_decode($data, JSON_OBJECT_AS_ARRAY):
-     *     $data = [['name' => 'foo', 'value' => 'bar'], ['name' => 'bar', 'value' => 'baz']]
      *   - Internal representation of attributes: ['foo' => 'bar', 'bar' => 'baz']
      *
      * @inheritdoc
@@ -33,9 +31,7 @@ class AttributesPropertyDenormalizer extends KeyValueMapDenormalizer
     {
         $flatten = [];
         foreach ($data as $key => $item) {
-            if (is_array($item)) {
-                $flatten[$item['name']] = $item['value'];
-            } elseif (is_object($item)) {
+            if (is_object($item)) {
                 // $data came from the EntityNormalizer.
                 $flatten[$item->name] = $item->value;
             } else {

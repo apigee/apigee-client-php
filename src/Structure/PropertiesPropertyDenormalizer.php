@@ -22,10 +22,10 @@ class PropertiesPropertyDenormalizer extends KeyValueMapDenormalizer
      */
     public function denormalize($data, $class, $format = null, array $context = [])
     {
-        if (array_key_exists('property', $data) && is_array($data['property'])) {
+        if (property_exists($data, 'property') && is_array($data->property)) {
             $flatten = [];
-            foreach ($data['property'] as $value) {
-                $flatten[$value['name']] = $value['value'];
+            foreach ($data->property as $property) {
+                $flatten[$property->name] = $property->value;
             }
             $data = $flatten;
         }

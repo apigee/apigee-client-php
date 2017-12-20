@@ -91,9 +91,9 @@ class AbstractEntityControllerTest extends TestCase
              *
              * @return array
              */
-            public function parseResponse(ResponseInterface $response)
+            public function toArray(ResponseInterface $response)
             {
-                return $this->parseResponseToArray($response);
+                return $this->responseToArray($response);
             }
         };
     }
@@ -107,7 +107,7 @@ class AbstractEntityControllerTest extends TestCase
         $client = static::$stub->getClient();
         static::$stub->addResponse(new Response());
         $response = $client->send('GET', '');
-        static::$stub->parseResponse($response);
+        static::$stub->toArray($response);
     }
 
     /**
@@ -119,6 +119,6 @@ class AbstractEntityControllerTest extends TestCase
         $client = static::$stub->getClient();
         static::$stub->addResponse(new Response(200, ['Content-Type' => 'application/json'], stream_for('')));
         $response = $client->send('GET', '');
-        static::$stub->parseResponse($response);
+        static::$stub->toArray($response);
     }
 }

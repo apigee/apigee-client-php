@@ -22,6 +22,9 @@ class EntityNormalizer implements NormalizerInterface
         $ro = new \ReflectionObject($object);
         foreach ($ro->getProperties() as $property) {
             $getter = 'get' . ucfirst($property->getName());
+            if (!$ro->hasMethod($getter)) {
+                $getter = 'is' . ucfirst($property->getName());
+            }
             if ($ro->hasMethod($getter)) {
                 $value = call_user_func([$object, $getter]);
                 if (is_object($value)) {

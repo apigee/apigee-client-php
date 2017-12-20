@@ -21,7 +21,7 @@ trait AttributesAwareEntityControllerTrait
      */
     public function getAttributes(string $entityId): AttributesProperty
     {
-        $responseArray = $this->parseResponseToArray($this->client->get($this->getEntityAttributesUri($entityId)));
+        $responseArray = $this->responseToArray($this->client->get($this->getEntityAttributesUri($entityId)));
 
         return $this->getAttributesPropertyDenormalizer()->denormalize(
             $responseArray['attribute'],
@@ -34,7 +34,7 @@ trait AttributesAwareEntityControllerTrait
      */
     public function getAttribute(string $entityId, string $name): string
     {
-        $responseArray = $this->parseResponseToArray($this->client->get(
+        $responseArray = $this->responseToArray($this->client->get(
             $this->getEntityAttributeUri($entityId, $name)
         ));
 
@@ -46,7 +46,7 @@ trait AttributesAwareEntityControllerTrait
      */
     public function updateAttributes(string $entityId, AttributesProperty $attributes): AttributesProperty
     {
-        $responseArray = $this->parseResponseToArray(
+        $responseArray = $this->responseToArray(
             $this->client->post(
                 $this->getEntityAttributesUri($entityId),
                 (string) json_encode((object) [
@@ -67,7 +67,7 @@ trait AttributesAwareEntityControllerTrait
     public function updateAttribute(string $entityId, string $name, string $value): string
     {
         $value = (string) json_encode((object) ['value' => $value]);
-        $responseArray = $this->parseResponseToArray($this->client->post(
+        $responseArray = $this->responseToArray($this->client->post(
             $this->getEntityAttributeUri($entityId, $name),
             $value
         ));

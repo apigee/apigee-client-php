@@ -18,7 +18,7 @@ class CredentialProductNormalizer implements NormalizerInterface
      */
     public function normalize($object, $format = null, array $context = [])
     {
-        return [
+        return (object) [
             'apiproduct' => $object->getApiproduct(),
             'status' => $object->getStatus(),
         ];

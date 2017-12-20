@@ -19,9 +19,9 @@ interface EntityInterface
     public function idProperty(): string;
 
     /**
-     * Returns the name of the property that contains primary id of an entity.
+     * Returns the value of the primary id of an entity.
      *
-     * @return string
+     * @return null|string
      */
     public function id(): ?string;
 }

@@ -7,7 +7,7 @@ namespace Apigee\Edge\Structure;
  *
  * @author Dezső Biczó <mxr576@gmail.com>
  */
-class KeyValueMap implements KeyValueMapInterface
+abstract class KeyValueMap implements KeyValueMapInterface
 {
     /** @var array */
     protected $values = [];

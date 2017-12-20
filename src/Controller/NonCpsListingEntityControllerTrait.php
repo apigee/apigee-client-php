@@ -13,6 +13,8 @@ trait NonCpsListingEntityControllerTrait
 {
     /**
      * @inheritdoc
+     *
+     * @psalm-suppress PossiblyNullArrayOffset $tmp->id() is always not null here.
      */
     public function getEntities(): array
     {
@@ -22,7 +24,7 @@ trait NonCpsListingEntityControllerTrait
         ];
         $uri = $this->getBaseEndpointUri()->withQuery(http_build_query($query_params));
         $response = $this->client->get($uri);
-        $responseArray = $this->parseResponseToArray($response);
+        $responseArray = $this->responseToArray($response);
         foreach ($responseArray as $item) {
             /** @var \Apigee\Edge\Entity\EntityInterface $tmp */
             $tmp = $this->entitySerializer->denormalize($item, $this->entityFactory->getEntityTypeByController($this));
@@ -43,6 +45,6 @@ trait NonCpsListingEntityControllerTrait
         $uri = $this->getBaseEndpointUri()->withQuery(http_build_query($query_params));
         $response = $this->client->get($uri);
 
-        return $this->parseResponseToArray($response);
+        return $this->responseToArray($response);
     }
 }

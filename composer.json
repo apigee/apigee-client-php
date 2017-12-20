@@ -44,6 +44,7 @@
         "php-http/mock-client": "dev-master#5edc24d40d9ee2515cb3ef8d49c3766e95fa23f3",
         "phpmetrics/phpmetrics": "^2.3",
         "phpunit/phpunit": "^6.4.0",
+        "sebastian/comparator": "^2.1",
         "vimeo/psalm": "^0.3.68"
     },
     "conflict": {

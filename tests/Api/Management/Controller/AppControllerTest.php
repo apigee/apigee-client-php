@@ -181,7 +181,7 @@ class AppControllerTest extends EntityControllerValidator
     public function testListAppIdsByFamily(): void
     {
         /*
-         * @link https://docs.apigee.com/management/apis/post/organizations/%7Borg_name%7D/developers/%7Bdeveloper_email_or_id%7D/appfamilies.
+         * @see https://docs.apigee.com/management/apis/post/organizations/%7Borg_name%7D/developers/%7Bdeveloper_email_or_id%7D/appfamilies.
          */
         $this->markTestSkipped(
             'App families API seems to be deprecated.'

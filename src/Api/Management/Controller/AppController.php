@@ -57,7 +57,9 @@ class AppController extends CpsLimitEntityController implements AppControllerInt
         $response = $this->client->get($this->getEntityEndpointUri($appId));
 
         return $this->appEntityDenormalizer->denormalize(
-            $this->parseResponseToArray($response),
+            // Pass it as an object, because if serializer would have been used here (just as other places) it would
+            // pass an object to the denormalizer and not an array.
+            (object) $this->responseToArray($response),
             AppInterface::class
         );
     }
@@ -72,11 +74,13 @@ class AppController extends CpsLimitEntityController implements AppControllerInt
         ];
         $response = $this->request($queryParams, $cpsLimit);
 
-        return $this->parseResponseToArray($response);
+        return $this->responseToArray($response);
     }
 
     /**
      * @inheritdoc
+     *
+     * @psalm-suppress PossiblyNullArrayOffset $tmp->id() is always not null here.
      */
     public function listApps(bool $includeCredentials = true, CpsListLimitInterface $cpsLimit = null): array
     {
@@ -86,7 +90,7 @@ class AppController extends CpsLimitEntityController implements AppControllerInt
             'includeCred' => $includeCredentials ? 'true' : 'false',
         ];
         $response = $this->request($queryParams, $cpsLimit);
-        $responseArray = $this->parseResponseToArray($response);
+        $responseArray = $this->responseToArray($response);
         // Ignore entity type key from response, ex.: developer.
         $responseArray = reset($responseArray);
         foreach ($responseArray as $item) {
@@ -112,11 +116,13 @@ class AppController extends CpsLimitEntityController implements AppControllerInt
         ];
         $response = $this->request($queryParams, $cpsLimit);
 
-        return $this->parseResponseToArray($response);
+        return $this->responseToArray($response);
     }
 
     /**
      * @inheritdoc
+     *
+     * @psalm-suppress PossiblyNullArrayOffset $tmp->id() is always not null here.
      */
     public function listAppsByStatus(
         string $status,
@@ -130,7 +136,7 @@ class AppController extends CpsLimitEntityController implements AppControllerInt
             'includeCred' => $includeCredentials ? 'true' : 'false',
         ];
         $response = $this->request($queryParams, $cpsLimit);
-        $responseArray = $this->parseResponseToArray($response);
+        $responseArray = $this->responseToArray($response);
         // Ignore entity type key from response, ex.: developer.
         $responseArray = reset($responseArray);
         foreach ($responseArray as $item) {
@@ -156,7 +162,7 @@ class AppController extends CpsLimitEntityController implements AppControllerInt
         ];
         $response = $this->request($queryParams, $cpsLimit);
 
-        return $this->parseResponseToArray($response);
+        return $this->responseToArray($response);
     }
 
     /**
@@ -170,7 +176,7 @@ class AppController extends CpsLimitEntityController implements AppControllerInt
         ];
         $response = $this->request($queryParams, $cpsLimit);
 
-        return $this->parseResponseToArray($response);
+        return $this->responseToArray($response);
     }
 
     /**

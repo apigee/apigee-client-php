@@ -42,6 +42,8 @@ trait EntityCrudOperationsControllerTrait
 
     /**
      * @inheritdoc
+     *
+     * @psalm-suppress PossiblyNullArgument $entity->id() is always not null here.
      */
     public function update(EntityInterface $entity): void
     {

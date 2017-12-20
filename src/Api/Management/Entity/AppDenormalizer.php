@@ -18,13 +18,13 @@ class AppDenormalizer extends EntityDenormalizer implements DenormalizerInterfac
      */
     public function denormalize($data, $class, $format = null, array $context = [])
     {
-        if (isset($data['developerId'])) {
+        if (isset($data->developerId)) {
             return parent::denormalize($data, DeveloperApp::class);
-        } elseif (isset($data['companyName'])) {
+        } elseif (isset($data->companyName)) {
             return parent::denormalize($data, CompanyApp::class);
         }
         throw new UnexpectedValueException(
-            'Unable to denormalize data because both "developerId" and "companyName" are missing from data.'
+            'Unable to denormalize because both "developerId" and "companyName" are missing from data.'
         );
     }
 
