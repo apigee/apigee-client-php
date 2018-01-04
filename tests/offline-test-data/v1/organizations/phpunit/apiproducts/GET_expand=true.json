@@ -6,7 +6,7 @@
             "attributes": [
                 {
                     "name": "foo",
-                    "value": "foo"
+                    "value": "bar"
                 }
             ],
             "createdAt": 648345600000,

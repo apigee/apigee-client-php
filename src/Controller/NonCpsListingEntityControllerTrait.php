@@ -25,6 +25,8 @@ trait NonCpsListingEntityControllerTrait
         $uri = $this->getBaseEndpointUri()->withQuery(http_build_query($query_params));
         $response = $this->client->get($uri);
         $responseArray = $this->responseToArray($response);
+        // Ignore entity type key from response, ex.: apiProduct.
+        $responseArray = reset($responseArray);
         foreach ($responseArray as $item) {
             /** @var \Apigee\Edge\Entity\EntityInterface $tmp */
             $tmp = $this->entitySerializer->denormalize($item, $this->entityFactory->getEntityTypeByController($this));
