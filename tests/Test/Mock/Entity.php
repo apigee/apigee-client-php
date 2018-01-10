@@ -2,6 +2,7 @@
 
 namespace Apigee\Edge\Tests\Test\Mock;
 
+use Apigee\Edge\Api\Management\Entity\AppCredential;
 use Apigee\Edge\Entity\EntityInterface;
 use Apigee\Edge\Structure\AttributesProperty;
 use Apigee\Edge\Structure\CredentialProduct;
@@ -35,6 +36,9 @@ class Entity implements EntityInterface
     /** @var PropertiesProperty */
     protected $propertiesProperty;
 
+    /** @var AppCredential[] */
+    protected $appCredential = [];
+
     /** @var CredentialProduct */
     protected $credentialProduct;
 
@@ -46,6 +50,18 @@ class Entity implements EntityInterface
         $this->attributesProperty = new AttributesProperty(['foo' => 'bar']);
         $this->propertiesProperty = new PropertiesProperty(['foo' => 'bar']);
         $this->credentialProduct = new CredentialProduct('foo', 'bar');
+        $this->appCredential = [new AppCredential(
+            [
+                'apiProducts' => [$this->credentialProduct],
+                'attributes' => $this->attributesProperty,
+                'consumerKey' => 'consumerKey',
+                'consumerSecret' => 'consumerSecret',
+                'issuedAt' => 'issuedAt',
+                'expiresAt' => 'expiresAt',
+                'scopes' => ['foo', 'bar'],
+                'status' => AppCredential::STATUS_REVOKED,
+            ]
+        )];
     }
 
     /**
@@ -152,8 +168,8 @@ class Entity implements EntityInterface
     /**
      * @param \Apigee\Edge\Structure\AttributesProperty $attributesProperty
      */
-    public function setAttributesProperty(AttributesProperty $attributesProperty): void
-    {
+    public function setAttributesProperty(AttributesProperty $attributesProperty
+    ): void {
         $this->attributesProperty = $attributesProperty;
     }
 
@@ -168,8 +184,8 @@ class Entity implements EntityInterface
     /**
      * @param \Apigee\Edge\Structure\PropertiesProperty $propertiesProperty
      */
-    public function setPropertiesProperty(PropertiesProperty $propertiesProperty): void
-    {
+    public function setPropertiesProperty(PropertiesProperty $propertiesProperty
+    ): void {
         $this->propertiesProperty = $propertiesProperty;
     }
 
@@ -184,8 +200,24 @@ class Entity implements EntityInterface
     /**
      * @param \Apigee\Edge\Structure\CredentialProduct $credentialProduct
      */
-    public function setCredentialProduct(CredentialProduct $credentialProduct): void
-    {
+    public function setCredentialProduct(CredentialProduct $credentialProduct
+    ): void {
         $this->credentialProduct = $credentialProduct;
+    }
+
+    /**
+     * @return AppCredential[]
+     */
+    public function getAppCredential(): array
+    {
+        return $this->appCredential;
+    }
+
+    /**
+     * @param AppCredential[] $appCredential
+     */
+    public function setAppCredential(array $appCredential): void
+    {
+        $this->appCredential = $appCredential;
     }
 }

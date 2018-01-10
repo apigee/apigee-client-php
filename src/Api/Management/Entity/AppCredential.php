@@ -6,6 +6,7 @@ use Apigee\Edge\Entity\Entity;
 use Apigee\Edge\Entity\Property\AttributesPropertyAwareTrait;
 use Apigee\Edge\Entity\Property\ScopesPropertyAwareTrait;
 use Apigee\Edge\Entity\Property\StatusPropertyAwareTrait;
+use Apigee\Edge\Structure\AttributesProperty;
 
 /**
  * Class AppCredential.
@@ -57,6 +58,17 @@ class AppCredential extends Entity implements AppCredentialInterface
 
     /** @var string Unix epoch timestamp. */
     protected $issuedAt;
+
+    /**
+     * AppCredential constructor.
+     *
+     * @param array $values
+     */
+    public function __construct(array $values = [])
+    {
+        $this->attributes = new AttributesProperty();
+        parent::__construct($values);
+    }
 
     /**
      * @inheritdoc

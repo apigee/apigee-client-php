@@ -54,6 +54,10 @@ class EntityTransformationTest extends TestCase
         $this->assertEquals('bar', $normalized->credentialProduct->status);
         $this->assertEquals('foo', $normalized->propertiesProperty->property[0]->name);
         $this->assertEquals('bar', $normalized->propertiesProperty->property[0]->value);
+        $this->assertNotEmpty($normalized->appCredential);
+        $this->assertEquals('consumerKey', $normalized->appCredential[0]->consumerKey);
+        $this->assertEquals('foo', $normalized->appCredential[0]->apiProducts[0]->apiproduct);
+        $this->assertEquals('foo', $normalized->appCredential[0]->attributes[0]->name);
 
         return $normalized;
     }
@@ -77,6 +81,10 @@ class EntityTransformationTest extends TestCase
         $this->assertEquals('foo', $object->getCredentialProduct()->getApiproduct());
         $this->assertEquals('bar', $object->getCredentialProduct()->getStatus());
         $this->assertEquals('bar', $object->getPropertiesProperty()->getValue('foo'));
+        $this->assertNotEmpty($object->getAppCredential());
+        $this->assertEquals('consumerKey', $object->getAppCredential()[0]->getConsumerKey());
+        $this->assertEquals('foo', $object->getAppCredential()[0]->getApiProducts()[0]->getApiproduct());
+        $this->assertEquals('bar', $object->getAppCredential()[0]->getAttributeValue('foo'));
         $renormalized = static::$normalizer->normalize($object);
         // Unset it to ensure that the two objects can be equal.
         unset($normalized->nullable);

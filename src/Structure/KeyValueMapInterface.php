@@ -19,7 +19,7 @@ interface KeyValueMapInterface extends \IteratorAggregate
     /**
      * Returns value of a key from the store.
      *
-     * @param null|string $key
+     * @param string $key
      *
      * @return null|string
      */

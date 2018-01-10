@@ -42,7 +42,7 @@ interface ApiProductInterface extends
     public function getQuota(): ?int;
 
     /**
-     * @param int|null $quota
+     * @param int $quota
      */
     public function setQuota(int $quota);
 

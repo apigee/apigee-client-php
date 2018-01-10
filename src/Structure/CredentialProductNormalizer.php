@@ -13,11 +13,10 @@ class CredentialProductNormalizer implements NormalizerInterface
 {
     /**
      * @inheritdoc
-     *
-     * @param \Apigee\Edge\Structure\CredentialProductInterface $object
      */
     public function normalize($object, $format = null, array $context = [])
     {
+        /* @var \Apigee\Edge\Structure\CredentialProductInterface $object */
         return (object) [
             'apiproduct' => $object->getApiproduct(),
             'status' => $object->getStatus(),
