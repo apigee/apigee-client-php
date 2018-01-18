@@ -71,7 +71,7 @@ abstract class EntityControllerValidator extends TestCase
     }
 
     /**
-     * Returns the entity controller that is tested.
+     * Returns the entity controller that is being tested.
      *
      * It is recommended to use static cache on the controller instance, however it should not be added as an
      * attribute of a test class because it can be misleading later whether the static::$controller should be called in

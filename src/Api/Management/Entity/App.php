@@ -65,7 +65,7 @@ abstract class App extends Entity implements AppInterface
     public function idProperty(): string
     {
         // Even though the 'appId' should be the primary id field of an app, the majority of the Edge endpoints are
-        // expecting the app name as a parameter. Ex.: All C.R.U.D. operations on developer apps.
+        // expecting the app name as the parameter. Ex.: All C.R.U.D. operations on developer- and company apps.
         return parent::idProperty();
     }
 

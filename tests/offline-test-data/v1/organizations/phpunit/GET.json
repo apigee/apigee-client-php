@@ -12,7 +12,19 @@
     "properties": {
         "property": [
             {
+                "name": "features.isSmbOrganization",
+                "value": "false"
+            },
+            {
+                "name": "self.service.virtual.host.enabled",
+                "value": "true"
+            },
+            {
                 "name": "features.isCpsEnabled",
+                "value": "true"
+            },
+            {
+                "name": "features.isHTTPStatusTooManyRequestEnabled",
                 "value": "true"
             }
         ]

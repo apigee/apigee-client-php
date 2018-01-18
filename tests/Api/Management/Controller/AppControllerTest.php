@@ -141,7 +141,7 @@ class AppControllerTest extends EntityControllerValidator
         $controller = $this->getEntityController();
         $apps = $controller->listApps();
         foreach (static::$createdDeveloperApps as $entity) {
-            $this->assertEquals($entity, $apps[$entity->id()]);
+            $this->assertEquals($entity, $apps[$entity->getAppId()]);
         }
         $apps = $controller->listApps(false);
         /** @var \Apigee\Edge\Api\Management\Entity\AppInterface $firstApp */

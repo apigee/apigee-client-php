@@ -3,7 +3,9 @@
 namespace Apigee\Edge\Tests\Controller;
 
 use Apigee\Edge\Controller\AbstractEntityController;
+use Apigee\Edge\Entity\EntityFactoryInterface;
 use Apigee\Edge\HttpClient\Client;
+use Apigee\Edge\HttpClient\ClientInterface;
 use Apigee\Edge\HttpClient\Util\Builder;
 use Apigee\Edge\Tests\Test\Mock\MockHttpClient;
 use GuzzleHttp\Psr7\Response;
@@ -42,8 +44,8 @@ class AbstractEntityControllerTest extends TestCase
              * @param \Apigee\Edge\Entity\EntityFactoryInterface|null $entityFactory
              */
             public function __construct(
-                \Apigee\Edge\HttpClient\ClientInterface $client = null,
-                \Apigee\Edge\Entity\EntityFactoryInterface $entityFactory = null
+                ClientInterface $client = null,
+                EntityFactoryInterface $entityFactory = null
             ) {
                 parent::__construct($client, $entityFactory);
                 $this->mockClient = new MockHttpClient();
@@ -73,7 +75,7 @@ class AbstractEntityControllerTest extends TestCase
             /**
              * @return \Apigee\Edge\HttpClient\Client
              */
-            public function getClient(): \Apigee\Edge\HttpClient\Client
+            public function getClient(): Client
             {
                 if ($this->rebuild) {
                     $builder = new Builder($this->mockClient);
