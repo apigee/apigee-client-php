@@ -14,7 +14,7 @@ matrix:
 cache:
   directories:
     - vendor
-    - $HOME/.composer/cache
+    - $HOME/.composer/cache/files
 
 notifications:
   email: false
