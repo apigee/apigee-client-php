@@ -48,7 +48,7 @@
         "vimeo/psalm": "^0.3.68"
     },
     "conflict": {
-        "phpdocumentor/type-resolver": "<0.4.0",
+        "phpdocumentor/type-resolver": "<0.2.1",
         "guzzlehttp/guzzle": "<6.0.2",
         "guzzlehttp/psr7": "<1.4.1"
     },
