@@ -72,7 +72,7 @@ class EntityDenormalizer implements DenormalizerInterface
      *   Data to restore.
      * @param string $property
      *   Name of the property on class.
-     * @param $class
+     * @param string $class
      *   The expected class to instantiate.
      * @param string $format
      *   Format the given data was extracted from.

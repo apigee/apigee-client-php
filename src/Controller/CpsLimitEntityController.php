@@ -4,7 +4,9 @@ namespace Apigee\Edge\Controller;
 
 use Apigee\Edge\Api\Management\Controller\OrganizationController;
 use Apigee\Edge\Api\Management\Controller\OrganizationControllerInterface;
+use Apigee\Edge\Entity\EntityFactoryInterface;
 use Apigee\Edge\Exception\CpsNotEnabledException;
+use Apigee\Edge\HttpClient\ClientInterface;
 use Apigee\Edge\Structure\CpsListLimitInterface;
 
 /**
@@ -23,14 +25,14 @@ abstract class CpsLimitEntityController extends EntityController
      * CpsLimitEntityController constructor.
      *
      * @param string $organization
-     * @param null $client
-     * @param null $entityFactory
-     * @param \Apigee\Edge\Api\Management\Controller\OrganizationControllerInterface $organizationController
+     * @param ClientInterface|null $client
+     * @param EntityFactoryInterface|null $entityFactory
+     * @param OrganizationControllerInterface|null $organizationController
      */
     public function __construct(
-        $organization,
-        $client = null,
-        $entityFactory = null,
+        string $organization,
+        ClientInterface $client = null,
+        EntityFactoryInterface $entityFactory = null,
         OrganizationControllerInterface $organizationController = null
     ) {
         parent::__construct($organization, $client, $entityFactory);

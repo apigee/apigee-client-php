@@ -48,13 +48,13 @@ class ApiProduct extends Entity implements ApiProductInterface
     /** @var string[] */
     protected $proxies = [];
 
-    /** @var int */
+    /** @var int|null */
     protected $quota;
 
-    /** @var int */
+    /** @var int|null */
     protected $quotaInterval;
 
-    /** @var string */
+    /** @var string|null */
     protected $quotaTimeUnit;
 
     /**

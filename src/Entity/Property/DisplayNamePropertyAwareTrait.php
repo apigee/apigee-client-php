@@ -9,7 +9,7 @@ namespace Apigee\Edge\Entity\Property;
  */
 trait DisplayNamePropertyAwareTrait
 {
-    /** @var string */
+    /** @var null|string */
     protected $displayName;
 
     /**

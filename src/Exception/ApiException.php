@@ -26,7 +26,7 @@ class ApiException extends \RuntimeException
     /** @var \Http\Message\Formatter */
     protected $formatter;
 
-    /** @var string */
+    /** @var null|string */
     protected $edgeErrorCode;
 
     /**

@@ -11,7 +11,7 @@ namespace Apigee\Edge\Entity\Property;
  */
 trait DeveloperIdPropertyAwareTrait
 {
-    /** @var string UUID of the developer entity. */
+    /** @var string|null UUID of the developer entity. */
     protected $developerId;
 
     /**
