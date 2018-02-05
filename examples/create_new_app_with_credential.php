@@ -1,6 +1,6 @@
 <?php
 /**
- * An example how to create new developer app with credential.
+ * An example of creating a new developer app with credential.
  *
  * All SDK classes tries to fulfil only one task (Single Responsibility design pattern).
  *

@@ -1,8 +1,8 @@
 <?php
 /**
- * An example that demonstrates how to retrieve developer app analytics.
+ * An example of using the Stats controller for retrieving developer app analytics.
  *
- * Related implementation in the < 2.0 version can be found here: https://github.com/apigee/edge-php-sdk/blob/master/Apigee/ManagementAPI/DeveloperAppAnalytics.php
+ * The original implementation of the < 2.0 version of this library can be found here: https://github.com/apigee/edge-php-sdk/blob/master/Apigee/ManagementAPI/DeveloperAppAnalytics.php
  */
 
 use Apigee\Edge\Api\Management\Controller\DeveloperController;
