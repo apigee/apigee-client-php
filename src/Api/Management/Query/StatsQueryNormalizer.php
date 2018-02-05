@@ -3,7 +3,6 @@
 namespace Apigee\Edge\Api\Management\Query;
 
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
@@ -20,9 +19,6 @@ class StatsQueryNormalizer implements NormalizerInterface
     /** @var ObjectNormalizer */
     private $objectNormalizer;
 
-    /** @var DateTimeNormalizer */
-    private $dateNormalizer;
-
     /** @var Serializer */
     private $serializer;
 
@@ -34,14 +30,10 @@ class StatsQueryNormalizer implements NormalizerInterface
         $this->objectNormalizer = new ObjectNormalizer();
         $this->objectNormalizer->setIgnoredAttributes(['timeRange']);
         $this->serializer = new Serializer([$this->objectNormalizer], [new JsonEncoder()]);
-        // Timezone of Apigee Edge is UTC.
-        $this->dateNormalizer = new DateTimeNormalizer(self::DATE_FORMAT, new \DateTimeZone('UTC'));
     }
 
     /**
      * @inheritdoc
-     *
-     * @psalm-suppress InvalidOperand - $this->dateNormalizer->normalize() always returns a string.
      */
     public function normalize($object, $format = null, array $context = [])
     {
@@ -52,9 +44,10 @@ class StatsQueryNormalizer implements NormalizerInterface
         // Replace metrics with the required query parameter name and value.
         $data['select'] = implode(',', $data['metrics']);
         unset($data['metrics']);
-        // Transforming timeRange to the required format.
-        $data['timeRange'] = $this->dateNormalizer->normalize($object->getTimeRange()->getStartDate()) . '~' .
-            $this->dateNormalizer->normalize($object->getTimeRange()->getEndDate());
+        // Transform timeRange to the required format and time zone.
+        $utc = new \DateTimeZone('UTC');
+        $data['timeRange'] = $object->getTimeRange()->getStartDate()->setTimezone($utc)->format(self::DATE_FORMAT) . '~' .
+            $object->getTimeRange()->getEndDate()->setTimezone($utc)->format(self::DATE_FORMAT);
         $data = array_filter($data);
         // Fix boolean values.
         foreach ($data as $key => $value) {
