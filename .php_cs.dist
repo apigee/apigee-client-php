@@ -20,6 +20,8 @@ return PhpCsFixer\Config::create()
         'phpdoc_indent' => false,
         'phpdoc_inline_tag' => false,
         'phpdoc_order' => true,
+        // Disabled because fluent setters return type in an interface can not be self.
+        'self_accessor' => false,
         'void_return' => true,
     ])
     ->setFinder($finder);

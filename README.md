@@ -108,10 +108,10 @@ Testing of new changes does not require Apigee Edge connection. By default, unit
 with a real Apigee Edge instance you have to specify the following environment variables (without brackets):
 
 ```shell
-APIGEE_PHP_SDK_HTTP_CLIENT=\Http\Adapter\Guzzle6\Client
-APIGEE_PHP_SDK_BASIC_AUTH_USER=[YOUR-EMAIL-ADDRESS@HOST.COM]
-APIGEE_PHP_SDK_BASIC_AUTH_PASSWORD=[PASSWORD]
-APIGEE_PHP_SDK_ORGANIZATION=[ORGANIZATION]
+APIGEE_EDGE_PHP_SDK_HTTP_CLIENT=\Http\Adapter\Guzzle6\Client
+APIGEE_EDGE_PHP_SDK_BASIC_AUTH_USER=[YOUR-EMAIL-ADDRESS@HOST.COM]
+APIGEE_EDGE_PHP_SDK_BASIC_AUTH_PASSWORD=[PASSWORD]
+APIGEE_EDGE_PHP_SDK_ORGANIZATION=[ORGANIZATION]
 ```
 
 There are multiple ways to set these environment variables, but probably the easiest is creating a copy from the
@@ -119,7 +119,7 @@ phpunit.xml.dist file as phpunit.xml and add these variables one-by-one inside t
 with an <env> element.
 
 It is also possible to create and use your own data set. If you would like to use your own offline test data set then
-you just need to define the `APIGEE_PHP_SDK_OFFLINE_TEST_DATA_FOLDER` environment variable set its value to the parent
+you just need to define the `APIGEE_EDGE_PHP_SDK_OFFLINE_TEST_DATA_FOLDER` environment variable set its value to the parent
 folder of your own test data set.
 
 PS.: Some unit tests can not be executed when the offline test data is used, those are automatically skipped.

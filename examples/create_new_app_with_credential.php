@@ -14,19 +14,11 @@ use Apigee\Edge\Api\Management\Controller\DeveloperAppCredentialController;
 use Apigee\Edge\Exception\ApiException;
 use Apigee\Edge\Exception\ClientErrorException;
 use Apigee\Edge\Exception\ServerErrorException;
-use Apigee\Edge\HttpClient\Client;
 use Apigee\Edge\Structure\AttributesProperty;
-use Http\Message\Authentication\BasicAuth;
 
-include_once '../vendor/autoload.php';
+require_once 'authentication.inc';
 
-$username = 'my-email-address@example.com';
-$password = 'my-secure-password';
-$organization = 'my-organization';
 $developerMail = 'developer1@example.com';
-
-$auth = new BasicAuth($username, $password);
-$client = new Client($auth);
 
 $dac = new DeveloperAppController($organization, $developerMail, $client);
 

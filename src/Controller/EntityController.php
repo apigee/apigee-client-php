@@ -4,6 +4,7 @@ namespace Apigee\Edge\Controller;
 
 use Apigee\Edge\Entity\EntityFactoryInterface;
 use Apigee\Edge\HttpClient\ClientInterface;
+use Apigee\Edge\OrganizationAwareControllerTrait;
 
 /**
  * Class EntityController.
@@ -12,8 +13,7 @@ use Apigee\Edge\HttpClient\ClientInterface;
  */
 abstract class EntityController extends AbstractEntityController
 {
-    /** @var string Name of the organization that the entity belongs to. */
-    protected $organization;
+    use OrganizationAwareControllerTrait;
 
     /**
      * EntityController constructor.
@@ -30,21 +30,5 @@ abstract class EntityController extends AbstractEntityController
     ) {
         $this->organization = $organization;
         parent::__construct($client, $entityFactory);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function getOrganisation(): string
-    {
-        return $this->organization;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function setOrganisation(string $orgName): void
-    {
-        $this->organization = $orgName;
     }
 }

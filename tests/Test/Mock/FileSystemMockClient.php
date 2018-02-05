@@ -40,7 +40,7 @@ class FileSystemMockClient implements MockClientInterface
                 DIRECTORY_SEPARATOR,
                 DIRECTORY_SEPARATOR
             ));
-            $folder = getenv('APIGEE_PHP_SDK_OFFLINE_TEST_DATA_FOLDER') ?: $defaultFolder;
+            $folder = getenv('APIGEE_EDGE_PHP_SDK_OFFLINE_TEST_DATA_FOLDER') ?: $defaultFolder;
             $adapter = new Local($folder);
         }
         $this->filesystem = new Filesystem($adapter);

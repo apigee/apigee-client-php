@@ -11,6 +11,6 @@ trait OrganizationAwareEntityControllerValidatorTrait
 {
     protected static function getOrganization()
     {
-        return getenv('APIGEE_PHP_SDK_ORGANIZATION') ?: 'phpunit';
+        return getenv('APIGEE_EDGE_PHP_SDK_ORGANIZATION') ?: 'phpunit';
     }
 }
