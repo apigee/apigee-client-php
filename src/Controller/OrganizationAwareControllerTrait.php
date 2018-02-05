@@ -1,6 +1,6 @@
 <?php
 
-namespace Apigee\Edge;
+namespace Apigee\Edge\Controller;
 
 /**
  * Trait OrganizationAwareControllerInterfaceTrait.

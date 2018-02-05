@@ -4,7 +4,6 @@ namespace Apigee\Edge\Controller;
 
 use Apigee\Edge\Entity\EntityFactoryInterface;
 use Apigee\Edge\HttpClient\ClientInterface;
-use Apigee\Edge\OrganizationAwareControllerTrait;
 
 /**
  * Class EntityController.
