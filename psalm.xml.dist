@@ -21,6 +21,9 @@
         <DeprecatedMethod errorLevel="info" />
 
         <MissingClosureReturnType errorLevel="info" />
+        <!-- Added to suppress errors on array_filter() calls in those places where all scalar types are possible as
+        variable type. Ex.: EntityNormalizer -->
+        <MissingClosureParamType errorLevel="info" />
         <MissingReturnType errorLevel="info" />
         <MissingPropertyType errorLevel="info" />
         <InvalidDocblock errorLevel="info" />

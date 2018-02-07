@@ -16,6 +16,7 @@ class EntityNormalizer implements NormalizerInterface
     /**
      * @inheritdoc
      *
+     * @psalm-suppress RedundantCondition !is_null() is not redundant in array_filter().
      * @psalm-suppress InvalidReturnType Returning an object here is required
      * for creating a valid Apigee Edge request.
      */
