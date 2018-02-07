@@ -161,7 +161,7 @@ class ClientTest extends TestCase
             'code' => $errorCode,
             'message' => $errorMessage,
         ];
-        static::$httpClient->addResponse(new Response(404, ['Content-Type' => 'application/json'], json_encode((object) $body)));
+        static::$httpClient->addResponse(new Response(400, ['Content-Type' => 'application/json'], json_encode((object) $body)));
         $builder = new Builder(self::$httpClient);
         $client = new Client(null, $builder);
         try {
