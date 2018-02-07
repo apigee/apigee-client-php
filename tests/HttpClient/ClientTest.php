@@ -121,7 +121,8 @@ class ClientTest extends TestCase
     /**
      * @expectedException \Apigee\Edge\Exception\ApiException
      */
-    public function testApiNotReachable() {
+    public function testApiNotReachable(): void
+    {
         static::$httpClient->addException(new TransferException());
         $builder = new Builder(self::$httpClient);
         $client = new Client(null, $builder);
@@ -132,7 +133,8 @@ class ClientTest extends TestCase
      * @expectedException \Apigee\Edge\Exception\ClientErrorException
      * @expectedExceptionCode 404
      */
-    public function testApiEndpointNotFound() {
+    public function testApiEndpointNotFound(): void
+    {
         static::$httpClient->addResponse(new Response(404));
         $builder = new Builder(self::$httpClient);
         $client = new Client(null, $builder);
@@ -143,14 +145,16 @@ class ClientTest extends TestCase
      * @expectedException \Apigee\Edge\Exception\ServerErrorException
      * @expectedExceptionCode 500
      */
-    public function testServerError() {
+    public function testServerError(): void
+    {
         static::$httpClient->addResponse(new Response(500));
         $builder = new Builder(self::$httpClient);
         $client = new Client(null, $builder);
         $client->get('/');
     }
 
-    public function testClientExceptionWithResponseBody() {
+    public function testClientExceptionWithResponseBody(): void
+    {
         $errorCode = 'error code';
         $errorMessage = 'Error message';
         $body = [
@@ -162,10 +166,9 @@ class ClientTest extends TestCase
         $client = new Client(null, $builder);
         try {
             $client->get('/');
-        }
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             $this->assertInstanceOf(ClientErrorException::class, $e);
-            /** @var \Apigee\Edge\Exception\ClientErrorException $e */
+            /* @var \Apigee\Edge\Exception\ClientErrorException $e */
             $this->assertEquals($e->getEdgeErrorCode(), $errorCode);
             $this->assertEquals($e->getMessage(), $errorMessage);
         }
