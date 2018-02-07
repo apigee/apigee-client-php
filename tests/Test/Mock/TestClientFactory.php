@@ -7,6 +7,7 @@ use Apigee\Edge\HttpClient\ClientInterface;
 use Apigee\Edge\HttpClient\Util\Builder;
 use Http\Client\HttpClient;
 use Http\Message\Authentication\BasicAuth;
+use Http\Mock\Client as MockClient;
 
 /**
  * Class TestClientFactory.
@@ -17,6 +18,14 @@ class TestClientFactory
 {
     public const OFFLINE_CLIENT_USER_AGENT_PREFIX = 'PHPUNIT';
 
+    /**
+     * Factory method that returns a configured API client.
+     *
+     * @param string|null $fqcn
+     *   Fully qualified test name of the HTTP client class.
+     *
+     * @return ClientInterface
+     */
     public function getClient(string $fqcn = null): ClientInterface
     {
         $fqcn = $fqcn ?: getenv('APIGEE_EDGE_PHP_SDK_HTTP_CLIENT') ?: FileSystemMockClient::class;
@@ -31,7 +40,8 @@ class TestClientFactory
             );
         }
         $userAgentPrefix = '';
-        if ($rc->implementsInterface(MockClientInterface::class)) {
+        if ($rc->implementsInterface(MockClientInterface::class) || $rc->isSubclassOf(MockClient::class)) {
+            // The only way to identify whether this is mock HTTP client in tests is this special user agent prefix.
             $userAgentPrefix = self::OFFLINE_CLIENT_USER_AGENT_PREFIX;
         }
         $auth = null;
@@ -44,5 +54,18 @@ class TestClientFactory
         $builder = new Builder($rc->newInstance());
 
         return new Client($auth, $builder, $endpoint, $userAgentPrefix);
+    }
+
+    /**
+     * Helper function that returns whether the API client is using a mock HTTP client or not.
+     *
+     * @param ClientInterface $client
+     *   API client.
+     *
+     * @return bool
+     */
+    public static function isMockClient(ClientInterface $client): bool
+    {
+        return 0 === strpos($client->getUserAgent(), TestClientFactory::OFFLINE_CLIENT_USER_AGENT_PREFIX);
     }
 }

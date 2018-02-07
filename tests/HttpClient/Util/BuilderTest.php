@@ -3,12 +3,12 @@
 namespace Apigee\Edge\Tests\HttpClient\Util;
 
 use Apigee\Edge\HttpClient\Util\Builder;
-use Apigee\Edge\Tests\Test\Mock\MockHttpClient;
 use GuzzleHttp\Psr7\Request;
 use Http\Client\Common\Plugin;
 use Http\Client\Common\Plugin\CachePlugin;
 use Http\Discovery\UriFactoryDiscovery;
 use Http\Message\StreamFactory;
+use Http\Mock\Client as MockClient;
 use PHPUnit\Framework\TestCase;
 use Psr\Cache\CacheItemPoolInterface;
 
@@ -24,7 +24,7 @@ use Psr\Cache\CacheItemPoolInterface;
  */
 class BuilderTest extends TestCase
 {
-    /** @var \Apigee\Edge\Tests\Test\Mock\MockHttpClient */
+    /** @var \Http\Mock\Client */
     protected static $httpClient;
 
     /**
@@ -33,7 +33,7 @@ class BuilderTest extends TestCase
     public static function setUpBeforeClass(): void
     {
         // Use the Mock HTTP Client for all requests.
-        self::$httpClient = new MockHttpClient();
+        self::$httpClient = new MockClient();
         parent::setUpBeforeClass();
     }
 

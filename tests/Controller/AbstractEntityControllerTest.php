@@ -7,9 +7,9 @@ use Apigee\Edge\Entity\EntityFactoryInterface;
 use Apigee\Edge\HttpClient\Client;
 use Apigee\Edge\HttpClient\ClientInterface;
 use Apigee\Edge\HttpClient\Util\Builder;
-use Apigee\Edge\Tests\Test\Mock\MockHttpClient;
 use GuzzleHttp\Psr7\Response;
 use Http\Discovery\UriFactoryDiscovery;
+use Http\Mock\Client as MockClient;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\UriInterface;
@@ -48,7 +48,7 @@ class AbstractEntityControllerTest extends TestCase
                 EntityFactoryInterface $entityFactory = null
             ) {
                 parent::__construct($client, $entityFactory);
-                $this->mockClient = new MockHttpClient();
+                $this->mockClient = new MockClient();
             }
 
             /**

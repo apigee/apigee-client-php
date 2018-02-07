@@ -100,7 +100,7 @@ trait AttributesAwareEntityControllerTestTrait
      */
     public function testDeleteAttribute(string $entityId): void
     {
-        if (0 === strpos(static::$client->getUserAgent(), TestClientFactory::OFFLINE_CLIENT_USER_AGENT_PREFIX)) {
+        if (TestClientFactory::isMockClient(static::$client)) {
             $this->markTestSkipped(static::$onlyOnlineClientSkipMessage);
         }
         /** @var \Apigee\Edge\Api\Management\Controller\AttributesAwareEntityControllerInterface $controller */

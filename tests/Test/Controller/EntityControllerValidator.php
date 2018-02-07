@@ -5,7 +5,6 @@ namespace Apigee\Edge\Tests\Test\Controller;
 use Apigee\Edge\Controller\EntityControllerInterface;
 use Apigee\Edge\Entity\EntityFactory;
 use Apigee\Edge\Tests\Test\Mock\TestClientFactory;
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
 
@@ -16,11 +15,8 @@ use Symfony\Component\Serializer\Serializer;
  *
  * @author Dezső Biczó <mxr576@gmail.com>
  */
-abstract class EntityControllerValidator extends TestCase
+abstract class EntityControllerValidator extends AbstractControllerValidator
 {
-    /** @var \Apigee\Edge\HttpClient\ClientInterface */
-    protected static $client;
-
     /** @var \Apigee\Edge\Entity\EntityFactoryInterface */
     protected static $entityFactory;
 
@@ -30,19 +26,15 @@ abstract class EntityControllerValidator extends TestCase
     /** @var \Apigee\Edge\Entity\EntityInterface[] */
     protected static $createdEntities = [];
 
-    /** @var string */
-    protected static $onlyOnlineClientSkipMessage = 'Test can be executed only with real Apigee Edge connection.';
-
     /**
      * @inheritdoc
      */
     public static function setUpBeforeClass(): void
     {
+        parent::setUpBeforeClass();
         static::$entityFactory = new EntityFactory();
-        static::$client = (new TestClientFactory())->getClient();
         static::$objectNormalizer = new ObjectNormalizer();
         static::$objectNormalizer->setSerializer(new Serializer([static::$objectNormalizer]));
-        parent::setUpBeforeClass();
     }
 
     /**
@@ -50,7 +42,7 @@ abstract class EntityControllerValidator extends TestCase
      */
     public static function tearDownAfterClass(): void
     {
-        if (0 === strpos(static::$client->getUserAgent(), TestClientFactory::OFFLINE_CLIENT_USER_AGENT_PREFIX)) {
+        if (TestClientFactory::isMockClient(static::$client)) {
             return;
         }
 

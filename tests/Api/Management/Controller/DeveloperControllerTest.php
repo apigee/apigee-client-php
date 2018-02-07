@@ -29,13 +29,19 @@ class DeveloperControllerTest extends CpsLimitEntityControllerValidator
      */
     public static function sampleDataForEntityCreate(): EntityInterface
     {
-        return new Developer([
-            'email' => 'phpunit@example.com',
-            'firstName' => 'Php',
-            'lastName' => 'Unit',
-            'userName' => 'phpunit',
-            'attributes' => new AttributesProperty(['foo' => 'bar']),
-        ]);
+        static $entity;
+        if (null === $entity) {
+            $isMock = TestClientFactory::isMockClient(static::$client);
+            $entity = new Developer([
+                'email' => $isMock ? 'phpunit@example.com' : static::$random->unique()->safeEmail,
+                'firstName' => $isMock ? 'Php' : static::$random->unique()->firstName,
+                'lastName' => $isMock ? 'Unit' : static::$random->unique()->lastName,
+                'userName' => $isMock ? 'phpunit' : static::$random->unique()->userName,
+                'attributes' => new AttributesProperty(['foo' => 'bar']),
+            ]);
+        }
+
+        return $entity;
     }
 
     /**
@@ -43,13 +49,19 @@ class DeveloperControllerTest extends CpsLimitEntityControllerValidator
      */
     public static function sampleDataForEntityUpdate(): EntityInterface
     {
-        return new Developer([
-            'email' => 'phpunit-edited@example.com',
-            'firstName' => '(Edited) Php',
-            'lastName' => 'Unit',
-            'userName' => 'phpunit',
-            'attributes' => new AttributesProperty(['foo' => 'foo', 'bar' => 'baz']),
-        ]);
+        static $entity;
+        if (null === $entity) {
+            $isMock = TestClientFactory::isMockClient(static::$client);
+            $entity = new Developer([
+                'email' => $isMock ? 'phpunit-edited@example.com' : static::$random->unique()->safeEmail,
+                'firstName' => $isMock ? 'Php' : static::$random->unique()->firstName,
+                'lastName' => $isMock ? 'Unit' : static::$random->unique()->lastName,
+                'userName' => $isMock ? 'phpunit' : static::$random->unique()->userName,
+                'attributes' => new AttributesProperty(['foo' => 'foo', 'bar' => 'baz']),
+            ]);
+        }
+
+        return $entity;
     }
 
     /**
@@ -58,7 +70,7 @@ class DeveloperControllerTest extends CpsLimitEntityControllerValidator
      */
     public function testCreateWithIncorrectData(): void
     {
-        if (0 === strpos(static::$client->getUserAgent(), TestClientFactory::OFFLINE_CLIENT_USER_AGENT_PREFIX)) {
+        if (TestClientFactory::isMockClient(static::$client)) {
             $this->markTestSkipped(static::$onlyOnlineClientSkipMessage);
         }
         $entity = new Developer(['email' => 'developer-create-exception@example.com']);
@@ -94,7 +106,7 @@ class DeveloperControllerTest extends CpsLimitEntityControllerValidator
      */
     public function testStatusChange(string $entityId): void
     {
-        if (0 === strpos(static::$client->getUserAgent(), TestClientFactory::OFFLINE_CLIENT_USER_AGENT_PREFIX)) {
+        if (TestClientFactory::isMockClient(static::$client)) {
             $this->markTestSkipped(static::$onlyOnlineClientSkipMessage);
         }
         $entity = static::getEntityController()->load($entityId);
@@ -136,7 +148,7 @@ class DeveloperControllerTest extends CpsLimitEntityControllerValidator
     protected static function expectedAfterEntityCreate(): EntityInterface
     {
         /** @var Developer $entity */
-        $entity = static::sampleDataForEntityCreate();
+        $entity = clone static::sampleDataForEntityCreate();
         // We can be sure one another thing, the status of the created developer is active by default.
         $entity->setStatus(Developer::STATUS_ACTIVE);
 

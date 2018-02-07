@@ -39,11 +39,12 @@
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.9",
+        "fzaninotto/faker": "^1.7",
         "guzzlehttp/psr7": "^1.0",
         "league/flysystem": "^1.0",
         "limedeck/phpunit-detailed-printer": "^3.2",
         "php-http/guzzle6-adapter": "^1.1.1",
-        "php-http/mock-client": "dev-master#5edc24d40d9ee2515cb3ef8d49c3766e95fa23f3",
+        "php-http/mock-client": "^1.1.0",
         "phpmetrics/phpmetrics": "^2.3",
         "phpunit/phpunit": "^6.4.0",
         "sebastian/comparator": "^2.1",

@@ -4,8 +4,8 @@ namespace Apigee\Edge\Tests\HttpClient;
 
 use Apigee\Edge\HttpClient\Client;
 use Apigee\Edge\HttpClient\Util\Builder;
-use Apigee\Edge\Tests\Test\Mock\MockHttpClient;
 use Http\Client\Common\Plugin\HeaderAppendPlugin;
+use Http\Mock\Client as MockClient;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -22,7 +22,7 @@ use PHPUnit\Framework\TestCase;
  */
 class ClientTest extends TestCase
 {
-    /** @var \Apigee\Edge\Tests\Test\Mock\MockHttpClient */
+    /** @var \Http\Mock\Client */
     protected static $httpClient;
 
     /**
@@ -31,7 +31,7 @@ class ClientTest extends TestCase
     public static function setUpBeforeClass(): void
     {
         // Use the Mock HTTP Client for all requests.
-        self::$httpClient = new MockHttpClient();
+        self::$httpClient = new MockClient();
         parent::setUpBeforeClass();
     }
 

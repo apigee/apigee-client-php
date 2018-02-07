@@ -22,7 +22,7 @@ abstract class CpsLimitEntityControllerValidator extends EntityCrudOperationsCon
      */
     public function testCpsLimit(string $idField): void
     {
-        /** @var \Apigee\Edge\Tests\Test\Controller\CpsLimitEntityControllerInterface $controller */
+        /** @var \Apigee\Edge\Controller\CpsLimitEntityControllerInterface $controller */
         $controller = $this->getEntityController();
         $sampleEntity = static::sampleDataForEntityCreate();
         $sampleEntityId = call_user_func([$sampleEntity, 'get' . $idField]);
@@ -32,9 +32,9 @@ abstract class CpsLimitEntityControllerValidator extends EntityCrudOperationsCon
             $cpsTestData[$i]->{'set' . $idField}($i . $sampleEntityId);
         }
         // Create test data on the server or do not do anything if an offline client is in use.
-        if (false === strpos(static::$client->getUserAgent(), TestClientFactory::OFFLINE_CLIENT_USER_AGENT_PREFIX)) {
+        if (!TestClientFactory::isMockClient(static::$client)) {
             foreach ($cpsTestData as $item) {
-                /* @var \Apigee\Edge\Entity\EntityCrudOperationsControllerInterface $item */
+                /* @var \Apigee\Edge\Controller\EntityCrudOperationsControllerInterface $item */
                 $controller->create($item);
                 static::$createdEntities[$item->id()] = $item;
             }

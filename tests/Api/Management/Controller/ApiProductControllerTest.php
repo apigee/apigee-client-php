@@ -10,6 +10,7 @@ use Apigee\Edge\Structure\AttributesProperty;
 use Apigee\Edge\Tests\Test\Controller\AttributesAwareEntityControllerTestTrait;
 use Apigee\Edge\Tests\Test\Controller\NonCpsLimitEntityControllerValidator;
 use Apigee\Edge\Tests\Test\Controller\OrganizationAwareEntityControllerValidatorTrait;
+use Apigee\Edge\Tests\Test\Mock\TestClientFactory;
 
 /**
  * Class ApiProductControllerTest.
@@ -28,16 +29,22 @@ class ApiProductControllerTest extends NonCpsLimitEntityControllerValidator
      */
     public static function sampleDataForEntityCreate(): EntityInterface
     {
-        return new ApiProduct([
-            'name' => 'phpunit_test',
-            'displayName' => 'PHP Unit Test product',
-            'approvalType' => ApiProduct::APPROVAL_TYPE_AUTO,
-            'attributes' => new AttributesProperty(['foo' => 'bar']),
-            'scopes' => ['scope 1', 'scope 2'],
-            'quota' => 10,
-            'quotaInterval' => 1,
-            'quotaTimeUnit' => ApiProduct::QUOTA_INTERVAL_MINUTE,
-        ]);
+        static $entity;
+        if (null === $entity) {
+            $isMock = TestClientFactory::isMockClient(static::$client);
+            $entity = new ApiProduct([
+                'name' => $isMock ? 'phpunit_test' : 'phpunit_' . static::$random->unique()->userName,
+                'displayName' => $isMock ? 'PHP Unit Test product' : static::$random->unique()->words(static::$random->numberBetween(1, 8), true),
+                'approvalType' => ApiProduct::APPROVAL_TYPE_AUTO,
+                'attributes' => new AttributesProperty(['foo' => 'bar']),
+                'scopes' => ['scope 1', 'scope 2'],
+                'quota' => 10,
+                'quotaInterval' => 1,
+                'quotaTimeUnit' => ApiProduct::QUOTA_INTERVAL_MINUTE,
+            ]);
+        }
+
+        return $entity;
     }
 
     /**
@@ -45,14 +52,20 @@ class ApiProductControllerTest extends NonCpsLimitEntityControllerValidator
      */
     public static function sampleDataForEntityUpdate(): EntityInterface
     {
-        return new ApiProduct([
-            'displayName' => '(Edited) PHP Unit Test product',
-            'approvalType' => ApiProduct::APPROVAL_TYPE_MANUAL,
-            'attributes' => new AttributesProperty(['foo' => 'foo', 'bar' => 'baz']),
-            'quota' => 1000,
-            'quotaInterval' => 12,
-            'quotaTimeUnit' => ApiProduct::QUOTA_INTERVAL_HOUR,
-        ]);
+        static $entity;
+        if (null === $entity) {
+            $isMock = TestClientFactory::isMockClient(static::$client);
+            $entity = new ApiProduct([
+                'displayName' => $isMock ? '(Edited) PHP Unit Test product' : static::$random->unique()->words(static::$random->numberBetween(1, 8), true),
+                'approvalType' => ApiProduct::APPROVAL_TYPE_MANUAL,
+                'attributes' => new AttributesProperty(['foo' => 'foo', 'bar' => 'baz']),
+                'quota' => 1000,
+                'quotaInterval' => 12,
+                'quotaTimeUnit' => ApiProduct::QUOTA_INTERVAL_HOUR,
+            ]);
+        }
+
+        return $entity;
     }
 
     /**
@@ -71,17 +84,19 @@ class ApiProductControllerTest extends NonCpsLimitEntityControllerValidator
      */
     public function testSearchByAttribute(): void
     {
+        $isMock = TestClientFactory::isMockClient(static::$client);
         /** @var ApiProductController $controller */
         $controller = $this->getEntityController();
-        /** @var \Apigee\Edge\Entity\Property\AttributesPropertyAwareTrait $entity */
-        $entity = static::sampleDataForEntityCreate();
-        $unexpected = 'should_not_appear';
+        /** @var \Apigee\Edge\Api\Management\Entity\ApiProduct $entity */
+        $entity = clone static::sampleDataForEntityCreate();
+        $originalId = $entity->id();
+        $unexpected = $isMock ? 'should_not_appear' : static::$random->unique()->userName;
         $entity->setName($unexpected);
         $entity->setAttribute('foo', 'foo');
         $controller->create($entity);
         static::$createdEntities[$entity->id()] = $entity;
         $ids = $controller->searchByAttribute('foo', 'bar');
-        $this->assertContains('phpunit_test', $ids);
+        $this->assertContains($originalId, $ids);
         $this->assertNotContains($unexpected, $ids);
     }
 

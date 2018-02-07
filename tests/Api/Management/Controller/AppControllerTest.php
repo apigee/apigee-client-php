@@ -26,7 +26,7 @@ class AppControllerTest extends EntityControllerValidator
     use OrganizationAwareEntityControllerValidatorTrait;
 
     /** @var \Apigee\Edge\Api\Management\Entity\DeveloperAppInterface[] */
-    protected static $createdDeveloperApps;
+    protected static $createdDeveloperApps = [];
 
     /** @var \Apigee\Edge\Api\Management\Controller\DeveloperAppControllerInterface */
     protected static $developerAppController;
@@ -47,7 +47,7 @@ class AppControllerTest extends EntityControllerValidator
                 static::$client
             );
             /** @var \Apigee\Edge\Api\Management\Entity\DeveloperAppInterface $sampleEntity */
-            $sampleEntity = DeveloperAppControllerTest::sampleDataForEntityCreate();
+            $sampleEntity = clone DeveloperAppControllerTest::sampleDataForEntityCreate();
             $idField = $sampleEntity->idProperty();
             /** @var DeveloperAppInterface[] $testDeveloperApps */
             $testDeveloperApps = [$sampleEntity];
@@ -56,7 +56,7 @@ class AppControllerTest extends EntityControllerValidator
                 $testDeveloperApps[$i]->{'set' . $idField}($i . $sampleEntity->id());
             }
             // Create test data on the server or do not do anything if an offline client is in use.
-            if (false === strpos(static::$client->getUserAgent(), TestClientFactory::OFFLINE_CLIENT_USER_AGENT_PREFIX)) {
+            if (!TestClientFactory::isMockClient(static::$client)) {
                 $i = 0;
                 foreach ($testDeveloperApps as $item) {
                     /** @var \Apigee\Edge\Api\Management\Entity\AppInterface $item */
@@ -91,7 +91,7 @@ class AppControllerTest extends EntityControllerValidator
     {
         parent::tearDownAfterClass();
 
-        if (0 === strpos(static::$client->getUserAgent(), TestClientFactory::OFFLINE_CLIENT_USER_AGENT_PREFIX)) {
+        if (TestClientFactory::isMockClient(static::$client)) {
             return;
         }
 
@@ -99,7 +99,7 @@ class AppControllerTest extends EntityControllerValidator
         try {
             foreach (static::$createdDeveloperApps as $entity) {
                 static::$developerAppController->delete($entity->id());
-                unset(static::$createdDeveloperApps[$entity->id()]);
+                unset(static::$createdDeveloperApps[$entity->getAppId()]);
             }
         } catch (\Exception $e) {
             printf("Unable to delete %s entity with %s id.\n", strtolower(get_class($entity)), $entity->id());
@@ -121,7 +121,7 @@ class AppControllerTest extends EntityControllerValidator
 
     public function testListAppIds(): void
     {
-        if (0 === strpos(static::$client->getUserAgent(), TestClientFactory::OFFLINE_CLIENT_USER_AGENT_PREFIX)) {
+        if (TestClientFactory::isMockClient(static::$client)) {
             $this->markTestSkipped(static::$onlyOnlineClientSkipMessage);
         }
         /** @var \Apigee\Edge\Api\Management\Controller\AppControllerInterface $controller */
@@ -134,7 +134,7 @@ class AppControllerTest extends EntityControllerValidator
 
     public function testListApps(): void
     {
-        if (0 === strpos(static::$client->getUserAgent(), TestClientFactory::OFFLINE_CLIENT_USER_AGENT_PREFIX)) {
+        if (TestClientFactory::isMockClient(static::$client)) {
             $this->markTestSkipped(static::$onlyOnlineClientSkipMessage);
         }
         /** @var \Apigee\Edge\Api\Management\Controller\AppControllerInterface $controller */
@@ -152,7 +152,7 @@ class AppControllerTest extends EntityControllerValidator
 
     public function testListAppIdsByStatus(): void
     {
-        if (0 === strpos(static::$client->getUserAgent(), TestClientFactory::OFFLINE_CLIENT_USER_AGENT_PREFIX)) {
+        if (TestClientFactory::isMockClient(static::$client)) {
             $this->markTestSkipped(static::$onlyOnlineClientSkipMessage);
         }
         /** @var \Apigee\Edge\Api\Management\Controller\AppControllerInterface $controller */
@@ -171,7 +171,7 @@ class AppControllerTest extends EntityControllerValidator
 
     public function testListAppIdsByType(): void
     {
-        if (0 === strpos(static::$client->getUserAgent(), TestClientFactory::OFFLINE_CLIENT_USER_AGENT_PREFIX)) {
+        if (TestClientFactory::isMockClient(static::$client)) {
             $this->markTestSkipped(static::$onlyOnlineClientSkipMessage);
         }
         // TODO Implement after company apps are being supported.

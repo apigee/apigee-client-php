@@ -47,7 +47,7 @@ class DeveloperAppCredentialControllerTest extends EntityControllerValidator
                 static::$appName = $entity->id();
             } catch (ClientErrorException $e) {
                 if ($e->getEdgeErrorCode() && 'developer.service.AppDoesNotExist' === $e->getEdgeErrorCode()) {
-                    $entity = DeveloperAppControllerTest::sampleDataForEntityCreate();
+                    $entity = clone DeveloperAppControllerTest::sampleDataForEntityCreate();
                     $dac->create($entity);
                     static::$appName = $entity->id();
                 }
@@ -65,7 +65,7 @@ class DeveloperAppCredentialControllerTest extends EntityControllerValidator
      */
     public static function tearDownAfterClass(): void
     {
-        if (0 === strpos(static::$client->getUserAgent(), TestClientFactory::OFFLINE_CLIENT_USER_AGENT_PREFIX)) {
+        if (TestClientFactory::isMockClient(static::$client)) {
             return;
         }
 
@@ -186,7 +186,7 @@ class DeveloperAppCredentialControllerTest extends EntityControllerValidator
     {
         // We can either test this or testApiProductStatusChange() with the offline client, we can not test both
         // because they are using the same path with the same HTTP method.
-        if (0 === strpos(static::$client->getUserAgent(), TestClientFactory::OFFLINE_CLIENT_USER_AGENT_PREFIX)) {
+        if (TestClientFactory::isMockClient(static::$client)) {
             $this->markTestSkipped(static::$onlyOnlineClientSkipMessage);
         }
         /** @var \Apigee\Edge\Api\Management\Controller\DeveloperAppCredentialControllerInterface $controller */
@@ -215,7 +215,7 @@ class DeveloperAppCredentialControllerTest extends EntityControllerValidator
         $this->assertEmpty($credential->getScopes());
         $credential = $controller->overrideScopes($entityId, ['scope 1']);
         $this->assertContains('scope 1', $credential->getScopes());
-        if (0 === strpos(static::$client->getUserAgent(), TestClientFactory::OFFLINE_CLIENT_USER_AGENT_PREFIX)) {
+        if (TestClientFactory::isMockClient(static::$client)) {
             $this->markTestIncomplete('Test can be completed only with real Apigee Edge connection');
         }
         $credential = $controller->overrideScopes($entityId, ['scope 2']);
@@ -230,7 +230,7 @@ class DeveloperAppCredentialControllerTest extends EntityControllerValidator
      */
     public function testStatusChange(string $entityId): void
     {
-        if (0 === strpos(static::$client->getUserAgent(), TestClientFactory::OFFLINE_CLIENT_USER_AGENT_PREFIX)) {
+        if (TestClientFactory::isMockClient(static::$client)) {
             $this->markTestSkipped(static::$onlyOnlineClientSkipMessage);
         }
         /** @var \Apigee\Edge\Api\Management\Controller\DeveloperAppCredentialControllerInterface $controller */
@@ -251,7 +251,7 @@ class DeveloperAppCredentialControllerTest extends EntityControllerValidator
      */
     public function testApiProductStatusChange(string $entityId): void
     {
-        if (0 === strpos(static::$client->getUserAgent(), TestClientFactory::OFFLINE_CLIENT_USER_AGENT_PREFIX)) {
+        if (TestClientFactory::isMockClient(static::$client)) {
             $this->markTestSkipped(static::$onlyOnlineClientSkipMessage);
         }
         /** @var \Apigee\Edge\Api\Management\Controller\DeveloperAppCredentialControllerInterface $controller */
@@ -289,7 +289,7 @@ class DeveloperAppCredentialControllerTest extends EntityControllerValidator
      */
     public function testGenerate(): string
     {
-        if (0 === strpos(static::$client->getUserAgent(), TestClientFactory::OFFLINE_CLIENT_USER_AGENT_PREFIX)) {
+        if (TestClientFactory::isMockClient(static::$client)) {
             $this->markTestSkipped(static::$onlyOnlineClientSkipMessage);
         }
         /** @var \Apigee\Edge\Api\Management\Controller\DeveloperAppCredentialControllerInterface $controller */
@@ -314,7 +314,7 @@ class DeveloperAppCredentialControllerTest extends EntityControllerValidator
      */
     public function testDeleteApiProduct(string $entityId): void
     {
-        if (0 === strpos(static::$client->getUserAgent(), TestClientFactory::OFFLINE_CLIENT_USER_AGENT_PREFIX)) {
+        if (TestClientFactory::isMockClient(static::$client)) {
             $this->markTestSkipped(static::$onlyOnlineClientSkipMessage);
         }
         /** @var \Apigee\Edge\Api\Management\Controller\DeveloperAppCredentialControllerInterface $controller */

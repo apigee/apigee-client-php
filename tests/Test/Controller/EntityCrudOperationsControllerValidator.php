@@ -19,16 +19,20 @@ use Apigee\Edge\Tests\Test\Mock\TestClientFactory;
 abstract class EntityCrudOperationsControllerValidator extends EntityControllerValidator
 {
     /**
-     * Returns test data that can be used to test creation of entity.
+     * Returns the _same_ entity object that can be used for testing create operations.
+     *
+     * Always use `clone` to create a new copy from the object before you start work with it!
      *
      * @return \Apigee\Edge\Entity\EntityInterface
      */
     abstract public static function sampleDataForEntityCreate(): EntityInterface;
 
     /**
-     * Returns test data that can be used to test entity update.
+     * Returns the _same_ entity object that can be used for testing update operations.
      *
-     * Data should be the altered version of the returned data by sampleDataForEntityCreate.
+     * Always use `clone` to create a new copy from the object before you start work with it!
+     *
+     * Data should be the altered version of the returned data by static::sampleDataForEntityCreate().
      *
      * @return \Apigee\Edge\Entity\EntityInterface
      */
@@ -62,7 +66,7 @@ abstract class EntityCrudOperationsControllerValidator extends EntityControllerV
         // created. If we would use more than on data provider on this function then it would get the merged result
         // of providers as a _single_ value.
         /** @var EntityInterface $entity */
-        $entity = static::sampleDataForEntityCreate();
+        $entity = clone static::sampleDataForEntityCreate();
         $this->getEntityController()->create($entity);
         static::$createdEntities[$entity->id()] = $entity;
         // Validate properties that values are either auto generated or we do not know in the current context.
@@ -133,11 +137,11 @@ abstract class EntityCrudOperationsControllerValidator extends EntityControllerV
 
     public function testDelete(): void
     {
-        if (0 === strpos(static::$client->getUserAgent(), TestClientFactory::OFFLINE_CLIENT_USER_AGENT_PREFIX)) {
+        if (TestClientFactory::isMockClient(static::$client)) {
             $this->markTestSkipped(static::$onlyOnlineClientSkipMessage);
         }
         /** @var EntityInterface $entity */
-        $entity = static::sampleDataForEntityCreate();
+        $entity = clone static::sampleDataForEntityCreate();
         $entity->{'set' . ucfirst($entity->idProperty())}($entity->id() . '_delete');
         $this->getEntityController()->create($entity);
         static::$createdEntities[$entity->id()] = $entity;
@@ -157,7 +161,7 @@ abstract class EntityCrudOperationsControllerValidator extends EntityControllerV
      */
     protected static function expectedAfterEntityCreate(): EntityInterface
     {
-        return static::sampleDataForEntityCreate();
+        return clone static::sampleDataForEntityCreate();
     }
 
     /**
@@ -167,7 +171,7 @@ abstract class EntityCrudOperationsControllerValidator extends EntityControllerV
      */
     protected static function expectedAfterEntityUpdate(): EntityInterface
     {
-        return static::sampleDataForEntityUpdate();
+        return clone static::sampleDataForEntityUpdate();
     }
 
     /**

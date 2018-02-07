@@ -39,7 +39,7 @@ trait DeveloperAppControllerTestTrait
                 static::$developerId = $entity->id();
             } catch (ClientErrorException $e) {
                 if ($e->getEdgeErrorCode() && 'developer.service.DeveloperDoesNotExist' === $e->getEdgeErrorCode()) {
-                    $entity = DeveloperControllerTest::sampleDataForEntityCreate();
+                    $entity = clone DeveloperControllerTest::sampleDataForEntityCreate();
                     $dc->create($entity);
                     static::$developerId = $entity->id();
                 }
@@ -51,7 +51,7 @@ trait DeveloperAppControllerTestTrait
                 static::$apiProductName = $entity->id();
             } catch (ClientErrorException $e) {
                 if ($e->getEdgeErrorCode() && 'keymanagement.service.apiproduct_doesnot_exist' === $e->getEdgeErrorCode()) {
-                    $entity = ApiProductControllerTest::sampleDataForEntityCreate();
+                    $entity = clone ApiProductControllerTest::sampleDataForEntityCreate();
                     $apc->create($entity);
                     static::$apiProductName = $entity->id();
                 }
@@ -69,7 +69,7 @@ trait DeveloperAppControllerTestTrait
      */
     public static function tearDownAfterClass(): void
     {
-        if (0 === strpos(static::$client->getUserAgent(), TestClientFactory::OFFLINE_CLIENT_USER_AGENT_PREFIX)) {
+        if (TestClientFactory::isMockClient(static::$client)) {
             return;
         }
 

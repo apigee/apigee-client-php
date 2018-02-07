@@ -52,14 +52,25 @@ class DeveloperAppControllerTest extends NonCpsLimitEntityControllerValidator
      */
     public static function sampleDataForEntityCreate(): EntityInterface
     {
-        $entity = new DeveloperApp([
-            'name' => 'phpunit_test_app',
-            'apiProducts' => [ApiProductControllerTest::sampleDataForEntityCreate()->id()],
-            'attributes' => new AttributesProperty(['foo' => 'bar']),
-            'callbackUrl' => 'http://example.com',
-        ]);
-        $entity->setDisplayName('PHP Unit: Test app');
-        $entity->setDescription('This is a test app created by PHP Unit.');
+        static $entity;
+        if (null === $entity) {
+            $isMock = TestClientFactory::isMockClient(static::$client);
+            $entity = new DeveloperApp(
+                [
+                    'name' => $isMock ? 'phpunit_test_app' : static::$random->unique()->userName,
+                    'apiProducts' => [static::$apiProductName],
+                    'attributes' => new AttributesProperty(['foo' => 'bar']),
+                    'callbackUrl' => 'http://example.com',
+                ]
+            );
+            $entity->setDisplayName(
+                $isMock ? 'PHP Unit: Test app' : static::$random->unique()->words(
+                    static::$random->numberBetween(1, 8),
+                    true
+                )
+            );
+            $entity->setDescription($isMock ? 'This is a test app created by PHP Unit.' : static::$random->text());
+        }
 
         return $entity;
     }
@@ -69,12 +80,25 @@ class DeveloperAppControllerTest extends NonCpsLimitEntityControllerValidator
      */
     public static function sampleDataForEntityUpdate(): EntityInterface
     {
-        $entity = new DeveloperApp([
-            'attributes' => new AttributesProperty(['foo' => 'foo', 'bar' => 'baz']),
-            'callbackUrl' => 'http://foo.example.com',
-        ]);
-        $entity->setDisplayName('(Edited) PHP Unit: Test app');
-        $entity->setDescription('(Edited) This is a test app created by PHP Unit.');
+        static $entity;
+        if (null === $entity) {
+            $isMock = TestClientFactory::isMockClient(static::$client);
+            $entity = new DeveloperApp(
+                [
+                    'attributes' => new AttributesProperty(['foo' => 'foo', 'bar' => 'baz']),
+                    'callbackUrl' => $isMock ? 'http://foo.example.com' : static::$random->url,
+                ]
+            );
+            $entity->setDisplayName(
+                $isMock ? '(Edited) PHP Unit: Test app' : static::$random->unique()->words(
+                    static::$random->numberBetween(1, 8),
+                    true
+                )
+            );
+            $entity->setDescription(
+                $isMock ? '(Edited) This is a test app created by PHP Unit.' : static::$random->unique()->text()
+            );
+        }
 
         return $entity;
     }
@@ -95,14 +119,14 @@ class DeveloperAppControllerTest extends NonCpsLimitEntityControllerValidator
      */
     public function testDeveloperHasApp(): void
     {
-        if (0 === strpos(static::$client->getUserAgent(), TestClientFactory::OFFLINE_CLIENT_USER_AGENT_PREFIX)) {
+        if (TestClientFactory::isMockClient(static::$client)) {
             $this->markTestSkipped(static::$onlyOnlineClientSkipMessage);
         }
         $controller = new DeveloperController(
             static::getOrganization(),
             static::$client
         );
-        $entity = static::sampleDataForEntityCreate();
+        $entity = clone static::sampleDataForEntityCreate();
         $entity->{'set' . ucfirst($entity->idProperty())}($entity->id() . '_has');
         $this->getEntityController()->create($entity);
         static::$createdEntities[$entity->id()] = $entity;
@@ -137,7 +161,7 @@ class DeveloperAppControllerTest extends NonCpsLimitEntityControllerValidator
      */
     protected static function expectedAfterEntityCreate(): EntityInterface
     {
-        /** @var DeveloperApp $entity */
+        /** @var \Apigee\Edge\Api\Management\Entity\DeveloperApp $entity */
         $entity = parent::expectedAfterEntityCreate();
         $entity->setStatus('approved');
         // The testCreate test would fail without this because ObjectNormalizer creates displayName and description
@@ -151,10 +175,10 @@ class DeveloperAppControllerTest extends NonCpsLimitEntityControllerValidator
 
     protected static function expectedAfterEntityUpdate(): EntityInterface
     {
-        /** @var DeveloperApp $entity */
+        /** @var \Apigee\Edge\Api\Management\Entity\DeveloperApp $entity */
         $entity = parent::expectedAfterEntityUpdate();
         // The testUpdate test would fail without this because ObjectNormalizer creates displayName and description
-        // properties on entities (because of the existence of getters) because these are not in the
+        // properties on entities (because of the existence of getters) but these are not in the
         // Edge response, at least not as entity properties.
         $entity->deleteAttribute('DisplayName');
         $entity->deleteAttribute('Notes');
