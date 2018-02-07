@@ -5,14 +5,13 @@ namespace Apigee\Edge\Exception;
 use Http\Message\Formatter;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
-use Throwable;
 
 /**
  * Class InvalidJsonException.
  *
  * @author Dezső Biczó <mxr576@gmail.com>
  */
-class InvalidJsonException extends ApiException
+class InvalidJsonException extends ApiResponseException
 {
     /** @var string */
     protected $jsonErrorMessage;
@@ -24,17 +23,17 @@ class InvalidJsonException extends ApiException
      * @param ResponseInterface $response
      * @param RequestInterface $request
      * @param Formatter|null $formatter
-     * @param Throwable|null $previous
+     * @param \Throwable|null $previous
      */
     public function __construct(
         string $jsonErrorMessage,
         ResponseInterface $response,
         RequestInterface $request,
         Formatter $formatter = null,
-        Throwable $previous = null
+        \Throwable $previous = null
     ) {
         $this->jsonErrorMessage = $jsonErrorMessage;
-        parent::__construct($response, $request, $formatter, $previous);
+        parent::__construct($response, $request, $jsonErrorMessage, 0, $previous, $formatter);
     }
 
     /**

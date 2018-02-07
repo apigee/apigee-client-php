@@ -3,7 +3,6 @@
 namespace Apigee\Edge\Api\Management\Controller;
 
 use Apigee\Edge\Api\Management\Entity\DeveloperInterface;
-use Apigee\Edge\Api\Management\Exception\DeveloperNotFoundException;
 use Apigee\Edge\Controller\CpsLimitEntityControllerInterface;
 use Apigee\Edge\Controller\CpsListingEntityControllerInterface;
 use Apigee\Edge\Controller\EntityControllerInterface;
@@ -32,7 +31,7 @@ interface DeveloperControllerInterface extends
      *
      * @param string $appName
      *
-     * @throws DeveloperNotFoundException
+     * @throws \Apigee\Edge\Api\Management\Exception\DeveloperNotFoundException
      *
      * @return DeveloperInterface
      *

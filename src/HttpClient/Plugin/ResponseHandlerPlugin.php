@@ -49,9 +49,9 @@ final class ResponseHandlerPlugin implements Plugin
     private function decodeResponse(ResponseInterface $response, RequestInterface $request)
     {
         if ($response->getStatusCode() >= 400 && $response->getStatusCode() < 500) {
-            throw new ClientErrorException($response, $request, $this->formatter);
+            throw new ClientErrorException($response, $request, (string) $response->getBody(), $response->getStatusCode(), null, $this->formatter);
         } elseif ($response->getStatusCode() >= 500 && $response->getStatusCode() < 600) {
-            throw new ServerErrorException($response, $request, $this->formatter);
+            throw new ServerErrorException($response, $request, (string) $response->getBody(), $response->getStatusCode(), null, $this->formatter);
         }
 
         return $response;

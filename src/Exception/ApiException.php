@@ -5,8 +5,6 @@ namespace Apigee\Edge\Exception;
 use Http\Message\Formatter;
 use Http\Message\Formatter\FullHttpMessageFormatter;
 use Psr\Http\Message\RequestInterface;
-use Psr\Http\Message\ResponseInterface;
-use Throwable;
 
 /**
  * Class ApiException.
@@ -20,47 +18,24 @@ class ApiException extends \RuntimeException
     /** @var \Psr\Http\Message\RequestInterface */
     protected $request;
 
-    /** @var \Psr\Http\Message\ResponseInterface */
-    protected $response;
-
     /** @var \Http\Message\Formatter */
     protected $formatter;
-
-    /** @var null|string */
-    protected $edgeErrorCode;
-
     /**
-     * ApiException constructor.
-     *
-     * @param \Psr\Http\Message\ResponseInterface $response
-     * @param \Psr\Http\Message\RequestInterface $request
-     * @param \Http\Message\Formatter|null $formatter
-     * @param Throwable|null $previous
+     * @var null|\Throwable
      */
+    private $previous;
+
     public function __construct(
-        ResponseInterface $response,
         RequestInterface $request,
-        Formatter $formatter = null,
-        Throwable $previous = null
+        string $message = '',
+        int $code = 0,
+        \Throwable $previous = null,
+        Formatter $formatter = null
     ) {
-        $this->formatter = $formatter ?: new FullHttpMessageFormatter();
         $this->request = $request;
-        $this->response = $response;
-        $message = $response->getReasonPhrase();
-        // Try to parse Edge error message and error code from the response body.
-        $contentTypeHeader = $response->getHeaderLine('Content-Type');
-        if ($contentTypeHeader && false !== strpos($contentTypeHeader, 'application/json')) {
-            $array = json_decode((string) $response->getBody(), true);
-            if (JSON_ERROR_NONE === json_last_error()) {
-                if (array_key_exists('code', $array)) {
-                    $this->edgeErrorCode = $array['code'];
-                }
-                if (array_key_exists('message', $array)) {
-                    $message = $array['message'];
-                }
-            }
-        }
-        parent::__construct($message, $response->getStatusCode(), $previous);
+        $this->previous = $previous;
+        $this->formatter = $formatter ?: new FullHttpMessageFormatter();
+        parent::__construct($message, $code, $previous);
     }
 
     /**
@@ -68,11 +43,16 @@ class ApiException extends \RuntimeException
      */
     public function __toString()
     {
-        return sprintf(
-            "Request:\n%s\nResponse:\n%s\n",
-            $this->formatter->formatRequest($this->request),
-            $this->formatter->formatResponse($this->response)
+        $output = sprintf(
+            "Request:\n%s\n",
+            $this->formatter->formatRequest($this->request)
         );
+
+        if ($this->previous) {
+            $output .= sprintf("%s\n", $this->previous->getMessage());
+        }
+
+        return $output;
     }
 
     /**
@@ -84,26 +64,10 @@ class ApiException extends \RuntimeException
     }
 
     /**
-     * @return \Psr\Http\Message\ResponseInterface
-     */
-    public function getResponse(): ResponseInterface
-    {
-        return $this->response;
-    }
-
-    /**
      * @return \Http\Message\Formatter
      */
     public function getFormatter(): Formatter
     {
         return $this->formatter;
-    }
-
-    /**
-     * @return null|string
-     */
-    public function getEdgeErrorCode(): ?string
-    {
-        return $this->edgeErrorCode;
     }
 }

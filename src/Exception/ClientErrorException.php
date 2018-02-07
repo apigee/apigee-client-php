@@ -9,6 +9,6 @@ namespace Apigee\Edge\Exception;
  *
  * @author Dezső Biczó <mxr576@gmail.com>
  */
-class ClientErrorException extends ApiException
+class ClientErrorException extends ApiResponseException
 {
 }
