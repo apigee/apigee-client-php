@@ -81,7 +81,7 @@ class StatsController extends AbstractController implements StatsControllerInter
         $response = $this->getMetrics($query, 'js');
         if (null !== $query->getTimeUnit()) {
             $originalTimeUnits = $response['TimeUnit'];
-            $response['TimeUnit'] = $this->fillGapsInTimeUnitsData($query->getTimeRange(), $query->getTimeUnit());
+            $response['TimeUnit'] = $this->fillGapsInTimeUnitsData($query->getTimeRange(), $query->getTimeUnit(), $query->getTsAscending());
             $this->fillGapsInMetricsData(
                 $query->getTsAscending(),
                 $response['TimeUnit'],
@@ -133,7 +133,7 @@ class StatsController extends AbstractController implements StatsControllerInter
         $response = $this->getMetricsByDimensions($dimensions, $query, 'js');
         if (null !== $query->getTimeUnit()) {
             $originalTimeUnits = $response['TimeUnit'];
-            $response['TimeUnit'] = $this->fillGapsInTimeUnitsData($query->getTimeRange(), $query->getTimeUnit());
+            $response['TimeUnit'] = $this->fillGapsInTimeUnitsData($query->getTimeRange(), $query->getTimeUnit(), $query->getTsAscending());
             foreach ($response['stats']['data'] as $key => $dimension) {
                 $this->fillGapsInMetricsData(
                     $query->getTsAscending(),
@@ -167,11 +167,12 @@ class StatsController extends AbstractController implements StatsControllerInter
      *   Original time range from StatsQuery.
      * @param string $timeUnit
      *   Time unit from StatsQuery.
+     * @param bool $tsAscending
      *
      * @return array
      *   Array of time units in the given period.
      */
-    private function fillGapsInTimeUnitsData(Period $period, string $timeUnit)
+    private function fillGapsInTimeUnitsData(Period $period, string $timeUnit, bool $tsAscending)
     {
         $allTimeUnits = [];
         // Fix time unit for DatePeriod calculation.
@@ -181,7 +182,7 @@ class StatsController extends AbstractController implements StatsControllerInter
             $allTimeUnits[] = $dateTime->getTimestamp() * 1000;
         }
         // $period->getDatePeriod() returns dates from the end date to the start date.
-        return array_reverse($allTimeUnits);
+        return $tsAscending ? $allTimeUnits : array_reverse($allTimeUnits);
     }
 
     /**

@@ -53,6 +53,7 @@ class StatsQueryNormalizerTest extends TestCase
         $filter = 'filter1';
         $realtime = true;
         $accuracy = 1;
+        $offset = 10;
         $limit = 10;
         $topK = 10;
         $tsAscending = true;
@@ -61,6 +62,7 @@ class StatsQueryNormalizerTest extends TestCase
         $q->setFilter($filter);
         $q->setRealtime($realtime);
         $q->setAccuracy($accuracy);
+        $q->setOffset($offset);
         $q->setLimit($limit);
         $q->setTopK($topK);
         $q->setTsAscending($tsAscending);
@@ -73,6 +75,7 @@ class StatsQueryNormalizerTest extends TestCase
             'limit' => 10,
             'realtime' => 'true',
             'accuracy' => 1,
+            'offset' => 10,
             'tsAscending' => 'true',
             'select' => 'metric1,metric2',
             'timeRange' => '01/01/2018 00:00~02/01/2018 00:00',

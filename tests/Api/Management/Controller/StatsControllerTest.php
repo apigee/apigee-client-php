@@ -32,10 +32,21 @@ class StatsControllerTest extends AbstractControllerValidator
 
     public function testGetOptimizedMetrics(): void
     {
+        $this->getOptimizedMetrics(false);
+    }
+
+    public function testGetOptimizedMetricsTsAscending(): void
+    {
+        $this->getOptimizedMetrics(true);
+    }
+
+    public function getOptimizedMetrics(bool $tsAscending): void
+    {
         // Make our life easier and use the same timezone as Edge.
         // StatsQueryNormalizerTest ensures that date conversion works properly.
         date_default_timezone_set('UTC');
         $q = new StatsQuery(['sum(message_count)'], new Period('2018-02-01 00:00', '2018-02-28 23:59'));
+        $q->setTsAscending($tsAscending);
         $q->setTimeUnit('day');
         $original = $this->getController()->getMetrics($q);
         $optimized = $this->getController()->getOptimisedMetrics($q);
@@ -56,10 +67,21 @@ class StatsControllerTest extends AbstractControllerValidator
 
     public function testGetOptimizedMetricsByDimensions(): void
     {
+        $this->getOptimizedMetricsByDimensions(false);
+    }
+
+    public function testGetOptimizedMetricsByDimensionsTsAscending(): void
+    {
+        $this->getOptimizedMetricsByDimensions(true);
+    }
+
+    public function getOptimizedMetricsByDimensions(bool $tsAscending): void
+    {
         // Make our life easier and use the same timezone as Edge.
         // StatsQueryNormalizerTest ensures that date conversion works properly.
         date_default_timezone_set('UTC');
         $q = new StatsQuery(['sum(message_count), sum(is_error)'], new Period('2018-02-01 00:00', '2018-02-28 23:59'));
+        $q->setTsAscending($tsAscending);
         $q->setTimeUnit('day');
         $original = $this->getController()->getMetricsByDimensions(['developer_app', 'developer'], $q);
         $optimized = $this->getController()->getOptimizedMetricsByDimensions(['developer_app', 'developer'], $q);
