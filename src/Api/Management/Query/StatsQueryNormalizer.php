@@ -10,7 +10,7 @@ use Symfony\Component\Serializer\Serializer;
 /**
  * Class StatsQueryNormalizer.
  *
- * Normalizes StatsQueryInterface objects to an array that can be passed to the Stats API.
+ * Normalizes StatsQueryInterface objects to an array that can be passed to the Stats API as query parameter.
  */
 class StatsQueryNormalizer implements NormalizerInterface
 {
@@ -48,7 +48,10 @@ class StatsQueryNormalizer implements NormalizerInterface
         $utc = new \DateTimeZone('UTC');
         $data['timeRange'] = $object->getTimeRange()->getStartDate()->setTimezone($utc)->format(self::DATE_FORMAT) . '~' .
             $object->getTimeRange()->getEndDate()->setTimezone($utc)->format(self::DATE_FORMAT);
-        $data = array_filter($data);
+        // Remove null values.
+        $data = array_filter($data, function ($value) {
+            return !is_null($value);
+        });
         // Fix boolean values.
         foreach ($data as $key => $value) {
             if (is_bool($value)) {
