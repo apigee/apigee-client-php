@@ -27,7 +27,7 @@ class ApiResponseException extends ApiException
         Formatter $formatter = null
     ) {
         $this->response = $response;
-        $message = $response->getReasonPhrase();
+        $message = $message ?: $response->getReasonPhrase();
         // Try to parse Edge error message and error code from the response body.
         $contentTypeHeader = $response->getHeaderLine('Content-Type');
         if ($contentTypeHeader && false !== strpos($contentTypeHeader, 'application/json')) {
