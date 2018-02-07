@@ -116,6 +116,7 @@ class FileSystemResponseFactory implements ResponseFactory
             $fileName .= '_';
             $raw_query_params = [];
             parse_str($request->getUri()->getQuery(), $raw_query_params);
+            $raw_query_params = preg_replace('/[\W]/', '', $raw_query_params);
             ksort($raw_query_params);
             $query_params = http_build_query($raw_query_params, null, '-');
             $fileName .= $query_params;
@@ -123,6 +124,6 @@ class FileSystemResponseFactory implements ResponseFactory
         $fileName .= '.json';
         $filePath .= DIRECTORY_SEPARATOR . $fileName;
 
-        return rawurldecode($filePath);
+        return rawurldecode(($filePath));
     }
 }

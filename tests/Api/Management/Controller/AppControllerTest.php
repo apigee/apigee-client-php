@@ -16,6 +16,8 @@ use Apigee\Edge\Tests\Test\Mock\TestClientFactory;
  * Class AppControllerTest.
  *
  * @author Dezső Biczó <mxr576@gmail.com>
+ *
+ * @group controller
  */
 class AppControllerTest extends EntityControllerValidator
 {

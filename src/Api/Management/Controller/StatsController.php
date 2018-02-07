@@ -11,6 +11,9 @@ use League\Period\Period;
 use Psr\Http\Message\UriInterface;
 use Symfony\Component\Serializer\Encoder\JsonDecode;
 
+/**
+ * Class StatsController.
+ */
 class StatsController extends AbstractController implements StatsControllerInterface
 {
     use OrganizationAwareControllerTrait;
@@ -77,11 +80,12 @@ class StatsController extends AbstractController implements StatsControllerInter
     {
         $response = $this->getMetrics($query, 'js');
         if (null !== $query->getTimeUnit()) {
-            $response['stats']['data'] = $this->fillGapsInMetricsData(
-                $query->getTimeRange(),
-                $query->getTimeUnit(),
+            $originalTimeUnits = $response['TimeUnit'];
+            $response['TimeUnit'] = $this->fillGapsInTimeUnitsData($query->getTimeRange(), $query->getTimeUnit());
+            $this->fillGapsInMetricsData(
                 $query->getTsAscending(),
                 $response['TimeUnit'],
+                $originalTimeUnits,
                 $response['stats']['data']
             );
         }
@@ -128,12 +132,13 @@ class StatsController extends AbstractController implements StatsControllerInter
     {
         $response = $this->getMetricsByDimensions($dimensions, $query, 'js');
         if (null !== $query->getTimeUnit()) {
+            $originalTimeUnits = $response['TimeUnit'];
+            $response['TimeUnit'] = $this->fillGapsInTimeUnitsData($query->getTimeRange(), $query->getTimeUnit());
             foreach ($response['stats']['data'] as $key => $dimension) {
-                $response['stats']['data'][$key]['metric'] = $this->fillGapsInMetricsData(
-                    $query->getTimeRange(),
-                    $query->getTimeUnit(),
+                $this->fillGapsInMetricsData(
                     $query->getTsAscending(),
                     $response['TimeUnit'],
+                    $originalTimeUnits,
                     $response['stats']['data'][$key]['metric']
                 );
             }
@@ -153,25 +158,20 @@ class StatsController extends AbstractController implements StatsControllerInter
     }
 
     /**
-     * Fills the gaps between returned time units and analytics numbers in returned response of Apigee Edge.
+     * Fills the gaps between returned time units in the response of Apigee Edge.
      *
-     * Apigee Edge does not returns zeros for those days there were no metric data. These days are also missing from
-     * the returned time units.
+     * When there were no metric data for a time unit (hour, day, etc.) then those are missing from Apigee Edge response.
+     * This utility function fixes this problem.
      *
      * @param Period $period
      *   Original time range from StatsQuery.
      * @param string $timeUnit
      *   Time unit from StatsQuery.
-     * @param bool $tsAscending
-     *   TsAscending from StatsQuery.
-     * @param array $responseTimeUnits
-     *   Returned time units by Apigee Edge.
-     * @param array $data
-     *   Returned metrics data by Apigee Edge.
      *
      * @return array
+     *   Array of time units in the given period.
      */
-    private function fillGapsInMetricsData(Period $period, string $timeUnit, bool $tsAscending, array $responseTimeUnits, array $data): array
+    private function fillGapsInTimeUnitsData(Period $period, string $timeUnit)
     {
         $allTimeUnits = [];
         // Fix time unit for DatePeriod calculation.
@@ -180,17 +180,35 @@ class StatsController extends AbstractController implements StatsControllerInter
         foreach ($period->getDatePeriod($timeUnit) as $dateTime) {
             $allTimeUnits[] = $dateTime->getTimestamp() * 1000;
         }
-        $zeroArray = array_fill_keys($allTimeUnits, 0);
-        foreach ($data as $key => $metric) {
-            $data[$key]['values'] = array_combine($responseTimeUnits, $metric['values']);
-            $data[$key]['values'] += $zeroArray;
-            if ($tsAscending) {
-                ksort($data[$key]['values']);
-            } else {
-                krsort($data[$key]['values']);
-            }
-        }
+        // $period->getDatePeriod() returns dates from the end date to the start date.
+        return array_reverse($allTimeUnits);
+    }
 
-        return $data;
+    /**
+     * Fills the gaps between returned analytics numbers in the response of Apigee Edge.
+     *
+     * Apigee Edge does not returns zeros for those time units (hours, days, etc.) when there were no metric data.
+     *
+     * @param bool $tsAscending
+     *   TsAscending from StatsQuery.
+     * @param array $originalTimeUnits
+     *   Returned time units by Apigee Edge.
+     * @param array $metricsData
+     *   Returned metrics data by Apigee Edge.
+     */
+    private function fillGapsInMetricsData(bool $tsAscending, array $allTimeUnits, array $originalTimeUnits, array &$metricsData): void
+    {
+        $zeroArray = array_fill_keys($allTimeUnits, 0);
+        foreach ($metricsData as $key => $metric) {
+            $metricsData[$key]['values'] = array_combine($originalTimeUnits, $metric['values']);
+            $metricsData[$key]['values'] += $zeroArray;
+            if ($tsAscending) {
+                ksort($metricsData[$key]['values']);
+            } else {
+                krsort($metricsData[$key]['values']);
+            }
+            // Keep original numerical indexes.
+            $metricsData[$key]['values'] = array_values($metricsData[$key]['values']);
+        }
     }
 }

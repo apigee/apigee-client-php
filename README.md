@@ -104,14 +104,15 @@ $ composer test
 ```
 
 Testing of new changes does not require Apigee Edge connection. By default, unit tests are using the content of the
-[offline-test-data](tests/offline-test-data) folder to make testing quicker and easier. If you would like to run units tests
-with a real Apigee Edge instance you have to specify the following environment variables (without brackets):
+[offline-test-data](tests/offline-test-data) folder to make testing quicker and easier. If you would like to run units
+tests with a real Apigee Edge instance you have to specify the following environment variables (without brackets):
 
 ```shell
 APIGEE_EDGE_PHP_SDK_HTTP_CLIENT=\Http\Adapter\Guzzle6\Client
 APIGEE_EDGE_PHP_SDK_BASIC_AUTH_USER=[YOUR-EMAIL-ADDRESS@HOST.COM]
 APIGEE_EDGE_PHP_SDK_BASIC_AUTH_PASSWORD=[PASSWORD]
 APIGEE_EDGE_PHP_SDK_ORGANIZATION=[ORGANIZATION]
+APIGEE_EDGE_PHP_SDK_ENVIRONMENT=[ENVIRONMENT]
 ```
 
 There are multiple ways to set these environment variables, but probably the easiest is creating a copy from the

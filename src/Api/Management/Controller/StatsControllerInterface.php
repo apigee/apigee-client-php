@@ -8,6 +8,7 @@ use Apigee\Edge\Api\Management\Query\StatsQueryInterface;
  * Interface StatsControllerInterface.
  *
  * @see https://docs.apigee.com/api/stats
+ * @see https://docs.apigee.com/analytics-services/reference/analytics-reference
  * @see https://community.apigee.com/articles/2621/querying-analytics-apis-in-apigee-edge.html
  *
  * @TODO
