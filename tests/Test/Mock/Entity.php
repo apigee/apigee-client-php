@@ -24,11 +24,17 @@ class Entity implements EntityInterface
     /** @var int */
     protected $int = 2;
 
+    /** @var int */
+    protected $zero = 0;
+
     /** @var float */
     protected $double = 2.2;
 
     /** @var string */
     protected $string = 'string';
+
+    /** @var string */
+    protected $emptyString = '';
 
     /** @var AttributesProperty */
     protected $attributesProperty;
@@ -219,5 +225,37 @@ class Entity implements EntityInterface
     public function setAppCredential(array $appCredential): void
     {
         $this->appCredential = $appCredential;
+    }
+
+    /**
+     * @return int
+     */
+    public function getZero(): int
+    {
+        return $this->zero;
+    }
+
+    /**
+     * @param int $zero
+     */
+    public function setZero(int $zero): void
+    {
+        $this->zero = $zero;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEmptyString(): string
+    {
+        return $this->emptyString;
+    }
+
+    /**
+     * @param string $emptyString
+     */
+    public function setEmptyString(string $emptyString): void
+    {
+        $this->emptyString = $emptyString;
     }
 }

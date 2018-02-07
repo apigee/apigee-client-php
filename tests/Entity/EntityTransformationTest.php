@@ -4,7 +4,7 @@ namespace Apigee\Edge\Tests\Entity;
 
 use Apigee\Edge\Entity\EntityDenormalizer;
 use Apigee\Edge\Entity\EntityNormalizer;
-use Apigee\Edge\Tests\Test\Mock\Entity;
+use Apigee\Edge\Tests\Test\Mock\Entity as MockEntity;
 use PHPUnit\Framework\TestCase;
 use SebastianBergmann\Comparator\ComparisonFailure;
 use SebastianBergmann\Comparator\Factory as ComparisonFactory;
@@ -43,11 +43,13 @@ class EntityTransformationTest extends TestCase
 
     public function testNormalize()
     {
-        $normalized = static::$normalizer->normalize(new Entity());
+        $normalized = static::$normalizer->normalize(new MockEntity());
         $this->assertTrue(true === $normalized->bool);
         $this->assertTrue(2 === $normalized->int);
+        $this->assertTrue(0 === $normalized->zero);
         $this->assertTrue(2.2 === $normalized->double);
         $this->assertTrue('string' === $normalized->string);
+        $this->assertTrue('' === $normalized->emptyString);
         $this->assertEquals('foo', $normalized->attributesProperty[0]->name);
         $this->assertEquals('bar', $normalized->attributesProperty[0]->value);
         $this->assertEquals('foo', $normalized->credentialProduct->apiproduct);
@@ -72,11 +74,13 @@ class EntityTransformationTest extends TestCase
         // Set value of this nullable value to ensure that a special condition is triggered in the EntityDenormalizer.
         $normalized->nullable = null;
         /** @var \Apigee\Edge\Tests\Test\Mock\Entity $object */
-        $object = static::$denormalizer->denormalize($normalized, Entity::class);
+        $object = static::$denormalizer->denormalize($normalized, MockEntity::class);
         $this->assertTrue(true === $object->isBool());
         $this->assertTrue(2 === $object->getInt());
+        $this->assertTrue(0 === $object->getZero());
         $this->assertTrue(2.2 === $object->getDouble());
         $this->assertTrue('string' === $object->getString());
+        $this->assertTrue('' === $object->getEmptyString());
         $this->assertEquals('bar', $object->getAttributesProperty()->getValue('foo'));
         $this->assertEquals('foo', $object->getCredentialProduct()->getApiproduct());
         $this->assertEquals('bar', $object->getCredentialProduct()->getStatus());

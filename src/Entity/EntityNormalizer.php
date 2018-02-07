@@ -32,9 +32,11 @@ class EntityNormalizer implements NormalizerInterface
                 $asArray[$property->getName()] = $this->normalizeValue(call_user_func([$object, $getter]), $format, $context);
             }
         }
-        // Exclude empty values from the output, even if PATCH is not supported on Apigee Edge
+        // Exclude null values from the output, even if PATCH is not supported on Apigee Edge
         // sending a smaller portion of data in POST/PUT is always a good practice.
-        $asArray = array_filter($asArray);
+        $asArray = array_filter($asArray, function ($value) {
+            return !is_null($value);
+        });
         ksort($asArray);
 
         return (object) $asArray;
