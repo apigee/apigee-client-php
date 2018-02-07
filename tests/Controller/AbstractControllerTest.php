@@ -25,7 +25,7 @@ use function GuzzleHttp\Psr7\stream_for;
  * @group offline
  * @small
  */
-class AbstractEntityControllerTest extends TestCase
+class AbstractControllerTest extends TestCase
 {
     private static $stub;
 

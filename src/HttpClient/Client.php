@@ -263,6 +263,9 @@ class Client implements ClientInterface
         try {
             return $this->getHttpClient()->sendRequest($request);
         } catch (\Exception $e) {
+            if ($e instanceof ApiException) {
+                throw $e;
+            }
             throw new ApiException($request, $e->getMessage(), $e->getCode(), $e);
         }
     }

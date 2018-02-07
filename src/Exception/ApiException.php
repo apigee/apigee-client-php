@@ -25,6 +25,15 @@ class ApiException extends \RuntimeException
      */
     private $previous;
 
+    /**
+     * ApiException constructor.
+     *
+     * @param \Psr\Http\Message\RequestInterface $request
+     * @param string $message
+     * @param int $code
+     * @param \Throwable|null $previous
+     * @param \Http\Message\Formatter|null $formatter
+     */
     public function __construct(
         RequestInterface $request,
         string $message = '',

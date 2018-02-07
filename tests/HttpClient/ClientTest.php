@@ -2,9 +2,12 @@
 
 namespace Apigee\Edge\Tests\HttpClient;
 
+use Apigee\Edge\Exception\ClientErrorException;
 use Apigee\Edge\HttpClient\Client;
 use Apigee\Edge\HttpClient\Util\Builder;
+use GuzzleHttp\Psr7\Response;
 use Http\Client\Common\Plugin\HeaderAppendPlugin;
+use Http\Client\Exception\TransferException;
 use Http\Mock\Client as MockClient;
 use PHPUnit\Framework\TestCase;
 
@@ -113,5 +116,58 @@ class ClientTest extends TestCase
         $client->get('/');
         $sent_request = self::$httpClient->getLastRequest();
         $this->assertEquals('bar', $sent_request->getHeaderLine('Foo'));
+    }
+
+    /**
+     * @expectedException \Apigee\Edge\Exception\ApiException
+     */
+    public function testApiNotReachable() {
+        static::$httpClient->addException(new TransferException());
+        $builder = new Builder(self::$httpClient);
+        $client = new Client(null, $builder);
+        $client->get('/');
+    }
+
+    /**
+     * @expectedException \Apigee\Edge\Exception\ClientErrorException
+     * @expectedExceptionCode 404
+     */
+    public function testApiEndpointNotFound() {
+        static::$httpClient->addResponse(new Response(404));
+        $builder = new Builder(self::$httpClient);
+        $client = new Client(null, $builder);
+        $client->get('/');
+    }
+
+    /**
+     * @expectedException \Apigee\Edge\Exception\ServerErrorException
+     * @expectedExceptionCode 500
+     */
+    public function testServerError() {
+        static::$httpClient->addResponse(new Response(500));
+        $builder = new Builder(self::$httpClient);
+        $client = new Client(null, $builder);
+        $client->get('/');
+    }
+
+    public function testClientExceptionWithResponseBody() {
+        $errorCode = 'error code';
+        $errorMessage = 'Error message';
+        $body = [
+            'code' => $errorCode,
+            'message' => $errorMessage,
+        ];
+        static::$httpClient->addResponse(new Response(404, ['Content-Type' => 'application/json'], json_encode((object) $body)));
+        $builder = new Builder(self::$httpClient);
+        $client = new Client(null, $builder);
+        try {
+            $client->get('/');
+        }
+        catch (\Exception $e) {
+            $this->assertInstanceOf(ClientErrorException::class, $e);
+            /** @var \Apigee\Edge\Exception\ClientErrorException $e */
+            $this->assertEquals($e->getEdgeErrorCode(), $errorCode);
+            $this->assertEquals($e->getMessage(), $errorMessage);
+        }
     }
 }
