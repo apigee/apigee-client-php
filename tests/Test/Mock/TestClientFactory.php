@@ -7,7 +7,12 @@ use Apigee\Edge\HttpClient\ClientInterface;
 use Apigee\Edge\HttpClient\Util\Builder;
 use Http\Client\HttpClient;
 use Http\Message\Authentication\BasicAuth;
+use Http\Message\Formatter\CurlCommandFormatter;
 use Http\Mock\Client as MockClient;
+use Monolog\Formatter\LineFormatter;
+use Monolog\Handler\StreamHandler;
+use Monolog\Logger;
+use Monolog\Processor\PsrLogMessageProcessor;
 
 /**
  * Class TestClientFactory.
@@ -51,7 +56,17 @@ class TestClientFactory
             $auth = new BasicAuth($user, $password);
         }
         $endpoint = getenv('APIGEE_EDGE_PHP_SDK_ENDPOINT') ?: null;
-        $builder = new Builder($rc->newInstance());
+        if (DebuggerClient::class == $rc->getName()) {
+            $logHandler = new StreamHandler(__DIR__ . '/../../../debug.log');
+            // Only print the message.
+            $logHandler->setFormatter(new LineFormatter('%message%', null, true));
+            $logger = new Logger('debuggerClient', [$logHandler], [new PsrLogMessageProcessor()]);
+            $formatter = new CurlCommandFormatter();
+            $logFormat = "{formatted}\nStats: {time_stats}\n\n";
+            $builder = new Builder($rc->newInstance([], $formatter, $logger, $logFormat));
+        } else {
+            $builder = new Builder($rc->newInstance());
+        }
 
         return new Client($auth, $builder, $endpoint, $userAgentPrefix);
     }

@@ -43,6 +43,7 @@
         "guzzlehttp/psr7": "^1.0",
         "league/flysystem": "^1.0",
         "limedeck/phpunit-detailed-printer": "^3.2",
+        "monolog/monolog": "^1.23",
         "php-http/guzzle6-adapter": "^1.1.1",
         "php-http/mock-client": "^1.1.0",
         "phpmetrics/phpmetrics": "^2.3",
