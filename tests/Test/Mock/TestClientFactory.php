@@ -62,7 +62,7 @@ class TestClientFactory
             $logHandler->setFormatter(new LineFormatter('%message%', null, true));
             $logger = new Logger('debuggerClient', [$logHandler], [new PsrLogMessageProcessor()]);
             $formatter = new CurlCommandFormatter();
-            $logFormat = "{formatted}\nStats: {time_stats}\n\n";
+            $logFormat = "{request_formatted}\nStats: {time_stats}\n\n";
             $builder = new Builder($rc->newInstance([], $formatter, $logger, $logFormat));
         } else {
             $builder = new Builder($rc->newInstance());

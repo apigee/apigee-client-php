@@ -132,7 +132,9 @@ class DeveloperAppCredentialControllerTest extends EntityControllerValidator
     {
         /** @var \Apigee\Edge\Api\Management\Controller\DeveloperAppCredentialControllerInterface $controller */
         $controller = $this->getEntityController();
-        $key = static::$appName . '_key';
+        // Ensure that generated key always valid. (Random app names used by online tests can contain dot which is not
+        // valid according to Edge.)
+        $key = preg_replace('/[^A-Za-z0-9\-_]/', '', static::$appName . '_key');
         $secret = static::$appName . '_secret';
         $credential = $controller->create($key, $secret);
         $this->assertCount(0, $credential->getApiProducts());

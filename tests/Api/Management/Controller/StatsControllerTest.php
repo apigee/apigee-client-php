@@ -7,8 +7,6 @@ use Apigee\Edge\Api\Management\Query\StatsQuery;
 use Apigee\Edge\HttpClient\Client;
 use Apigee\Edge\HttpClient\Util\Builder;
 use Apigee\Edge\Tests\Test\Controller\AbstractControllerValidator;
-use Apigee\Edge\Tests\Test\Controller\EnvironmentAwareEntityControllerValidatorTrait;
-use Apigee\Edge\Tests\Test\Controller\OrganizationAwareEntityControllerValidatorTrait;
 use Apigee\Edge\Tests\Test\Mock\FileSystemMockClient;
 use League\Period\Period;
 
@@ -27,9 +25,6 @@ use League\Period\Period;
  */
 class StatsControllerTest extends AbstractControllerValidator
 {
-    use EnvironmentAwareEntityControllerValidatorTrait;
-    use OrganizationAwareEntityControllerValidatorTrait;
-
     public function testGetOptimizedMetrics(): void
     {
         $this->getOptimizedMetrics(false);
@@ -40,6 +35,12 @@ class StatsControllerTest extends AbstractControllerValidator
         $this->getOptimizedMetrics(true);
     }
 
+    /**
+     * Retrieves and validates optimized metrics data.
+     *
+     * @param bool $tsAscending
+     *   Whether to sort results by timestamp ascending or not.
+     */
     public function getOptimizedMetrics(bool $tsAscending): void
     {
         // Make our life easier and use the same timezone as Edge.
@@ -75,6 +76,12 @@ class StatsControllerTest extends AbstractControllerValidator
         $this->getOptimizedMetricsByDimensions(true);
     }
 
+    /**
+     * Retrieves and validates optimized metrics data by dimensions.
+     *
+     * @param bool $tsAscending
+     *   Whether to sort results by timestamp ascending or not.
+     */
     public function getOptimizedMetricsByDimensions(bool $tsAscending): void
     {
         // Make our life easier and use the same timezone as Edge.
@@ -89,7 +96,10 @@ class StatsControllerTest extends AbstractControllerValidator
         $this->assertCount(28, $optimized['TimeUnit']);
         foreach ($optimized['stats']['data'] as $dkey => $dimension) {
             foreach ($dimension['metric'] as $key => $metric) {
-                $original_values = array_combine($original['TimeUnit'], $original['stats']['data'][$dkey]['metric'][$key]['values']);
+                $original_values = array_combine(
+                    $original['TimeUnit'],
+                    $original['stats']['data'][$dkey]['metric'][$key]['values']
+                );
                 $optimized_values = array_combine($optimized['TimeUnit'], $metric['values']);
                 foreach ($optimized_values as $ts => $count) {
                     if (array_key_exists($ts, $original_values)) {
@@ -100,16 +110,6 @@ class StatsControllerTest extends AbstractControllerValidator
                 }
             }
         }
-    }
-
-    /**
-     * @inheritdoc
-     *
-     * Because these tests are always using offline data set we have to override the environment.
-     */
-    protected static function getEnvironment()
-    {
-        return 'test';
     }
 
     /**
@@ -124,7 +124,7 @@ class StatsControllerTest extends AbstractControllerValidator
             $httpClient = new FileSystemMockClient();
             $builder = new Builder($httpClient);
             $client = new Client(null, $builder);
-            $controller = new StatsController($this->getEnvironment(), $this->getOrganization(), $client);
+            $controller = new StatsController('test', 'phpunit', $client);
         }
 
         return $controller;

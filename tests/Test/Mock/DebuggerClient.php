@@ -40,7 +40,7 @@ class DebuggerClient implements HttpClient, HttpAsyncClient
      */
     private $logFormat;
 
-    public function __construct(array $config = [], Formatter $formatter = null, LoggerInterface $logger = null, string $logFormat = '{formatted}')
+    public function __construct(array $config = [], Formatter $formatter = null, LoggerInterface $logger = null, string $logFormat = '{request_formatted} {response_formatted}')
     {
         if (null === $formatter) {
             $formatter = new SimpleFormatter();
@@ -61,7 +61,19 @@ class DebuggerClient implements HttpClient, HttpAsyncClient
                 $time_stats = array_map(function ($stat) {
                     return round($stat, 3);
                 }, $time_stats);
-                $logger->log(LogLevel::DEBUG, $logFormat, ['formatted' => $formatter->formatRequest($request), 'stats' => $stats, 'time_stats' => var_export($time_stats, true)]);
+                $context = [
+                    'request' => $request,
+                    'request_formatted' => $formatter->formatRequest($request),
+                    'stats' => $stats,
+                    'time_stats' => var_export($time_stats, true),
+                ];
+                if ($stats->hasResponse()) {
+                    $context['response'] = $stats->getResponse();
+                    $context['response_formatted'] = $formatter->formatResponse($stats->getResponse());
+                } else {
+                    $context['error'] = $stats->getHandlerErrorData();
+                }
+                $logger->log(LogLevel::DEBUG, $logFormat, $context);
             },
         ];
         $this->client = Client::createWithConfig($config);
