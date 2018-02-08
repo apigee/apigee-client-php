@@ -9,7 +9,9 @@
 # Other ignored paths and files.
 /*.php
 /*.xml
+/*.log
 !/.php_cs.dist
+!/psalm.xml.dist
 !/phpunit.xml.dist
 /vendor
 /composer.lock
