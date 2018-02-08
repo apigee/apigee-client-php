@@ -181,7 +181,7 @@ class StatsController extends AbstractController implements StatsControllerInter
         foreach ($period->getDatePeriod($timeUnit) as $dateTime) {
             $allTimeUnits[] = $dateTime->getTimestamp() * 1000;
         }
-        // $period->getDatePeriod() returns dates from the end date to the start date.
+
         return $tsAscending ? $allTimeUnits : array_reverse($allTimeUnits);
     }
 

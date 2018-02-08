@@ -103,6 +103,16 @@ class StatsControllerTest extends AbstractControllerValidator
     }
 
     /**
+     * @inheritdoc
+     *
+     * Because these tests are always using offline data set we have to override the environment.
+     */
+    protected static function getEnvironment()
+    {
+        return 'test';
+    }
+
+    /**
      * Returns a configured StatsController that uses the FileSystemMockClient http client.
      *
      * @return \Apigee\Edge\Api\Management\Controller\StatsController
