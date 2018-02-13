@@ -36,12 +36,12 @@ interface AppCredentialInterface extends
     public function getConsumerSecret(): string;
 
     /**
-     * @return string
+     * @return null|\DateTimeImmutable
      */
-    public function getExpiresAt(): string;
+    public function getExpiresAt(): ?\DateTimeImmutable;
 
     /**
-     * @return string
+     * @return null|\DateTimeImmutable
      */
-    public function getIssuedAt(): string;
+    public function getIssuedAt(): ?\DateTimeImmutable;
 }

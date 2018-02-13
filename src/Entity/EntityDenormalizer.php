@@ -54,6 +54,12 @@ class EntityDenormalizer implements DenormalizerInterface
             $denormalized[$key] = $this->denormalizeProperty($value, $key, $class);
         }
 
+        // Do not pass null values to constructions. Default values should be null where it is needed and setters
+        // should allow passing null values only where it is actually acceptable.
+        $denormalized = array_filter($denormalized, function ($value) {
+            return !is_null($value);
+        });
+
         return new $class($denormalized);
     }
 
@@ -62,7 +68,56 @@ class EntityDenormalizer implements DenormalizerInterface
      */
     public function supportsDenormalization($data, $type, $format = null)
     {
-        return in_array(Entity::class, class_parents($type));
+        return $type instanceof EntityInterface || in_array(EntityInterface::class, class_implements($type));
+    }
+
+    /**
+     * @param bool $isCollection
+     *   Indicates whether the data should be denormalized as collection of objects.
+     * @param mixed $data
+     *   Data to restore.
+     * @param string $class
+     *   The expected class to instantiate.
+     * @param string $format
+     *   Format the given data was extracted from.
+     * @param array $context
+     *   Options available to the denormalizer.
+     *
+     * @throws \ReflectionException
+     *
+     * @return mixed
+     */
+    protected function denormalizeObjectProperty(
+        bool $isCollection,
+        $data,
+        string $class,
+        string $format = null,
+        array $context = []
+    ) {
+        $denormalized = $data;
+        if (\DateTimeImmutable::class == $class) {
+            // Reading dates from Unix epoch timestamps used by Apigee Edge.
+            $denormalized = new \DateTimeImmutable('@' . intval($data / 1000));
+        } else {
+            $propertyDenormalizerClass = "{$class}Denormalizer";
+            if (class_exists($propertyDenormalizerClass) &&
+                in_array(DenormalizerInterface::class, class_implements($propertyDenormalizerClass))) {
+                $rc = new \ReflectionClass($propertyDenormalizerClass);
+                // Initialize a new object instead of calling this function in static.
+                $propertyDenormalizer = $rc->newInstance();
+                if ($isCollection) {
+                    foreach ($data as $key => $value) {
+                        $denormalized[$key] =
+                            call_user_func([$propertyDenormalizer, 'denormalize'], $value, $class, $format, $context);
+                    }
+                } else {
+                    $denormalized =
+                        call_user_func([$propertyDenormalizer, 'denormalize'], $data, $class, $format, $context);
+                }
+            }
+        }
+
+        return $denormalized;
     }
 
     /**
@@ -81,7 +136,7 @@ class EntityDenormalizer implements DenormalizerInterface
      *
      * @return mixed
      */
-    private function denormalizeProperty($data, $property, $class, string $format = null, array $context = [])
+    private function denormalizeProperty($data, string $property, string $class, string $format = null, array $context = [])
     {
         if (null === $types = $this->propertyTypeExtractor->getTypes($class, $property)) {
             return $data;
@@ -101,50 +156,11 @@ class EntityDenormalizer implements DenormalizerInterface
             }
 
             if (Type::BUILTIN_TYPE_OBJECT === $builtInType) {
-                $denormalized = $this
-                    ->denormalizeObjectProperty($type->isCollection(), $data, $class, $format, $context);
-            }
-        }
-
-        return $denormalized;
-    }
-
-    /**
-     * @param bool $isCollection
-     *   Indicates whether the data should be denormalized as collection of objects.
-     * @param mixed $data
-     *   Data to restore.
-     * @param string $class
-     *   The expected class to instantiate.
-     * @param string $format
-     *   Format the given data was extracted from.
-     * @param array $context
-     *   Options available to the denormalizer.
-     *
-     * @return mixed
-     */
-    private function denormalizeObjectProperty(
-        bool $isCollection,
-        $data,
-        string $class,
-        string $format = null,
-        array $context = []
-    ) {
-        $denormalized = $data;
-        $propertyDenormalizerClass = "{$class}Denormalizer";
-        if (class_exists($propertyDenormalizerClass) &&
-            in_array(DenormalizerInterface::class, class_implements($propertyDenormalizerClass))) {
-            $rc = new \ReflectionClass($propertyDenormalizerClass);
-            // Initialize a new object instead of calling this function in static.
-            $propertyDenormalizer = $rc->newInstance();
-            if ($isCollection) {
-                foreach ($data as $key => $value) {
-                    $denormalized[$key] =
-                        call_user_func([$propertyDenormalizer, 'denormalize'], $value, $class, $format, $context);
+                try {
+                    $denormalized = $this
+                        ->denormalizeObjectProperty($type->isCollection(), $data, $class, $format, $context);
+                } catch (\ReflectionException $e) {
                 }
-            } else {
-                $denormalized =
-                    call_user_func([$propertyDenormalizer, 'denormalize'], $data, $class, $format, $context);
             }
         }
 

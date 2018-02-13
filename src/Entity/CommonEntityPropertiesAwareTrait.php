@@ -16,29 +16,33 @@ namespace Apigee\Edge\Entity;
 trait CommonEntityPropertiesAwareTrait
 {
     /**
-     * @var string Unix epoch timestamp.
+     * @var null|\DateTimeImmutable
      */
-    protected $createdAt = '';
+    protected $createdAt;
 
     /**
-     * @var string Email address.
+     * Email address of the organization user who created the entity.
+     *
+     * @var null|string
      */
-    protected $createdBy = '';
+    protected $createdBy;
 
     /**
-     * @var string Unix epoch timestamp.
+     * @var null|\DateTimeImmutable
      */
-    protected $lastModifiedAt = '';
+    protected $lastModifiedAt;
 
     /**
-     * @var string Email address.
+     * Email address of the organization user who modified the entity last time.
+     *
+     * @var null|string
      */
-    protected $lastModifiedBy = '';
+    protected $lastModifiedBy;
 
     /**
      * @inheritdoc
      */
-    public function getCreatedAt(): string
+    public function getCreatedAt(): ?\DateTimeImmutable
     {
         return $this->createdAt;
     }
@@ -46,20 +50,19 @@ trait CommonEntityPropertiesAwareTrait
     /**
      * Set creation date of an entity from an Edge API response.
      *
-     * @param string $timestamp
-     *   Unix timestamp.
+     * @param \DateTimeImmutable $date
      *
      * @internal
      */
-    public function setCreatedAt(string $timestamp): void
+    public function setCreatedAt(\DateTimeImmutable $date): void
     {
-        $this->createdAt = $timestamp;
+        $this->createdAt = $date;
     }
 
     /**
      * @inheritdoc
      */
-    public function getCreatedBy(): string
+    public function getCreatedBy(): ?string
     {
         return $this->createdBy;
     }
@@ -80,7 +83,7 @@ trait CommonEntityPropertiesAwareTrait
     /**
      * @inheritdoc
      */
-    public function getLastModifiedAt(): string
+    public function getLastModifiedAt(): ?\DateTimeImmutable
     {
         return $this->lastModifiedAt;
     }
@@ -88,20 +91,19 @@ trait CommonEntityPropertiesAwareTrait
     /**
      * Set the last modification date of an entity from an Edge API response.
      *
-     * @param string $timestamp
-     *   Unix timestamp.
+     * @param \DateTimeImmutable $date
      *
      * @internal
      */
-    public function setLastModifiedAt(string $timestamp): void
+    public function setLastModifiedAt(\DateTimeImmutable $date): void
     {
-        $this->lastModifiedAt = $timestamp;
+        $this->lastModifiedAt = $date;
     }
 
     /**
      * @inheritdoc
      */
-    public function getLastModifiedBy(): string
+    public function getLastModifiedBy(): ?string
     {
         return $this->lastModifiedBy;
     }

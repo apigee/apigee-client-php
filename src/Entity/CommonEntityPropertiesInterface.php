@@ -16,28 +16,28 @@ interface CommonEntityPropertiesInterface
     /**
      * Returns creation date of entity.
      *
-     * @return string Unix epoch timestamp.
+     * @return null|\DateTimeImmutable
      */
-    public function getCreatedAt(): string;
+    public function getCreatedAt(): ?\DateTimeImmutable;
 
     /**
      * Returns the email address of the user/developer who created the entity.
      *
-     * @return string Email address.
+     * @return null|string Email address.
      */
-    public function getCreatedBy(): string;
+    public function getCreatedBy(): ?string;
 
     /**
      * Returns last modification date of entity.
      *
-     * @return string Unix epoch timestamp.
+     * @return null|\DateTimeImmutable
      */
-    public function getLastModifiedAt(): string;
+    public function getLastModifiedAt(): ?\DateTimeImmutable;
 
     /**
      * Returns the email address of the user/developer who modified the entity the last time.
      *
-     * @return string Email address.
+     * @return null|string Email address.
      */
-    public function getLastModifiedBy(): string;
+    public function getLastModifiedBy(): ?string;
 }

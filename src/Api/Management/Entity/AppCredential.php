@@ -47,22 +47,23 @@ class AppCredential extends Entity implements AppCredentialInterface
     protected $consumerSecret;
 
     /**
-     * Unix epoch timestamp, but it can be -1 which means "never".
+     * Default value is null, which is equivalent of "-1" from the raw API response that means the credential
+     * never expires. So if this value is null then it either means that this is a new entity (check whether consumerKey
+     * or consumerSecret are also null) or this credential never expires.
      *
-     * We set this to -1 by default because it could happen that this value is missing from the
-     * API response which means the same, this key will never expire.
-     *
-     * @var string
+     * @var \DateTimeImmutable
      */
-    protected $expiresAt = '-1';
+    protected $expiresAt;
 
-    /** @var string Unix epoch timestamp. */
+    /** @var \DateTimeImmutable */
     protected $issuedAt;
 
     /**
      * AppCredential constructor.
      *
      * @param array $values
+     *
+     * @throws \ReflectionException
      */
     public function __construct(array $values = [])
     {
@@ -149,7 +150,7 @@ class AppCredential extends Entity implements AppCredentialInterface
     /**
      * @inheritdoc
      */
-    public function getExpiresAt(): string
+    public function getExpiresAt(): ?\DateTimeImmutable
     {
         return $this->expiresAt;
     }
@@ -159,20 +160,19 @@ class AppCredential extends Entity implements AppCredentialInterface
      *
      * Expiration date can not be changed by modifying this property's value.
      *
-     * @param string $expiresAt
-     *   Unix epoch timestamp.
+     * @param \DateTimeImmutable $date
      *
      * @internal
      */
-    public function setExpiresAt(string $expiresAt): void
+    public function setExpiresAt(\DateTimeImmutable $date): void
     {
-        $this->expiresAt = $expiresAt;
+        $this->expiresAt = $date;
     }
 
     /**
      * @inheritdoc
      */
-    public function getIssuedAt(): string
+    public function getIssuedAt(): ?\DateTimeImmutable
     {
         return $this->issuedAt;
     }
@@ -182,13 +182,12 @@ class AppCredential extends Entity implements AppCredentialInterface
      *
      * Consumer key can not be changed by modifying this property's value.
      *
-     * @param string $issuedAt
-     *   Unit epoch timestamp.
+     * @param \DateTimeImmutable $date
      *
      * @internal
      */
-    public function setIssuedAt(string $issuedAt): void
+    public function setIssuedAt(\DateTimeImmutable $date): void
     {
-        $this->issuedAt = $issuedAt;
+        $this->issuedAt = $date;
     }
 }

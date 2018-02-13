@@ -120,7 +120,7 @@ class DeveloperAppCredentialControllerTest extends EntityControllerValidator
         $this->assertCount(0, $credential->getApiProducts());
         $this->assertNotEmpty($credential->getConsumerKey());
         $this->assertNotEmpty($credential->getConsumerSecret());
-        $this->assertEquals('-1', $credential->getExpiresAt());
+        $this->assertEquals(null, $credential->getExpiresAt());
     }
 
     /**
@@ -140,7 +140,7 @@ class DeveloperAppCredentialControllerTest extends EntityControllerValidator
         $this->assertCount(0, $credential->getApiProducts());
         $this->assertEquals($key, $credential->getConsumerKey());
         $this->assertEquals($secret, $credential->getConsumerSecret());
-        $this->assertEquals('-1', $credential->getExpiresAt());
+        $this->assertEquals(null, $credential->getExpiresAt());
 
         return $credential;
     }
@@ -157,9 +157,10 @@ class DeveloperAppCredentialControllerTest extends EntityControllerValidator
         /** @var \Apigee\Edge\Api\Management\Controller\DeveloperAppCredentialControllerInterface $controller */
         $controller = $this->getEntityController();
         $loaded = $controller->load($credential->id());
+        $normalized = static::$objectNormalizer->normalize($loaded);
         $this->assertArraySubset(
             static::$objectNormalizer->normalize($credential),
-            static::$objectNormalizer->normalize($loaded)
+            $normalized
         );
 
         return $credential->id();

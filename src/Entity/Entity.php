@@ -32,6 +32,8 @@ class Entity implements EntityInterface
      *
      * @param array $values
      *   Associative array with entity properties and their values.
+     *
+     * @throws \ReflectionException
      */
     public function __construct(array $values = [])
     {

@@ -5,6 +5,7 @@ namespace Apigee\Edge\Tests\Test\Controller;
 use Apigee\Edge\Controller\EntityControllerInterface;
 use Apigee\Edge\Entity\EntityFactory;
 use Apigee\Edge\Tests\Test\Mock\TestClientFactory;
+use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
 
@@ -34,7 +35,7 @@ abstract class EntityControllerValidator extends AbstractControllerValidator
         parent::setUpBeforeClass();
         static::$entityFactory = new EntityFactory();
         static::$objectNormalizer = new ObjectNormalizer();
-        static::$objectNormalizer->setSerializer(new Serializer([static::$objectNormalizer]));
+        static::$objectNormalizer->setSerializer(new Serializer([new DateTimeNormalizer('U'), static::$objectNormalizer]));
     }
 
     /**

@@ -77,6 +77,8 @@ trait EntityCrudOperationsControllerTrait
      *   Response from Apigee Edge.
      * @param \Apigee\Edge\Entity\EntityInterface $entity
      *   Entity that properties should be updated.
+     *
+     * @throws \ReflectionException
      */
     private function setPropertiesFromResponse(ResponseInterface $response, EntityInterface $entity): void
     {

@@ -5,8 +5,6 @@ namespace Apigee\Edge\Api\Management\Controller;
 use Apigee\Edge\Api\Management\Entity\AppDenormalizer;
 use Apigee\Edge\Api\Management\Entity\AppInterface;
 use Apigee\Edge\Controller\CpsLimitEntityController;
-use Apigee\Edge\Entity\EntityFactoryInterface;
-use Apigee\Edge\HttpClient\ClientInterface;
 use Apigee\Edge\Structure\CpsListLimitInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\UriInterface;
@@ -28,27 +26,6 @@ class AppController extends CpsLimitEntityController implements AppControllerInt
      */
     public const STATUS_REVOKE = 'revoke';
 
-    /** @var \Apigee\Edge\Api\Management\Entity\AppDenormalizer */
-    protected $appEntityDenormalizer;
-
-    /**
-     * AppController constructor.
-     *
-     * @param string $organization
-     * @param \Apigee\Edge\HttpClient\ClientInterface|null $client
-     * @param \Apigee\Edge\Entity\EntityFactoryInterface|null $entityFactory
-     * @param \Apigee\Edge\Api\Management\Controller\OrganizationControllerInterface|null $organizationController
-     */
-    public function __construct(
-        string $organization,
-        ClientInterface $client = null,
-        EntityFactoryInterface $entityFactory = null,
-        OrganizationControllerInterface $organizationController = null
-    ) {
-        parent::__construct($organization, $client, $entityFactory, $organizationController);
-        $this->appEntityDenormalizer = new AppDenormalizer();
-    }
-
     /**
      * @inheritdoc
      */
@@ -56,7 +33,7 @@ class AppController extends CpsLimitEntityController implements AppControllerInt
     {
         $response = $this->client->get($this->getEntityEndpointUri($appId));
 
-        return $this->appEntityDenormalizer->denormalize(
+        return $this->entitySerializer->denormalize(
             // Pass it as an object, because if serializer would have been used here (just as other places) it would
             // pass an object to the denormalizer and not an array.
             (object) $this->responseToArray($response),
@@ -95,7 +72,7 @@ class AppController extends CpsLimitEntityController implements AppControllerInt
         $responseArray = reset($responseArray);
         foreach ($responseArray as $item) {
             /** @var \Apigee\Edge\Api\Management\Entity\AppInterface $tmp */
-            $tmp = $this->appEntityDenormalizer->denormalize(
+            $tmp = $this->entitySerializer->denormalize(
                 $item,
                 AppInterface::class
             );
@@ -141,7 +118,7 @@ class AppController extends CpsLimitEntityController implements AppControllerInt
         $responseArray = reset($responseArray);
         foreach ($responseArray as $item) {
             /** @var \Apigee\Edge\Api\Management\Entity\AppInterface $tmp */
-            $tmp = $this->appEntityDenormalizer->denormalize(
+            $tmp = $this->entitySerializer->denormalize(
                 $item,
                 AppInterface::class
             );
@@ -177,6 +154,16 @@ class AppController extends CpsLimitEntityController implements AppControllerInt
         $response = $this->request($queryParams, $cpsLimit);
 
         return $this->responseToArray($response);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    protected function entityNormalizers()
+    {
+        // Add our special AppDenormalizer to the top of the list.
+        // This way enforce parent $this->entitySerializer calls to use it for apps primarily.
+        return array_merge([new AppDenormalizer()], parent::entityNormalizers());
     }
 
     /**

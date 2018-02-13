@@ -42,10 +42,30 @@ abstract class AbstractEntityController extends AbstractController
         parent::__construct($client);
         $this->entityFactory = $entityFactory ?: new EntityFactory();
         $this->entitySerializer = new Serializer(
-            [new EntityNormalizer(), new EntityDenormalizer()],
-            // Keep the same structure that we get from Edge, do not transforms objects to arrays.
-            [new JsonEncoder(null, new JsonDecode())]
+            $this->entityNormalizers(),
+            $this->entityEncoders()
         );
+    }
+
+    /**
+     * Returns normalizers and denormalizers used by entity serializer for transforming entity data from/to objects.
+     *
+     * @return \Symfony\Component\Serializer\Normalizer\NormalizerInterface[]|\Symfony\Component\Serializer\Normalizer\DenormalizerInterface[]
+     */
+    protected function entityNormalizers()
+    {
+        return [new EntityNormalizer(), new EntityDenormalizer()];
+    }
+
+    /**
+     * Returns encoders and decoders used by entity serializer for reading and writing serialized entity data.
+     *
+     * @return \Symfony\Component\Serializer\Encoder\EncoderInterface[]|\Symfony\Component\Serializer\Encoder\DecoderInterface[]
+     */
+    protected function entityEncoders()
+    {
+        // Keep the same structure that we get from Edge, do not transforms objects to arrays.
+        return [new JsonEncoder(null, new JsonDecode())];
     }
 
     /**

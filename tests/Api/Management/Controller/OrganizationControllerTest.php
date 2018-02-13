@@ -52,8 +52,8 @@ class OrganizationControllerTest extends TestCase
         $this->assertTrue($entity->hasProperty('self.service.virtual.host.enabled'));
         $this->assertEquals('true', $entity->getPropertyValue('features.isCpsEnabled'));
         $this->assertEquals('trial', $entity->getType());
-        $this->assertEquals('648345600000', $entity->getCreatedAt());
-        $this->assertEquals('648345600000', $entity->getLastModifiedAt());
+        $this->assertEquals(new \DateTimeImmutable('@648345600'), $entity->getCreatedAt());
+        $this->assertEquals(new \DateTimeImmutable('@648345600'), $entity->getLastModifiedAt());
         $this->assertEquals('phpunit@example.com', $entity->getCreatedBy());
         $this->assertEquals('phpunit@example.com', $entity->getLastModifiedBy());
     }

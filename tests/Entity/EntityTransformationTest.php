@@ -4,7 +4,7 @@ namespace Apigee\Edge\Tests\Entity;
 
 use Apigee\Edge\Entity\EntityDenormalizer;
 use Apigee\Edge\Entity\EntityNormalizer;
-use Apigee\Edge\Tests\Test\Mock\Entity as MockEntity;
+use Apigee\Edge\Tests\Test\Mock\MockEntity;
 use PHPUnit\Framework\TestCase;
 use SebastianBergmann\Comparator\ComparisonFailure;
 use SebastianBergmann\Comparator\Factory as ComparisonFactory;
@@ -43,7 +43,8 @@ class EntityTransformationTest extends TestCase
 
     public function testNormalize()
     {
-        $normalized = static::$normalizer->normalize(new MockEntity());
+        $entity = new MockEntity();
+        $normalized = static::$normalizer->normalize($entity);
         $this->assertTrue(true === $normalized->bool);
         $this->assertTrue(2 === $normalized->int);
         $this->assertTrue(0 === $normalized->zero);
@@ -58,8 +59,14 @@ class EntityTransformationTest extends TestCase
         $this->assertEquals('bar', $normalized->propertiesProperty->property[0]->value);
         $this->assertNotEmpty($normalized->appCredential);
         $this->assertEquals('consumerKey', $normalized->appCredential[0]->consumerKey);
+        $this->assertEquals(-1, $normalized->appCredential[0]->expiresAt);
         $this->assertEquals('foo', $normalized->appCredential[0]->apiProducts[0]->apiproduct);
         $this->assertEquals('foo', $normalized->appCredential[0]->attributes[0]->name);
+        $this->assertObjectNotHasAttribute('date', $normalized);
+        $date = new \DateTimeImmutable();
+        $entity->setDate($date);
+        $normalized = static::$normalizer->normalize($entity);
+        $this->assertEquals($entity->getDate()->getTimestamp() * 1000, $normalized->date);
 
         return $normalized;
     }
@@ -73,7 +80,7 @@ class EntityTransformationTest extends TestCase
     {
         // Set value of this nullable value to ensure that a special condition is triggered in the EntityDenormalizer.
         $normalized->nullable = null;
-        /** @var \Apigee\Edge\Tests\Test\Mock\Entity $object */
+        /** @var \Apigee\Edge\Tests\Test\Mock\MockEntity $object */
         $object = static::$denormalizer->denormalize($normalized, MockEntity::class);
         $this->assertTrue(true === $object->isBool());
         $this->assertTrue(2 === $object->getInt());
@@ -87,8 +94,10 @@ class EntityTransformationTest extends TestCase
         $this->assertEquals('bar', $object->getPropertiesProperty()->getValue('foo'));
         $this->assertNotEmpty($object->getAppCredential());
         $this->assertEquals('consumerKey', $object->getAppCredential()[0]->getConsumerKey());
+        $this->assertNull($object->getAppCredential()[0]->getExpiresAt());
         $this->assertEquals('foo', $object->getAppCredential()[0]->getApiProducts()[0]->getApiproduct());
         $this->assertEquals('bar', $object->getAppCredential()[0]->getAttributeValue('foo'));
+        $this->assertEquals(new \DateTimeImmutable('@' . $normalized->date / 1000), $object->getDate());
         $renormalized = static::$normalizer->normalize($object);
         // Unset it to ensure that the two objects can be equal.
         unset($normalized->nullable);

@@ -3,55 +3,62 @@
 namespace Apigee\Edge\Tests\Test\Mock;
 
 use Apigee\Edge\Api\Management\Entity\AppCredential;
-use Apigee\Edge\Entity\EntityInterface;
+use Apigee\Edge\Entity\Entity;
 use Apigee\Edge\Structure\AttributesProperty;
 use Apigee\Edge\Structure\CredentialProduct;
 use Apigee\Edge\Structure\PropertiesProperty;
 
 /**
- * Dummy EntityInterface implementation that we can use in ours tests.
+ * Dummy entity that we can use in ours tests.
  *
  * @author Dezső Biczó <mxr576@gmail.com>
  */
-class Entity implements EntityInterface
+class MockEntity extends Entity
 {
     /** @var null */
-    protected $nullable;
+    private $nullable;
 
     /** @var bool */
-    protected $bool = true;
+    private $bool = true;
 
     /** @var int */
-    protected $int = 2;
+    private $int = 2;
 
     /** @var int */
-    protected $zero = 0;
+    private $zero = 0;
 
     /** @var float */
-    protected $double = 2.2;
+    private $double = 2.2;
 
     /** @var string */
-    protected $string = 'string';
+    private $string = 'string';
 
     /** @var string */
-    protected $emptyString = '';
+    private $emptyString = '';
 
     /** @var AttributesProperty */
-    protected $attributesProperty;
+    private $attributesProperty;
 
     /** @var PropertiesProperty */
-    protected $propertiesProperty;
+    private $propertiesProperty;
 
     /** @var AppCredential[] */
-    protected $appCredential = [];
+    private $appCredential = [];
 
     /** @var CredentialProduct */
-    protected $credentialProduct;
+    private $credentialProduct;
+
+    /** @var null|\DateTimeImmutable */
+    private $date;
 
     /**
-     * Entity constructor.
+     * MockEntity constructor.
+     *
+     * @param array $values
+     *
+     * @throws \ReflectionException
      */
-    public function __construct()
+    public function __construct(array $values = [])
     {
         $this->attributesProperty = new AttributesProperty(['foo' => 'bar']);
         $this->propertiesProperty = new PropertiesProperty(['foo' => 'bar']);
@@ -62,12 +69,27 @@ class Entity implements EntityInterface
                 'attributes' => $this->attributesProperty,
                 'consumerKey' => 'consumerKey',
                 'consumerSecret' => 'consumerSecret',
-                'issuedAt' => 'issuedAt',
-                'expiresAt' => 'expiresAt',
                 'scopes' => ['foo', 'bar'],
                 'status' => AppCredential::STATUS_REVOKED,
             ]
         )];
+        parent::__construct($values);
+    }
+
+    /**
+     * @return \DateTimeImmutable|null
+     */
+    public function getDate(): ?\DateTimeImmutable
+    {
+        return $this->date;
+    }
+
+    /**
+     * @param \DateTimeImmutable|null $date
+     */
+    public function setDate(?\DateTimeImmutable $date): void
+    {
+        $this->date = $date;
     }
 
     /**

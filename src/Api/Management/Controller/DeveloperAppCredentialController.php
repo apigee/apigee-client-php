@@ -2,7 +2,9 @@
 
 namespace Apigee\Edge\Api\Management\Controller;
 
+use Apigee\Edge\Api\Management\Entity\AppCredentialDenormalizer;
 use Apigee\Edge\Api\Management\Entity\AppCredentialInterface;
+use Apigee\Edge\Api\Management\Entity\AppCredentialNormalizer;
 use Apigee\Edge\Controller\EntityController;
 use Apigee\Edge\Controller\EntityCrudOperationsControllerTrait;
 use Apigee\Edge\Controller\StatusAwareEntityControllerTrait;
@@ -187,6 +189,16 @@ class DeveloperAppCredentialController extends EntityController implements Devel
             $this->entityFactory->getEntityTypeByController(self::class),
             'json'
         );
+    }
+
+    /**
+     * @inheritdoc
+     */
+    protected function entityNormalizers()
+    {
+        // Add our special App credential normalizer and denormalizer to the beginning of the list.
+        // This way enforce parent $this->entitySerializer calls to use these for app credentials primarily.
+        return array_merge([new AppCredentialNormalizer(), new AppCredentialDenormalizer()], parent::entityNormalizers());
     }
 
     /**
