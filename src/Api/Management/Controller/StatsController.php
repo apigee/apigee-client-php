@@ -8,6 +8,7 @@ use Apigee\Edge\Controller\AbstractController;
 use Apigee\Edge\Controller\OrganizationAwareControllerTrait;
 use Apigee\Edge\HttpClient\ClientInterface;
 use League\Period\Period;
+use Moment\Moment;
 use Psr\Http\Message\UriInterface;
 use Symfony\Component\Serializer\Encoder\JsonDecode;
 
@@ -71,6 +72,10 @@ class StatsController extends AbstractController implements StatsControllerInter
      * @param StatsQueryInterface $query
      *   Stats query object.
      *
+     * @throws \Moment\MomentException
+     * @throws \InvalidArgumentException
+     *   Find more information in fillGapsInTimeUnitsData() method.
+     *
      * @return array
      *   Response as associative array.
      *
@@ -81,7 +86,11 @@ class StatsController extends AbstractController implements StatsControllerInter
         $response = $this->getMetrics($query, 'js');
         if (null !== $query->getTimeUnit()) {
             $originalTimeUnits = $response['TimeUnit'];
-            $response['TimeUnit'] = $this->fillGapsInTimeUnitsData($query->getTimeRange(), $query->getTimeUnit(), $query->getTsAscending());
+            $response['TimeUnit'] = $this->fillGapsInTimeUnitsData(
+                $query->getTimeRange(),
+                $query->getTimeUnit(),
+                $query->getTsAscending()
+            );
             $this->fillGapsInMetricsData(
                 $query->getTsAscending(),
                 $response['TimeUnit'],
@@ -98,8 +107,11 @@ class StatsController extends AbstractController implements StatsControllerInter
      *
      * @psalm-suppress InvalidOperand - $this->normalizer->normalize() always returns an array.
      */
-    public function getMetricsByDimensions(array $dimensions, StatsQueryInterface $query, ?string $optimized = 'js'): array
-    {
+    public function getMetricsByDimensions(
+        array $dimensions,
+        StatsQueryInterface $query,
+        ?string $optimized = 'js'
+    ): array {
         $query_params = [
                 '_optimized' => $optimized,
             ] + $this->normalizer->normalize($query);
@@ -123,6 +135,10 @@ class StatsController extends AbstractController implements StatsControllerInter
      * @param StatsQueryInterface $query
      *   Stats query object.
      *
+     * @throws \Moment\MomentException
+     * @throws \InvalidArgumentException
+     *   Find more information in fillGapsInTimeUnitsData() method.
+     *
      * @return array
      *   Response as associative array.
      *
@@ -133,7 +149,11 @@ class StatsController extends AbstractController implements StatsControllerInter
         $response = $this->getMetricsByDimensions($dimensions, $query, 'js');
         if (null !== $query->getTimeUnit()) {
             $originalTimeUnits = $response['TimeUnit'];
-            $response['TimeUnit'] = $this->fillGapsInTimeUnitsData($query->getTimeRange(), $query->getTimeUnit(), $query->getTsAscending());
+            $response['TimeUnit'] = $this->fillGapsInTimeUnitsData(
+                $query->getTimeRange(),
+                $query->getTimeUnit(),
+                $query->getTsAscending()
+            );
             foreach ($response['stats']['data'] as $key => $dimension) {
                 $this->fillGapsInMetricsData(
                     $query->getTsAscending(),
@@ -169,13 +189,32 @@ class StatsController extends AbstractController implements StatsControllerInter
      *   Time unit from StatsQuery.
      * @param bool $tsAscending
      *
+     * @throws \InvalidArgumentException
+     *   If time unit is not supported by the Moment library.
+     * @throws \Moment\MomentException
+     *
      * @return array
      *   Array of time units in the given period.
      */
     private function fillGapsInTimeUnitsData(Period $period, string $timeUnit, bool $tsAscending)
     {
+        // Moment library does not validate time units that being passed just falls back to the default behavior
+        // automatically. We do want to let this library's users know that they have provided an invalid time
+        // unit to this function and they should rather use the "non-optimized" methods from the controller for
+        // retrieving data for these time periods.
+        if (in_array($timeUnit, ['decade', 'century', 'millennium'])) {
+            throw new \InvalidArgumentException(
+                sprintf('The %s time unit is not supported by the https://github.com/fightbulc/moment.php library.', $timeUnit)
+            );
+        }
         $allTimeUnits = [];
-        // Fix time unit for DatePeriod calculation.
+        // Fix time unit for correct time internaval calculation.
+        $startDate = new Moment('@' . $period->getStartDate()->getTimestamp());
+        $endDate = new Moment('@' . $period->getEndDate()->getTimestamp());
+        // Returned intervals by Apigee Edge are always inclusive-inclusive.
+        $startDate->startOf($timeUnit);
+        $endDate->endOf($timeUnit);
+        $period = new Period($startDate, $endDate);
         $timeUnit = '1 ' . $timeUnit;
         /** @var \DateTime $dateTime */
         foreach ($period->getDatePeriod($timeUnit) as $dateTime) {
@@ -192,13 +231,19 @@ class StatsController extends AbstractController implements StatsControllerInter
      *
      * @param bool $tsAscending
      *   TsAscending from StatsQuery.
+     * @param array $allTimeUnits
+     *   All time units in the given time interval.
      * @param array $originalTimeUnits
      *   Returned time units by Apigee Edge.
      * @param array $metricsData
      *   Returned metrics data by Apigee Edge.
      */
-    private function fillGapsInMetricsData(bool $tsAscending, array $allTimeUnits, array $originalTimeUnits, array &$metricsData): void
-    {
+    private function fillGapsInMetricsData(
+        bool $tsAscending,
+        array $allTimeUnits,
+        array $originalTimeUnits,
+        array &$metricsData
+    ): void {
         $zeroArray = array_fill_keys($allTimeUnits, 0);
         foreach ($metricsData as $key => $metric) {
             $metricsData[$key]['values'] = array_combine($originalTimeUnits, $metric['values']);

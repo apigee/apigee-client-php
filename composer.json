@@ -23,6 +23,7 @@
         "php": "^7.1",
         "ext-json": "*",
         "ext-reflection": "*",
+        "fightbulc/moment": "^1.26",
         "league/period": "^3.4",
         "php-http/cache-plugin": "^1.4",
         "php-http/client-common": "^1.6",
