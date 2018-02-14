@@ -39,7 +39,7 @@ class DeveloperAppCredentialControllerTest extends EntityControllerValidator
             parent::setUpBeforeClass();
             static::setupBeforeDeveloperApp();
 
-            $dac = new DeveloperAppController(static::getOrganization(), static::$developerId, static::$client);
+            $dac = new DeveloperAppController(static::getOrganization(static::$client), static::$developerId, static::$client);
             try {
                 // We have to keep a copy of phpunit@example.com developer's data because of this for offline tests.
                 // See: offline-test-data/v1/organizations/phpunit/developers/phpunit@example.com .
@@ -73,9 +73,9 @@ class DeveloperAppCredentialControllerTest extends EntityControllerValidator
             return;
         }
 
-        $dac = new DeveloperAppController(static::getOrganization(), static::$developerId, static::$client);
+        $dac = new DeveloperAppController(static::getOrganization(static::$client), static::$developerId, static::$client);
         $dacc = new DeveloperAppCredentialController(
-            static::getOrganization(),
+            static::getOrganization(static::$client),
             static::$developerId,
             static::$appName,
             static::$client
@@ -110,7 +110,7 @@ class DeveloperAppCredentialControllerTest extends EntityControllerValidator
 
     public function testCreatedAppHasAnEmptyCredential(): void
     {
-        $dac = new DeveloperAppController(static::getOrganization(), static::$developerId, static::$client);
+        $dac = new DeveloperAppController(static::getOrganization(static::$client), static::$developerId, static::$client);
         /** @var \Apigee\Edge\Api\Management\Entity\DeveloperAppInterface $entity */
         $entity = $dac->load(static::$appName);
         $credentials = $entity->getCredentials();
@@ -344,7 +344,7 @@ class DeveloperAppCredentialControllerTest extends EntityControllerValidator
         static $controller;
         if (!$controller) {
             $controller = new DeveloperAppCredentialController(
-                static::getOrganization(),
+                static::getOrganization(static::$client),
                 static::$developerId,
                 static::$appName,
                 static::$client

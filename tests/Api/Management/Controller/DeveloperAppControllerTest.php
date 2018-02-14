@@ -123,7 +123,7 @@ class DeveloperAppControllerTest extends NonCpsLimitEntityControllerValidator
             $this->markTestSkipped(static::$onlyOnlineClientSkipMessage);
         }
         $controller = new DeveloperController(
-            static::getOrganization(),
+            static::getOrganization(static::$client),
             static::$client
         );
         $entity = clone static::sampleDataForEntityCreate();
@@ -147,7 +147,7 @@ class DeveloperAppControllerTest extends NonCpsLimitEntityControllerValidator
         static $controller;
         if (!$controller) {
             $controller = new DeveloperAppController(
-                static::getOrganization(),
+                static::getOrganization(static::$client),
                 static::$developerId,
                 static::$client
             );

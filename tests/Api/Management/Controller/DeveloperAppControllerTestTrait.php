@@ -31,7 +31,7 @@ trait DeveloperAppControllerTestTrait
             // Unfortunately in PHPUnit it is not possible to directly depend on another test classes. This could ensure
             // that even if only a single test case is executed from this class those dependencies are executed first
             // and they could create these entities on Edge.
-            $dc = new DeveloperController(static::getOrganization(), static::$client);
+            $dc = new DeveloperController(static::getOrganization(static::$client), static::$client);
             try {
                 // We have to keep a copy of phpunit@example.com developer's data because of this for offline tests.
                 // See: offline-test-data/v1/organizations/phpunit/developers/phpunit@example.com .
@@ -45,7 +45,7 @@ trait DeveloperAppControllerTestTrait
                 }
             }
 
-            $apc = new ApiProductController(static::getOrganization(), static::$client);
+            $apc = new ApiProductController(static::getOrganization(static::$client), static::$client);
             try {
                 $entity = $apc->load(ApiProductControllerTest::sampleDataForEntityCreate()->id());
                 static::$apiProductName = $entity->id();
@@ -74,7 +74,7 @@ trait DeveloperAppControllerTestTrait
         }
 
         if (null !== static::$developerId) {
-            $dc = new DeveloperController(static::getOrganization(), static::$client);
+            $dc = new DeveloperController(static::getOrganization(static::$client), static::$client);
             try {
                 $dc->delete(static::$developerId);
             } catch (\Exception $e) {
@@ -86,7 +86,7 @@ trait DeveloperAppControllerTestTrait
         }
 
         if (null !== static::$apiProductName) {
-            $apc = new ApiProductController(static::getOrganization(), static::$client);
+            $apc = new ApiProductController(static::getOrganization(static::$client), static::$client);
             try {
                 $apc->delete(static::$apiProductName);
             } catch (\Exception $e) {

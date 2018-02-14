@@ -2,6 +2,9 @@
 
 namespace Apigee\Edge\Tests\Test\Controller;
 
+use Apigee\Edge\HttpClient\ClientInterface;
+use Apigee\Edge\Tests\Test\Mock\TestClientFactory;
+
 /**
  * Trait OrganizationAwareEntityControllerValidatorTrait.
  *
@@ -9,8 +12,12 @@ namespace Apigee\Edge\Tests\Test\Controller;
  */
 trait OrganizationAwareEntityControllerValidatorTrait
 {
-    protected static function getOrganization()
+    protected static function getOrganization(ClientInterface $client)
     {
+        if (TestClientFactory::isMockClient($client)) {
+            return 'phpunit';
+        }
+
         return getenv('APIGEE_EDGE_PHP_SDK_ORGANIZATION') ?: 'phpunit';
     }
 }

@@ -29,6 +29,11 @@ class TestClientFactory
      * @param string|null $fqcn
      *   Fully qualified test name of the HTTP client class.
      *
+     * @throws \ReflectionException
+     *   By ReflectionClass.
+     * @throws \Exception
+     *   By StreamHandler.
+     *
      * @return ClientInterface
      */
     public function getClient(string $fqcn = null): ClientInterface

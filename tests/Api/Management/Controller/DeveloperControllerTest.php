@@ -136,7 +136,7 @@ class DeveloperControllerTest extends CpsLimitEntityControllerValidator
     {
         static $controller;
         if (!$controller) {
-            $controller = new DeveloperController(static::getOrganization(), static::$client);
+            $controller = new DeveloperController(static::getOrganization(static::$client), static::$client);
         }
 
         return $controller;

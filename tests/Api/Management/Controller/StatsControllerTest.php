@@ -4,10 +4,11 @@ namespace Apigee\Edge\Tests\Api\Management\Controller;
 
 use Apigee\Edge\Api\Management\Controller\StatsController;
 use Apigee\Edge\Api\Management\Query\StatsQuery;
-use Apigee\Edge\HttpClient\Client;
-use Apigee\Edge\HttpClient\Util\Builder;
 use Apigee\Edge\Tests\Test\Controller\AbstractControllerValidator;
+use Apigee\Edge\Tests\Test\Controller\EnvironmentAwareEntityControllerValidatorTrait;
+use Apigee\Edge\Tests\Test\Controller\OrganizationAwareEntityControllerValidatorTrait;
 use Apigee\Edge\Tests\Test\Mock\FileSystemMockClient;
+use Apigee\Edge\Tests\Test\Mock\TestClientFactory;
 use League\Period\Period;
 
 /**
@@ -25,6 +26,9 @@ use League\Period\Period;
  */
 class StatsControllerTest extends AbstractControllerValidator
 {
+    use EnvironmentAwareEntityControllerValidatorTrait;
+    use OrganizationAwareEntityControllerValidatorTrait;
+
     public function testGetOptimizedMetrics(): void
     {
         $this->getOptimizedMetrics(false);
@@ -121,10 +125,8 @@ class StatsControllerTest extends AbstractControllerValidator
     {
         static $controller;
         if (!$controller) {
-            $httpClient = new FileSystemMockClient();
-            $builder = new Builder($httpClient);
-            $client = new Client(null, $builder);
-            $controller = new StatsController('test', 'phpunit', $client);
+            $client = (new TestClientFactory())->getClient(FileSystemMockClient::class);
+            $controller = new StatsController(static::getEnvironment($client), static::getOrganization($client), $client);
         }
 
         return $controller;

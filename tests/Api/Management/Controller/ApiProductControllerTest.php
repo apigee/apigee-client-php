@@ -107,7 +107,7 @@ class ApiProductControllerTest extends NonCpsLimitEntityControllerValidator
     {
         static $controller;
         if (!$controller) {
-            $controller = new ApiProductController(static::getOrganization(), static::$client);
+            $controller = new ApiProductController(static::getOrganization(static::$client), static::$client);
         }
 
         return $controller;

@@ -44,7 +44,7 @@ class AppControllerTest extends EntityControllerValidator
 
             /** @var \Apigee\Edge\Api\Management\Controller\DeveloperAppController $developerAppController */
             static::$developerAppController = new DeveloperAppController(
-                static::getOrganization(),
+                static::getOrganization(static::$client),
                 static::$developerId,
                 static::$client
             );
@@ -198,7 +198,7 @@ class AppControllerTest extends EntityControllerValidator
         static $controller;
         if (!$controller) {
             $controller = new AppController(
-                static::getOrganization(),
+                static::getOrganization(static::$client),
                 static::$client
             );
         }
