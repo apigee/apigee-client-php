@@ -18,7 +18,6 @@
  * - APIGEE_EDGE_PHP_SDK_ENDPOINT
  * - APIGEE_EDGE_PHP_SDK_ENVIRONMENT
  */
-
 use Apigee\Edge\HttpClient\Client;
 use Http\Message\Authentication\BasicAuth;
 
