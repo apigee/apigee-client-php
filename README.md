@@ -87,11 +87,12 @@ try {
 ### Advanced examples
 
 * [Create new developer app with a custom- and an auto-generated credential](examples/create_new_app_with_credential.php)
+* [Developer app analytics](examples/developer_app_analytics.php)
 
 Unit Tests
 ----------
 
-Setup the test suite using [Composer](http://getcomposer.org/) if not already done:
+Setup the test suite using [Composer](http://getcomposer.org/) if has not already done:
 
 ```
 $ composer install --dev
