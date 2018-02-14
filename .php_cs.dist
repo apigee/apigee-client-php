@@ -1,9 +1,16 @@
 <?php
 
+$header = <<<HEADER
+Copyright 2018 Google Inc.
+Use of this source code is governed by a MIT-style license that can be found in the LICENSE file or
+at https://opensource.org/licenses/MIT.
+HEADER;
+
 $finder = PhpCsFixer\Finder::create()
     ->files()
     ->name('*.php')
-    ->in([__DIR__ . '/src', __DIR__ . '/tests']);
+    ->name('*.inc')
+    ->in([__DIR__ . '/examples', __DIR__ . '/src', __DIR__ . '/tests']);
 
 return PhpCsFixer\Config::create()
     ->setRiskyAllowed(true)
@@ -13,6 +20,8 @@ return PhpCsFixer\Config::create()
         'array_syntax' => ['syntax' => 'short'],
         'class_definition' => ['singleLine' => false, 'singleItemSingleLine' => true],
         'concat_space' => ['spacing' => 'one'],
+        'header_comment' => ['header' => $header],
+        'general_phpdoc_annotation_remove' => ['author'],
         'ordered_class_elements' => true,
         'ordered_imports' => true,
         'phpdoc_align' => false,

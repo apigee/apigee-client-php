@@ -1,5 +1,11 @@
 <?php
 
+/*
+ * Copyright 2018 Google Inc.
+ * Use of this source code is governed by a MIT-style license that can be found in the LICENSE file or
+ * at https://opensource.org/licenses/MIT.
+ */
+
 namespace Apigee\Edge\Tests\Test\Mock;
 
 use Http\Client\Common\HttpAsyncClientEmulator;
@@ -11,8 +17,6 @@ use Psr\Http\Message\RequestInterface;
  * Class FileSystemMockClient.
  *
  * Loads the content of an HTTP response from the file system.
- *
- * @author Dezső Biczó <mxr576@gmail.com>
  */
 class FileSystemMockClient implements MockClientInterface
 {

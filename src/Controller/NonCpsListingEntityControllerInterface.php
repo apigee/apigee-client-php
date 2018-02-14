@@ -1,5 +1,11 @@
 <?php
 
+/*
+ * Copyright 2018 Google Inc.
+ * Use of this source code is governed by a MIT-style license that can be found in the LICENSE file or
+ * at https://opensource.org/licenses/MIT.
+ */
+
 namespace Apigee\Edge\Controller;
 
 /**
@@ -9,8 +15,6 @@ namespace Apigee\Edge\Controller;
  *
  * @see https://docs.apigee.com/management/apis/get/organizations
  * @see https://docs.apigee.com/management/apis/get/organizations/%7Borg_name%7D/apiproducts-0
- *
- * @author Dezső Biczó <mxr576@gmail.com>
  */
 interface NonCpsListingEntityControllerInterface
 {

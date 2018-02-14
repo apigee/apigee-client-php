@@ -11,14 +11,6 @@
     ],
     "homepage": "http://github.com/apigee/edge-php-sdk",
     "license": "MIT",
-    "authors": [
-        {
-            "name": "Dezső Biczó",
-            "email": "mxr576@gmail.com",
-            "homepage": "http://biczodezso.hu/",
-            "role": "Developer"
-        }
-    ],
     "require": {
         "php": "^7.1",
         "ext-json": "*",

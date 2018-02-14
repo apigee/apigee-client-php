@@ -1,5 +1,11 @@
 <?php
 
+/*
+ * Copyright 2018 Google Inc.
+ * Use of this source code is governed by a MIT-style license that can be found in the LICENSE file or
+ * at https://opensource.org/licenses/MIT.
+ */
+
 namespace Apigee\Edge\Api\Management\Controller;
 
 use Apigee\Edge\Api\Management\Entity\AppCredentialDenormalizer;
@@ -17,8 +23,6 @@ use Psr\Http\Message\UriInterface;
 
 /**
  * Class DeveloperAppCredentialController.
- *
- * @author Dezső Biczó <mxr576@gmail.com>
  */
 class DeveloperAppCredentialController extends EntityController implements DeveloperAppCredentialControllerInterface
 {

@@ -1,5 +1,11 @@
 <?php
 
+/*
+ * Copyright 2018 Google Inc.
+ * Use of this source code is governed by a MIT-style license that can be found in the LICENSE file or
+ * at https://opensource.org/licenses/MIT.
+ */
+
 namespace Apigee\Edge\Entity;
 
 /**
@@ -9,7 +15,6 @@ namespace Apigee\Edge\Entity;
  * Common properties are usually auto-generated and this is the reason why those properties's setters are marked as
  * internal.
  *
- * @author Dezső Biczó <mxr576@gmail.com>
  *
  * @see CommonEntityPropertiesInterface
  */

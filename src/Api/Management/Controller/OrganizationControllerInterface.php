@@ -1,5 +1,11 @@
 <?php
 
+/*
+ * Copyright 2018 Google Inc.
+ * Use of this source code is governed by a MIT-style license that can be found in the LICENSE file or
+ * at https://opensource.org/licenses/MIT.
+ */
+
 namespace Apigee\Edge\Api\Management\Controller;
 
 use Apigee\Edge\Controller\EntityCrudOperationsControllerInterface;
@@ -18,8 +24,6 @@ use Apigee\Edge\Controller\NonCpsListingEntityControllerInterface;
  * @see https://docs.apigee.com/management/apis/get/organizations/%7Borg_name%7D/pods
  * @see https://docs.apigee.com/management/apis/post/organizations/%7Borg_name%7D/pods
  * @see https://docs.apigee.com/management/apis/post/organizations/%7Borg_name%7D/pods-0
- *
- * @author Dezső Biczó <mxr576@gmail.com>
  */
 interface OrganizationControllerInterface extends
     EntityCrudOperationsControllerInterface,

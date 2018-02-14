@@ -1,5 +1,11 @@
 <?php
 
+/*
+ * Copyright 2018 Google Inc.
+ * Use of this source code is governed by a MIT-style license that can be found in the LICENSE file or
+ * at https://opensource.org/licenses/MIT.
+ */
+
 namespace Apigee\Edge\Tests\HttpClient;
 
 use Apigee\Edge\Exception\ClientErrorException;
@@ -14,7 +20,6 @@ use PHPUnit\Framework\TestCase;
 /**
  * Class ClientTest.
  *
- * @author Dezső Biczó <mxr576@gmail.com>
  *
  * @group client
  * @group mock

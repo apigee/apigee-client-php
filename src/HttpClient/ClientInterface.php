@@ -1,5 +1,11 @@
 <?php
 
+/*
+ * Copyright 2018 Google Inc.
+ * Use of this source code is governed by a MIT-style license that can be found in the LICENSE file or
+ * at https://opensource.org/licenses/MIT.
+ */
+
 namespace Apigee\Edge\HttpClient;
 
 use Apigee\Edge\HttpClient\Util\Journal;
@@ -12,8 +18,6 @@ use Psr\Http\Message\ResponseInterface;
  * Interface ClientInterface.
  *
  * Describes the public methods of an Apigee Edge API client.
- *
- * @author Dezső Biczó <mxr576@gmail.com>
  */
 interface ClientInterface extends HttpClient
 {

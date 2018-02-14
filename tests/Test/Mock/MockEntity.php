@@ -1,5 +1,11 @@
 <?php
 
+/*
+ * Copyright 2018 Google Inc.
+ * Use of this source code is governed by a MIT-style license that can be found in the LICENSE file or
+ * at https://opensource.org/licenses/MIT.
+ */
+
 namespace Apigee\Edge\Tests\Test\Mock;
 
 use Apigee\Edge\Api\Management\Entity\AppCredential;
@@ -10,8 +16,6 @@ use Apigee\Edge\Structure\PropertiesProperty;
 
 /**
  * Dummy entity that we can use in ours tests.
- *
- * @author Dezső Biczó <mxr576@gmail.com>
  */
 class MockEntity extends Entity
 {

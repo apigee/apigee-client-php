@@ -1,5 +1,11 @@
 <?php
 
+/*
+ * Copyright 2018 Google Inc.
+ * Use of this source code is governed by a MIT-style license that can be found in the LICENSE file or
+ * at https://opensource.org/licenses/MIT.
+ */
+
 namespace Apigee\Edge\HttpClient;
 
 use Apigee\Edge\Exception\ApiException;
@@ -26,8 +32,6 @@ use Psr\Http\Message\UriInterface;
  * Class Client.
  *
  * Default API client implementation for Apigee Edge.
- *
- * @author Dezső Biczó <mxr576@gmail.com>
  */
 class Client implements ClientInterface
 {

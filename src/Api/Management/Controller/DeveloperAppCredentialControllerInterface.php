@@ -1,5 +1,11 @@
 <?php
 
+/*
+ * Copyright 2018 Google Inc.
+ * Use of this source code is governed by a MIT-style license that can be found in the LICENSE file or
+ * at https://opensource.org/licenses/MIT.
+ */
+
 namespace Apigee\Edge\Api\Management\Controller;
 
 use Apigee\Edge\Api\Management\Entity\AppCredentialInterface;
@@ -11,7 +17,6 @@ use Apigee\Edge\Structure\AttributesProperty;
 /**
  * Interface DeveloperAppCredentialControllerInterface.
  *
- * @author Dezső Biczó <mxr576@gmail.com>
  *
  * @see link https://docs.apigee.com/api/developer-app-keys
  */

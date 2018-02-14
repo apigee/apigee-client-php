@@ -1,4 +1,11 @@
 <?php
+
+/*
+ * Copyright 2018 Google Inc.
+ * Use of this source code is governed by a MIT-style license that can be found in the LICENSE file or
+ * at https://opensource.org/licenses/MIT.
+ */
+
 /**
  * Basic authentication provider used by examples.
  *
@@ -17,8 +24,8 @@ use Http\Message\Authentication\BasicAuth;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-$username = getenv('APIGEE_EDGE_PHP_SDK_BASIC_AUTH_USER') ? : 'my-email-address@example.com';
-$password = getenv('APIGEE_EDGE_PHP_SDK_BASIC_AUTH_PASSWORD') ? : 'my-secure-password';
+$username = getenv('APIGEE_EDGE_PHP_SDK_BASIC_AUTH_USER') ?: 'my-email-address@example.com';
+$password = getenv('APIGEE_EDGE_PHP_SDK_BASIC_AUTH_PASSWORD') ?: 'my-secure-password';
 $organization = getenv('APIGEE_EDGE_PHP_SDK_ORGANIZATION') ?: 'my-organization';
 $endpoint = getenv('APIGEE_EDGE_PHP_SDK_ENDPOINT') ?: null;
 $environment = getenv('APIGEE_EDGE_PHP_SDK_ENVIRONMENT') ?: 'test';

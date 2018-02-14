@@ -1,8 +1,9 @@
 <?php
-/**
- * An example of using the Stats controller for retrieving developer app analytics.
- *
- * The original implementation of the < 2.0 version of this library can be found here: https://github.com/apigee/edge-php-sdk/blob/master/Apigee/ManagementAPI/DeveloperAppAnalytics.php
+
+/*
+ * Copyright 2018 Google Inc.
+ * Use of this source code is governed by a MIT-style license that can be found in the LICENSE file or
+ * at https://opensource.org/licenses/MIT.
  */
 
 use Apigee\Edge\Api\Management\Controller\DeveloperController;
@@ -24,9 +25,9 @@ try {
 } catch (ClientErrorException $e) {
     // HTTP code >= 400 and < 500. Ex.: 401 Unauthorised.
     if ($e->getEdgeErrorCode()) {
-        print $e->getEdgeErrorCode();
+        echo $e->getEdgeErrorCode();
     } else {
-        print $e;
+        echo $e;
     }
     throw $e;
 } catch (ServerErrorException $e) {
@@ -50,9 +51,9 @@ try {
 } catch (ClientErrorException $e) {
     // HTTP code >= 400 and < 500. Ex.: 401 Unauthorised.
     if ($e->getEdgeErrorCode()) {
-        print $e->getEdgeErrorCode();
+        echo $e->getEdgeErrorCode();
     } else {
-        print $e;
+        echo $e;
     }
 } catch (ServerErrorException $e) {
     // HTTP code >= 500 and < 600. Ex.: 500 Server error.

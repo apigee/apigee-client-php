@@ -1,5 +1,11 @@
 <?php
 
+/*
+ * Copyright 2018 Google Inc.
+ * Use of this source code is governed by a MIT-style license that can be found in the LICENSE file or
+ * at https://opensource.org/licenses/MIT.
+ */
+
 namespace Apigee\Edge\HttpClient\Util;
 
 use Http\Client\Common\Plugin;
@@ -10,8 +16,6 @@ use Psr\Cache\CacheItemPoolInterface;
  * Interface BuilderInterface.
  *
  * Describes the public methods of a class that helps in building an Http client.
- *
- * @author Dezső Biczó <mxr576@gmail.com>
  */
 interface BuilderInterface
 {

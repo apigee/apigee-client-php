@@ -1,12 +1,9 @@
 <?php
-/**
- * An example of creating a new developer app with credential.
- *
- * All SDK classes tries to fulfil only one task (Single Responsibility design pattern).
- *
- * This is the reason why the DeveloperAppController only handles developer app related C.R.U.D operations and
- * does not allow to add or modify credentials for an app. These operations are handled by the
- * DeveloperAppCredentialController.
+
+/*
+ * Copyright 2018 Google Inc.
+ * Use of this source code is governed by a MIT-style license that can be found in the LICENSE file or
+ * at https://opensource.org/licenses/MIT.
  */
 
 use Apigee\Edge\Api\Management\Controller\DeveloperAppController;
@@ -53,9 +50,9 @@ try {
 } catch (ClientErrorException $e) {
     // HTTP code >= 400 and < 500. Ex.: 401 Unauthorised.
     if ($e->getEdgeErrorCode()) {
-        print $e->getEdgeErrorCode();
+        echo $e->getEdgeErrorCode();
     } else {
-        print $e;
+        echo $e;
     }
 } catch (ServerErrorException $e) {
     // HTTP code >= 500 and < 600. Ex.: 500 Server error.

@@ -1,5 +1,11 @@
 <?php
 
+/*
+ * Copyright 2018 Google Inc.
+ * Use of this source code is governed by a MIT-style license that can be found in the LICENSE file or
+ * at https://opensource.org/licenses/MIT.
+ */
+
 namespace Apigee\Edge\Entity;
 
 use Apigee\Edge\Api\Management\Entity\Organization;
@@ -17,8 +23,6 @@ use Apigee\Edge\Api\Management\Entity\Organization;
  * - An entity should not have other properties than what Edge returns for a related API call, but it could have
  *   additional helper methods that make developers life easier. @see Organization::isCpsEnabled()
  * - Entity properties with object or array types must be initialized.
- *
- * @author Dezső Biczó <mxr576@gmail.com>
  */
 class Entity implements EntityInterface
 {
