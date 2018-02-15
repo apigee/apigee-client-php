@@ -18,7 +18,7 @@ require_once 'authentication.inc';
 
 $developerMail = 'developer1@example.com';
 
-$dac = new DeveloperAppController($organization, $developerMail, $client);
+$dac = new DeveloperAppController($clientFactory->getOrganization(), $developerMail, $clientFactory->getClient());
 
 try {
     // Create a new developer app.

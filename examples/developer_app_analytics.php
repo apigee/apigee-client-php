@@ -15,11 +15,13 @@ use League\Period\Period;
 
 require_once 'authentication.inc';
 
+$environment = getenv('APIGEE_EDGE_PHP_SDK_ENVIRONMENT') ?: 'test';
+
 $developerMail = getenv('APIGEE_EDGE_PHP_EXAMPLE_DEVELOPER_MAIL') ?: 'developer1@example.com';
 $developerAppName = getenv('APIGEE_EDGE_PHP_EXAMPLE_DEVELOPER_APP_NAME') ?: 'test_app';
 
 try {
-    $dc = new DeveloperController($organization, $client);
+    $dc = new DeveloperController($clientFactory->getOrganization(), $clientFactory->getClient());
     /** @var \Apigee\Edge\Api\Management\Entity\DeveloperInterface $developer */
     $developer = $dc->load($developerMail);
 } catch (ClientErrorException $e) {

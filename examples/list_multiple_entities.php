@@ -17,7 +17,7 @@ require_once 'authentication.inc';
 /**
  * List all developers on the organization.
  */
-$dc = new DeveloperController($organization, $client);
+$dc = new DeveloperController($clientFactory->getOrganization(), $clientFactory->getClient());
 /** @var \Apigee\Edge\Api\Management\Entity\DeveloperInterface $developer */
 foreach ($dc->getEntities() as $developer) {
     echo $developer->getFirstName() . ' ' . $developer->getLastName() . "\n";
