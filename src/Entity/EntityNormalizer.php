@@ -132,8 +132,7 @@ class EntityNormalizer implements NormalizerInterface
             } elseif (Type::BUILTIN_TYPE_ARRAY === $builtInType) {
                 foreach ($data as $key => $item) {
                     if (is_object($item)) {
-                        list('class' => $propertyClass, 'collectionKeyType' => $propertyCollectionKeyType) = $this->getPropertyTypeInfo($item);
-                        $data[$key] = $this->normalizeObjectProperty($propertyCollectionKeyType, $item, $propertyClass, $format, $context);
+                        $data[$key] = $this->normalizeObjectProperty(false, $item, get_class($item), $format, $context);
                     }
                 }
             }
