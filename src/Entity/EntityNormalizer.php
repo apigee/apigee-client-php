@@ -67,13 +67,7 @@ class EntityNormalizer implements NormalizerInterface
                 $getter = 'is' . ucfirst($property->getName());
             }
             if ($ro->hasMethod($getter)) {
-                $asArray[$property->getName()] = $this->normalizeProperty(
-                    call_user_func([$object, $getter]),
-                    $property->getName(),
-                    $class,
-                    $format,
-                    $context
-                );
+                $asArray[$property->getName()] = $this->normalizeProperty(call_user_func([$object, $getter]), $property->getName(), $class, $format, $context);
             }
         }
         // Exclude null values from the output, even if PATCH is not supported on Apigee Edge
@@ -137,8 +131,9 @@ class EntityNormalizer implements NormalizerInterface
                 }
             } elseif (Type::BUILTIN_TYPE_ARRAY === $builtInType) {
                 foreach ($data as $key => $item) {
-                    if (is_object($item) || is_array($item)) {
-                        $data[$key] = $this->normalizeProperty($item, $property, $class, $format, $context);
+                    if (is_object($item)) {
+                        list('class' => $propertyClass, 'collectionKeyType' => $propertyCollectionKeyType) = $this->getPropertyTypeInfo($item);
+                        $data[$key] = $this->normalizeObjectProperty($propertyCollectionKeyType, $item, $propertyClass, $format, $context);
                     }
                 }
             }
@@ -148,17 +143,21 @@ class EntityNormalizer implements NormalizerInterface
     }
 
     /**
-     * @param $isCollection
-     * @param $data
-     * @param $class
-     * @param $format
-     * @param $context
+     * Normalizes object properties.
+     *
+     * @param bool $isCollection
+     * @param mixed $data
+     * @param string $class
+     * @param string $format
+     *   Format the normalization result will be encoded as
+     * @param array $context
+     *   Context options for the normalizer
      *
      * @throws \ReflectionException
      *
      * @return mixed
      */
-    protected function normalizeObjectProperty($isCollection, $data, $class, $format, $context)
+    protected function normalizeObjectProperty(bool $isCollection, $data, string $class, $format, $context)
     {
         $normalized = $data;
         if (\DateTimeImmutable::class == $class && null !== $data) {
