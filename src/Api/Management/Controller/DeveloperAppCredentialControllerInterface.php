@@ -17,7 +17,6 @@ use Apigee\Edge\Structure\AttributesProperty;
 /**
  * Interface DeveloperAppCredentialControllerInterface.
  *
- *
  * @see link https://docs.apigee.com/api/developer-app-keys
  */
 interface DeveloperAppCredentialControllerInterface extends

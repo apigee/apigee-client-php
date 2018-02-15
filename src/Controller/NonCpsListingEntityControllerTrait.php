@@ -11,7 +11,6 @@ namespace Apigee\Edge\Controller;
 /**
  * Trait NonCpsListingEntityControllerTrait.
  *
- *
  * @see \Apigee\Edge\Controller\NonCpsListingEntityControllerInterface
  */
 trait NonCpsListingEntityControllerTrait

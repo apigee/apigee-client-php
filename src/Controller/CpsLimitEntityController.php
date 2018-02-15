@@ -18,7 +18,6 @@ use Apigee\Edge\Structure\CpsListLimitInterface;
 /**
  * Class CpsLimitEntityController.
  *
- *
  * @see \Apigee\Edge\Controller\CpsLimitEntityControllerInterface
  */
 abstract class CpsLimitEntityController extends EntityController

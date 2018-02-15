@@ -16,7 +16,6 @@ use Apigee\Edge\Controller\StatusAwareEntityControllerInterface;
 /**
  * Interface DeveloperAppControllerInterface.
  *
- *
  * @see https://docs.apigee.com/api/apps-developer
  */
 interface DeveloperAppControllerInterface extends

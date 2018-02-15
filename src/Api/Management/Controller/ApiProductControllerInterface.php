@@ -15,7 +15,6 @@ use Apigee\Edge\Controller\NonCpsListingEntityControllerInterface;
 /**
  * Interface ApiProductControllerInterface.
  *
- *
  * @see https://docs.apigee.com/api/api-products-1
  */
 interface ApiProductControllerInterface extends

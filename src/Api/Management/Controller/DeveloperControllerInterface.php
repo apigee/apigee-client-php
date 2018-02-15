@@ -16,10 +16,7 @@ use Apigee\Edge\Controller\EntityCrudOperationsControllerInterface;
 use Apigee\Edge\Controller\StatusAwareEntityControllerInterface;
 
 /**
- * Interface DeveloperControllerInterface.
- *
- * Describes methods available on developers.
- *
+ * Describes methods available on developers endpoint.
  *
  * @see https://docs.apigee.com/api/developers-0
  */
