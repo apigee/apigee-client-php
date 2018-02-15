@@ -13,7 +13,7 @@
 Getting started
 ---------- 
 
-The APIgee PHP Edge SDK is an HTTP client implementation-independent library thanks for the [HTTPlug](http://docs.php-http.org/en/latest/)
+The Apigee PHP Edge SDK is an HTTP client implementation-independent library thanks for the [HTTPlug](http://docs.php-http.org/en/latest/)
 library. It means that you, as a developer, can choose the client that best fits your project and use the same
 client for all packages.
 
@@ -88,6 +88,7 @@ try {
 
 * [Create new developer app with a custom- and an auto-generated credential](examples/create_new_app_with_credential.php)
 * [Developer app analytics](examples/developer_app_analytics.php)
+* [List entities (developers, api products, developer apps, etc.)](examples/list_multiple_entities.php)
 
 Unit Tests
 ----------
@@ -124,4 +125,4 @@ It is also possible to create and use your own data set. If you would like to us
 you just need to define the `APIGEE_EDGE_PHP_SDK_OFFLINE_TEST_DATA_FOLDER` environment variable set its value to the parent
 folder of your own test data set.
 
-PS.: Some unit tests can not be executed when the offline test data is used, those are automatically skipped.
+PS.: Some unit tests can not be executed when the offline test data is in use, those are automatically marked as skipped.

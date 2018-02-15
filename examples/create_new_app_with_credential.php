@@ -8,6 +8,7 @@
 
 use Apigee\Edge\Api\Management\Controller\DeveloperAppController;
 use Apigee\Edge\Api\Management\Controller\DeveloperAppCredentialController;
+use Apigee\Edge\Api\Management\Entity\DeveloperApp;
 use Apigee\Edge\Exception\ApiException;
 use Apigee\Edge\Exception\ClientErrorException;
 use Apigee\Edge\Exception\ServerErrorException;
@@ -22,7 +23,7 @@ $dac = new DeveloperAppController($organization, $developerMail, $client);
 try {
     // Create a new developer app.
     /** @var \Apigee\Edge\Api\Management\Entity\DeveloperApp $developerApp */
-    $developerApp = new \Apigee\Edge\Api\Management\Entity\DeveloperApp(['name' => 'test_app_1']);
+    $developerApp = new DeveloperApp(['name' => 'test_app_1']);
     $developerApp->setDisplayName('My first app');
     $dac->create($developerApp);
 
