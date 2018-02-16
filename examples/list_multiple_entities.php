@@ -55,7 +55,7 @@ foreach ($dc->getEntities($dc->createCpsLimit('john.doe@example.com', 5)) as $de
  *
  * In the SDK anything that implements \Apigee\Edge\Controller\NonCpsListingEntityControllerInterface.
  */
-$ac = new ApiProductController($organization, $client);
+$ac = new ApiProductController($clientFactory->getOrganization(), $clientFactory->getClient());
 /** @var \Apigee\Edge\Api\Management\Entity\ApiProductInterface $product */
 foreach ($ac->getEntities() as $product) {
     echo $product->getDisplayName() . "\n";
