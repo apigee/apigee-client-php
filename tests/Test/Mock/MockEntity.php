@@ -50,16 +50,16 @@ class MockEntity extends Entity
     /** @var string */
     private $emptyString = '';
 
-    /** @var AttributesProperty */
+    /** @var \Apigee\Edge\Structure\AttributesProperty */
     private $attributesProperty;
 
-    /** @var PropertiesProperty */
+    /** @var \Apigee\Edge\Structure\PropertiesProperty */
     private $propertiesProperty;
 
-    /** @var AppCredential[] */
+    /** @var \Apigee\Edge\Api\Management\Entity\AppCredential[] */
     private $appCredential = [];
 
-    /** @var CredentialProduct */
+    /** @var \Apigee\Edge\Structure\CredentialProduct */
     private $credentialProduct;
 
     /** @var null|\DateTimeImmutable */
@@ -210,8 +210,8 @@ class MockEntity extends Entity
     /**
      * @param \Apigee\Edge\Structure\AttributesProperty $attributesProperty
      */
-    public function setAttributesProperty(AttributesProperty $attributesProperty
-    ): void {
+    public function setAttributesProperty(AttributesProperty $attributesProperty): void
+    {
         $this->attributesProperty = $attributesProperty;
     }
 
@@ -248,7 +248,7 @@ class MockEntity extends Entity
     }
 
     /**
-     * @return AppCredential[]
+     * @return \Apigee\Edge\Api\Management\Entity\AppCredential[]
      */
     public function getAppCredential(): array
     {
@@ -256,7 +256,7 @@ class MockEntity extends Entity
     }
 
     /**
-     * @param AppCredential[] $appCredential
+     * @param \Apigee\Edge\Api\Management\Entity\AppCredential[] $appCredential
      */
     public function setAppCredential(array $appCredential): void
     {

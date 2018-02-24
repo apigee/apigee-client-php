@@ -16,9 +16,10 @@
  * limitations under the License.
  */
 
-namespace Apigee\Edge\Api\Management\Entity;
+namespace Apigee\Edge\Api\Management\Normalizer;
 
-use Apigee\Edge\Entity\EntityNormalizer;
+use Apigee\Edge\Api\Management\Entity\AppCredentialInterface;
+use Apigee\Edge\Normalizer\EntityNormalizer;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 /**

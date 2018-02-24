@@ -18,11 +18,11 @@
 
 namespace Apigee\Edge\Controller;
 
-use Apigee\Edge\Entity\EntityDenormalizer;
+use Apigee\Edge\Denormalizer\EntityDenormalizer;
 use Apigee\Edge\Entity\EntityFactory;
 use Apigee\Edge\Entity\EntityFactoryInterface;
-use Apigee\Edge\Entity\EntityNormalizer;
 use Apigee\Edge\HttpClient\ClientInterface;
+use Apigee\Edge\Normalizer\EntityNormalizer;
 use Psr\Http\Message\UriInterface;
 use Symfony\Component\Serializer\Encoder\JsonDecode;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;

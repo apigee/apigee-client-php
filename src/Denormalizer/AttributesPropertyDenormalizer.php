@@ -16,7 +16,9 @@
  * limitations under the License.
  */
 
-namespace Apigee\Edge\Structure;
+namespace Apigee\Edge\Denormalizer;
+
+use Apigee\Edge\Structure\AttributesProperty;
 
 /**
  * Class AttributesPropertyDenormalizer.
@@ -28,7 +30,9 @@ class AttributesPropertyDenormalizer extends KeyValueMapDenormalizer
      */
     public function supportsDenormalization($data, $type, $format = null)
     {
-        return $type instanceof AttributesProperty;
+        $type = rtrim($type, '[]');
+
+        return AttributesProperty::class === $type || $type instanceof AttributesProperty || in_array(AttributesProperty::class, class_parents($type));
     }
 
     /**

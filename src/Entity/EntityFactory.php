@@ -18,7 +18,7 @@
 
 namespace Apigee\Edge\Entity;
 
-use Apigee\Edge\Exception\EntityNotFoundException;
+use Apigee\Edge\Utility\ClassMatcher;
 
 /**
  * Class EntityFactory.
@@ -30,7 +30,12 @@ final class EntityFactory implements EntityFactoryInterface
      *
      * @var string[]
      */
-    private static $classMappingCache = [];
+    private static $classMappingCache = [
+        // Special handling of DeveloperAppCredentialController and CompanyAppCredentialController entity controllers,
+        // because those uses the same entity, AppCredential.
+        'Apigee\Edge\Api\Management\Controller\DeveloperAppCredentialController' => 'Apigee\Edge\Api\Management\Entity\AppCredential',
+        'Apigee\Edge\Api\Management\Controller\CompanyAppCredentialController' => 'Apigee\Edge\Api\Management\Entity\AppCredential',
+    ];
 
     /**
      * Entity object cache.
@@ -44,42 +49,13 @@ final class EntityFactory implements EntityFactoryInterface
      */
     public function getEntityTypeByController($entityController): string
     {
-        $className = $this->getClassName($entityController);
+        $fqcn = $this->getClassName($entityController);
         // Try to find it in the static cache first.
-        if (isset(self::$classMappingCache[$className])) {
-            return self::$classMappingCache[$className];
+        if (!isset(static::$classMappingCache[$fqcn])) {
+            static::$classMappingCache[$fqcn] = ClassMatcher::getClass($entityController, ['Controller' => 'Entity'], ['Controller' => '']);
         }
-        $fqcn_parts = explode('\\', $className);
-        $entityControllerClass = array_pop($fqcn_parts);
-        // Special handling of DeveloperAppCredentialController and CompanyAppCredentialController entity controllers,
-        // because those uses the same entity, AppCredential.
-        $appCredentialController = 'AppCredentialController';
-        $isAppCredentialController = (0 === substr_compare(
-            $entityControllerClass,
-            $appCredentialController,
-            strlen($entityControllerClass) - strlen($appCredentialController),
-            strlen($appCredentialController)
-        ));
-        if ($isAppCredentialController) {
-            $entityControllerClass = $appCredentialController;
-        }
-        // Get rid of "Controller" from the namespace.
-        array_pop($fqcn_parts);
-        // Add "Entity" instead.
-        $fqcn_parts[] = 'Entity';
-        $entityControllerClassNameParts = preg_split('/(?=[A-Z])/', $entityControllerClass);
-        // First index is an empty string, the last one is "Controller". Let's get rid of those.
-        array_shift($entityControllerClassNameParts);
-        array_pop($entityControllerClassNameParts);
-        $fqcn_parts[] = implode('', $entityControllerClassNameParts);
-        $fqcn = implode('\\', $fqcn_parts);
-        if (!class_exists($fqcn)) {
-            throw new EntityNotFoundException($fqcn);
-        }
-        // Add it to to object cache.
-        static::$classMappingCache[$className] = $fqcn;
 
-        return static::$classMappingCache[$className];
+        return static::$classMappingCache[$fqcn];
     }
 
     /**

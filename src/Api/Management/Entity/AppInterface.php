@@ -76,7 +76,7 @@ interface AppInterface extends
     public function setCallbackUrl(string $callbackUrl): void;
 
     /**
-     * @return \Apigee\Edge\Api\Management\Entity\AppCredential[]
+     * @return \Apigee\Edge\Api\Management\Entity\AppCredentialInterface[]
      */
     public function getCredentials(): array;
 }

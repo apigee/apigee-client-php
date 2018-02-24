@@ -18,8 +18,8 @@
 
 namespace Apigee\Edge\Tests\Entity;
 
-use Apigee\Edge\Entity\EntityDenormalizer;
-use Apigee\Edge\Entity\EntityNormalizer;
+use Apigee\Edge\Denormalizer\EntityDenormalizer;
+use Apigee\Edge\Normalizer\EntityNormalizer;
 use Apigee\Edge\Tests\Test\Mock\MockEntity;
 use PHPUnit\Framework\TestCase;
 use SebastianBergmann\Comparator\ComparisonFailure;
@@ -40,10 +40,10 @@ use SebastianBergmann\Comparator\Factory as ComparisonFactory;
  */
 class EntityTransformationTest extends TestCase
 {
-    /** @var \Apigee\Edge\Entity\EntityNormalizer */
+    /** @var \Apigee\Edge\Normalizer\EntityNormalizer */
     protected static $normalizer;
 
-    /** @var \Apigee\Edge\Entity\EntityDenormalizer */
+    /** @var \Apigee\Edge\Denormalizer\EntityDenormalizer */
     protected static $denormalizer;
 
     /**

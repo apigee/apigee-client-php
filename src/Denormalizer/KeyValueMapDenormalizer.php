@@ -16,23 +16,31 @@
  * limitations under the License.
  */
 
-namespace Apigee\Edge\Exception;
+namespace Apigee\Edge\Denormalizer;
+
+use Apigee\Edge\Structure\KeyValueMapInterface;
+use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 
 /**
- * Class EntityNotFoundException.
+ * Class KeyValueMapDenormalizer.
  */
-class EntityNotFoundException extends \Exception
+class KeyValueMapDenormalizer implements DenormalizerInterface
 {
     /**
-     * EntityNotFoundException constructor.
-     *
-     * @param string $fqcn Fully wualified name of the class.
-     * @param int $code
-     * @param \Throwable|null $previous
+     * @inheritdoc
      */
-    public function __construct($fqcn, $code = 0, \Throwable $previous = null)
+    public function denormalize($data, $class, $format = null, array $context = [])
     {
-        $message = sprintf('%s entity not found.', $fqcn);
-        parent::__construct($message, $code, $previous);
+        return new $class($data);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function supportsDenormalization($data, $type, $format = null)
+    {
+        $type = rtrim($type, '[]');
+
+        return $type instanceof KeyValueMapInterface;
     }
 }

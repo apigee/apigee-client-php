@@ -67,6 +67,8 @@ class AppDenormalizer extends EntityDenormalizer implements DenormalizerInterfac
      */
     public function supportsDenormalization($data, $type, $format = null)
     {
+        $type = rtrim($type, '[]');
+
         return AppInterface::class === $type || $type instanceof AppInterface || in_array($type, class_implements(AppInterface::class));
     }
 }

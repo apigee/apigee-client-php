@@ -16,19 +16,20 @@
  * limitations under the License.
  */
 
-namespace Apigee\Edge\Structure;
+namespace Apigee\Edge\Denormalizer;
+
+use Apigee\Edge\Structure\PropertiesProperty;
 
 /**
  * Class PropertiesPropertyDenormalizer.
  */
 class PropertiesPropertyDenormalizer extends KeyValueMapDenormalizer
 {
-    /**
-     * @inheritdoc
-     */
-    public function supportsNormalization($data, $format = null)
+    public function supportsDenormalization($data, $type, $format = null)
     {
-        return $data instanceof PropertiesProperty;
+        $type = rtrim($type, '[]');
+
+        return PropertiesProperty::class === $type || $type instanceof PropertiesProperty || in_array(PropertiesProperty::class, class_parents($type));
     }
 
     /**

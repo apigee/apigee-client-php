@@ -16,16 +16,17 @@
  * limitations under the License.
  */
 
-namespace Apigee\Edge\Structure;
+namespace Apigee\Edge\Normalizer;
+
+use Apigee\Edge\Structure\CredentialProductInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 /**
- * Class PropertiesPropertyNormalizer.
+ * Class CredentialProductNormalizer.
  */
-class PropertiesPropertyNormalizer extends KeyValueMapNormalizer
+class CredentialProductNormalizer implements NormalizerInterface
 {
     /**
-     * Transforms JSON representation of properties property to compatible with what Edge accepts.
-     *
      * @inheritdoc
      *
      * @psalm-suppress InvalidReturnType Returning an object here is required
@@ -33,10 +34,18 @@ class PropertiesPropertyNormalizer extends KeyValueMapNormalizer
      */
     public function normalize($object, $format = null, array $context = [])
     {
-        $return = [
-            'property' => parent::normalize($object, $format, $context),
+        /* @var \Apigee\Edge\Structure\CredentialProductInterface $object */
+        return (object) [
+            'apiproduct' => $object->getApiproduct(),
+            'status' => $object->getStatus(),
         ];
+    }
 
-        return (object) $return;
+    /**
+     * @inheritdoc
+     */
+    public function supportsNormalization($data, $format = null)
+    {
+        return $data instanceof CredentialProductInterface;
     }
 }

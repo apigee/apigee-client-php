@@ -65,10 +65,18 @@ class ApiProduct extends Entity implements ApiProductInterface
     /** @var int|null */
     protected $quota;
 
-    /** @var int|null */
+    /**
+     * Edge passes this value as string.
+     *
+     * @var string|null
+     */
     protected $quotaInterval;
 
-    /** @var string|null */
+    /**
+     * Edge passes this value as string.
+     *
+     * @var string|null
+     */
     protected $quotaTimeUnit;
 
     /**
@@ -117,7 +125,7 @@ class ApiProduct extends Entity implements ApiProductInterface
     /**
      * @inheritdoc
      */
-    public function getQuotaInterval(): ?int
+    public function getQuotaInterval(): ?string
     {
         return $this->quotaInterval;
     }
@@ -125,7 +133,7 @@ class ApiProduct extends Entity implements ApiProductInterface
     /**
      * @inheritdoc
      */
-    public function setQuotaInterval(int $quotaInterval): void
+    public function setQuotaInterval(string $quotaInterval): void
     {
         $this->quotaInterval = $quotaInterval;
     }

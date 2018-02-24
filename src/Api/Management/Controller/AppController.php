@@ -18,8 +18,8 @@
 
 namespace Apigee\Edge\Api\Management\Controller;
 
-use Apigee\Edge\Api\Management\Entity\AppDenormalizer;
 use Apigee\Edge\Api\Management\Entity\AppInterface;
+use Apigee\Edge\Api\Management\Normalizer\AppDenormalizer;
 use Apigee\Edge\Controller\CpsLimitEntityController;
 use Apigee\Edge\Structure\CpsListLimitInterface;
 use Psr\Http\Message\ResponseInterface;

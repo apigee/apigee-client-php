@@ -18,9 +18,9 @@
 
 namespace Apigee\Edge\Tests\Structure;
 
+use Apigee\Edge\Denormalizer\AttributesPropertyDenormalizer;
+use Apigee\Edge\Normalizer\KeyValueMapNormalizer;
 use Apigee\Edge\Structure\AttributesProperty;
-use Apigee\Edge\Structure\AttributesPropertyDenormalizer;
-use Apigee\Edge\Structure\AttributesPropertyNormalizer;
 use PHPUnit\Framework\TestCase;
 use SebastianBergmann\Comparator\ComparisonFailure;
 use SebastianBergmann\Comparator\Factory as ComparisonFactory;
@@ -39,10 +39,10 @@ use SebastianBergmann\Comparator\Factory as ComparisonFactory;
  */
 class AttributesPropertyTransformationTest extends TestCase
 {
-    /** @var \Apigee\Edge\Structure\AttributesPropertyNormalizer */
+    /** @var \Apigee\Edge\Normalizer\KeyValueMapNormalizer */
     protected static $normalizer;
 
-    /** @var \Apigee\Edge\Structure\AttributesPropertyDenormalizer */
+    /** @var \Apigee\Edge\Denormalizer\AttributesPropertyDenormalizer */
     protected static $denormalizer;
 
     /**
@@ -51,7 +51,7 @@ class AttributesPropertyTransformationTest extends TestCase
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        static::$normalizer = new AttributesPropertyNormalizer();
+        static::$normalizer = new KeyValueMapNormalizer();
         static::$denormalizer = new AttributesPropertyDenormalizer();
     }
 

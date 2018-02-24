@@ -61,14 +61,14 @@ interface ApiProductInterface extends
     public function setQuota(int $quota);
 
     /**
-     * @return int|null
+     * @return string|null
      */
-    public function getQuotaInterval(): ?int;
+    public function getQuotaInterval(): ?string;
 
     /**
-     * @param int $quotaInterval
+     * @param string $quotaInterval
      */
-    public function setQuotaInterval(int $quotaInterval): void;
+    public function setQuotaInterval(string $quotaInterval): void;
 
     /**
      * @return string
