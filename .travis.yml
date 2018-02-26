@@ -1,6 +1,11 @@
 language: php
 sudo: false
 
+addons:
+  apt:
+    packages:
+      - git
+
 php:
   - 7.1
   - 7.2
@@ -28,6 +33,9 @@ env:
 install:
   - composer global require hirak/prestissimo:^0.3.7
   - travis_retry composer update $COMPOSER_OPTIONS $DEPENDENCIES
+  # Fix PHPUnit tests on PHP >= 7.2 with upgrading Guzzle to >= 6.3.0.
+  # https://github.com/guzzle/guzzle/issues/1973
+  - if [[ $(phpenv version-name) = "7.2" ]] && [[ "$DEPENDENCIES" = "--prefer-lowest" ]]; then composer require guzzlehttp/guzzle:^6.3.0 --update-with-dependencies $DEPENDENCIES; fi
   - composer show
 
 script:
