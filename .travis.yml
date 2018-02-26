@@ -31,7 +31,10 @@ install:
   - composer show
 
 script:
-  - composer check-style
+  # Check only changed files.
+  - IFS=$'\n'; CHANGED_FILES=($(git diff --name-only --diff-filter=ACMRTUXB "${TRAVIS_COMMIT_RANGE}")); unset IFS
+  - EXTRA_ARGS=('--path-mode=intersection' '--' "${CHANGED_FILES[@]}")
+  - composer check-style -- --using-cache=no "${EXTRA_ARGS[@]}"
   - composer analyze
   - composer test
   - if [[ $(phpenv version-name) = "7.1" ]] && [[ "$DEPENDENCIES" = "--prefer-lowest" ]]; then composer metrics; fi
