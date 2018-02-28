@@ -1,6 +1,6 @@
 # Apigee Edge PHP SDK
 
-**Currently the 2.x version is under active development. Use it on your own risk or install the latest 1.x version!**
+** Currently the 2.x version is under active development. Use it on your own risk or install the latest 1.x version! **
 
 [![Build Status](https://travis-ci.org/apigee/edge-php-sdk.svg?branch=2.x-dev)](https://travis-ci.org/apigee/edge-php-sdk)
 [![Code Coverage](https://codecov.io/gh/apigee/edge-php-sdk/branch/2.x-dev/graph/badge.svg)](https://codecov.io/gh/apigee/edge-php-sdk/branch/2.x-dev)
@@ -10,8 +10,7 @@
 [![Minimum PHP Version](https://img.shields.io/badge/PHP-%3E%3D%207.1-8892BF.svg?style=flat-square)](https://php.net/)
 [![License](https://poser.pugx.org/apigee/edge/license)](https://packagist.org/packages/apigee/edge)
 
-Getting started
----------- 
+## Getting started
 
 The Apigee PHP Edge SDK is an HTTP client implementation-independent library thanks for the [HTTPlug](http://docs.php-http.org/en/latest/)
 library. It means that you, as a developer, can choose the client that best fits your project and use the same
@@ -28,8 +27,7 @@ $ composer require apigee/edge:2.*
 
 ```
 
-Usage examples
-----------
+## Usage examples
 
 ### Basic API usage
 
@@ -90,8 +88,7 @@ try {
 * [Developer app analytics](examples/developer_app_analytics.php)
 * [List entities (developers, api products, developer apps, etc.)](examples/list_multiple_entities.php)
 
-Unit Tests
-----------
+## Unit Tests
 
 Setup the test suite using [Composer](http://getcomposer.org/) if has not already done:
 
@@ -126,3 +123,10 @@ you just need to define the `APIGEE_EDGE_PHP_SDK_OFFLINE_TEST_DATA_FOLDER` envir
 folder of your own test data set.
 
 PS.: Some unit tests can not be executed when the offline test data is in use, those are automatically marked as skipped.
+
+## Support
+This is not an officially supported Google product. Please file issues in our GitHub Issue Queue. We would love to 
+accept contributions to this project, please see the [contribution guidelines for this project](CONTRIBUTING.md) for 
+more details.
+
+
