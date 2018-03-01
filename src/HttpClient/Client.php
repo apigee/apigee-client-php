@@ -8,7 +8,6 @@
 
 namespace Apigee\Edge\HttpClient;
 
-use Apigee\Edge\Exception\ApiRequestException;
 use Apigee\Edge\HttpClient\Plugin\ResponseHandlerPlugin;
 use Apigee\Edge\HttpClient\Utility\Builder;
 use Apigee\Edge\HttpClient\Utility\BuilderInterface;
@@ -258,20 +257,10 @@ class Client implements ClientInterface
 
     /**
      * @inheritdoc
-     *
-     * @throws \Apigee\Edge\Exception\ApiRequestException If an error happens during processing the request or the response.
-     * (See subclasses that holds more detailed information about the error.)
      */
     public function sendRequest(RequestInterface $request): ResponseInterface
     {
-        try {
-            return $this->getHttpClient()->sendRequest($request);
-        } catch (\Exception $e) {
-            if ($e instanceof ApiRequestException) {
-                throw $e;
-            }
-            throw new ApiRequestException($request, $e->getMessage(), $e->getCode(), $e);
-        }
+        return $this->getHttpClient()->sendRequest($request);
     }
 
     /**
