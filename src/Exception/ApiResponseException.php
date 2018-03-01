@@ -13,11 +13,9 @@ use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
 /**
- * Class ApiResponseException.
- *
- * General exception class for API response errors.
+ * Thrown when a response was received but the request itself failed.
  */
-class ApiResponseException extends ApiException
+class ApiResponseException extends ApiRequestException
 {
     /** @var \Psr\Http\Message\ResponseInterface */
     protected $response;

@@ -10,7 +10,7 @@ namespace Apigee\Edge\Tests\Api\Management\Controller;
 
 use Apigee\Edge\Api\Management\Controller\ApiProductController;
 use Apigee\Edge\Api\Management\Controller\DeveloperController;
-use Apigee\Edge\Exception\ApiException;
+use Apigee\Edge\Exception\ApiRequestException;
 use Apigee\Edge\Exception\ClientErrorException;
 use Apigee\Edge\Tests\Test\Mock\TestClientFactory;
 
@@ -60,7 +60,7 @@ trait DeveloperAppControllerTestTrait
                     static::$apiProductName = $entity->id();
                 }
             }
-        } catch (ApiException $e) {
+        } catch (ApiRequestException $e) {
             // Ensure that created test data always gets removed after an API call fails here.
             // (By default tearDownAfterClass() is not called if (any) exception occurred here.)
             static::tearDownAfterClass();

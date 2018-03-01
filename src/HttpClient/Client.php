@@ -8,11 +8,11 @@
 
 namespace Apigee\Edge\HttpClient;
 
-use Apigee\Edge\Exception\ApiException;
+use Apigee\Edge\Exception\ApiRequestException;
 use Apigee\Edge\HttpClient\Plugin\ResponseHandlerPlugin;
-use Apigee\Edge\HttpClient\Util\Builder;
-use Apigee\Edge\HttpClient\Util\BuilderInterface;
-use Apigee\Edge\HttpClient\Util\Journal;
+use Apigee\Edge\HttpClient\Utility\Builder;
+use Apigee\Edge\HttpClient\Utility\BuilderInterface;
+use Apigee\Edge\HttpClient\Utility\Journal;
 use Http\Client\Common\Plugin\AuthenticationPlugin;
 use Http\Client\Common\Plugin\BaseUriPlugin;
 use Http\Client\Common\Plugin\DecoderPlugin;
@@ -60,14 +60,14 @@ class Client implements ClientInterface
     /**
      * Stores the originally passed builder in case of rebuild.
      *
-     * @var \Apigee\Edge\HttpClient\Util\BuilderInterface
+     * @var \Apigee\Edge\HttpClient\Utility\BuilderInterface
      */
     private $originalBuilder;
 
     /**
      * Stores the current, altered builder instance.
      *
-     * @var \Apigee\Edge\HttpClient\Util\BuilderInterface
+     * @var \Apigee\Edge\HttpClient\Utility\BuilderInterface
      */
     private $currentBuilder;
 
@@ -91,7 +91,7 @@ class Client implements ClientInterface
      * Client constructor.
      *
      * @param \Http\Message\Authentication|null $auth
-     * @param \Apigee\Edge\HttpClient\Util\BuilderInterface|null $builder
+     * @param \Apigee\Edge\HttpClient\Utility\BuilderInterface|null $builder
      * @param string|null $endpoint
      * @param string $userAgentPrefix
      */
@@ -259,7 +259,7 @@ class Client implements ClientInterface
     /**
      * @inheritdoc
      *
-     * @throws \Apigee\Edge\Exception\ApiException If an error happens during processing the request or the response.
+     * @throws \Apigee\Edge\Exception\ApiRequestException If an error happens during processing the request or the response.
      * (See subclasses that holds more detailed information about the error.)
      */
     public function sendRequest(RequestInterface $request): ResponseInterface
@@ -267,10 +267,10 @@ class Client implements ClientInterface
         try {
             return $this->getHttpClient()->sendRequest($request);
         } catch (\Exception $e) {
-            if ($e instanceof ApiException) {
+            if ($e instanceof ApiRequestException) {
                 throw $e;
             }
-            throw new ApiException($request, $e->getMessage(), $e->getCode(), $e);
+            throw new ApiRequestException($request, $e->getMessage(), $e->getCode(), $e);
         }
     }
 

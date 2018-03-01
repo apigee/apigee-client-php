@@ -10,7 +10,7 @@ namespace Apigee\Edge\Tests\Test\Mock;
 
 use Apigee\Edge\HttpClient\Client;
 use Apigee\Edge\HttpClient\ClientInterface;
-use Apigee\Edge\HttpClient\Util\Builder;
+use Apigee\Edge\HttpClient\Utility\Builder;
 use Http\Client\HttpClient;
 use Http\Message\Authentication\BasicAuth;
 use Http\Message\Formatter\CurlCommandFormatter;

@@ -6,7 +6,7 @@
  * at https://opensource.org/licenses/MIT.
  */
 
-namespace Apigee\Edge\HttpClient\Util;
+namespace Apigee\Edge\HttpClient\Utility;
 
 use Http\Client\Common\Plugin;
 use Http\Client\Common\Plugin\HeaderAppendPlugin;

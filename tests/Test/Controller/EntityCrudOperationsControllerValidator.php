@@ -10,7 +10,7 @@ namespace Apigee\Edge\Tests\Test\Controller;
 
 use Apigee\Edge\Entity\EntityInterface;
 use Apigee\Edge\Entity\EntityNormalizer;
-use Apigee\Edge\Exception\ApiException;
+use Apigee\Edge\Exception\ApiResponseException;
 use Apigee\Edge\Tests\Test\Mock\TestClientFactory;
 
 /**
@@ -153,7 +153,7 @@ abstract class EntityCrudOperationsControllerValidator extends EntityControllerV
         $this->getEntityController()->delete($entity->id());
         try {
             $this->getEntityController()->load($entity->id());
-        } catch (ApiException $e) {
+        } catch (ApiResponseException $e) {
             $this->assertContains(' does not exist', $e->getMessage());
             unset(static::$createdEntities[$entity->id()]);
         }

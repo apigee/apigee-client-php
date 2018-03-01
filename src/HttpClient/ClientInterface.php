@@ -8,7 +8,7 @@
 
 namespace Apigee\Edge\HttpClient;
 
-use Apigee\Edge\HttpClient\Util\Journal;
+use Apigee\Edge\HttpClient\Utility\Journal;
 use Http\Client\HttpClient;
 use Http\Message\UriFactory;
 use Psr\Cache\CacheItemPoolInterface;
@@ -24,7 +24,7 @@ interface ClientInterface extends HttpClient
     /**
      * Allows access to the last request, response and exception.
      *
-     * @return Journal
+     * @return \Apigee\Edge\HttpClient\Utility\Journal
      */
     public function getJournal(): Journal;
 

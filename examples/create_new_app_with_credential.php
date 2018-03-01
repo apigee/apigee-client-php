@@ -10,6 +10,7 @@ use Apigee\Edge\Api\Management\Controller\DeveloperAppController;
 use Apigee\Edge\Api\Management\Controller\DeveloperAppCredentialController;
 use Apigee\Edge\Api\Management\Entity\DeveloperApp;
 use Apigee\Edge\Exception\ApiException;
+use Apigee\Edge\Exception\ApiRequestException;
 use Apigee\Edge\Exception\ClientErrorException;
 use Apigee\Edge\Exception\ServerErrorException;
 use Apigee\Edge\Structure\AttributesProperty;
@@ -57,6 +58,8 @@ try {
     }
 } catch (ServerErrorException $e) {
     // HTTP code >= 500 and < 600. Ex.: 500 Server error.
+} catch (ApiRequestException $e) {
+    // The request has failed, ex.: networking issues.
 } catch (ApiException $e) {
     // Anything else, because this is the parent class of all the above.
 }

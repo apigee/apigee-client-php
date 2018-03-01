@@ -10,9 +10,11 @@ namespace Apigee\Edge\Tests\HttpClient;
 
 use Apigee\Edge\Exception\ClientErrorException;
 use Apigee\Edge\HttpClient\Client;
-use Apigee\Edge\HttpClient\Util\Builder;
+use Apigee\Edge\HttpClient\Utility\Builder;
+use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 use Http\Client\Common\Plugin\HeaderAppendPlugin;
+use Http\Client\Exception\RequestException;
 use Http\Client\Exception\TransferException;
 use Http\Mock\Client as MockClient;
 use PHPUnit\Framework\TestCase;
@@ -129,6 +131,17 @@ class ClientTest extends TestCase
     public function testApiNotReachable(): void
     {
         static::$httpClient->addException(new TransferException());
+        $builder = new Builder(self::$httpClient);
+        $client = new Client(null, $builder);
+        $client->get('/');
+    }
+
+    /**
+     * @expectedException \Apigee\Edge\Exception\ApiRequestException
+     */
+    public function testInvalidRequest(): void
+    {
+        static::$httpClient->addException(new RequestException('Invalid request', new Request('GET', 'http://example.com')));
         $builder = new Builder(self::$httpClient);
         $client = new Client(null, $builder);
         $client->get('/');

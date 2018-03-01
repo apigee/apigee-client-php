@@ -9,6 +9,7 @@
 use Apigee\Edge\Api\Management\Controller\DeveloperController;
 use Apigee\Edge\Api\Management\Query\StatsQuery;
 use Apigee\Edge\Exception\ApiException;
+use Apigee\Edge\Exception\ApiRequestException;
 use Apigee\Edge\Exception\ClientErrorException;
 use Apigee\Edge\Exception\ServerErrorException;
 use League\Period\Period;
@@ -35,9 +36,10 @@ try {
 } catch (ServerErrorException $e) {
     // HTTP code >= 500 and < 600. Ex.: 500 Server error.
     throw $e;
+} catch (ApiRequestException $e) {
+    // The request has failed, ex.: networking issues.
 } catch (ApiException $e) {
     // Anything else, because this is the parent class of all the above.
-    throw $e;
 }
 
 $sc = new \Apigee\Edge\Api\Management\Controller\StatsController($environment, $clientFactory->getOrganization(), $clientFactory->getClient());
@@ -59,6 +61,8 @@ try {
     }
 } catch (ServerErrorException $e) {
     // HTTP code >= 500 and < 600. Ex.: 500 Server error.
+} catch (ApiRequestException $e) {
+    // The request has failed, ex.: networking issues.
 } catch (ApiException $e) {
     // Anything else, because this is the parent class of all the above.
 }

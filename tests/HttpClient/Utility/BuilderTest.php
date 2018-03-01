@@ -6,9 +6,9 @@
  * at https://opensource.org/licenses/MIT.
  */
 
-namespace Apigee\Edge\Tests\HttpClient\Util;
+namespace Apigee\Edge\Tests\HttpClient\Utility;
 
-use Apigee\Edge\HttpClient\Util\Builder;
+use Apigee\Edge\HttpClient\Utility\Builder;
 use GuzzleHttp\Psr7\Request;
 use Http\Client\Common\Plugin;
 use Http\Client\Common\Plugin\CachePlugin;
@@ -72,7 +72,7 @@ class BuilderTest extends TestCase
     /**
      * @depends testShouldSetHeaders
      *
-     * @param \Apigee\Edge\HttpClient\Util\Builder $builder
+     * @param \Apigee\Edge\HttpClient\Utility\Builder $builder
      */
     public function testShouldSetHeaderValue(Builder $builder): void
     {
@@ -90,7 +90,7 @@ class BuilderTest extends TestCase
     /**
      * @depends testShouldSetHeaders
      *
-     * @param \Apigee\Edge\HttpClient\Util\Builder $builder
+     * @param \Apigee\Edge\HttpClient\Utility\Builder $builder
      */
     public function testShouldRemoveHeader(Builder $builder): void
     {
@@ -106,7 +106,7 @@ class BuilderTest extends TestCase
     /**
      * @depends testShouldSetHeaders
      *
-     * @param \Apigee\Edge\HttpClient\Util\Builder $builder
+     * @param \Apigee\Edge\HttpClient\Utility\Builder $builder
      */
     public function testShouldRemoveAllHeaders(Builder $builder): void
     {
@@ -140,7 +140,7 @@ class BuilderTest extends TestCase
     /**
      * @depends testShouldAddPlugin
      *
-     * @param \Apigee\Edge\HttpClient\Util\Builder $builder
+     * @param \Apigee\Edge\HttpClient\Utility\Builder $builder
      */
     public function testShouldRemovePlugin(Builder $builder): void
     {

@@ -13,7 +13,7 @@ use Apigee\Edge\Api\Management\Controller\DeveloperAppController;
 use Apigee\Edge\Api\Management\Entity\App;
 use Apigee\Edge\Api\Management\Entity\DeveloperAppInterface;
 use Apigee\Edge\Controller\EntityControllerInterface;
-use Apigee\Edge\Exception\ApiException;
+use Apigee\Edge\Exception\ApiRequestException;
 use Apigee\Edge\Tests\Test\Controller\EntityControllerValidator;
 use Apigee\Edge\Tests\Test\Controller\OrganizationAwareEntityControllerValidatorTrait;
 use Apigee\Edge\Tests\Test\Mock\TestClientFactory;
@@ -83,7 +83,7 @@ class AppControllerTest extends EntityControllerValidator
                     $sampleEntity->id()
                 );
             }
-        } catch (ApiException $e) {
+        } catch (ApiRequestException $e) {
             // Ensure that created test data always gets removed after an API call fails here.
             // (By default tearDownAfterClass() is not called if (any) exception occurred here.)
             static::tearDownAfterClass();

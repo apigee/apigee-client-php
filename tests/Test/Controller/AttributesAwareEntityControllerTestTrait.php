@@ -8,7 +8,7 @@
 
 namespace Apigee\Edge\Tests\Test\Controller;
 
-use Apigee\Edge\Exception\ApiException;
+use Apigee\Edge\Exception\ApiResponseException;
 use Apigee\Edge\Tests\Test\Mock\TestClientFactory;
 
 /**
@@ -113,7 +113,7 @@ trait AttributesAwareEntityControllerTestTrait
         $controller->deleteAttribute($entityId, 'name1', $attribute);
         try {
             $controller->getAttribute($entityId, $attribute);
-        } catch (ApiException $e) {
+        } catch (ApiResponseException $e) {
             $this->assertEquals('organizations.keymanagement.AttributeDoesntExist', $e->getEdgeErrorCode());
         }
     }
