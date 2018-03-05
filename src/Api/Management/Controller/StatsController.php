@@ -72,7 +72,8 @@ class StatsController extends AbstractController implements StatsControllerInter
      * Gets API message count.
      *
      * The additional optimization on the returned data happens in the SDK. The SDK fills the gaps between returned time
-     * units and analytics numbers in the returned response of Apigee Edge.
+     * units and analytics numbers in the returned response of Apigee Edge. If no analytics data returned for a
+     * given criteria it does not fill in results with zeros, it just returns the original response.
      * (This method also asks optimized response from Apigee Edge too.)
      *
      * @param StatsQueryInterface $query
@@ -90,6 +91,10 @@ class StatsController extends AbstractController implements StatsControllerInter
     public function getOptimisedMetrics(StatsQueryInterface $query): array
     {
         $response = $this->getMetrics($query, 'js');
+        // I no analytics data returned for a given criteria just return.
+        if (empty($response['stats'])) {
+            return $response;
+        }
         if (null !== $query->getTimeUnit()) {
             $originalTimeUnits = $response['TimeUnit'];
             $response['TimeUnit'] = $this->fillGapsInTimeUnitsData(
@@ -113,11 +118,8 @@ class StatsController extends AbstractController implements StatsControllerInter
      *
      * @psalm-suppress InvalidOperand - $this->normalizer->normalize() always returns an array.
      */
-    public function getMetricsByDimensions(
-        array $dimensions,
-        StatsQueryInterface $query,
-        ?string $optimized = 'js'
-    ): array {
+    public function getMetricsByDimensions(array $dimensions, StatsQueryInterface $query, ?string $optimized = 'js'): array
+    {
         $query_params = [
                 '_optimized' => $optimized,
             ] + $this->normalizer->normalize($query);
@@ -132,8 +134,9 @@ class StatsController extends AbstractController implements StatsControllerInter
     /**
      * Gets optimized metrics organized by dimensions.
      *
-     * The additional optimization on the returned data happens in the SDK. The SDK fills the gaps between returned time
-     * units and analytics numbers in the returned response of Apigee Edge.
+     * The additional optimization on the returned data happens in the SDK. The SDK fills the gaps between time
+     * units and analytics numbers in the returned response of Apigee Edge. If no analytics data returned for a
+     * given criteria it does not fill in results with zeros, it just returns the original response.
      * (This method also asks optimized response from Apigee Edge too.)
      *
      * @param array $dimensions
@@ -153,6 +156,10 @@ class StatsController extends AbstractController implements StatsControllerInter
     public function getOptimizedMetricsByDimensions(array $dimensions, StatsQueryInterface $query): array
     {
         $response = $this->getMetricsByDimensions($dimensions, $query, 'js');
+        // I no analytics data returned for a given criteria just return.
+        if (empty($response['stats'])) {
+            return $response;
+        }
         if (null !== $query->getTimeUnit()) {
             $originalTimeUnits = $response['TimeUnit'];
             $response['TimeUnit'] = $this->fillGapsInTimeUnitsData(
@@ -214,7 +221,7 @@ class StatsController extends AbstractController implements StatsControllerInter
             );
         }
         $allTimeUnits = [];
-        // Fix time unit for correct time internaval calculation.
+        // Fix time unit for correct time interval calculation.
         $startDate = new Moment('@' . $period->getStartDate()->getTimestamp());
         $endDate = new Moment('@' . $period->getEndDate()->getTimestamp());
         // Returned intervals by Apigee Edge are always inclusive-inclusive.
@@ -244,12 +251,8 @@ class StatsController extends AbstractController implements StatsControllerInter
      * @param array $metricsData
      *   Returned metrics data by Apigee Edge.
      */
-    private function fillGapsInMetricsData(
-        bool $tsAscending,
-        array $allTimeUnits,
-        array $originalTimeUnits,
-        array &$metricsData
-    ): void {
+    private function fillGapsInMetricsData(bool $tsAscending, array $allTimeUnits, array $originalTimeUnits, array &$metricsData): void
+    {
         $zeroArray = array_fill_keys($allTimeUnits, 0);
         foreach ($metricsData as $key => $metric) {
             $metricsData[$key]['values'] = array_combine($originalTimeUnits, $metric['values']);
