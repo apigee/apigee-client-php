@@ -14,7 +14,6 @@ use Apigee\Edge\HttpClient\Utility\BuilderInterface;
 use Apigee\Edge\HttpClient\Utility\Journal;
 use Http\Client\Common\Plugin\AuthenticationPlugin;
 use Http\Client\Common\Plugin\BaseUriPlugin;
-use Http\Client\Common\Plugin\DecoderPlugin;
 use Http\Client\Common\Plugin\HeaderDefaultsPlugin;
 use Http\Client\Common\Plugin\HistoryPlugin;
 use Http\Client\HttpClient;
@@ -245,19 +244,6 @@ class Client implements ClientInterface
     /**
      * @inheritdoc
      */
-    public function send($method, $uri, array $headers = [], $body = null): ResponseInterface
-    {
-        return $this->sendRequest($this->requestFactory->createRequest(
-            $method,
-            $uri,
-            $headers,
-            $body
-        ));
-    }
-
-    /**
-     * @inheritdoc
-     */
     public function sendRequest(RequestInterface $request): ResponseInterface
     {
         return $this->getHttpClient()->sendRequest($request);
@@ -273,7 +259,6 @@ class Client implements ClientInterface
         return [
             'User-Agent' => $this->getUserAgent(),
             'Accept' => 'application/json; charset=utf-8',
-            'Accept-Encoding' => 'gzip',
         ];
     }
 
@@ -288,7 +273,6 @@ class Client implements ClientInterface
             new BaseUriPlugin($this->getBaseUri()->withPath(self::API_VERSION), ['replace' => true]),
             new HeaderDefaultsPlugin($this->getDefaultHeaders()),
             new HistoryPlugin($this->journal),
-            new DecoderPlugin(),
             new ResponseHandlerPlugin(),
         ];
         if ($this->auth) {
@@ -299,11 +283,24 @@ class Client implements ClientInterface
     }
 
     /**
-     * Returns Apigee Edge endpoint as am URI.
+     * @inheritdoc
+     */
+    private function send($method, $uri, array $headers = [], $body = null): ResponseInterface
+    {
+        return $this->sendRequest($this->requestFactory->createRequest(
+            $method,
+            $uri,
+            $headers,
+            $body
+        ));
+    }
+
+    /**
+     * Returns Apigee Edge endpoint as an URI.
      *
      * @return UriInterface
      */
-    protected function getBaseUri(): UriInterface
+    private function getBaseUri(): UriInterface
     {
         return $this->uriFactory->createUri($this->getEndpoint());
     }
@@ -311,7 +308,7 @@ class Client implements ClientInterface
     /**
      * @inheritdoc
      */
-    protected function getHttpClientBuilder(): BuilderInterface
+    private function getHttpClientBuilder(): BuilderInterface
     {
         if ($this->rebuild()) {
             $this->needsRebuild(false);
@@ -330,7 +327,7 @@ class Client implements ClientInterface
     /**
      * @inheritdoc
      */
-    protected function getHttpClient(): HttpClient
+    private function getHttpClient(): HttpClient
     {
         return $this->getHttpClientBuilder()->getHttpClient();
     }

@@ -13,6 +13,7 @@ use Apigee\Edge\Entity\EntityFactoryInterface;
 use Apigee\Edge\HttpClient\Client;
 use Apigee\Edge\HttpClient\ClientInterface;
 use Apigee\Edge\HttpClient\Utility\Builder;
+use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 use Http\Discovery\UriFactoryDiscovery;
 use Http\Mock\Client as MockClient;
@@ -113,7 +114,7 @@ class AbstractControllerTest extends TestCase
         /** @var \Apigee\Edge\HttpClient\ClientInterface $client */
         $client = static::$stub->getClient();
         static::$stub->addResponse(new Response());
-        $response = $client->send('GET', '');
+        $response = $client->sendRequest(new Request('GET', ''));
         static::$stub->toArray($response);
     }
 
@@ -125,7 +126,7 @@ class AbstractControllerTest extends TestCase
         /** @var \Apigee\Edge\HttpClient\ClientInterface $client */
         $client = static::$stub->getClient();
         static::$stub->addResponse(new Response(200, ['Content-Type' => 'application/json'], stream_for('')));
-        $response = $client->send('GET', '');
+        $response = $client->sendRequest(new Request('GET', ''));
         static::$stub->toArray($response);
     }
 }

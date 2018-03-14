@@ -29,7 +29,7 @@ interface ClientInterface extends HttpClient
     public function getJournal(): Journal;
 
     /**
-     * @inheritdoc
+     * Returns the URI factory used by the Client.
      */
     public function getUriFactory(): UriFactory;
 
@@ -135,16 +135,4 @@ interface ClientInterface extends HttpClient
      * @return ResponseInterface
      */
     public function delete($uri, $body = null, array $headers = []): ResponseInterface;
-
-    /**
-     * Sends a request.
-     *
-     * @param string $method HTTP method.
-     * @param \Psr\Http\Message\UriInterface|string $uri
-     * @param null|\Psr\Http\Message\StreamInterface|resource|string $body
-     * @param array $headers
-     *
-     * @return ResponseInterface
-     */
-    public function send($method, $uri, array $headers = [], $body = null): ResponseInterface;
 }
