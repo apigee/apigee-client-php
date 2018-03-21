@@ -177,7 +177,7 @@ class AppController extends CpsLimitEntityController implements AppControllerInt
     {
         // Add our special AppDenormalizer to the top of the list.
         // This way enforce parent $this->entitySerializer calls to use it for apps primarily.
-        return array_merge([new AppDenormalizer()], parent::entityNormalizers());
+        return array_merge([new AppDenormalizer($this->entityFactory)], parent::entityNormalizers());
     }
 
     /**

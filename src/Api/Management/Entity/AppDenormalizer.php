@@ -18,7 +18,10 @@
 
 namespace Apigee\Edge\Api\Management\Entity;
 
+use Apigee\Edge\Api\Management\Controller\CompanyAppController;
+use Apigee\Edge\Api\Management\Controller\DeveloperAppController;
 use Apigee\Edge\Entity\EntityDenormalizer;
+use Apigee\Edge\Entity\EntityFactoryInterface;
 use Symfony\Component\Serializer\Exception\UnexpectedValueException;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 
@@ -28,14 +31,30 @@ use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 class AppDenormalizer extends EntityDenormalizer implements DenormalizerInterface
 {
     /**
+     * @var \Apigee\Edge\Entity\EntityFactoryInterface
+     */
+    private $entityFactory;
+
+    /**
+     * AppDenormalizer constructor.
+     *
+     * @param \Apigee\Edge\Entity\EntityFactoryInterface $entityFactory
+     */
+    public function __construct(EntityFactoryInterface $entityFactory)
+    {
+        $this->entityFactory = $entityFactory;
+        parent::__construct();
+    }
+
+    /**
      * @inheritdoc
      */
     public function denormalize($data, $class, $format = null, array $context = [])
     {
         if (isset($data->developerId)) {
-            return parent::denormalize($data, DeveloperApp::class);
+            return parent::denormalize($data, $this->entityFactory->getEntityTypeByController(DeveloperAppController::class));
         } elseif (isset($data->companyName)) {
-            return parent::denormalize($data, CompanyApp::class);
+            return parent::denormalize($data, $this->entityFactory->getEntityTypeByController(CompanyAppController::class));
         }
         throw new UnexpectedValueException(
             'Unable to denormalize because both "developerId" and "companyName" are missing from data.'

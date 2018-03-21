@@ -18,7 +18,8 @@
 
 namespace Apigee\Edge\Api\Management\Controller;
 
-use Apigee\Edge\Controller\EntityController;
+use Apigee\Edge\Api\Management\Entity\AppDenormalizer;
+use Apigee\Edge\Controller\CpsLimitEntityController;
 use Apigee\Edge\Controller\EntityCrudOperationsControllerTrait;
 use Apigee\Edge\Controller\NonCpsListingEntityControllerTrait;
 use Apigee\Edge\Controller\StatusAwareEntityControllerTrait;
@@ -29,7 +30,7 @@ use Psr\Http\Message\UriInterface;
 /**
  * Class DeveloperAppController.
  */
-class DeveloperAppController extends EntityController implements DeveloperAppControllerInterface
+class DeveloperAppController extends CpsLimitEntityController implements DeveloperAppControllerInterface
 {
     use AttributesAwareEntityControllerTrait;
     use EntityCrudOperationsControllerTrait;
@@ -64,5 +65,15 @@ class DeveloperAppController extends EntityController implements DeveloperAppCon
     {
         return $this->client->getUriFactory()
             ->createUri(sprintf('/organizations/%s/developers/%s/apps', $this->organization, $this->developerId));
+    }
+
+    /**
+     * @inheritdoc
+     */
+    protected function entityNormalizers()
+    {
+        // Add our special AppDenormalizer to the top of the list.
+        // This way enforce parent $this->entitySerializer calls to use it for apps primarily.
+        return array_merge([new AppDenormalizer($this->entityFactory)], parent::entityNormalizers());
     }
 }
