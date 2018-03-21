@@ -1,14 +1,14 @@
 <?php
 
-/**
+/*
  * Copyright 2018 Google LLC
- *                            
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *                            
+ *
  *      https://www.apache.org/licenses/LICENSE-2.0
- *                            
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -51,14 +51,18 @@ abstract class AbstractEntityController extends AbstractController
      * AbstractEntityController constructor.
      *
      * @param ClientInterface|null $client
+     *   API client.
      * @param EntityFactoryInterface|null $entityFactory
+     *   Entity factory.
+     * @param \Symfony\Component\Serializer\Normalizer\NormalizerInterface[] $entityNormalizers
+     *   Array of entity normalizers and denormalizers that are being called earlier than the default ones.
      */
-    public function __construct(ClientInterface $client = null, EntityFactoryInterface $entityFactory = null)
+    public function __construct(ClientInterface $client = null, EntityFactoryInterface $entityFactory = null, array $entityNormalizers = [])
     {
         parent::__construct($client);
         $this->entityFactory = $entityFactory ?: new EntityFactory();
         $this->entitySerializer = new Serializer(
-            $this->entityNormalizers(),
+            array_merge($entityNormalizers, $this->entityNormalizers()),
             $this->entityEncoders()
         );
     }
