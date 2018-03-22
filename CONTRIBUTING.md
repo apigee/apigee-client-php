@@ -21,3 +21,16 @@ All submissions, including submissions by project members, require review. We
 use GitHub pull requests for this purpose. Consult
 [GitHub Help](https://help.github.com/articles/about-pull-requests/) for more
 information on using pull requests.
+
+Before you would submit your code changes for review please always run the
+following commands on your machine to ensure those are syntactically and semantically
+correct and do not break any tests.
+
+```sh
+composer fix-style # Automatically fix code style issues.
+composer check-style # Report code style issues that can not be fixed automatically.
+composer analyze # Check for errors with the static code-analysis tool.
+compose test # Run PHPUnit tests. (Please always use only tests with real Apigee Edge.) 
+```
+
+For new functionality or a bug fix please always provide new test cases.
