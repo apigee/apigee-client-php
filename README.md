@@ -1,6 +1,6 @@
 # Apigee Edge PHP SDK
 
-** Currently the 2.x version is under active development. Use it on your own risk or install the latest 1.x version! **
+**Currently the 2.x version is under active development. Use it on your own risk or install the latest 1.x version!**
 
 [![Build Status](https://travis-ci.org/apigee/edge-php-sdk.svg?branch=2.x-dev)](https://travis-ci.org/apigee/edge-php-sdk)
 [![Code Coverage](https://codecov.io/gh/apigee/edge-php-sdk/branch/2.x-dev/graph/badge.svg)](https://codecov.io/gh/apigee/edge-php-sdk/branch/2.x-dev)
@@ -125,6 +125,7 @@ folder of your own test data set.
 PS.: Some unit tests can not be executed when the offline test data is in use, those are automatically marked as skipped.
 
 ## Support
+
 This is not an officially supported Google product. Please file issues in our GitHub Issue Queue. We would love to 
 accept contributions to this project, please see the [contribution guidelines for this project](CONTRIBUTING.md) for 
 more details.
