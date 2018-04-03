@@ -19,7 +19,6 @@
 namespace Apigee\Edge\Api\Management\Entity;
 
 use Apigee\Edge\Entity\EntityInterface;
-use Apigee\Edge\Entity\Property\AttributesPropertyInterface;
 use Apigee\Edge\Entity\Property\ScopesPropertyInterface;
 use Apigee\Edge\Entity\Property\StatusPropertyInterface;
 
@@ -28,14 +27,14 @@ use Apigee\Edge\Entity\Property\StatusPropertyInterface;
  */
 interface AppCredentialInterface extends
     EntityInterface,
-    AttributesPropertyInterface,
     ScopesPropertyInterface,
     StatusPropertyInterface
 {
     /**
      * Get list of API products included in this credential with their statuses.
      *
-     * @return \Apigee\Edge\Structure\CredentialProduct[]
+     * @return \Apigee\Edge\Structure\CredentialProductInterface[]|array
+     *   Array of credential products or an empty array.
      */
     public function getApiProducts(): array;
 

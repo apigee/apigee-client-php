@@ -30,9 +30,12 @@ class AttributesPropertyDenormalizer extends KeyValueMapDenormalizer
      */
     public function supportsDenormalization($data, $type, $format = null)
     {
-        $type = rtrim($type, '[]');
+        // Do not apply this on array objects. ArrayDenormalizer takes care of them.
+        if ('[]' === substr($type, -2)) {
+            return false;
+        }
 
-        return AttributesProperty::class === $type || $type instanceof AttributesProperty || in_array(AttributesProperty::class, class_parents($type));
+        return AttributesProperty::class === $type || $type instanceof AttributesProperty;
     }
 
     /**

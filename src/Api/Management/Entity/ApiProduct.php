@@ -62,18 +62,22 @@ class ApiProduct extends Entity implements ApiProductInterface
     /** @var string[] */
     protected $proxies = [];
 
-    /** @var int|null */
+    /**
+     * Apigee Edge returns this value as a string.
+     *
+     * @var string|null
+     */
     protected $quota;
 
     /**
-     * Edge passes this value as string.
+     * Apigee Edge returns this value as a string.
      *
      * @var string|null
      */
     protected $quotaInterval;
 
     /**
-     * Edge passes this value as string.
+     * Apigee Edge returns this value as a string.
      *
      * @var string|null
      */
@@ -83,6 +87,8 @@ class ApiProduct extends Entity implements ApiProductInterface
      * ApiProduct constructor.
      *
      * @param array $values
+     *
+     * @throws \ReflectionException
      */
     public function __construct(array $values = [])
     {
@@ -109,7 +115,7 @@ class ApiProduct extends Entity implements ApiProductInterface
     /**
      * @inheritdoc
      */
-    public function getQuota(): ?int
+    public function getQuota(): ?string
     {
         return $this->quota;
     }
@@ -117,7 +123,7 @@ class ApiProduct extends Entity implements ApiProductInterface
     /**
      * @inheritdoc
      */
-    public function setQuota(int $quota): void
+    public function setQuota(string $quota): void
     {
         $this->quota = $quota;
     }

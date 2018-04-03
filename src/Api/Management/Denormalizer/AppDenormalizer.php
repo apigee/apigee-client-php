@@ -18,44 +18,23 @@
 
 namespace Apigee\Edge\Api\Management\Entity;
 
-use Apigee\Edge\Api\Management\Controller\CompanyAppController;
-use Apigee\Edge\Api\Management\Controller\DeveloperAppController;
-use Apigee\Edge\Entity\EntityDenormalizer;
-use Apigee\Edge\Entity\EntityFactory;
-use Apigee\Edge\Entity\EntityFactoryInterface;
+use Apigee\Edge\Denormalizer\EntityDenormalizer;
 use Symfony\Component\Serializer\Exception\UnexpectedValueException;
-use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 
 /**
  * Class AppDenormalizer.
  */
-class AppDenormalizer extends EntityDenormalizer implements DenormalizerInterface
+class AppDenormalizer extends EntityDenormalizer
 {
-    /**
-     * @var \Apigee\Edge\Entity\EntityFactoryInterface
-     */
-    protected $entityFactory;
-
-    /**
-     * AppDenormalizer constructor.
-     *
-     * @param \Apigee\Edge\Entity\EntityFactoryInterface|null $entityFactory
-     */
-    public function __construct(EntityFactoryInterface $entityFactory = null)
-    {
-        $this->entityFactory = $entityFactory ?: new EntityFactory();
-        parent::__construct();
-    }
-
     /**
      * @inheritdoc
      */
     public function denormalize($data, $class, $format = null, array $context = [])
     {
         if (isset($data->developerId)) {
-            return parent::denormalize($data, $this->entityFactory->getEntityTypeByController(DeveloperAppController::class));
+            return parent::denormalize($data, DeveloperApp::class);
         } elseif (isset($data->companyName)) {
-            return parent::denormalize($data, $this->entityFactory->getEntityTypeByController(CompanyAppController::class));
+            return parent::denormalize($data, CompanyApp::class);
         }
         throw new UnexpectedValueException(
             'Unable to denormalize because both "developerId" and "companyName" are missing from data.'
@@ -67,7 +46,10 @@ class AppDenormalizer extends EntityDenormalizer implements DenormalizerInterfac
      */
     public function supportsDenormalization($data, $type, $format = null)
     {
-        $type = rtrim($type, '[]');
+        // Do not apply this on array objects. ArrayDenormalizer takes care of them.
+        if ('[]' === substr($type, -2)) {
+            return false;
+        }
 
         return AppInterface::class === $type || $type instanceof AppInterface || in_array($type, class_implements(AppInterface::class));
     }

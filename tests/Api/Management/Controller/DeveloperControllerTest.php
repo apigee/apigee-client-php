@@ -138,7 +138,7 @@ class DeveloperControllerTest extends CpsLimitEntityControllerValidator
     /**
      * @inheritdoc
      */
-    public function cpsLimitTestIdFieldProvider()
+    public function cpsLimitTestIdFieldProvider(): array
     {
         // This override makes easier the offline testing.
         return [['email']];

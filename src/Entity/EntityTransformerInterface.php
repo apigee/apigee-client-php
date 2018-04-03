@@ -16,26 +16,15 @@
  * limitations under the License.
  */
 
-namespace Apigee\Edge\Normalizer;
+namespace Apigee\Edge\Entity;
 
+use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+use Symfony\Component\Serializer\SerializerInterface;
 
-class EdgeDateNormalizer implements NormalizerInterface
+/**
+ * Serializes, deserializes, normalizes and denormalizes entities.
+ */
+interface EntityTransformerInterface extends NormalizerInterface, DenormalizerInterface, SerializerInterface
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function supportsNormalization($data, $format = null)
-    {
-        return $data instanceof \DateTimeInterface;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function normalize($object, $format = null, array $context = [])
-    {
-        /* @var \DateTimeInterface $object */
-        return $object->getTimestamp() * 1000;
-    }
 }

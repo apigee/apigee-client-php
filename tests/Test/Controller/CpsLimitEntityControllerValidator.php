@@ -63,13 +63,11 @@ abstract class CpsLimitEntityControllerValidator extends EntityCrudOperationsCon
     }
 
     /**
+     * Data provider that returns the id field of the related entity type.
+     *
+     * @throws \ReflectionException
+     *
      * @return array
      */
-    public function cpsLimitTestIdFieldProvider()
-    {
-        $controller = $this->getEntityController();
-        $entity = static::$entityFactory->getEntityByController($controller);
-
-        return [[$entity->id()]];
-    }
+    abstract public function cpsLimitTestIdFieldProvider(): array;
 }

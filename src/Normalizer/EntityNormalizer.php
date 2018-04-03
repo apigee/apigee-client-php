@@ -1,14 +1,23 @@
 <?php
 
 /*
- * Copyright 2018 Google Inc.
- * Use of this source code is governed by a MIT-style license that can be found in the LICENSE file or
- * at https://opensource.org/licenses/MIT.
+ * Copyright 2018 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 namespace Apigee\Edge\Normalizer;
 
-use Apigee\Edge\Utility\ObjectNormalizerFactory;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 use Symfony\Component\PropertyInfo\Extractor\PhpDocExtractor;
 use Symfony\Component\PropertyInfo\Extractor\ReflectionExtractor;
@@ -18,31 +27,30 @@ use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface;
 use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
-use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\SerializerAwareInterface;
+use Symfony\Component\Serializer\SerializerInterface;
 
 /**
- * Class EntityNormalizer.
- *
- * Normalizes entity data to Apigee Edge's format.
+ * Object normalizer decorator that can normalize can entity object to a structure that Apigee Edge can digest.
  */
-class EntityNormalizer implements NormalizerInterface
+class EntityNormalizer implements NormalizerInterface, SerializerAwareInterface
 {
-    private $classMatcherOptions = [
-        ['Entity' => 'Normalizer', 'Structure' => 'Normalizer'],
-        ['Interface' => ''],
-        'Normalizer',
-    ];
-
     /** @var \Symfony\Component\Serializer\Normalizer\ObjectNormalizer */
     private $objectNormalizer;
 
-    /** @var \Apigee\Edge\Utility\ObjectNormalizerFactory */
-    private $objectNormalizerFactory;
+    /** @var \Symfony\Component\Serializer\SerializerInterface|null */
+    private $serializer;
 
-    // TODO Add missing arguments for objectNormalizer.
+    /**
+     * EntityNormalizer constructor.
+     *
+     * @param \Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface|null $classMetadataFactory
+     * @param \Symfony\Component\Serializer\NameConverter\NameConverterInterface|null $nameConverter
+     * @param \Symfony\Component\PropertyAccess\PropertyAccessorInterface|null $propertyAccessor
+     * @param \Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface|null $propertyTypeExtractor
+     */
     public function __construct(ClassMetadataFactoryInterface $classMetadataFactory = null, NameConverterInterface $nameConverter = null, PropertyAccessorInterface $propertyAccessor = null, PropertyTypeExtractorInterface $propertyTypeExtractor = null)
     {
-        // TODO move this to a parent class.
         if (null === $propertyTypeExtractor) {
             $reflectionExtractor = new ReflectionExtractor();
             $phpDocExtractor = new PhpDocExtractor();
@@ -60,15 +68,19 @@ class EntityNormalizer implements NormalizerInterface
             );
         }
         $this->objectNormalizer = new ObjectNormalizer($classMetadataFactory, $nameConverter, $propertyAccessor, $propertyTypeExtractor);
-        $this->objectNormalizerFactory = new ObjectNormalizerFactory($this->classMatcherOptions, $propertyTypeExtractor);
     }
 
+    /**
+     * @inheritdoc
+     *
+     * @psalm-suppress InvalidReturnType stdClass is also an object.
+     * @psalm-suppress PossiblyInvalidArgument First argument of array_filter is always an array.
+     */
     public function normalize($object, $format = null, array $context = [])
     {
-        $normalizers = $this->objectNormalizerFactory->getNormalizers($object);
-        array_unshift($normalizers, new EdgeDateNormalizer());
-        $this->objectNormalizer->setSerializer(new Serializer($normalizers));
-
+        if ($this->serializer) {
+            $this->objectNormalizer->setSerializer($this->serializer);
+        }
         $asArray = $this->objectNormalizer->normalize($object, $format, $context);
         // Exclude null values from the output, even if PATCH is not supported on Apigee Edge
         // sending a smaller portion of data in POST/PUT is always a good practice.
@@ -85,6 +97,14 @@ class EntityNormalizer implements NormalizerInterface
      */
     public function supportsNormalization($data, $format = null)
     {
-        return \is_object($data) && !$data instanceof \Traversable;
+        return $this->objectNormalizer->supportsNormalization($data, $format);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function setSerializer(SerializerInterface $serializer): void
+    {
+        $this->serializer = $serializer;
     }
 }

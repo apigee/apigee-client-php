@@ -39,8 +39,11 @@ class KeyValueMapDenormalizer implements DenormalizerInterface
      */
     public function supportsDenormalization($data, $type, $format = null)
     {
-        $type = rtrim($type, '[]');
+        // Do not apply this on array objects. ArrayDenormalizer takes care of them.
+        if ('[]' === substr($type, -2)) {
+            return false;
+        }
 
-        return $type instanceof KeyValueMapInterface;
+        return KeyValueMapInterface::class === $type || $type instanceof KeyValueMapInterface || in_array(KeyValueMapInterface::class, class_implements($type));
     }
 }

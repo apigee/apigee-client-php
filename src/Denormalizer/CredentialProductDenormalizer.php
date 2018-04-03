@@ -1,9 +1,19 @@
 <?php
 
 /*
- * Copyright 2018 Google Inc.
- * Use of this source code is governed by a MIT-style license that can be found in the LICENSE file or
- * at https://opensource.org/licenses/MIT.
+ * Copyright 2018 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 namespace Apigee\Edge\Denormalizer;
@@ -22,30 +32,18 @@ class CredentialProductDenormalizer implements DenormalizerInterface
      */
     public function supportsDenormalization($data, $type, $format = null)
     {
-        $type = rtrim($type, '[]');
+        // Do not apply this on array objects. ArrayDenormalizer takes care of them.
+        if ('[]' === substr($type, -2)) {
+            return false;
+        }
 
-        return $type instanceof CredentialProductInterface || in_array(CredentialProductInterface::class, class_implements($type));
+        return CredentialProductInterface::class === $type || $type instanceof CredentialProductInterface || in_array(CredentialProductInterface::class, class_implements($type));
     }
 
     /**
      * @inheritdoc
      */
     public function denormalize($data, $class, $format = null, array $context = [])
-    {
-        if (is_array($data)) {
-            $denormalized = [];
-            $class = rtrim($class, '[]');
-            foreach ($data as $item) {
-                $denormalized[] = $this->denormalizeObject($item, $class, $format, $context);
-            }
-
-            return $denormalized;
-        }
-
-        return $this->denormalizeObject($data, $class, $format, $context);
-    }
-
-    private function denormalizeObject($data, $class, $format = null, array $context = [])
     {
         return new CredentialProduct($data->apiproduct, $data->status);
     }

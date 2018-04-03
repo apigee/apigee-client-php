@@ -50,9 +50,9 @@ trait CpsListingEntityControllerTrait
         $responseArray = reset($responseArray);
         foreach ($responseArray as $item) {
             /** @var \Apigee\Edge\Entity\EntityInterface $tmp */
-            $tmp = $this->entitySerializer->denormalize(
+            $tmp = $this->entityTransformer->denormalize(
                 $item,
-                $this->entityFactory->getEntityTypeByController($this)
+                $this->getEntityClass()
             );
             $entities[$tmp->id()] = $tmp;
         }

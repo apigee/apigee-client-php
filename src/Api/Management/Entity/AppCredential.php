@@ -51,7 +51,11 @@ class AppCredential extends Entity implements AppCredentialInterface
      */
     public const STATUS_REVOKED = 'revoked';
 
-    /** @var \Apigee\Edge\Structure\CredentialProduct[] */
+    /**
+     * Array of credential products or an empty array.
+     *
+     * @var \Apigee\Edge\Structure\CredentialProduct[]|array
+     */
     protected $apiProducts = [];
 
     /** @var string */
@@ -94,9 +98,7 @@ class AppCredential extends Entity implements AppCredentialInterface
     }
 
     /**
-     * Get list of API products included in this credential with their statuses.
-     *
-     * @return \Apigee\Edge\Structure\CredentialProduct[]
+     * @inheritdoc
      */
     public function getApiProducts(): array
     {
@@ -108,7 +110,7 @@ class AppCredential extends Entity implements AppCredentialInterface
      *
      * Included API products in an app credential can not be changed by modifying this property's value.
      *
-     * @param \Apigee\Edge\Structure\CredentialProduct[] $apiProducts
+     * @param \Apigee\Edge\Structure\CredentialProductInterface[] $apiProducts
      *
      * @internal
      */

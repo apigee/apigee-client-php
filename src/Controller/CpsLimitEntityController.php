@@ -20,7 +20,6 @@ namespace Apigee\Edge\Controller;
 
 use Apigee\Edge\Api\Management\Controller\OrganizationController;
 use Apigee\Edge\Api\Management\Controller\OrganizationControllerInterface;
-use Apigee\Edge\Entity\EntityFactoryInterface;
 use Apigee\Edge\Exception\CpsNotEnabledException;
 use Apigee\Edge\HttpClient\ClientInterface;
 use Apigee\Edge\Structure\CpsListLimitInterface;
@@ -40,19 +39,17 @@ abstract class CpsLimitEntityController extends EntityController
      *
      * @param string $organization
      * @param ClientInterface|null $client
-     * @param EntityFactoryInterface|null $entityFactory
-     * @param \Symfony\Component\Serializer\Normalizer\NormalizerInterface[] $entityNormalizers
+     * @param \Symfony\Component\Serializer\Normalizer\NormalizerInterface[]|\Symfony\Component\Serializer\Normalizer\DenormalizerInterface[] $entityNormalizers
      * @param OrganizationControllerInterface|null $organizationController
      */
     public function __construct(
         string $organization,
         ClientInterface $client = null,
-        EntityFactoryInterface $entityFactory = null,
         array $entityNormalizers = [],
         OrganizationControllerInterface $organizationController = null
     ) {
-        parent::__construct($organization, $client, $entityFactory, $entityNormalizers);
-        $this->organizationController = $organizationController ?: new OrganizationController($client, $entityFactory);
+        parent::__construct($organization, $client, $entityNormalizers);
+        $this->organizationController = $organizationController ?: new OrganizationController($client);
     }
 
     /**

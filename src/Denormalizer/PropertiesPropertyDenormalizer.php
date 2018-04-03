@@ -25,11 +25,17 @@ use Apigee\Edge\Structure\PropertiesProperty;
  */
 class PropertiesPropertyDenormalizer extends KeyValueMapDenormalizer
 {
+    /**
+     * @inheritdoc
+     */
     public function supportsDenormalization($data, $type, $format = null)
     {
-        $type = rtrim($type, '[]');
+        // Do not apply this on array objects. ArrayDenormalizer takes care of them.
+        if ('[]' === substr($type, -2)) {
+            return false;
+        }
 
-        return PropertiesProperty::class === $type || $type instanceof PropertiesProperty || in_array(PropertiesProperty::class, class_parents($type));
+        return PropertiesProperty::class === $type || $type instanceof PropertiesProperty;
     }
 
     /**
@@ -37,7 +43,7 @@ class PropertiesPropertyDenormalizer extends KeyValueMapDenormalizer
      */
     public function denormalize($data, $class, $format = null, array $context = [])
     {
-        if (property_exists($data, 'property') && is_array($data->property)) {
+        if (is_object($data) && property_exists($data, 'property') && is_array($data->property)) {
             $flatten = [];
             foreach ($data->property as $property) {
                 $flatten[$property->name] = $property->value;
