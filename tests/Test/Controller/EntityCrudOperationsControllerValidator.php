@@ -19,7 +19,6 @@
 namespace Apigee\Edge\Tests\Test\Controller;
 
 use Apigee\Edge\Entity\EntityInterface;
-use Apigee\Edge\Entity\EntityNormalizer;
 use Apigee\Edge\Exception\ApiResponseException;
 use Apigee\Edge\Tests\Test\Mock\TestClientFactory;
 
@@ -52,25 +51,6 @@ abstract class EntityCrudOperationsControllerValidator extends EntityControllerV
      * @return \Apigee\Edge\Entity\EntityInterface
      */
     abstract public static function sampleDataForEntityUpdate(): EntityInterface;
-
-    // TODO Fix its implementation after entity factory became deprecated.
-//    /**
-//     * Validates that an empty entity object can be normalized with our custom entity normalizer.
-//     *
-//     * The assertion is a dummy one here, but this test is highly important because it ensures that entity properties
-//     * were properly initialized (ex.: $attributes is an AttributesProperty object and not null) and getters are
-//     * returning the type that they should.
-//     *
-//     * @group mock
-//     * @group offline
-//     * @small
-//     */
-//    public function testEntityCanBeNormalized(): void
-//    {
-//        $entity = static::$entityFactory->getEntityByController(static::getEntityController());
-//        $normalizer = new EntityNormalizer();
-//        $this->assertNotEmpty($normalizer->normalize($entity));
-//    }
 
     /**
      * @return string
