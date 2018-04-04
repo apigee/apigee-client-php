@@ -20,6 +20,7 @@ namespace Apigee\Edge\Api\Management\Controller;
 
 use Apigee\Edge\Api\Management\Entity\AppCredential;
 use Apigee\Edge\Api\Management\Entity\AppCredentialInterface;
+use Apigee\Edge\Api\Management\Normalizer\AppCredentialNormalizer;
 use Apigee\Edge\Controller\EntityController;
 use Apigee\Edge\Controller\EntityCrudOperationsControllerTrait;
 use Apigee\Edge\Controller\StatusAwareEntityControllerTrait;
@@ -79,6 +80,7 @@ class DeveloperAppCredentialController extends EntityController implements Devel
     ) {
         $this->developerId = $developerId;
         $this->appName = $appName;
+        $entityNormalizers[] = new AppCredentialNormalizer();
         $entityNormalizers[] = new CredentialProductDenormalizer();
         $entityNormalizers[] = new CredentialProductNormalizer();
         $entityNormalizers[] = new AttributesPropertyDenormalizer();
