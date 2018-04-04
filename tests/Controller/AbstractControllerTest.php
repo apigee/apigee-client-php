@@ -22,6 +22,7 @@ use Apigee\Edge\Controller\AbstractEntityController;
 use Apigee\Edge\HttpClient\Client;
 use Apigee\Edge\HttpClient\ClientInterface;
 use Apigee\Edge\HttpClient\Utility\Builder;
+use Apigee\Edge\Tests\Test\Mock\MockEntity;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 use Http\Discovery\UriFactoryDiscovery;
@@ -109,6 +110,14 @@ class AbstractControllerTest extends TestCase
             public function toArray(ResponseInterface $response)
             {
                 return $this->responseToArray($response);
+            }
+
+            /**
+             * @inheritdoc
+             */
+            protected function getEntityClass(): string
+            {
+                return MockEntity::class;
             }
         };
     }

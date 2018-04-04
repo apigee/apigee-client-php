@@ -60,4 +60,11 @@ abstract class AbstractEntityController extends AbstractController
     {
         return $this->getBaseEndpointUri()->withPath(sprintf('%s/%s', $this->getBaseEndpointUri(), $entityId));
     }
+
+    /**
+     * Returns the fully-qualified class name of the entity that this controller works with.
+     *
+     * @return string
+     */
+    abstract protected function getEntityClass(): string;
 }
