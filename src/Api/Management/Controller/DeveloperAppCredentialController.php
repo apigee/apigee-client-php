@@ -18,17 +18,19 @@
 
 namespace Apigee\Edge\Api\Management\Controller;
 
-use Apigee\Edge\Api\Management\Entity\AppCredentialDenormalizer;
+use Apigee\Edge\Api\Management\Entity\AppCredential;
 use Apigee\Edge\Api\Management\Entity\AppCredentialInterface;
-use Apigee\Edge\Api\Management\Entity\AppCredentialNormalizer;
+use Apigee\Edge\Api\Management\Normalizer\AppCredentialNormalizer;
 use Apigee\Edge\Controller\EntityController;
 use Apigee\Edge\Controller\EntityCrudOperationsControllerTrait;
 use Apigee\Edge\Controller\StatusAwareEntityControllerTrait;
-use Apigee\Edge\Entity\EntityFactoryInterface;
+use Apigee\Edge\Denormalizer\AttributesPropertyDenormalizer;
+use Apigee\Edge\Denormalizer\CredentialProductDenormalizer;
 use Apigee\Edge\Entity\EntityInterface;
 use Apigee\Edge\HttpClient\ClientInterface;
+use Apigee\Edge\Normalizer\CredentialProductNormalizer;
+use Apigee\Edge\Normalizer\KeyValueMapNormalizer;
 use Apigee\Edge\Structure\AttributesProperty;
-use Apigee\Edge\Structure\KeyValueMapNormalizer;
 use Psr\Http\Message\UriInterface;
 
 /**
@@ -61,24 +63,28 @@ class DeveloperAppCredentialController extends EntityController implements Devel
     protected $appName;
 
     /**
-     * AppCredentialController constructor.
+     * DeveloperAppCredentialController constructor.
      *
      * @param string $organization
      * @param string $developerId
      * @param string $appName
      * @param \Apigee\Edge\HttpClient\ClientInterface|null $client
-     * @param \Apigee\Edge\Entity\EntityFactoryInterface $entityFactory
+     * @param \Symfony\Component\Serializer\Normalizer\NormalizerInterface[]|\Symfony\Component\Serializer\Normalizer\DenormalizerInterface[] $entityNormalizers
      */
     public function __construct(
         string $organization,
         string $developerId,
         string $appName,
         ClientInterface $client = null,
-        EntityFactoryInterface $entityFactory = null
+        $entityNormalizers = []
     ) {
-        parent::__construct($organization, $client, $entityFactory);
         $this->developerId = $developerId;
         $this->appName = $appName;
+        $entityNormalizers[] = new AppCredentialNormalizer();
+        $entityNormalizers[] = new CredentialProductDenormalizer();
+        $entityNormalizers[] = new CredentialProductNormalizer();
+        $entityNormalizers[] = new AttributesPropertyDenormalizer();
+        parent::__construct($organization, $client, $entityNormalizers);
     }
 
     /**
@@ -92,9 +98,9 @@ class DeveloperAppCredentialController extends EntityController implements Devel
             (string) json_encode((object) ['consumerKey' => $consumerKey, 'consumerSecret' => $consumerSecret])
         );
 
-        return $this->entitySerializer->deserialize(
+        return $this->entityTransformer->deserialize(
             (string) $response->getBody(),
-            $this->entityFactory->getEntityTypeByController(self::class),
+            $this->getEntityClass(),
             'json'
         );
     }
@@ -120,9 +126,9 @@ class DeveloperAppCredentialController extends EntityController implements Devel
         $responseArray = $this->responseToArray($response);
         $credentialArray = reset($responseArray['credentials']);
 
-        return $this->entitySerializer->denormalize(
+        return $this->entityTransformer->denormalize(
             $credentialArray,
-            $this->entityFactory->getEntityTypeByController(self::class)
+            $this->getEntityClass()
         );
     }
 
@@ -136,9 +142,9 @@ class DeveloperAppCredentialController extends EntityController implements Devel
             (string) json_encode((object) ['apiProducts' => $apiProducts])
         );
 
-        return $this->entitySerializer->deserialize(
+        return $this->entityTransformer->deserialize(
             (string) $response->getBody(),
-            $this->entityFactory->getEntityTypeByController(self::class),
+            $this->getEntityClass(),
             'json'
         );
     }
@@ -154,9 +160,9 @@ class DeveloperAppCredentialController extends EntityController implements Devel
             (string) json_encode((object) ['attributes' => $normalizer->normalize($attributes)])
         );
 
-        return $this->entitySerializer->deserialize(
+        return $this->entityTransformer->deserialize(
             (string) $response->getBody(),
-            $this->entityFactory->getEntityTypeByController(self::class),
+            $this->getEntityClass(),
             'json'
         );
     }
@@ -181,9 +187,9 @@ class DeveloperAppCredentialController extends EntityController implements Devel
             ->withPath(sprintf('%s/keys/%s/apiproducts/%s', $this->getBaseEndpointUri(), $consumerKey, $apiProduct));
         $response = $this->client->delete($uri);
 
-        return $this->entitySerializer->deserialize(
+        return $this->entityTransformer->deserialize(
             (string) $response->getBody(),
-            $this->entityFactory->getEntityTypeByController($this),
+            $this->getEntityClass(),
             'json'
         );
     }
@@ -198,21 +204,11 @@ class DeveloperAppCredentialController extends EntityController implements Devel
             (string) json_encode((object) ['scopes' => $scopes])
         );
 
-        return $this->entitySerializer->deserialize(
+        return $this->entityTransformer->deserialize(
             (string) $response->getBody(),
-            $this->entityFactory->getEntityTypeByController(self::class),
+            $this->getEntityClass(),
             'json'
         );
-    }
-
-    /**
-     * @inheritdoc
-     */
-    protected function entityNormalizers()
-    {
-        // Add our special App credential normalizer and denormalizer to the beginning of the list.
-        // This way enforce parent $this->entitySerializer calls to use these for app credentials primarily.
-        return array_merge([new AppCredentialNormalizer(), new AppCredentialDenormalizer()], parent::entityNormalizers());
     }
 
     /**
@@ -235,5 +231,13 @@ class DeveloperAppCredentialController extends EntityController implements Devel
     protected function getEntityEndpointUri(string $entityId): UriInterface
     {
         return $this->getBaseEndpointUri()->withPath(sprintf('%s/keys/%s', $this->getBaseEndpointUri(), $entityId));
+    }
+
+    /**
+     * @inheritdoc
+     */
+    protected function getEntityClass(): string
+    {
+        return AppCredential::class;
     }
 }

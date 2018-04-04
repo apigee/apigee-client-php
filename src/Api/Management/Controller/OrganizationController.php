@@ -18,9 +18,13 @@
 
 namespace Apigee\Edge\Api\Management\Controller;
 
+use Apigee\Edge\Api\Management\Entity\Organization;
 use Apigee\Edge\Controller\AbstractEntityController;
 use Apigee\Edge\Controller\EntityCrudOperationsControllerTrait;
 use Apigee\Edge\Controller\NonCpsListingEntityControllerTrait;
+use Apigee\Edge\Denormalizer\PropertiesPropertyDenormalizer;
+use Apigee\Edge\HttpClient\ClientInterface;
+use Apigee\Edge\Normalizer\PropertiesPropertyNormalizer;
 use Psr\Http\Message\UriInterface;
 
 /**
@@ -35,10 +39,31 @@ class OrganizationController extends AbstractEntityController implements Organiz
     use NonCpsListingEntityControllerTrait;
 
     /**
+     * OrganizationController constructor.
+     *
+     * @param \Apigee\Edge\HttpClient\ClientInterface|null $client
+     * @param \Symfony\Component\Serializer\Normalizer\NormalizerInterface[]|\Symfony\Component\Serializer\Normalizer\DenormalizerInterface[] $entityNormalizers
+     */
+    public function __construct(?ClientInterface $client = null, $entityNormalizers = [])
+    {
+        $entityNormalizers[] = new PropertiesPropertyNormalizer();
+        $entityNormalizers[] = new PropertiesPropertyDenormalizer();
+        parent::__construct($client, $entityNormalizers);
+    }
+
+    /**
      * @inheritdoc
      */
     public function getBaseEndpointUri(): UriInterface
     {
         return $this->client->getUriFactory()->createUri('/organizations');
+    }
+
+    /**
+     * @inheritdoc
+     */
+    protected function getEntityClass(): string
+    {
+        return Organization::class;
     }
 }

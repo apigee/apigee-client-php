@@ -16,43 +16,40 @@
  * limitations under the License.
  */
 
-namespace Apigee\Edge\Structure;
+namespace Apigee\Edge\Denormalizer;
+
+use Apigee\Edge\Structure\PropertiesProperty;
 
 /**
- * Class AttributesPropertyDenormalizer.
+ * Class PropertiesPropertyDenormalizer.
  */
-class AttributesPropertyDenormalizer extends KeyValueMapDenormalizer
+class PropertiesPropertyDenormalizer extends KeyValueMapDenormalizer
 {
     /**
      * @inheritdoc
      */
     public function supportsDenormalization($data, $type, $format = null)
     {
-        return $type instanceof AttributesProperty;
+        // Do not apply this on array objects. ArrayDenormalizer takes care of them.
+        if ('[]' === substr($type, -2)) {
+            return false;
+        }
+
+        return PropertiesProperty::class === $type || $type instanceof PropertiesProperty;
     }
 
     /**
-     * Transforms input data to our internal representation.
-     *
-     * Acceptable inputs:
-     *   - Edge response format: $data = [{'name' => 'foo', 'value' => 'bar'}, {'name' => 'bar', 'value' => 'baz'}]
-     *     (from the EntityNormalizer for example)
-     *   - Internal representation of attributes: ['foo' => 'bar', 'bar' => 'baz']
-     *
      * @inheritdoc
      */
     public function denormalize($data, $class, $format = null, array $context = [])
     {
-        $flatten = [];
-        foreach ($data as $key => $item) {
-            if (is_object($item)) {
-                // $data came from the EntityNormalizer.
-                $flatten[$item->name] = $item->value;
-            } else {
-                $flatten[$key] = $item;
+        if (is_object($data) && property_exists($data, 'property') && is_array($data->property)) {
+            $flatten = [];
+            foreach ($data->property as $property) {
+                $flatten[$property->name] = $property->value;
             }
+            $data = $flatten;
         }
-        $data = $flatten;
 
         return parent::denormalize($data, $class, $format, $context);
     }

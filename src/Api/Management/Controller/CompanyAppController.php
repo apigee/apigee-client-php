@@ -18,8 +18,9 @@
 
 namespace Apigee\Edge\Api\Management\Controller;
 
-use Apigee\Edge\Api\Management\Entity\AppDenormalizer;
+use Apigee\Edge\Api\Management\Entity\CompanyApp;
 use Apigee\Edge\Controller\CpsLimitEntityController;
+use Apigee\Edge\HttpClient\ClientInterface;
 use Psr\Http\Message\UriInterface;
 
 /**
@@ -29,6 +30,8 @@ use Psr\Http\Message\UriInterface;
  */
 class CompanyAppController extends CpsLimitEntityController implements CompanyAppControllerInterface
 {
+    use AppControllerTrait;
+
     /**
      * Name of an company.
      *
@@ -37,13 +40,21 @@ class CompanyAppController extends CpsLimitEntityController implements CompanyAp
     protected $companyName;
 
     /**
-     * @inheritdoc
+     * CompanyAppController constructor.
+     *
+     * @param string $organization
+     * @param \Apigee\Edge\HttpClient\ClientInterface|null $client
+     * @param \Symfony\Component\Serializer\Normalizer\NormalizerInterface[]|\Symfony\Component\Serializer\Normalizer\DenormalizerInterface[] $entityNormalizers
+     * @param \Apigee\Edge\Api\Management\Controller\OrganizationControllerInterface|null $organizationController
      */
-    protected function entityNormalizers()
-    {
-        // Add our special AppDenormalizer to the top of the list.
-        // This way enforce parent $this->entitySerializer calls to use it for apps primarily.
-        return array_merge([new AppDenormalizer($this->entityFactory)], parent::entityNormalizers());
+    public function __construct(
+        string $organization,
+        ?ClientInterface $client = null,
+        $entityNormalizers = [],
+        ?OrganizationControllerInterface $organizationController = null
+    ) {
+        $entityNormalizers = array_merge($entityNormalizers, $this->appEntityNormalizers());
+        parent::__construct($organization, $client, $entityNormalizers, $organizationController);
     }
 
     /**
@@ -53,5 +64,13 @@ class CompanyAppController extends CpsLimitEntityController implements CompanyAp
     {
         return $this->client->getUriFactory()
             ->createUri(sprintf('/organizations/%s/companies/%s/apps', $this->organization, $this->companyName));
+    }
+
+    /**
+     * @inheritdoc
+     */
+    protected function getEntityClass(): string
+    {
+        return CompanyApp::class;
     }
 }

@@ -62,19 +62,33 @@ class ApiProduct extends Entity implements ApiProductInterface
     /** @var string[] */
     protected $proxies = [];
 
-    /** @var int|null */
+    /**
+     * Apigee Edge returns this value as a string.
+     *
+     * @var string|null
+     */
     protected $quota;
 
-    /** @var int|null */
+    /**
+     * Apigee Edge returns this value as a string.
+     *
+     * @var string|null
+     */
     protected $quotaInterval;
 
-    /** @var string|null */
+    /**
+     * Apigee Edge returns this value as a string.
+     *
+     * @var string|null
+     */
     protected $quotaTimeUnit;
 
     /**
      * ApiProduct constructor.
      *
      * @param array $values
+     *
+     * @throws \ReflectionException
      */
     public function __construct(array $values = [])
     {
@@ -101,7 +115,7 @@ class ApiProduct extends Entity implements ApiProductInterface
     /**
      * @inheritdoc
      */
-    public function getQuota(): ?int
+    public function getQuota(): ?string
     {
         return $this->quota;
     }
@@ -109,7 +123,7 @@ class ApiProduct extends Entity implements ApiProductInterface
     /**
      * @inheritdoc
      */
-    public function setQuota(int $quota): void
+    public function setQuota(string $quota): void
     {
         $this->quota = $quota;
     }
@@ -117,7 +131,7 @@ class ApiProduct extends Entity implements ApiProductInterface
     /**
      * @inheritdoc
      */
-    public function getQuotaInterval(): ?int
+    public function getQuotaInterval(): ?string
     {
         return $this->quotaInterval;
     }
@@ -125,7 +139,7 @@ class ApiProduct extends Entity implements ApiProductInterface
     /**
      * @inheritdoc
      */
-    public function setQuotaInterval(int $quotaInterval): void
+    public function setQuotaInterval(string $quotaInterval): void
     {
         $this->quotaInterval = $quotaInterval;
     }

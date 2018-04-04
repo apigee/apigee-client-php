@@ -18,7 +18,6 @@
 
 namespace Apigee\Edge\Controller;
 
-use Apigee\Edge\Entity\EntityFactoryInterface;
 use Apigee\Edge\HttpClient\ClientInterface;
 
 /**
@@ -34,16 +33,14 @@ abstract class EntityController extends AbstractEntityController
      * @param string $organization
      *   Name of the organization that the entities belongs to.
      * @param ClientInterface|null $client
-     * @param \Apigee\Edge\Entity\EntityFactoryInterface|null $entityFactory
-     * @param \Symfony\Component\Serializer\Normalizer\NormalizerInterface[] $entityNormalizers
+     * @param \Symfony\Component\Serializer\Normalizer\NormalizerInterface[]|\Symfony\Component\Serializer\Normalizer\DenormalizerInterface[] $entityNormalizers
      */
     public function __construct(
         string $organization,
-        ClientInterface $client = null,
-        EntityFactoryInterface $entityFactory = null,
+        ?ClientInterface $client = null,
         array $entityNormalizers = []
     ) {
         $this->organization = $organization;
-        parent::__construct($client, $entityFactory, $entityNormalizers);
+        parent::__construct($client, $entityNormalizers);
     }
 }

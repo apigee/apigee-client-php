@@ -66,6 +66,8 @@ abstract class App extends Entity implements AppInterface
      * App constructor.
      *
      * @param array $values
+     *
+     * @throws \ReflectionException
      */
     public function __construct(array $values = [])
     {
@@ -194,7 +196,7 @@ abstract class App extends Entity implements AppInterface
      *
      * Credentials, included in app, can not be changed by modifying them on the entity level.
      *
-     * @param \Apigee\Edge\Api\Management\Entity\AppCredential[] $credentials
+     * @param \Apigee\Edge\Api\Management\Entity\AppCredentialInterface[] $credentials
      *
      * @internal
      */

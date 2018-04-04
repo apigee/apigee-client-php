@@ -18,8 +18,14 @@
 
 namespace Apigee\Edge\Tests\Entity;
 
-use Apigee\Edge\Entity\EntityDenormalizer;
-use Apigee\Edge\Entity\EntityNormalizer;
+use Apigee\Edge\Api\Management\Normalizer\AppCredentialNormalizer;
+use Apigee\Edge\Denormalizer\AttributesPropertyDenormalizer;
+use Apigee\Edge\Denormalizer\CredentialProductDenormalizer;
+use Apigee\Edge\Denormalizer\EdgeDateDenormalizer;
+use Apigee\Edge\Denormalizer\PropertiesPropertyDenormalizer;
+use Apigee\Edge\Entity\EntityTransformer;
+use Apigee\Edge\Normalizer\EdgeDateNormalizer;
+use Apigee\Edge\Normalizer\PropertiesPropertyNormalizer;
 use Apigee\Edge\Tests\Test\Mock\MockEntity;
 use PHPUnit\Framework\TestCase;
 use SebastianBergmann\Comparator\ComparisonFailure;
@@ -40,11 +46,8 @@ use SebastianBergmann\Comparator\Factory as ComparisonFactory;
  */
 class EntityTransformationTest extends TestCase
 {
-    /** @var \Apigee\Edge\Entity\EntityNormalizer */
+    /** @var \Apigee\Edge\Normalizer\EntityNormalizer */
     protected static $normalizer;
-
-    /** @var \Apigee\Edge\Entity\EntityDenormalizer */
-    protected static $denormalizer;
 
     /**
      * @inheritdoc
@@ -52,8 +55,18 @@ class EntityTransformationTest extends TestCase
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        static::$normalizer = new EntityNormalizer();
-        static::$denormalizer = new EntityDenormalizer();
+        $normalizers = [
+            // The order of these (de)normalizers matters when one of them is applicable
+            // to multiple classes. Ex.: KVM (de)normalizer is applicable to all KVM subclasses.
+            new EdgeDateNormalizer(),
+            new EdgeDateDenormalizer(),
+            new AppCredentialNormalizer(),
+            new AttributesPropertyDenormalizer(),
+            new PropertiesPropertyNormalizer(),
+            new PropertiesPropertyDenormalizer(),
+            new CredentialProductDenormalizer(),
+        ];
+        static::$normalizer = new EntityTransformer($normalizers);
     }
 
     public function testNormalize()
@@ -66,12 +79,12 @@ class EntityTransformationTest extends TestCase
         $this->assertTrue(2.2 === $normalized->double);
         $this->assertTrue('string' === $normalized->string);
         $this->assertTrue('' === $normalized->emptyString);
-        $this->assertEquals('foo', $normalized->attributesProperty[0]->name);
-        $this->assertEquals('bar', $normalized->attributesProperty[0]->value);
+        $this->assertEquals('foo', $normalized->attributes[0]->name);
+        $this->assertEquals('bar', $normalized->attributes[0]->value);
         $this->assertEquals('foo', $normalized->credentialProduct->apiproduct);
         $this->assertEquals('bar', $normalized->credentialProduct->status);
-        $this->assertEquals('foo', $normalized->propertiesProperty->property[0]->name);
-        $this->assertEquals('bar', $normalized->propertiesProperty->property[0]->value);
+        $this->assertArrayHasKey('foo', $normalized->properties);
+        $this->assertEquals('bar', $normalized->properties['foo']);
         $this->assertNotEmpty($normalized->appCredential);
         $this->assertEquals('consumerKey', $normalized->appCredential[0]->consumerKey);
         $this->assertEquals(-1, $normalized->appCredential[0]->expiresAt);
@@ -96,17 +109,17 @@ class EntityTransformationTest extends TestCase
         // Set value of this nullable value to ensure that a special condition is triggered in the EntityDenormalizer.
         $normalized->nullable = null;
         /** @var \Apigee\Edge\Tests\Test\Mock\MockEntity $object */
-        $object = static::$denormalizer->denormalize($normalized, MockEntity::class);
+        $object = static::$normalizer->denormalize($normalized, MockEntity::class);
         $this->assertTrue(true === $object->isBool());
         $this->assertTrue(2 === $object->getInt());
         $this->assertTrue(0 === $object->getZero());
         $this->assertTrue(2.2 === $object->getDouble());
         $this->assertTrue('string' === $object->getString());
         $this->assertTrue('' === $object->getEmptyString());
-        $this->assertEquals('bar', $object->getAttributesProperty()->getValue('foo'));
+        $this->assertEquals('bar', $object->getAttributeValue('foo'));
         $this->assertEquals('foo', $object->getCredentialProduct()->getApiproduct());
         $this->assertEquals('bar', $object->getCredentialProduct()->getStatus());
-        $this->assertEquals('bar', $object->getPropertiesProperty()->getValue('foo'));
+        $this->assertEquals('bar', $object->getPropertyValue('foo'));
         $this->assertNotEmpty($object->getAppCredential());
         $this->assertEquals('consumerKey', $object->getAppCredential()[0]->getConsumerKey());
         $this->assertNull($object->getAppCredential()[0]->getExpiresAt());

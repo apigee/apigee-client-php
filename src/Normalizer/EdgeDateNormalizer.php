@@ -16,11 +16,26 @@
  * limitations under the License.
  */
 
-namespace Apigee\Edge\Structure;
+namespace Apigee\Edge\Normalizer;
 
-/**
- * Class AttributesPropertyNormalizer.
- */
-class AttributesPropertyNormalizer extends KeyValueMapNormalizer
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+
+class EdgeDateNormalizer implements NormalizerInterface
 {
+    /**
+     * {@inheritdoc}
+     */
+    public function supportsNormalization($data, $format = null)
+    {
+        return $data instanceof \DateTimeInterface;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function normalize($object, $format = null, array $context = [])
+    {
+        /* @var \DateTimeInterface $object */
+        return $object->getTimestamp() * 1000;
+    }
 }

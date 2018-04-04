@@ -21,7 +21,7 @@ namespace Apigee\Edge\Exception;
 /**
  * Class EntityNotFoundException.
  */
-class EntityNotFoundException extends \Exception
+class ClassNotFoundException extends \Exception
 {
     /**
      * EntityNotFoundException constructor.
@@ -32,7 +32,7 @@ class EntityNotFoundException extends \Exception
      */
     public function __construct($fqcn, $code = 0, \Throwable $previous = null)
     {
-        $message = sprintf('%s entity not found.', $fqcn);
+        $message = sprintf('%s class not found.', $fqcn);
         parent::__construct($message, $code, $previous);
     }
 }

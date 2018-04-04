@@ -20,6 +20,8 @@ namespace Apigee\Edge\Tests\Test\Mock;
 
 use Apigee\Edge\Api\Management\Entity\AppCredential;
 use Apigee\Edge\Entity\Entity;
+use Apigee\Edge\Entity\Property\AttributesPropertyAwareTrait;
+use Apigee\Edge\Entity\Property\PropertiesPropertyAwareTrait;
 use Apigee\Edge\Structure\AttributesProperty;
 use Apigee\Edge\Structure\CredentialProduct;
 use Apigee\Edge\Structure\PropertiesProperty;
@@ -29,6 +31,9 @@ use Apigee\Edge\Structure\PropertiesProperty;
  */
 class MockEntity extends Entity
 {
+    use AttributesPropertyAwareTrait;
+    use PropertiesPropertyAwareTrait;
+
     /** @var null */
     private $nullable;
 
@@ -50,16 +55,10 @@ class MockEntity extends Entity
     /** @var string */
     private $emptyString = '';
 
-    /** @var AttributesProperty */
-    private $attributesProperty;
-
-    /** @var PropertiesProperty */
-    private $propertiesProperty;
-
-    /** @var AppCredential[] */
+    /** @var \Apigee\Edge\Api\Management\Entity\AppCredential[] */
     private $appCredential = [];
 
-    /** @var CredentialProduct */
+    /** @var \Apigee\Edge\Structure\CredentialProduct */
     private $credentialProduct;
 
     /** @var null|\DateTimeImmutable */
@@ -74,13 +73,13 @@ class MockEntity extends Entity
      */
     public function __construct(array $values = [])
     {
-        $this->attributesProperty = new AttributesProperty(['foo' => 'bar']);
-        $this->propertiesProperty = new PropertiesProperty(['foo' => 'bar']);
+        $this->attributes = new AttributesProperty(['foo' => 'bar']);
+        $this->properties = new PropertiesProperty(['foo' => 'bar']);
         $this->credentialProduct = new CredentialProduct('foo', 'bar');
         $this->appCredential = [new AppCredential(
             [
                 'apiProducts' => [$this->credentialProduct],
-                'attributes' => $this->attributesProperty,
+                'attributes' => $this->attributes,
                 'consumerKey' => 'consumerKey',
                 'consumerSecret' => 'consumerSecret',
                 'scopes' => ['foo', 'bar'],
@@ -200,38 +199,6 @@ class MockEntity extends Entity
     }
 
     /**
-     * @return \Apigee\Edge\Structure\AttributesProperty
-     */
-    public function getAttributesProperty(): AttributesProperty
-    {
-        return $this->attributesProperty;
-    }
-
-    /**
-     * @param \Apigee\Edge\Structure\AttributesProperty $attributesProperty
-     */
-    public function setAttributesProperty(AttributesProperty $attributesProperty
-    ): void {
-        $this->attributesProperty = $attributesProperty;
-    }
-
-    /**
-     * @return \Apigee\Edge\Structure\PropertiesProperty
-     */
-    public function getPropertiesProperty(): PropertiesProperty
-    {
-        return $this->propertiesProperty;
-    }
-
-    /**
-     * @param \Apigee\Edge\Structure\PropertiesProperty $propertiesProperty
-     */
-    public function setPropertiesProperty(PropertiesProperty $propertiesProperty
-    ): void {
-        $this->propertiesProperty = $propertiesProperty;
-    }
-
-    /**
      * @return \Apigee\Edge\Structure\CredentialProduct
      */
     public function getCredentialProduct(): CredentialProduct
@@ -242,13 +209,13 @@ class MockEntity extends Entity
     /**
      * @param \Apigee\Edge\Structure\CredentialProduct $credentialProduct
      */
-    public function setCredentialProduct(CredentialProduct $credentialProduct
-    ): void {
+    public function setCredentialProduct(CredentialProduct $credentialProduct): void
+    {
         $this->credentialProduct = $credentialProduct;
     }
 
     /**
-     * @return AppCredential[]
+     * @return \Apigee\Edge\Api\Management\Entity\AppCredential[]
      */
     public function getAppCredential(): array
     {
@@ -256,7 +223,7 @@ class MockEntity extends Entity
     }
 
     /**
-     * @param AppCredential[] $appCredential
+     * @param \Apigee\Edge\Api\Management\Entity\AppCredential[] $appCredential
      */
     public function setAppCredential(array $appCredential): void
     {

@@ -16,8 +16,10 @@
  * limitations under the License.
  */
 
-namespace Apigee\Edge\Structure;
+namespace Apigee\Edge\Denormalizer;
 
+use Apigee\Edge\Structure\CredentialProduct;
+use Apigee\Edge\Structure\CredentialProductInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 
 /**
@@ -30,7 +32,12 @@ class CredentialProductDenormalizer implements DenormalizerInterface
      */
     public function supportsDenormalization($data, $type, $format = null)
     {
-        return $type instanceof CredentialProductInterface;
+        // Do not apply this on array objects. ArrayDenormalizer takes care of them.
+        if ('[]' === substr($type, -2)) {
+            return false;
+        }
+
+        return CredentialProductInterface::class === $type || $type instanceof CredentialProductInterface || in_array(CredentialProductInterface::class, class_implements($type));
     }
 
     /**

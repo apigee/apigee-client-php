@@ -18,12 +18,11 @@
 
 namespace Apigee\Edge\Api\Management\Controller;
 
-use Apigee\Edge\Api\Management\Entity\AppDenormalizer;
+use Apigee\Edge\Api\Management\Entity\DeveloperApp;
 use Apigee\Edge\Controller\CpsLimitEntityController;
 use Apigee\Edge\Controller\EntityCrudOperationsControllerTrait;
 use Apigee\Edge\Controller\NonCpsListingEntityControllerTrait;
 use Apigee\Edge\Controller\StatusAwareEntityControllerTrait;
-use Apigee\Edge\Entity\EntityFactoryInterface;
 use Apigee\Edge\HttpClient\ClientInterface;
 use Psr\Http\Message\UriInterface;
 
@@ -33,6 +32,7 @@ use Psr\Http\Message\UriInterface;
 class DeveloperAppController extends CpsLimitEntityController implements DeveloperAppControllerInterface
 {
     use AttributesAwareEntityControllerTrait;
+    use AppControllerTrait;
     use EntityCrudOperationsControllerTrait;
     use NonCpsListingEntityControllerTrait;
     use StatusAwareEntityControllerTrait;
@@ -46,20 +46,19 @@ class DeveloperAppController extends CpsLimitEntityController implements Develop
      * @param string $organization
      * @param string $developerId
      * @param \Apigee\Edge\HttpClient\ClientInterface|null $client
-     * @param \Apigee\Edge\Entity\EntityFactoryInterface|null $entityFactory
-     * @param \Symfony\Component\Serializer\Normalizer\NormalizerInterface[] $entityNormalizers
+     * @param \Symfony\Component\Serializer\Normalizer\NormalizerInterface[]|\Symfony\Component\Serializer\Normalizer\DenormalizerInterface[] $entityNormalizers
      * @param \Apigee\Edge\Api\Management\Controller\OrganizationControllerInterface|null $organizationController
      */
     public function __construct(
         string $organization,
         string $developerId,
-        ClientInterface $client = null,
-        EntityFactoryInterface $entityFactory = null,
+        ?ClientInterface $client = null,
         array $entityNormalizers = [],
-        OrganizationControllerInterface $organizationController = null
+        ?OrganizationControllerInterface $organizationController = null
     ) {
         $this->developerId = $developerId;
-        parent::__construct($organization, $client, $entityFactory, $entityNormalizers, $organizationController);
+        $entityNormalizers = array_merge($entityNormalizers, $this->appEntityNormalizers());
+        parent::__construct($organization, $client, $entityNormalizers, $organizationController);
     }
 
     /**
@@ -74,10 +73,8 @@ class DeveloperAppController extends CpsLimitEntityController implements Develop
     /**
      * @inheritdoc
      */
-    protected function entityNormalizers()
+    protected function getEntityClass(): string
     {
-        // Add our special AppDenormalizer to the top of the list.
-        // This way enforce parent $this->entitySerializer calls to use it for apps primarily.
-        return array_merge([new AppDenormalizer($this->entityFactory)], parent::entityNormalizers());
+        return DeveloperApp::class;
     }
 }

@@ -18,9 +18,9 @@
 
 namespace Apigee\Edge\Api\Management\Controller;
 
-use Apigee\Edge\Api\Management\Entity\AppDenormalizer;
 use Apigee\Edge\Api\Management\Entity\AppInterface;
 use Apigee\Edge\Controller\CpsLimitEntityController;
+use Apigee\Edge\HttpClient\ClientInterface;
 use Apigee\Edge\Structure\CpsListLimitInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\UriInterface;
@@ -30,6 +30,8 @@ use Psr\Http\Message\UriInterface;
  */
 class AppController extends CpsLimitEntityController implements AppControllerInterface
 {
+    use AppControllerTrait;
+
     /**
      * String that should be sent to the API to change the status of a credential to approved.
      */
@@ -41,13 +43,31 @@ class AppController extends CpsLimitEntityController implements AppControllerInt
     public const STATUS_REVOKE = 'revoke';
 
     /**
+     * AppController constructor.
+     *
+     * @param string $organization
+     * @param \Apigee\Edge\HttpClient\ClientInterface|null $client
+     * @param \Symfony\Component\Serializer\Normalizer\NormalizerInterface[]|\Symfony\Component\Serializer\Normalizer\DenormalizerInterface[] $entityNormalizers
+     * @param \Apigee\Edge\Api\Management\Controller\OrganizationControllerInterface|null $organizationController
+     */
+    public function __construct(
+        string $organization,
+        ?ClientInterface $client = null,
+        $entityNormalizers = [],
+        ?OrganizationControllerInterface $organizationController = null
+    ) {
+        $entityNormalizers = array_merge($entityNormalizers, $this->appEntityNormalizers());
+        parent::__construct($organization, $client, $entityNormalizers, $organizationController);
+    }
+
+    /**
      * @inheritdoc
      */
     public function loadApp(string $appId): AppInterface
     {
         $response = $this->client->get($this->getEntityEndpointUri($appId));
 
-        return $this->entitySerializer->denormalize(
+        return $this->entityTransformer->denormalize(
             // Pass it as an object, because if serializer would have been used here (just as other places) it would
             // pass an object to the denormalizer and not an array.
             (object) $this->responseToArray($response),
@@ -86,7 +106,7 @@ class AppController extends CpsLimitEntityController implements AppControllerInt
         $responseArray = reset($responseArray);
         foreach ($responseArray as $item) {
             /** @var \Apigee\Edge\Api\Management\Entity\AppInterface $tmp */
-            $tmp = $this->entitySerializer->denormalize(
+            $tmp = $this->entityTransformer->denormalize(
                 $item,
                 AppInterface::class
             );
@@ -132,7 +152,7 @@ class AppController extends CpsLimitEntityController implements AppControllerInt
         $responseArray = reset($responseArray);
         foreach ($responseArray as $item) {
             /** @var \Apigee\Edge\Api\Management\Entity\AppInterface $tmp */
-            $tmp = $this->entitySerializer->denormalize(
+            $tmp = $this->entityTransformer->denormalize(
                 $item,
                 AppInterface::class
             );
@@ -173,20 +193,20 @@ class AppController extends CpsLimitEntityController implements AppControllerInt
     /**
      * @inheritdoc
      */
-    protected function entityNormalizers()
+    protected function getBaseEndpointUri(): UriInterface
     {
-        // Add our special AppDenormalizer to the top of the list.
-        // This way enforce parent $this->entitySerializer calls to use it for apps primarily.
-        return array_merge([new AppDenormalizer($this->entityFactory)], parent::entityNormalizers());
+        return $this->client->getUriFactory()
+            ->createUri(sprintf('/organizations/%s/apps', $this->organization));
     }
 
     /**
      * @inheritdoc
      */
-    protected function getBaseEndpointUri(): UriInterface
+    protected function getEntityClass(): string
     {
-        return $this->client->getUriFactory()
-            ->createUri(sprintf('/organizations/%s/apps', $this->organization));
+        // It could be either a developer- or a company app. The AppDenormalizer can automatically decide which one
+        // should be used.
+        return '';
     }
 
     /**

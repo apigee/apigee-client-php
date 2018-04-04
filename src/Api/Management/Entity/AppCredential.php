@@ -51,7 +51,11 @@ class AppCredential extends Entity implements AppCredentialInterface
      */
     public const STATUS_REVOKED = 'revoked';
 
-    /** @var \Apigee\Edge\Structure\CredentialProduct[] */
+    /**
+     * Array of credential products or an empty array.
+     *
+     * @var \Apigee\Edge\Structure\CredentialProduct[]|array
+     */
     protected $apiProducts = [];
 
     /** @var string */
@@ -65,7 +69,7 @@ class AppCredential extends Entity implements AppCredentialInterface
      * never expires. So if this value is null then it either means that this is a new entity (check whether consumerKey
      * or consumerSecret are also null) or this credential never expires.
      *
-     * @var \DateTimeImmutable
+     * @var null|\DateTimeImmutable
      */
     protected $expiresAt;
 
@@ -94,9 +98,7 @@ class AppCredential extends Entity implements AppCredentialInterface
     }
 
     /**
-     * Get list of API products included in this credential with their statuses.
-     *
-     * @return \Apigee\Edge\Structure\CredentialProduct[]
+     * @inheritdoc
      */
     public function getApiProducts(): array
     {
@@ -108,7 +110,7 @@ class AppCredential extends Entity implements AppCredentialInterface
      *
      * Included API products in an app credential can not be changed by modifying this property's value.
      *
-     * @param \Apigee\Edge\Structure\CredentialProduct[] $apiProducts
+     * @param \Apigee\Edge\Structure\CredentialProductInterface[] $apiProducts
      *
      * @internal
      */
@@ -174,11 +176,11 @@ class AppCredential extends Entity implements AppCredentialInterface
      *
      * Expiration date can not be changed by modifying this property's value.
      *
-     * @param \DateTimeImmutable $date
+     * @param null|\DateTimeImmutable $date
      *
      * @internal
      */
-    public function setExpiresAt(\DateTimeImmutable $date): void
+    public function setExpiresAt($date): void
     {
         $this->expiresAt = $date;
     }

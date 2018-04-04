@@ -19,8 +19,8 @@
     "lastModifiedBy": "phpunit@example.com",
     "name": "phpunit_test",
     "proxies": [],
-    "quota" : 1000,
-    "quotaInterval": 12,
+    "quota" : "1000",
+    "quotaInterval": "12",
     "quotaTimeUnit": "hour",
     "scopes": [
         "scope 1",

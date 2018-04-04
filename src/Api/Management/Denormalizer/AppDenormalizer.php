@@ -16,36 +16,32 @@
  * limitations under the License.
  */
 
-namespace Apigee\Edge\Api\Management\Entity;
+namespace Apigee\Edge\Api\Management\Denormalizer;
 
-use Apigee\Edge\Api\Management\Controller\CompanyAppController;
-use Apigee\Edge\Api\Management\Controller\DeveloperAppController;
-use Apigee\Edge\Entity\EntityDenormalizer;
-use Apigee\Edge\Entity\EntityFactory;
-use Apigee\Edge\Entity\EntityFactoryInterface;
+use Apigee\Edge\Api\Management\Entity\AppInterface;
+use Apigee\Edge\Api\Management\Entity\CompanyApp;
+use Apigee\Edge\Api\Management\Entity\DeveloperApp;
+use Apigee\Edge\Denormalizer\EntityDenormalizer;
 use Symfony\Component\Serializer\Exception\UnexpectedValueException;
-use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 
 /**
  * Class AppDenormalizer.
  */
-class AppDenormalizer extends EntityDenormalizer implements DenormalizerInterface
+class AppDenormalizer extends EntityDenormalizer
 {
     /**
-     * @var \Apigee\Edge\Entity\EntityFactoryInterface
+     * Fully qualified class name of the developer app entity.
+     *
+     * @var string
      */
-    protected $entityFactory;
+    protected $developerAppClass = DeveloperApp::class;
 
     /**
-     * AppDenormalizer constructor.
+     * Fully qualified class name of the company app entity.
      *
-     * @param \Apigee\Edge\Entity\EntityFactoryInterface|null $entityFactory
+     * @var string
      */
-    public function __construct(EntityFactoryInterface $entityFactory = null)
-    {
-        $this->entityFactory = $entityFactory ?: new EntityFactory();
-        parent::__construct();
-    }
+    protected $companyAppClass = CompanyApp::class;
 
     /**
      * @inheritdoc
@@ -53,9 +49,9 @@ class AppDenormalizer extends EntityDenormalizer implements DenormalizerInterfac
     public function denormalize($data, $class, $format = null, array $context = [])
     {
         if (isset($data->developerId)) {
-            return parent::denormalize($data, $this->entityFactory->getEntityTypeByController(DeveloperAppController::class));
+            return parent::denormalize($data, $this->developerAppClass);
         } elseif (isset($data->companyName)) {
-            return parent::denormalize($data, $this->entityFactory->getEntityTypeByController(CompanyAppController::class));
+            return parent::denormalize($data, $this->companyAppClass);
         }
         throw new UnexpectedValueException(
             'Unable to denormalize because both "developerId" and "companyName" are missing from data.'
@@ -67,6 +63,11 @@ class AppDenormalizer extends EntityDenormalizer implements DenormalizerInterfac
      */
     public function supportsDenormalization($data, $type, $format = null)
     {
+        // Do not apply this on array objects. ArrayDenormalizer takes care of them.
+        if ('[]' === substr($type, -2)) {
+            return false;
+        }
+
         return AppInterface::class === $type || $type instanceof AppInterface || in_array($type, class_implements(AppInterface::class));
     }
 }

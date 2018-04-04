@@ -19,10 +19,10 @@
 namespace Apigee\Edge\Tests\Controller;
 
 use Apigee\Edge\Controller\AbstractEntityController;
-use Apigee\Edge\Entity\EntityFactoryInterface;
 use Apigee\Edge\HttpClient\Client;
 use Apigee\Edge\HttpClient\ClientInterface;
 use Apigee\Edge\HttpClient\Utility\Builder;
+use Apigee\Edge\Tests\Test\Mock\MockEntity;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 use Http\Discovery\UriFactoryDiscovery;
@@ -54,16 +54,14 @@ class AbstractControllerTest extends TestCase
             private $rebuild = true;
 
             /**
-             *  constructor.
-             *
              * @param \Apigee\Edge\HttpClient\ClientInterface|null $client
-             * @param \Apigee\Edge\Entity\EntityFactoryInterface|null $entityFactory
+             * @param array $entityNormalizers
              */
             public function __construct(
-                ClientInterface $client = null,
-                EntityFactoryInterface $entityFactory = null
+                ?ClientInterface $client = null,
+                $entityNormalizers = []
             ) {
-                parent::__construct($client, $entityFactory);
+                parent::__construct($client, $entityNormalizers);
                 $this->mockClient = new MockClient();
             }
 
@@ -112,6 +110,14 @@ class AbstractControllerTest extends TestCase
             public function toArray(ResponseInterface $response)
             {
                 return $this->responseToArray($response);
+            }
+
+            /**
+             * @inheritdoc
+             */
+            protected function getEntityClass(): string
+            {
+                return MockEntity::class;
             }
         };
     }

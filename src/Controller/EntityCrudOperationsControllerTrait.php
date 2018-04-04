@@ -35,9 +35,9 @@ trait EntityCrudOperationsControllerTrait
     {
         $response = $this->client->get($this->getEntityEndpointUri($entityId));
 
-        return $this->entitySerializer->deserialize(
+        return $this->entityTransformer->deserialize(
             (string) $response->getBody(),
-            $this->entityFactory->getEntityTypeByController($this),
+            $this->getEntityClass(),
             'json'
         );
     }
@@ -49,7 +49,7 @@ trait EntityCrudOperationsControllerTrait
     {
         $response = $this->client->post(
             $this->getBaseEndpointUri(),
-            $this->entitySerializer->serialize($entity, 'json')
+            $this->entityTransformer->serialize($entity, 'json')
         );
         $this->setPropertiesFromResponse($response, $entity);
     }
@@ -65,7 +65,7 @@ trait EntityCrudOperationsControllerTrait
         // Update an existing entity.
         $response = $this->client->put(
             $uri,
-            $this->entitySerializer->serialize($entity, 'json')
+            $this->entityTransformer->serialize($entity, 'json')
         );
         $this->setPropertiesFromResponse($response, $entity);
     }
@@ -77,9 +77,9 @@ trait EntityCrudOperationsControllerTrait
     {
         $response = $this->client->delete($this->getEntityEndpointUri($entityId));
 
-        return $this->entitySerializer->deserialize(
+        return $this->entityTransformer->deserialize(
             (string) $response->getBody(),
-            $this->entityFactory->getEntityTypeByController($this),
+            $this->getEntityClass(),
             'json'
         );
     }
@@ -99,7 +99,7 @@ trait EntityCrudOperationsControllerTrait
         // Parse Edge response to a temporary entity (with the same type as $entity).
         // This is a crucial step because Edge response must be transformed before we would be able use it with some
         // of our setters (ex.: attributes).
-        $tmp = $this->entitySerializer->deserialize(
+        $tmp = $this->entityTransformer->deserialize(
             (string) $response->getBody(),
             get_class($entity),
             'json'

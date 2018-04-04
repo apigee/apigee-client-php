@@ -16,8 +16,9 @@
  * limitations under the License.
  */
 
-namespace Apigee\Edge\Structure;
+namespace Apigee\Edge\Normalizer;
 
+use Apigee\Edge\Structure\KeyValueMapInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 /**

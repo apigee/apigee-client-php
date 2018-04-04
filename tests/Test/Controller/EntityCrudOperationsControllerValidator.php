@@ -19,7 +19,6 @@
 namespace Apigee\Edge\Tests\Test\Controller;
 
 use Apigee\Edge\Entity\EntityInterface;
-use Apigee\Edge\Entity\EntityNormalizer;
 use Apigee\Edge\Exception\ApiResponseException;
 use Apigee\Edge\Tests\Test\Mock\TestClientFactory;
 
@@ -54,24 +53,6 @@ abstract class EntityCrudOperationsControllerValidator extends EntityControllerV
     abstract public static function sampleDataForEntityUpdate(): EntityInterface;
 
     /**
-     * Validates that an empty entity object can be normalized with our custom entity normalizer.
-     *
-     * The assertion is a dummy one here, but this test is highly important because it ensures that entity properties
-     * were properly initialized (ex.: $attributes is an AttributesProperty object and not null) and getters are
-     * returning the type that they should.
-     *
-     * @group mock
-     * @group offline
-     * @small
-     */
-    public function testEntityCanBeNormalized(): void
-    {
-        $entity = static::$entityFactory->getEntityByController(static::getEntityController());
-        $normalizer = new EntityNormalizer();
-        $this->assertNotEmpty($normalizer->normalize($entity));
-    }
-
-    /**
      * @return string
      */
     public function testCreate()
@@ -80,7 +61,7 @@ abstract class EntityCrudOperationsControllerValidator extends EntityControllerV
         // require two input arguments: the entity values for creation and the expected values after entity has been
         // created. If we would use more than on data provider on this function then it would get the merged result
         // of providers as a _single_ value.
-        /** @var EntityInterface $entity */
+        /** @var \Apigee\Edge\Entity\EntityInterface $entity */
         $entity = clone static::sampleDataForEntityCreate();
         $this->getEntityController()->create($entity);
         static::$createdEntities[$entity->id()] = $entity;
@@ -191,6 +172,8 @@ abstract class EntityCrudOperationsControllerValidator extends EntityControllerV
 
     /**
      * @param \Apigee\Edge\Entity\EntityInterface $entity
+     *
+     * @throws \ReflectionException
      */
     protected function assertEntityHasAllPropertiesSet(EntityInterface $entity): void
     {

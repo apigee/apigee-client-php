@@ -18,12 +18,15 @@
 
 namespace Apigee\Edge\Api\Management\Controller;
 
+use Apigee\Edge\Api\Management\Entity\Developer;
 use Apigee\Edge\Api\Management\Entity\DeveloperInterface;
 use Apigee\Edge\Api\Management\Exception\DeveloperNotFoundException;
 use Apigee\Edge\Controller\CpsLimitEntityController;
 use Apigee\Edge\Controller\CpsListingEntityControllerTrait;
 use Apigee\Edge\Controller\EntityCrudOperationsControllerTrait;
 use Apigee\Edge\Controller\StatusAwareEntityControllerTrait;
+use Apigee\Edge\Denormalizer\AttributesPropertyDenormalizer;
+use Apigee\Edge\HttpClient\ClientInterface;
 use Psr\Http\Message\UriInterface;
 
 /**
@@ -35,6 +38,24 @@ class DeveloperController extends CpsLimitEntityController implements DeveloperC
     use CpsListingEntityControllerTrait;
     use EntityCrudOperationsControllerTrait;
     use StatusAwareEntityControllerTrait;
+
+    /**
+     * DeveloperController constructor.
+     *
+     * @param string $organization
+     * @param ClientInterface|null $client
+     * @param \Symfony\Component\Serializer\Normalizer\NormalizerInterface[]|\Symfony\Component\Serializer\Normalizer\DenormalizerInterface[] $entityNormalizers
+     * @param OrganizationControllerInterface|null $organizationController
+     */
+    public function __construct(
+        string $organization,
+        ?ClientInterface $client = null,
+        $entityNormalizers = [],
+        ?OrganizationControllerInterface $organizationController = null
+    ) {
+        $entityNormalizers[] = new AttributesPropertyDenormalizer();
+        parent::__construct($organization, $client, $entityNormalizers, $organizationController);
+    }
 
     /**
      * @inheritdoc
@@ -52,7 +73,7 @@ class DeveloperController extends CpsLimitEntityController implements DeveloperC
         }
         $values = reset($responseArray['developer']);
 
-        return $this->entitySerializer->denormalize($values, $this->entityFactory->getEntityByController($this));
+        return $this->entityTransformer->denormalize($values, $this->getEntityClass());
     }
 
     /**
@@ -66,5 +87,13 @@ class DeveloperController extends CpsLimitEntityController implements DeveloperC
     {
         return $this->client->getUriFactory()
             ->createUri(sprintf('/organizations/%s/developers', $this->organization));
+    }
+
+    /**
+     * @inheritdoc
+     */
+    protected function getEntityClass(): string
+    {
+        return Developer::class;
     }
 }

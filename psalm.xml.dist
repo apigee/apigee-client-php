@@ -16,6 +16,8 @@
         <MissingParamType errorLevel="info" />
         <!-- Added to suppress typehinting on $this->entitySerializer->.. calls. -->
         <MoreSpecificReturnType errorLevel="info" />
+        <!-- Disable errors caused by using class typehinting on variables and interfaces on setter's param types. -->
+        <TypeCoercion errorLevel="info" />
 
         <!-- level 3 issues - slightly lazy code writing, but provably low false-negatives -->
         <DeprecatedMethod errorLevel="info" />

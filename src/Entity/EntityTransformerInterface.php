@@ -16,28 +16,15 @@
  * limitations under the License.
  */
 
-namespace Apigee\Edge\Structure;
+namespace Apigee\Edge\Entity;
 
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+use Symfony\Component\Serializer\SerializerInterface;
 
 /**
- * Class KeyValueMapDenormalizer.
+ * Serializes, deserializes, normalizes and denormalizes entities.
  */
-class KeyValueMapDenormalizer implements DenormalizerInterface
+interface EntityTransformerInterface extends NormalizerInterface, DenormalizerInterface, SerializerInterface
 {
-    /**
-     * @inheritdoc
-     */
-    public function denormalize($data, $class, $format = null, array $context = [])
-    {
-        return new $class($data);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function supportsDenormalization($data, $type, $format = null)
-    {
-        return $type instanceof KeyValueMapInterface;
-    }
 }

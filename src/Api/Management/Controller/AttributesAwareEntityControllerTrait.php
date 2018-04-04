@@ -18,9 +18,9 @@
 
 namespace Apigee\Edge\Api\Management\Controller;
 
+use Apigee\Edge\Denormalizer\AttributesPropertyDenormalizer;
+use Apigee\Edge\Normalizer\KeyValueMapNormalizer;
 use Apigee\Edge\Structure\AttributesProperty;
-use Apigee\Edge\Structure\AttributesPropertyDenormalizer;
-use Apigee\Edge\Structure\AttributesPropertyNormalizer;
 use Psr\Http\Message\UriInterface;
 
 /**
@@ -98,21 +98,18 @@ trait AttributesAwareEntityControllerTrait
         $this->client->delete($this->getEntityAttributeUri($entityId, $name));
     }
 
-    /**
-     * @return \Apigee\Edge\Structure\AttributesPropertyNormalizer
-     */
-    protected function getAttributesPropertyNormalizer(): AttributesPropertyNormalizer
+    protected function getAttributesPropertyNormalizer(): KeyValueMapNormalizer
     {
         static $normalizer;
         if (!$normalizer) {
-            $normalizer = new AttributesPropertyNormalizer();
+            $normalizer = new KeyValueMapNormalizer();
         }
 
         return $normalizer;
     }
 
     /**
-     * @return \Apigee\Edge\Structure\AttributesPropertyDenormalizer
+     * @return \Apigee\Edge\Denormalizer\AttributesPropertyDenormalizer
      */
     protected function getAttributesPropertyDenormalizer(): AttributesPropertyDenormalizer
     {

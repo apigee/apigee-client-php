@@ -18,9 +18,12 @@
 
 namespace Apigee\Edge\Api\Management\Controller;
 
+use Apigee\Edge\Api\Management\Entity\ApiProduct;
 use Apigee\Edge\Controller\EntityController;
 use Apigee\Edge\Controller\EntityCrudOperationsControllerTrait;
 use Apigee\Edge\Controller\NonCpsListingEntityControllerTrait;
+use Apigee\Edge\Denormalizer\AttributesPropertyDenormalizer;
+use Apigee\Edge\HttpClient\ClientInterface;
 use Psr\Http\Message\UriInterface;
 
 /**
@@ -31,6 +34,22 @@ class ApiProductController extends EntityController implements ApiProductControl
     use AttributesAwareEntityControllerTrait;
     use EntityCrudOperationsControllerTrait;
     use NonCpsListingEntityControllerTrait;
+
+    /**
+     * ApiProductController constructor.
+     *
+     * @param string $organization
+     * @param ClientInterface|null $client
+     * @param \Symfony\Component\Serializer\Normalizer\NormalizerInterface[]|\Symfony\Component\Serializer\Normalizer\DenormalizerInterface[] $entityNormalizers
+     */
+    public function __construct(
+        string $organization,
+        ?ClientInterface $client = null,
+        $entityNormalizers = []
+    ) {
+        $entityNormalizers[] = new AttributesPropertyDenormalizer();
+        parent::__construct($organization, $client, $entityNormalizers);
+    }
 
     /**
      * @inheritdoc
@@ -58,5 +77,13 @@ class ApiProductController extends EntityController implements ApiProductControl
     {
         return $this->client->getUriFactory()
             ->createUri(sprintf('/organizations/%s/apiproducts', $this->organization));
+    }
+
+    /**
+     * @inheritdoc
+     */
+    protected function getEntityClass(): string
+    {
+        return ApiProduct::class;
     }
 }

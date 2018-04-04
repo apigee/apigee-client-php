@@ -18,9 +18,9 @@
 
 namespace Apigee\Edge\Tests\Structure;
 
+use Apigee\Edge\Denormalizer\PropertiesPropertyDenormalizer;
+use Apigee\Edge\Normalizer\PropertiesPropertyNormalizer;
 use Apigee\Edge\Structure\PropertiesProperty;
-use Apigee\Edge\Structure\PropertiesPropertyDenormalizer;
-use Apigee\Edge\Structure\PropertiesPropertyNormalizer;
 use PHPUnit\Framework\TestCase;
 use SebastianBergmann\Comparator\ComparisonFailure;
 use SebastianBergmann\Comparator\Factory as ComparisonFactory;
@@ -39,10 +39,10 @@ use SebastianBergmann\Comparator\Factory as ComparisonFactory;
  */
 class PropertiesPropertyTransformationTest extends TestCase
 {
-    /** @var \Apigee\Edge\Structure\PropertiesPropertyNormalizer */
+    /** @var \Apigee\Edge\Normalizer\PropertiesPropertyNormalizer */
     protected static $normalizer;
 
-    /** @var \Apigee\Edge\Structure\PropertiesPropertyDenormalizer */
+    /** @var \Apigee\Edge\Denormalizer\PropertiesPropertyDenormalizer */
     protected static $denormalizer;
 
     /**
