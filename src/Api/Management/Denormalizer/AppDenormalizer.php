@@ -27,14 +27,28 @@ use Symfony\Component\Serializer\Exception\UnexpectedValueException;
 class AppDenormalizer extends EntityDenormalizer
 {
     /**
+     * Fully qualified class name of the developer app entity.
+     *
+     * @var string
+     */
+    protected $developerAppClass = DeveloperApp::class;
+
+    /**
+     * Fully qualified class name of the company app entity.
+     *
+     * @var string
+     */
+    protected $companyAppClass = CompanyApp::class;
+
+    /**
      * @inheritdoc
      */
     public function denormalize($data, $class, $format = null, array $context = [])
     {
         if (isset($data->developerId)) {
-            return parent::denormalize($data, DeveloperApp::class);
+            return parent::denormalize($data, $this->developerAppClass);
         } elseif (isset($data->companyName)) {
-            return parent::denormalize($data, CompanyApp::class);
+            return parent::denormalize($data, $this->companyAppClass);
         }
         throw new UnexpectedValueException(
             'Unable to denormalize because both "developerId" and "companyName" are missing from data.'
