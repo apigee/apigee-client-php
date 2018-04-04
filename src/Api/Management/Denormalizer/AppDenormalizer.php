@@ -16,8 +16,11 @@
  * limitations under the License.
  */
 
-namespace Apigee\Edge\Api\Management\Entity;
+namespace Apigee\Edge\Api\Management\Denormalizer;
 
+use Apigee\Edge\Api\Management\Entity\AppInterface;
+use Apigee\Edge\Api\Management\Entity\CompanyApp;
+use Apigee\Edge\Api\Management\Entity\DeveloperApp;
 use Apigee\Edge\Denormalizer\EntityDenormalizer;
 use Symfony\Component\Serializer\Exception\UnexpectedValueException;
 
