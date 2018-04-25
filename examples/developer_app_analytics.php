@@ -55,7 +55,7 @@ try {
 $sc = new \Apigee\Edge\Api\Management\Controller\StatsController($environment, $clientFactory->getOrganization(), $clientFactory->getClient());
 // Read more about Period library usage here: http://period.thephpleague.com/3.0
 $q = new StatsQuery(['total_response_time'], new Period('now - 7 days', 'now'));
-$q->setFilter("(developer eq '{$organization}@@@{$developer->getDeveloperId()}' and developer_app eq '{$developerAppName}')")
+$q->setFilter("(developer_email eq '{$developer->getEmail()}' and developer_app eq '{$developerAppName}')")
     ->setTimeUnit('hour')
     ->setSortBy('total_response_time')
     ->setSort(StatsQuery::SORT_ASC);
