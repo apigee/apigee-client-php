@@ -24,19 +24,11 @@ namespace Apigee\Edge\Tests\Test\Controller;
  * Helps in validation of all entity controllers that implements NonCpsLimitEntityControllerInterface.
  *
  *
- * @see \Apigee\Edge\Entity\NonCpsListingEntityControllerInterface
+ * @see \Apigee\Edge\Controller\NonCpsListingEntityControllerInterface
  */
 abstract class NonCpsLimitEntityControllerValidator extends EntityCrudOperationsControllerValidator
 {
-    /**
-     * @depends testCreate
-     */
-    public function testGetEntityIds(): void
-    {
-        /** @var \Apigee\Edge\Controller\NonCpsListingEntityControllerInterface $controller */
-        $controller = $this->getEntityController();
-        $this->assertNotEmpty($controller->getEntityIds());
-    }
+    use EntityIdsListingControllerValidatorTrait;
 
     /**
      * @depends testCreate

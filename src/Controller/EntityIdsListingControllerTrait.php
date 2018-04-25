@@ -19,36 +19,23 @@
 namespace Apigee\Edge\Controller;
 
 /**
- * Trait NonCpsListingEntityControllerTrait.
+ * Trait EntityListingControllerTrait.
  *
- * @see \Apigee\Edge\Controller\NonCpsListingEntityControllerInterface
+ * @see \Apigee\Edge\Controller\EntityIdsListingControllerInterface
  */
-trait NonCpsListingEntityControllerTrait
+trait EntityIdsListingControllerTrait
 {
-    use EntityIdsListingControllerTrait;
-
     /**
      * @inheritdoc
-     *
-     * @psalm-suppress PossiblyNullArrayOffset $tmp->id() is always not null here.
      */
-    public function getEntities(): array
+    public function getEntityIds(): array
     {
-        $entities = [];
         $query_params = [
-            'expand' => 'true',
+            'expand' => 'false',
         ];
         $uri = $this->getBaseEndpointUri()->withQuery(http_build_query($query_params));
         $response = $this->client->get($uri);
-        $responseArray = $this->responseToArray($response);
-        // Ignore entity type key from response, ex.: apiProduct.
-        $responseArray = reset($responseArray);
-        foreach ($responseArray as $item) {
-            /** @var \Apigee\Edge\Entity\EntityInterface $tmp */
-            $tmp = $this->entityTransformer->denormalize($item, $this->getEntityClass());
-            $entities[$tmp->id()] = $tmp;
-        }
 
-        return $entities;
+        return $this->responseToArray($response);
     }
 }

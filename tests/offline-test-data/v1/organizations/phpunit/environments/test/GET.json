@@ -1,0 +1,27 @@
+{
+    "createdAt": 648345600000,
+    "createdBy": "phpunit@example.com",
+    "lastModifiedAt": 648345600000,
+    "lastModifiedBy": "phpunit@example.com",
+    "mdc": {
+        "first": "env",
+        "second": "test"
+    },
+    "name": "test",
+    "properties": {
+        "property": [
+            {
+                "name": "offlineQueryEnabled",
+                "value": "true"
+            },
+            {
+                "name": "factquery_spark_enabled",
+                "value": "true"
+            },
+            {
+                "name": "uapEnabled",
+                "value": "true"
+            }
+        ]
+    }
+}

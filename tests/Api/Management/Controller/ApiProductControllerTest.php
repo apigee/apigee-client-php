@@ -31,7 +31,6 @@ use Apigee\Edge\Tests\Test\Mock\TestClientFactory;
 /**
  * Class ApiProductControllerTest.
  *
- *
  * @group controller
  */
 class ApiProductControllerTest extends NonCpsLimitEntityControllerValidator
