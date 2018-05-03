@@ -24,7 +24,7 @@ use Apigee\Edge\Entity\Property\NamePropertyInterface;
 use Apigee\Edge\Entity\Property\PropertiesPropertyInterface;
 
 /**
- * Interface EnvironmentInterface
+ * Interface EnvironmentInterface.
  */
 interface EnvironmentInterface extends EntityInterface,
     CommonEntityPropertiesInterface,
