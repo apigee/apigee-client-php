@@ -32,6 +32,7 @@
         "symfony/serializer": "^3.4 || ^4.0"
     },
     "require-dev": {
+        "cweagans/composer-patches": "^1.6",
         "friendsofphp/php-cs-fixer": "^2.9",
         "fzaninotto/faker": "^1.7",
         "guzzlehttp/psr7": "^1.0",
@@ -79,6 +80,11 @@
     "extra": {
         "branch-alias": {
             "dev-2.x-dev": "2.0.x-dev"
+        },
+        "patches": {
+            "php-http/client-common": {
+                "Only add path prefix if the path does not contain it already #103": "https://patch-diff.githubusercontent.com/raw/php-http/client-common/pull/103.diff"
+            }
         }
     }
 }

@@ -24,8 +24,13 @@ So if you prefer Guzzle 6 then you can install this library like this:
 ```
 $ composer require php-http/guzzle6-adapter:^1.1.1
 $ composer require apigee/edge:2.*
-
 ```
+
+If you would like to use [OAuth (SAML) authentication](https://docs.apigee.com/api-platform/system-administration/using-oauth2-security-apigee-edge-management-api#usingtheapitogettokens-postrefreshanaccesstoken)
+then you have to install [this patch](https://patch-diff.githubusercontent.com/raw/php-http/client-common/pull/103.diff)
+from [this php-http/client-common pull request](https://github.com/php-http/client-common/pull/103). If you use
+[composer-patches](https://github.com/cweagans/composer-patches) plugin and you [allowed dependencies to apply patches](https://github.com/cweagans/composer-patches#allowing-patches-to-be-applied-from-dependencies)
+then this patch is automatically gets applied when this library is installed. 
 
 ## Usage examples
 
