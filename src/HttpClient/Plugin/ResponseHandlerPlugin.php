@@ -21,6 +21,8 @@ namespace Apigee\Edge\HttpClient\Plugin;
 use Apigee\Edge\Exception\ApiException;
 use Apigee\Edge\Exception\ApiRequestException;
 use Apigee\Edge\Exception\ClientErrorException;
+use Apigee\Edge\Exception\OauthAccessTokenAuthenticationException;
+use Apigee\Edge\Exception\OauthRefreshTokenExpiredException;
 use Apigee\Edge\Exception\ServerErrorException;
 use Http\Client\Common\Plugin;
 use Http\Client\Exception;
@@ -32,7 +34,7 @@ use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
 /**
- * Handles API communication exceptions.
+ * Throws exceptions on API communication errors.
  */
 final class ResponseHandlerPlugin implements Plugin
 {
@@ -68,19 +70,31 @@ final class ResponseHandlerPlugin implements Plugin
     }
 
     /**
-     * Throws an exception if API response code is higher than 399.
+     * Throws one our of our exceptions if the API response code is higher than 399.
      *
-     * @param ResponseInterface $response
-     * @param RequestInterface $request
+     * @param \Psr\Http\Message\ResponseInterface $response
+     * @param \Psr\Http\Message\RequestInterface $request
      *
      * @throws \Apigee\Edge\Exception\ClientErrorException
      * @throws \Apigee\Edge\Exception\ServerErrorException
      *
-     * @return ResponseInterface
+     * @return \Psr\Http\Message\ResponseInterface
      */
     private function decodeResponse(ResponseInterface $response, RequestInterface $request)
     {
         if ($response->getStatusCode() >= 400 && $response->getStatusCode() < 500) {
+            // Handle Oauth specific authentication errors.
+            if (401 === $response->getStatusCode()) {
+                if (0 === strpos($request->getHeaderLine('Authorization'), 'Bearer')) {
+                    throw new OauthAccessTokenAuthenticationException($request);
+                }
+
+                $parsedBody = [];
+                parse_str((string) $request->getBody(), $parsedBody);
+                if (array_key_exists('grant_type', $parsedBody) && 'refresh_token' === $parsedBody['grant_type']) {
+                    throw new OauthRefreshTokenExpiredException($response, $request);
+                }
+            }
             throw new ClientErrorException($response, $request, (string) $response->getBody(), $response->getStatusCode(), null, $this->formatter);
         } elseif ($response->getStatusCode() >= 500 && $response->getStatusCode() < 600) {
             throw new ServerErrorException($response, $request, (string) $response->getBody(), $response->getStatusCode(), null, $this->formatter);

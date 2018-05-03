@@ -53,16 +53,16 @@ interface ClientInterface extends HttpClient
     /**
      * Returns the user agent that the API client sends to Apigee Edge.
      *
-     * @return string
+     * @return string|null
      */
-    public function getUserAgent(): string;
+    public function getUserAgent(): ?string;
 
     /**
      * Add a custom prefix to the default SDK user agent.
      *
-     * @param string $prefix
+     * @param string|null $prefix
      */
-    public function setUserAgentPrefix(string $prefix);
+    public function setUserAgentPrefix(?string $prefix);
 
     /**
      * Returns the endpoint that the client currently communicates with.

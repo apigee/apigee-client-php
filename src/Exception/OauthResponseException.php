@@ -18,11 +18,12 @@
 
 namespace Apigee\Edge\Exception;
 
-use Http\Client\Exception;
-
 /**
- * General exception class for API communication errors.
+ * For general Oauth related issues (requesting access token, etc.).
  */
-class ApiException extends \RuntimeException implements Exception
+class OauthResponseException extends ApiResponseException
 {
+    protected $errorCodeResponseField = 'error';
+
+    protected $errorDescriptionResponseField = 'error_description';
 }

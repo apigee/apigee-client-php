@@ -58,18 +58,18 @@ interface BuilderInterface
     public function removeHeader(string $header): void;
 
     /**
-     * Add plugin to the client.
+     * Adds a plugin to the client.
      *
-     * @param Plugin $plugin
+     * The plugin is added to the end of the execution chain.
      *
-     * @return mixed
+     * @param \Http\Client\Common\Plugin $plugin
+     *
+     * @see http://docs.php-http.org/en/latest/plugins/introduction.html#how-it-works
      */
     public function addPlugin(Plugin $plugin): void;
 
     /**
      * @param string $fqcn Fully qualified class name of the plugin.
-     *
-     * @return mixed
      */
     public function removePlugin(string $fqcn): void;
 

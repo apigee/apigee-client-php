@@ -18,7 +18,9 @@
 
 namespace Apigee\Edge\HttpClient;
 
+use Apigee\Edge\HttpClient\Plugin\Authentication\Oauth;
 use Apigee\Edge\HttpClient\Plugin\ResponseHandlerPlugin;
+use Apigee\Edge\HttpClient\Plugin\RetryOauthAuthenticationPlugin;
 use Apigee\Edge\HttpClient\Utility\Builder;
 use Apigee\Edge\HttpClient\Utility\BuilderInterface;
 use Apigee\Edge\HttpClient\Utility\Journal;
@@ -30,6 +32,7 @@ use Http\Client\HttpClient;
 use Http\Discovery\MessageFactoryDiscovery;
 use Http\Discovery\UriFactoryDiscovery;
 use Http\Message\Authentication;
+use Http\Message\Formatter;
 use Http\Message\UriFactory;
 use Psr\Cache\CacheItemPoolInterface;
 use Psr\Http\Message\RequestInterface;
@@ -52,8 +55,8 @@ class Client implements ClientInterface
     /** @var \Http\Message\UriFactory */
     protected $uriFactory;
 
-    /** @var string */
-    private $userAgentPrefix = '';
+    /** @var string|null */
+    private $userAgentPrefix;
 
     /**
      * On-prem Apigee Endpoint endpoint.
@@ -85,38 +88,53 @@ class Client implements ClientInterface
     /** @var array */
     private $cacheConfig = [];
 
-    /** @var Journal */
+    /** @var \Apigee\Edge\HttpClient\Utility\Journal */
     private $journal;
 
     /** @var bool */
     private $rebuild = true;
+
     /**
      * @var \Http\Message\RequestFactory
      */
     private $requestFactory;
 
     /**
+     * @var \Http\Message\Formatter|null
+     */
+    private $errorFormatter;
+
+    /**
      * Client constructor.
      *
      * @param \Http\Message\Authentication|null $auth
+     *   Authentication plugin.
      * @param \Apigee\Edge\HttpClient\Utility\BuilderInterface|null $builder
+     *   Http client builder.
      * @param string|null $endpoint
-     * @param string $userAgentPrefix
+     *   The Apigee Edge API endpoint, including API version. Ex.: https://api.enterprise.apigee.com/v1 (which is the
+     *   default value).
+     * @param string|null $userAgentPrefix
+     *   User agent prefix.
+     * @param \Http\Message\Formatter|null $errorFormatter
+     *   (For response handler plugin) Formats API communication errors.
      */
     public function __construct(
         Authentication $auth = null,
         BuilderInterface $builder = null,
         string $endpoint = null,
-        string $userAgentPrefix = ''
+        string $userAgentPrefix = null,
+        Formatter $errorFormatter = null
     ) {
         $this->auth = $auth;
         $this->currentBuilder = $builder ?: new Builder();
         $this->originalBuilder = $this->currentBuilder;
-        $this->endpoint = $endpoint ?: self::ENTERPRISE_URL;
+        $this->endpoint = $endpoint ?: self::ENTERPRISE_URL . '/' . self::API_VERSION;
         $this->userAgentPrefix = $userAgentPrefix;
         $this->uriFactory = UriFactoryDiscovery::find();
         $this->requestFactory = MessageFactoryDiscovery::find();
         $this->journal = new Journal();
+        $this->errorFormatter = $errorFormatter;
     }
 
     /**
@@ -130,7 +148,7 @@ class Client implements ClientInterface
     /**
      * @inheritdoc
      */
-    public function setUserAgentPrefix(string $prefix): void
+    public function setUserAgentPrefix(?string $prefix): void
     {
         $this->needsRebuild(true);
         $this->userAgentPrefix = $prefix;
@@ -188,7 +206,7 @@ class Client implements ClientInterface
      */
     public function getUserAgent(): string
     {
-        if ($this->userAgentPrefix) {
+        if (null !== $this->userAgentPrefix) {
             return sprintf('%s (%s)', $this->userAgentPrefix, $this->getClientVersion());
         }
 
@@ -275,21 +293,42 @@ class Client implements ClientInterface
     /**
      * Returns default plugins used by the underlying HTTP client.
      *
-     * @return array
+     * Call order of default plugins for sending a request (only those plugins listed that actually does something):
+     * Request -> PluginClient -> BaseUriPlugin -> HeaderDefaultsPlugin -> HttpClient
+     *
+     * Call order of default plugins for processing a response (only those plugins listed that actually does something):
+     * HttpClient -> ResponseHandlerPlugin -> RetryOauthAuthenticationPlugin -> HistoryPlugin -> Response
+     *
+     * @return \Http\Client\Common\Plugin[]
      */
     protected function getDefaultPlugins(): array
     {
-        $plugins = [
-            new BaseUriPlugin($this->getBaseUri()->withPath(self::API_VERSION), ['replace' => true]),
+        // Alters requests, adds base path and authentication.
+        $firstPlugins = [
+            new BaseUriPlugin($this->getBaseUri(), ['replace' => true]),
             new HeaderDefaultsPlugin($this->getDefaultHeaders()),
-            new HistoryPlugin($this->journal),
-            new ResponseHandlerPlugin(),
         ];
+
         if ($this->auth) {
-            $plugins[] = new AuthenticationPlugin($this->auth);
+            $firstPlugins[] = new AuthenticationPlugin($this->auth);
         }
 
-        return $plugins;
+        // Acts based on response data.
+        // (Retry plugin should be added here if it will be used.)
+        $middlePlugins = [
+            new HistoryPlugin($this->journal),
+        ];
+
+        if ($this->auth instanceof Oauth) {
+            $middlePlugins[] = new RetryOauthAuthenticationPlugin($this->auth);
+        }
+
+        // Alters, analyze responses.
+        $finalPlugins = [
+            new ResponseHandlerPlugin($this->errorFormatter),
+        ];
+
+        return array_merge($firstPlugins, $middlePlugins, $finalPlugins);
     }
 
     /**
@@ -297,12 +336,7 @@ class Client implements ClientInterface
      */
     private function send($method, $uri, array $headers = [], $body = null): ResponseInterface
     {
-        return $this->sendRequest($this->requestFactory->createRequest(
-            $method,
-            $uri,
-            $headers,
-            $body
-        ));
+        return $this->sendRequest($this->requestFactory->createRequest($method, $uri, $headers, $body));
     }
 
     /**

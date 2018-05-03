@@ -18,11 +18,9 @@
 
 namespace Apigee\Edge\Exception;
 
-use Http\Client\Exception;
-
 /**
- * General exception class for API communication errors.
+ * In case if the client is unable refresh access token by using the refresh token because it has expired.
  */
-class ApiException extends \RuntimeException implements Exception
+class OauthRefreshTokenExpiredException extends ApiResponseException
 {
 }
