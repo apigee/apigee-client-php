@@ -83,13 +83,8 @@ class Builder implements BuilderInterface
     public function getHttpClient(): HttpClient
     {
         if ($this->rebuild()) {
-            $this->needsRebuild(true);
-
-            if (null === $this->httpClient) {
-                $this->httpClient = HttpClientDiscovery::find();
-            }
-
             $this->pluginClient = new PluginClient($this->httpClient, $this->plugins);
+            $this->needsRebuild(false);
         }
 
         return $this->pluginClient;
