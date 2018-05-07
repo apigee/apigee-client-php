@@ -23,7 +23,7 @@ use Apigee\Edge\Structure\AttributesProperty;
 /**
  * Trait AttributesPropertyAwareTrait.
  *
- * @see AttributesPropertyInterface
+ * @see \Apigee\Edge\Entity\Property\AttributesPropertyInterface
  */
 trait AttributesPropertyAwareTrait
 {

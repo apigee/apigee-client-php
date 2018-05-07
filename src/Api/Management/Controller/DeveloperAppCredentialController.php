@@ -29,7 +29,6 @@ use Apigee\Edge\Denormalizer\AttributesPropertyDenormalizer;
 use Apigee\Edge\Denormalizer\CredentialProductDenormalizer;
 use Apigee\Edge\Entity\EntityInterface;
 use Apigee\Edge\Normalizer\CredentialProductNormalizer;
-use Apigee\Edge\Normalizer\KeyValueMapNormalizer;
 use Apigee\Edge\Structure\AttributesProperty;
 use Psr\Http\Message\UriInterface;
 
@@ -154,10 +153,9 @@ class DeveloperAppCredentialController extends EntityController implements Devel
      */
     public function overrideAttributes(string $consumerKey, AttributesProperty $attributes): AppCredentialInterface
     {
-        $normalizer = new KeyValueMapNormalizer();
         $response = $this->client->post(
             $this->getEntityEndpointUri($consumerKey),
-            (string) json_encode((object) ['attributes' => $normalizer->normalize($attributes)])
+            (string) json_encode((object) ['attributes' => $this->entityTransformer->normalize($attributes)])
         );
 
         return $this->entityTransformer->deserialize(
