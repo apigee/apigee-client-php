@@ -18,8 +18,8 @@
 
 namespace Apigee\Edge\Controller;
 
+use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Entity\EntityTransformer;
-use Apigee\Edge\HttpClient\ClientInterface;
 use Psr\Http\Message\UriInterface;
 
 /**
@@ -38,12 +38,12 @@ abstract class AbstractEntityController extends AbstractController
     /**
      * AbstractEntityController constructor.
      *
-     * @param ClientInterface|null $client
-     *   API client.
+     * @param \Apigee\Edge\ClientInterface $client
+     *   Apigee Edge API client.
      * @param \Symfony\Component\Serializer\Normalizer\NormalizerInterface[]|\Symfony\Component\Serializer\Normalizer\DenormalizerInterface[] $entityNormalizers
      *   Array of entity normalizers and denormalizers that are being called earlier than the default ones.
      */
-    public function __construct(ClientInterface $client = null, array $entityNormalizers = [])
+    public function __construct(ClientInterface $client, array $entityNormalizers = [])
     {
         parent::__construct($client);
         $this->entityTransformer = new EntityTransformer($entityNormalizers);
@@ -54,7 +54,7 @@ abstract class AbstractEntityController extends AbstractController
      *
      * @param string $entityId
      *
-     * @return UriInterface
+     * @return \Psr\Http\Message\UriInterface
      */
     protected function getEntityEndpointUri(string $entityId): UriInterface
     {

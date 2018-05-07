@@ -16,11 +16,14 @@
  * limitations under the License.
  */
 
-namespace Apigee\Edge\Tests\Test\Mock;
+namespace Apigee\Edge\Tests\Test;
 
-use Apigee\Edge\HttpClient\Client;
-use Apigee\Edge\HttpClient\ClientInterface;
+use Apigee\Edge\Client;
+use Apigee\Edge\ClientInterface;
 use Apigee\Edge\HttpClient\Utility\Builder;
+use Apigee\Edge\Tests\Test\HttpClient\DebuggerClient;
+use Apigee\Edge\Tests\Test\HttpClient\FileSystemMockClient;
+use Apigee\Edge\Tests\Test\HttpClient\MockClientInterface;
 use Http\Client\HttpClient;
 use Http\Message\Authentication\BasicAuth;
 use Http\Message\Formatter\CurlCommandFormatter;
@@ -48,7 +51,7 @@ class TestClientFactory
      * @throws \Exception
      *   By StreamHandler.
      *
-     * @return ClientInterface
+     * @return \Apigee\Edge\ClientInterface
      */
     public function getClient(string $fqcn = null): ClientInterface
     {
@@ -76,7 +79,7 @@ class TestClientFactory
         }
         $endpoint = getenv('APIGEE_EDGE_PHP_SDK_ENDPOINT') ?: null;
         if (DebuggerClient::class == $rc->getName()) {
-            $logHandler = new StreamHandler(__DIR__ . '/../../../debug.log');
+            $logHandler = new StreamHandler(__DIR__ . '/../../debug.log');
             // Only print the message.
             $logHandler->setFormatter(new LineFormatter('%message%', null, true));
             $logger = new Logger('debuggerClient', [$logHandler], [new PsrLogMessageProcessor()]);
@@ -87,13 +90,13 @@ class TestClientFactory
             $builder = new Builder($rc->newInstance());
         }
 
-        return new Client($auth, $builder, $endpoint, $userAgentPrefix);
+        return new Client($auth, $endpoint, [Client::CONFIG_HTTP_CLIENT_BUILDER => $builder, Client::CONFIG_USER_AGENT_PREFIX => $userAgentPrefix]);
     }
 
     /**
      * Helper function that returns whether the API client is using a mock HTTP client or not.
      *
-     * @param ClientInterface $client
+     * @param \Apigee\Edge\ClientInterface $client
      *   API client.
      *
      * @return bool

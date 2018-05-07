@@ -21,12 +21,12 @@ namespace Apigee\Edge\Api\Management\Controller;
 use Apigee\Edge\Api\Management\Entity\Developer;
 use Apigee\Edge\Api\Management\Entity\DeveloperInterface;
 use Apigee\Edge\Api\Management\Exception\DeveloperNotFoundException;
+use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Controller\CpsLimitEntityController;
 use Apigee\Edge\Controller\CpsListingEntityControllerTrait;
 use Apigee\Edge\Controller\EntityCrudOperationsControllerTrait;
 use Apigee\Edge\Controller\StatusAwareEntityControllerTrait;
 use Apigee\Edge\Denormalizer\AttributesPropertyDenormalizer;
-use Apigee\Edge\HttpClient\ClientInterface;
 use Psr\Http\Message\UriInterface;
 
 /**
@@ -43,14 +43,14 @@ class DeveloperController extends CpsLimitEntityController implements DeveloperC
      * DeveloperController constructor.
      *
      * @param string $organization
-     * @param ClientInterface|null $client
+     * @param \Apigee\Edge\ClientInterface $client
      * @param \Symfony\Component\Serializer\Normalizer\NormalizerInterface[]|\Symfony\Component\Serializer\Normalizer\DenormalizerInterface[] $entityNormalizers
      * @param OrganizationControllerInterface|null $organizationController
      */
     public function __construct(
         string $organization,
-        ?ClientInterface $client = null,
-        $entityNormalizers = [],
+        ClientInterface $client,
+        array $entityNormalizers = [],
         ?OrganizationControllerInterface $organizationController = null
     ) {
         $entityNormalizers[] = new AttributesPropertyDenormalizer();

@@ -18,9 +18,9 @@
 
 namespace Apigee\Edge\Controller;
 
+use Apigee\Edge\ClientInterface;
+use Apigee\Edge\Exception\ApiResponseException;
 use Apigee\Edge\Exception\InvalidJsonException;
-use Apigee\Edge\HttpClient\Client;
-use Apigee\Edge\HttpClient\ClientInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\UriInterface;
 use Symfony\Component\Serializer\Encoder\JsonDecode;
@@ -44,11 +44,11 @@ abstract class AbstractController
     /**
      * AbstractController constructor.
      *
-     * @param ClientInterface|null $client
+     * @param \Apigee\Edge\ClientInterface $client
      */
-    public function __construct(ClientInterface $client = null)
+    public function __construct(ClientInterface $client)
     {
-        $this->client = $client ?: new Client();
+        $this->client = $client;
         // Keep the same structure that we get from Edge, do not transforms objects to arrays.
         $this->jsonDecoder = new JsonDecode();
     }
@@ -58,7 +58,7 @@ abstract class AbstractController
      *
      * In case of an entity that belongs to an organisation it should return organization/[orgName]/[endpoint].
      *
-     * @return UriInterface
+     * @return \Psr\Http\Message\UriInterface
      */
     abstract protected function getBaseEndpointUri(): UriInterface;
 
@@ -88,11 +88,10 @@ abstract class AbstractController
                 );
             }
         }
-        throw new \RuntimeException(sprintf(
-                'Unable to parse response with %s type. Response body: %s',
-                $response->getHeaderLine('Content-Type') ?: 'unknown',
-                (string) $response->getBody()
-            )
+        throw new ApiResponseException(
+            $response,
+            $this->client->getJournal()->getLastRequest(),
+            sprintf('Unable to parse response with %s type. Response body: %s', $response->getHeaderLine('Content-Type') ?: 'unknown', (string) $response->getBody())
         );
     }
 }

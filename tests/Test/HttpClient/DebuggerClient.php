@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-namespace Apigee\Edge\Tests\Test\Mock;
+namespace Apigee\Edge\Tests\Test\HttpClient;
 
 use GuzzleHttp\RequestOptions;
 use GuzzleHttp\TransferStats;

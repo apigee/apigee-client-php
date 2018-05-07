@@ -18,13 +18,13 @@
 
 namespace Apigee\Edge\Tests\Test\Controller;
 
-use Apigee\Edge\Tests\Test\Mock\TestClientFactory;
+use Apigee\Edge\Tests\Test\TestClientFactory;
 use Faker\Factory;
 use PHPUnit\Framework\TestCase;
 
 abstract class AbstractControllerValidator extends TestCase
 {
-    /** @var \Apigee\Edge\HttpClient\ClientInterface */
+    /** @var \Apigee\Edge\ClientInterface */
     protected static $client;
 
     /** @var \Faker\Generator */

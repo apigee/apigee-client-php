@@ -16,12 +16,11 @@
  * limitations under the License.
  */
 
-namespace Apigee\Edge\HttpClient;
+namespace Apigee\Edge;
 
-use Apigee\Edge\HttpClient\Utility\Journal;
+use Apigee\Edge\HttpClient\Utility\JournalInterface;
 use Http\Client\HttpClient;
 use Http\Message\UriFactory;
-use Psr\Cache\CacheItemPoolInterface;
 use Psr\Http\Message\ResponseInterface;
 
 /**
@@ -34,9 +33,9 @@ interface ClientInterface extends HttpClient
     /**
      * Allows access to the last request, response and exception.
      *
-     * @return \Apigee\Edge\HttpClient\Utility\Journal
+     * @return \Apigee\Edge\HttpClient\Utility\JournalInterface
      */
-    public function getJournal(): Journal;
+    public function getJournal(): JournalInterface;
 
     /**
      * Returns the URI factory used by the Client.
@@ -53,16 +52,9 @@ interface ClientInterface extends HttpClient
     /**
      * Returns the user agent that the API client sends to Apigee Edge.
      *
-     * @return string
+     * @return string|null
      */
-    public function getUserAgent(): string;
-
-    /**
-     * Add a custom prefix to the default SDK user agent.
-     *
-     * @param string $prefix
-     */
-    public function setUserAgentPrefix(string $prefix);
+    public function getUserAgent(): ?string;
 
     /**
      * Returns the endpoint that the client currently communicates with.
@@ -72,34 +64,14 @@ interface ClientInterface extends HttpClient
     public function getEndpoint(): string;
 
     /**
-     * Changes the endpoint that the client communicates.
-     *
-     * @param string $endpoint
-     *
-     * @return string
-     */
-    public function setEndpoint(string $endpoint): string;
-
-    /**
-     * Adds cache to the underlying HTTP client.
-     *
-     * @param CacheItemPoolInterface $cachePool
-     * @param array $config
-     */
-    public function addCache(CacheItemPoolInterface $cachePool, array $config = []): void;
-
-    /**
-     * Removes cache from the underlying HTTP client.
-     */
-    public function removeCache(): void;
-
-    /**
      * Sends a GET request.
      *
      * @param \Psr\Http\Message\UriInterface|string $uri
      * @param array $headers
      *
-     * @return ResponseInterface
+     * @throws \Http\Client\Exception
+     *
+     * @return \Psr\Http\Message\ResponseInterface
      */
     public function get($uri, array $headers = []): ResponseInterface;
 
@@ -109,7 +81,9 @@ interface ClientInterface extends HttpClient
      * @param \Psr\Http\Message\UriInterface|string $uri
      * @param array $headers
      *
-     * @return ResponseInterface
+     * @throws \Http\Client\Exception
+     *
+     * @return \Psr\Http\Message\ResponseInterface
      */
     public function head($uri, array $headers = []): ResponseInterface;
 
@@ -120,7 +94,9 @@ interface ClientInterface extends HttpClient
      * @param null|\Psr\Http\Message\StreamInterface|resource|string $body
      * @param array $headers
      *
-     * @return ResponseInterface
+     * @throws \Http\Client\Exception
+     *
+     * @return \Psr\Http\Message\ResponseInterface
      */
     public function post($uri, $body = null, array $headers = []): ResponseInterface;
 
@@ -131,7 +107,9 @@ interface ClientInterface extends HttpClient
      * @param null|\Psr\Http\Message\StreamInterface|resource|string $body
      * @param array $headers
      *
-     * @return ResponseInterface
+     * @throws \Http\Client\Exception
+     *
+     * @return \Psr\Http\Message\ResponseInterface
      */
     public function put($uri, $body = null, array $headers = []): ResponseInterface;
 
@@ -142,7 +120,9 @@ interface ClientInterface extends HttpClient
      * @param null|\Psr\Http\Message\StreamInterface|resource|string $body
      * @param array $headers
      *
-     * @return ResponseInterface
+     * @throws \Http\Client\Exception
+     *
+     * @return \Psr\Http\Message\ResponseInterface
      */
     public function delete($uri, $body = null, array $headers = []): ResponseInterface;
 }

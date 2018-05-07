@@ -18,19 +18,17 @@
 
 namespace Apigee\Edge\Tests\Controller;
 
+use Apigee\Edge\Client;
 use Apigee\Edge\Controller\AbstractEntityController;
-use Apigee\Edge\HttpClient\Client;
-use Apigee\Edge\HttpClient\ClientInterface;
 use Apigee\Edge\HttpClient\Utility\Builder;
-use Apigee\Edge\Tests\Test\Mock\MockEntity;
+use Apigee\Edge\Tests\Test\Entity\MockEntity;
+use Apigee\Edge\Tests\Test\HttpClient\Plugin\NullAuthentication;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
-use Http\Discovery\UriFactoryDiscovery;
 use Http\Mock\Client as MockClient;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\UriInterface;
-use function GuzzleHttp\Psr7\stream_for;
 
 /**
  * Class AbstractEntityControllerTest.
@@ -43,61 +41,28 @@ use function GuzzleHttp\Psr7\stream_for;
  */
 class AbstractControllerTest extends TestCase
 {
+    /** @var \Apigee\Edge\Controller\AbstractEntityController */
     private static $stub;
+
+    /** @var \Http\Client\HttpClient */
+    private static $mockClient;
+
+    /** @var \Apigee\Edge\ClientInterface */
+    private static $client;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        static::$stub = new class() extends AbstractEntityController {
-            private $mockClient;
-
-            private $rebuild = true;
-
-            /**
-             * @param \Apigee\Edge\HttpClient\ClientInterface|null $client
-             * @param array $entityNormalizers
-             */
-            public function __construct(
-                ?ClientInterface $client = null,
-                $entityNormalizers = []
-            ) {
-                parent::__construct($client, $entityNormalizers);
-                $this->mockClient = new MockClient();
-            }
-
+        static::$mockClient = new MockClient();
+        static::$client = new Client(new NullAuthentication(), null, [Client::CONFIG_HTTP_CLIENT_BUILDER => new Builder(static::$mockClient)]);
+        $client = static::$client;
+        static::$stub = new class($client) extends AbstractEntityController {
             /**
              * @inheritdoc
              */
             protected function getBaseEndpointUri(): UriInterface
             {
-                $uriFactory = UriFactoryDiscovery::find();
-
-                return $uriFactory->createUri('');
-            }
-
-            /**
-             * Allows to set returned response by the mock HTTP client.
-             *
-             * @param \Psr\Http\Message\ResponseInterface $response
-             */
-            public function addResponse(ResponseInterface $response): void
-            {
-                $this->mockClient->addResponse($response);
-                $this->rebuild = true;
-            }
-
-            /**
-             * @return \Apigee\Edge\HttpClient\Client
-             */
-            public function getClient(): Client
-            {
-                if ($this->rebuild) {
-                    $builder = new Builder($this->mockClient);
-                    $this->client = new Client(null, $builder);
-                    $this->rebuild = false;
-                }
-
-                return $this->client;
+                return $this->client->getUriFactory()->createUri('');
             }
 
             /**
@@ -123,14 +88,13 @@ class AbstractControllerTest extends TestCase
     }
 
     /**
-     * @expectedException \RuntimeException
+     * @expectedException \Apigee\Edge\Exception\ApiResponseException
+     * @expectedExceptionMessage Unable to parse response with unknown type. Response body: <xml></xml>
      */
     public function testParseResponseWithUnknownContentType(): void
     {
-        /** @var \Apigee\Edge\HttpClient\ClientInterface $client */
-        $client = static::$stub->getClient();
-        static::$stub->addResponse(new Response());
-        $response = $client->sendRequest(new Request('GET', ''));
+        static::$mockClient->addResponse(new Response(200, [], '<xml></xml>'));
+        $response = static::$client->sendRequest(new Request('GET', ''));
         static::$stub->toArray($response);
     }
 
@@ -139,10 +103,8 @@ class AbstractControllerTest extends TestCase
      */
     public function testParseResponseWithInvalidJson(): void
     {
-        /** @var \Apigee\Edge\HttpClient\ClientInterface $client */
-        $client = static::$stub->getClient();
-        static::$stub->addResponse(new Response(200, ['Content-Type' => 'application/json'], stream_for('')));
-        $response = $client->sendRequest(new Request('GET', ''));
+        static::$mockClient->addResponse(new Response(200, ['Content-Type' => 'application/json'], ''));
+        $response = static::$client->sendRequest(new Request('GET', ''));
         static::$stub->toArray($response);
     }
 }

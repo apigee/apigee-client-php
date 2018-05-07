@@ -16,22 +16,18 @@
  * limitations under the License.
  */
 
-namespace Apigee\Edge\Tests\Test\Controller;
+namespace Apigee\Edge\Tests\Test\HttpClient;
 
-use Apigee\Edge\ClientInterface;
-use Apigee\Edge\Tests\Test\TestClientFactory;
+use Http\Client\HttpAsyncClient;
+use Http\Client\HttpClient;
 
 /**
- * Trait EnvironmentAwareEntityControllerValidatorTrait.
+ * Interface MockClientInterface.
+ *
+ * Creates a common interface that can be implemented by Mock http clients until this PR is not going to be merged.
+ *
+ * @see https://github.com/php-http/mock-client/pull/24
  */
-trait EnvironmentAwareEntityControllerValidatorTrait
+interface MockClientInterface extends HttpClient, HttpAsyncClient
 {
-    protected static function getEnvironment(ClientInterface $client)
-    {
-        if (TestClientFactory::isMockClient($client)) {
-            return 'test';
-        }
-
-        return getenv('APIGEE_EDGE_PHP_SDK_ENVIRONMENT') ?: 'test';
-    }
 }

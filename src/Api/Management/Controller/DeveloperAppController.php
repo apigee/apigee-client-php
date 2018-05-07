@@ -19,11 +19,11 @@
 namespace Apigee\Edge\Api\Management\Controller;
 
 use Apigee\Edge\Api\Management\Entity\DeveloperApp;
+use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Controller\CpsLimitEntityController;
 use Apigee\Edge\Controller\EntityCrudOperationsControllerTrait;
 use Apigee\Edge\Controller\NonCpsListingEntityControllerTrait;
 use Apigee\Edge\Controller\StatusAwareEntityControllerTrait;
-use Apigee\Edge\HttpClient\ClientInterface;
 use Psr\Http\Message\UriInterface;
 
 /**
@@ -45,14 +45,14 @@ class DeveloperAppController extends CpsLimitEntityController implements Develop
      *
      * @param string $organization
      * @param string $developerId
-     * @param \Apigee\Edge\HttpClient\ClientInterface|null $client
+     * @param \Apigee\Edge\ClientInterface $client
      * @param \Symfony\Component\Serializer\Normalizer\NormalizerInterface[]|\Symfony\Component\Serializer\Normalizer\DenormalizerInterface[] $entityNormalizers
      * @param \Apigee\Edge\Api\Management\Controller\OrganizationControllerInterface|null $organizationController
      */
     public function __construct(
         string $organization,
         string $developerId,
-        ?ClientInterface $client = null,
+        ClientInterface $client,
         array $entityNormalizers = [],
         ?OrganizationControllerInterface $organizationController = null
     ) {

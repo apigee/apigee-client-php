@@ -27,7 +27,6 @@ use Http\Discovery\MessageFactoryDiscovery;
 use Http\Discovery\StreamFactoryDiscovery;
 use Http\Message\RequestFactory;
 use Http\Message\StreamFactory;
-use Psr\Cache\CacheItemPoolInterface;
 
 /**
  * Class Builder.
@@ -51,11 +50,12 @@ class Builder implements BuilderInterface
     /** @var array */
     private $headers = [];
 
-    /** @var array */
+    /**
+     * Http client plugins.
+     *
+     * @var \Http\Client\Common\Plugin[]
+     */
     private $plugins = [];
-
-    /** @var Plugin\CachePlugin|null */
-    private $cachePlugin;
 
     /** @var bool */
     private $rebuild = true;
@@ -63,9 +63,9 @@ class Builder implements BuilderInterface
     /**
      * Builder constructor.
      *
-     * @param HttpClient|null $httpClient
-     * @param RequestFactory|null $requestFactory
-     * @param StreamFactory|null $streamFactory
+     * @param \Http\Client\HttpClient|null $httpClient
+     * @param \Http\Message\RequestFactory|null $requestFactory
+     * @param \Http\Message\StreamFactory|null $streamFactory
      */
     public function __construct(
         HttpClient $httpClient = null,
@@ -83,18 +83,8 @@ class Builder implements BuilderInterface
     public function getHttpClient(): HttpClient
     {
         if ($this->rebuild()) {
-            $this->needsRebuild(true);
-
-            if (null === $this->httpClient) {
-                $this->httpClient = HttpClientDiscovery::find();
-            }
-
-            $plugins = $this->plugins;
-            if ($this->cachePlugin) {
-                $plugins[] = $this->cachePlugin;
-            }
-
-            $this->pluginClient = new PluginClient($this->httpClient, $plugins);
+            $this->pluginClient = new PluginClient($this->httpClient, $this->plugins);
+            $this->needsRebuild(false);
         }
 
         return $this->pluginClient;
@@ -151,9 +141,6 @@ class Builder implements BuilderInterface
      */
     public function addPlugin(Plugin $plugin): void
     {
-        if ($plugin instanceof Plugin\CachePlugin) {
-            throw new \InvalidArgumentException('Cache plugins should be added with addCache() method.');
-        }
         $this->needsRebuild(true);
         $this->plugins[] = $plugin;
     }
@@ -177,24 +164,6 @@ class Builder implements BuilderInterface
     public function clearPlugins(): void
     {
         $this->plugins = [];
-        $this->needsRebuild(true);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function addCache(CacheItemPoolInterface $cache, array $config = []): void
-    {
-        $this->cachePlugin = Plugin\CachePlugin::clientCache($cache, $this->streamFactory, $config);
-        $this->needsRebuild(true);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function removeCache(): void
-    {
-        $this->cachePlugin = null;
         $this->needsRebuild(true);
     }
 

@@ -16,22 +16,11 @@
  * limitations under the License.
  */
 
-namespace Apigee\Edge\Tests\Test\Controller;
-
-use Apigee\Edge\ClientInterface;
-use Apigee\Edge\Tests\Test\TestClientFactory;
+namespace Apigee\Edge\Exception;
 
 /**
- * Trait EnvironmentAwareEntityControllerValidatorTrait.
+ * Exception for the case when authentication fails by using Oauth access token.
  */
-trait EnvironmentAwareEntityControllerValidatorTrait
+class OauthAccessTokenAuthenticationException extends ApiRequestException
 {
-    protected static function getEnvironment(ClientInterface $client)
-    {
-        if (TestClientFactory::isMockClient($client)) {
-            return 'test';
-        }
-
-        return getenv('APIGEE_EDGE_PHP_SDK_ENVIRONMENT') ?: 'test';
-    }
 }

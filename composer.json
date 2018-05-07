@@ -1,12 +1,13 @@
 {
     "name": "apigee/edge-php-sdk",
     "type": "library",
-    "description": "Apigee Edge API client.",
+    "description": "Apigee Edge PHP API client.",
     "keywords": [
         "apigee",
         "edge",
         "api",
         "sdk",
+        "client",
         "web service"
     ],
     "homepage": "http://github.com/apigee/edge-php-sdk",
@@ -27,11 +28,13 @@
         "phpdocumentor/reflection-docblock": "^3.0 || ^4.0",
         "psr/cache": "^1.0",
         "psr/http-message": "^1.0",
+        "symfony/options-resolver": "^3.4 || ^4.0",
         "symfony/property-access": "^3.4 || ^4.0",
         "symfony/property-info": "^3.4 || ^4.0",
         "symfony/serializer": "^3.4 || ^4.0"
     },
     "require-dev": {
+        "cweagans/composer-patches": "^1.6",
         "friendsofphp/php-cs-fixer": "^2.9",
         "fzaninotto/faker": "^1.7",
         "guzzlehttp/psr7": "^1.0",
@@ -79,6 +82,11 @@
     "extra": {
         "branch-alias": {
             "dev-2.x-dev": "2.0.x-dev"
+        },
+        "patches": {
+            "php-http/client-common": {
+                "Only add path prefix if the path does not contain it already #103": "https://patch-diff.githubusercontent.com/raw/php-http/client-common/pull/103.diff"
+            }
         }
     }
 }

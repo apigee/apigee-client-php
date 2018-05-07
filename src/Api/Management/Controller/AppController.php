@@ -19,8 +19,8 @@
 namespace Apigee\Edge\Api\Management\Controller;
 
 use Apigee\Edge\Api\Management\Entity\AppInterface;
+use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Controller\CpsLimitEntityController;
-use Apigee\Edge\HttpClient\ClientInterface;
 use Apigee\Edge\Structure\CpsListLimitInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\UriInterface;
@@ -46,14 +46,14 @@ class AppController extends CpsLimitEntityController implements AppControllerInt
      * AppController constructor.
      *
      * @param string $organization
-     * @param \Apigee\Edge\HttpClient\ClientInterface|null $client
+     * @param \Apigee\Edge\ClientInterface $client
      * @param \Symfony\Component\Serializer\Normalizer\NormalizerInterface[]|\Symfony\Component\Serializer\Normalizer\DenormalizerInterface[] $entityNormalizers
      * @param \Apigee\Edge\Api\Management\Controller\OrganizationControllerInterface|null $organizationController
      */
     public function __construct(
         string $organization,
-        ?ClientInterface $client = null,
-        $entityNormalizers = [],
+        ClientInterface $client,
+        array $entityNormalizers = [],
         ?OrganizationControllerInterface $organizationController = null
     ) {
         $entityNormalizers = array_merge($entityNormalizers, $this->appEntityNormalizers());
@@ -195,8 +195,7 @@ class AppController extends CpsLimitEntityController implements AppControllerInt
      */
     protected function getBaseEndpointUri(): UriInterface
     {
-        return $this->client->getUriFactory()
-            ->createUri(sprintf('/organizations/%s/apps', $this->organization));
+        return $this->client->getUriFactory()->createUri(sprintf('/organizations/%s/apps', $this->organization));
     }
 
     /**

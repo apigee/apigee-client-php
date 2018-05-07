@@ -26,7 +26,7 @@ use Apigee\Edge\Controller\EntityControllerInterface;
 use Apigee\Edge\Exception\ApiRequestException;
 use Apigee\Edge\Tests\Test\Controller\EntityControllerValidator;
 use Apigee\Edge\Tests\Test\Controller\OrganizationAwareEntityControllerValidatorTrait;
-use Apigee\Edge\Tests\Test\Mock\TestClientFactory;
+use Apigee\Edge\Tests\Test\TestClientFactory;
 
 /**
  * Class AppControllerTest.

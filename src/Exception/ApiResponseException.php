@@ -27,11 +27,36 @@ use Psr\Http\Message\ResponseInterface;
  */
 class ApiResponseException extends ApiRequestException
 {
-    /** @var \Psr\Http\Message\ResponseInterface */
-    protected $response;
-    /** @var null|string */
-    protected $edgeErrorCode;
+    /**
+     * Field in the response JSON that contains the error code.
+     *
+     * @var string
+     */
+    protected $errorCodeResponseField = 'code';
 
+    /**
+     * Field in the response JSON that contains the error description.
+     *
+     * @var string
+     */
+    protected $errorDescriptionResponseField = 'message';
+
+    /** @var \Psr\Http\Message\ResponseInterface */
+    private $response;
+
+    /** @var null|string */
+    private $edgeErrorCode;
+
+    /**
+     * ApiResponseException constructor.
+     *
+     * @param \Psr\Http\Message\ResponseInterface $response
+     * @param \Psr\Http\Message\RequestInterface $request
+     * @param string $message
+     * @param int $code
+     * @param \Throwable|null $previous
+     * @param \Http\Message\Formatter|null $formatter
+     */
     public function __construct(
         ResponseInterface $response,
         RequestInterface $request,
@@ -44,14 +69,16 @@ class ApiResponseException extends ApiRequestException
         $message = $message ?: $response->getReasonPhrase();
         // Try to parse Edge error message and error code from the response body.
         $contentTypeHeader = $response->getHeaderLine('Content-Type');
+        $this->errorCodeResponseField = 'code';
+        $this->errorDescriptionResponseField = 'message';
         if ($contentTypeHeader && false !== strpos($contentTypeHeader, 'application/json')) {
             $array = json_decode((string) $response->getBody(), true);
             if (JSON_ERROR_NONE === json_last_error()) {
-                if (array_key_exists('code', $array)) {
-                    $this->edgeErrorCode = $array['code'];
+                if ($this->errorCodeResponseField && array_key_exists($this->errorCodeResponseField, $array)) {
+                    $this->edgeErrorCode = $array[$this->errorCodeResponseField];
                 }
-                if (array_key_exists('message', $array)) {
-                    $message = $array['message'];
+                if ($this->errorDescriptionResponseField && array_key_exists($this->errorDescriptionResponseField, $array)) {
+                    $message = $array[$this->errorDescriptionResponseField];
                 }
             }
         }
@@ -63,11 +90,14 @@ class ApiResponseException extends ApiRequestException
      */
     public function __toString()
     {
-        return sprintf(
-            "Request:\n%s\nResponse:\n%s\n",
-            $this->formatter->formatRequest($this->request),
-            $this->formatter->formatResponse($this->response)
-        );
+        $output = [
+            get_called_class() . PHP_EOL,
+            'Request:' . PHP_EOL . $this->formatter->formatRequest($this->request) . PHP_EOL,
+            'Response:' . PHP_EOL . $this->formatter->formatResponse($this->response) . PHP_EOL,
+            'Stack trace: ' . PHP_EOL . $this->getTraceAsString(),
+        ];
+
+        return implode(PHP_EOL, $output);
     }
 
     /**

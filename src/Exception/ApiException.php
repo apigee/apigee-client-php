@@ -18,9 +18,30 @@
 
 namespace Apigee\Edge\Exception;
 
+use Http\Client\Exception;
+
 /**
  * General exception class for API communication errors.
  */
-class ApiException extends \RuntimeException
+class ApiException extends \RuntimeException implements Exception
 {
+    /**
+     * @inheritdoc
+     */
+    public function __toString()
+    {
+        // This is just a wrapper around the base class and if it contains a reference to the previous
+        // exception we should display that as a string.
+        if ($this->getPrevious()) {
+            $output = [
+                get_called_class() . PHP_EOL,
+                (string) $this->getPrevious() . PHP_EOL,
+                'Stack trace: ' . PHP_EOL . $this->getTraceAsString(),
+            ];
+
+            return implode(PHP_EOL, $output);
+        }
+
+        return parent::__toString();
+    }
 }

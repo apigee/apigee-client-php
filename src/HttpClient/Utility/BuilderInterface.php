@@ -20,7 +20,6 @@ namespace Apigee\Edge\HttpClient\Utility;
 
 use Http\Client\Common\Plugin;
 use Http\Client\HttpClient;
-use Psr\Cache\CacheItemPoolInterface;
 
 /**
  * Interface BuilderInterface.
@@ -30,7 +29,7 @@ use Psr\Cache\CacheItemPoolInterface;
 interface BuilderInterface
 {
     /**
-     * @return HttpClient
+     * @return \Http\Client\HttpClient
      */
     public function getHttpClient(): HttpClient;
 
@@ -58,18 +57,19 @@ interface BuilderInterface
     public function removeHeader(string $header): void;
 
     /**
-     * Add plugin to the client.
+     * Adds a plugin to the http client.
      *
-     * @param Plugin $plugin
+     * The plugin is added to the end of the plugin list.
      *
-     * @return mixed
+     * @param \Http\Client\Common\Plugin
+     *   Http client plugin.
+     *
+     * @see http://docs.php-http.org/en/latest/plugins/introduction.html#how-it-works
      */
     public function addPlugin(Plugin $plugin): void;
 
     /**
-     * @param string $fqcn Fully qualified class name of the plugin.
-     *
-     * @return mixed
+     * @param string $fqcn Fully qualified class name of the http client plugin.
      */
     public function removePlugin(string $fqcn): void;
 
@@ -77,17 +77,4 @@ interface BuilderInterface
      * Remove all previously added  plugins from the client.
      */
     public function clearPlugins(): void;
-
-    /**
-     * Add cache to the client.
-     *
-     * @param CacheItemPoolInterface $cachePool
-     * @param array $config
-     */
-    public function addCache(CacheItemPoolInterface $cachePool, array $config = []): void;
-
-    /**
-     * Remove cache from the client.
-     */
-    public function removeCache(): void;
 }

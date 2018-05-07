@@ -18,8 +18,8 @@
 
 namespace Apigee\Edge\Tests\Test\Controller;
 
-use Apigee\Edge\HttpClient\ClientInterface;
-use Apigee\Edge\Tests\Test\Mock\TestClientFactory;
+use Apigee\Edge\ClientInterface;
+use Apigee\Edge\Tests\Test\TestClientFactory;
 
 /**
  * Trait OrganizationAwareEntityControllerValidatorTrait.

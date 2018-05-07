@@ -35,10 +35,6 @@ class ApiRequestException extends ApiException
 
     /** @var \Http\Message\Formatter */
     protected $formatter;
-    /**
-     * @var null|\Throwable
-     */
-    private $previous;
 
     /**
      * ApiException constructor.
@@ -57,7 +53,6 @@ class ApiRequestException extends ApiException
         Formatter $formatter = null
     ) {
         $this->request = $request;
-        $this->previous = $previous;
         $this->formatter = $formatter ?: new FullHttpMessageFormatter();
         parent::__construct($message, $code, $previous);
     }
@@ -67,16 +62,13 @@ class ApiRequestException extends ApiException
      */
     public function __toString()
     {
-        $output = sprintf(
-            "Request:\n%s\n",
-            $this->formatter->formatRequest($this->request)
-        );
+        $output = [
+            get_called_class() . PHP_EOL,
+            'Request:' . PHP_EOL . $this->formatter->formatRequest($this->request) . PHP_EOL,
+            'Stack trace: ' . PHP_EOL . $this->getTraceAsString(),
+        ];
 
-        if ($this->previous) {
-            $output .= sprintf("%s\n", $this->previous->getMessage());
-        }
-
-        return $output;
+        return implode(PHP_EOL, $output);
     }
 
     /**

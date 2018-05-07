@@ -16,22 +16,27 @@
  * limitations under the License.
  */
 
-namespace Apigee\Edge\Tests\Test\Controller;
+namespace Apigee\Edge\HttpClient\Utility;
 
-use Apigee\Edge\ClientInterface;
-use Apigee\Edge\Tests\Test\TestClientFactory;
+use Http\Client\Common\Plugin\Journal;
 
 /**
- * Trait EnvironmentAwareEntityControllerValidatorTrait.
+ * Records history of HTTP calls.
  */
-trait EnvironmentAwareEntityControllerValidatorTrait
+interface JournalInterface extends Journal
 {
-    protected static function getEnvironment(ClientInterface $client)
-    {
-        if (TestClientFactory::isMockClient($client)) {
-            return 'test';
-        }
+    /**
+     * @return \Psr\Http\Message\RequestInterface
+     */
+    public function getLastRequest();
 
-        return getenv('APIGEE_EDGE_PHP_SDK_ENVIRONMENT') ?: 'test';
-    }
+    /**
+     * @return \Psr\Http\Message\ResponseInterface
+     */
+    public function getLastResponse();
+
+    /**
+     * @return \Http\Client\Exception
+     */
+    public function getLastException();
 }

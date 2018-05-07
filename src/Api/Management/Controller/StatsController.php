@@ -20,9 +20,9 @@ namespace Apigee\Edge\Api\Management\Controller;
 
 use Apigee\Edge\Api\Management\Query\StatsQueryInterface;
 use Apigee\Edge\Api\Management\Query\StatsQueryNormalizer;
+use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Controller\AbstractController;
 use Apigee\Edge\Controller\OrganizationAwareControllerTrait;
-use Apigee\Edge\HttpClient\ClientInterface;
 use League\Period\Period;
 use Moment\Moment;
 use Psr\Http\Message\UriInterface;
@@ -48,10 +48,10 @@ class StatsController extends AbstractController implements StatsControllerInter
      *   The environment name.
      * @param string $organization
      *   Name of the organization that the entities belongs to.
-     * @param ClientInterface|null $client
+     * @param \Apigee\Edge\ClientInterface $client
      *   Apigee Edge API client.
      */
-    public function __construct(string $environment, string $organization, ClientInterface $client = null)
+    public function __construct(string $environment, string $organization, ClientInterface $client)
     {
         parent::__construct($client);
         $this->environment = $environment;

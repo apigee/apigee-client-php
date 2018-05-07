@@ -16,22 +16,11 @@
  * limitations under the License.
  */
 
-namespace Apigee\Edge\Tests\Test\Controller;
-
-use Apigee\Edge\ClientInterface;
-use Apigee\Edge\Tests\Test\TestClientFactory;
+namespace Apigee\Edge\Exception;
 
 /**
- * Trait EnvironmentAwareEntityControllerValidatorTrait.
+ * In case if the client is unable refresh access token by using the refresh token because it has expired.
  */
-trait EnvironmentAwareEntityControllerValidatorTrait
+class OauthRefreshTokenExpiredException extends ApiResponseException
 {
-    protected static function getEnvironment(ClientInterface $client)
-    {
-        if (TestClientFactory::isMockClient($client)) {
-            return 'test';
-        }
-
-        return getenv('APIGEE_EDGE_PHP_SDK_ENVIRONMENT') ?: 'test';
-    }
 }
