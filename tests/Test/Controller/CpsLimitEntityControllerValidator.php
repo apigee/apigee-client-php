@@ -18,7 +18,7 @@
 
 namespace Apigee\Edge\Tests\Test\Controller;
 
-use Apigee\Edge\Tests\Test\Mock\TestClientFactory;
+use Apigee\Edge\Tests\Test\TestClientFactory;
 
 /**
  * Class CpsLimitEntityControllerValidator.

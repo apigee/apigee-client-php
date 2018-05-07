@@ -16,13 +16,14 @@
  * limitations under the License.
  */
 
-namespace Apigee\Edge\Tests\Test\Mock;
+namespace Apigee\Edge\Tests\Test\HttpClient\Plugin;
 
 use Apigee\Edge\HttpClient\Client;
 use Apigee\Edge\HttpClient\ClientInterface;
 use Apigee\Edge\HttpClient\Plugin\Authentication\Oauth;
 use Apigee\Edge\HttpClient\Utility\Builder;
 use Apigee\Edge\HttpClient\Utility\JournalInterface;
+use Apigee\Edge\Tests\Test\HttpClient\Utility\TestJournal;
 use Http\Client\HttpClient;
 use Http\Message\Authentication\BasicAuth;
 use Http\Mock\Client as MockClient;

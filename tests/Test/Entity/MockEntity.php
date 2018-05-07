@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-namespace Apigee\Edge\Tests\Test\Mock;
+namespace Apigee\Edge\Tests\Test\Entity;
 
 use Apigee\Edge\Api\Management\Entity\AppCredential;
 use Apigee\Edge\Entity\Entity;

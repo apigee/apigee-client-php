@@ -20,7 +20,7 @@ namespace Apigee\Edge\Tests\Test\Controller;
 
 use Apigee\Edge\Entity\EntityInterface;
 use Apigee\Edge\Exception\ApiResponseException;
-use Apigee\Edge\Tests\Test\Mock\TestClientFactory;
+use Apigee\Edge\Tests\Test\TestClientFactory;
 
 /**
  * Class EntityCrudOperationsValidator.

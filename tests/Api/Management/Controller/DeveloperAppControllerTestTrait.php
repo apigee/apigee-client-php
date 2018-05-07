@@ -22,7 +22,7 @@ use Apigee\Edge\Api\Management\Controller\ApiProductController;
 use Apigee\Edge\Api\Management\Controller\DeveloperController;
 use Apigee\Edge\Exception\ApiRequestException;
 use Apigee\Edge\Exception\ClientErrorException;
-use Apigee\Edge\Tests\Test\Mock\TestClientFactory;
+use Apigee\Edge\Tests\Test\TestClientFactory;
 
 /**
  * Trait DeveloperAppControllerTestTrait.

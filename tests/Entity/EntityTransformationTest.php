@@ -26,7 +26,7 @@ use Apigee\Edge\Denormalizer\PropertiesPropertyDenormalizer;
 use Apigee\Edge\Entity\EntityTransformer;
 use Apigee\Edge\Normalizer\EdgeDateNormalizer;
 use Apigee\Edge\Normalizer\PropertiesPropertyNormalizer;
-use Apigee\Edge\Tests\Test\Mock\MockEntity;
+use Apigee\Edge\Tests\Test\Entity\MockEntity;
 use PHPUnit\Framework\TestCase;
 use SebastianBergmann\Comparator\ComparisonFailure;
 use SebastianBergmann\Comparator\Factory as ComparisonFactory;
@@ -108,7 +108,7 @@ class EntityTransformationTest extends TestCase
     {
         // Set value of this nullable value to ensure that a special condition is triggered in the EntityDenormalizer.
         $normalized->nullable = null;
-        /** @var \Apigee\Edge\Tests\Test\Mock\MockEntity $object */
+        /** @var \Apigee\Edge\Tests\Test\Entity\MockEntity $object */
         $object = static::$normalizer->denormalize($normalized, MockEntity::class);
         $this->assertTrue(true === $object->isBool());
         $this->assertTrue(2 === $object->getInt());

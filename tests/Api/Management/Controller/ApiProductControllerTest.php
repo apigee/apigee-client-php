@@ -26,7 +26,7 @@ use Apigee\Edge\Structure\AttributesProperty;
 use Apigee\Edge\Tests\Test\Controller\AttributesAwareEntityControllerTestTrait;
 use Apigee\Edge\Tests\Test\Controller\NonCpsLimitEntityControllerValidator;
 use Apigee\Edge\Tests\Test\Controller\OrganizationAwareEntityControllerValidatorTrait;
-use Apigee\Edge\Tests\Test\Mock\TestClientFactory;
+use Apigee\Edge\Tests\Test\TestClientFactory;
 
 /**
  * Class ApiProductControllerTest.

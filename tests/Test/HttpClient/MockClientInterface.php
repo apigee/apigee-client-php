@@ -16,18 +16,18 @@
  * limitations under the License.
  */
 
-namespace Apigee\Edge\Tests\Test\Mock;
+namespace Apigee\Edge\Tests\Test\HttpClient;
 
-use Http\Message\Authentication;
-use Psr\Http\Message\RequestInterface;
+use Http\Client\HttpAsyncClient;
+use Http\Client\HttpClient;
 
 /**
- * Null authentication for tests.
+ * Interface MockClientInterface.
+ *
+ * Creates a common interface that can be implemented by Mock http clients until this PR is not going to be merged.
+ *
+ * @see https://github.com/php-http/mock-client/pull/24
  */
-class NullAuthentication implements Authentication
+interface MockClientInterface extends HttpClient, HttpAsyncClient
 {
-    public function authenticate(RequestInterface $request)
-    {
-        return $request;
-    }
 }

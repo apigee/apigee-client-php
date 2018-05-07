@@ -1,26 +1,19 @@
 <?php
 
-/*
- * Copyright 2018 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+/**
+ * Copyright 2018 Google Inc.
+ * Use of this source code is governed by a MIT-style license that can be found in the LICENSE file or at
+ * https://opensource.org/licenses/MIT.
  */
 
-namespace Apigee\Edge\Tests\Test\Mock;
+namespace Apigee\Edge\Tests\Test;
 
 use Apigee\Edge\HttpClient\Client;
 use Apigee\Edge\HttpClient\ClientInterface;
 use Apigee\Edge\HttpClient\Utility\Builder;
+use Apigee\Edge\Tests\Test\HttpClient\DebuggerClient;
+use Apigee\Edge\Tests\Test\HttpClient\FileSystemMockClient;
+use Apigee\Edge\Tests\Test\HttpClient\MockClientInterface;
 use Http\Client\HttpClient;
 use Http\Message\Authentication\BasicAuth;
 use Http\Message\Formatter\CurlCommandFormatter;
@@ -76,7 +69,7 @@ class TestClientFactory
         }
         $endpoint = getenv('APIGEE_EDGE_PHP_SDK_ENDPOINT') ?: null;
         if (DebuggerClient::class == $rc->getName()) {
-            $logHandler = new StreamHandler(__DIR__ . '/../../../debug.log');
+            $logHandler = new StreamHandler(__DIR__ . '/../../debug.log');
             // Only print the message.
             $logHandler->setFormatter(new LineFormatter('%message%', null, true));
             $logger = new Logger('debuggerClient', [$logHandler], [new PsrLogMessageProcessor()]);
