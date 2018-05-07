@@ -21,17 +21,17 @@ namespace Apigee\Edge\Tests\HttpClient;
 use Apigee\Edge\Exception\ClientErrorException;
 use Apigee\Edge\HttpClient\Client;
 use Apigee\Edge\HttpClient\Utility\Builder;
+use Apigee\Edge\Tests\Test\Mock\NullAuthentication;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 use Http\Client\Common\Plugin\HeaderAppendPlugin;
+use Http\Client\Exception\NetworkException;
 use Http\Client\Exception\RequestException;
-use Http\Client\Exception\TransferException;
 use Http\Mock\Client as MockClient;
 use PHPUnit\Framework\TestCase;
 
 /**
  * Class ClientTest.
- *
  *
  * @group client
  * @group mock
@@ -58,7 +58,7 @@ class ClientTest extends TestCase
     public function testDefaultConfiguration()
     {
         $builder = new Builder(self::$httpClient);
-        $client = new Client(null, $builder);
+        $client = new Client(new NullAuthentication(), null, [Client::CONFIG_HTTP_CLIENT_BUILDER => $builder]);
         $client->get('/');
         $sent_request = self::$httpClient->getLastRequest();
         $this->assertEquals('https://api.enterprise.apigee.com/v1/', (string) $sent_request->getUri());
@@ -75,22 +75,13 @@ class ClientTest extends TestCase
      */
     public function testEndpointShouldBeOverridden(Client $client): void
     {
-        $originalClient = clone $client;
-        $onPremHost = 'http://on-prem-edge.dev';
-        $client->setEndpoint($onPremHost);
-        $this->assertNotEquals($originalClient, $client);
-        $client->get('/');
-        $sent_request = self::$httpClient->getLastRequest();
-        $this->assertEquals(
-            $onPremHost,
-            sprintf('%s://%s', $sent_request->getUri()->getScheme(), $sent_request->getUri()->getHost())
-        );
+        $customEndpoint = 'http://example.com';
         $builder = new Builder(self::$httpClient);
-        $client = new Client(null, $builder, $onPremHost);
+        $client = new Client(new NullAuthentication(), $customEndpoint, [Client::CONFIG_HTTP_CLIENT_BUILDER => $builder]);
         $client->get('/');
         $sent_request = self::$httpClient->getLastRequest();
         $this->assertEquals(
-            $onPremHost,
+            $customEndpoint,
             sprintf('%s://%s', $sent_request->getUri()->getScheme(), $sent_request->getUri()->getHost())
         );
     }
@@ -99,19 +90,9 @@ class ClientTest extends TestCase
     {
         $builder = new Builder(self::$httpClient);
         $userAgentPrefix = 'Awesome ';
-        $client = new Client(null, $builder, null, $userAgentPrefix);
-        $originalClient = clone $client;
+        $client = new Client(new NullAuthentication(), null, [Client::CONFIG_USER_AGENT_PREFIX => $userAgentPrefix, Client::CONFIG_HTTP_CLIENT_BUILDER => $builder]);
         $client->get('/');
         $sent_request = self::$httpClient->getLastRequest();
-        $this->assertEquals(
-            sprintf('%s (%s)', $userAgentPrefix, $client->getClientVersion()),
-            $sent_request->getHeaderLine('User-Agent')
-        );
-        $userAgentPrefix = 'Super Awesome ';
-        $client->setUserAgentPrefix($userAgentPrefix);
-        $client->get('/');
-        $sent_request = self::$httpClient->getLastRequest();
-        $this->assertNotEquals($originalClient, $client);
         $this->assertEquals(
             sprintf('%s (%s)', $userAgentPrefix, $client->getClientVersion()),
             $sent_request->getHeaderLine('User-Agent')
@@ -122,27 +103,20 @@ class ClientTest extends TestCase
     {
         $builder = new Builder(self::$httpClient);
         $builder->addPlugin(new HeaderAppendPlugin(['Foo' => 'bar']));
-        $client = new Client(null, $builder);
-        $originalClient = clone $client;
-        $client->get('/');
-        $sent_request = self::$httpClient->getLastRequest();
-        $this->assertEquals('bar', $sent_request->getHeaderLine('Foo'));
-        // Trigger something that rebuilds the underlying HTTP client.
-        $client->setEndpoint('http://example.com');
-        $this->assertNotEquals($originalClient, $client);
+        $client = new Client(new NullAuthentication(), null, [Client::CONFIG_HTTP_CLIENT_BUILDER => $builder]);
         $client->get('/');
         $sent_request = self::$httpClient->getLastRequest();
         $this->assertEquals('bar', $sent_request->getHeaderLine('Foo'));
     }
 
     /**
-     * @expectedException \Apigee\Edge\Exception\ApiException
+     * @expectedException \Apigee\Edge\Exception\ApiRequestException
      */
     public function testApiNotReachable(): void
     {
-        static::$httpClient->addException(new TransferException());
+        static::$httpClient->addException(new NetworkException('', new Request('GET', 'http://example.com')));
         $builder = new Builder(self::$httpClient);
-        $client = new Client(null, $builder);
+        $client = new Client(new NullAuthentication(), null, [Client::CONFIG_HTTP_CLIENT_BUILDER => $builder]);
         $client->get('/');
     }
 
@@ -153,7 +127,7 @@ class ClientTest extends TestCase
     {
         static::$httpClient->addException(new RequestException('Invalid request', new Request('GET', 'http://example.com')));
         $builder = new Builder(self::$httpClient);
-        $client = new Client(null, $builder);
+        $client = new Client(new NullAuthentication(), null, [Client::CONFIG_HTTP_CLIENT_BUILDER => $builder]);
         $client->get('/');
     }
 
@@ -165,7 +139,7 @@ class ClientTest extends TestCase
     {
         static::$httpClient->addResponse(new Response(404));
         $builder = new Builder(self::$httpClient);
-        $client = new Client(null, $builder);
+        $client = new Client(new NullAuthentication(), null, [Client::CONFIG_HTTP_CLIENT_BUILDER => $builder]);
         $client->get('/');
     }
 
@@ -177,7 +151,7 @@ class ClientTest extends TestCase
     {
         static::$httpClient->addResponse(new Response(500));
         $builder = new Builder(self::$httpClient);
-        $client = new Client(null, $builder);
+        $client = new Client(new NullAuthentication(), null, [Client::CONFIG_HTTP_CLIENT_BUILDER => $builder]);
         $client->get('/');
     }
 
@@ -190,8 +164,8 @@ class ClientTest extends TestCase
             'message' => $errorMessage,
         ];
         static::$httpClient->addResponse(new Response(400, ['Content-Type' => 'application/json'], json_encode((object) $body)));
-        $builder = new Builder(self::$httpClient);
-        $client = new Client(null, $builder);
+        $builder = new Builder(static::$httpClient);
+        $client = new Client(new NullAuthentication(), null, [Client::CONFIG_HTTP_CLIENT_BUILDER => $builder]);
         try {
             $client->get('/');
         } catch (\Exception $e) {

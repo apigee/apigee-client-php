@@ -1,12 +1,13 @@
 {
     "name": "apigee/edge-php-sdk",
     "type": "library",
-    "description": "Apigee Edge API client.",
+    "description": "Apigee Edge PHP API client.",
     "keywords": [
         "apigee",
         "edge",
         "api",
         "sdk",
+        "client",
         "web service"
     ],
     "homepage": "http://github.com/apigee/edge-php-sdk",
@@ -27,6 +28,7 @@
         "phpdocumentor/reflection-docblock": "^3.0 || ^4.0",
         "psr/cache": "^1.0",
         "psr/http-message": "^1.0",
+        "symfony/options-resolver": "^3.4 || ^4.0",
         "symfony/property-access": "^3.4 || ^4.0",
         "symfony/property-info": "^3.4 || ^4.0",
         "symfony/serializer": "^3.4 || ^4.0"

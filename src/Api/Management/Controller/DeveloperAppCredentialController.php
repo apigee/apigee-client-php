@@ -68,15 +68,15 @@ class DeveloperAppCredentialController extends EntityController implements Devel
      * @param string $organization
      * @param string $developerId
      * @param string $appName
-     * @param \Apigee\Edge\HttpClient\ClientInterface|null $client
+     * @param \Apigee\Edge\HttpClient\ClientInterface $client
      * @param \Symfony\Component\Serializer\Normalizer\NormalizerInterface[]|\Symfony\Component\Serializer\Normalizer\DenormalizerInterface[] $entityNormalizers
      */
     public function __construct(
         string $organization,
         string $developerId,
         string $appName,
-        ClientInterface $client = null,
-        $entityNormalizers = []
+        ClientInterface $client,
+        array $entityNormalizers = []
     ) {
         $this->developerId = $developerId;
         $this->appName = $appName;

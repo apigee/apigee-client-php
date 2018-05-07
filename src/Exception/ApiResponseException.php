@@ -90,11 +90,14 @@ class ApiResponseException extends ApiRequestException
      */
     public function __toString()
     {
-        return sprintf(
-            "Request:\n%s\nResponse:\n%s\n",
-            $this->formatter->formatRequest($this->request),
-            $this->formatter->formatResponse($this->response)
-        );
+        $output = [
+            get_called_class() . PHP_EOL,
+            'Request:' . PHP_EOL . $this->formatter->formatRequest($this->request) . PHP_EOL,
+            'Response:' . PHP_EOL . $this->formatter->formatResponse($this->response) . PHP_EOL,
+            'Stack trace: ' . PHP_EOL . $this->getTraceAsString(),
+        ];
+
+        return implode(PHP_EOL, $output);
     }
 
     /**

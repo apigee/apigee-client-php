@@ -48,10 +48,10 @@ class StatsController extends AbstractController implements StatsControllerInter
      *   The environment name.
      * @param string $organization
      *   Name of the organization that the entities belongs to.
-     * @param ClientInterface|null $client
+     * @param \Apigee\Edge\HttpClient\ClientInterface $client
      *   Apigee Edge API client.
      */
-    public function __construct(string $environment, string $organization, ClientInterface $client = null)
+    public function __construct(string $environment, string $organization, ClientInterface $client)
     {
         parent::__construct($client);
         $this->environment = $environment;

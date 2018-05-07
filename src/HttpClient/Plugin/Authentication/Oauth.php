@@ -18,10 +18,12 @@
 
 namespace Apigee\Edge\HttpClient\Plugin\Authentication;
 
-use Apigee\Edge\Exception\ApiResponseException;
-use Apigee\Edge\Exception\OauthResponseException;
+use Apigee\Edge\Exception\OauthAuthenticationException;
 use Apigee\Edge\HttpClient\Client;
+use Apigee\Edge\HttpClient\ClientInterface;
+use Http\Client\Exception;
 use Http\Message\Authentication;
+use Http\Message\Authentication\BasicAuth;
 use Http\Message\Authentication\Bearer;
 use Psr\Http\Message\RequestInterface;
 
@@ -30,12 +32,13 @@ use Psr\Http\Message\RequestInterface;
  *
  * @see https://apidocs.apigee.com/api-reference/content/using-oauth2-security-apigee-edge-management-api
  */
-final class Oauth implements Authentication
+class Oauth implements Authentication
 {
-    /**
-     * @var \Apigee\Edge\HttpClient\Client
-     */
-    private $client;
+    private const DEFAULT_AUTHORIZATION_SERVER = 'https://login.apigee.com/oauth/token';
+
+    private const DEFAULT_CLIENT_ID = 'edgecli';
+
+    private const DEFAULT_CLIENT_SECRET = 'edgeclisecret';
 
     /**
      * @var string
@@ -73,7 +76,7 @@ final class Oauth implements Authentication
     private $clientSecret;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $scope;
 
@@ -88,27 +91,24 @@ final class Oauth implements Authentication
      *   Storage where access token gets saved.
      * @param string|null $mfa_token
      *   One-time multi-factor authentication code.
-     * @param string $client_id
+     * @param string|null $client_id
      *   Client id.
-     * @param string $client_secret
+     * @param string|null $client_secret
      *   Client secret.
-     * @param string $scope
+     * @param string|null $scope
      *   Oauth scope.
-     * @param string $auth_server
+     * @param string|null $auth_server
      *   Authentication server.
-     * @param string $userAgentPrefix
-     *   User agent prefix used by the API client.
      */
-    public function __construct(string $username, string $password, OauthTokenStorageInterface $token_storage, string $mfa_token = null, string $client_id = 'edgecli', string $client_secret = 'edgeclisecret', string $scope = '', string $auth_server = 'https://login.apigee.com/oauth/token', string $userAgentPrefix = '')
+    public function __construct(string $username, string $password, OauthTokenStorageInterface $token_storage, ?string $mfa_token = null, ?string $client_id = null, ?string $client_secret = null, ?string $scope = null, ?string $auth_server = null)
     {
-        $this->client = new Client(null, null, $auth_server, $userAgentPrefix);
         $this->username = $username;
         $this->password = $password;
         $this->tokenStorage = $token_storage;
         $this->mfaToken = $mfa_token;
-        $this->auth_server = $auth_server;
-        $this->clientId = $client_id;
-        $this->clientSecret = $client_secret;
+        $this->auth_server = $auth_server ?: self::DEFAULT_AUTHORIZATION_SERVER;
+        $this->clientId = $client_id ?: self::DEFAULT_CLIENT_ID;
+        $this->clientSecret = $client_secret ?: self::DEFAULT_CLIENT_SECRET;
         $this->scope = $scope;
     }
 
@@ -143,19 +143,26 @@ final class Oauth implements Authentication
     }
 
     /**
+     * Returns a pre-configured client for authorization API calls.
+     *
+     * @return \Apigee\Edge\HttpClient\ClientInterface
+     */
+    protected function authClient(): ClientInterface
+    {
+        return new Client(new BasicAuth($this->clientId, $this->clientSecret), $this->auth_server);
+    }
+
+    /**
      * Retrieves access token and saves it to the token storage.
+     *
+     * @psalm-suppress InvalidCatch - Exception by interface can be caught in PHP >= 7.1.
      */
     private function getAccessToken(): void
     {
-        $headers = [
-            'Authorization' => sprintf('Basic %s', base64_encode(sprintf('%s:%s', $this->clientId, $this->clientSecret))),
-            'Content-Type' => 'application/x-www-form-urlencoded',
-        ];
-
-        if ($refreshToken = $this->tokenStorage->getRefreshToken()) {
+        if ($this->tokenStorage->getRefreshToken()) {
             $body = [
                 'grant_type' => 'refresh_token',
-                'refresh_token' => $refreshToken,
+                'refresh_token' => $this->tokenStorage->getRefreshToken(),
             ];
         } else {
             $body = [
@@ -163,23 +170,19 @@ final class Oauth implements Authentication
                 'username' => $this->username,
                 'password' => $this->password,
             ];
-            if (null !== $this->mfaToken) {
+            if (!empty($this->mfaToken)) {
                 $body['mfa_token'] = $this->mfaToken;
             }
-            if (null !== $this->scope) {
+            if (!empty($this->scope)) {
                 $body['scope'] = $this->scope;
             }
         }
 
         try {
-            $response = $this->client->post(null, http_build_query($body), $headers);
+            $response = $this->authClient()->post('', http_build_query($body), ['Content-Type' => 'application/x-www-form-urlencoded']);
             $this->tokenStorage->saveToken(json_decode((string) $response->getBody(), true));
-        } catch (\Exception $e) {
-            $code = $e->getCode();
-            if ($e instanceof ApiResponseException) {
-                $code = $e->getEdgeErrorCode();
-            }
-            throw new OauthResponseException($this->client->getJournal()->getLastResponse(), $this->client->getJournal()->getLastRequest(), $e->getMessage(), (int) $code, $e);
+        } catch (Exception $e) {
+            throw new OauthAuthenticationException($e->getMessage(), $e->getCode(), $e);
         }
     }
 }

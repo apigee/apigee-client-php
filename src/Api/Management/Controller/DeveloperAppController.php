@@ -45,14 +45,14 @@ class DeveloperAppController extends CpsLimitEntityController implements Develop
      *
      * @param string $organization
      * @param string $developerId
-     * @param \Apigee\Edge\HttpClient\ClientInterface|null $client
+     * @param \Apigee\Edge\HttpClient\ClientInterface $client
      * @param \Symfony\Component\Serializer\Normalizer\NormalizerInterface[]|\Symfony\Component\Serializer\Normalizer\DenormalizerInterface[] $entityNormalizers
      * @param \Apigee\Edge\Api\Management\Controller\OrganizationControllerInterface|null $organizationController
      */
     public function __construct(
         string $organization,
         string $developerId,
-        ?ClientInterface $client = null,
+        ClientInterface $client,
         array $entityNormalizers = [],
         ?OrganizationControllerInterface $organizationController = null
     ) {

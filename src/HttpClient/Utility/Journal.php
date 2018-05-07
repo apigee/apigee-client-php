@@ -18,8 +18,6 @@
 
 namespace Apigee\Edge\HttpClient\Utility;
 
-use Http\Client\Common\Plugin\HistoryPlugin;
-use Http\Client\Common\Plugin\Journal as JournalInterface;
 use Http\Client\Exception;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -28,27 +26,28 @@ use Psr\Http\Message\ResponseInterface;
  * Class Journal.
  *
  * Stores the last request, response and response exception by using the HistoryPlugin.
+ * We did not want to collect and keep all requests, responses and exceptions because that would have increase memory
+ * usage of the SDK.
  *
- *
- * @see HistoryPlugin
+ * @see \Http\Client\Common\Plugin\HistoryPlugin
  */
-class Journal implements JournalInterface
+final class Journal implements JournalInterface
 {
     /** @var \Psr\Http\Message\RequestInterface */
-    protected $lastRequest;
+    private $lastRequest;
 
     /** @var \Psr\Http\Message\ResponseInterface */
-    protected $lastResponse;
+    private $lastResponse;
 
     /** @var \Http\Client\Exception */
-    protected $lastException;
+    private $lastException;
 
     /**
      * Indicates whether the last request was successful or not.
      *
      * @var bool
      */
-    protected $success = true;
+    private $success = true;
 
     /**
      * Record a successful call.

@@ -87,7 +87,7 @@ class TestClientFactory
             $builder = new Builder($rc->newInstance());
         }
 
-        return new Client($auth, $builder, $endpoint, $userAgentPrefix);
+        return new Client($auth, $endpoint, [Client::CONFIG_HTTP_CLIENT_BUILDER => $builder, Client::CONFIG_USER_AGENT_PREFIX => $userAgentPrefix]);
     }
 
     /**

@@ -19,11 +19,8 @@
 namespace Apigee\Edge\Exception;
 
 /**
- * For general Oauth related issues (requesting access token, etc.).
+ * For OAuth authentication issues.
  */
-class OauthResponseException extends ApiResponseException
+class OauthAuthenticationException extends ApiException
 {
-    protected $errorCodeResponseField = 'error';
-
-    protected $errorDescriptionResponseField = 'error_description';
 }

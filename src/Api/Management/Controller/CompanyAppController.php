@@ -43,14 +43,14 @@ class CompanyAppController extends CpsLimitEntityController implements CompanyAp
      * CompanyAppController constructor.
      *
      * @param string $organization
-     * @param \Apigee\Edge\HttpClient\ClientInterface|null $client
+     * @param \Apigee\Edge\HttpClient\ClientInterface $client
      * @param \Symfony\Component\Serializer\Normalizer\NormalizerInterface[]|\Symfony\Component\Serializer\Normalizer\DenormalizerInterface[] $entityNormalizers
      * @param \Apigee\Edge\Api\Management\Controller\OrganizationControllerInterface|null $organizationController
      */
     public function __construct(
         string $organization,
-        ?ClientInterface $client = null,
-        $entityNormalizers = [],
+        ClientInterface $client,
+        array $entityNormalizers = [],
         ?OrganizationControllerInterface $organizationController = null
     ) {
         $entityNormalizers = array_merge($entityNormalizers, $this->appEntityNormalizers());

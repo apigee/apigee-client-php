@@ -39,13 +39,13 @@ class ApiProductController extends EntityController implements ApiProductControl
      * ApiProductController constructor.
      *
      * @param string $organization
-     * @param ClientInterface|null $client
+     * @param ClientInterface $client
      * @param \Symfony\Component\Serializer\Normalizer\NormalizerInterface[]|\Symfony\Component\Serializer\Normalizer\DenormalizerInterface[] $entityNormalizers
      */
     public function __construct(
         string $organization,
-        ?ClientInterface $client = null,
-        $entityNormalizers = []
+        ClientInterface $client,
+        array $entityNormalizers = []
     ) {
         $entityNormalizers[] = new AttributesPropertyDenormalizer();
         parent::__construct($organization, $client, $entityNormalizers);
@@ -67,16 +67,11 @@ class ApiProductController extends EntityController implements ApiProductControl
     }
 
     /**
-     * Returns the API endpoint that the controller communicates with.
-     *
-     * In case of an entity that belongs to an organisation it should return organization/[orgName]/[endpoint].
-     *
-     * @return UriInterface
+     * @inheritdoc
      */
     protected function getBaseEndpointUri(): UriInterface
     {
-        return $this->client->getUriFactory()
-            ->createUri(sprintf('/organizations/%s/apiproducts', $this->organization));
+        return $this->client->getUriFactory()->createUri(sprintf('/organizations/%s/apiproducts', $this->organization));
     }
 
     /**

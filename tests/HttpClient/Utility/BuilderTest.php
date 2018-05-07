@@ -20,13 +20,10 @@ namespace Apigee\Edge\Tests\HttpClient\Utility;
 
 use Apigee\Edge\HttpClient\Utility\Builder;
 use GuzzleHttp\Psr7\Request;
-use Http\Client\Common\Plugin;
-use Http\Client\Common\Plugin\CachePlugin;
+use Http\Client\Common\Plugin\AddPathPlugin;
 use Http\Discovery\UriFactoryDiscovery;
-use Http\Message\StreamFactory;
 use Http\Mock\Client as MockClient;
 use PHPUnit\Framework\TestCase;
-use Psr\Cache\CacheItemPoolInterface;
 
 /**
  * Class BuilderTest.
@@ -136,8 +133,7 @@ class BuilderTest extends TestCase
         $builder = new Builder(self::$httpClient);
         $client = $builder->getHttpClient();
         $uriFactory = UriFactoryDiscovery::find();
-        $addPathPlugin = new Plugin\AddPathPlugin($uriFactory->createUri('edge'));
-        $builder->addPlugin($addPathPlugin);
+        $builder->addPlugin(new AddPathPlugin($uriFactory->createUri('edge')));
         $this->assertNotEquals($client, $builder->getHttpClient());
         $request = new Request('GET', 'http://example.com');
         $builder->getHttpClient()->sendRequest($request);
@@ -155,7 +151,7 @@ class BuilderTest extends TestCase
     public function testShouldRemovePlugin(Builder $builder): void
     {
         $client = $builder->getHttpClient();
-        $builder->removePlugin(Plugin\AddPathPlugin::class);
+        $builder->removePlugin(AddPathPlugin::class);
         $this->assertNotEquals($client, $builder->getHttpClient());
         $request = new Request('GET', 'http://example.com');
         $builder->getHttpClient()->sendRequest($request);
@@ -167,8 +163,7 @@ class BuilderTest extends TestCase
     {
         $builder = new Builder(self::$httpClient);
         $uriFactory = UriFactoryDiscovery::find();
-        $addPathPlugin = new Plugin\AddPathPlugin($uriFactory->createUri('edge'));
-        $builder->addPlugin($addPathPlugin);
+        $builder->addPlugin(new AddPathPlugin($uriFactory->createUri('edge')));
         $headers = ['Foo' => 'bar'];
         $builder->setHeaders($headers);
         $client = $builder->getHttpClient();
@@ -182,37 +177,5 @@ class BuilderTest extends TestCase
         $this->assertNotEquals($client, $builder->getHttpClient());
         $this->assertEmpty($sent_request->getHeaderLine('Foo'));
         $this->assertEmpty($sent_request->getUri()->getPath());
-    }
-
-    /**
-     * @expectedException \InvalidArgumentException
-     */
-    public function testShouldNotAddCachePlugin(): void
-    {
-        $cachePoolMock = $this->createMock(CacheItemPoolInterface::class);
-        $streamFactoryMock = $this->createMock(StreamFactory::class);
-        $builder = new Builder();
-        $builder->addPlugin(new CachePlugin($cachePoolMock, $streamFactoryMock));
-    }
-
-    public function testShouldAddCachePlugin()
-    {
-        $cachePoolMock = $this->createMock(CacheItemPoolInterface::class);
-        $builder = new Builder();
-        $client = $builder->getHttpClient();
-        $builder->addCache($cachePoolMock);
-        $this->assertNotEquals($client, $builder->getHttpClient());
-
-        return $builder;
-    }
-
-    /**
-     * @depends testShouldAddCachePlugin
-     */
-    public function testShouldRemoveCachePlugin(Builder $builder): void
-    {
-        $client = $builder->getHttpClient();
-        $builder->removeCache();
-        $this->assertNotEquals($client, $builder->getHttpClient());
     }
 }

@@ -19,9 +19,11 @@
 namespace Apigee\Edge\HttpClient\Plugin;
 
 use Apigee\Edge\Exception\OauthAccessTokenAuthenticationException;
+use Apigee\Edge\Exception\OauthAuthenticationException;
 use Apigee\Edge\Exception\OauthRefreshTokenExpiredException;
 use Apigee\Edge\HttpClient\Plugin\Authentication\Oauth;
 use Http\Client\Common\Plugin;
+use Http\Client\Exception;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
@@ -54,24 +56,27 @@ class RetryOauthAuthenticationPlugin implements Plugin
     {
         return $next($request)->then(function (ResponseInterface $response) {
             return $response;
-        }, function (\Http\Client\Exception $exception) use ($request, $next, $first) {
+        }, function (Exception $exception) use ($request, $next, $first) {
             if ($exception instanceof OauthAccessTokenAuthenticationException) {
                 // Mark access token as expired and with that ensure that the authentication plugin gets a new
                 // access token.
                 $this->auth->getTokenStorage()->markExpired();
-                $promise = $first($request);
-
-                return $promise->wait();
-            } elseif ($exception instanceof OauthRefreshTokenExpiredException) {
-                // Clear token date from the storage and with that ensure before the retry plugin resends
-                // this failed request the client tries to get a new access token first by using the resource
-                // owner username as password as credentials.
-                $this->auth->getTokenStorage()->removeToken();
-                $promise = $first($request);
+                try {
+                    $promise = $first($request);
+                } catch (OauthAuthenticationException $e) {
+                    if ($e->getPrevious() instanceof OauthRefreshTokenExpiredException) {
+                        // Clear token date from the storage and with that ensure before the retry plugin resends
+                        // this failed request the client tries to get a new access token first by using the resource
+                        // owner username as password as credentials.
+                        $this->auth->getTokenStorage()->removeToken();
+                        $promise = $first($request);
+                    } else {
+                        throw $e;
+                    }
+                }
 
                 return $promise->wait();
             }
-            throw $exception;
         });
     }
 }

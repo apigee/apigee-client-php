@@ -43,14 +43,14 @@ class DeveloperController extends CpsLimitEntityController implements DeveloperC
      * DeveloperController constructor.
      *
      * @param string $organization
-     * @param ClientInterface|null $client
+     * @param \Apigee\Edge\HttpClient\ClientInterface $client
      * @param \Symfony\Component\Serializer\Normalizer\NormalizerInterface[]|\Symfony\Component\Serializer\Normalizer\DenormalizerInterface[] $entityNormalizers
      * @param OrganizationControllerInterface|null $organizationController
      */
     public function __construct(
         string $organization,
-        ?ClientInterface $client = null,
-        $entityNormalizers = [],
+        ClientInterface $client,
+        array $entityNormalizers = [],
         ?OrganizationControllerInterface $organizationController = null
     ) {
         $entityNormalizers[] = new AttributesPropertyDenormalizer();

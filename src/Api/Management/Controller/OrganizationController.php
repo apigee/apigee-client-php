@@ -41,10 +41,10 @@ class OrganizationController extends AbstractEntityController implements Organiz
     /**
      * OrganizationController constructor.
      *
-     * @param \Apigee\Edge\HttpClient\ClientInterface|null $client
+     * @param \Apigee\Edge\HttpClient\ClientInterface $client
      * @param \Symfony\Component\Serializer\Normalizer\NormalizerInterface[]|\Symfony\Component\Serializer\Normalizer\DenormalizerInterface[] $entityNormalizers
      */
-    public function __construct(?ClientInterface $client = null, $entityNormalizers = [])
+    public function __construct(ClientInterface $client, array $entityNormalizers = [])
     {
         $entityNormalizers[] = new PropertiesPropertyNormalizer();
         $entityNormalizers[] = new PropertiesPropertyDenormalizer();

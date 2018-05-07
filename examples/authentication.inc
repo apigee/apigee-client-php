@@ -127,9 +127,7 @@ class ClientFactory
     public function getClient(): ClientInterface
     {
         if (null == $this->client) {
-            $this->client = new Client(
-                new BasicAuth($this->credential->getUsername(), $this->credential->getPassword()), null, $this->endpoint
-            );
+            $this->client = new Client(new BasicAuth($this->credential->getUsername(), $this->credential->getPassword()), $this->endpoint);
         }
 
         return $this->client;

@@ -39,13 +39,13 @@ class EnvironmentController extends EntityController implements EnvironmentContr
      * EnvironmentController constructor.
      *
      * @param string $organization
-     * @param \Apigee\Edge\HttpClient\ClientInterface|null $client
+     * @param \Apigee\Edge\HttpClient\ClientInterface $client
      * @param array $entityNormalizers
      */
     public function __construct(
         string $organization,
-        ?ClientInterface $client = null,
-        $entityNormalizers = []
+        ClientInterface $client,
+        array $entityNormalizers = []
     ) {
         $entityNormalizers[] = new PropertiesPropertyNormalizer();
         $entityNormalizers[] = new PropertiesPropertyDenormalizer();
@@ -53,11 +53,7 @@ class EnvironmentController extends EntityController implements EnvironmentContr
     }
 
     /**
-     * Returns the API endpoint that the controller communicates with.
-     *
-     * In case of an entity that belongs to an organisation it should return organization/[orgName]/[endpoint].
-     *
-     * @return UriInterface
+     * @inheritdoc
      */
     protected function getBaseEndpointUri(): UriInterface
     {
@@ -66,9 +62,7 @@ class EnvironmentController extends EntityController implements EnvironmentContr
     }
 
     /**
-     * Returns the fully-qualified class name of the entity that this controller works with.
-     *
-     * @return string
+     * @inheritdoc
      */
     protected function getEntityClass(): string
     {
