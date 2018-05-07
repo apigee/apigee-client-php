@@ -18,7 +18,7 @@
 
 namespace Apigee\Edge\Tests\HttpClient;
 
-use Apigee\Edge\HttpClient\Client;
+use Apigee\Edge\Client;
 use Apigee\Edge\HttpClient\Plugin\Authentication\InMemoryOauthTokenStorage;
 use Apigee\Edge\HttpClient\Utility\Builder;
 use Apigee\Edge\Tests\Test\HttpClient\Plugin\MockOauth;
@@ -45,7 +45,7 @@ class OauthTest extends TestCase
     /** @var \Apigee\Edge\HttpClient\Utility\JournalInterface */
     private $journal;
 
-    /** @var \Apigee\Edge\HttpClient\ClientInterface */
+    /** @var \Apigee\Edge\ClientInterface */
     private $client;
 
     /**
@@ -64,7 +64,7 @@ class OauthTest extends TestCase
 
         $this->journal = new TestJournal();
         $this->client = new Client(new MockOauth('', '', new InMemoryOauthTokenStorage(), static::$httpClient, $this->journal),
-            self::API_ENDPOINT, [Client::CONFIG_HTTP_CLIENT_BUILDER => new Builder(static::$httpClient), Client::CONFIG_JOURNAL => $this->journal]);
+            self::API_ENDPOINT, [Client::CONFIG_HTTP_CLIENT_BUILDER => new Builder(static::$httpClient), \Apigee\Edge\Client::CONFIG_JOURNAL => $this->journal]);
     }
 
     /**

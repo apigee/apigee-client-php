@@ -18,7 +18,7 @@
 
 namespace Apigee\Edge\Controller;
 
-use Apigee\Edge\HttpClient\ClientInterface;
+use Apigee\Edge\ClientInterface;
 
 /**
  * Class EntityController.

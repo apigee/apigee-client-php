@@ -18,8 +18,8 @@
 
 namespace Apigee\Edge\Tests\Test\HttpClient\Plugin;
 
-use Apigee\Edge\HttpClient\Client;
-use Apigee\Edge\HttpClient\ClientInterface;
+use Apigee\Edge\Client;
+use Apigee\Edge\ClientInterface;
 use Apigee\Edge\HttpClient\Plugin\Authentication\Oauth;
 use Apigee\Edge\HttpClient\Utility\Builder;
 use Apigee\Edge\HttpClient\Utility\JournalInterface;

@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-namespace Apigee\Edge\HttpClient;
+namespace Apigee\Edge;
 
 use Apigee\Edge\HttpClient\Utility\JournalInterface;
 use Http\Client\HttpClient;

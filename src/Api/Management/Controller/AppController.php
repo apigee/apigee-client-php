@@ -19,8 +19,8 @@
 namespace Apigee\Edge\Api\Management\Controller;
 
 use Apigee\Edge\Api\Management\Entity\AppInterface;
+use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Controller\CpsLimitEntityController;
-use Apigee\Edge\HttpClient\ClientInterface;
 use Apigee\Edge\Structure\CpsListLimitInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\UriInterface;
@@ -46,7 +46,7 @@ class AppController extends CpsLimitEntityController implements AppControllerInt
      * AppController constructor.
      *
      * @param string $organization
-     * @param \Apigee\Edge\HttpClient\ClientInterface $client
+     * @param \Apigee\Edge\ClientInterface $client
      * @param \Symfony\Component\Serializer\Normalizer\NormalizerInterface[]|\Symfony\Component\Serializer\Normalizer\DenormalizerInterface[] $entityNormalizers
      * @param \Apigee\Edge\Api\Management\Controller\OrganizationControllerInterface|null $organizationController
      */

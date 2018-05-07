@@ -1,15 +1,25 @@
 <?php
 
-/**
- * Copyright 2018 Google Inc.
- * Use of this source code is governed by a MIT-style license that can be found in the LICENSE file or at
- * https://opensource.org/licenses/MIT.
+/*
+ * Copyright 2018 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 namespace Apigee\Edge\Tests\Test;
 
-use Apigee\Edge\HttpClient\Client;
-use Apigee\Edge\HttpClient\ClientInterface;
+use Apigee\Edge\Client;
+use Apigee\Edge\ClientInterface;
 use Apigee\Edge\HttpClient\Utility\Builder;
 use Apigee\Edge\Tests\Test\HttpClient\DebuggerClient;
 use Apigee\Edge\Tests\Test\HttpClient\FileSystemMockClient;
@@ -41,7 +51,7 @@ class TestClientFactory
      * @throws \Exception
      *   By StreamHandler.
      *
-     * @return ClientInterface
+     * @return \Apigee\Edge\ClientInterface
      */
     public function getClient(string $fqcn = null): ClientInterface
     {
@@ -86,7 +96,7 @@ class TestClientFactory
     /**
      * Helper function that returns whether the API client is using a mock HTTP client or not.
      *
-     * @param ClientInterface $client
+     * @param \Apigee\Edge\ClientInterface $client
      *   API client.
      *
      * @return bool

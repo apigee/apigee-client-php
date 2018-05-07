@@ -45,7 +45,7 @@ use Apigee\Edge\Api\Management\Entity\Developer;
 use Apigee\Edge\Exception\ApiException;
 use Apigee\Edge\Exception\ClientErrorException;
 use Apigee\Edge\Exception\ServerErrorException;
-use Apigee\Edge\HttpClient\Client;
+use Apigee\Edge\Client;
 use Http\Message\Authentication\BasicAuth;
 
 include_once 'vendor/autoload.php';

@@ -19,11 +19,11 @@
 namespace Apigee\Edge\Api\Management\Controller;
 
 use Apigee\Edge\Api\Management\Entity\Environment;
+use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Controller\EntityController;
 use Apigee\Edge\Controller\EntityCrudOperationsControllerTrait;
 use Apigee\Edge\Controller\EntityIdsListingControllerTrait;
 use Apigee\Edge\Denormalizer\PropertiesPropertyDenormalizer;
-use Apigee\Edge\HttpClient\ClientInterface;
 use Apigee\Edge\Normalizer\PropertiesPropertyNormalizer;
 use Psr\Http\Message\UriInterface;
 
@@ -39,7 +39,7 @@ class EnvironmentController extends EntityController implements EnvironmentContr
      * EnvironmentController constructor.
      *
      * @param string $organization
-     * @param \Apigee\Edge\HttpClient\ClientInterface $client
+     * @param \Apigee\Edge\ClientInterface $client
      * @param array $entityNormalizers
      */
     public function __construct(

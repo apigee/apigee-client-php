@@ -18,9 +18,9 @@
 
 namespace Apigee\Edge\HttpClient\Plugin\Authentication;
 
+use Apigee\Edge\Client;
+use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Exception\OauthAuthenticationException;
-use Apigee\Edge\HttpClient\Client;
-use Apigee\Edge\HttpClient\ClientInterface;
 use Http\Client\Exception;
 use Http\Message\Authentication;
 use Http\Message\Authentication\BasicAuth;
@@ -145,7 +145,7 @@ class Oauth implements Authentication
     /**
      * Returns a pre-configured client for authorization API calls.
      *
-     * @return \Apigee\Edge\HttpClient\ClientInterface
+     * @return \Apigee\Edge\ClientInterface
      */
     protected function authClient(): ClientInterface
     {

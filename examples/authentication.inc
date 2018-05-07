@@ -28,8 +28,8 @@
  * - APIGEE_EDGE_PHP_SDK_ENDPOINT
  * - APIGEE_EDGE_PHP_SDK_ENVIRONMENT
  */
-use Apigee\Edge\HttpClient\Client;
-use Apigee\Edge\HttpClient\ClientInterface;
+use Apigee\Edge\Client;
+use Apigee\Edge\ClientInterface;
 use Http\Message\Authentication\BasicAuth;
 
 require_once __DIR__ . '/../vendor/autoload.php';
@@ -102,7 +102,7 @@ class ClientFactory
     /** @var \CredentialProvider */
     private $credential;
 
-    /** @var null|\Apigee\Edge\HttpClient\ClientInterface */
+    /** @var null|\Apigee\Edge\ClientInterface */
     private $client;
 
     /**
@@ -122,7 +122,7 @@ class ClientFactory
     /**
      * Returns a configured API client.
      *
-     * @return \Apigee\Edge\HttpClient\ClientInterface
+     * @return \Apigee\Edge\ClientInterface
      */
     public function getClient(): ClientInterface
     {

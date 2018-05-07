@@ -42,7 +42,7 @@ use PHPUnit\Framework\TestCase;
  */
 class OrganizationControllerTest extends TestCase
 {
-    /** @var \Apigee\Edge\HttpClient\ClientInterface */
+    /** @var \Apigee\Edge\ClientInterface */
     protected static $client;
 
     /**

@@ -18,9 +18,9 @@
 
 namespace Apigee\Edge\Controller;
 
+use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Exception\ApiResponseException;
 use Apigee\Edge\Exception\InvalidJsonException;
-use Apigee\Edge\HttpClient\ClientInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\UriInterface;
 use Symfony\Component\Serializer\Encoder\JsonDecode;
@@ -44,7 +44,7 @@ abstract class AbstractController
     /**
      * AbstractController constructor.
      *
-     * @param \Apigee\Edge\HttpClient\ClientInterface $client
+     * @param \Apigee\Edge\ClientInterface $client
      */
     public function __construct(ClientInterface $client)
     {

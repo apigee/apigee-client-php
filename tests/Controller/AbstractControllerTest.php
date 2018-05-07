@@ -18,8 +18,8 @@
 
 namespace Apigee\Edge\Tests\Controller;
 
+use Apigee\Edge\Client;
 use Apigee\Edge\Controller\AbstractEntityController;
-use Apigee\Edge\HttpClient\Client;
 use Apigee\Edge\HttpClient\Utility\Builder;
 use Apigee\Edge\Tests\Test\Entity\MockEntity;
 use Apigee\Edge\Tests\Test\HttpClient\Plugin\NullAuthentication;
@@ -47,7 +47,7 @@ class AbstractControllerTest extends TestCase
     /** @var \Http\Client\HttpClient */
     private static $mockClient;
 
-    /** @var \Apigee\Edge\HttpClient\ClientInterface */
+    /** @var \Apigee\Edge\ClientInterface */
     private static $client;
 
     public static function setUpBeforeClass(): void
