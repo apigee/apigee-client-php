@@ -18,23 +18,23 @@
 
 namespace Apigee\Edge\Tests\Api\Management\Controller;
 
-use Apigee\Edge\Api\Management\Controller\DeveloperController;
+use Apigee\Edge\Api\Management\Controller\CompanyController;
 use Apigee\Edge\Exception\ApiRequestException;
 use Apigee\Edge\Exception\ClientErrorException;
 use Apigee\Edge\Tests\Test\TestClientFactory;
 
 /**
- * Trait DeveloperAppControllerTestTrait.
+ * Trait CompanyAppControllerTestTrait.
  */
-trait DeveloperAppControllerTestTrait
+trait CompanyAppControllerTestTrait
 {
     use CommonAppControllerTestTrait {
         setUpBeforeClass as private commonSetUpBeforeClass;
         tearDownAfterClass as private commonTearDownAfterClass;
     }
 
-    /** @var string Developer id. */
-    protected static $developerId;
+    /** @var string Company name. */
+    protected static $companyName;
 
     /**
      * @inheritdoc
@@ -46,17 +46,17 @@ trait DeveloperAppControllerTestTrait
             // Unfortunately in PHPUnit it is not possible to directly depend on another test classes. This could ensure
             // that even if only a single test case is executed from this class those dependencies are executed first
             // and they could create these entities on Edge.
-            $dc = new DeveloperController(static::getOrganization(static::$client), static::$client);
+            $cc = new CompanyController(static::getOrganization(static::$client), static::$client);
             try {
                 // We have to keep a copy of phpunit@example.com developer's data because of this for offline tests.
                 // See: offline-test-data/v1/organizations/phpunit/developers/phpunit@example.com .
-                $entity = $dc->load(DeveloperControllerTest::sampleDataForEntityCreate()->getEmail());
-                static::$developerId = $entity->id();
+                $entity = $cc->load(CompanyControllerTest::sampleDataForEntityCreate()->getName());
+                static::$companyName = $entity->id();
             } catch (ClientErrorException $e) {
-                if ($e->getEdgeErrorCode() && 'developer.service.DeveloperDoesNotExist' === $e->getEdgeErrorCode()) {
-                    $entity = clone DeveloperControllerTest::sampleDataForEntityCreate();
-                    $dc->create($entity);
-                    static::$developerId = $entity->id();
+                if ($e->getEdgeErrorCode() && 'developer.service.CompanyDoesNotExist' === $e->getEdgeErrorCode()) {
+                    $entity = clone CompanyControllerTest::sampleDataForEntityCreate();
+                    $cc->create($entity);
+                    static::$companyName = $entity->id();
                 }
             }
         } catch (ApiRequestException $e) {
@@ -65,7 +65,6 @@ trait DeveloperAppControllerTestTrait
             static::tearDownAfterClass();
             throw $e;
         }
-
         static::commonSetUpBeforeClass();
     }
 
@@ -78,18 +77,17 @@ trait DeveloperAppControllerTestTrait
             return;
         }
 
-        if (null !== static::$developerId) {
-            $dc = new DeveloperController(static::getOrganization(static::$client), static::$client);
+        if (null !== static::$companyName) {
+            $cc = new CompanyController(static::getOrganization(static::$client), static::$client);
             try {
-                $dc->delete(static::$developerId);
+                $cc->delete(static::$companyName);
             } catch (\Exception $e) {
                 printf(
-                    "Unable to delete developer entity with %s id.\n",
-                    static::$developerId
+                    "Unable to delete company entity with %s id.\n",
+                    static::$companyName
                 );
             }
         }
-
         static::commonTearDownAfterClass();
     }
 }

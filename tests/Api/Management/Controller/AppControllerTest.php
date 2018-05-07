@@ -31,7 +31,6 @@ use Apigee\Edge\Tests\Test\TestClientFactory;
 /**
  * Class AppControllerTest.
  *
- *
  * @group controller
  */
 class AppControllerTest extends EntityControllerValidator

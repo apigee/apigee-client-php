@@ -33,6 +33,8 @@ use Apigee\Edge\Tests\Test\TestClientFactory;
 
 /**
  * Class DeveloperAppCredentialControllerTest.
+ *
+ * @group controller
  */
 class DeveloperAppCredentialControllerTest extends EntityControllerValidator
 {

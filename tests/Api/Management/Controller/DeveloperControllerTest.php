@@ -31,7 +31,6 @@ use Apigee\Edge\Tests\Test\TestClientFactory;
 /**
  * Class DeveloperControllerTest.
  *
- *
  * @group controller
  */
 class DeveloperControllerTest extends CpsLimitEntityControllerValidator

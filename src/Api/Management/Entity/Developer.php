@@ -84,20 +84,6 @@ class Developer extends Entity implements DeveloperInterface
     }
 
     /**
-     * Set app names from an Edge API response.
-     *
-     * Apps of a developer can not be changed by modifying this property's value.
-     *
-     * @param string[] $apps
-     *
-     * @internal
-     */
-    public function setApps(array $apps): void
-    {
-        $this->apps = $apps;
-    }
-
-    /**
      * @inheritdoc
      */
     public function getCompanies(): array

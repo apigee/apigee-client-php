@@ -1,0 +1,15 @@
+{
+    "apiProducts": [
+        {
+            "apiproduct": "phpunit_test",
+            "status": "approved"
+        }
+    ],
+    "attributes": [],
+    "consumerKey": "phpunit_test_app_key",
+    "consumerSecret": "phpunit_test_app_secret",
+    "expiresAt": -1,
+    "issuedAt": 648345600000,
+    "scopes": [],
+    "status": "approved"
+}
