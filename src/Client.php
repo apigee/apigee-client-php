@@ -22,7 +22,6 @@ use Apigee\Edge\HttpClient\Plugin\Authentication\Oauth;
 use Apigee\Edge\HttpClient\Plugin\ResponseHandlerPlugin;
 use Apigee\Edge\HttpClient\Plugin\RetryOauthAuthenticationPlugin;
 use Apigee\Edge\HttpClient\Utility\Builder;
-use Apigee\Edge\HttpClient\Utility\BuilderInterface;
 use Apigee\Edge\HttpClient\Utility\Journal;
 use Apigee\Edge\HttpClient\Utility\JournalInterface;
 use Http\Client\Common\Plugin\AuthenticationPlugin;
@@ -79,24 +78,17 @@ class Client implements ClientInterface
     private $authentication;
 
     /**
-     * Stores the originally passed builder in case of rebuild.
+     * Http client builder.
      *
      * @var \Apigee\Edge\HttpClient\Utility\BuilderInterface
      */
-    private $originalBuilder;
-
-    /**
-     * Stores the current, altered builder instance.
-     *
-     * @var \Apigee\Edge\HttpClient\Utility\BuilderInterface
-     */
-    private $currentBuilder;
+    private $httpClientBuilder;
 
     /** @var \Apigee\Edge\HttpClient\Utility\JournalInterface */
     private $journal;
 
     /** @var bool */
-    private $rebuild = true;
+    private $httpClientNeedsBuild = true;
 
     /**
      * @var \Http\Message\RequestFactory
@@ -332,8 +324,7 @@ class Client implements ClientInterface
         $this->configureOptions($resolver);
         $options = $resolver->resolve($options);
         $this->userAgentPrefix = $options[static::CONFIG_USER_AGENT_PREFIX];
-        $this->currentBuilder = $options[static::CONFIG_HTTP_CLIENT_BUILDER] ?: new Builder();
-        $this->originalBuilder = $this->currentBuilder;
+        $this->httpClientBuilder = $options[static::CONFIG_HTTP_CLIENT_BUILDER] ?: new Builder();
         $this->uriFactory = $options[static::CONFIG_URI_FACTORY] ?: UriFactoryDiscovery::find();
         $this->requestFactory = $options[static::CONFIG_REQUEST_FACTORY] ?: MessageFactoryDiscovery::find();
         $this->journal = $options[static::CONFIG_JOURNAL] ?: new Journal();
@@ -363,46 +354,15 @@ class Client implements ClientInterface
     /**
      * @inheritdoc
      */
-    private function getHttpClientBuilder(): BuilderInterface
-    {
-        if ($this->rebuild()) {
-            $this->needsRebuild(false);
-            $this->currentBuilder = clone $this->originalBuilder;
-            foreach ($this->getDefaultPlugins() as $plugin) {
-                $this->currentBuilder->addPlugin($plugin);
-            }
-        }
-
-        return $this->currentBuilder;
-    }
-
-    /**
-     * @inheritdoc
-     */
     private function getHttpClient(): HttpClient
     {
-        return $this->getHttpClientBuilder()->getHttpClient();
-    }
+        if ($this->httpClientNeedsBuild) {
+            foreach ($this->getDefaultPlugins() as $plugin) {
+                $this->httpClientBuilder->addPlugin($plugin);
+            }
+            $this->httpClientNeedsBuild = false;
+        }
 
-    /**
-     * Sets or removes rebuild flag from the underlying HTTP client.
-     *
-     * @param bool $rebuild
-     *
-     * @return bool
-     */
-    private function needsRebuild(bool $rebuild = true): bool
-    {
-        return $this->rebuild = $rebuild;
-    }
-
-    /**
-     * Indicates whether the underlying HTTP clients needs to be rebuilt before the next API call.
-     *
-     * @return bool
-     */
-    private function rebuild(): bool
-    {
-        return $this->rebuild;
+        return $this->httpClientBuilder->getHttpClient();
     }
 }
