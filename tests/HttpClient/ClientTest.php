@@ -37,8 +37,6 @@ use PHPUnit\Framework\TestCase;
  * @group mock
  * @group offline
  * @small
- *
- * TODO Add test for cache related methods later.
  */
 class ClientTest extends TestCase
 {
