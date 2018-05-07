@@ -16,7 +16,9 @@
  * limitations under the License.
  */
 
-namespace Apigee\Edge\HttpClient\Plugin\Authentication;
+namespace Apigee\Edge\Tests\Test\HttpClient\Plugin;
+
+use Apigee\Edge\HttpClient\Plugin\Authentication\OauthTokenStorageInterface;
 
 /**
  * Oauth token storage implementation that stores token data in memory until the code runs.

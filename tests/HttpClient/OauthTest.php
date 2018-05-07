@@ -19,8 +19,8 @@
 namespace Apigee\Edge\Tests\HttpClient;
 
 use Apigee\Edge\Client;
-use Apigee\Edge\HttpClient\Plugin\Authentication\InMemoryOauthTokenStorage;
 use Apigee\Edge\HttpClient\Utility\Builder;
+use Apigee\Edge\Tests\Test\HttpClient\Plugin\InMemoryOauthTokenStorage;
 use Apigee\Edge\Tests\Test\HttpClient\Plugin\MockOauth;
 use Apigee\Edge\Tests\Test\HttpClient\Utility\TestJournal;
 use GuzzleHttp\Psr7\Response;
