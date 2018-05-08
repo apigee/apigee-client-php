@@ -20,21 +20,20 @@ namespace Apigee\Edge\Api\Management\Controller;
 
 use Apigee\Edge\Api\Management\Entity\DeveloperApp;
 use Apigee\Edge\ClientInterface;
-use Apigee\Edge\Controller\CpsLimitEntityController;
+use Apigee\Edge\Controller\CpsListingEntityControllerTrait;
 use Apigee\Edge\Controller\EntityCrudOperationsControllerTrait;
-use Apigee\Edge\Controller\NonCpsListingEntityControllerTrait;
 use Apigee\Edge\Controller\StatusAwareEntityControllerTrait;
 use Psr\Http\Message\UriInterface;
 
 /**
  * Class DeveloperAppController.
  */
-class DeveloperAppController extends CpsLimitEntityController implements DeveloperAppControllerInterface
+class DeveloperAppController extends AppByOwnerController
 {
     use AttributesAwareEntityControllerTrait;
     use AppControllerTrait;
     use EntityCrudOperationsControllerTrait;
-    use NonCpsListingEntityControllerTrait;
+    use CpsListingEntityControllerTrait;
     use StatusAwareEntityControllerTrait;
 
     /** @var string Developer email or id. */

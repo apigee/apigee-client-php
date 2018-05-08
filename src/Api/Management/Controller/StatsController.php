@@ -196,8 +196,7 @@ class StatsController extends AbstractController implements StatsControllerInter
     protected function getBaseEndpointUri(): UriInterface
     {
         // Slash in the end is always required.
-        return $this->client->getUriFactory()
-            ->createUri(sprintf('/organizations/%s/environments/%s/stats/', $this->organization, $this->environment));
+        return $this->client->getUriFactory()->createUri(sprintf('/organizations/%s/environments/%s/stats/', $this->organization, $this->environment));
     }
 
     /**

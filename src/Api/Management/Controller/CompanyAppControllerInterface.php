@@ -20,7 +20,9 @@ namespace Apigee\Edge\Api\Management\Controller;
 
 /**
  * Interface CompanyAppControllerInterface.
+ *
+ * @see https://apidocs.apigee.com/api/apps-company
  */
-interface CompanyAppControllerInterface
+interface CompanyAppControllerInterface extends AppByOwnerControllerInterface, CompanyAwareControllerInterface
 {
 }

@@ -35,7 +35,6 @@ use PHPUnit\Framework\TestCase;
  *
  * @see https://docs.apigee.com/api-services/latest/creating-organization-environment-and-virtual-host
  *
- *
  * @group controller
  * @group offline
  * @group small

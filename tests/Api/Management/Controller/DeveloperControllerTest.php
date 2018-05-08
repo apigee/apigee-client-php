@@ -31,7 +31,6 @@ use Apigee\Edge\Tests\Test\TestClientFactory;
 /**
  * Class DeveloperControllerTest.
  *
- *
  * @group controller
  */
 class DeveloperControllerTest extends CpsLimitEntityControllerValidator
@@ -108,6 +107,8 @@ class DeveloperControllerTest extends CpsLimitEntityControllerValidator
      * Also, "@inheritdoc" is not going to work in case of "@depends" annotations so those must be repeated.
      *
      * @depends testCreate
+     *
+     * @inheritdoc
      */
     public function testLoad(string $entityId)
     {

@@ -20,6 +20,7 @@ namespace Apigee\Edge\Api\Management\Entity;
 
 use Apigee\Edge\Entity\CommonEntityPropertiesAwareTrait;
 use Apigee\Edge\Entity\Entity;
+use Apigee\Edge\Entity\Property\AppsPropertyAwareTrait;
 use Apigee\Edge\Entity\Property\AttributesPropertyAwareTrait;
 use Apigee\Edge\Entity\Property\DeveloperIdPropertyAwareTrait;
 use Apigee\Edge\Entity\Property\OrganizationNamePropertyAwareTrait;
@@ -32,6 +33,7 @@ use Apigee\Edge\Structure\AttributesProperty;
 class Developer extends Entity implements DeveloperInterface
 {
     use AttributesPropertyAwareTrait;
+    use AppsPropertyAwareTrait;
     use CommonEntityPropertiesAwareTrait;
     use DeveloperIdPropertyAwareTrait;
     use OrganizationNamePropertyAwareTrait;
@@ -52,9 +54,6 @@ class Developer extends Entity implements DeveloperInterface
 
     /** @var string */
     protected $lastName;
-
-    /** @var string[] */
-    protected $apps = [];
 
     /** @var string[] */
     protected $companies = [];
@@ -82,36 +81,6 @@ class Developer extends Entity implements DeveloperInterface
         // as a primary key, because email address can be changed and without a workaround it would cause problems when
         // \Apigee\Edge\Controller\BaseEntityControllerInterface::save() gets called.
         return 'developerId';
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function getApps(): array
-    {
-        return $this->apps;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function hasApp(string $appName): bool
-    {
-        return in_array($appName, $this->apps);
-    }
-
-    /**
-     * Set app names from an Edge API response.
-     *
-     * Apps of a developer can not be changed by modifying this property's value.
-     *
-     * @param string[] $apps
-     *
-     * @internal
-     */
-    public function setApps(array $apps): void
-    {
-        $this->apps = $apps;
     }
 
     /**

@@ -20,39 +20,40 @@ namespace Apigee\Edge\Api\Management\Controller;
 
 use Apigee\Edge\Api\Management\Entity\CompanyApp;
 use Apigee\Edge\ClientInterface;
-use Apigee\Edge\Controller\CpsLimitEntityController;
+use Apigee\Edge\Controller\CpsListingEntityControllerTrait;
+use Apigee\Edge\Controller\EntityCrudOperationsControllerTrait;
+use Apigee\Edge\Controller\StatusAwareEntityControllerTrait;
 use Psr\Http\Message\UriInterface;
 
 /**
  * Class CompanyAppController.
- *
- * TODO Finalize this.
  */
-class CompanyAppController extends CpsLimitEntityController implements CompanyAppControllerInterface
+class CompanyAppController extends AppByOwnerController implements CompanyAppControllerInterface
 {
+    use AttributesAwareEntityControllerTrait;
     use AppControllerTrait;
-
-    /**
-     * Name of an company.
-     *
-     * @var string
-     */
-    protected $companyName;
+    use CompanyAwareControllerTrait;
+    use CpsListingEntityControllerTrait;
+    use EntityCrudOperationsControllerTrait;
+    use StatusAwareEntityControllerTrait;
 
     /**
      * CompanyAppController constructor.
      *
      * @param string $organization
+     * @param string $companyName
      * @param \Apigee\Edge\ClientInterface $client
      * @param \Symfony\Component\Serializer\Normalizer\NormalizerInterface[]|\Symfony\Component\Serializer\Normalizer\DenormalizerInterface[] $entityNormalizers
      * @param \Apigee\Edge\Api\Management\Controller\OrganizationControllerInterface|null $organizationController
      */
     public function __construct(
         string $organization,
+        string $companyName,
         ClientInterface $client,
         array $entityNormalizers = [],
         ?OrganizationControllerInterface $organizationController = null
     ) {
+        $this->companyName = $companyName;
         $entityNormalizers = array_merge($entityNormalizers, $this->appEntityNormalizers());
         parent::__construct($organization, $client, $entityNormalizers, $organizationController);
     }

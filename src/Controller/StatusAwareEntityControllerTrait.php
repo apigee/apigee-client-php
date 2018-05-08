@@ -21,7 +21,7 @@ namespace Apigee\Edge\Controller;
 /**
  * Trait StatusAwareEntityControllerTrait.
  *
- * @see StatusAwareEntityControllerInterface
+ * @see \Apigee\Edge\Controller\StatusAwareEntityControllerInterface
  */
 trait StatusAwareEntityControllerTrait
 {

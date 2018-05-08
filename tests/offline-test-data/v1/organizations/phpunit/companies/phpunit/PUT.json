@@ -1,0 +1,20 @@
+{
+    "apps": [],
+    "name": "phpunit",
+    "displayName": "(Edited) A PHPUnit company",
+    "status": "active",
+    "attributes": [
+        {
+            "name": "foo",
+            "value": "foo"
+        },
+        {
+            "name": "bar",
+            "value": "baz"
+        }
+    ],
+    "createdAt": 648345600000,
+    "createdBy": "phpunit@example.com",
+    "lastModifiedAt": 648345600000,
+    "lastModifiedBy": "phpunit@example.com"
+}

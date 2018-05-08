@@ -18,8 +18,6 @@
 
 namespace Apigee\Edge\Controller;
 
-use Apigee\Edge\Entity\Property\StatusPropertyAwareTrait;
-
 /**
  * Interface StatusAwareEntityControllerInterface.
  *
@@ -28,7 +26,7 @@ use Apigee\Edge\Entity\Property\StatusPropertyAwareTrait;
  *
  * @see https://docs.apigee.com/management/apis/post/organizations/%7Borg_name%7D/developers/%7Bdeveloper_email_or_id%7D
  * @see https://docs.apigee.com/management/apis/post/organizations/%7Borg_name%7D/developers/%7Bdeveloper_email_or_id%7D/apps/%7Bapp_name%7D
- * @see StatusPropertyAwareTrait
+ * @see \Apigee\Edge\Entity\Property\StatusPropertyAwareTrait
  */
 interface StatusAwareEntityControllerInterface
 {

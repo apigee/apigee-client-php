@@ -25,23 +25,18 @@ use Apigee\Edge\Controller\EntityControllerInterface;
 use Apigee\Edge\Entity\EntityInterface;
 use Apigee\Edge\Structure\AttributesProperty;
 use Apigee\Edge\Tests\Test\Controller\AttributesAwareEntityControllerTestTrait;
-use Apigee\Edge\Tests\Test\Controller\NonCpsLimitEntityControllerValidator;
 use Apigee\Edge\Tests\Test\Controller\OrganizationAwareEntityControllerValidatorTrait;
 use Apigee\Edge\Tests\Test\TestClientFactory;
 
 /**
  * Class DeveloperAppControllerTest.
  *
- *
  * @group controller
  */
-class DeveloperAppControllerTest extends NonCpsLimitEntityControllerValidator
+class DeveloperAppControllerTest extends AppByOwnerControllerTest
 {
     use AttributesAwareEntityControllerTestTrait;
-    use DeveloperAppControllerTestTrait {
-        setUpBeforeClass as protected setupBeforeDeveloperApp;
-        tearDownAfterClass as protected cleanUpAfterDeveloperApp;
-    }
+    use DeveloperAwareControllerTestTrait;
     use OrganizationAwareEntityControllerValidatorTrait;
 
     /**
@@ -50,7 +45,7 @@ class DeveloperAppControllerTest extends NonCpsLimitEntityControllerValidator
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        static::setupBeforeDeveloperApp();
+        static::setupDeveloper();
     }
 
     /**
@@ -59,7 +54,7 @@ class DeveloperAppControllerTest extends NonCpsLimitEntityControllerValidator
     public static function tearDownAfterClass(): void
     {
         parent::tearDownAfterClass();
-        static::cleanUpAfterDeveloperApp();
+        static::tearDownDeveloper();
     }
 
     /**
@@ -130,7 +125,7 @@ class DeveloperAppControllerTest extends NonCpsLimitEntityControllerValidator
     }
 
     /**
-     * It is easier to test it here instead in the DeveloperAppControllerTest.
+     * It is easier to test it here instead in the DeveloperControllerTest.
      */
     public function testDeveloperHasApp(): void
     {
@@ -152,6 +147,14 @@ class DeveloperAppControllerTest extends NonCpsLimitEntityControllerValidator
         $developer = $controller->load(static::$developerId);
         $this->assertFalse($developer->hasApp($entity->id()));
         unset(static::$createdEntities[$entity->id()]);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function cpsLimitTestIdFieldProvider(): array
+    {
+        return [['name']];
     }
 
     /**

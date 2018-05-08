@@ -18,27 +18,23 @@
 
 namespace Apigee\Edge\Tests\Api\Management\Controller;
 
-use Apigee\Edge\Api\Management\Controller\ApiProductController;
 use Apigee\Edge\Api\Management\Controller\DeveloperController;
 use Apigee\Edge\Exception\ApiRequestException;
 use Apigee\Edge\Exception\ClientErrorException;
 use Apigee\Edge\Tests\Test\TestClientFactory;
 
 /**
- * Trait DeveloperAppControllerTestTrait.
+ * Trait DeveloperControllerTestTrait.
  */
-trait DeveloperAppControllerTestTrait
+trait DeveloperAwareControllerTestTrait
 {
     /** @var string Developer id. */
     protected static $developerId;
 
-    /** @var string API Product name. */
-    protected static $apiProductName;
-
     /**
      * @inheritdoc
      */
-    public static function setUpBeforeClass(): void
+    public static function setupDeveloper(): void
     {
         try {
             // Create required entities for testing this controller on Edge.
@@ -58,18 +54,6 @@ trait DeveloperAppControllerTestTrait
                     static::$developerId = $entity->id();
                 }
             }
-
-            $apc = new ApiProductController(static::getOrganization(static::$client), static::$client);
-            try {
-                $entity = $apc->load(ApiProductControllerTest::sampleDataForEntityCreate()->id());
-                static::$apiProductName = $entity->id();
-            } catch (ClientErrorException $e) {
-                if ($e->getEdgeErrorCode() && 'keymanagement.service.apiproduct_doesnot_exist' === $e->getEdgeErrorCode()) {
-                    $entity = clone ApiProductControllerTest::sampleDataForEntityCreate();
-                    $apc->create($entity);
-                    static::$apiProductName = $entity->id();
-                }
-            }
         } catch (ApiRequestException $e) {
             // Ensure that created test data always gets removed after an API call fails here.
             // (By default tearDownAfterClass() is not called if (any) exception occurred here.)
@@ -81,7 +65,7 @@ trait DeveloperAppControllerTestTrait
     /**
      * @inheritdoc
      */
-    public static function tearDownAfterClass(): void
+    public static function tearDownDeveloper(): void
     {
         if (TestClientFactory::isMockClient(static::$client)) {
             return;
@@ -95,18 +79,6 @@ trait DeveloperAppControllerTestTrait
                 printf(
                     "Unable to delete developer entity with %s id.\n",
                     static::$developerId
-                );
-            }
-        }
-
-        if (null !== static::$apiProductName) {
-            $apc = new ApiProductController(static::getOrganization(static::$client), static::$client);
-            try {
-                $apc->delete(static::$apiProductName);
-            } catch (\Exception $e) {
-                printf(
-                    "Unable to delete api product entity with %s id.\n",
-                    static::$apiProductName
                 );
             }
         }

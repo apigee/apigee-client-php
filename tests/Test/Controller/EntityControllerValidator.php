@@ -52,6 +52,8 @@ abstract class EntityControllerValidator extends AbstractControllerValidator
      */
     public static function tearDownAfterClass(): void
     {
+        parent::tearDownAfterClass();
+
         if (TestClientFactory::isMockClient(static::$client)) {
             return;
         }
