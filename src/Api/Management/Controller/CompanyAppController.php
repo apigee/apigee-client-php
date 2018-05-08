@@ -28,20 +28,14 @@ use Psr\Http\Message\UriInterface;
 /**
  * Class CompanyAppController.
  */
-class CompanyAppController extends AppByOwnerController
+class CompanyAppController extends AppByOwnerController implements CompanyAppControllerInterface
 {
     use AttributesAwareEntityControllerTrait;
     use AppControllerTrait;
+    use CompanyAwareControllerTrait;
     use CpsListingEntityControllerTrait;
     use EntityCrudOperationsControllerTrait;
     use StatusAwareEntityControllerTrait;
-
-    /**
-     * Name of an company.
-     *
-     * @var string
-     */
-    protected $companyName;
 
     /**
      * CompanyAppController constructor.

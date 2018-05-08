@@ -19,10 +19,24 @@
 namespace Apigee\Edge\Api\Management\Controller;
 
 /**
- * Interface CompanyAppControllerInterface.
+ * Trait CompanyAwareControllerTrait.
  *
- * @see https://apidocs.apigee.com/api/apps-company
+ * @see \Apigee\Edge\Api\Management\Controller\CompanyAwareControllerInterface
  */
-interface CompanyAppControllerInterface extends AppByOwnerControllerInterface, CompanyAwareControllerInterface
+trait CompanyAwareControllerTrait
 {
+    /**
+     * Name of an company.
+     *
+     * @var string
+     */
+    protected $companyName;
+
+    /**
+     * @inheritdoc
+     */
+    public function getCompanyName(): string
+    {
+        return $this->companyName;
+    }
 }

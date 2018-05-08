@@ -26,8 +26,7 @@ use Psr\Http\Message\UriInterface;
  */
 class CompanyAppCredentialController extends AppCredentialController implements CompanyAppCredentialControllerInterface
 {
-    /** @var string Company name. */
-    protected $companyName;
+    use CompanyAwareControllerTrait;
 
     /** @var string App name. */
     protected $appName;

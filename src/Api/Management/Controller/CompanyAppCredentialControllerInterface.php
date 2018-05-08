@@ -23,6 +23,6 @@ namespace Apigee\Edge\Api\Management\Controller;
  *
  * @see https://apidocs.apigee.com/api/company-app-keys-0
  */
-interface CompanyAppCredentialControllerInterface extends AppCredentialControllerInterface
+interface CompanyAppCredentialControllerInterface extends AppCredentialControllerInterface, CompanyAwareControllerInterface
 {
 }

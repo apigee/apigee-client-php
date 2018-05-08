@@ -24,9 +24,9 @@ use Apigee\Edge\Exception\ClientErrorException;
 use Apigee\Edge\Tests\Test\TestClientFactory;
 
 /**
- * Trait DeveloperAppControllerTestTrait.
+ * Trait DeveloperControllerTestTrait.
  */
-trait DeveloperAppControllerTestTrait
+trait DeveloperAwareControllerTestTrait
 {
     /** @var string Developer id. */
     protected static $developerId;
@@ -34,7 +34,7 @@ trait DeveloperAppControllerTestTrait
     /**
      * @inheritdoc
      */
-    public static function setUpBeforeClass(): void
+    public static function setupDeveloper(): void
     {
         try {
             // Create required entities for testing this controller on Edge.
@@ -65,7 +65,7 @@ trait DeveloperAppControllerTestTrait
     /**
      * @inheritdoc
      */
-    public static function tearDownAfterClass(): void
+    public static function tearDownDeveloper(): void
     {
         if (TestClientFactory::isMockClient(static::$client)) {
             return;

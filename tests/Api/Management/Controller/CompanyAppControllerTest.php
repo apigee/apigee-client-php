@@ -36,10 +36,7 @@ use Apigee\Edge\Tests\Test\TestClientFactory;
 class CompanyAppControllerTest extends AppByOwnerControllerTest
 {
     use AttributesAwareEntityControllerTestTrait;
-    use CompanyAppControllerTestTrait {
-        setUpBeforeClass as private setupBeforeCompanyApp;
-        tearDownAfterClass as private cleanUpAfterCompanyApp;
-    }
+    use CompanyAwareControllerTestTrait;
     use OrganizationAwareEntityControllerValidatorTrait;
 
     /**
@@ -48,7 +45,7 @@ class CompanyAppControllerTest extends AppByOwnerControllerTest
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        static::setupBeforeCompanyApp();
+        static::setupCompany();
     }
 
     /**
@@ -57,7 +54,7 @@ class CompanyAppControllerTest extends AppByOwnerControllerTest
     public static function tearDownAfterClass(): void
     {
         parent::tearDownAfterClass();
-        static::cleanUpAfterCompanyApp();
+        static::tearDownCompany();
     }
 
     /**

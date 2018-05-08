@@ -19,10 +19,15 @@
 namespace Apigee\Edge\Api\Management\Controller;
 
 /**
- * Interface CompanyAppControllerInterface.
- *
- * @see https://apidocs.apigee.com/api/apps-company
+ * Common interface for controllers that uses company related API endpoints.
  */
-interface CompanyAppControllerInterface extends AppByOwnerControllerInterface, CompanyAwareControllerInterface
+interface CompanyAwareControllerInterface
 {
+    /**
+     * Name of the company.
+     *
+     * @return string
+     *   Company name.
+     */
+    public function getCompanyName(): string;
 }

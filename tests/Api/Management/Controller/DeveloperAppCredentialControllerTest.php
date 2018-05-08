@@ -34,10 +34,7 @@ use Apigee\Edge\Tests\Test\TestClientFactory;
  */
 class DeveloperAppCredentialControllerTest extends AppCredentialControllerTest
 {
-    use DeveloperAppControllerTestTrait {
-        setUpBeforeClass as protected setupBeforeDeveloperApp;
-        tearDownAfterClass as protected cleanUpAfterDeveloperApp;
-    }
+    use DeveloperAwareControllerTestTrait;
 
     /**
      * @inheritdoc
@@ -45,7 +42,7 @@ class DeveloperAppCredentialControllerTest extends AppCredentialControllerTest
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        static::setupBeforeDeveloperApp();
+        static::setupDeveloper();
 
         try {
             $controller = static::getAppController();
@@ -64,7 +61,7 @@ class DeveloperAppCredentialControllerTest extends AppCredentialControllerTest
         } catch (ApiRequestException $e) {
             // Ensure that created test data always gets removed after an API call fails here.
             // (By default tearDownAfterClass() is not called if (any) exception occurred here.)
-            static::tearDownAfterClass();
+            static::tearDownDeveloper();
             throw $e;
         }
     }
@@ -110,7 +107,7 @@ class DeveloperAppCredentialControllerTest extends AppCredentialControllerTest
         }
 
         parent::tearDownAfterClass();
-        static::cleanUpAfterDeveloperApp();
+        static::tearDownDeveloper();
     }
 
     /**

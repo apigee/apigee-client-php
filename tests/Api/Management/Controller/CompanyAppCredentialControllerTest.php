@@ -34,10 +34,7 @@ use Apigee\Edge\Tests\Test\TestClientFactory;
  */
 class CompanyAppCredentialControllerTest extends AppCredentialControllerTest
 {
-    use CompanyAppControllerTestTrait {
-        setUpBeforeClass as protected setupBeforeCompanyApp;
-        tearDownAfterClass as protected cleanUpAfterCompanyApp;
-    }
+    use CompanyAwareControllerTestTrait;
 
     /**
      * @inheritdoc
@@ -45,7 +42,7 @@ class CompanyAppCredentialControllerTest extends AppCredentialControllerTest
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        static::setupBeforeCompanyApp();
+        static::setupCompany();
         try {
             $controller = static::getAppController();
             try {
@@ -109,7 +106,7 @@ class CompanyAppCredentialControllerTest extends AppCredentialControllerTest
         }
 
         parent::tearDownAfterClass();
-        static::cleanUpAfterCompanyApp();
+        static::tearDownCompany();
     }
 
     /**

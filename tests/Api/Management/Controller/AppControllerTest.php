@@ -35,10 +35,7 @@ use Apigee\Edge\Tests\Test\TestClientFactory;
  */
 class AppControllerTest extends EntityControllerValidator
 {
-    use DeveloperAppControllerTestTrait {
-        setUpBeforeClass as protected setupBeforeDeveloperApp;
-        tearDownAfterClass as protected cleanUpAfterDeveloperApp;
-    }
+    use DeveloperAwareControllerTestTrait;
     use OrganizationAwareEntityControllerValidatorTrait;
 
     /** @var \Apigee\Edge\Api\Management\Entity\DeveloperAppInterface[] */
@@ -54,7 +51,7 @@ class AppControllerTest extends EntityControllerValidator
     {
         try {
             parent::setUpBeforeClass();
-            static::setupBeforeDeveloperApp();
+            static::setupDeveloper();
 
             /** @var \Apigee\Edge\Api\Management\Controller\DeveloperAppController $developerAppController */
             static::$developerAppController = new DeveloperAppController(
@@ -95,7 +92,7 @@ class AppControllerTest extends EntityControllerValidator
         } catch (ApiRequestException $e) {
             // Ensure that created test data always gets removed after an API call fails here.
             // (By default tearDownAfterClass() is not called if (any) exception occurred here.)
-            static::tearDownAfterClass();
+            static::tearDownDeveloper();
             throw $e;
         }
     }
@@ -121,7 +118,7 @@ class AppControllerTest extends EntityControllerValidator
             printf("Unable to delete %s entity with %s id.\n", strtolower(get_class($entity)), $entity->id());
         }
 
-        static::cleanUpAfterDeveloperApp();
+        static::tearDownDeveloper();
     }
 
     public function testLoadApp(): void

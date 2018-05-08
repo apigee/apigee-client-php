@@ -26,7 +26,7 @@ use Apigee\Edge\Tests\Test\TestClientFactory;
 /**
  * Trait CompanyAppControllerTestTrait.
  */
-trait CompanyAppControllerTestTrait
+trait CompanyAwareControllerTestTrait
 {
     /** @var string Company name. */
     protected static $companyName;
@@ -34,7 +34,7 @@ trait CompanyAppControllerTestTrait
     /**
      * @inheritdoc
      */
-    public static function setUpBeforeClass(): void
+    public static function setupCompany(): void
     {
         try {
             // Create required entities for testing this controller on Edge.
@@ -65,7 +65,7 @@ trait CompanyAppControllerTestTrait
     /**
      * @inheritdoc
      */
-    public static function tearDownAfterClass(): void
+    public static function tearDownCompany(): void
     {
         if (TestClientFactory::isMockClient(static::$client)) {
             return;
