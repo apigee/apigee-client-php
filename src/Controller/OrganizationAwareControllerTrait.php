@@ -19,7 +19,7 @@
 namespace Apigee\Edge\Controller;
 
 /**
- * Trait OrganizationAwareControllerInterfaceTrait.
+ * Trait OrganizationAwareControllerTrait.
  */
 trait OrganizationAwareControllerTrait
 {
@@ -32,13 +32,5 @@ trait OrganizationAwareControllerTrait
     public function getOrganisation(): string
     {
         return $this->organization;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function setOrganisation(string $orgName): void
-    {
-        $this->organization = $orgName;
     }
 }
