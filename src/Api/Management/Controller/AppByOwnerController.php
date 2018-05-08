@@ -16,21 +16,22 @@
  * limitations under the License.
  */
 
-namespace Apigee\Edge\Controller;
+namespace Apigee\Edge\Api\Management\Controller;
+
+use Apigee\Edge\Controller\CpsLimitEntityController;
 
 /**
- * Trait StatusAwareEntityControllerTrait.
- *
- * @see \Apigee\Edge\Controller\StatusAwareEntityControllerInterface
+ * Common parent class for company- and developer app controllers.
  */
-trait StatusAwareEntityControllerTrait
+abstract class AppByOwnerController extends CpsLimitEntityController implements AppByOwnerControllerInterface
 {
     /**
-     * @inheritdoc
+     * String that should be sent to the API to change the status of an app to approved.
      */
-    public function setStatus(string $entityId, string $status): void
-    {
-        $uri = $this->getEntityEndpointUri($entityId)->withQuery(http_build_query(['action' => $status]));
-        $this->client->post($uri, null, ['Content-Type' => 'application/octet-stream']);
-    }
+    public const STATUS_APPROVE = 'approve';
+
+    /**
+     * String that should be sent to the API to change the status of an app to revoked.
+     */
+    public const STATUS_REVOKE = 'revoke';
 }

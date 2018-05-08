@@ -23,7 +23,6 @@ use Apigee\Edge\Structure\CpsListLimitInterface;
 /**
  * Trait CpsListingEntityControllerTrait.
  *
- *
  * @see \Apigee\Edge\Controller\CpsListingEntityControllerInterface
  */
 trait CpsListingEntityControllerTrait

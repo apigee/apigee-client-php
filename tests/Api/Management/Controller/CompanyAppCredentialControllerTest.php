@@ -19,8 +19,8 @@
 namespace Apigee\Edge\Tests\Api\Management\Controller;
 
 use Apigee\Edge\Api\Management\Controller\AppByOwnerController;
-use Apigee\Edge\Api\Management\Controller\DeveloperAppController;
-use Apigee\Edge\Api\Management\Controller\DeveloperAppCredentialController;
+use Apigee\Edge\Api\Management\Controller\CompanyAppController;
+use Apigee\Edge\Api\Management\Controller\CompanyAppCredentialController;
 use Apigee\Edge\Controller\EntityControllerInterface;
 use Apigee\Edge\Entity\EntityInterface;
 use Apigee\Edge\Exception\ApiRequestException;
@@ -28,15 +28,15 @@ use Apigee\Edge\Exception\ClientErrorException;
 use Apigee\Edge\Tests\Test\TestClientFactory;
 
 /**
- * Class DeveloperAppCredentialControllerTest.
+ * Class CompanyAppCredentialControllerTest.
  *
  * @group controller
  */
-class DeveloperAppCredentialControllerTest extends AppCredentialControllerTest
+class CompanyAppCredentialControllerTest extends AppCredentialControllerTest
 {
-    use DeveloperAppControllerTestTrait {
-        setUpBeforeClass as protected setupBeforeDeveloperApp;
-        tearDownAfterClass as protected cleanUpAfterDeveloperApp;
+    use CompanyAppControllerTestTrait {
+        setUpBeforeClass as protected setupBeforeCompanyApp;
+        tearDownAfterClass as protected cleanUpAfterCompanyApp;
     }
 
     /**
@@ -45,8 +45,7 @@ class DeveloperAppCredentialControllerTest extends AppCredentialControllerTest
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        static::setupBeforeDeveloperApp();
-
+        static::setupBeforeCompanyApp();
         try {
             $controller = static::getAppController();
             try {
@@ -110,7 +109,7 @@ class DeveloperAppCredentialControllerTest extends AppCredentialControllerTest
         }
 
         parent::tearDownAfterClass();
-        static::cleanUpAfterDeveloperApp();
+        static::cleanUpAfterCompanyApp();
     }
 
     /**
@@ -120,9 +119,9 @@ class DeveloperAppCredentialControllerTest extends AppCredentialControllerTest
     {
         static $controller;
         if (!$controller) {
-            $controller = new DeveloperAppCredentialController(
+            $controller = new CompanyAppCredentialController(
                 static::getOrganization(static::$client),
-                static::$developerId,
+                static::$companyName,
                 static::$appName,
                 static::$client
             );
@@ -135,9 +134,9 @@ class DeveloperAppCredentialControllerTest extends AppCredentialControllerTest
     {
         static $controller;
         if (!$controller) {
-            $controller = new DeveloperAppController(
+            $controller = new CompanyAppController(
                 static::getOrganization(static::$client),
-                static::$developerId,
+                static::$companyName,
                 static::$client
             );
         }
@@ -147,6 +146,6 @@ class DeveloperAppCredentialControllerTest extends AppCredentialControllerTest
 
     protected static function getAppSampleDataForEntityCreate(): EntityInterface
     {
-        return DeveloperAppControllerTest::sampleDataForEntityCreate();
+        return CompanyAppControllerTest::sampleDataForEntityCreate();
     }
 }

@@ -25,7 +25,6 @@ use Apigee\Edge\Controller\EntityControllerInterface;
 use Apigee\Edge\Entity\EntityInterface;
 use Apigee\Edge\Structure\AttributesProperty;
 use Apigee\Edge\Tests\Test\Controller\AttributesAwareEntityControllerTestTrait;
-use Apigee\Edge\Tests\Test\Controller\CpsLimitEntityControllerValidator;
 use Apigee\Edge\Tests\Test\Controller\OrganizationAwareEntityControllerValidatorTrait;
 use Apigee\Edge\Tests\Test\TestClientFactory;
 
@@ -34,12 +33,12 @@ use Apigee\Edge\Tests\Test\TestClientFactory;
  *
  * @group controller
  */
-class CompanyAppControllerTest extends CpsLimitEntityControllerValidator
+class CompanyAppControllerTest extends AppByOwnerControllerTest
 {
     use AttributesAwareEntityControllerTestTrait;
     use CompanyAppControllerTestTrait {
-        setUpBeforeClass as protected setupBeforeCompanyApp;
-        tearDownAfterClass as protected cleanUpAfterCompanyApp;
+        setUpBeforeClass as private setupBeforeCompanyApp;
+        tearDownAfterClass as private cleanUpAfterCompanyApp;
     }
     use OrganizationAwareEntityControllerValidatorTrait;
 

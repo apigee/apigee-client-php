@@ -28,11 +28,6 @@ use Apigee\Edge\Tests\Test\TestClientFactory;
  */
 trait DeveloperAppControllerTestTrait
 {
-    use CommonAppControllerTestTrait {
-        setUpBeforeClass as private commonSetUpBeforeClass;
-        tearDownAfterClass as private commonTearDownAfterClass;
-    }
-
     /** @var string Developer id. */
     protected static $developerId;
 
@@ -65,8 +60,6 @@ trait DeveloperAppControllerTestTrait
             static::tearDownAfterClass();
             throw $e;
         }
-
-        static::commonSetUpBeforeClass();
     }
 
     /**
@@ -89,7 +82,5 @@ trait DeveloperAppControllerTestTrait
                 );
             }
         }
-
-        static::commonTearDownAfterClass();
     }
 }

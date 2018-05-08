@@ -20,7 +20,6 @@ namespace Apigee\Edge\Api\Management\Controller;
 
 use Apigee\Edge\Api\Management\Entity\CompanyApp;
 use Apigee\Edge\ClientInterface;
-use Apigee\Edge\Controller\CpsLimitEntityController;
 use Apigee\Edge\Controller\CpsListingEntityControllerTrait;
 use Apigee\Edge\Controller\EntityCrudOperationsControllerTrait;
 use Apigee\Edge\Controller\StatusAwareEntityControllerTrait;
@@ -29,7 +28,7 @@ use Psr\Http\Message\UriInterface;
 /**
  * Class CompanyAppController.
  */
-class CompanyAppController extends CpsLimitEntityController implements CompanyAppControllerInterface
+class CompanyAppController extends AppByOwnerController
 {
     use AttributesAwareEntityControllerTrait;
     use AppControllerTrait;

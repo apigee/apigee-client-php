@@ -25,7 +25,6 @@ use Apigee\Edge\Controller\EntityControllerInterface;
 use Apigee\Edge\Entity\EntityInterface;
 use Apigee\Edge\Structure\AttributesProperty;
 use Apigee\Edge\Tests\Test\Controller\AttributesAwareEntityControllerTestTrait;
-use Apigee\Edge\Tests\Test\Controller\CpsLimitEntityControllerValidator;
 use Apigee\Edge\Tests\Test\Controller\OrganizationAwareEntityControllerValidatorTrait;
 use Apigee\Edge\Tests\Test\TestClientFactory;
 
@@ -34,7 +33,7 @@ use Apigee\Edge\Tests\Test\TestClientFactory;
  *
  * @group controller
  */
-class DeveloperAppControllerTest extends CpsLimitEntityControllerValidator
+class DeveloperAppControllerTest extends AppByOwnerControllerTest
 {
     use AttributesAwareEntityControllerTestTrait;
     use DeveloperAppControllerTestTrait {

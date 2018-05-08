@@ -16,21 +16,13 @@
  * limitations under the License.
  */
 
-namespace Apigee\Edge\Controller;
+namespace Apigee\Edge\Api\Management\Controller;
 
 /**
- * Trait StatusAwareEntityControllerTrait.
+ * Interface CompanyAppCredentialControllerInterface.
  *
- * @see \Apigee\Edge\Controller\StatusAwareEntityControllerInterface
+ * @see https://apidocs.apigee.com/api/company-app-keys-0
  */
-trait StatusAwareEntityControllerTrait
+interface CompanyAppCredentialControllerInterface extends AppCredentialControllerInterface
 {
-    /**
-     * @inheritdoc
-     */
-    public function setStatus(string $entityId, string $status): void
-    {
-        $uri = $this->getEntityEndpointUri($entityId)->withQuery(http_build_query(['action' => $status]));
-        $this->client->post($uri, null, ['Content-Type' => 'application/octet-stream']);
-    }
 }
