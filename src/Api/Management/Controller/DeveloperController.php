@@ -86,7 +86,7 @@ class DeveloperController extends CpsLimitEntityController implements DeveloperC
     protected function getBaseEndpointUri(): UriInterface
     {
         return $this->client->getUriFactory()
-            ->createUri(sprintf('/organizations/%s/developers', $this->organization));
+            ->createUri("/organizations/{$this->organization}/developers");
     }
 
     /**

@@ -195,7 +195,7 @@ class AppController extends CpsLimitEntityController implements AppControllerInt
      */
     protected function getBaseEndpointUri(): UriInterface
     {
-        return $this->client->getUriFactory()->createUri(sprintf('/organizations/%s/apps', $this->organization));
+        return $this->client->getUriFactory()->createUri("/organizations/{$this->organization}/apps");
     }
 
     /**

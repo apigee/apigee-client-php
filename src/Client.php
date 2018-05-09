@@ -163,7 +163,7 @@ class Client implements ClientInterface
     public function getUserAgent(): string
     {
         if (null !== $this->userAgentPrefix) {
-            return sprintf('%s (%s)', $this->userAgentPrefix, $this->getClientVersion());
+            return sprintf("{$this->userAgentPrefix} ({$this->getClientVersion()})");
         }
 
         return $this->getClientVersion();

@@ -196,7 +196,7 @@ class StatsController extends AbstractController implements StatsControllerInter
     protected function getBaseEndpointUri(): UriInterface
     {
         // Slash in the end is always required.
-        return $this->client->getUriFactory()->createUri(sprintf('/organizations/%s/environments/%s/stats/', $this->organization, $this->environment));
+        return $this->client->getUriFactory()->createUri("/organizations/{$this->organization}/environments/$this->environment/stats/");
     }
 
     /**
@@ -225,9 +225,7 @@ class StatsController extends AbstractController implements StatsControllerInter
         // unit to this function and they should rather use the "non-optimized" methods from the controller for
         // retrieving data for these time periods.
         if (in_array($timeUnit, ['decade', 'century', 'millennium'])) {
-            throw new \InvalidArgumentException(
-                sprintf('The %s time unit is not supported by the https://github.com/fightbulc/moment.php library.', $timeUnit)
-            );
+            throw new \InvalidArgumentException("The {$timeUnit} time unit is not supported by the https://github.com/fightbulc/moment.php library.");
         }
         $allTimeUnits = [];
         // Fix time unit for correct time interval calculation.

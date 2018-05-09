@@ -154,7 +154,7 @@ abstract class AppCredentialController extends EntityController implements AppCr
     public function setApiProductStatus(string $consumerKey, string $apiProduct, string $status): void
     {
         $uri = $this->getBaseEndpointUri()
-            ->withPath(sprintf('%s/keys/%s/apiproducts/%s', $this->getBaseEndpointUri(), $consumerKey, $apiProduct))
+            ->withPath("{$this->getBaseEndpointUri()}/keys/{$consumerKey}/apiproducts/{$apiProduct}")
             ->withQuery(http_build_query(['action' => $status]));
         $this->client->post($uri, null, ['Content-Type' => 'application/octet-stream']);
     }
@@ -164,8 +164,7 @@ abstract class AppCredentialController extends EntityController implements AppCr
      */
     public function deleteApiProduct(string $consumerKey, string $apiProduct): EntityInterface
     {
-        $uri = $this->getBaseEndpointUri()
-            ->withPath(sprintf('%s/keys/%s/apiproducts/%s', $this->getBaseEndpointUri(), $consumerKey, $apiProduct));
+        $uri = $this->getBaseEndpointUri()->withPath("{$this->getBaseEndpointUri()}/keys/{$consumerKey}/apiproducts/{$apiProduct}");
         $response = $this->client->delete($uri);
 
         return $this->entityTransformer->deserialize(

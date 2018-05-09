@@ -65,8 +65,7 @@ class DeveloperAppController extends AppByOwnerController
      */
     protected function getBaseEndpointUri(): UriInterface
     {
-        return $this->client->getUriFactory()
-            ->createUri(sprintf('/organizations/%s/developers/%s/apps', $this->organization, $this->developerId));
+        return $this->client->getUriFactory()->createUri("/organizations/{$this->organization}/developers/{$this->developerId}/apps");
     }
 
     /**

@@ -78,10 +78,7 @@ class ClientTest extends TestCase
         $client = new Client(new NullAuthentication(), $customEndpoint, [Client::CONFIG_HTTP_CLIENT_BUILDER => $builder]);
         $client->get('/');
         $sent_request = self::$httpClient->getLastRequest();
-        $this->assertEquals(
-            $customEndpoint,
-            sprintf('%s://%s', $sent_request->getUri()->getScheme(), $sent_request->getUri()->getHost())
-        );
+        $this->assertEquals($customEndpoint,"{$sent_request->getUri()->getScheme()}://{$sent_request->getUri()->getHost()}");
     }
 
     public function testUserAgentShouldBeOverridden(): void
@@ -91,10 +88,7 @@ class ClientTest extends TestCase
         $client = new Client(new NullAuthentication(), null, [Client::CONFIG_USER_AGENT_PREFIX => $userAgentPrefix, Client::CONFIG_HTTP_CLIENT_BUILDER => $builder]);
         $client->get('/');
         $sent_request = self::$httpClient->getLastRequest();
-        $this->assertEquals(
-            sprintf('%s (%s)', $userAgentPrefix, $client->getClientVersion()),
-            $sent_request->getHeaderLine('User-Agent')
-        );
+        $this->assertEquals("{$userAgentPrefix} ({$client->getClientVersion()})", $sent_request->getHeaderLine('User-Agent'));
     }
 
     public function testRebuildShouldNotRemoveCustomPlugin(): void

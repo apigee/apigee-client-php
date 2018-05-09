@@ -63,8 +63,7 @@ class CompanyAppController extends AppByOwnerController implements CompanyAppCon
      */
     protected function getBaseEndpointUri(): UriInterface
     {
-        return $this->client->getUriFactory()
-            ->createUri(sprintf('/organizations/%s/companies/%s/apps', $this->organization, $this->companyName));
+        return $this->client->getUriFactory()->createUri("/organizations/{$this->organization}/companies/{$this->companyName}/apps");
     }
 
     /**

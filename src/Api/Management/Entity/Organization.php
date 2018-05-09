@@ -72,7 +72,7 @@ class Organization extends Entity implements OrganizationInterface
     public function setType(string $type): void
     {
         if (!in_array($type, self::TYPES)) {
-            throw new \InvalidArgumentException(sprintf('%s type is not a valid.', $type));
+            throw new \InvalidArgumentException("{$type} type is not a valid.");
         }
         $this->type = $type;
     }

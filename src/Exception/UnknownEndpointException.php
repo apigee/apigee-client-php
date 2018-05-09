@@ -31,6 +31,6 @@ class UnknownEndpointException extends \InvalidArgumentException
      */
     public function __construct($endpoint, \Throwable $previous = null)
     {
-        parent::__construct(sprintf('%s endpoint is unknown.'), 0, $previous);
+        parent::__construct("{$endpoint} endpoint is unknown.", 0, $previous);
     }
 }

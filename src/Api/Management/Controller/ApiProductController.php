@@ -71,7 +71,7 @@ class ApiProductController extends EntityController implements ApiProductControl
      */
     protected function getBaseEndpointUri(): UriInterface
     {
-        return $this->client->getUriFactory()->createUri(sprintf('/organizations/%s/apiproducts', $this->organization));
+        return $this->client->getUriFactory()->createUri("/organizations/{$this->organization}/apiproducts");
     }
 
     /**

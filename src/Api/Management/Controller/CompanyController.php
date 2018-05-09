@@ -54,7 +54,7 @@ class CompanyController extends EntityController implements CompanyControllerInt
      */
     protected function getBaseEndpointUri(): UriInterface
     {
-        return $this->client->getUriFactory()->createUri(sprintf('/organizations/%s/companies', $this->organization));
+        return $this->client->getUriFactory()->createUri("/organizations/{$this->organization}/companies");
     }
 
     /**

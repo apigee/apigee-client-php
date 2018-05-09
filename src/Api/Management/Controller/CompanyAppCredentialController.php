@@ -56,13 +56,7 @@ class CompanyAppCredentialController extends AppCredentialController implements 
      */
     protected function getBaseEndpointUri(): UriInterface
     {
-        return $this->client->getUriFactory()
-            ->createUri(sprintf(
-                '/organizations/%s/companies/%s/apps/%s',
-                $this->organization,
-                $this->companyName,
-                $this->appName
-            ));
+        return $this->client->getUriFactory()->createUri("/organizations/{$this->organization}/companies/{$this->companyName}/apps/{$this->appName}");
     }
 
     /**
@@ -70,6 +64,6 @@ class CompanyAppCredentialController extends AppCredentialController implements 
      */
     protected function getEntityEndpointUri(string $entityId): UriInterface
     {
-        return $this->getBaseEndpointUri()->withPath(sprintf('%s/keys/%s', $this->getBaseEndpointUri(), $entityId));
+        return $this->getBaseEndpointUri()->withPath("{$this->getBaseEndpointUri()}/keys/{$entityId}");
     }
 }

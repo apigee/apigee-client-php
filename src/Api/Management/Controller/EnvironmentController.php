@@ -57,8 +57,7 @@ class EnvironmentController extends EntityController implements EnvironmentContr
      */
     protected function getBaseEndpointUri(): UriInterface
     {
-        return $this->client->getUriFactory()
-            ->createUri(sprintf('/organizations/%s/environments', $this->organization));
+        return $this->client->getUriFactory()->createUri("/organizations/{$this->organization}/environments");
     }
 
     /**
