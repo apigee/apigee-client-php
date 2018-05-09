@@ -92,7 +92,7 @@ class AppControllerTest extends EntityControllerValidator
         } catch (ApiRequestException $e) {
             // Ensure that created test data always gets removed after an API call fails here.
             // (By default tearDownAfterClass() is not called if (any) exception occurred here.)
-            static::tearDownDeveloper();
+            static::tearDownAfterClass();
             throw $e;
         }
     }
@@ -103,6 +103,7 @@ class AppControllerTest extends EntityControllerValidator
     public static function tearDownAfterClass(): void
     {
         parent::tearDownAfterClass();
+        static::tearDownDeveloper();
 
         if (TestClientFactory::isMockClient(static::$client)) {
             return;
@@ -117,8 +118,6 @@ class AppControllerTest extends EntityControllerValidator
         } catch (\Exception $e) {
             printf("Unable to delete %s entity with %s id.\n", strtolower(get_class($entity)), $entity->id());
         }
-
-        static::tearDownDeveloper();
     }
 
     public function testLoadApp(): void

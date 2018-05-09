@@ -21,6 +21,7 @@ namespace Apigee\Edge\Tests\Api\Management\Controller;
 use Apigee\Edge\Api\Management\Controller\CompanyMembersController;
 use Apigee\Edge\Api\Management\Controller\CompanyMembersControllerInterface;
 use Apigee\Edge\Api\Management\Structure\CompanyMembership;
+use Apigee\Edge\Exception\ApiException;
 use Apigee\Edge\Tests\Test\Controller\AbstractControllerValidator;
 use Apigee\Edge\Tests\Test\Controller\OrganizationAwareEntityControllerValidatorTrait;
 use Apigee\Edge\Tests\Test\TestClientFactory;
@@ -33,16 +34,23 @@ class CompanyMembersControllerTest extends AbstractControllerValidator
 
     public static function setUpBeforeClass(): void
     {
-        parent::setUpBeforeClass();
-        static::setupCompany();
-        static::setupDeveloper();
+        try {
+            parent::setUpBeforeClass();
+            static::setupCompany();
+            static::setupDeveloper();
+        } catch (ApiException $e) {
+            // Ensure that created test data always gets removed after an API call fails here.
+            // (By default tearDownAfterClass() is not called if (any) exception occurred here.)
+            static::tearDownAfterClass();
+            throw $e;
+        }
     }
 
-    public static function tearDownDeveloper(): void
+    public static function tearDownAfterClass(): void
     {
         parent::tearDownAfterClass();
-        static::tearDownCompany();
         static::tearDownDeveloper();
+        static::tearDownCompany();
     }
 
     public function testCreateMembership(): void

@@ -23,6 +23,7 @@ use Apigee\Edge\Api\Management\Controller\CompanyController;
 use Apigee\Edge\Api\Management\Entity\CompanyApp;
 use Apigee\Edge\Controller\EntityControllerInterface;
 use Apigee\Edge\Entity\EntityInterface;
+use Apigee\Edge\Exception\ApiException;
 use Apigee\Edge\Structure\AttributesProperty;
 use Apigee\Edge\Tests\Test\Controller\AttributesAwareEntityControllerTestTrait;
 use Apigee\Edge\Tests\Test\Controller\OrganizationAwareEntityControllerValidatorTrait;
@@ -44,8 +45,15 @@ class CompanyAppControllerBase extends AppByOwnerControllerBase
      */
     public static function setUpBeforeClass(): void
     {
-        parent::setUpBeforeClass();
-        static::setupCompany();
+        try {
+            parent::setUpBeforeClass();
+            static::setupCompany();
+        } catch (ApiException $e) {
+            // Ensure that created test data always gets removed after an API call fails here.
+            // (By default tearDownAfterClass() is not called if (any) exception occurred here.)
+            static::tearDownAfterClass();
+            throw $e;
+        }
     }
 
     /**

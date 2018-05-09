@@ -41,9 +41,10 @@ class CompanyAppCredentialControllerBase extends AppCredentialControllerBase
      */
     public static function setUpBeforeClass(): void
     {
-        parent::setUpBeforeClass();
-        static::setupCompany();
         try {
+            parent::setUpBeforeClass();
+            static::setupCompany();
+
             $controller = static::getAppController();
             try {
                 // We have to keep a copy of phpunit@example.com developer's data because of this for offline tests.

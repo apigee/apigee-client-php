@@ -23,6 +23,7 @@ use Apigee\Edge\Api\Management\Controller\AppCredentialController;
 use Apigee\Edge\Api\Management\Entity\AppCredential;
 use Apigee\Edge\Api\Management\Entity\AppCredentialInterface;
 use Apigee\Edge\Entity\EntityInterface;
+use Apigee\Edge\Exception\ApiException;
 use Apigee\Edge\Structure\AttributesProperty;
 use Apigee\Edge\Structure\CredentialProduct;
 use Apigee\Edge\Tests\Test\Controller\EntityControllerValidator;
@@ -48,8 +49,15 @@ abstract class AppCredentialControllerBase extends EntityControllerValidator
      */
     public static function setUpBeforeClass(): void
     {
-        parent::setUpBeforeClass();
-        static::commonSetUpBeforeClass();
+        try {
+            parent::setUpBeforeClass();
+            static::commonSetUpBeforeClass();
+        } catch (ApiException $e) {
+            // Ensure that created test data always gets removed after an API call fails here.
+            // (By default tearDownAfterClass() is not called if (any) exception occurred here.)
+            static::tearDownAfterClass();
+            throw $e;
+        }
     }
 
     /**
