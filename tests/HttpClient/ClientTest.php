@@ -78,7 +78,7 @@ class ClientTest extends TestCase
         $client = new Client(new NullAuthentication(), $customEndpoint, [Client::CONFIG_HTTP_CLIENT_BUILDER => $builder]);
         $client->get('/');
         $sent_request = self::$httpClient->getLastRequest();
-        $this->assertEquals($customEndpoint,"{$sent_request->getUri()->getScheme()}://{$sent_request->getUri()->getHost()}");
+        $this->assertEquals($customEndpoint, "{$sent_request->getUri()->getScheme()}://{$sent_request->getUri()->getHost()}");
     }
 
     public function testUserAgentShouldBeOverridden(): void

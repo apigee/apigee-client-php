@@ -23,7 +23,7 @@ use Apigee\Edge\Tests\Test\Controller\CpsLimitEntityControllerValidator;
 /**
  * Common base test class for \Apigee\Edge\Api\Management\Controller\AppByOwnerControllerInterface implementations.
  */
-abstract class AppByOwnerControllerTest extends CpsLimitEntityControllerValidator
+abstract class AppByOwnerControllerBase extends CpsLimitEntityControllerValidator
 {
     use CommonAppControllerTestTrait {
         setUpBeforeClass as private commonSetUpBeforeClass;

@@ -32,7 +32,7 @@ use Apigee\Edge\Tests\Test\TestClientFactory;
 /**
  * Common base test class for \Apigee\Edge\Api\Management\Controller\AppCredentialControllerInterface implementations.
  */
-abstract class AppCredentialControllerTest extends EntityControllerValidator
+abstract class AppCredentialControllerBase extends EntityControllerValidator
 {
     use CommonAppControllerTestTrait {
         setUpBeforeClass as private commonSetUpBeforeClass;

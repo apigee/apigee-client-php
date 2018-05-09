@@ -18,9 +18,9 @@
 
 namespace Apigee\Edge\Tests\Api\Management\Controller;
 
-use Apigee\Edge\Api\Management\Controller\CompanyAppController;
-use Apigee\Edge\Api\Management\Controller\CompanyController;
-use Apigee\Edge\Api\Management\Entity\CompanyApp;
+use Apigee\Edge\Api\Management\Controller\DeveloperAppController;
+use Apigee\Edge\Api\Management\Controller\DeveloperController;
+use Apigee\Edge\Api\Management\Entity\DeveloperApp;
 use Apigee\Edge\Controller\EntityControllerInterface;
 use Apigee\Edge\Entity\EntityInterface;
 use Apigee\Edge\Structure\AttributesProperty;
@@ -29,14 +29,14 @@ use Apigee\Edge\Tests\Test\Controller\OrganizationAwareEntityControllerValidator
 use Apigee\Edge\Tests\Test\TestClientFactory;
 
 /**
- * Class CompanyAppControllerTest.
+ * Class DeveloperAppControllerTest.
  *
  * @group controller
  */
-class CompanyAppControllerTest extends AppByOwnerControllerTest
+class DeveloperAppControllerBase extends AppByOwnerControllerBase
 {
     use AttributesAwareEntityControllerTestTrait;
-    use CompanyAwareControllerTestTrait;
+    use DeveloperAwareControllerTestTrait;
     use OrganizationAwareEntityControllerValidatorTrait;
 
     /**
@@ -45,7 +45,7 @@ class CompanyAppControllerTest extends AppByOwnerControllerTest
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        static::setupCompany();
+        static::setupDeveloper();
     }
 
     /**
@@ -54,7 +54,7 @@ class CompanyAppControllerTest extends AppByOwnerControllerTest
     public static function tearDownAfterClass(): void
     {
         parent::tearDownAfterClass();
-        static::tearDownCompany();
+        static::tearDownDeveloper();
     }
 
     /**
@@ -65,7 +65,7 @@ class CompanyAppControllerTest extends AppByOwnerControllerTest
         static $entity;
         if (null === $entity) {
             $isMock = TestClientFactory::isMockClient(static::$client);
-            $entity = new CompanyApp(
+            $entity = new DeveloperApp(
                 [
                     'name' => $isMock ? 'phpunit_test_app' : static::$random->unique()->userName,
                     'apiProducts' => [static::$apiProductName],
@@ -93,7 +93,7 @@ class CompanyAppControllerTest extends AppByOwnerControllerTest
         static $entity;
         if (null === $entity) {
             $isMock = TestClientFactory::isMockClient(static::$client);
-            $entity = new CompanyApp(
+            $entity = new DeveloperApp(
                 [
                     'attributes' => new AttributesProperty(['foo' => 'foo', 'bar' => 'baz']),
                     'callbackUrl' => $isMock ? 'http://foo.example.com' : static::$random->url,
@@ -125,14 +125,14 @@ class CompanyAppControllerTest extends AppByOwnerControllerTest
     }
 
     /**
-     * It is easier to test it here instead in the CompanyControllerTest.
+     * It is easier to test it here instead in the DeveloperControllerTest.
      */
-    public function testCompanyHasApp(): void
+    public function testDeveloperHasApp(): void
     {
         if (TestClientFactory::isMockClient(static::$client)) {
             $this->markTestSkipped(static::$onlyOnlineClientSkipMessage);
         }
-        $controller = new CompanyController(
+        $controller = new DeveloperController(
             static::getOrganization(static::$client),
             static::$client
         );
@@ -140,12 +140,12 @@ class CompanyAppControllerTest extends AppByOwnerControllerTest
         $entity->{'set' . ucfirst($entity->idProperty())}($entity->id() . '_has');
         $this->getEntityController()->create($entity);
         static::$createdEntities[$entity->id()] = $entity;
-        /** @var \Apigee\Edge\Api\Management\Entity\CompanyAppInterface $company */
-        $company = $controller->load(static::$companyName);
-        $this->assertTrue($company->hasApp($entity->id()));
+        /** @var \Apigee\Edge\Api\Management\Entity\DeveloperInterface $developer */
+        $developer = $controller->load(static::$developerId);
+        $this->assertTrue($developer->hasApp($entity->id()));
         $this->getEntityController()->delete($entity->id());
-        $company = $controller->load(static::$companyName);
-        $this->assertFalse($company->hasApp($entity->id()));
+        $developer = $controller->load(static::$developerId);
+        $this->assertFalse($developer->hasApp($entity->id()));
         unset(static::$createdEntities[$entity->id()]);
     }
 
@@ -164,9 +164,9 @@ class CompanyAppControllerTest extends AppByOwnerControllerTest
     {
         static $controller;
         if (!$controller) {
-            $controller = new CompanyAppController(
+            $controller = new DeveloperAppController(
                 static::getOrganization(static::$client),
-                static::$companyName,
+                static::$developerId,
                 static::$client
             );
         }
@@ -179,7 +179,7 @@ class CompanyAppControllerTest extends AppByOwnerControllerTest
      */
     protected static function expectedAfterEntityCreate(): EntityInterface
     {
-        /** @var \Apigee\Edge\Api\Management\Entity\CompanyApp $entity */
+        /** @var \Apigee\Edge\Api\Management\Entity\DeveloperApp $entity */
         $entity = parent::expectedAfterEntityCreate();
         $entity->setStatus('approved');
         // The testCreate test would fail without this because ObjectNormalizer creates displayName and description
@@ -193,7 +193,7 @@ class CompanyAppControllerTest extends AppByOwnerControllerTest
 
     protected static function expectedAfterEntityUpdate(): EntityInterface
     {
-        /** @var \Apigee\Edge\Api\Management\Entity\CompanyApp $entity */
+        /** @var \Apigee\Edge\Api\Management\Entity\DeveloperApp $entity */
         $entity = parent::expectedAfterEntityUpdate();
         // The testUpdate test would fail without this because ObjectNormalizer creates displayName and description
         // properties on entities (because of the existence of getters) but these are not in the

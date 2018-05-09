@@ -60,7 +60,7 @@ class AppControllerTest extends EntityControllerValidator
                 static::$client
             );
             /** @var \Apigee\Edge\Api\Management\Entity\DeveloperAppInterface $sampleEntity */
-            $sampleEntity = clone DeveloperAppControllerTest::sampleDataForEntityCreate();
+            $sampleEntity = clone DeveloperAppControllerBase::sampleDataForEntityCreate();
             $idField = $sampleEntity->idProperty();
             /** @var DeveloperAppInterface[] $testDeveloperApps */
             $testDeveloperApps = [$sampleEntity];
