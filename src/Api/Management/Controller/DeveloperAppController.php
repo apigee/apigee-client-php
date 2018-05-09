@@ -28,7 +28,7 @@ use Psr\Http\Message\UriInterface;
 /**
  * Class DeveloperAppController.
  */
-class DeveloperAppController extends AppByOwnerController
+class DeveloperAppController extends AppByOwnerController implements DeveloperAppControllerInterface
 {
     use AttributesAwareEntityControllerTrait;
     use AppControllerTrait;
