@@ -1,14 +1,14 @@
-# Apigee Edge PHP SDK
+# Apigee Edge Client Library for PHP
 
-**Currently the 2.x version is under active development. Use it on your own risk or install the latest 1.x version!**
-
-[![Build Status](https://travis-ci.org/apigee/edge-php-sdk.svg?branch=2.x-dev)](https://travis-ci.org/apigee/edge-php-sdk)
-[![Code Coverage](https://codecov.io/gh/apigee/edge-php-sdk/branch/2.x-dev/graph/badge.svg)](https://codecov.io/gh/apigee/edge-php-sdk/branch/2.x-dev)
-[![Latest Stable Version](https://poser.pugx.org/apigee/edge/v/stable)](https://packagist.org/packages/apigee/edge)
-[![Total Downloads](https://poser.pugx.org/apigee/edge/downloads)](https://packagist.org/packages/apigee/edge)
-[![Latest Unstable Version](https://img.shields.io/badge/unstable-2.x--dev-orange.svg?style=flat-square)](https://packagist.org/packages/apigee/edge)
+[![Build Status](https://travis-ci.org/apigee/apigee-client-php.svg?branch=2.x-dev)](https://travis-ci.org/apigee/apigee-client-php)
+[![Code Coverage](https://codecov.io/gh/apigee/apigee-client-php/branch/2.x-dev/graph/badge.svg)](https://codecov.io/gh/apigee/apigee-client-php/branch/2.x-dev)
+[![Latest Stable Version](https://poser.pugx.org/apigee/apigee-client-php/v/stable)](https://packagist.org/packages/apigee/apigee-client-php)
+[![Total Downloads](https://poser.pugx.org/apigee/apigee-client-php/downloads)](https://packagist.org/packages/apigee/apigee-client-php)
+[![Latest Unstable Version](https://img.shields.io/badge/unstable-2.x--dev-orange.svg?style=flat-square)](https://packagist.org/packages/apigee/apigee-client-php)
 [![Minimum PHP Version](https://img.shields.io/badge/PHP-%3E%3D%207.1-8892BF.svg?style=flat-square)](https://php.net/)
-[![License](https://poser.pugx.org/apigee/edge/license)](https://packagist.org/packages/apigee/edge)
+[![License](https://poser.pugx.org/apigee/apigee-client-php/license)](https://packagist.org/packages/apigee/apigee-client-php)
+
+If you need PHP < 7.1 or Monetization support please install the [1.x version](https://github.com/apigee/edge-php-sdk).
 
 ## Getting started
 
@@ -23,7 +23,7 @@ So if you prefer Guzzle 6 then you can install this library like this:
 
 ```
 $ composer require php-http/guzzle6-adapter:^1.1.1
-$ composer require apigee/edge:2.*
+$ composer require apigee/apigee-client-php
 ```
 
 If you would like to use [OAuth (SAML) authentication](https://docs.apigee.com/api-platform/system-administration/using-oauth2-security-apigee-edge-management-api#usingtheapitogettokens-postrefreshanaccesstoken)
@@ -95,7 +95,7 @@ try {
 
 ## Unit Tests
 
-Setup the test suite using [Composer](http://getcomposer.org/) if has not already done:
+Setup the test suite using [Composer](http://getcomposer.org/) if it has not already done:
 
 ```
 $ composer install --dev
@@ -127,12 +127,11 @@ It is also possible to create and use your own data set. If you would like to us
 you just need to define the `APIGEE_EDGE_PHP_SDK_OFFLINE_TEST_DATA_FOLDER` environment variable set its value to the parent
 folder of your own test data set.
 
-PS.: Some unit tests can not be executed when the offline test data is in use, those are automatically marked as skipped.
+PS.: Some unit tests cannot be executed when the offline test data set is in use, those are automatically marked as
+skipped.
 
 ## Support
 
 This is not an officially supported Google product. Please file issues in our GitHub Issue Queue. We would love to 
 accept contributions to this project, please see the [contribution guidelines for this project](CONTRIBUTING.md) for 
 more details.
-
-
