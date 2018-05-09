@@ -27,7 +27,7 @@ use Psr\Http\Message\UriInterface;
 class DeveloperAppCredentialController extends AppCredentialController implements DeveloperAppCredentialControllerInterface
 {
     /** @var string Developer email or id. */
-    protected $companyName;
+    protected $developerId;
 
     /** @var string App name. */
     protected $appName;
@@ -48,7 +48,7 @@ class DeveloperAppCredentialController extends AppCredentialController implement
         ClientInterface $client,
         array $entityNormalizers = []
     ) {
-        $this->companyName = $developerId;
+        $this->developerId = $developerId;
         parent::__construct($organization, $appName, $client, $entityNormalizers);
     }
 
@@ -57,7 +57,7 @@ class DeveloperAppCredentialController extends AppCredentialController implement
      */
     protected function getBaseEndpointUri(): UriInterface
     {
-        return $this->client->getUriFactory()->createUri("/organizations/{$this->organization}/developers/{$this->companyName}/apps/{$this->appName}");
+        return $this->client->getUriFactory()->createUri("/organizations/{$this->organization}/developers/{$this->developerId}/apps/{$this->appName}");
     }
 
     /**
