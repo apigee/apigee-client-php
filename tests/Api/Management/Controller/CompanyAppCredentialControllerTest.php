@@ -19,8 +19,8 @@
 namespace Apigee\Edge\Tests\Api\Management\Controller;
 
 use Apigee\Edge\Api\Management\Controller\AppByOwnerController;
-use Apigee\Edge\Api\Management\Controller\DeveloperAppController;
-use Apigee\Edge\Api\Management\Controller\DeveloperAppCredentialController;
+use Apigee\Edge\Api\Management\Controller\CompanyAppController;
+use Apigee\Edge\Api\Management\Controller\CompanyAppCredentialController;
 use Apigee\Edge\Controller\EntityControllerInterface;
 use Apigee\Edge\Entity\EntityInterface;
 use Apigee\Edge\Exception\ApiRequestException;
@@ -28,23 +28,23 @@ use Apigee\Edge\Exception\ClientErrorException;
 use Apigee\Edge\Tests\Test\TestClientFactory;
 
 /**
- * Class DeveloperAppCredentialControllerTest.
+ * Class CompanyAppCredentialControllerTest.
  *
  * @group controller
  */
-class DeveloperAppCredentialControllerBase extends AppCredentialControllerBase
+class CompanyAppCredentialControllerTest extends AppCredentialControllerBase
 {
-    use DeveloperAwareControllerTestTrait;
+    use CompanyAwareControllerTestTrait;
 
     /**
      * @inheritdoc
      */
     public static function setUpBeforeClass(): void
     {
-        parent::setUpBeforeClass();
-        static::setupDeveloper();
-
         try {
+            parent::setUpBeforeClass();
+            static::setupCompany();
+
             $controller = static::getAppController();
             try {
                 // We have to keep a copy of phpunit@example.com developer's data because of this for offline tests.
@@ -61,7 +61,7 @@ class DeveloperAppCredentialControllerBase extends AppCredentialControllerBase
         } catch (ApiRequestException $e) {
             // Ensure that created test data always gets removed after an API call fails here.
             // (By default tearDownAfterClass() is not called if (any) exception occurred here.)
-            static::tearDownDeveloper();
+            static::tearDownAfterClass();
             throw $e;
         }
     }
@@ -107,7 +107,7 @@ class DeveloperAppCredentialControllerBase extends AppCredentialControllerBase
         }
 
         parent::tearDownAfterClass();
-        static::tearDownDeveloper();
+        static::tearDownCompany();
     }
 
     /**
@@ -117,9 +117,9 @@ class DeveloperAppCredentialControllerBase extends AppCredentialControllerBase
     {
         static $controller;
         if (!$controller) {
-            $controller = new DeveloperAppCredentialController(
+            $controller = new CompanyAppCredentialController(
                 static::getOrganization(static::$client),
-                static::$developerId,
+                static::$companyName,
                 static::$appName,
                 static::$client
             );
@@ -132,9 +132,9 @@ class DeveloperAppCredentialControllerBase extends AppCredentialControllerBase
     {
         static $controller;
         if (!$controller) {
-            $controller = new DeveloperAppController(
+            $controller = new CompanyAppController(
                 static::getOrganization(static::$client),
-                static::$developerId,
+                static::$companyName,
                 static::$client
             );
         }
@@ -144,6 +144,6 @@ class DeveloperAppCredentialControllerBase extends AppCredentialControllerBase
 
     protected static function getAppSampleDataForEntityCreate(): EntityInterface
     {
-        return DeveloperAppControllerBase::sampleDataForEntityCreate();
+        return CompanyAppControllerTest::sampleDataForEntityCreate();
     }
 }

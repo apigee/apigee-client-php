@@ -26,8 +26,8 @@ use Apigee\Edge\Tests\Test\TestClientFactory;
 /**
  * Provides re-usable functionality for company- and developer app tests.
  *
- * @see \Apigee\Edge\Tests\Api\Management\Controller\DeveloperAppControllerBase
- * @see \Apigee\Edge\Tests\Api\Management\Controller\CompanyAppControllerBase
+ * @see \Apigee\Edge\Tests\Api\Management\Controller\DeveloperAppControllerTest
+ * @see \Apigee\Edge\Tests\Api\Management\Controller\CompanyAppControllerTest
  */
 trait CommonAppControllerTestTrait
 {
