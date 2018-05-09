@@ -1,7 +1,7 @@
 # Apigee Edge Client Library for PHP
 
-[![Build Status](https://travis-ci.org/apigee/apigee-client-php.svg?branch=2.x-dev)](https://travis-ci.org/apigee/apigee-client-php)
-[![Code Coverage](https://codecov.io/gh/apigee/apigee-client-php/branch/2.x-dev/graph/badge.svg)](https://codecov.io/gh/apigee/apigee-client-php/branch/2.x-dev)
+[![Build Status](https://travis-ci.org/apigee/apigee-client-php.svg?branch=2.x)](https://travis-ci.org/apigee/apigee-client-php)
+[![Code Coverage](https://codecov.io/gh/apigee/apigee-client-php/branch/2.x/graph/badge.svg)](https://codecov.io/gh/apigee/apigee-client-php/branch/2.x-dev)
 [![Latest Stable Version](https://poser.pugx.org/apigee/apigee-client-php/v/stable)](https://packagist.org/packages/apigee/apigee-client-php)
 [![Total Downloads](https://poser.pugx.org/apigee/apigee-client-php/downloads)](https://packagist.org/packages/apigee/apigee-client-php)
 [![Latest Unstable Version](https://img.shields.io/badge/unstable-2.0.x--dev-orange.svg?style=flat-square)](https://packagist.org/packages/apigee/apigee-client-php)
