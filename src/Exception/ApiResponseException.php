@@ -27,20 +27,6 @@ use Psr\Http\Message\ResponseInterface;
  */
 class ApiResponseException extends ApiRequestException
 {
-    /**
-     * Field in the response JSON that contains the error code.
-     *
-     * @var string
-     */
-    protected $errorCodeResponseField = 'code';
-
-    /**
-     * Field in the response JSON that contains the error description.
-     *
-     * @var string
-     */
-    protected $errorDescriptionResponseField = 'message';
-
     /** @var \Psr\Http\Message\ResponseInterface */
     private $response;
 
@@ -69,16 +55,19 @@ class ApiResponseException extends ApiRequestException
         $message = $message ?: $response->getReasonPhrase();
         // Try to parse Edge error message and error code from the response body.
         $contentTypeHeader = $response->getHeaderLine('Content-Type');
-        $this->errorCodeResponseField = 'code';
-        $this->errorDescriptionResponseField = 'message';
         if ($contentTypeHeader && false !== strpos($contentTypeHeader, 'application/json')) {
             $array = json_decode((string) $response->getBody(), true);
             if (JSON_ERROR_NONE === json_last_error()) {
-                if ($this->errorCodeResponseField && array_key_exists($this->errorCodeResponseField, $array)) {
-                    $this->edgeErrorCode = $array[$this->errorCodeResponseField];
-                }
-                if ($this->errorDescriptionResponseField && array_key_exists($this->errorDescriptionResponseField, $array)) {
-                    $message = $array[$this->errorDescriptionResponseField];
+                if (array_key_exists('fault', $array)) {
+                    $message = $array['fault']['faultstring'] ?? null;
+                    $this->edgeErrorCode = $array['fault']['detail']['errorcode'] ?? null;
+                } else {
+                    if (array_key_exists('code', $array)) {
+                        $this->edgeErrorCode = $array['code'];
+                    }
+                    if (array_key_exists('message', $array)) {
+                        $message = $array['message'];
+                    }
                 }
             }
         }

@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-namespace Apigee\Edge\Tests\HttpClient;
+namespace Apigee\Edge\Tests\HttpClient\Plugin;
 
 use Apigee\Edge\Client;
 use Apigee\Edge\HttpClient\Utility\Builder;

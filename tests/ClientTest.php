@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-namespace Apigee\Edge\Tests\HttpClient;
+namespace Apigee\Edge\Tests;
 
 use Apigee\Edge\Client;
 use Apigee\Edge\Exception\ClientErrorException;
@@ -147,7 +147,7 @@ class ClientTest extends TestCase
         $client->get('/');
     }
 
-    public function testClientExceptionWithResponseBody(): void
+    public function testClientExceptionWithErrorResponse(): void
     {
         $errorCode = 'error code';
         $errorMessage = 'Error message';
@@ -156,6 +156,30 @@ class ClientTest extends TestCase
             'message' => $errorMessage,
         ];
         static::$httpClient->addResponse(new Response(400, ['Content-Type' => 'application/json'], json_encode((object) $body)));
+        $builder = new Builder(static::$httpClient);
+        $client = new Client(new NullAuthentication(), null, [Client::CONFIG_HTTP_CLIENT_BUILDER => $builder]);
+        try {
+            $client->get('/');
+        } catch (\Exception $e) {
+            $this->assertInstanceOf(ClientErrorException::class, $e);
+            /* @var \Apigee\Edge\Exception\ClientErrorException $e */
+            $this->assertEquals($e->getEdgeErrorCode(), $errorCode);
+            $this->assertEquals($e->getMessage(), $errorMessage);
+        }
+    }
+
+    public function testClientExceptionWithFaultResponse(): void
+    {
+        $errorCode = 'error code';
+        $errorMessage = 'Error message';
+        $body = [
+            'fault' => (object) [
+                'faultstring' => $errorMessage,
+                'detail' => (object) ['errorcode' => $errorCode],
+            ],
+        ];
+
+        static::$httpClient->addResponse(new Response(404, ['Content-Type' => 'application/json'], json_encode((object) $body)));
         $builder = new Builder(static::$httpClient);
         $client = new Client(new NullAuthentication(), null, [Client::CONFIG_HTTP_CLIENT_BUILDER => $builder]);
         try {
