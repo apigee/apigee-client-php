@@ -4,22 +4,44 @@
 [![Code Coverage](https://codecov.io/gh/apigee/apigee-client-php/branch/2.x-dev/graph/badge.svg)](https://codecov.io/gh/apigee/apigee-client-php/branch/2.x-dev)
 [![Latest Stable Version](https://poser.pugx.org/apigee/apigee-client-php/v/stable)](https://packagist.org/packages/apigee/apigee-client-php)
 [![Total Downloads](https://poser.pugx.org/apigee/apigee-client-php/downloads)](https://packagist.org/packages/apigee/apigee-client-php)
-[![Latest Unstable Version](https://img.shields.io/badge/unstable-2.x--dev-orange.svg?style=flat-square)](https://packagist.org/packages/apigee/apigee-client-php)
+[![Latest Unstable Version](https://img.shields.io/badge/unstable-2.0.x--dev-orange.svg?style=flat-square)](https://packagist.org/packages/apigee/apigee-client-php)
 [![Minimum PHP Version](https://img.shields.io/badge/PHP-%3E%3D%207.1-8892BF.svg?style=flat-square)](https://php.net/)
 [![License](https://poser.pugx.org/apigee/apigee-client-php/license)](https://packagist.org/packages/apigee/apigee-client-php)
 
-If you need PHP < 7.1 or Monetization support please install the [1.x version](https://github.com/apigee/edge-php-sdk).
+The Apigee API Client Library for PHP makes it easy to develop PHP clients that call the Apigee Edge Management API. The
+Apigee API Client Library for PHP  enables you to interact with the API using objects instead of coding to handle the
+HTTP request and response calls directly.
 
-## Getting started
+Specifically, the Apigee API Client Library for PHP provides access to Apigee Edge Management APIs in the following
+categories:
 
-The Apigee PHP Edge SDK is an HTTP client implementation-independent library thanks for the [HTTPlug](http://docs.php-http.org/en/latest/)
-library. It means that you, as a developer, can choose the client that best fits your project and use the same
-client for all packages.
+* [API Products](https://apidocs.apigee.com/api/api-products-1)
+* [Apps](https://apidocs.apigee.com/api/apps-0)
+* [Apps: Company](https://apidocs.apigee.com/api/apps-company)
+* [Apps: Developer](https://apidocs.apigee.com/api/apps-developer)
+* [Companies](https://apidocs.apigee.com/api/companies-0)
+* [Company App Keys](https://apidocs.apigee.com/api/company-app-keys-0)
+* [Company Developers](https://apidocs.apigee.com/api/company-developers-0)
+* [Developer App Keys](https://apidocs.apigee.com/api/developer-app-keys)
+* [Developers](https://apidocs.apigee.com/api/developers-0)
+* [Stats](https://apidocs.apigee.com/api/stats)
 
-This is the reason why you have to install an HTTP client or adapter before you would be able to install the SDK. You
-can find the complete list of available clients and adapters [here](http://docs.php-http.org/en/latest/clients.html).
+For more information about the Apigee Edge Management APIs, see [Getting started with the API Edge Management APIs](https://apidocs.apigee.com/api-reference/content/api-reference-getting-started)
+in the Apigee documentation. 
 
-So if you prefer Guzzle 6 then you can install this library like this:
+The Apigee API Client Library for PHP, built using the HTTPlug library, provides an HTTP client
+implementation-independent library. You choose the client that best fits your project requirements.
+
+If you need PHP < 7.1 or Monetization API support please install the [1.x version](https://github.com/apigee/edge-php-sdk).
+We are planning to Monetization API support to this library in the near future.  
+
+## Installing the client library
+
+You must install an HTTP client or adapter before you install the Apigee API Client Library for PHP. For a complete list
+of available clients and adapters, see [Clients & Adapters](http://docs.php-http.org/en/latest/clients.html) in the
+PHP-HTTP documentation.
+
+To install the client library using Guzzle 6, enter the following commands:
 
 ```
 $ composer require php-http/guzzle6-adapter:^1.1.1
