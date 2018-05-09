@@ -1,5 +1,5 @@
 {
-    "name": "apigee/edge-php-sdk",
+    "name": "apigee/apigee-client-php",
     "type": "library",
     "description": "Apigee Edge PHP API client.",
     "keywords": [
@@ -10,7 +10,7 @@
         "client",
         "web service"
     ],
-    "homepage": "http://github.com/apigee/edge-php-sdk",
+    "homepage": "http://github.com/apigee/apigee-client-php",
     "license": "Apache-2.0",
     "require": {
         "php": "^7.1",
@@ -81,7 +81,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-2.x-dev": "2.0.x-dev"
+            "dev-2.x": "2.0.x-dev"
         },
         "patches": {
             "php-http/client-common": {
