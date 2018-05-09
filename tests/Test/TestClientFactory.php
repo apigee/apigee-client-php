@@ -24,6 +24,7 @@ use Apigee\Edge\HttpClient\Utility\Builder;
 use Apigee\Edge\Tests\Test\HttpClient\DebuggerClient;
 use Apigee\Edge\Tests\Test\HttpClient\FileSystemMockClient;
 use Apigee\Edge\Tests\Test\HttpClient\MockClientInterface;
+use Apigee\Edge\Tests\Test\HttpClient\Plugin\NullAuthentication;
 use Http\Client\HttpClient;
 use Http\Message\Authentication\BasicAuth;
 use Http\Message\Formatter\CurlCommandFormatter;
@@ -71,7 +72,7 @@ class TestClientFactory
             // The only way to identify whether this is mock HTTP client in tests is this special user agent prefix.
             $userAgentPrefix = self::OFFLINE_CLIENT_USER_AGENT_PREFIX;
         }
-        $auth = null;
+        $auth = new NullAuthentication();
         $user = getenv('APIGEE_EDGE_PHP_SDK_BASIC_AUTH_USER') ?: '';
         $password = getenv('APIGEE_EDGE_PHP_SDK_BASIC_AUTH_PASSWORD') ?: '';
         if ($user || $password) {
