@@ -1,7 +1,7 @@
 {
     "name": "apigee/apigee-client-php",
     "type": "library",
-    "description": "Apigee Edge PHP API client.",
+    "description": "Client library for connecting to the Apigee Edge API.",
     "keywords": [
         "apigee",
         "edge",

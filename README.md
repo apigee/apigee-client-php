@@ -32,8 +32,8 @@ in the Apigee documentation.
 The Apigee API Client Library for PHP, built using the HTTPlug library, provides an HTTP client
 implementation-independent library. You choose the client that best fits your project requirements.
 
-If you need PHP < 7.1 or Monetization API support please install the [1.x version](https://github.com/apigee/edge-php-sdk).
-We are planning to Monetization API support to this library in the near future.  
+If you need PHP < 7.1 or Monetization API support please install the older [edge-php-sdk version](https://github.com/apigee/edge-php-sdk).
+We are planning to add Monetization API support to this library in the near future.  
 
 ## Installing the client library
 
