@@ -57,7 +57,7 @@ class Client implements ClientInterface
 
     public const CONFIG_ERROR_FORMATTER = 'error_formatter';
 
-    protected const CLIENT_VERSION = '2.0.x-dev';
+    protected const VERSION = '2.0.0-alpha1';
 
     private const DEFAULT_ENDPOINT = 'https://api.enterprise.apigee.com/v1';
 
@@ -174,7 +174,7 @@ class Client implements ClientInterface
      */
     public function getClientVersion(): string
     {
-        return sprintf('Apigee Edge PHP SDK %s', self::CLIENT_VERSION);
+        return sprintf('Apigee Edge PHP Client %s', self::VERSION);
     }
 
     /**
