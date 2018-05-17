@@ -77,6 +77,8 @@ class RetryOauthAuthenticationPlugin implements Plugin
 
                 return $promise->wait();
             }
+
+            throw $exception;
         });
     }
 }

@@ -176,4 +176,22 @@ class OauthTest extends TestCase
         $this->assertEquals(self::API_ENDPOINT, (string) $request->getUri());
         $this->assertEquals('Bearer new_access_token', $request->getHeaderLine('Authorization'));
     }
+
+    /**
+     * @expectedException \Apigee\Edge\Exception\ServerErrorException
+     * @expectedExceptionCode 500
+     */
+    public function testServerErrorMeanwhileAccessTokenAuthentication(): void
+    {
+        $body = [
+            'access_token' => 'access_token',
+            'expires_in' => 60,
+            'refresh_token' => 'refresh_token',
+        ];
+        // Auth server returns a new access token.
+        static::$httpClient->addResponse(new Response(200, ['Content-Type' => 'application/json'], json_encode((object) $body)));
+        // API server answers with a server error.
+        static::$httpClient->addResponse(new Response(500));
+        $this->client->get('');
+    }
 }
