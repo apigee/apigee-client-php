@@ -71,12 +71,15 @@ class RetryOauthAuthenticationPlugin implements Plugin
                         $this->auth->getTokenStorage()->removeToken();
                         $promise = $first($request);
                     } else {
+                        // This can never happen, but just in case.
                         throw $e;
                     }
                 }
 
                 return $promise->wait();
             }
+
+            throw $exception;
         });
     }
 }
