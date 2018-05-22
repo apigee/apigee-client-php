@@ -19,6 +19,7 @@
 namespace Apigee\Edge\Api\Management\Entity;
 
 use Apigee\Edge\Entity\EntityInterface;
+use Apigee\Edge\Entity\Property\AttributesPropertyInterface;
 use Apigee\Edge\Entity\Property\ScopesPropertyInterface;
 use Apigee\Edge\Entity\Property\StatusPropertyInterface;
 
@@ -26,6 +27,7 @@ use Apigee\Edge\Entity\Property\StatusPropertyInterface;
  * Interface AppCredentialInterface.
  */
 interface AppCredentialInterface extends
+    AttributesPropertyInterface,
     EntityInterface,
     ScopesPropertyInterface,
     StatusPropertyInterface

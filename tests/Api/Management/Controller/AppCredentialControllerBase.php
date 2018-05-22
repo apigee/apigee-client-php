@@ -24,8 +24,8 @@ use Apigee\Edge\Api\Management\Entity\AppCredential;
 use Apigee\Edge\Api\Management\Entity\AppCredentialInterface;
 use Apigee\Edge\Entity\EntityInterface;
 use Apigee\Edge\Exception\ApiException;
-use Apigee\Edge\Structure\AttributesProperty;
 use Apigee\Edge\Structure\CredentialProduct;
+use Apigee\Edge\Tests\Test\Controller\AttributesAwareEntityControllerTestTrait;
 use Apigee\Edge\Tests\Test\Controller\EntityControllerValidator;
 use Apigee\Edge\Tests\Test\Controller\OrganizationAwareEntityControllerValidatorTrait;
 use Apigee\Edge\Tests\Test\TestClientFactory;
@@ -35,9 +35,9 @@ use Apigee\Edge\Tests\Test\TestClientFactory;
  */
 abstract class AppCredentialControllerBase extends EntityControllerValidator
 {
-    use CommonAppControllerTestTrait {
-        setUpBeforeClass as private commonSetUpBeforeClass;
-        tearDownAfterClass as private commonTearDownAfterClass;
+    use ApiProductAwareControllerTrait;
+    use AttributesAwareEntityControllerTestTrait {
+        testAddAttributesToEntity as private traitTestAddAttributesToEntity;
     }
     use OrganizationAwareEntityControllerValidatorTrait;
 
@@ -51,7 +51,7 @@ abstract class AppCredentialControllerBase extends EntityControllerValidator
     {
         try {
             parent::setUpBeforeClass();
-            static::commonSetUpBeforeClass();
+            static::setUpApiProduct();
         } catch (ApiException $e) {
             // Ensure that created test data always gets removed after an API call fails here.
             // (By default tearDownAfterClass() is not called if (any) exception occurred here.)
@@ -66,7 +66,7 @@ abstract class AppCredentialControllerBase extends EntityControllerValidator
     public static function tearDownAfterClass(): void
     {
         parent::tearDownAfterClass();
-        static::commonTearDownAfterClass();
+        static::tearDownApiProduct();
     }
 
     public function testCreatedAppHasAnEmptyCredential(): void
@@ -74,6 +74,7 @@ abstract class AppCredentialControllerBase extends EntityControllerValidator
         /** @var \Apigee\Edge\Api\Management\Controller\AppControllerInterface $controller */
         $controller = static::getAppController();
         /** @var \Apigee\Edge\Api\Management\Entity\DeveloperAppInterface $entity */
+        /** @var \Apigee\Edge\Api\Management\Controller\AppByOwnerControllerInterface $controller */
         $entity = $controller->load(static::$appName);
         $credentials = $entity->getCredentials();
         $this->assertCount(1, $credentials);
@@ -140,30 +141,6 @@ abstract class AppCredentialControllerBase extends EntityControllerValidator
         $credential = $controller->addProducts($entityId, [static::$apiProductName]);
         $productNames = $this->getCredentialProducts($credential);
         $this->assertContains(static::$apiProductName, $productNames);
-    }
-
-    /**
-     * @depends testLoad
-     *
-     * @param string $entityId
-     */
-    public function testOverrideAttributes(string $entityId): void
-    {
-        // We can either test this or testApiProductStatusChange() with the offline client, we can not test both
-        // because they are using the same path with the same HTTP method.
-        if (TestClientFactory::isMockClient(static::$client)) {
-            $this->markTestSkipped(static::$onlyOnlineClientSkipMessage);
-        }
-        /** @var \Apigee\Edge\Api\Management\Controller\AppCredentialControllerInterface $controller */
-        $controller = $this->getEntityController();
-        /** @var \Apigee\Edge\Api\Management\Entity\AppCredentialInterface $credential */
-        $credential = $controller->load($entityId);
-        $this->assertEmpty($credential->getAttributes()->values());
-        $credential = $controller->overrideAttributes($entityId, new AttributesProperty(['foo' => 'bar']));
-        $this->assertEquals('bar', $credential->getAttributeValue('foo'));
-        $credential = $controller->overrideAttributes($entityId, new AttributesProperty(['bar' => 'baz']));
-        $this->assertArrayNotHasKey('foo', $credential->getAttributes()->values());
-        $this->assertEquals('baz', $credential->getAttributeValue('bar'));
     }
 
     /**
@@ -259,17 +236,25 @@ abstract class AppCredentialControllerBase extends EntityControllerValidator
         }
         /** @var \Apigee\Edge\Api\Management\Controller\AppCredentialControllerInterface $controller */
         $controller = $this->getEntityController();
+        /** @var \Apigee\Edge\Api\Management\Entity\AppInterface $app */
+        $app = $this->getAppController()->load(static::$appName);
         /** @var \Apigee\Edge\Api\Management\Entity\AppCredentialInterface $credential */
         $credential = $controller->generate(
             [static::$apiProductName],
+            $app->getAttributes(),
             ['scope 1'],
             604800000
         );
+
         $productNames = $this->getCredentialProducts($credential);
         $this->assertContains(static::$apiProductName, $productNames);
         $this->assertContains('scope 1', $credential->getScopes());
         // Thanks for the offline tests, we can not expect a concrete value here.
         $this->assertNotEquals('-1', $credential->getExpiresAt());
+        /** @var \Apigee\Edge\Api\Management\Entity\AppInterface $updatedApp */
+        $updatedApp = $this->getAppController()->load(static::$appName);
+        // Credential generation should not deleted any previously existing app credentials.
+        $this->assertEquals($app->getAttributes(), $updatedApp->getAttributes());
 
         return $credential->id();
     }
@@ -296,6 +281,18 @@ abstract class AppCredentialControllerBase extends EntityControllerValidator
         $credential = $controller->load($entityId);
         $productNames = $this->getCredentialProducts($credential);
         $this->assertNotContains(static::$apiProductName, $productNames);
+    }
+
+    /**
+     * We had to override this to change its dependency.
+     *
+     * @depends testGenerate
+     *
+     * @param string $entityId
+     */
+    public function testAddAttributesToEntity(string $entityId): string
+    {
+        return $this->traitTestAddAttributesToEntity($entityId);
     }
 
     abstract protected static function getAppController(): AppByOwnerController;

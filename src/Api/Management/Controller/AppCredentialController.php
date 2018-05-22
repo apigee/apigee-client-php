@@ -35,6 +35,7 @@ use Apigee\Edge\Structure\AttributesProperty;
  */
 abstract class AppCredentialController extends EntityController implements AppCredentialControllerInterface
 {
+    use AttributesAwareEntityControllerTrait;
     use EntityCrudOperationsControllerTrait {
         // These methods are not supported on this endpoint in the same way as on the others so do not allow to
         // use them here.
@@ -92,6 +93,7 @@ abstract class AppCredentialController extends EntityController implements AppCr
      */
     public function generate(
         array $apiProducts,
+        AttributesProperty $appAttributes,
         array $scopes = [],
         string $keyExpiresIn = '-1'
     ): AppCredentialInterface {
@@ -99,6 +101,7 @@ abstract class AppCredentialController extends EntityController implements AppCr
             $this->getBaseEndpointUri(),
             (string) json_encode((object) [
                 'apiProducts' => $apiProducts,
+                'attributes' => $this->entityTransformer->normalize($appAttributes),
                 'scopes' => $scopes,
                 'keyExpiresIn' => $keyExpiresIn,
             ])
@@ -122,23 +125,6 @@ abstract class AppCredentialController extends EntityController implements AppCr
         $response = $this->client->post(
             $this->getEntityEndpointUri($consumerKey),
             (string) json_encode((object) ['apiProducts' => $apiProducts])
-        );
-
-        return $this->entityTransformer->deserialize(
-            (string) $response->getBody(),
-            $this->getEntityClass(),
-            'json'
-        );
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function overrideAttributes(string $consumerKey, AttributesProperty $attributes): AppCredentialInterface
-    {
-        $response = $this->client->post(
-            $this->getEntityEndpointUri($consumerKey),
-            (string) json_encode((object) ['attributes' => $this->entityTransformer->normalize($attributes)])
         );
 
         return $this->entityTransformer->deserialize(

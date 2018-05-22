@@ -24,12 +24,12 @@ use Apigee\Edge\Exception\ClientErrorException;
 use Apigee\Edge\Tests\Test\TestClientFactory;
 
 /**
- * Provides re-usable functionality for company- and developer app tests.
+ * Provides re-usable functionality controller tests that needs a test API product.
  *
  * @see \Apigee\Edge\Tests\Api\Management\Controller\DeveloperAppControllerTest
  * @see \Apigee\Edge\Tests\Api\Management\Controller\CompanyAppControllerTest
  */
-trait CommonAppControllerTestTrait
+trait ApiProductAwareControllerTrait
 {
     /** @var string API Product name. */
     protected static $apiProductName;
@@ -37,7 +37,7 @@ trait CommonAppControllerTestTrait
     /**
      * @inheritdoc
      */
-    public static function setUpBeforeClass(): void
+    public static function setUpApiProduct(): void
     {
         try {
             $apc = new ApiProductController(static::getOrganization(static::$client), static::$client);
@@ -62,7 +62,7 @@ trait CommonAppControllerTestTrait
     /**
      * @inheritdoc
      */
-    public static function tearDownAfterClass(): void
+    public static function tearDownApiProduct(): void
     {
         if (TestClientFactory::isMockClient(static::$client)) {
             return;

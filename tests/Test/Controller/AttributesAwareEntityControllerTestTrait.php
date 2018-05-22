@@ -33,7 +33,7 @@ trait AttributesAwareEntityControllerTestTrait
      *
      * @return string
      */
-    public function testAddAttributesToEntity(string $entityId)
+    public function testAddAttributesToEntity(string $entityId): string
     {
         /** @var \Apigee\Edge\Api\Management\Controller\AttributesAwareEntityControllerInterface $controller */
         $controller = $this->getEntityController();
