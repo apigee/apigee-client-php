@@ -106,8 +106,8 @@ class DeveloperAppCredentialControllerTest extends AppCredentialControllerBase
             }
         }
 
-        parent::tearDownAfterClass();
         static::tearDownDeveloper();
+        parent::tearDownAfterClass();
     }
 
     /**
