@@ -25,10 +25,7 @@ use Apigee\Edge\Tests\Test\Controller\CpsLimitEntityControllerValidator;
  */
 abstract class AppByOwnerControllerBase extends CpsLimitEntityControllerValidator
 {
-    use CommonAppControllerTestTrait {
-        setUpBeforeClass as private commonSetUpBeforeClass;
-        tearDownAfterClass as private commonTearDownAfterClass;
-    }
+    use ApiProductAwareControllerTrait;
 
     /**
      * @inheritdoc
@@ -36,7 +33,7 @@ abstract class AppByOwnerControllerBase extends CpsLimitEntityControllerValidato
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        static::commonSetUpBeforeClass();
+        static::setUpApiProduct();
     }
 
     /**
@@ -44,7 +41,7 @@ abstract class AppByOwnerControllerBase extends CpsLimitEntityControllerValidato
      */
     public static function tearDownAfterClass(): void
     {
+        static::tearDownApiProduct();
         parent::tearDownAfterClass();
-        static::commonTearDownAfterClass();
     }
 }

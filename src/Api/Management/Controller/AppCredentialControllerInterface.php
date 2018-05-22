@@ -28,6 +28,7 @@ use Apigee\Edge\Structure\AttributesProperty;
  * Describes common operations for company- and developer app credentials.
  */
 interface AppCredentialControllerInterface extends
+    AttributesAwareEntityControllerInterface,
     EntityControllerInterface,
     StatusAwareEntityControllerInterface
 {
@@ -52,6 +53,9 @@ interface AppCredentialControllerInterface extends
      *
      * @param string[] $apiProducts
      *   API Product names.
+     * @param \Apigee\Edge\Structure\AttributesProperty $appAttributes
+     *   Current attributes of the app. "In this API call, be sure to include any existing app attributes.
+     *   If you don't, the existing attributes are deleted."
      * @param string[] $scopes
      *   List of OAuth scopes (from API products).
      * @param string $keyExpiresIn
@@ -61,6 +65,7 @@ interface AppCredentialControllerInterface extends
      */
     public function generate(
         array $apiProducts,
+        AttributesProperty $appAttributes,
         array $scopes = [],
         string $keyExpiresIn = '-1'
     ): AppCredentialInterface;
@@ -136,22 +141,6 @@ interface AppCredentialControllerInterface extends
      * @return \Apigee\Edge\Entity\EntityInterface
      */
     public function load(string $consumerKey);
-
-    /**
-     * Modify (override) attributes of a customer key.
-     *
-     * It is called override, because previous attributes can be removed if those are not included in the
-     * passed $attributes variable.
-     *
-     * @see https://docs.apigee.com/management/apis/post/organizations/%7Borg_name%7D/developers/%7Bdeveloper_email_or_id%7D/apps/%7Bapp_name%7D/keys/%7Bconsumer_key%7D
-     *
-     * @param string $consumerKey
-     *   The consumer key to modify.
-     * @param \Apigee\Edge\Structure\AttributesProperty $attributes
-     *
-     * @return \Apigee\Edge\Api\Management\Entity\AppCredentialInterface
-     */
-    public function overrideAttributes(string $consumerKey, AttributesProperty $attributes): AppCredentialInterface;
 
     /**
      * Modify (override) scopes of a customer key.

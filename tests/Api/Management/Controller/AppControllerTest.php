@@ -102,9 +102,6 @@ class AppControllerTest extends EntityControllerValidator
      */
     public static function tearDownAfterClass(): void
     {
-        parent::tearDownAfterClass();
-        static::tearDownDeveloper();
-
         if (TestClientFactory::isMockClient(static::$client)) {
             return;
         }
@@ -118,6 +115,9 @@ class AppControllerTest extends EntityControllerValidator
         } catch (\Exception $e) {
             printf("Unable to delete %s entity with %s id.\n", strtolower(get_class($entity)), $entity->id());
         }
+
+        parent::tearDownAfterClass();
+        static::tearDownDeveloper();
     }
 
     public function testLoadApp(): void
@@ -195,9 +195,7 @@ class AppControllerTest extends EntityControllerValidator
         /*
          * @see https://docs.apigee.com/management/apis/post/organizations/%7Borg_name%7D/developers/%7Bdeveloper_email_or_id%7D/appfamilies.
          */
-        $this->markTestSkipped(
-            'App families API seems to be deprecated.'
-        );
+        $this->markTestSkipped('App families API seems to be deprecated.');
     }
 
     /**

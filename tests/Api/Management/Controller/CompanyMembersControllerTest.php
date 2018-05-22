@@ -48,9 +48,9 @@ class CompanyMembersControllerTest extends AbstractControllerValidator
 
     public static function tearDownAfterClass(): void
     {
-        parent::tearDownAfterClass();
         static::tearDownDeveloper();
         static::tearDownCompany();
+        parent::tearDownAfterClass();
     }
 
     public function testCreateMembership(): void

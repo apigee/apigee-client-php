@@ -106,8 +106,8 @@ class CompanyAppCredentialControllerTest extends AppCredentialControllerBase
             }
         }
 
-        parent::tearDownAfterClass();
         static::tearDownCompany();
+        parent::tearDownAfterClass();
     }
 
     /**
