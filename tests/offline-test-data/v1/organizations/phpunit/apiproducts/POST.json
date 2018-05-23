@@ -15,7 +15,7 @@
     "lastModifiedBy": "phpunit@example.com",
     "name": "phpunit_test",
     "proxies": [],
-    "quota" : "10",
+    "quota": "10",
     "quotaInterval": "1",
     "quotaTimeUnit": "minute",
     "scopes": [
