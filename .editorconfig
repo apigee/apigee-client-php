@@ -1,9 +1,13 @@
 root = true
 
+# All files.
 [*]
-charset = utf-8
-end_of_line = lf
-indent_size = 4
+end_of_line = LF
 indent_style = space
-insert_final_newline = true
+indent_size = 2
+charset = utf-8
 trim_trailing_whitespace = true
+insert_final_newline = true
+
+[composer.{json,lock}]
+indent_size = 4
