@@ -242,6 +242,7 @@ abstract class AppCredentialControllerBase extends EntityControllerValidator
         $credential = $controller->generate(
             [static::$apiProductName],
             $app->getAttributes(),
+            $app->getCallbackUrl(),
             ['scope 1'],
             604800000
         );

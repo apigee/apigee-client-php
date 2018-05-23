@@ -94,6 +94,7 @@ abstract class AppCredentialController extends EntityController implements AppCr
     public function generate(
         array $apiProducts,
         AttributesProperty $appAttributes,
+        string $callbackUrl,
         array $scopes = [],
         string $keyExpiresIn = '-1'
     ): AppCredentialInterface {
@@ -102,8 +103,9 @@ abstract class AppCredentialController extends EntityController implements AppCr
             (string) json_encode((object) [
                 'apiProducts' => $apiProducts,
                 'attributes' => $this->entityTransformer->normalize($appAttributes),
-                'scopes' => $scopes,
+                'callbackUrl' => $callbackUrl,
                 'keyExpiresIn' => $keyExpiresIn,
+                'scopes' => $scopes,
             ])
         );
         // It returns a complete developer app entity, but we only returns the newly created credential for the
