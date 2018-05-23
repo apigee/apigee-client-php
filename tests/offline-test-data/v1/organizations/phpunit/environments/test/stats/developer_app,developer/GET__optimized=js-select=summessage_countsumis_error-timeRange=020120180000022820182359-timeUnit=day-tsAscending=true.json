@@ -1,55 +1,147 @@
 {
-    "Response" : {
-        "TimeUnit" : [ 1518480000000, 1517961600000, 1517788800000, 1517702400000, 1517616000000, 1517529600000, 1517443200000 ],
-        "metaData" : {
-            "errors" : [ ],
-            "notices" : [ "Source:Postgres", "query served by:e9f88317-f457-452c-917a-c29e7ee11252", "Table used: edge.api.xyz.agg_api", "PG Host:localhost" ]
+    "Response": {
+        "TimeUnit": [
+            1518480000000,
+            1517961600000,
+            1517788800000,
+            1517702400000,
+            1517616000000,
+            1517529600000,
+            1517443200000
+        ],
+        "metaData": {
+            "errors": [],
+            "notices": [
+                "Source:Postgres",
+                "query served by:e9f88317-f457-452c-917a-c29e7ee11252",
+                "Table used: edge.api.xyz.agg_api",
+                "PG Host:localhost"
+            ]
         },
-        "resultTruncated" : false,
-        "stats" : {
-            "data" : [ {
-                "identifier" : {
-                    "names" : [ "developer_app", "developer" ],
-                    "values" : [ "(not set)", "(not set)" ]
+        "resultTruncated": false,
+        "stats": {
+            "data": [
+                {
+                    "identifier": {
+                        "names": [
+                            "developer_app",
+                            "developer"
+                        ],
+                        "values": [
+                            "(not set)",
+                            "(not set)"
+                        ]
+                    },
+                    "metric": [
+                        {
+                            "env": "test",
+                            "name": "sum(message_count)",
+                            "values": [
+                                33.0,
+                                20.0,
+                                798.0,
+                                89.0,
+                                362.0,
+                                122.0,
+                                3224.0
+                            ]
+                        },
+                        {
+                            "env": "test",
+                            "name": "sum(is_error)",
+                            "values": [
+                                22.0,
+                                20.0,
+                                798.0,
+                                89.0,
+                                362.0,
+                                122.0,
+                                3224.0
+                            ]
+                        }
+                    ]
                 },
-                "metric" : [ {
-                    "env" : "test",
-                    "name" : "sum(message_count)",
-                    "values" : [ 33.0, 20.0, 798.0, 89.0, 362.0, 122.0, 3224.0 ]
-                }, {
-                    "env" : "test",
-                    "name" : "sum(is_error)",
-                    "values" : [ 22.0, 20.0, 798.0, 89.0, 362.0, 122.0, 3224.0 ]
-                } ]
-            }, {
-                "identifier" : {
-                    "names" : [ "developer_app", "developer" ],
-                    "values" : [ "helloApp", "phpunit@@@b5ada6f0-139f-4cbe-8bcc-9870ffe329" ]
+                {
+                    "identifier": {
+                        "names": [
+                            "developer_app",
+                            "developer"
+                        ],
+                        "values": [
+                            "helloApp",
+                            "phpunit@@@b5ada6f0-139f-4cbe-8bcc-9870ffe329"
+                        ]
+                    },
+                    "metric": [
+                        {
+                            "env": "test",
+                            "name": "sum(message_count)",
+                            "values": [
+                                11.0,
+                                18.0,
+                                557.0,
+                                0.0,
+                                0.0,
+                                0.0,
+                                0.0
+                            ]
+                        },
+                        {
+                            "env": "test",
+                            "name": "sum(is_error)",
+                            "values": [
+                                9.0,
+                                0.0,
+                                0.0,
+                                0.0,
+                                0.0,
+                                0.0,
+                                0.0
+                            ]
+                        }
+                    ]
                 },
-                "metric" : [ {
-                    "env" : "test",
-                    "name" : "sum(message_count)",
-                    "values" : [ 11.0, 18.0, 557.0, 0.0, 0.0, 0.0, 0.0 ]
-                }, {
-                    "env" : "test",
-                    "name" : "sum(is_error)",
-                    "values" : [ 9.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ]
-                } ]
-            }, {
-                "identifier" : {
-                    "names" : [ "developer_app", "developer" ],
-                    "values" : [ "analytics-test", "phpunit@@@b5ada6f0-139f-4cbe-8bcc-9870ffe329" ]
-                },
-                "metric" : [ {
-                    "env" : "test",
-                    "name" : "sum(message_count)",
-                    "values" : [ 66.0, 0.0, 34.0, 372.0, 1385.0, 484.0, 2228.0 ]
-                }, {
-                    "env" : "test",
-                    "name" : "sum(is_error)",
-                    "values" : [ 42.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ]
-                } ]
-            } ]
+                {
+                    "identifier": {
+                        "names": [
+                            "developer_app",
+                            "developer"
+                        ],
+                        "values": [
+                            "analytics-test",
+                            "phpunit@@@b5ada6f0-139f-4cbe-8bcc-9870ffe329"
+                        ]
+                    },
+                    "metric": [
+                        {
+                            "env": "test",
+                            "name": "sum(message_count)",
+                            "values": [
+                                66.0,
+                                0.0,
+                                34.0,
+                                372.0,
+                                1385.0,
+                                484.0,
+                                2228.0
+                            ]
+                        },
+                        {
+                            "env": "test",
+                            "name": "sum(is_error)",
+                            "values": [
+                                42.0,
+                                0.0,
+                                0.0,
+                                0.0,
+                                0.0,
+                                0.0,
+                                0.0
+                            ]
+                        }
+                    ]
+                }
+            ]
         }
     }
 }

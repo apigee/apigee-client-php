@@ -1,21 +1,53 @@
 {
-    "Response" : {
-        "TimeUnit" : [ 1517443200000, 1517529600000, 1517616000000, 1517702400000, 1517788800000, 1517961600000, 1518480000000 ],
-        "metaData" : {
-            "errors" : [ ],
-            "notices" : [ "Source:Postgres", "query served by:e9f88317-f457-452c-917a-c29e7ee11252", "Table used: edge.api.xyz.agg_api", "PG Host:localhost" ]
+    "Response": {
+        "TimeUnit": [
+            1517443200000,
+            1517529600000,
+            1517616000000,
+            1517702400000,
+            1517788800000,
+            1517961600000,
+            1518480000000
+        ],
+        "metaData": {
+            "errors": [],
+            "notices": [
+                "Source:Postgres",
+                "query served by:e9f88317-f457-452c-917a-c29e7ee11252",
+                "Table used: edge.api.xyz.agg_api",
+                "PG Host:localhost"
+            ]
         },
-        "resultTruncated" : false,
-        "stats" : {
-            "data" : [ {
-                "env" : "prod",
-                "name" : "sum(message_count)",
-                "values" : [ 5452.0, 606.0, 1747.0, 461.0, 1389.0, 38.0, 33.0 ]
-            }, {
-                "env" : "prod",
-                "name" : "sum(is_error)",
-                "values" : [ 3224.0, 122.0, 362.0, 89.0, 798.0, 20.0, 11.0 ]
-            } ]
+        "resultTruncated": false,
+        "stats": {
+            "data": [
+                {
+                    "env": "prod",
+                    "name": "sum(message_count)",
+                    "values": [
+                        5452.0,
+                        606.0,
+                        1747.0,
+                        461.0,
+                        1389.0,
+                        38.0,
+                        33.0
+                    ]
+                },
+                {
+                    "env": "prod",
+                    "name": "sum(is_error)",
+                    "values": [
+                        3224.0,
+                        122.0,
+                        362.0,
+                        89.0,
+                        798.0,
+                        20.0,
+                        11.0
+                    ]
+                }
+            ]
         }
     }
 }

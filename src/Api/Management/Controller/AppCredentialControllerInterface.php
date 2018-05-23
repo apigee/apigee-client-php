@@ -56,6 +56,8 @@ interface AppCredentialControllerInterface extends
      * @param \Apigee\Edge\Structure\AttributesProperty $appAttributes
      *   Current attributes of the app. "In this API call, be sure to include any existing app attributes.
      *   If you don't, the existing attributes are deleted."
+     * @param string callbackUrl
+     *   Current callback url of the app. (If you don't include it then the existing callback url gets deleted.)
      * @param string[] $scopes
      *   List of OAuth scopes (from API products).
      * @param string $keyExpiresIn
@@ -66,6 +68,7 @@ interface AppCredentialControllerInterface extends
     public function generate(
         array $apiProducts,
         AttributesProperty $appAttributes,
+        string $callbackUrl,
         array $scopes = [],
         string $keyExpiresIn = '-1'
     ): AppCredentialInterface;

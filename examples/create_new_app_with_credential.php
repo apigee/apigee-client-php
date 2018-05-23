@@ -36,10 +36,11 @@ try {
     /** @var \Apigee\Edge\Api\Management\Entity\DeveloperApp $developerApp */
     $developerApp = new DeveloperApp(['name' => 'test_app_1']);
     $developerApp->setDisplayName('My first app');
+    $developerApp->setAttributes(new AttributesProperty(['bar' => 'baz']));
     $dac->create($developerApp);
 
     $dacc = new DeveloperAppCredentialController($organization, $developerMail, $developerApp->id(), $client);
-    $attributes = new AttributesProperty(['foo' => 'bar']);
+    $credAttributes = new AttributesProperty(['foo' => 'bar']);
     $apiProducts = ['product_1', 'product_2'];
     $scopes = ['scope 1', 'scope 2'];
 
@@ -48,16 +49,16 @@ try {
     /** @var \Apigee\Edge\Api\Management\Entity\AppCredential $credential */
     $credential = reset($credentials);
     $dacc->addProducts($credential->id(), $apiProducts);
-    $dacc->overrideAttributes($credential->id(), $attributes);
+    $dacc->updateAttributes($credential->id(), $credAttributes);
     $dacc->overrideScopes($credential->id(), $scopes);
 
     // Create a new, auto-generated credential that expires after 1 week.
-    $dacc->generate($apiProducts, $attributes, $scopes, 604800000);
+    $dacc->generate($apiProducts, $developerApp->getAttributes(), $developerApp->getCallbackUrl(), $scopes, 604800000);
 
     // Create a credential with a specific key and secret and add the same products, attributes and scopes to it.
     $credential = $dacc->create('MY_CONSUMER_KEY', 'MY_CONSUMER_SECRET');
     $dacc->addProducts($credential->id(), $apiProducts);
-    $dacc->overrideAttributes($credential->id(), $attributes);
+    $dacc->updateAttributes($credential->id(), $credAttributes);
     $dacc->overrideScopes($credential->id(), $scopes);
 } catch (ClientErrorException $e) {
     // HTTP code >= 400 and < 500. Ex.: 401 Unauthorised.
