@@ -57,7 +57,7 @@ class Client implements ClientInterface
 
     public const CONFIG_ERROR_FORMATTER = 'error_formatter';
 
-    protected const VERSION = '2.0.0-alpha1';
+    protected const VERSION = '2.0.0-alpha2';
 
     private const DEFAULT_ENDPOINT = 'https://api.enterprise.apigee.com/v1';
 
