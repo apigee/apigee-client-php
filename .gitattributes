@@ -1,9 +1,16 @@
-# .gitattributes
-.github                         export-ignore
-tests/                          export-ignore
-examples/                       export-ignore
-.travis.yml                     export-ignore
-
 # Auto detect text files and perform LF normalization
 * text=auto
 *.php diff=php
+
+# Ignore from prefer-dist install
+## Files
+.*                                export-ignore
+phpunit.xml.dist                  export-ignore
+psalm.xml.dist                    export-ignore
+CONTRIBUTING.md                   export-ignore
+CHANGELOG.md                      export-ignore
+README.md                         export-ignore
+## Folders
+.github                           export-ignore
+tests                             export-ignore
+examples                          export-ignore
