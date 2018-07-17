@@ -35,51 +35,51 @@ use Psr\Http\Message\RequestInterface;
  */
 class Oauth implements Authentication
 {
-    private const DEFAULT_AUTHORIZATION_SERVER = 'https://login.apigee.com/oauth/token';
+    protected const DEFAULT_AUTHORIZATION_SERVER = 'https://login.apigee.com/oauth/token';
 
-    private const DEFAULT_CLIENT_ID = 'edgecli';
+    protected const DEFAULT_CLIENT_ID = 'edgecli';
 
-    private const DEFAULT_CLIENT_SECRET = 'edgeclisecret';
-
-    /**
-     * @var string
-     */
-    private $username;
+    protected const DEFAULT_CLIENT_SECRET = 'edgeclisecret';
 
     /**
      * @var string
      */
-    private $password;
+    protected $username;
+
+    /**
+     * @var string
+     */
+    protected $password;
 
     /**
      * @var \Apigee\Edge\HttpClient\Plugin\Authentication\OauthTokenStorageInterface
      */
-    private $tokenStorage;
+    protected $tokenStorage;
 
     /**
      * @var string|null
      */
-    private $mfaToken;
+    protected $mfaToken;
 
     /**
      * @var string
      */
-    private $auth_server;
+    protected $auth_server;
 
     /**
      * @var string
      */
-    private $clientId;
+    protected $clientId;
 
     /**
      * @var string
      */
-    private $clientSecret;
+    protected $clientSecret;
 
     /**
      * @var string|null
      */
-    private $scope;
+    protected $scope;
 
     /**
      * Oauth constructor.
