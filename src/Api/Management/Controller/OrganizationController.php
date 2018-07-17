@@ -29,9 +29,6 @@ use Psr\Http\Message\UriInterface;
 
 /**
  * Class OrganizationController.
- *
- *
- * @see https://docs.apigee.com/api/organizations-0
  */
 class OrganizationController extends AbstractEntityController implements OrganizationControllerInterface
 {
