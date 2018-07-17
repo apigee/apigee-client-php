@@ -21,6 +21,7 @@ namespace Apigee\Edge\HttpClient\Plugin\Authentication;
 use Apigee\Edge\Client;
 use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Exception\OauthAuthenticationException;
+use Apigee\Edge\Exception\OauthRefreshTokenExpiredException;
 use Http\Client\Exception;
 use Http\Message\Authentication;
 use Http\Message\Authentication\BasicAuth;
@@ -51,7 +52,7 @@ class Oauth implements Authentication
     private $password;
 
     /**
-     * @var OauthTokenStorageInterface
+     * @var \Apigee\Edge\HttpClient\Plugin\Authentication\OauthTokenStorageInterface
      */
     private $tokenStorage;
 
@@ -181,6 +182,12 @@ class Oauth implements Authentication
         try {
             $response = $this->authClient()->post('', http_build_query($body), ['Content-Type' => 'application/x-www-form-urlencoded']);
             $this->tokenStorage->saveToken(json_decode((string) $response->getBody(), true));
+        } catch (OauthRefreshTokenExpiredException $e) {
+            // Clear data in token storage because refresh token has expired.
+            $this->tokenStorage->removeToken();
+            // Try to automatically get a new access token by sending client
+            // id and secret.
+            $this->getAccessToken();
         } catch (Exception $e) {
             throw new OauthAuthenticationException($e->getMessage(), $e->getCode(), $e);
         }
