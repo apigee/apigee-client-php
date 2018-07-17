@@ -30,21 +30,21 @@ interface EntityCrudOperationsControllerInterface
      *
      * @param string $entityId
      *
-     * @return EntityInterface
+     * @return \Apigee\Edge\Entity\EntityInterface
      */
     public function load(string $entityId): EntityInterface;
 
     /**
      * Creates an entity to Edge.
      *
-     * @param EntityInterface $entity
+     * @param \Apigee\Edge\Entity\EntityInterface $entity
      */
     public function create(EntityInterface $entity): void;
 
     /**
      * Updates an entity to Edge.
      *
-     * @param EntityInterface $entity
+     * @param \Apigee\Edge\Entity\EntityInterface $entity
      */
     public function update(EntityInterface $entity): void;
 
@@ -53,7 +53,7 @@ interface EntityCrudOperationsControllerInterface
      *
      * @param string $entityId
      *
-     * @return EntityInterface
+     * @return \Apigee\Edge\Entity\EntityInterface
      */
     public function delete(string $entityId): EntityInterface;
 }
