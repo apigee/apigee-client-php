@@ -54,9 +54,6 @@ abstract class AppCredentialController extends EntityController implements AppCr
      */
     public const STATUS_REVOKE = 'revoke';
 
-    /** @var string Developer email or id. */
-    protected $companyName;
-
     /** @var string App name. */
     protected $appName;
 

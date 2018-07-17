@@ -28,8 +28,8 @@ class CompanyAppCredentialController extends AppCredentialController implements 
 {
     use CompanyAwareControllerTrait;
 
-    /** @var string App name. */
-    protected $appName;
+    /** @var string Developer email or id. */
+    protected $companyName;
 
     /**
      * DeveloperAppCredentialController constructor.
