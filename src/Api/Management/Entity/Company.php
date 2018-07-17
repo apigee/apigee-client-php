@@ -37,8 +37,4 @@ class Company extends Entity implements CompanyInterface
     use DisplayNamePropertyAwareTrait;
     use NamePropertyAwareTrait;
     use StatusPropertyAwareTrait;
-
-    public const STATUS_ACTIVE = 'active';
-
-    public const STATUS_INACTIVE = 'inactive';
 }

@@ -33,6 +33,16 @@ interface AppCredentialControllerInterface extends
     StatusAwareEntityControllerInterface
 {
     /**
+     * String that should be sent to the API to change the status of a credential to approved.
+     */
+    public const STATUS_APPROVE = 'approve';
+
+    /**
+     * String that should be sent to the API to change the status of a credential to revoked.
+     */
+    public const STATUS_REVOKE = 'revoke';
+
+    /**
      * Creates a new consumer key and secret for an app.
      *
      * @param string $consumerKey

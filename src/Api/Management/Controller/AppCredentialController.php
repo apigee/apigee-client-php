@@ -37,16 +37,6 @@ abstract class AppCredentialController extends EntityController implements AppCr
     use AttributesAwareEntityControllerTrait;
     use StatusAwareEntityControllerTrait;
 
-    /**
-     * String that should be sent to the API to change the status of a credential to approved.
-     */
-    public const STATUS_APPROVE = 'approve';
-
-    /**
-     * String that should be sent to the API to change the status of a credential to revoked.
-     */
-    public const STATUS_REVOKE = 'revoke';
-
     /** @var string App name. */
     protected $appName;
 

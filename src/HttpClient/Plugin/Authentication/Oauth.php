@@ -35,11 +35,11 @@ use Psr\Http\Message\RequestInterface;
  */
 class Oauth implements Authentication
 {
-    protected const DEFAULT_AUTHORIZATION_SERVER = 'https://login.apigee.com/oauth/token';
+    public const DEFAULT_AUTHORIZATION_SERVER = 'https://login.apigee.com/oauth/token';
 
-    protected const DEFAULT_CLIENT_ID = 'edgecli';
+    public const DEFAULT_CLIENT_ID = 'edgecli';
 
-    protected const DEFAULT_CLIENT_SECRET = 'edgeclisecret';
+    public const DEFAULT_CLIENT_SECRET = 'edgeclisecret';
 
     /**
      * @var string

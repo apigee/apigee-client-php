@@ -59,8 +59,6 @@ class Client implements ClientInterface
 
     protected const VERSION = '2.0.0-alpha2';
 
-    private const DEFAULT_ENDPOINT = 'https://api.enterprise.apigee.com/v1';
-
     /** @var \Http\Message\UriFactory */
     private $uriFactory;
 

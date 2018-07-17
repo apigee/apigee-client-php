@@ -30,6 +30,8 @@ use Psr\Http\Message\ResponseInterface;
  */
 interface ClientInterface extends HttpClient
 {
+    public const DEFAULT_ENDPOINT = 'https://api.enterprise.apigee.com/v1';
+
     /**
      * Allows access to the last request, response and exception.
      *
