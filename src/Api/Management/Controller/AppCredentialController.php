@@ -22,7 +22,6 @@ use Apigee\Edge\Api\Management\Entity\AppCredential;
 use Apigee\Edge\Api\Management\Entity\AppCredentialInterface;
 use Apigee\Edge\Api\Management\Normalizer\AppCredentialNormalizer;
 use Apigee\Edge\Controller\EntityController;
-use Apigee\Edge\Controller\EntityCrudOperationsControllerTrait;
 use Apigee\Edge\Controller\StatusAwareEntityControllerTrait;
 use Apigee\Edge\Denormalizer\AttributesPropertyDenormalizer;
 use Apigee\Edge\Denormalizer\CredentialProductDenormalizer;
@@ -36,12 +35,6 @@ use Apigee\Edge\Structure\AttributesProperty;
 abstract class AppCredentialController extends EntityController implements AppCredentialControllerInterface
 {
     use AttributesAwareEntityControllerTrait;
-    use EntityCrudOperationsControllerTrait {
-        // These methods are not supported on this endpoint in the same way as on the others so do not allow to
-        // use them here.
-        create as private privateCreate;
-        update as private privateUpdate;
-    }
     use StatusAwareEntityControllerTrait;
 
     /**
@@ -174,6 +167,34 @@ abstract class AppCredentialController extends EntityController implements AppCr
             $this->getEntityClass(),
             'json'
         );
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function load(string $entityId): EntityInterface
+    {
+        $response = $this->client->get($this->getEntityEndpointUri($entityId));
+
+        return $this->entityTransformer->deserialize(
+        (string) $response->getBody(),
+        $this->getEntityClass(),
+        'json'
+      );
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function delete(string $entityId): EntityInterface
+    {
+        $response = $this->client->delete($this->getEntityEndpointUri($entityId));
+
+        return $this->entityTransformer->deserialize(
+        (string) $response->getBody(),
+        $this->getEntityClass(),
+        'json'
+      );
     }
 
     /**
