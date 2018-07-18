@@ -25,7 +25,6 @@ use Apigee\Edge\Controller\EntityController;
 use Apigee\Edge\Controller\StatusAwareEntityControllerTrait;
 use Apigee\Edge\Denormalizer\AttributesPropertyDenormalizer;
 use Apigee\Edge\Denormalizer\CredentialProductDenormalizer;
-use Apigee\Edge\Entity\EntityInterface;
 use Apigee\Edge\Normalizer\CredentialProductNormalizer;
 use Apigee\Edge\Structure\AttributesProperty;
 
@@ -130,7 +129,7 @@ abstract class AppCredentialController extends EntityController implements AppCr
     /**
      * @inheritdoc
      */
-    public function deleteApiProduct(string $consumerKey, string $apiProduct): EntityInterface
+    public function deleteApiProduct(string $consumerKey, string $apiProduct): AppCredentialInterface
     {
         $uri = $this->getBaseEndpointUri()->withPath("{$this->getBaseEndpointUri()}/keys/{$consumerKey}/apiproducts/{$apiProduct}");
         $response = $this->client->delete($uri);
@@ -162,7 +161,7 @@ abstract class AppCredentialController extends EntityController implements AppCr
     /**
      * {@inheritdoc}
      */
-    public function load(string $entityId): EntityInterface
+    public function load(string $entityId): AppCredentialInterface
     {
         $response = $this->client->get($this->getEntityEndpointUri($entityId));
 
@@ -176,7 +175,7 @@ abstract class AppCredentialController extends EntityController implements AppCr
     /**
      * {@inheritdoc}
      */
-    public function delete(string $entityId): EntityInterface
+    public function delete(string $entityId): AppCredentialInterface
     {
         $response = $this->client->delete($this->getEntityEndpointUri($entityId));
 

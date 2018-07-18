@@ -21,7 +21,6 @@ namespace Apigee\Edge\Api\Management\Controller;
 use Apigee\Edge\Api\Management\Entity\AppCredentialInterface;
 use Apigee\Edge\Controller\EntityControllerInterface;
 use Apigee\Edge\Controller\StatusAwareEntityControllerInterface;
-use Apigee\Edge\Entity\EntityInterface;
 use Apigee\Edge\Structure\AttributesProperty;
 
 /**
@@ -128,9 +127,9 @@ interface AppCredentialControllerInterface extends
      *
      * @param string $consumerKey
      *
-     * @return \Apigee\Edge\Entity\EntityInterface
+     * @return \Apigee\Edge\Api\Management\Entity\AppCredentialInterface
      */
-    public function delete(string $consumerKey): EntityInterface;
+    public function delete(string $consumerKey): AppCredentialInterface;
 
     /**
      * Remove API product for a consumer key for an developer app.
@@ -140,9 +139,9 @@ interface AppCredentialControllerInterface extends
      * @param string $consumerKey
      * @param string $apiProduct
      *
-     * @return \Apigee\Edge\Entity\EntityInterface
+     * @return \Apigee\Edge\Api\Management\Entity\AppCredentialInterface
      */
-    public function deleteApiProduct(string $consumerKey, string $apiProduct): EntityInterface;
+    public function deleteApiProduct(string $consumerKey, string $apiProduct): AppCredentialInterface;
 
     /**
      * Get key details for a developer app.
@@ -151,9 +150,9 @@ interface AppCredentialControllerInterface extends
      *
      * @param string $consumerKey
      *
-     * @return \Apigee\Edge\Entity\EntityInterface
+     * @return \Apigee\Edge\Api\Management\Entity\AppCredentialInterface
      */
-    public function load(string $consumerKey);
+    public function load(string $consumerKey): AppCredentialInterface;
 
     /**
      * Modify (override) scopes of a customer key.
