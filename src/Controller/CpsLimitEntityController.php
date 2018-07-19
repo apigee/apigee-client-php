@@ -29,7 +29,7 @@ use Apigee\Edge\Structure\CpsListLimitInterface;
  *
  * @see \Apigee\Edge\Controller\CpsLimitEntityControllerInterface
  */
-abstract class CpsLimitEntityController extends EntityController
+abstract class CpsLimitEntityController extends EntityController implements CpsLimitEntityControllerInterface
 {
     /** @var \Apigee\Edge\Api\Management\Controller\OrganizationControllerInterface */
     protected $organizationController;
@@ -53,9 +53,23 @@ abstract class CpsLimitEntityController extends EntityController
     }
 
     /**
-     * @inheritdoc
+     * Creates a CPS limit if it is supported on the organization.
+     *
+     * @param int $limit
+     *   Number of items to return. Default is 0 which means load as much as
+     *   supported. (Different endpoints have different limits, ex.:
+     *   1000 for API products, 100 for Company apps.)
+     * @param null|string $startKey
+     *   First item in the list, if it is not set then Apigee Edge decides the
+     *   first item.
+     *
+     * @throws \Apigee\Edge\Exception\CpsNotEnabledException
+     *   If CPS listing is not supported on the organization.
+     *
+     * @return CpsListLimitInterface
+     *   CPS limit object.
      */
-    public function createCpsLimit(string $startKey, int $limit): CpsListLimitInterface
+    public function createCpsLimit(int $limit = 0, ?string $startKey = null): CpsListLimitInterface
     {
         /** @var \Apigee\Edge\Api\Management\Entity\OrganizationInterface $organization */
         $organization = $this->organizationController->load($this->organization);
@@ -71,28 +85,34 @@ abstract class CpsLimitEntityController extends EntityController
             protected $limit;
 
             /**
-             * @return string The primary key of the entity that the list should start.
+             * @inheritdoc
              */
-            public function getStartKey(): string
+            public function getStartKey(): ?string
             {
                 return $this->startKey;
             }
 
             /**
-             * @return int Number of entities to return.
+             * @inheritdoc
              */
             public function getLimit(): int
             {
                 return $this->limit;
             }
 
-            public function setStartKey(string $startKey): string
+            /**
+             * @inheritdoc
+             */
+            public function setStartKey(?string $startKey): ?string
             {
                 $this->startKey = $startKey;
 
                 return $this->startKey;
             }
 
+            /**
+             * @inheritdoc
+             */
             public function setLimit(int $limit): int
             {
                 $this->limit = $limit;
@@ -100,8 +120,9 @@ abstract class CpsLimitEntityController extends EntityController
                 return $this->limit;
             }
         };
-        $cpsLimit->setStartKey($startKey);
+
         $cpsLimit->setLimit($limit);
+        $cpsLimit->setStartKey($startKey);
 
         return $cpsLimit;
     }

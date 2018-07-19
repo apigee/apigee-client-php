@@ -51,12 +51,22 @@ foreach ($dc->getEntityIds() as $devId) {
 /*
  * Developers support paging: https://docs.apigee.com/management/apis/get/organizations/%7Borg_name%7D/developers
  *
- * In the SDK anything that implements \Apigee\Edge\Controller\CpsListingEntityControllerInterface.
+ * In the API client everything that implements \Apigee\Edge\Controller\CpsListingEntityControllerInterface has this
+ * feature.
  */
+
+/*
+ * List the first 1000 developer ids (in this case the email addresses).
+ */
+foreach ($dc->getEntityIds($dc->createCpsLimit()) as $devId) {
+    // Lazy load developers by ids.
+    $developer = $dc->load($devId);
+    echo $developer->getFirstName() . ' ' . $developer->getLastName() . "\n";
+}
 
 // The startKey is the entity id of an entity. (In case of a developer this either the email address or the developer
 // id (uuid).
-foreach ($dc->getEntities($dc->createCpsLimit('john.doe@example.com', 5)) as $developer) {
+foreach ($dc->getEntities($dc->createCpsLimit(5, 'john.doe@example.com')) as $developer) {
     echo $developer->getFirstName() . ' ' . $developer->getLastName() . "\n";
 }
 

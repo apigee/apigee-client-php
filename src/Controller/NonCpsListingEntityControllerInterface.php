@@ -21,19 +21,16 @@ namespace Apigee\Edge\Controller;
 /**
  * Interface NonCpsListingEntityControllerInterface.
  *
- * For entities that does not support CPS limits in their listing API calls, ex.: organization, api product.
+ * For entities that does not support CPS limits in their listing API calls, ex.: organization.
  *
  * @see https://docs.apigee.com/management/apis/get/organizations
- * @see https://docs.apigee.com/management/apis/get/organizations/%7Borg_name%7D/apiproducts-0
  */
 interface NonCpsListingEntityControllerInterface extends EntityIdsListingControllerInterface
 {
     /**
      * Returns list of entities from Edge. The returned number of entities can _not_ be limited.
      *
-     * @return EntityCrudOperationsControllerInterface[]
-     *
-     * @see \Apigee\Edge\Controller\EntityController::getEntities()
+     * @return \Apigee\Edge\Entity\EntityInterface[]
      */
     public function getEntities(): array;
 }

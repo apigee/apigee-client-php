@@ -30,19 +30,23 @@ use Apigee\Edge\Structure\CpsListLimitInterface;
 interface CpsLimitEntityControllerInterface
 {
     /**
-     * Returns a representation of a Core Persistence Services (CPS) limit.
+     * Creates a CPS limit if it is supported on the organization.
      *
-     * This limit can be used list API calls on Edge to limit the number of returned
-     * results but CPS is not enabled on all organisations.
-     *
-     * @param string $startKey
-     *    The primary key of the entity that the list should start.
      * @param int $limit
-     *    Number of entities to return.
+     *   Number of items to return. Default is 0 which means load as much as
+     *   supported. (Different endpoints have different limits, ex.:
+     *   1000 for API products, 100 for Company apps.)
+     * @param null|string $startKey
+     *   First item in the list, if it is not set then Apigee Edge decides the
+     *   first item.
      *
-     * @return CpsListLimitInterface
+     * @throws \Apigee\Edge\Exception\CpsNotEnabledException
+     *   If CPS listing is not supported on the organization.
+     *
+     * @return \Apigee\Edge\Structure\CpsListLimitInterface
+     *   CPS limit object.
      *
      * @see https://docs.apigee.com/api-services/content/api-reference-getting-started#cps
      */
-    public function createCpsLimit(string $startKey, int $limit): CpsListLimitInterface;
+    public function createCpsLimit(int $limit = 0, ?string $startKey = null): CpsListLimitInterface;
 }

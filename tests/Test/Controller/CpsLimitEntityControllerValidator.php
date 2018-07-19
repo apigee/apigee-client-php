@@ -56,7 +56,7 @@ abstract class CpsLimitEntityControllerValidator extends EntityCrudOperationsCon
         }
         $startKey = "3{$sampleEntityId}";
         $limit = 2;
-        $cpsLimit = $controller->createCpsLimit($startKey, $limit);
+        $cpsLimit = $controller->createCpsLimit($limit, $startKey);
         $result = $controller->getEntityIds($cpsLimit);
         $this->assertEquals($startKey, $result[0]);
         $this->assertCount($limit, $result);

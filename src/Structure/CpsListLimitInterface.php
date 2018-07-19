@@ -24,26 +24,35 @@ namespace Apigee\Edge\Structure;
 interface CpsListLimitInterface
 {
     /**
-     * @return string The primary key of the entity that the list will start.
+     * @return string The primary key of the entity that the list should start
+     *   or null if list should start with the first item selected by
+     *   Apigee Edge.
      */
-    public function getStartKey(): string;
+    public function getStartKey(): ?string;
 
     /**
-     * @param string $startKey
-     *    The primary key of the entity that the list will start.
+     * @param null|string $startKey
+     *   The primary key of the entity that the list will start or null if list
+     *   should start with the first item selected by Apigee Edge.
      *
      * @return string
      */
-    public function setStartKey(string $startKey): string;
+    public function setStartKey(?string $startKey): ?string;
 
     /**
-     * @return int Number of entities to return.
+     * @return int Number of items to return.
+     *  It should return the
+     *  DEFAULT_LIMIT if it is not specified because this is the default limit
+     *  on CPS enabled endpoints.
      */
     public function getLimit(): int;
 
     /**
      * @param int $limit
      *   Number of entities to return.
+     *   Even if you set higher value than 1000 you always get back maximum
+     *   1000 items. Apigee Edge does not validate the range of the provided
+     *   limit so neither we are.
      *
      * @return int
      */

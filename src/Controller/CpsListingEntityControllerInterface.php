@@ -26,20 +26,36 @@ use Apigee\Edge\Structure\CpsListLimitInterface;
 interface CpsListingEntityControllerInterface
 {
     /**
-     * Returns list of entities from Edge. The returned number of entities can be limited.
+     * Returns list of entities fro Apigee Edge. The returned number of entities
+     * can be limited, if you do not provide a limit then all entities are
+     * returned.
      *
-     * @param \Apigee\Edge\Structure\CpsListLimitInterface|null $cpsLimit
-     *
-     * @return array
-     */
-    public function getEntities(CpsListLimitInterface $cpsLimit = null): array;
-
-    /**
-     * Returns list of entity ids from Edge. The returned number of entities can be limited.
+     * On CPS enabled orgs and pagination enabled endpoints Apigee Edge only
+     * returns certain number of entities in one API call so we have to collect
+     * all entities by sending multiple API calls to Apigee Edge synchronously.
+     * If you do not actually need _all_ entities of a type then always set
+     * a limit to reduce memory usage and increase speed.
      *
      * @param \Apigee\Edge\Structure\CpsListLimitInterface|null $cpsLimit
      *
      * @return \Apigee\Edge\Entity\EntityInterface[]
+     */
+    public function getEntities(CpsListLimitInterface $cpsLimit = null): array;
+
+    /**
+     * Returns list of entity ids from Apigee Edge. The returned number of
+     * entity ids can be limited, if you do not provide a limit then all entity
+     * ids are returned.
+     *
+     * On CPS enabled orgs and pagination enabled endpoints Apigee Edge only
+     * returns certain number of entities in one API call so we have to collect
+     * all entities by sending multiple API calls to Apigee Edge synchronously.
+     * If you do not actually need _all_ entities of a type then always set
+     * a limit to reduce memory usage and increase speed.
+     *
+     * @param \Apigee\Edge\Structure\CpsListLimitInterface|null $cpsLimit
+     *
+     * @return array
      */
     public function getEntityIds(CpsListLimitInterface $cpsLimit = null): array;
 }
