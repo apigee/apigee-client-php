@@ -159,7 +159,7 @@ abstract class AppCredentialController extends EntityController implements AppCr
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function load(string $entityId): AppCredentialInterface
     {
@@ -173,7 +173,7 @@ abstract class AppCredentialController extends EntityController implements AppCr
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function delete(string $entityId): AppCredentialInterface
     {

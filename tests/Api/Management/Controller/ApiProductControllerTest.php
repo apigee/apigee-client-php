@@ -115,7 +115,7 @@ class ApiProductControllerTest extends PaginationEntityListingControllerValidato
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function cpsLimitTestIdFieldProvider(): array
     {

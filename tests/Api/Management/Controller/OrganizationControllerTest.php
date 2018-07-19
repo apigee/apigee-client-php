@@ -45,7 +45,7 @@ class OrganizationControllerTest extends TestCase
     protected static $client;
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public static function setUpBeforeClass(): void
     {

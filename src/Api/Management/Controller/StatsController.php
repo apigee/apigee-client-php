@@ -101,7 +101,7 @@ class StatsController extends AbstractController implements StatsControllerInter
     public function getOptimisedMetrics(StatsQueryInterface $query): array
     {
         $response = $this->getMetrics($query, 'js');
-        // I no analytics data returned for a given criteria just return.
+        // If no analytics data returned for a given criteria just return.
         if (empty($response['stats'])) {
             return $response;
         }
@@ -166,7 +166,7 @@ class StatsController extends AbstractController implements StatsControllerInter
     public function getOptimizedMetricsByDimensions(array $dimensions, StatsQueryInterface $query): array
     {
         $response = $this->getMetricsByDimensions($dimensions, $query, 'js');
-        // I no analytics data returned for a given criteria just return.
+        // If no analytics data returned for a given criteria just return.
         if (empty($response['stats'])) {
             return $response;
         }
