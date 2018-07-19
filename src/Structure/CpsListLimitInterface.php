@@ -41,18 +41,13 @@ interface CpsListLimitInterface
 
     /**
      * @return int Number of items to return.
-     *  It should return the
-     *  DEFAULT_LIMIT if it is not specified because this is the default limit
-     *  on CPS enabled endpoints.
      */
     public function getLimit(): int;
 
     /**
      * @param int $limit
-     *   Number of entities to return.
-     *   Even if you set higher value than 1000 you always get back maximum
-     *   1000 items. Apigee Edge does not validate the range of the provided
-     *   limit so neither we are.
+     *   Number of entities to return. It can be higher than what Apigee Edge
+     *   supports on an endpoint but you do not get back more items.
      *
      * @return int
      */
