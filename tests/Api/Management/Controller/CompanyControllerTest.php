@@ -23,7 +23,7 @@ use Apigee\Edge\Api\Management\Entity\Company;
 use Apigee\Edge\Controller\EntityControllerInterface;
 use Apigee\Edge\Entity\EntityInterface;
 use Apigee\Edge\Structure\AttributesProperty;
-use Apigee\Edge\Tests\Test\Controller\NonCpsLimitEntityControllerValidator;
+use Apigee\Edge\Tests\Test\Controller\CpsLimitEntityControllerValidator;
 use Apigee\Edge\Tests\Test\Controller\OrganizationAwareEntityControllerValidatorTrait;
 use Apigee\Edge\Tests\Test\TestClientFactory;
 
@@ -32,7 +32,7 @@ use Apigee\Edge\Tests\Test\TestClientFactory;
  *
  * @group controller
  */
-class CompanyControllerTest extends NonCpsLimitEntityControllerValidator
+class CompanyControllerTest extends CpsLimitEntityControllerValidator
 {
     use OrganizationAwareEntityControllerValidatorTrait;
 
@@ -118,6 +118,14 @@ class CompanyControllerTest extends NonCpsLimitEntityControllerValidator
         /** @var \Apigee\Edge\Api\Management\Entity\CompanyInterface $entity */
         $entity = static::getEntityController()->load($entity->id());
         $this->assertEquals($entity->getStatus(), Company::STATUS_ACTIVE);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function cpsLimitTestIdFieldProvider(): array
+    {
+        return [['name']];
     }
 
     /**

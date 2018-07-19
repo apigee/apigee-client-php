@@ -18,9 +18,9 @@
 
 namespace Apigee\Edge\Api\Management\Controller;
 
+use Apigee\Edge\Controller\CpsListingEntityControllerInterface;
 use Apigee\Edge\Controller\EntityControllerInterface;
 use Apigee\Edge\Controller\EntityCrudOperationsControllerInterface;
-use Apigee\Edge\Controller\NonCpsListingEntityControllerInterface;
 use Apigee\Edge\Controller\StatusAwareEntityControllerInterface;
 
 /**
@@ -32,7 +32,7 @@ interface CompanyControllerInterface extends
     AttributesAwareEntityControllerInterface,
     EntityControllerInterface,
     EntityCrudOperationsControllerInterface,
-    NonCpsListingEntityControllerInterface,
+    CpsListingEntityControllerInterface,
     StatusAwareEntityControllerInterface
 {
 }
