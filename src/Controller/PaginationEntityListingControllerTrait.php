@@ -21,11 +21,11 @@ namespace Apigee\Edge\Controller;
 use Apigee\Edge\Structure\CpsListLimitInterface;
 
 /**
- * Trait CpsListingEntityControllerTrait.
+ * Trait PaginationEntityListingControllerTrait.
  *
- * @see \Apigee\Edge\Controller\CpsListingEntityControllerInterface
+ * @see \Apigee\Edge\Controller\PaginationEntityListingControllerInterface
  */
-trait CpsListingEntityControllerTrait
+trait PaginationEntityListingControllerTrait
 {
     use EntityListingControllerTrait;
 

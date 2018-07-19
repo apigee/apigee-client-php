@@ -22,7 +22,7 @@ use Apigee\Edge\Api\Management\Entity\Environment;
 use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Controller\EntityController;
 use Apigee\Edge\Controller\EntityCrudOperationsControllerTrait;
-use Apigee\Edge\Controller\EntityIdsListingControllerTrait;
+use Apigee\Edge\Controller\NoPaginationEntityIdListingControllerTrait;
 use Apigee\Edge\Denormalizer\PropertiesPropertyDenormalizer;
 use Apigee\Edge\Normalizer\PropertiesPropertyNormalizer;
 use Psr\Http\Message\UriInterface;
@@ -33,7 +33,7 @@ use Psr\Http\Message\UriInterface;
 class EnvironmentController extends EntityController implements EnvironmentControllerInterface
 {
     use EntityCrudOperationsControllerTrait;
-    use EntityIdsListingControllerTrait;
+    use NoPaginationEntityIdListingControllerTrait;
 
     /**
      * EnvironmentController constructor.

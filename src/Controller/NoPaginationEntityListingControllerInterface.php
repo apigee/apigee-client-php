@@ -19,23 +19,20 @@
 namespace Apigee\Edge\Controller;
 
 /**
- * Trait EntityListingControllerTrait.
+ * Interface NoPaginationEntityListingControllerInterface.
  *
- * @see \Apigee\Edge\Controller\EntityIdsListingControllerInterface
+ * For entities that does not support CPS limits in their listing API calls, ex.: organization.
+ *
+ * @see https://docs.apigee.com/management/apis/get/organizations
  */
-trait EntityIdsListingControllerTrait
+interface NoPaginationEntityListingControllerInterface extends NoPaginationEntityIdListingControllerInterface
 {
     /**
-     * @inheritdoc
+     * Returns list of entities from Edge.
+     *
+     * The returned number of entities can _not_ be limited.
+     *
+     * @return \Apigee\Edge\Entity\EntityInterface[]
      */
-    public function getEntityIds(): array
-    {
-        $query_params = [
-            'expand' => 'false',
-        ];
-        $uri = $this->getBaseEndpointUri()->withQuery(http_build_query($query_params));
-        $response = $this->client->get($uri);
-
-        return $this->responseToArray($response);
-    }
+    public function getEntities(): array;
 }

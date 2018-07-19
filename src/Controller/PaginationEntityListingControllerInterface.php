@@ -21,9 +21,9 @@ namespace Apigee\Edge\Controller;
 use Apigee\Edge\Structure\CpsListLimitInterface;
 
 /**
- * Interface CpsListingEntityControllerInterface.
+ * Interface PaginationEntityListingControllerInterface.
  */
-interface CpsListingEntityControllerInterface
+interface PaginationEntityListingControllerInterface
 {
     /**
      * Returns list of entities fro Apigee Edge. The returned number of entities

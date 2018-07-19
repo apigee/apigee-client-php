@@ -19,7 +19,7 @@
 namespace Apigee\Edge\Api\Management\Controller;
 
 use Apigee\Edge\Controller\EntityCrudOperationsControllerInterface;
-use Apigee\Edge\Controller\NonCpsListingEntityControllerInterface;
+use Apigee\Edge\Controller\NoPaginationEntityListingControllerInterface;
 
 /**
  * Interface OrganizationControllerInterface.
@@ -37,6 +37,6 @@ use Apigee\Edge\Controller\NonCpsListingEntityControllerInterface;
  */
 interface OrganizationControllerInterface extends
     EntityCrudOperationsControllerInterface,
-    NonCpsListingEntityControllerInterface
+    NoPaginationEntityListingControllerInterface
 {
 }

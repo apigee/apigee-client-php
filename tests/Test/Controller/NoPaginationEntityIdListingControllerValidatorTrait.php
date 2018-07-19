@@ -19,18 +19,18 @@
 namespace Apigee\Edge\Tests\Test\Controller;
 
 /**
- * Trait EntityIdsListingControllerValidatorTrait.
+ * Trait NoPaginationEntityIdListingControllerValidatorTrait.
  *
- * @see \Apigee\Edge\Controller\EntityIdsListingControllerInterface
+ * @see \Apigee\Edge\Controller\NoPaginationEntityIdListingControllerInterface
  */
-trait EntityIdsListingControllerValidatorTrait
+trait NoPaginationEntityIdListingControllerValidatorTrait
 {
     /**
      * @depends testCreate
      */
     public function testGetEntityIds(): void
     {
-        /** @var \Apigee\Edge\Controller\NonCpsListingEntityControllerInterface $controller */
+        /** @var \Apigee\Edge\Controller\NoPaginationEntityListingControllerInterface $controller */
         $controller = $this->getEntityController();
         $this->assertNotEmpty($controller->getEntityIds());
     }

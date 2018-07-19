@@ -21,14 +21,12 @@ namespace Apigee\Edge\Tests\Test\Controller;
 use Apigee\Edge\Tests\Test\TestClientFactory;
 
 /**
- * Class CpsLimitEntityControllerValidator.
+ * Helps in validation of those entity controllers that implements
+ * PaginationEntityListingControllerInterface.
  *
- * Helps in validation of those entity controllers that implements CpsLimitEntityControllerInterface.
- *
- *
- * @see \Apigee\Edge\Entity\CpsLimitEntityControllerInterface
+ * @see \Apigee\Edge\Controller\PaginationEntityListingControllerInterface
  */
-abstract class CpsLimitEntityControllerValidator extends EntityCrudOperationsControllerValidator
+abstract class PaginationEntityListingControllerValidator extends EntityCrudOperationsControllerValidator
 {
     /**
      * @dataProvider cpsLimitTestIdFieldProvider

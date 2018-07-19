@@ -21,8 +21,8 @@ namespace Apigee\Edge\Api\Management\Controller;
 use Apigee\Edge\Api\Management\Entity\ApiProduct;
 use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Controller\CpsLimitEntityController;
-use Apigee\Edge\Controller\CpsListingEntityControllerTrait;
 use Apigee\Edge\Controller\EntityCrudOperationsControllerTrait;
+use Apigee\Edge\Controller\PaginationEntityListingControllerTrait;
 use Apigee\Edge\Denormalizer\AttributesPropertyDenormalizer;
 use Psr\Http\Message\UriInterface;
 
@@ -33,7 +33,7 @@ class ApiProductController extends CpsLimitEntityController implements ApiProduc
 {
     use AttributesAwareEntityControllerTrait;
     use EntityCrudOperationsControllerTrait;
-    use CpsListingEntityControllerTrait;
+    use PaginationEntityListingControllerTrait;
 
     /**
      * ApiProductController constructor.

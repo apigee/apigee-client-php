@@ -20,7 +20,7 @@ namespace Apigee\Edge\Api\Management\Controller;
 
 use Apigee\Edge\Controller\EntityControllerInterface;
 use Apigee\Edge\Controller\EntityCrudOperationsControllerInterface;
-use Apigee\Edge\Controller\EntityIdsListingControllerInterface;
+use Apigee\Edge\Controller\NoPaginationEntityIdListingControllerInterface;
 
 /**
  * Interface EnvironmentControllerInterface.
@@ -37,6 +37,6 @@ use Apigee\Edge\Controller\EntityIdsListingControllerInterface;
 interface EnvironmentControllerInterface extends
     EntityControllerInterface,
     EntityCrudOperationsControllerInterface,
-    EntityIdsListingControllerInterface
+    NoPaginationEntityIdListingControllerInterface
 {
 }
