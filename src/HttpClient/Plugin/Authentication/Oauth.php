@@ -21,6 +21,7 @@ namespace Apigee\Edge\HttpClient\Plugin\Authentication;
 use Apigee\Edge\Client;
 use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Exception\OauthAuthenticationException;
+use Apigee\Edge\Exception\OauthRefreshTokenExpiredException;
 use Http\Client\Exception;
 use Http\Message\Authentication;
 use Http\Message\Authentication\BasicAuth;
@@ -34,51 +35,51 @@ use Psr\Http\Message\RequestInterface;
  */
 class Oauth implements Authentication
 {
-    private const DEFAULT_AUTHORIZATION_SERVER = 'https://login.apigee.com/oauth/token';
+    public const DEFAULT_AUTHORIZATION_SERVER = 'https://login.apigee.com/oauth/token';
 
-    private const DEFAULT_CLIENT_ID = 'edgecli';
+    public const DEFAULT_CLIENT_ID = 'edgecli';
 
-    private const DEFAULT_CLIENT_SECRET = 'edgeclisecret';
-
-    /**
-     * @var string
-     */
-    private $username;
+    public const DEFAULT_CLIENT_SECRET = 'edgeclisecret';
 
     /**
      * @var string
      */
-    private $password;
+    protected $username;
 
     /**
-     * @var OauthTokenStorageInterface
+     * @var string
      */
-    private $tokenStorage;
+    protected $password;
+
+    /**
+     * @var \Apigee\Edge\HttpClient\Plugin\Authentication\OauthTokenStorageInterface
+     */
+    protected $tokenStorage;
 
     /**
      * @var string|null
      */
-    private $mfaToken;
+    protected $mfaToken;
 
     /**
      * @var string
      */
-    private $auth_server;
+    protected $auth_server;
 
     /**
      * @var string
      */
-    private $clientId;
+    protected $clientId;
 
     /**
      * @var string
      */
-    private $clientSecret;
+    protected $clientSecret;
 
     /**
      * @var string|null
      */
-    private $scope;
+    protected $scope;
 
     /**
      * Oauth constructor.
@@ -181,6 +182,12 @@ class Oauth implements Authentication
         try {
             $response = $this->authClient()->post('', http_build_query($body), ['Content-Type' => 'application/x-www-form-urlencoded']);
             $this->tokenStorage->saveToken(json_decode((string) $response->getBody(), true));
+        } catch (OauthRefreshTokenExpiredException $e) {
+            // Clear data in token storage because refresh token has expired.
+            $this->tokenStorage->removeToken();
+            // Try to automatically get a new access token by sending client
+            // id and secret.
+            $this->getAccessToken();
         } catch (Exception $e) {
             throw new OauthAuthenticationException($e->getMessage(), $e->getCode(), $e);
         }

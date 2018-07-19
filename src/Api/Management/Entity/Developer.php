@@ -39,10 +39,6 @@ class Developer extends Entity implements DeveloperInterface
     use OrganizationNamePropertyAwareTrait;
     use StatusPropertyAwareTrait;
 
-    public const STATUS_ACTIVE = 'active';
-
-    public const STATUS_INACTIVE = 'inactive';
-
     /** @var string */
     protected $userName;
 

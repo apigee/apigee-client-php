@@ -59,6 +59,9 @@ final class ResponseHandlerPlugin implements Plugin
         return $next($request)->then(function (ResponseInterface $response) use ($request) {
             return $this->decodeResponse($response, $request);
         }, function (Exception $e) use ($request): void {
+            if ($e instanceof ApiException) {
+                throw $e;
+            }
             if ($e instanceof HttpException || in_array(HttpException::class, class_parents($e))) {
                 $this->decodeResponse($e->getResponse(), $request);
             } elseif ($e instanceof RequestException || in_array(RequestException::class, class_parents($e))) {

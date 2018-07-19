@@ -40,6 +40,10 @@ interface AppInterface extends
     ScopesPropertyInterface,
     StatusPropertyInterface
 {
+    public const STATUS_APPROVED = 'approved';
+
+    public const STATUS_REVOKED = 'revoked';
+
     /**
      * Get OAuth scopes.
      *

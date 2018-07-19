@@ -66,7 +66,9 @@ class ApiResponseException extends ApiRequestException
                         $this->edgeErrorCode = $array['code'];
                     }
                     if (array_key_exists('message', $array)) {
-                        $message = $array['message'];
+                        // It could happen that the returned message by
+                        // Apigee Edge is also an array.
+                        $message = is_array($array['message']) ? json_encode($array['message']) : $array['message'];
                     }
                 }
             }

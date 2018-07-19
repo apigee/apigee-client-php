@@ -71,7 +71,7 @@ class ClientTest extends TestCase
      *
      * @param \Apigee\Edge\Client $client
      */
-    public function testEndpointShouldBeOverridden(\Apigee\Edge\Client $client): void
+    public function testEndpointShouldBeOverridden(Client $client): void
     {
         $customEndpoint = 'http://example.com';
         $builder = new Builder(self::$httpClient);
@@ -119,7 +119,7 @@ class ClientTest extends TestCase
     {
         static::$httpClient->addException(new RequestException('Invalid request', new Request('GET', 'http://example.com')));
         $builder = new Builder(self::$httpClient);
-        $client = new \Apigee\Edge\Client(new NullAuthentication(), null, [Client::CONFIG_HTTP_CLIENT_BUILDER => $builder]);
+        $client = new Client(new NullAuthentication(), null, [Client::CONFIG_HTTP_CLIENT_BUILDER => $builder]);
         $client->get('/');
     }
 
@@ -143,7 +143,7 @@ class ClientTest extends TestCase
     {
         static::$httpClient->addResponse(new Response(500));
         $builder = new Builder(self::$httpClient);
-        $client = new \Apigee\Edge\Client(new NullAuthentication(), null, [Client::CONFIG_HTTP_CLIENT_BUILDER => $builder]);
+        $client = new Client(new NullAuthentication(), null, [Client::CONFIG_HTTP_CLIENT_BUILDER => $builder]);
         $client->get('/');
     }
 

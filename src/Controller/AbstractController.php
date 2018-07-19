@@ -34,7 +34,9 @@ use Symfony\Component\Serializer\Exception\UnexpectedValueException;
 abstract class AbstractController
 {
     /**
-     * @var ClientInterface Client interface that should be used for communication.
+     * Client interface that should be used for communication.
+     *
+     * @var \Apigee\Edge\ClientInterface
      */
     protected $client;
 

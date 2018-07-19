@@ -41,18 +41,6 @@ class ApiProduct extends Entity implements ApiProductInterface
     use NamePropertyAwareTrait;
     use ScopesPropertyAwareTrait;
 
-    public const APPROVAL_TYPE_AUTO = 'auto';
-
-    public const APPROVAL_TYPE_MANUAL = 'manual';
-
-    public const QUOTA_INTERVAL_MINUTE = 'minute';
-
-    public const QUOTA_INTERVAL_HOUR = 'hour';
-
-    public const QUOTA_INTERVAL_DAY = 'day';
-
-    public const QUOTA_INTERVAL_MONTH = 'month';
-
     /** @var string */
     protected $approvalType;
 

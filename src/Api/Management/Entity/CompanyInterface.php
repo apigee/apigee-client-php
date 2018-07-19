@@ -38,4 +38,7 @@ interface CompanyInterface extends
     NamePropertyInterface,
     StatusPropertyInterface
 {
+    public const STATUS_ACTIVE = 'active';
+
+    public const STATUS_INACTIVE = 'inactive';
 }

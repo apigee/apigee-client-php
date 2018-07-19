@@ -22,11 +22,9 @@ use Apigee\Edge\Api\Management\Entity\AppCredential;
 use Apigee\Edge\Api\Management\Entity\AppCredentialInterface;
 use Apigee\Edge\Api\Management\Normalizer\AppCredentialNormalizer;
 use Apigee\Edge\Controller\EntityController;
-use Apigee\Edge\Controller\EntityCrudOperationsControllerTrait;
 use Apigee\Edge\Controller\StatusAwareEntityControllerTrait;
 use Apigee\Edge\Denormalizer\AttributesPropertyDenormalizer;
 use Apigee\Edge\Denormalizer\CredentialProductDenormalizer;
-use Apigee\Edge\Entity\EntityInterface;
 use Apigee\Edge\Normalizer\CredentialProductNormalizer;
 use Apigee\Edge\Structure\AttributesProperty;
 
@@ -36,26 +34,7 @@ use Apigee\Edge\Structure\AttributesProperty;
 abstract class AppCredentialController extends EntityController implements AppCredentialControllerInterface
 {
     use AttributesAwareEntityControllerTrait;
-    use EntityCrudOperationsControllerTrait {
-        // These methods are not supported on this endpoint in the same way as on the others so do not allow to
-        // use them here.
-        create as private privateCreate;
-        update as private privateUpdate;
-    }
     use StatusAwareEntityControllerTrait;
-
-    /**
-     * String that should be sent to the API to change the status of a credential to approved.
-     */
-    public const STATUS_APPROVE = 'approve';
-
-    /**
-     * String that should be sent to the API to change the status of a credential to revoked.
-     */
-    public const STATUS_REVOKE = 'revoke';
-
-    /** @var string Developer email or id. */
-    protected $companyName;
 
     /** @var string App name. */
     protected $appName;
@@ -150,7 +129,7 @@ abstract class AppCredentialController extends EntityController implements AppCr
     /**
      * @inheritdoc
      */
-    public function deleteApiProduct(string $consumerKey, string $apiProduct): EntityInterface
+    public function deleteApiProduct(string $consumerKey, string $apiProduct): AppCredentialInterface
     {
         $uri = $this->getBaseEndpointUri()->withPath("{$this->getBaseEndpointUri()}/keys/{$consumerKey}/apiproducts/{$apiProduct}");
         $response = $this->client->delete($uri);
@@ -177,6 +156,34 @@ abstract class AppCredentialController extends EntityController implements AppCr
             $this->getEntityClass(),
             'json'
         );
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function load(string $entityId): AppCredentialInterface
+    {
+        $response = $this->client->get($this->getEntityEndpointUri($entityId));
+
+        return $this->entityTransformer->deserialize(
+        (string) $response->getBody(),
+        $this->getEntityClass(),
+        'json'
+      );
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function delete(string $entityId): AppCredentialInterface
+    {
+        $response = $this->client->delete($this->getEntityEndpointUri($entityId));
+
+        return $this->entityTransformer->deserialize(
+        (string) $response->getBody(),
+        $this->getEntityClass(),
+        'json'
+      );
     }
 
     /**

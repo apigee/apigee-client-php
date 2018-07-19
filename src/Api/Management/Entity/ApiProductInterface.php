@@ -40,6 +40,18 @@ interface ApiProductInterface extends
     NamePropertyInterface,
     ScopesPropertyInterface
 {
+    public const APPROVAL_TYPE_AUTO = 'auto';
+
+    public const QUOTA_INTERVAL_MINUTE = 'minute';
+
+    public const QUOTA_INTERVAL_DAY = 'day';
+
+    public const APPROVAL_TYPE_MANUAL = 'manual';
+
+    public const QUOTA_INTERVAL_MONTH = 'month';
+
+    public const QUOTA_INTERVAL_HOUR = 'hour';
+
     /**
      * @return string[]
      */

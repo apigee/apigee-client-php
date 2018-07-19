@@ -31,6 +31,16 @@ use Apigee\Edge\Structure\CpsListLimitInterface;
 interface AppControllerInterface extends CpsLimitEntityControllerInterface, EntityControllerInterface
 {
     /**
+     * String that should be sent to the API to change the status of a credential to approved.
+     */
+    public const STATUS_APPROVE = 'approve';
+
+    /**
+     * String that should be sent to the API to change the status of a credential to revoked.
+     */
+    public const STATUS_REVOKE = 'revoke';
+
+    /**
      * Loads a developer or a company app from Edge based on its UUID.
      *
      * @param string $appId

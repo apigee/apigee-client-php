@@ -40,10 +40,6 @@ abstract class App extends Entity implements AppInterface
         setScopes as private privateSetScopes;
     }
 
-    public const STATUS_APPROVED = 'approved';
-
-    public const STATUS_REVOKED = 'revoked';
-
     /**
      * We had to hard-code "default" here as default value because this property does not always returned by Edge.
      * Ex.: \Apigee\Edge\Controller\EntityCrudOperationsControllerInterface::create() does not return this for

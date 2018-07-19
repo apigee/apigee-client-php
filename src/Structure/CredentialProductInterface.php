@@ -26,6 +26,34 @@ use Apigee\Edge\Entity\Property\StatusPropertyInterface;
 interface CredentialProductInterface extends StatusPropertyInterface
 {
     /**
+     * Status of a pending api product in an app credential returned by Edge.
+     *
+     * This status can not be set manually. It is set by Edge when an API product is added to a credential and that
+     * API product's approval type is set to "manual" instead of "auto".
+     */
+    public const STATUS_PENDING = 'pending';
+
+    /**
+     * Status of an approved api product in an app credential returned by Edge.
+     *
+     * The status that you should send to the API to change status of an api product in an app credential is in the
+     * controller!
+     *
+     * @see \Apigee\Edge\Api\Management\Controller\DeveloperAppCredentialController.
+     */
+    public const STATUS_APPROVED = 'approved';
+
+    /**
+     * Status of a revoked api product in an app credential returned by Edge.
+     *
+     * The status that you should send to the API to change status of an api product in an app credential is in the
+     * controller!
+     *
+     * @see \Apigee\Edge\Api\Management\Controller\DeveloperAppCredentialController.
+     */
+    public const STATUS_REVOKED = 'revoked';
+
+    /**
      * @return string
      */
     public function getApiproduct(): string;

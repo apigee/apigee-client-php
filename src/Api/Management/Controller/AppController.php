@@ -33,16 +33,6 @@ class AppController extends CpsLimitEntityController implements AppControllerInt
     use AppControllerTrait;
 
     /**
-     * String that should be sent to the API to change the status of a credential to approved.
-     */
-    public const STATUS_APPROVE = 'approve';
-
-    /**
-     * String that should be sent to the API to change the status of a credential to revoked.
-     */
-    public const STATUS_REVOKE = 'revoke';
-
-    /**
      * AppController constructor.
      *
      * @param string $organization
