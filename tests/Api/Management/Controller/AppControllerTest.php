@@ -19,8 +19,10 @@
 namespace Apigee\Edge\Tests\Api\Management\Controller;
 
 use Apigee\Edge\Api\Management\Controller\AppController;
+use Apigee\Edge\Api\Management\Controller\CompanyAppController;
 use Apigee\Edge\Api\Management\Controller\DeveloperAppController;
 use Apigee\Edge\Api\Management\Entity\App;
+use Apigee\Edge\Api\Management\Entity\CompanyAppInterface;
 use Apigee\Edge\Api\Management\Entity\DeveloperAppInterface;
 use Apigee\Edge\Controller\EntityControllerInterface;
 use Apigee\Edge\Exception\ApiRequestException;
@@ -36,22 +38,73 @@ use Apigee\Edge\Tests\Test\TestClientFactory;
 class AppControllerTest extends EntityControllerValidator
 {
     use DeveloperAwareControllerTestTrait;
+    use CompanyAwareControllerTestTrait;
     use OrganizationAwareEntityControllerValidatorTrait;
 
-    /** @var \Apigee\Edge\Api\Management\Entity\DeveloperAppInterface[] */
-    protected static $createdDeveloperApps = [];
+    /** @var \Apigee\Edge\Api\Management\Entity\AppInterface[] */
+    protected static $createdApps = [];
 
     /** @var \Apigee\Edge\Api\Management\Controller\DeveloperAppControllerInterface */
     protected static $developerAppController;
+
+    /** @var \Apigee\Edge\Api\Management\Controller\CompanyAppControllerInterface */
+    protected static $companyAppController;
 
     /**
      * @inheritdoc
      */
     public static function setUpBeforeClass(): void
     {
+        $createSampleApps = function (string $appType): void {
+            if (!in_array($appType, ['developer', 'company'])) {
+                throw new \InvalidArgumentException('App type has to be either company or developer.');
+            }
+
+            /* @var \Apigee\Edge\Api\Management\Entity\AppInterface $sampleEntity */
+            if ('developer' === $appType) {
+                $sampleEntity = clone DeveloperAppControllerTest::sampleDataForEntityCreate();
+                $controller = static::$developerAppController;
+            } else {
+                $sampleEntity = clone CompanyAppControllerTest::sampleDataForEntityCreate();
+                $controller = static::$companyAppController;
+            }
+            $idField = $sampleEntity->idProperty();
+            /** @var \Apigee\Edge\Api\Management\Entity\AppInterface[] $testApps */
+            $testApps = [$sampleEntity];
+            for ($i = 1; $i <= 5; ++$i) {
+                $testApps[$i] = clone $sampleEntity;
+                $testApps[$i]->{'set' . $idField}($i . $sampleEntity->id());
+            }
+            // Create test data on the server or do not do anything if an offline client is in use.
+            if (!TestClientFactory::isMockClient(static::$client)) {
+                $i = 0;
+                foreach ($testApps as $item) {
+                    /* @var \Apigee\Edge\Api\Management\Entity\AppInterface $item */
+                    /* @var \Apigee\Edge\Api\Management\Entity\AppInterface $tmp */
+                    $controller->create($item);
+                    if ($i % 2) {
+                        $controller->setStatus($item->id(),
+                            AppController::STATUS_REVOKE);
+                        // Get the updated entity from Edge.
+                        $item = $controller->load($item->id());
+                    }
+                    static::$createdApps["{$appType}_{$item->getAppId()}"] = $item;
+                    // Ensure that testLoadApp() works in the online test.
+                    static::$createdApps["{$appType}_{$item->id()}"] = $item;
+                    ++$i;
+                }
+            } else {
+                // Ensure that testLoadApp() works in the offline test.
+                static::$createdApps["{$appType}_{$sampleEntity->id()}"] = $controller->load(
+                    $sampleEntity->id()
+                );
+            }
+        };
+
         try {
             parent::setUpBeforeClass();
             static::setupDeveloper();
+            static::setupCompany();
 
             /** @var \Apigee\Edge\Api\Management\Controller\DeveloperAppController $developerAppController */
             static::$developerAppController = new DeveloperAppController(
@@ -59,36 +112,15 @@ class AppControllerTest extends EntityControllerValidator
                 static::$developerId,
                 static::$client
             );
-            /** @var \Apigee\Edge\Api\Management\Entity\DeveloperAppInterface $sampleEntity */
-            $sampleEntity = clone DeveloperAppControllerTest::sampleDataForEntityCreate();
-            $idField = $sampleEntity->idProperty();
-            /** @var DeveloperAppInterface[] $testDeveloperApps */
-            $testDeveloperApps = [$sampleEntity];
-            for ($i = 1; $i <= 5; ++$i) {
-                $testDeveloperApps[$i] = clone $sampleEntity;
-                $testDeveloperApps[$i]->{'set' . $idField}($i . $sampleEntity->id());
-            }
-            // Create test data on the server or do not do anything if an offline client is in use.
-            if (!TestClientFactory::isMockClient(static::$client)) {
-                $i = 0;
-                foreach ($testDeveloperApps as $item) {
-                    /** @var \Apigee\Edge\Api\Management\Entity\AppInterface $item */
-                    /** @var \Apigee\Edge\Api\Management\Entity\AppInterface $tmp */
-                    static::$developerAppController->create($item);
-                    if ($i % 2) {
-                        static::$developerAppController->setStatus($item->id(), AppController::STATUS_REVOKE);
-                        // Get the updated entity from Edge.
-                        $item = static::$developerAppController->load($item->id());
-                    }
-                    static::$createdDeveloperApps[$item->getAppId()] = $item;
-                    ++$i;
-                }
-            } else {
-                // Ensure that testLoadApp() can be executed as an offline test.
-                static::$createdDeveloperApps[$sampleEntity->getAppId()] = static::$developerAppController->load(
-                    $sampleEntity->id()
-                );
-            }
+            /** @var \Apigee\Edge\Api\Management\Controller\DeveloperAppController $developerAppController */
+            static::$companyAppController = new CompanyAppController(
+                static::getOrganization(static::$client),
+                static::$companyName,
+                static::$client
+            );
+
+            $createSampleApps('developer');
+            $createSampleApps('company');
         } catch (ApiRequestException $e) {
             // Ensure that created test data always gets removed after an API call fails here.
             // (By default tearDownAfterClass() is not called if (any) exception occurred here.)
@@ -108,9 +140,14 @@ class AppControllerTest extends EntityControllerValidator
 
         // Remove created apps on Apigee Edge.
         try {
-            foreach (static::$createdDeveloperApps as $entity) {
-                static::$developerAppController->delete($entity->id());
-                unset(static::$createdDeveloperApps[$entity->getAppId()]);
+            foreach (static::$createdApps as $entity) {
+                if ($entity instanceof DeveloperAppInterface) {
+                    static::$developerAppController->delete($entity->id());
+                } else {
+                    static::$companyAppController->delete($entity->id());
+                }
+                unset(static::$createdApps[$entity->getAppId()]);
+                unset(static::$createdApps[$entity->id()]);
             }
         } catch (\Exception $e) {
             printf("Unable to delete %s entity with %s id.\n", strtolower(get_class($entity)), $entity->id());
@@ -118,17 +155,23 @@ class AppControllerTest extends EntityControllerValidator
 
         parent::tearDownAfterClass();
         static::tearDownDeveloper();
+        static::tearDownCompany();
     }
 
     public function testLoadApp(): void
     {
         /** @var \Apigee\Edge\Api\Management\Controller\AppControllerInterface $controller */
         $controller = $this->getEntityController();
-        $firstEntity = reset(static::$createdDeveloperApps);
+        $sampleEntity = clone DeveloperAppControllerTest::sampleDataForEntityCreate();
+        $firstEntity = static::$createdApps["developer_{$sampleEntity->id()}"];
         $entity = $controller->loadApp($firstEntity->getAppId());
         $this->assertContains(DeveloperAppInterface::class, class_implements($entity));
         $this->assertEquals($firstEntity, $entity);
-        // TODO Validate the same for company apps.
+        $sampleEntity = clone CompanyAppControllerTest::sampleDataForEntityCreate();
+        $firstEntity = static::$createdApps["company_{$sampleEntity->id()}"];
+        $entity = $controller->loadApp($firstEntity->getAppId());
+        $this->assertContains(CompanyAppInterface::class, class_implements($entity));
+        $this->assertEquals($firstEntity, $entity);
     }
 
     public function testListAppIds(): void
@@ -138,10 +181,10 @@ class AppControllerTest extends EntityControllerValidator
         }
         /** @var \Apigee\Edge\Api\Management\Controller\AppControllerInterface $controller */
         $controller = $this->getEntityController();
-        foreach (array_keys(static::$createdDeveloperApps) as $id) {
-            $this->assertContains($id, $controller->listAppIds());
+        $ids = $controller->listAppIds();
+        foreach (static::$createdApps as $entity) {
+            $this->assertContains($entity->getAppId(), $ids);
         }
-        // TODO Validate the same for company apps.
     }
 
     public function testListApps(): void
@@ -152,14 +195,13 @@ class AppControllerTest extends EntityControllerValidator
         /** @var \Apigee\Edge\Api\Management\Controller\AppControllerInterface $controller */
         $controller = $this->getEntityController();
         $apps = $controller->listApps();
-        foreach (static::$createdDeveloperApps as $entity) {
+        foreach (static::$createdApps as $entity) {
             $this->assertEquals($entity, $apps[$entity->getAppId()]);
         }
         $apps = $controller->listApps(false);
         /** @var \Apigee\Edge\Api\Management\Entity\AppInterface $firstApp */
         $firstApp = reset($apps);
         $this->assertEmpty($firstApp->getCredentials());
-        // TODO Validate the same for company apps.
     }
 
     public function testListAppIdsByStatus(): void
@@ -172,7 +214,7 @@ class AppControllerTest extends EntityControllerValidator
         $approvedIDs = $controller->listAppIdsByStatus(App::STATUS_APPROVED);
         $revokedIDs = $controller->listAppIdsByStatus(App::STATUS_REVOKED);
         /** @var \Apigee\Edge\Api\Management\Entity\AppInterface $app */
-        foreach (static::$createdDeveloperApps as $app) {
+        foreach (static::$createdApps as $app) {
             if (App::STATUS_APPROVED === $app->getStatus()) {
                 $this->assertContains($app->getAppId(), $approvedIDs);
             } else {
@@ -186,8 +228,19 @@ class AppControllerTest extends EntityControllerValidator
         if (TestClientFactory::isMockClient(static::$client)) {
             $this->markTestSkipped(static::$onlyOnlineClientSkipMessage);
         }
-        // TODO Implement after company apps are being supported.
-        $this->markTestIncomplete('Company apps support is required for complete testing.');
+
+        /** @var \Apigee\Edge\Api\Management\Controller\AppControllerInterface $controller */
+        $controller = $this->getEntityController();
+        $developerApps = $controller->listAppIdsByType('developer');
+        $companyApps = $controller->listAppIdsByType('company');
+        /** @var \Apigee\Edge\Api\Management\Entity\AppInterface $app */
+        foreach (static::$createdApps as $app) {
+            if ($app instanceof DeveloperAppInterface) {
+                $this->assertContains($app->getAppId(), $developerApps);
+            } else {
+                $this->assertContains($app->getAppId(), $companyApps);
+            }
+        }
     }
 
     public function testListAppIdsByFamily(): void
