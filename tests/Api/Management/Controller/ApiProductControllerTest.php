@@ -24,7 +24,7 @@ use Apigee\Edge\Controller\EntityControllerInterface;
 use Apigee\Edge\Entity\EntityInterface;
 use Apigee\Edge\Structure\AttributesProperty;
 use Apigee\Edge\Tests\Test\Controller\AttributesAwareEntityControllerTestTrait;
-use Apigee\Edge\Tests\Test\Controller\NonCpsLimitEntityControllerValidator;
+use Apigee\Edge\Tests\Test\Controller\CpsLimitEntityControllerValidator;
 use Apigee\Edge\Tests\Test\Controller\OrganizationAwareEntityControllerValidatorTrait;
 use Apigee\Edge\Tests\Test\TestClientFactory;
 
@@ -33,7 +33,7 @@ use Apigee\Edge\Tests\Test\TestClientFactory;
  *
  * @group controller
  */
-class ApiProductControllerTest extends NonCpsLimitEntityControllerValidator
+class ApiProductControllerTest extends CpsLimitEntityControllerValidator
 {
     use AttributesAwareEntityControllerTestTrait;
     use OrganizationAwareEntityControllerValidatorTrait;
@@ -112,6 +112,14 @@ class ApiProductControllerTest extends NonCpsLimitEntityControllerValidator
         $ids = $controller->searchByAttribute('foo', 'bar');
         $this->assertContains($originalId, $ids);
         $this->assertNotContains($unexpected, $ids);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function cpsLimitTestIdFieldProvider(): array
+    {
+        return [['name']];
     }
 
     /**
