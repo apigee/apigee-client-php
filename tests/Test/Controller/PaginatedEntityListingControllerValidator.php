@@ -18,6 +18,7 @@
 
 namespace Apigee\Edge\Tests\Test\Controller;
 
+use Apigee\Edge\Client;
 use Apigee\Edge\Tests\Test\TestClientFactory;
 
 /**
@@ -35,7 +36,7 @@ abstract class PaginatedEntityListingControllerValidator extends EntityCrudOpera
      */
     public function testPaginatedEntityIdListing(string $idField): void
     {
-        /** @var \Apigee\Edge\Controller\PaginatedEntityControllerInterface $controller */
+        /** @var \Apigee\Edge\Controller\PaginatedEntityListingControllerInterface $controller */
         $controller = $this->getEntityController();
         $sampleEntity = static::sampleDataForEntityCreate();
         $sampleEntityId = call_user_func([$sampleEntity, 'get' . $idField]);
@@ -47,17 +48,32 @@ abstract class PaginatedEntityListingControllerValidator extends EntityCrudOpera
         // Create test data on the server or do not do anything if an offline client is in use.
         if (!TestClientFactory::isMockClient(static::$client)) {
             foreach ($dataset as $item) {
-                /* @var \Apigee\Edge\Controller\EntityCrudOperationsControllerInterface $item */
+                /* @var \Apigee\Edge\Controller\EntityCrudOperationsControllerInterface $controller */
                 $controller->create($item);
                 static::$createdEntities[$item->id()] = $item;
             }
         }
+        // Load _all_ entities.
         $startKey = "3{$sampleEntityId}";
         $limit = 2;
         $pager = $controller->createPager($limit, $startKey);
         $result = $controller->getEntityIds($pager);
         $this->assertEquals($startKey, $result[0]);
         $this->assertCount($limit, $result);
+    }
+
+    public function testPaginatedAllEntityListing(): void
+    {
+        // We have to the this with the offline client because default pager
+        // limit is different for different entities (api product = 1000,
+        // company apps = 100, etc.) and we also do not want to create hundreds
+        // or thousands of entities jut to be able to test this.
+        /** @var \Apigee\Edge\Controller\PaginatedEntityListingControllerInterface $controller */
+        $controller = $this->getEntityControllerWithMockClient();
+        $result = $controller->getEntityIds();
+        $this->assertCount(6, $result);
+        $result = $controller->getEntities();
+        $this->assertCount(6, $result);
     }
 
     /**

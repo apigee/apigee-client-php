@@ -21,6 +21,7 @@ namespace Apigee\Edge\Tests\Api\Management\Controller;
 use Apigee\Edge\Api\Management\Controller\AppByOwnerController;
 use Apigee\Edge\Api\Management\Controller\CompanyAppController;
 use Apigee\Edge\Api\Management\Controller\CompanyAppCredentialController;
+use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Controller\EntityControllerInterface;
 use Apigee\Edge\Entity\EntityInterface;
 use Apigee\Edge\Exception\ApiRequestException;
@@ -113,19 +114,28 @@ class CompanyAppCredentialControllerTest extends AppCredentialControllerBase
     /**
      * @inheritdoc
      */
-    protected static function getEntityController(): EntityControllerInterface
+    protected static function getEntityController(ClientInterface $client = null): EntityControllerInterface
     {
         static $controller;
-        if (!$controller) {
-            $controller = new CompanyAppCredentialController(
-                static::getOrganization(static::$client),
-                static::$companyName,
-                static::$appName,
-                static::$client
-            );
+        if (null === $client) {
+            if (null === $controller) {
+                $controller = new CompanyAppCredentialController(
+                    static::getOrganization(static::$client),
+                    static::$companyName,
+                    static::$appName,
+                    static::$client
+                );
+            }
+
+            return $controller;
         }
 
-        return $controller;
+        return new CompanyAppCredentialController(
+            static::getOrganization($client),
+            static::$companyName,
+            static::$appName,
+            $client
+        );
     }
 
     protected static function getAppController(): AppByOwnerController

@@ -24,6 +24,7 @@ use Apigee\Edge\Api\Management\Controller\DeveloperAppController;
 use Apigee\Edge\Api\Management\Entity\App;
 use Apigee\Edge\Api\Management\Entity\CompanyAppInterface;
 use Apigee\Edge\Api\Management\Entity\DeveloperAppInterface;
+use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Controller\EntityControllerInterface;
 use Apigee\Edge\Exception\ApiRequestException;
 use Apigee\Edge\Tests\Test\Controller\EntityControllerValidator;
@@ -262,16 +263,20 @@ class AppControllerTest extends EntityControllerValidator
     /**
      * @inheritdoc
      */
-    protected static function getEntityController(): EntityControllerInterface
+    protected static function getEntityController(ClientInterface $client = null): EntityControllerInterface
     {
         static $controller;
-        if (!$controller) {
-            $controller = new AppController(
-                static::getOrganization(static::$client),
-                static::$client
-            );
+        if (null === $client) {
+            if (null === $controller) {
+                $controller = new AppController(
+                    static::getOrganization(static::$client),
+                    static::$client
+                );
+            }
+
+            return $controller;
         }
 
-        return $controller;
+        return new AppController(static::getOrganization($client), $client);
     }
 }

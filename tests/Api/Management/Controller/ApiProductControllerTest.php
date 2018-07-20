@@ -20,6 +20,7 @@ namespace Apigee\Edge\Tests\Api\Management\Controller;
 
 use Apigee\Edge\Api\Management\Controller\ApiProductController;
 use Apigee\Edge\Api\Management\Entity\ApiProduct;
+use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Controller\EntityControllerInterface;
 use Apigee\Edge\Entity\EntityInterface;
 use Apigee\Edge\Structure\AttributesProperty;
@@ -125,13 +126,17 @@ class ApiProductControllerTest extends PaginatedEntityListingControllerValidator
     /**
      * @inheritdoc
      */
-    protected static function getEntityController(): EntityControllerInterface
+    protected static function getEntityController(ClientInterface $client = null): EntityControllerInterface
     {
         static $controller;
-        if (!$controller) {
-            $controller = new ApiProductController(static::getOrganization(static::$client), static::$client);
+        if (null === $client) {
+            if (null === $controller) {
+                $controller = new ApiProductController(static::getOrganization(static::$client), static::$client);
+            }
+
+            return $controller;
         }
 
-        return $controller;
+        return new ApiProductController(static::getOrganization($client), $client);
     }
 }

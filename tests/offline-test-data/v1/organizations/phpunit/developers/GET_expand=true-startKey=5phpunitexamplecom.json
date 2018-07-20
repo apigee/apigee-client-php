@@ -1,0 +1,25 @@
+{
+    "developer": [
+        {
+            "apps": [],
+            "companies": [],
+            "email": "5phpunit@example.com",
+            "developerId": "51b0b24f-8d47-4512-84ae-aad66dc96b82",
+            "firstName": "Php",
+            "lastName": "Unit",
+            "userName": "phpunit",
+            "organizationName": "phpunit",
+            "status": "active",
+            "attributes": [
+                {
+                    "name": "foo",
+                    "value": "bar"
+                }
+            ],
+            "createdAt": 648345600000,
+            "createdBy": "phpunit@example.com",
+            "lastModifiedAt": 648345600000,
+            "lastModifiedBy": "phpunit@example.com"
+        }
+    ]
+}
