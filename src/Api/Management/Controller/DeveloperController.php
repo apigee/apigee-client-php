@@ -81,6 +81,8 @@ class DeveloperController extends PaginatedEntityController implements Developer
 
     /**
      * @inheritdoc
+     *
+     * @psalm-suppress UndefinedMethod
      */
     public function getEntities(
         PagerInterface $pager = null,
