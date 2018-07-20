@@ -37,10 +37,13 @@ interface PaginatedEntityListingControllerInterface
      * a limit to reduce memory usage and increase speed.
      *
      * @param \Apigee\Edge\Structure\PagerInterface|null $pager
+     *   Pager.
+     * @param string $key_provider
+     *   Getter method on the entity that should provide a unique array key.
      *
      * @return \Apigee\Edge\Entity\EntityInterface[]
      */
-    public function getEntities(PagerInterface $pager = null): array;
+    public function getEntities(PagerInterface $pager = null, string $key_provider = 'id'): array;
 
     /**
      * Returns list of entity ids from Apigee Edge. The returned number of
@@ -54,6 +57,7 @@ interface PaginatedEntityListingControllerInterface
      * a limit to reduce memory usage and increase speed.
      *
      * @param \Apigee\Edge\Structure\PagerInterface|null $pager
+     *   Pager.
      *
      * @return array
      */

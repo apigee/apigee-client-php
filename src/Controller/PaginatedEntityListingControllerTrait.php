@@ -32,9 +32,9 @@ trait PaginatedEntityListingControllerTrait
     /**
      * @inheritdoc
      */
-    public function getEntities(PagerInterface $pager = null): array
+    public function getEntities(PagerInterface $pager = null, string $key_provider = 'id'): array
     {
-        return $this->listEntities($pager);
+        return $this->listEntities($pager, [], $key_provider);
     }
 
     /**

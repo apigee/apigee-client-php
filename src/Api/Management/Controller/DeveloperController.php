@@ -27,6 +27,7 @@ use Apigee\Edge\Controller\PaginatedEntityController;
 use Apigee\Edge\Controller\PaginatedEntityListingControllerTrait;
 use Apigee\Edge\Controller\StatusAwareEntityControllerTrait;
 use Apigee\Edge\Denormalizer\AttributesPropertyDenormalizer;
+use Apigee\Edge\Structure\PagerInterface;
 use Psr\Http\Message\UriInterface;
 
 /**
@@ -36,7 +37,9 @@ class DeveloperController extends PaginatedEntityController implements Developer
 {
     use AttributesAwareEntityControllerTrait;
     use EntityCrudOperationsControllerTrait;
-    use PaginatedEntityListingControllerTrait;
+    use PaginatedEntityListingControllerTrait {
+        getEntities as private traitGetEntities;
+    }
     use StatusAwareEntityControllerTrait;
 
     /**
@@ -74,6 +77,18 @@ class DeveloperController extends PaginatedEntityController implements Developer
         $values = reset($responseArray['developer']);
 
         return $this->entityTransformer->denormalize($values, $this->getEntityClass());
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getEntities(
+        PagerInterface $pager = null,
+        string $key_provider = 'id'
+    ): array {
+        // The getEntityIds() returns email addresses so we should use email
+        // addresses as keys in the array as well.
+        return $this->traitGetEntities($pager, 'getEmail');
     }
 
     /**

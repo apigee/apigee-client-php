@@ -36,16 +36,15 @@ trait PaginationHelperTrait
      *   Pager.
      * @param array $query_params
      *   Additional query parameters.
-     * @param string $idGetter
-     *   Name of a getter method on the entity object that should be
-     *   used to retrieve entity id, the default is id().
+     * @param string $key_provider
+     *   Getter method on the entity that should provide a unique array key.
      *
      * @return \Apigee\Edge\Entity\EntityInterface[]
      *   Array of entity objects.
      *
      * @psalm-suppress PossiblyNullArrayOffset $tmp->id() is always not null here.
      */
-    private function listEntities(PagerInterface $pager = null, array $query_params = [], string $idGetter = 'id'): array
+    private function listEntities(PagerInterface $pager = null, array $query_params = [], string $key_provider = 'id'): array
     {
         $query_params = [
             'expand' => 'true',
@@ -54,15 +53,15 @@ trait PaginationHelperTrait
         if ($pager) {
             $responseArray = $this->getResultsInRange($pager, $query_params);
 
-            return $this->responseArrayToArrayOfEntities($responseArray, $idGetter);
+            return $this->responseArrayToArrayOfEntities($responseArray, $key_provider);
         } else {
             $responseArray = $this->getResultsInRange($this->createPager(), $query_params);
             // Ignore entity type key from response, ex.: developer, apiproduct,
             // etc.
             $responseArray = reset($responseArray);
-            $entities = $this->responseArrayToArrayOfEntities($responseArray, $idGetter);
+            $entities = $this->responseArrayToArrayOfEntities($responseArray, $key_provider);
             $lastEntity = end($entities);
-            $lastId = $lastEntity->{$idGetter}();
+            $lastId = $lastEntity->{$key_provider}();
             do {
                 $tmp = $this->getResultsInRange($this->createPager(0, $lastId), $query_params);
                 // Ignore entity type key from response, ex.: developer,
@@ -73,14 +72,14 @@ trait PaginationHelperTrait
                 // Apigee Edge response always starts with the requested entity
                 // (startKey).
                 array_shift($tmp);
-                $tmpEntities = $this->responseArrayToArrayOfEntities($tmp, $idGetter);
+                $tmpEntities = $this->responseArrayToArrayOfEntities($tmp, $key_provider);
                 // The returned entity array is keyed by entity id which
                 // is unique so we can do this.
                 $entities += $tmpEntities;
 
                 if (count($tmpEntities) > 0) {
                     $lastEntity = end($tmpEntities);
-                    $lastId = $lastEntity->{$idGetter}();
+                    $lastId = $lastEntity->{$key_provider}();
                 } else {
                     $lastId = false;
                 }
@@ -145,7 +144,10 @@ trait PaginationHelperTrait
     private function getResultsInRange(PagerInterface $pager, array $query_params): array
     {
         $query_params['startKey'] = $pager->getStartKey();
-        $query_params['count'] = $pager->getLimit();
+        // Do not add 0 unnecessarily to the query parameters.
+        if ($pager->getLimit() > 0) {
+            $query_params['count'] = $pager->getLimit();
+        }
         $uri = $this->getBaseEndpointUri()->withQuery(http_build_query($query_params));
         $response = $this->client->get($uri);
 
