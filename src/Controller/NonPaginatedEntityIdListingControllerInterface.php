@@ -16,13 +16,20 @@
  * limitations under the License.
  */
 
-namespace Apigee\Edge\Api\Management\Controller;
-
-use Apigee\Edge\Controller\PaginatedEntityController;
+namespace Apigee\Edge\Controller;
 
 /**
- * Common parent class for company- and developer app controllers.
+ * For listing entity ids on an endpoint that does not support pagination
+ * feature of CPS.
  */
-abstract class AppByOwnerController extends PaginatedEntityController implements AppByOwnerControllerInterface
+interface NonPaginatedEntityIdListingControllerInterface
 {
+    /**
+     * Returns list of entity ids from Apigee Edge.
+     *
+     * The returned number of entities can _not_ be limited.
+     *
+     * @return string[]
+     */
+    public function getEntityIds(): array;
 }

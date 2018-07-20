@@ -29,11 +29,14 @@ trait EntityListingControllerTrait
      * @param array $responseArray
      *   API response as an array without the entity type key, ex.: developer,
      *   apiproduct, etc.
+     * @param string $keyGetter
+     *   Getter method on the entity that should be used as array key. Default
+     *   is id().
      *
      * @return \Apigee\Edge\Entity\EntityInterface[]
      *   Array of entity objects.
      */
-    protected function responseArrayToArrayOfEntities(array $responseArray): array
+    protected function responseArrayToArrayOfEntities(array $responseArray, string $keyGetter = 'id'): array
     {
         $entities = [];
 
@@ -41,7 +44,7 @@ trait EntityListingControllerTrait
             /** @var \Apigee\Edge\Entity\EntityInterface $tmp */
             $tmp = $this->entityTransformer->denormalize($item,
                 $this->getEntityClass());
-            $entities[$tmp->id()] = $tmp;
+            $entities[$tmp->{$keyGetter}()] = $tmp;
         }
 
         return $entities;

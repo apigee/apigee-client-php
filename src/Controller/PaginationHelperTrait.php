@@ -18,42 +18,53 @@
 
 namespace Apigee\Edge\Controller;
 
-use Apigee\Edge\Structure\CpsListLimitInterface;
+use Apigee\Edge\Structure\PagerInterface;
 
 /**
- * Trait PaginationEntityListingControllerTrait.
+ * Utility methods for those controllers that supports paginated listing.
  *
- * @see \Apigee\Edge\Controller\PaginationEntityListingControllerInterface
+ * @see \Apigee\Edge\Controller\PaginatedEntityListingControllerInterface
  */
-trait PaginationEntityListingControllerTrait
+trait PaginationHelperTrait
 {
     use EntityListingControllerTrait;
 
     /**
-     * @inheritdoc
+     * Loads entities from Apigee Edge.
+     *
+     * @param \Apigee\Edge\Structure\PagerInterface|null $pager
+     *   Pager.
+     * @param array $query_params
+     *   Additional query parameters.
+     * @param string $idGetter
+     *   Name of a getter method on the entity object that should be
+     *   used to retrieve entity id, the default is id().
+     *
+     * @return \Apigee\Edge\Entity\EntityInterface[]
+     *   Array of entity objects.
      *
      * @psalm-suppress PossiblyNullArrayOffset $tmp->id() is always not null here.
      */
-    public function getEntities(CpsListLimitInterface $cpsLimit = null): array
+    private function listEntities(PagerInterface $pager = null, array $query_params = [], string $idGetter = 'id'): array
     {
         $query_params = [
             'expand' => 'true',
-        ];
+        ] + $query_params;
 
-        if ($cpsLimit) {
-            $responseArray = $this->getResultsInRange($cpsLimit, $query_params);
+        if ($pager) {
+            $responseArray = $this->getResultsInRange($pager, $query_params);
 
-            return $this->responseArrayToArrayOfEntities($responseArray);
+            return $this->responseArrayToArrayOfEntities($responseArray, $idGetter);
         } else {
-            $responseArray = $this->getResultsInRange($this->createCpsLimit(), $query_params);
+            $responseArray = $this->getResultsInRange($this->createPager(), $query_params);
             // Ignore entity type key from response, ex.: developer, apiproduct,
             // etc.
             $responseArray = reset($responseArray);
-            $entities = $this->responseArrayToArrayOfEntities($responseArray);
+            $entities = $this->responseArrayToArrayOfEntities($responseArray, $idGetter);
             $lastEntity = end($entities);
-            $lastId = $lastEntity->id();
+            $lastId = $lastEntity->{$idGetter}();
             do {
-                $tmp = $this->getResultsInRange($this->createCpsLimit(0, $lastId), $query_params);
+                $tmp = $this->getResultsInRange($this->createPager(0, $lastId), $query_params);
                 // Ignore entity type key from response, ex.: developer,
                 // apiproduct, etc.
                 $tmp = reset($tmp);
@@ -62,14 +73,14 @@ trait PaginationEntityListingControllerTrait
                 // Apigee Edge response always starts with the requested entity
                 // (startKey).
                 array_shift($tmp);
-                $tmpEntities = $this->responseArrayToArrayOfEntities($tmp);
+                $tmpEntities = $this->responseArrayToArrayOfEntities($tmp, $idGetter);
                 // The returned entity array is keyed by entity id which
                 // is unique so we can do this.
                 $entities += $tmpEntities;
 
                 if (count($tmpEntities) > 0) {
                     $lastEntity = end($tmpEntities);
-                    $lastId = $lastEntity->id();
+                    $lastId = $lastEntity->{$idGetter}();
                 } else {
                     $lastId = false;
                 }
@@ -80,20 +91,28 @@ trait PaginationEntityListingControllerTrait
     }
 
     /**
-     * @inheritdoc
+     * Loads entity ids from Apigee Edge.
+     *
+     * @param \Apigee\Edge\Structure\PagerInterface|null $pager
+     *   Pager.
+     * @param array $query_params
+     *   Additional query parameters.
+     *
+     * @return string[]
+     *   Array of entity ids.
      */
-    public function getEntityIds(CpsListLimitInterface $cpsLimit = null): array
+    private function listEntityIds(PagerInterface $pager = null, array $query_params = []): array
     {
         $query_params = [
             'expand' => 'false',
-        ];
-        if ($cpsLimit) {
-            return $this->getResultsInRange($cpsLimit, $query_params);
+        ] + $query_params;
+        if ($pager) {
+            return $this->getResultsInRange($pager, $query_params);
         } else {
-            $ids = $this->getResultsInRange($this->createCpsLimit(), $query_params);
+            $ids = $this->getResultsInRange($this->createPager(), $query_params);
             $lastId = end($ids);
             do {
-                $tmp = $this->getResultsInRange($this->createCpsLimit(0, $lastId), $query_params);
+                $tmp = $this->getResultsInRange($this->createPager(0, $lastId), $query_params);
                 // Remove the first item from the list because it is the same
                 // as the current last item of $ids.
                 // Apigee Edge response always starts with the requested entity
@@ -115,7 +134,7 @@ trait PaginationEntityListingControllerTrait
     /**
      * Gets entities and entity ids in a provided range from Apigee Edge.
      *
-     * @param \Apigee\Edge\Structure\CpsListLimitInterface $cpsLimit
+     * @param \Apigee\Edge\Structure\PagerInterface $pager
      *   CPS limit object with configured startKey and limit.
      * @param array $query_params
      *   Query parameters for the API call.
@@ -123,10 +142,10 @@ trait PaginationEntityListingControllerTrait
      * @return array
      *   API response parsed as an array.
      */
-    private function getResultsInRange(CpsListLimitInterface $cpsLimit, array $query_params): array
+    private function getResultsInRange(PagerInterface $pager, array $query_params): array
     {
-        $query_params['startKey'] = $cpsLimit->getStartKey();
-        $query_params['count'] = $cpsLimit->getLimit();
+        $query_params['startKey'] = $pager->getStartKey();
+        $query_params['count'] = $pager->getLimit();
         $uri = $this->getBaseEndpointUri()->withQuery(http_build_query($query_params));
         $response = $this->client->get($uri);
 

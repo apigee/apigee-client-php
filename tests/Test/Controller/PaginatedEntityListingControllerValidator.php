@@ -22,31 +22,31 @@ use Apigee\Edge\Tests\Test\TestClientFactory;
 
 /**
  * Helps in validation of those entity controllers that implements
- * PaginationEntityListingControllerInterface.
+ * PaginatedEntityListingControllerInterface.
  *
- * @see \Apigee\Edge\Controller\PaginationEntityListingControllerInterface
+ * @see \Apigee\Edge\Controller\PaginatedEntityListingControllerInterface
  */
-abstract class PaginationEntityListingControllerValidator extends EntityCrudOperationsControllerValidator
+abstract class PaginatedEntityListingControllerValidator extends EntityCrudOperationsControllerValidator
 {
     /**
-     * @dataProvider cpsLimitTestIdFieldProvider
+     * @dataProvider paginatedTestEntityIdprovider
      *
      * @param string $idField
      */
-    public function testCpsLimit(string $idField): void
+    public function testPaginatedEntityIdListing(string $idField): void
     {
-        /** @var \Apigee\Edge\Controller\CpsLimitEntityControllerInterface $controller */
+        /** @var \Apigee\Edge\Controller\PaginatedEntityControllerInterface $controller */
         $controller = $this->getEntityController();
         $sampleEntity = static::sampleDataForEntityCreate();
         $sampleEntityId = call_user_func([$sampleEntity, 'get' . $idField]);
-        $cpsTestData = [];
+        $dataset = [];
         for ($i = 1; $i <= 5; ++$i) {
-            $cpsTestData[$i] = clone $sampleEntity;
-            $cpsTestData[$i]->{'set' . $idField}($i . $sampleEntityId);
+            $dataset[$i] = clone $sampleEntity;
+            $dataset[$i]->{'set' . $idField}($i . $sampleEntityId);
         }
         // Create test data on the server or do not do anything if an offline client is in use.
         if (!TestClientFactory::isMockClient(static::$client)) {
-            foreach ($cpsTestData as $item) {
+            foreach ($dataset as $item) {
                 /* @var \Apigee\Edge\Controller\EntityCrudOperationsControllerInterface $item */
                 $controller->create($item);
                 static::$createdEntities[$item->id()] = $item;
@@ -54,8 +54,8 @@ abstract class PaginationEntityListingControllerValidator extends EntityCrudOper
         }
         $startKey = "3{$sampleEntityId}";
         $limit = 2;
-        $cpsLimit = $controller->createCpsLimit($limit, $startKey);
-        $result = $controller->getEntityIds($cpsLimit);
+        $pager = $controller->createPager($limit, $startKey);
+        $result = $controller->getEntityIds($pager);
         $this->assertEquals($startKey, $result[0]);
         $this->assertCount($limit, $result);
     }
@@ -67,5 +67,5 @@ abstract class PaginationEntityListingControllerValidator extends EntityCrudOper
      *
      * @return array
      */
-    abstract public function cpsLimitTestIdFieldProvider(): array;
+    abstract public function paginatedTestEntityIdprovider(): array;
 }

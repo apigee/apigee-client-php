@@ -19,10 +19,10 @@
 namespace Apigee\Edge\Api\Management\Controller;
 
 use Apigee\Edge\Api\Management\Entity\DeveloperInterface;
-use Apigee\Edge\Controller\CpsLimitEntityControllerInterface;
 use Apigee\Edge\Controller\EntityControllerInterface;
 use Apigee\Edge\Controller\EntityCrudOperationsControllerInterface;
-use Apigee\Edge\Controller\PaginationEntityListingControllerInterface;
+use Apigee\Edge\Controller\PaginatedEntityControllerInterface;
+use Apigee\Edge\Controller\PaginatedEntityListingControllerInterface;
 use Apigee\Edge\Controller\StatusAwareEntityControllerInterface;
 
 /**
@@ -32,10 +32,10 @@ use Apigee\Edge\Controller\StatusAwareEntityControllerInterface;
  */
 interface DeveloperControllerInterface extends
     AttributesAwareEntityControllerInterface,
-    CpsLimitEntityControllerInterface,
+    PaginatedEntityControllerInterface,
     EntityControllerInterface,
     EntityCrudOperationsControllerInterface,
-    PaginationEntityListingControllerInterface,
+    PaginatedEntityListingControllerInterface,
     StatusAwareEntityControllerInterface
 {
     /**

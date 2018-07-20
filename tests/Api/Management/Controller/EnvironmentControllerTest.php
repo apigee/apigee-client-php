@@ -23,7 +23,7 @@ use Apigee\Edge\Api\Management\Entity\Environment;
 use Apigee\Edge\Controller\EntityControllerInterface;
 use Apigee\Edge\Entity\EntityInterface;
 use Apigee\Edge\Tests\Test\Controller\EntityCrudOperationsControllerValidator;
-use Apigee\Edge\Tests\Test\Controller\NoPaginationEntityIdListingControllerValidatorTrait;
+use Apigee\Edge\Tests\Test\Controller\NonPaginatedEntityIdListingControllerValidatorTrait;
 use Apigee\Edge\Tests\Test\Controller\OrganizationAwareEntityControllerValidatorTrait;
 
 /**
@@ -37,7 +37,7 @@ use Apigee\Edge\Tests\Test\Controller\OrganizationAwareEntityControllerValidator
 class EnvironmentControllerTest extends EntityCrudOperationsControllerValidator
 {
     use OrganizationAwareEntityControllerValidatorTrait;
-    use NoPaginationEntityIdListingControllerValidatorTrait {
+    use NonPaginatedEntityIdListingControllerValidatorTrait {
         testGetEntityIds as private traitTestGetEntityIds;
     }
 

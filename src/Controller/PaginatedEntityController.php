@@ -22,20 +22,20 @@ use Apigee\Edge\Api\Management\Controller\OrganizationController;
 use Apigee\Edge\Api\Management\Controller\OrganizationControllerInterface;
 use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Exception\CpsNotEnabledException;
-use Apigee\Edge\Structure\CpsListLimitInterface;
+use Apigee\Edge\Structure\PagerInterface;
 
 /**
- * Class CpsLimitEntityController.
+ * Class PaginatedEntityController.
  *
- * @see \Apigee\Edge\Controller\CpsLimitEntityControllerInterface
+ * @see \Apigee\Edge\Controller\PaginatedEntityControllerInterface
  */
-abstract class CpsLimitEntityController extends EntityController implements CpsLimitEntityControllerInterface
+abstract class PaginatedEntityController extends EntityController implements PaginatedEntityControllerInterface
 {
     /** @var \Apigee\Edge\Api\Management\Controller\OrganizationControllerInterface */
     protected $organizationController;
 
     /**
-     * CpsLimitEntityController constructor.
+     * PaginatedEntityController constructor.
      *
      * @param string $organization
      * @param \Apigee\Edge\ClientInterface $client
@@ -53,23 +53,9 @@ abstract class CpsLimitEntityController extends EntityController implements CpsL
     }
 
     /**
-     * Creates a CPS limit if it is supported on the organization.
-     *
-     * @param int $limit
-     *   Number of items to return. Default is 0 which means load as much as
-     *   supported. (Different endpoints have different limits, ex.:
-     *   1000 for API products, 100 for Company apps.)
-     * @param null|string $startKey
-     *   First item in the list, if it is not set then Apigee Edge decides the
-     *   first item.
-     *
-     * @throws \Apigee\Edge\Exception\CpsNotEnabledException
-     *   If CPS listing is not supported on the organization.
-     *
-     * @return CpsListLimitInterface
-     *   CPS limit object.
+     * @inheritdoc
      */
-    public function createCpsLimit(int $limit = 0, ?string $startKey = null): CpsListLimitInterface
+    public function createPager(int $limit = 0, ?string $startKey = null): PagerInterface
     {
         /** @var \Apigee\Edge\Api\Management\Entity\OrganizationInterface $organization */
         $organization = $this->organizationController->load($this->organization);
@@ -79,7 +65,7 @@ abstract class CpsLimitEntityController extends EntityController implements CpsL
 
         // Create an anonymous class here because this class should not exist and be in use
         // in those controllers that do not work with entities that belongs to an organization.
-        $cpsLimit = new class() implements CpsListLimitInterface {
+        $pager = new class() implements PagerInterface {
             protected $startKey;
 
             protected $limit;
@@ -121,9 +107,9 @@ abstract class CpsLimitEntityController extends EntityController implements CpsL
             }
         };
 
-        $cpsLimit->setLimit($limit);
-        $cpsLimit->setStartKey($startKey);
+        $pager->setLimit($limit);
+        $pager->setStartKey($startKey);
 
-        return $cpsLimit;
+        return $pager;
     }
 }

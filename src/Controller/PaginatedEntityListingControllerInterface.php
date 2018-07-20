@@ -18,12 +18,12 @@
 
 namespace Apigee\Edge\Controller;
 
-use Apigee\Edge\Structure\CpsListLimitInterface;
+use Apigee\Edge\Structure\PagerInterface;
 
 /**
- * Interface PaginationEntityListingControllerInterface.
+ * Interface PaginatedEntityListingControllerInterface.
  */
-interface PaginationEntityListingControllerInterface
+interface PaginatedEntityListingControllerInterface
 {
     /**
      * Returns list of entities fro Apigee Edge. The returned number of entities
@@ -36,11 +36,11 @@ interface PaginationEntityListingControllerInterface
      * If you do not actually need _all_ entities of a type then always set
      * a limit to reduce memory usage and increase speed.
      *
-     * @param \Apigee\Edge\Structure\CpsListLimitInterface|null $cpsLimit
+     * @param \Apigee\Edge\Structure\PagerInterface|null $pager
      *
      * @return \Apigee\Edge\Entity\EntityInterface[]
      */
-    public function getEntities(CpsListLimitInterface $cpsLimit = null): array;
+    public function getEntities(PagerInterface $pager = null): array;
 
     /**
      * Returns list of entity ids from Apigee Edge. The returned number of
@@ -53,9 +53,28 @@ interface PaginationEntityListingControllerInterface
      * If you do not actually need _all_ entities of a type then always set
      * a limit to reduce memory usage and increase speed.
      *
-     * @param \Apigee\Edge\Structure\CpsListLimitInterface|null $cpsLimit
+     * @param \Apigee\Edge\Structure\PagerInterface|null $pager
      *
      * @return array
      */
-    public function getEntityIds(CpsListLimitInterface $cpsLimit = null): array;
+    public function getEntityIds(PagerInterface $pager = null): array;
+
+    /**
+     * Creates a pager if CPS is supported on the organization.
+     *
+     * @param int $limit
+     *   Number of items to return. Default is 0 which means load as much as
+     *   supported. (Different endpoints have different limits, ex.:
+     *   1000 for API products, 100 for Company apps.)
+     * @param null|string $startKey
+     *   First item in the list, if it is not set then Apigee Edge decides the
+     *   first item.
+     *
+     * @throws \Apigee\Edge\Exception\CpsNotEnabledException
+     *   If CPS listing is not supported on the organization.
+     *
+     * @return PagerInterface
+     *   The pager object.
+     */
+    public function createPager(int $limit = 0, ?string $startKey = null): PagerInterface;
 }

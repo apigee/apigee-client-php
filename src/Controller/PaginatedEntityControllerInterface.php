@@ -18,19 +18,19 @@
 
 namespace Apigee\Edge\Controller;
 
-use Apigee\Edge\Structure\CpsListLimitInterface;
+use Apigee\Edge\Structure\PagerInterface;
 
 /**
- * Interface CpsLimitEntityControllerInterface.
+ * Interface PaginatedEntityControllerInterface.
  *
- * For entities that supports CPS limit in their listing API calls, ex.: developer.
+ * For entities that supports pagination on listing API endpoint on a CPS
+ * enabled org, ex.: developer, api product, etc.
  *
- * @see https://docs.apigee.com/management/apis/get/organizations/%7Borg_name%7D/developers
- */
-interface CpsLimitEntityControllerInterface
+ * @see https://docs.apigee.com/management/apis/get/organizations/%7Borg_name%7D/developers */
+interface PaginatedEntityControllerInterface
 {
     /**
-     * Creates a CPS limit if it is supported on the organization.
+     * Creates a pager if CPS is supported on the organization.
      *
      * @param int $limit
      *   Number of items to return. Default is 0 which means load as much as
@@ -43,10 +43,8 @@ interface CpsLimitEntityControllerInterface
      * @throws \Apigee\Edge\Exception\CpsNotEnabledException
      *   If CPS listing is not supported on the organization.
      *
-     * @return \Apigee\Edge\Structure\CpsListLimitInterface
-     *   CPS limit object.
-     *
-     * @see https://docs.apigee.com/api-services/content/api-reference-getting-started#cps
+     * @return PagerInterface
+     *   The pager object.
      */
-    public function createCpsLimit(int $limit = 0, ?string $startKey = null): CpsListLimitInterface;
+    public function createPager(int $limit = 0, ?string $startKey = null): PagerInterface;
 }

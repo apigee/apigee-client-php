@@ -19,9 +19,9 @@
 namespace Apigee\Edge\Api\Management\Controller;
 
 use Apigee\Edge\Api\Management\Entity\Company;
-use Apigee\Edge\Controller\CpsLimitEntityController;
 use Apigee\Edge\Controller\EntityCrudOperationsControllerTrait;
-use Apigee\Edge\Controller\PaginationEntityListingControllerTrait;
+use Apigee\Edge\Controller\PaginatedEntityController;
+use Apigee\Edge\Controller\PaginatedEntityListingControllerTrait;
 use Apigee\Edge\Controller\StatusAwareEntityControllerTrait;
 use Apigee\Edge\Denormalizer\AttributesPropertyDenormalizer;
 use Psr\Http\Message\UriInterface;
@@ -29,11 +29,11 @@ use Psr\Http\Message\UriInterface;
 /**
  * Class CompanyController.
  */
-class CompanyController extends CpsLimitEntityController implements CompanyControllerInterface
+class CompanyController extends PaginatedEntityController implements CompanyControllerInterface
 {
     use AttributesAwareEntityControllerTrait;
     use EntityCrudOperationsControllerTrait;
-    use PaginationEntityListingControllerTrait;
+    use PaginatedEntityListingControllerTrait;
     use StatusAwareEntityControllerTrait;
 
     /**

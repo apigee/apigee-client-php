@@ -18,21 +18,30 @@
 
 namespace Apigee\Edge\Controller;
 
+use Apigee\Edge\Structure\PagerInterface;
+
 /**
- * Interface NoPaginationEntityListingControllerInterface.
+ * Trait PaginatedEntityListingControllerTrait.
  *
- * For entities that does not support CPS limits in their listing API calls, ex.: organization.
- *
- * @see https://docs.apigee.com/management/apis/get/organizations
+ * @see \Apigee\Edge\Controller\PaginatedEntityListingControllerInterface
  */
-interface NoPaginationEntityListingControllerInterface extends NoPaginationEntityIdListingControllerInterface
+trait PaginatedEntityListingControllerTrait
 {
+    use PaginationHelperTrait;
+
     /**
-     * Returns list of entities from Edge.
-     *
-     * The returned number of entities can _not_ be limited.
-     *
-     * @return \Apigee\Edge\Entity\EntityInterface[]
+     * @inheritdoc
      */
-    public function getEntities(): array;
+    public function getEntities(PagerInterface $pager = null): array
+    {
+        return $this->listEntities($pager);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getEntityIds(PagerInterface $pager = null): array
+    {
+        return $this->listEntityIds($pager);
+    }
 }

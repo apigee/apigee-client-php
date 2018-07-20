@@ -19,9 +19,9 @@
 namespace Apigee\Edge\Structure;
 
 /**
- * Class CpsListLimitInterface.
+ * Interface PagerInterface.
  */
-interface CpsListLimitInterface
+interface PagerInterface
 {
     /**
      * @return string The primary key of the entity that the list should start

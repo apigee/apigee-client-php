@@ -20,17 +20,20 @@ namespace Apigee\Edge\Api\Management\Controller;
 
 use Apigee\Edge\Api\Management\Entity\AppInterface;
 use Apigee\Edge\ClientInterface;
-use Apigee\Edge\Controller\CpsLimitEntityController;
-use Apigee\Edge\Structure\CpsListLimitInterface;
-use Psr\Http\Message\ResponseInterface;
+use Apigee\Edge\Controller\PaginatedEntityController;
+use Apigee\Edge\Controller\PaginationHelperTrait;
+use Apigee\Edge\Structure\PagerInterface;
 use Psr\Http\Message\UriInterface;
 
 /**
  * Class AppController.
  */
-class AppController extends CpsLimitEntityController implements AppControllerInterface
+class AppController extends PaginatedEntityController implements AppControllerInterface
 {
     use AppControllerTrait;
+    use PaginationHelperTrait;
+
+    protected const ID_GETTER = 'getAppId';
 
     /**
      * AppController constructor.
@@ -61,123 +64,80 @@ class AppController extends CpsLimitEntityController implements AppControllerInt
             // Pass it as an object, because if serializer would have been used here (just as other places) it would
             // pass an object to the denormalizer and not an array.
             (object) $this->responseToArray($response),
-            AppInterface::class
+            $this->getEntityClass()
         );
     }
 
     /**
      * @inheritdoc
      */
-    public function listAppIds(CpsListLimitInterface $cpsLimit = null): array
+    public function listAppIds(PagerInterface $pager = null): array
     {
-        $queryParams = [
-            'expand' => 'false',
-        ];
-        $response = $this->request($queryParams, $cpsLimit);
-
-        return $this->responseToArray($response);
+        return $this->listEntityIds($pager, []);
     }
 
     /**
      * @inheritdoc
-     *
-     * @psalm-suppress PossiblyNullArrayOffset $tmp->getAppId() is always not null here.
      */
-    public function listApps(bool $includeCredentials = true, CpsListLimitInterface $cpsLimit = null): array
+    public function listApps(bool $includeCredentials = true, PagerInterface $pager = null): array
     {
-        $entities = [];
         $queryParams = [
-            'expand' => 'true',
             'includeCred' => $includeCredentials ? 'true' : 'false',
         ];
-        $response = $this->request($queryParams, $cpsLimit);
-        $responseArray = $this->responseToArray($response);
-        // Ignore entity type key from response, ex.: developer.
-        $responseArray = reset($responseArray);
-        foreach ($responseArray as $item) {
-            /** @var \Apigee\Edge\Api\Management\Entity\AppInterface $tmp */
-            $tmp = $this->entityTransformer->denormalize(
-                $item,
-                AppInterface::class
-            );
-            $entities[$tmp->getAppId()] = $tmp;
-        }
 
-        return $entities;
+        return $this->getEntities($pager, $queryParams);
     }
 
     /**
      * @inheritdoc
      */
-    public function listAppIdsByStatus(string $status, CpsListLimitInterface $cpsLimit = null): array
+    public function listAppIdsByStatus(string $status, PagerInterface $pager = null): array
     {
         $queryParams = [
-            'expand' => 'false',
             'status' => $status,
         ];
-        $response = $this->request($queryParams, $cpsLimit);
 
-        return $this->responseToArray($response);
+        return $this->listEntityIds($pager, $queryParams);
     }
 
     /**
      * @inheritdoc
-     *
-     * @psalm-suppress PossiblyNullArrayOffset $tmp->getAppId() is always not null here.
      */
     public function listAppsByStatus(
         string $status,
         bool $includeCredentials = true,
-        CpsListLimitInterface $cpsLimit = null
+        PagerInterface $pager = null
     ): array {
-        $entities = [];
         $queryParams = [
-            'expand' => 'false',
             'status' => $status,
             'includeCred' => $includeCredentials ? 'true' : 'false',
         ];
-        $response = $this->request($queryParams, $cpsLimit);
-        $responseArray = $this->responseToArray($response);
-        // Ignore entity type key from response, ex.: developer.
-        $responseArray = reset($responseArray);
-        foreach ($responseArray as $item) {
-            /** @var \Apigee\Edge\Api\Management\Entity\AppInterface $tmp */
-            $tmp = $this->entityTransformer->denormalize(
-                $item,
-                AppInterface::class
-            );
-            $entities[$tmp->getAppId()] = $tmp;
-        }
 
-        return $entities;
+        return $this->getEntities($pager, $queryParams);
     }
 
     /**
      * @inheritdoc
      */
-    public function listAppIdsByType(string $appType, CpsListLimitInterface $cpsLimit = null): array
+    public function listAppIdsByType(string $appType, PagerInterface $pager = null): array
     {
         $queryParams = [
-            'expand' => 'false',
             'apptype' => $appType,
         ];
-        $response = $this->request($queryParams, $cpsLimit);
 
-        return $this->responseToArray($response);
+        return $this->listEntityIds($pager, $queryParams);
     }
 
     /**
      * @inheritdoc
      */
-    public function listAppIdsByFamily(string $appFamily, CpsListLimitInterface $cpsLimit = null): array
+    public function listAppIdsByFamily(string $appFamily, PagerInterface $pager = null): array
     {
         $queryParams = [
-            'expand' => 'false',
             'appfamily' => $appFamily,
         ];
-        $response = $this->request($queryParams, $cpsLimit);
 
-        return $this->responseToArray($response);
+        return $this->listEntityIds($pager, $queryParams);
     }
 
     /**
@@ -195,27 +155,19 @@ class AppController extends CpsLimitEntityController implements AppControllerInt
     {
         // It could be either a developer- or a company app. The AppDenormalizer can automatically decide which one
         // should be used.
-        return '';
+        return AppInterface::class;
     }
 
     /**
-     * Sends a request to the API endpoint with the required query parameters.
-     *
-     * @param array $queryParams
-     *   Mandatory query parameters for an API call.
-     * @param \Apigee\Edge\Structure\CpsListLimitInterface|null $cpsLimit
-     *   Limit number of returned results.
-     *
-     * @return \Psr\Http\Message\ResponseInterface
+     * @inheritdoc
      */
-    private function request(array $queryParams, CpsListLimitInterface $cpsLimit = null): ResponseInterface
-    {
-        if ($cpsLimit) {
-            $queryParams['startKey'] = $cpsLimit->getStartKey();
-            $queryParams['count'] = $cpsLimit->getLimit();
-        }
-        $uri = $this->getBaseEndpointUri()->withQuery(http_build_query($queryParams));
+    protected function getEntities(
+        PagerInterface $pager = null,
+        array $query_params = [],
+        string $idGetter = null
+    ): array {
+        $idGetter = $idGetter ?? static::ID_GETTER;
 
-        return $this->client->get($uri);
+        return $this->listEntities($pager, $query_params, $idGetter);
     }
 }

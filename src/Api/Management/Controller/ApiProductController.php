@@ -20,20 +20,20 @@ namespace Apigee\Edge\Api\Management\Controller;
 
 use Apigee\Edge\Api\Management\Entity\ApiProduct;
 use Apigee\Edge\ClientInterface;
-use Apigee\Edge\Controller\CpsLimitEntityController;
 use Apigee\Edge\Controller\EntityCrudOperationsControllerTrait;
-use Apigee\Edge\Controller\PaginationEntityListingControllerTrait;
+use Apigee\Edge\Controller\PaginatedEntityController;
+use Apigee\Edge\Controller\PaginatedEntityListingControllerTrait;
 use Apigee\Edge\Denormalizer\AttributesPropertyDenormalizer;
 use Psr\Http\Message\UriInterface;
 
 /**
  * Class ApiProductController.
  */
-class ApiProductController extends CpsLimitEntityController implements ApiProductControllerInterface
+class ApiProductController extends PaginatedEntityController implements ApiProductControllerInterface
 {
     use AttributesAwareEntityControllerTrait;
     use EntityCrudOperationsControllerTrait;
-    use PaginationEntityListingControllerTrait;
+    use PaginatedEntityListingControllerTrait;
 
     /**
      * ApiProductController constructor.

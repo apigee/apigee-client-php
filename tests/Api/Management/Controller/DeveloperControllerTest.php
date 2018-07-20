@@ -25,7 +25,7 @@ use Apigee\Edge\Entity\EntityInterface;
 use Apigee\Edge\Structure\AttributesProperty;
 use Apigee\Edge\Tests\Test\Controller\AttributesAwareEntityControllerTestTrait;
 use Apigee\Edge\Tests\Test\Controller\OrganizationAwareEntityControllerValidatorTrait;
-use Apigee\Edge\Tests\Test\Controller\PaginationEntityListingControllerValidator;
+use Apigee\Edge\Tests\Test\Controller\PaginatedEntityListingControllerValidator;
 use Apigee\Edge\Tests\Test\TestClientFactory;
 
 /**
@@ -33,7 +33,7 @@ use Apigee\Edge\Tests\Test\TestClientFactory;
  *
  * @group controller
  */
-class DeveloperControllerTest extends PaginationEntityListingControllerValidator
+class DeveloperControllerTest extends PaginatedEntityListingControllerValidator
 {
     use AttributesAwareEntityControllerTestTrait;
     use OrganizationAwareEntityControllerValidatorTrait;
@@ -139,7 +139,7 @@ class DeveloperControllerTest extends PaginationEntityListingControllerValidator
     /**
      * @inheritdoc
      */
-    public function cpsLimitTestIdFieldProvider(): array
+    public function paginatedTestEntityIdprovider(): array
     {
         // This override makes easier the offline testing.
         return [['email']];

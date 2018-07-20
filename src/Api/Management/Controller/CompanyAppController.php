@@ -21,7 +21,7 @@ namespace Apigee\Edge\Api\Management\Controller;
 use Apigee\Edge\Api\Management\Entity\CompanyApp;
 use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Controller\EntityCrudOperationsControllerTrait;
-use Apigee\Edge\Controller\PaginationEntityListingControllerTrait;
+use Apigee\Edge\Controller\PaginatedEntityListingControllerTrait;
 use Apigee\Edge\Controller\StatusAwareEntityControllerTrait;
 use Psr\Http\Message\UriInterface;
 
@@ -34,7 +34,7 @@ class CompanyAppController extends AppByOwnerController implements CompanyAppCon
     use AppControllerTrait;
     use CompanyAwareControllerTrait;
     use EntityCrudOperationsControllerTrait;
-    use PaginationEntityListingControllerTrait;
+    use PaginatedEntityListingControllerTrait;
     use StatusAwareEntityControllerTrait;
 
     /**

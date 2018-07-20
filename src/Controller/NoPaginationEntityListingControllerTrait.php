@@ -21,11 +21,11 @@ namespace Apigee\Edge\Controller;
 /**
  * Trait NoPaginationEntityListingControllerTrait.
  *
- * @see \Apigee\Edge\Controller\NoPaginationEntityListingControllerInterface
+ * @see \Apigee\Edge\Controller\NonPaginatedEntityListingControllerInterface
  */
 trait NoPaginationEntityListingControllerTrait
 {
-    use NoPaginationEntityIdListingControllerTrait;
+    use NonPaginatedEntityIdListingControllerTrait;
     use EntityListingControllerTrait;
 
     /**

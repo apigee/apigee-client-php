@@ -19,16 +19,16 @@
 namespace Apigee\Edge\Api\Management\Controller;
 
 use Apigee\Edge\Api\Management\Entity\AppInterface;
-use Apigee\Edge\Controller\CpsLimitEntityControllerInterface;
 use Apigee\Edge\Controller\EntityControllerInterface;
-use Apigee\Edge\Structure\CpsListLimitInterface;
+use Apigee\Edge\Controller\PaginatedEntityControllerInterface;
+use Apigee\Edge\Structure\PagerInterface;
 
 /**
  * Interface AppControllerInterface.
  *
  * @see https://docs.apigee.com/api/apps-0
  */
-interface AppControllerInterface extends CpsLimitEntityControllerInterface, EntityControllerInterface
+interface AppControllerInterface extends PaginatedEntityControllerInterface, EntityControllerInterface
 {
     /**
      * String that should be sent to the API to change the status of a credential to approved.
@@ -54,39 +54,39 @@ interface AppControllerInterface extends CpsLimitEntityControllerInterface, Enti
     /**
      * Returns list of app ids from Edge.
      *
-     * @param \Apigee\Edge\Structure\CpsListLimitInterface|null $cpsLimit
+     * @param \Apigee\Edge\Structure\PagerInterface|null $pager
      *   Number of results to return.
      *
      * @return string[]
      *   An array of developer- and company app ids.
      */
-    public function listAppIds(CpsListLimitInterface $cpsLimit = null): array;
+    public function listAppIds(PagerInterface $pager = null): array;
 
     /**
      * Returns list of app entities from Edge. The returned number of entities can be limited.
      *
      * @param bool $includeCredentials
      *   Whether to include consumer key and secret for each app in the response or not.
-     * @param \Apigee\Edge\Structure\CpsListLimitInterface|null $cpsLimit
+     * @param \Apigee\Edge\Structure\PagerInterface|null $pager
      *   Number of results to return.
      *
      * @return \Apigee\Edge\Api\Management\Entity\AppInterface[]
      *   An array that can contain both developer- and company app entities.
      */
-    public function listApps(bool $includeCredentials = false, CpsListLimitInterface $cpsLimit = null): array;
+    public function listApps(bool $includeCredentials = false, PagerInterface $pager = null): array;
 
     /**
      * Returns a list of app ids filtered by status from Edge.
      *
      * @param string $status
      *   App status. (Recommended way is to use App entity constants.)
-     * @param \Apigee\Edge\Structure\CpsListLimitInterface|null $cpsLimit
+     * @param \Apigee\Edge\Structure\PagerInterface|null $pager
      *   Number of results to return.
      *
      * @return string[]
      *   An array of developer- and company app ids.
      */
-    public function listAppIdsByStatus(string $status, CpsListLimitInterface $cpsLimit = null): array;
+    public function listAppIdsByStatus(string $status, PagerInterface $pager = null): array;
 
     /**
      * Returns a list of app entities filtered by status from Edge.
@@ -95,7 +95,7 @@ interface AppControllerInterface extends CpsLimitEntityControllerInterface, Enti
      *   App status. (Recommended way is to use App entity constants.)
      * @param bool $includeCredentials
      *   Whether to include app credentials in the response or not.
-     * @param \Apigee\Edge\Structure\CpsListLimitInterface|null $cpsLimit
+     * @param \Apigee\Edge\Structure\PagerInterface|null $pager
      *   Number of results to return.
      *
      * @return \Apigee\Edge\Api\Management\Entity\AppInterface[]
@@ -104,7 +104,7 @@ interface AppControllerInterface extends CpsLimitEntityControllerInterface, Enti
     public function listAppsByStatus(
         string $status,
         bool $includeCredentials = true,
-        CpsListLimitInterface $cpsLimit = null
+        PagerInterface $pager = null
     ): array;
 
     /**
@@ -112,24 +112,24 @@ interface AppControllerInterface extends CpsLimitEntityControllerInterface, Enti
      *
      * @param string $appType
      *   Either "developer" or "company".
-     * @param \Apigee\Edge\Structure\CpsListLimitInterface|null $cpsLimit
+     * @param \Apigee\Edge\Structure\PagerInterface|null $pager
      *   Number of results to return.
      *
      * @return string[]
      *   An array of developer- and company app ids.
      */
-    public function listAppIdsByType(string $appType, CpsListLimitInterface $cpsLimit = null): array;
+    public function listAppIdsByType(string $appType, PagerInterface $pager = null): array;
 
     /**
      * Returns a list of app ids filtered by app family from Edge.
      *
      * @param string $appFamily
      *   App family, example: default.
-     * @param \Apigee\Edge\Structure\CpsListLimitInterface|null $cpsLimit
+     * @param \Apigee\Edge\Structure\PagerInterface|null $pager
      *   Number of results to return.
      *
      * @return string[]
      *   An array of developer- and company app ids.
      */
-    public function listAppIdsByFamily(string $appFamily, CpsListLimitInterface $cpsLimit = null): array;
+    public function listAppIdsByFamily(string $appFamily, PagerInterface $pager = null): array;
 }

@@ -21,7 +21,7 @@ namespace Apigee\Edge\Api\Management\Controller;
 use Apigee\Edge\Api\Management\Entity\DeveloperApp;
 use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Controller\EntityCrudOperationsControllerTrait;
-use Apigee\Edge\Controller\PaginationEntityListingControllerTrait;
+use Apigee\Edge\Controller\PaginatedEntityListingControllerTrait;
 use Apigee\Edge\Controller\StatusAwareEntityControllerTrait;
 use Psr\Http\Message\UriInterface;
 
@@ -33,7 +33,7 @@ class DeveloperAppController extends AppByOwnerController implements DeveloperAp
     use AttributesAwareEntityControllerTrait;
     use AppControllerTrait;
     use EntityCrudOperationsControllerTrait;
-    use PaginationEntityListingControllerTrait;
+    use PaginatedEntityListingControllerTrait;
     use StatusAwareEntityControllerTrait;
 
     /** @var string Developer email or id. */

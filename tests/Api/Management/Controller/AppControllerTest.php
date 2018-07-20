@@ -42,7 +42,10 @@ class AppControllerTest extends EntityControllerValidator
     use OrganizationAwareEntityControllerValidatorTrait;
 
     /** @var \Apigee\Edge\Api\Management\Entity\AppInterface[] */
-    protected static $createdApps = [];
+    protected static $apps = [];
+
+    /** @var string[] */
+    protected static $appIdTypeMap = [];
 
     /** @var \Apigee\Edge\Api\Management\Controller\DeveloperAppControllerInterface */
     protected static $developerAppController;
@@ -88,14 +91,15 @@ class AppControllerTest extends EntityControllerValidator
                         // Get the updated entity from Edge.
                         $item = $controller->load($item->id());
                     }
-                    static::$createdApps["{$appType}_{$item->getAppId()}"] = $item;
+                    static::$appIdTypeMap[$item->getAppId()] = $appType;
+                    static::$apps["{$appType}_{$item->getAppId()}"] = $item;
                     // Ensure that testLoadApp() works in the online test.
-                    static::$createdApps["{$appType}_{$item->id()}"] = $item;
+                    static::$apps["{$appType}_{$item->id()}"] = $item;
                     ++$i;
                 }
             } else {
                 // Ensure that testLoadApp() works in the offline test.
-                static::$createdApps["{$appType}_{$sampleEntity->id()}"] = $controller->load(
+                static::$apps["{$appType}_{$sampleEntity->id()}"] = $controller->load(
                     $sampleEntity->id()
                 );
             }
@@ -140,14 +144,16 @@ class AppControllerTest extends EntityControllerValidator
 
         // Remove created apps on Apigee Edge.
         try {
-            foreach (static::$createdApps as $entity) {
+            foreach (static::$appIdTypeMap as $appId => $type) {
+                $entity = static::$apps["{$type}_{$appId}"];
                 if ($entity instanceof DeveloperAppInterface) {
                     static::$developerAppController->delete($entity->id());
                 } else {
                     static::$companyAppController->delete($entity->id());
                 }
-                unset(static::$createdApps[$entity->getAppId()]);
-                unset(static::$createdApps[$entity->id()]);
+                unset(static::$appIdTypeMap[$appId]);
+                unset(static::$apps["{$type}_{$entity->getAppId()}"]);
+                unset(static::$apps["{$type}_{$entity->id()}"]);
             }
         } catch (\Exception $e) {
             printf("Unable to delete %s entity with %s id.\n", strtolower(get_class($entity)), $entity->id());
@@ -163,12 +169,12 @@ class AppControllerTest extends EntityControllerValidator
         /** @var \Apigee\Edge\Api\Management\Controller\AppControllerInterface $controller */
         $controller = $this->getEntityController();
         $sampleEntity = clone DeveloperAppControllerTest::sampleDataForEntityCreate();
-        $firstEntity = static::$createdApps["developer_{$sampleEntity->id()}"];
+        $firstEntity = static::$apps["developer_{$sampleEntity->id()}"];
         $entity = $controller->loadApp($firstEntity->getAppId());
         $this->assertContains(DeveloperAppInterface::class, class_implements($entity));
         $this->assertEquals($firstEntity, $entity);
         $sampleEntity = clone CompanyAppControllerTest::sampleDataForEntityCreate();
-        $firstEntity = static::$createdApps["company_{$sampleEntity->id()}"];
+        $firstEntity = static::$apps["company_{$sampleEntity->id()}"];
         $entity = $controller->loadApp($firstEntity->getAppId());
         $this->assertContains(CompanyAppInterface::class, class_implements($entity));
         $this->assertEquals($firstEntity, $entity);
@@ -182,8 +188,8 @@ class AppControllerTest extends EntityControllerValidator
         /** @var \Apigee\Edge\Api\Management\Controller\AppControllerInterface $controller */
         $controller = $this->getEntityController();
         $ids = $controller->listAppIds();
-        foreach (static::$createdApps as $entity) {
-            $this->assertContains($entity->getAppId(), $ids);
+        foreach (array_keys(static::$appIdTypeMap) as $id) {
+            $this->assertContains($id, $ids);
         }
     }
 
@@ -195,8 +201,8 @@ class AppControllerTest extends EntityControllerValidator
         /** @var \Apigee\Edge\Api\Management\Controller\AppControllerInterface $controller */
         $controller = $this->getEntityController();
         $apps = $controller->listApps();
-        foreach (static::$createdApps as $entity) {
-            $this->assertEquals($entity, $apps[$entity->getAppId()]);
+        foreach (static::$appIdTypeMap as $appId => $type) {
+            $this->assertEquals(static::$apps["{$type}_{$appId}"], $apps[$appId]);
         }
         $apps = $controller->listApps(false);
         /** @var \Apigee\Edge\Api\Management\Entity\AppInterface $firstApp */
@@ -213,12 +219,13 @@ class AppControllerTest extends EntityControllerValidator
         $controller = $this->getEntityController();
         $approvedIDs = $controller->listAppIdsByStatus(App::STATUS_APPROVED);
         $revokedIDs = $controller->listAppIdsByStatus(App::STATUS_REVOKED);
-        /** @var \Apigee\Edge\Api\Management\Entity\AppInterface $app */
-        foreach (static::$createdApps as $app) {
+        /* @var \Apigee\Edge\Api\Management\Entity\AppInterface $app */
+        foreach (static::$appIdTypeMap as $appId => $type) {
+            $app = static::$apps["{$type}_{$appId}"];
             if (App::STATUS_APPROVED === $app->getStatus()) {
-                $this->assertContains($app->getAppId(), $approvedIDs);
+                $this->assertContains($appId, $approvedIDs);
             } else {
-                $this->assertContains($app->getAppId(), $revokedIDs);
+                $this->assertContains($appId, $revokedIDs);
             }
         }
     }
@@ -233,8 +240,9 @@ class AppControllerTest extends EntityControllerValidator
         $controller = $this->getEntityController();
         $developerApps = $controller->listAppIdsByType('developer');
         $companyApps = $controller->listAppIdsByType('company');
-        /** @var \Apigee\Edge\Api\Management\Entity\AppInterface $app */
-        foreach (static::$createdApps as $app) {
+        /* @var \Apigee\Edge\Api\Management\Entity\AppInterface $app */
+        foreach (static::$appIdTypeMap as $appId => $type) {
+            $app = static::$apps["{$type}_{$appId}"];
             if ($app instanceof DeveloperAppInterface) {
                 $this->assertContains($app->getAppId(), $developerApps);
             } else {

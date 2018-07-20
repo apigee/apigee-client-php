@@ -25,7 +25,7 @@ use Apigee\Edge\Entity\EntityInterface;
 use Apigee\Edge\Structure\AttributesProperty;
 use Apigee\Edge\Tests\Test\Controller\AttributesAwareEntityControllerTestTrait;
 use Apigee\Edge\Tests\Test\Controller\OrganizationAwareEntityControllerValidatorTrait;
-use Apigee\Edge\Tests\Test\Controller\PaginationEntityListingControllerValidator;
+use Apigee\Edge\Tests\Test\Controller\PaginatedEntityListingControllerValidator;
 use Apigee\Edge\Tests\Test\TestClientFactory;
 
 /**
@@ -33,7 +33,7 @@ use Apigee\Edge\Tests\Test\TestClientFactory;
  *
  * @group controller
  */
-class ApiProductControllerTest extends PaginationEntityListingControllerValidator
+class ApiProductControllerTest extends PaginatedEntityListingControllerValidator
 {
     use AttributesAwareEntityControllerTestTrait;
     use OrganizationAwareEntityControllerValidatorTrait;
@@ -117,7 +117,7 @@ class ApiProductControllerTest extends PaginationEntityListingControllerValidato
     /**
      * @inheritdoc
      */
-    public function cpsLimitTestIdFieldProvider(): array
+    public function paginatedTestEntityIdprovider(): array
     {
         return [['name']];
     }

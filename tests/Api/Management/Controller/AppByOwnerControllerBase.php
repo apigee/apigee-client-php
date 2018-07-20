@@ -18,12 +18,12 @@
 
 namespace Apigee\Edge\Tests\Api\Management\Controller;
 
-use Apigee\Edge\Tests\Test\Controller\PaginationEntityListingControllerValidator;
+use Apigee\Edge\Tests\Test\Controller\PaginatedEntityListingControllerValidator;
 
 /**
  * Common base test class for \Apigee\Edge\Api\Management\Controller\AppByOwnerControllerInterface implementations.
  */
-abstract class AppByOwnerControllerBase extends PaginationEntityListingControllerValidator
+abstract class AppByOwnerControllerBase extends PaginatedEntityListingControllerValidator
 {
     use ApiProductAwareControllerTrait;
 

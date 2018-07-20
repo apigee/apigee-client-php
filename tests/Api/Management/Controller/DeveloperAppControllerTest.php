@@ -160,7 +160,7 @@ class DeveloperAppControllerTest extends AppByOwnerControllerBase
     /**
      * @inheritdoc
      */
-    public function cpsLimitTestIdFieldProvider(): array
+    public function paginatedTestEntityIdprovider(): array
     {
         return [['name']];
     }

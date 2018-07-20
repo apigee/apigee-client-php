@@ -20,20 +20,20 @@ namespace Apigee\Edge\Tests\Test\Controller;
 
 /**
  * Helps in validation of all entity controllers that implements
- * NoPaginationEntityListingControllerInterface.
+ * NonPaginatedEntityIdListingControllerInterface.
  *
- * @see \Apigee\Edge\Controller\NoPaginationEntityListingControllerInterface
+ * @see \Apigee\Edge\Controller\NonPaginatedEntityIdListingControllerInterface
  */
-abstract class NoPaginationEntityListingControllerValidator extends EntityCrudOperationsControllerValidator
+abstract class NonPaginatedEntityListingControllerValidator extends EntityCrudOperationsControllerValidator
 {
-    use NoPaginationEntityIdListingControllerValidatorTrait;
+    use NonPaginatedEntityIdListingControllerValidatorTrait;
 
     /**
      * @depends testCreate
      */
     public function testGetEntities(): void
     {
-        /** @var \Apigee\Edge\Controller\NoPaginationEntityListingControllerInterface $controller */
+        /** @var \Apigee\Edge\Controller\NonPaginatedEntityListingControllerInterface $controller */
         $controller = $this->getEntityController();
         $entities = $controller->getEntities();
         $this->assertNotEmpty($entities);
