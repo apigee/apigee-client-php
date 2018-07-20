@@ -31,7 +31,9 @@ use Psr\Http\Message\UriInterface;
 class AppController extends PaginatedEntityController implements AppControllerInterface
 {
     use AppControllerTrait;
-    use PaginationHelperTrait;
+    use PaginationHelperTrait {
+        listEntities as private traitListEntities;
+    }
 
     protected const ID_GETTER = 'getAppId';
 
@@ -85,7 +87,7 @@ class AppController extends PaginatedEntityController implements AppControllerIn
             'includeCred' => $includeCredentials ? 'true' : 'false',
         ];
 
-        return $this->getEntities($pager, $queryParams);
+        return $this->listEntities($pager, $queryParams);
     }
 
     /**
@@ -113,7 +115,7 @@ class AppController extends PaginatedEntityController implements AppControllerIn
             'includeCred' => $includeCredentials ? 'true' : 'false',
         ];
 
-        return $this->getEntities($pager, $queryParams);
+        return $this->listEntities($pager, $queryParams);
     }
 
     /**
@@ -161,13 +163,13 @@ class AppController extends PaginatedEntityController implements AppControllerIn
     /**
      * @inheritdoc
      */
-    protected function getEntities(
+    protected function listEntities(
         PagerInterface $pager = null,
         array $query_params = [],
         string $idGetter = null
     ): array {
         $idGetter = $idGetter ?? static::ID_GETTER;
 
-        return $this->listEntities($pager, $query_params, $idGetter);
+        return $this->traitListEntities($pager, $query_params, $idGetter);
     }
 }
