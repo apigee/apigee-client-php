@@ -23,9 +23,8 @@ use Throwable;
 /**
  * Class CpsNotEnabledException.
  *
- * For those cases if someone tries to add a CPS limit to an API call but the feature is not enabled on the
- * organization on Edge.
- *
+ * For those cases if someone tries to add a CPS limit to an API call but the
+ * feature is not enabled on the organization on Apigee Edge.
  *
  * @see https://docs.apigee.com/api-services/content/api-reference-getting-started#cps
  */
