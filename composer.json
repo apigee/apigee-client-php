@@ -72,7 +72,7 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "scripts": {
-        "test": "phpunit -v --debug --printer '\\LimeDeck\\Testing\\Printer'",
+        "test": "phpunit",
         "analyze": "psalm --config=psalm.xml.dist --show-info=false --stats",
         "metrics": "phpmetrics .",
         "metrics-html": "phpmetrics . --report-html=report",
