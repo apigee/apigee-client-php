@@ -23,10 +23,9 @@ use Apigee\Edge\Structure\PagerInterface;
 /**
  * Interface PaginatedEntityControllerInterface.
  *
- * For entities that supports pagination on listing API endpoint on a CPS
- * enabled org, ex.: developer, api product, etc.
- *
- * @see https://docs.apigee.com/management/apis/get/organizations/%7Borg_name%7D/developers */
+ * For those controllers that contains as least one method that communicates
+ * with an endpoint which supports pagination.
+ */
 interface PaginatedEntityControllerInterface
 {
     /**
@@ -42,8 +41,10 @@ interface PaginatedEntityControllerInterface
      *
      * @throws \Apigee\Edge\Exception\CpsNotEnabledException
      *   If CPS listing is not supported on the organization.
+     * @throws \Apigee\Edge\Exception\CpsNotEnabledException
+     *   If CPS is not enabled on the organization.
      *
-     * @return PagerInterface
+     * @return \Apigee\Edge\Structure\PagerInterface
      *   The pager object.
      */
     public function createPager(int $limit = 0, ?string $startKey = null): PagerInterface;

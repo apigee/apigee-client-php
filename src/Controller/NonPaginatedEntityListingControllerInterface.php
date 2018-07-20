@@ -21,7 +21,8 @@ namespace Apigee\Edge\Controller;
 /**
  * Interface NoPaginationEntityListingControllerInterface.
  *
- * For entities that does not support CPS limits in their listing API calls, ex.: organization.
+ * For those entities that can be listed as objects or by their entity ids but
+ * pagination is supported on their endpoint. Ex.: organizations.
  *
  * @see https://docs.apigee.com/management/apis/get/organizations
  */

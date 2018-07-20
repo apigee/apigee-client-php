@@ -22,6 +22,9 @@ use Apigee\Edge\Structure\PagerInterface;
 
 /**
  * Interface PaginatedEntityListingControllerInterface.
+ *
+ * For those entities that can be listed as objects or by their entity ids and
+ * pagination is supported on their endpoint.
  */
 interface PaginatedEntityListingControllerInterface
 {
