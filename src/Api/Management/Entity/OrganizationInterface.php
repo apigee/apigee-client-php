@@ -54,13 +54,4 @@ interface OrganizationInterface extends
      * @return array
      */
     public function getTypes(): array;
-
-    /**
-     * Indicates whether the Content Persistance Service is enabled on the organization.
-     *
-     * @see https://community.apigee.com/questions/49310/how-many-custom-attributes-are-allowed-on-an-edge.html
-     *
-     * @return bool
-     */
-    public function isCpsEnabled(): bool;
 }
