@@ -66,7 +66,7 @@ class DeveloperAppController extends AppByOwnerController implements DeveloperAp
     /**
      * @inheritdoc
      *
-     * We had to override this because pagination does not work the same
+     * FIXME We had to override this because pagination does not work the same
      * way on developer apps as on other endpoints with "expand=true" at this
      * moment.
      */
@@ -81,7 +81,7 @@ class DeveloperAppController extends AppByOwnerController implements DeveloperAp
         if ($pager) {
             $responseArray = $this->getResultsInRange($pager, $query_params);
 
-            return $this->responseArrayToArrayOfEntities($responseArray, $key_provider);
+            $entities = $this->responseArrayToArrayOfEntities($responseArray, $key_provider);
         } else {
             $responseArray = $this->getResultsInRange($this->createPager(), $query_params);
             // Ignore entity type key from response, ex.: developer, apiproduct,
@@ -110,9 +110,16 @@ class DeveloperAppController extends AppByOwnerController implements DeveloperAp
                     $lastId = false;
                 }
             } while ($lastId);
-
-            return $entities;
         }
+
+        // Result returned by "shallowExpand" also does not contain developer
+        // id so we have to make sure that it is set.
+        /** @var \Apigee\Edge\Api\Management\Entity\DeveloperApp $entity */
+        foreach ($entities as $entity) {
+            $entity->setDeveloperId($this->developerId);
+        }
+
+        return $entities;
     }
 
     /**
