@@ -23,6 +23,7 @@ use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Controller\EntityCrudOperationsControllerTrait;
 use Apigee\Edge\Controller\PaginatedEntityListingControllerTrait;
 use Apigee\Edge\Controller\StatusAwareEntityControllerTrait;
+use Apigee\Edge\Structure\PagerInterface;
 use Psr\Http\Message\UriInterface;
 
 /**
@@ -33,7 +34,9 @@ class DeveloperAppController extends AppByOwnerController implements DeveloperAp
     use AttributesAwareEntityControllerTrait;
     use AppControllerTrait;
     use EntityCrudOperationsControllerTrait;
-    use PaginatedEntityListingControllerTrait;
+    use PaginatedEntityListingControllerTrait {
+        getEntities as private traitGetEntities;
+    }
     use StatusAwareEntityControllerTrait;
 
     /** @var string Developer email or id. */
@@ -58,6 +61,58 @@ class DeveloperAppController extends AppByOwnerController implements DeveloperAp
         $this->developerId = $developerId;
         $entityNormalizers = array_merge($entityNormalizers, $this->appEntityNormalizers());
         parent::__construct($organization, $client, $entityNormalizers, $organizationController);
+    }
+
+    /**
+     * @inheritdoc
+     *
+     * We had to override this because pagination does not work the same
+     * way on developer apps as on other endpoints with "expand=true" at this
+     * moment.
+     */
+    public function getEntities(
+        PagerInterface $pager = null,
+        string $key_provider = 'id'
+    ): array {
+        $query_params = [
+            'shallowExpand' => 'true',
+        ];
+
+        if ($pager) {
+            $responseArray = $this->getResultsInRange($pager, $query_params);
+
+            return $this->responseArrayToArrayOfEntities($responseArray, $key_provider);
+        } else {
+            $responseArray = $this->getResultsInRange($this->createPager(), $query_params);
+            // Ignore entity type key from response, ex.: developer, apiproduct,
+            // etc.
+            $responseArray = reset($responseArray);
+            $entities = $this->responseArrayToArrayOfEntities($responseArray, $key_provider);
+            $lastEntity = end($entities);
+            $lastId = $lastEntity->{$key_provider}();
+            do {
+                $tmp = $this->getResultsInRange($this->createPager(0, $lastId), $query_params);
+                // Ignore entity type key from response, ex.: developer,
+                // apiproduct, etc.
+                $tmp = reset($tmp);
+                // The "shallowExpand" does not repeat the entity with id in
+                // "startKey" as the first element of the array so we
+                // do not need to remove that.
+                $tmpEntities = $this->responseArrayToArrayOfEntities($tmp, $key_provider);
+                // The returned entity array is keyed by entity id which
+                // is unique so we can do this.
+                $entities += $tmpEntities;
+
+                if (count($tmpEntities) > 1) {
+                    $lastEntity = end($tmpEntities);
+                    $lastId = $lastEntity->{$key_provider}();
+                } else {
+                    $lastId = false;
+                }
+            } while ($lastId);
+
+            return $entities;
+        }
     }
 
     /**
