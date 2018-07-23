@@ -77,7 +77,7 @@ class CompanyAppControllerTest extends AppByOwnerControllerBase
             $isMock = TestClientFactory::isMockClient(static::$client);
             $entity = new CompanyApp(
                 [
-                    'name' => $isMock ? 'phpunit_test_app' : static::$random->unique()->userName,
+                    'name' => $isMock ? static::getOfflineEntityId() : static::$random->unique()->userName,
                     'apiProducts' => [static::$apiProductName],
                     'attributes' => new AttributesProperty(['foo' => 'bar']),
                     'callbackUrl' => 'http://example.com',
@@ -165,6 +165,14 @@ class CompanyAppControllerTest extends AppByOwnerControllerBase
     public function paginatedTestEntityIdprovider(): array
     {
         return [['name']];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public static function getOfflineEntityId(): string
+    {
+        return 'phpunit_test_app';
     }
 
     /**

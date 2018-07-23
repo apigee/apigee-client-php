@@ -42,6 +42,13 @@ abstract class EntityCrudOperationsControllerValidator extends EntityControllerV
     abstract public static function sampleDataForEntityCreate(): EntityInterface;
 
     /**
+     * Returns the entity id of the mock entity used in offline tests.
+     *
+     * @return string
+     */
+    abstract public static function getOfflineEntityId(): string;
+
+    /**
      * Returns the _same_ entity object that can be used for testing update operations.
      *
      * Always use `clone` to create a new copy from the object before you start work with it!

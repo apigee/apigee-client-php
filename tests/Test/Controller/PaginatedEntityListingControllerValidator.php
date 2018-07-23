@@ -18,7 +18,6 @@
 
 namespace Apigee\Edge\Tests\Test\Controller;
 
-use Apigee\Edge\Client;
 use Apigee\Edge\Tests\Test\TestClientFactory;
 
 /**
@@ -53,7 +52,7 @@ abstract class PaginatedEntityListingControllerValidator extends EntityCrudOpera
                 static::$createdEntities[$item->id()] = $item;
             }
         }
-        // Load _all_ entities.
+        // Load a subset of entities.
         $startKey = "3{$sampleEntityId}";
         $limit = 2;
         $pager = $controller->createPager($limit, $startKey);
@@ -62,7 +61,12 @@ abstract class PaginatedEntityListingControllerValidator extends EntityCrudOpera
         $this->assertCount($limit, $result);
     }
 
-    public function testPaginatedAllEntityListing(): void
+    /**
+     * @dataProvider paginatedTestEntityIdprovider
+     *
+     * @param string $idField
+     */
+    public function testPaginatedAllEntityListing(string $idField): void
     {
         // We have to the this with the offline client because default pager
         // limit is different for different entities (api product = 1000,
@@ -74,6 +78,14 @@ abstract class PaginatedEntityListingControllerValidator extends EntityCrudOpera
         $this->assertCount(6, $result);
         $result = $controller->getEntities();
         $this->assertCount(6, $result);
+        // Load a subset of entities.
+        $startKey = "3{$this->getOfflineEntityId()}";
+        $limit = 2;
+        $pager = $controller->createPager($limit, $startKey);
+        $result = $controller->getEntities($pager);
+        $firstEntity = reset($result);
+        $this->assertEquals($startKey, call_user_func([$firstEntity, 'get' . $idField]));
+        $this->assertCount($limit, $result);
     }
 
     /**

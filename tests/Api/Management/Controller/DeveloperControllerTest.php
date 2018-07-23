@@ -48,7 +48,7 @@ class DeveloperControllerTest extends PaginatedEntityListingControllerValidator
         if (null === $entity) {
             $isMock = TestClientFactory::isMockClient(static::$client);
             $entity = new Developer([
-                'email' => $isMock ? 'phpunit@example.com' : static::$random->unique()->safeEmail,
+                'email' => $isMock ? static::getOfflineEntityId() : static::$random->unique()->safeEmail,
                 'firstName' => $isMock ? 'Php' : static::$random->unique()->firstName,
                 'lastName' => $isMock ? 'Unit' : static::$random->unique()->lastName,
                 'userName' => $isMock ? 'phpunit' : static::$random->unique()->userName,
@@ -144,6 +144,14 @@ class DeveloperControllerTest extends PaginatedEntityListingControllerValidator
     {
         // This override makes easier the offline testing.
         return [['email']];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public static function getOfflineEntityId(): string
+    {
+        return 'phpunit@example.com';
     }
 
     /**

@@ -108,6 +108,14 @@ class EnvironmentControllerTest extends EntityCrudOperationsControllerValidator
     /**
      * @inheritdoc
      */
+    public static function getOfflineEntityId(): string
+    {
+        return '';
+    }
+
+    /**
+     * @inheritdoc
+     */
     protected static function getEntityController(ClientInterface $client = null): EntityControllerInterface
     {
         static $controller;

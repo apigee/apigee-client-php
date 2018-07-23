@@ -46,7 +46,7 @@ class CompanyControllerTest extends PaginatedEntityListingControllerValidator
         if (null === $entity) {
             $isMock = TestClientFactory::isMockClient(static::$client);
             $entity = new Company([
-                'name' => $isMock ? 'phpunit' : 'phpunit_' . static::$random->unique()->userName,
+                'name' => $isMock ? static::getOfflineEntityId() : 'phpunit_' . static::$random->unique()->userName,
                 'displayName' => $isMock ? 'A PHPUnit company' : static::$random->unique()->words(static::$random->numberBetween(1, 8), true),
                 'attributes' => new AttributesProperty(['foo' => 'bar']),
             ]);
@@ -127,6 +127,14 @@ class CompanyControllerTest extends PaginatedEntityListingControllerValidator
     public function paginatedTestEntityIdprovider(): array
     {
         return [['name']];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function getOfflineEntityId(): string
+    {
+        return 'phpunit';
     }
 
     /**

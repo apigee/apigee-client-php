@@ -80,7 +80,9 @@ class DeveloperAppController extends AppByOwnerController implements DeveloperAp
 
         if ($pager) {
             $responseArray = $this->getResultsInRange($pager, $query_params);
-
+            // Ignore entity type key from response, ex.: developer,
+            // apiproduct, etc.
+            $responseArray = reset($responseArray);
             $entities = $this->responseArrayToArrayOfEntities($responseArray, $key_provider);
         } else {
             $responseArray = $this->getResultsInRange($this->createPager(), $query_params);
@@ -95,15 +97,17 @@ class DeveloperAppController extends AppByOwnerController implements DeveloperAp
                 // Ignore entity type key from response, ex.: developer,
                 // apiproduct, etc.
                 $tmp = reset($tmp);
-                // The "shallowExpand" does not repeat the entity with id in
-                // "startKey" as the first element of the array so we
-                // do not need to remove that.
+                // Remove the first item from the list because it is the same
+                // as the last item of $entities at this moment.
+                // Apigee Edge response always starts with the requested entity
+                // (startKey).
+                array_shift($tmp);
                 $tmpEntities = $this->responseArrayToArrayOfEntities($tmp, $key_provider);
                 // The returned entity array is keyed by entity id which
                 // is unique so we can do this.
                 $entities += $tmpEntities;
 
-                if (count($tmpEntities) > 1) {
+                if (count($tmpEntities) > 0) {
                     $lastEntity = end($tmpEntities);
                     $lastId = $lastEntity->{$key_provider}();
                 } else {

@@ -52,6 +52,9 @@ trait PaginationHelperTrait
 
         if ($pager) {
             $responseArray = $this->getResultsInRange($pager, $query_params);
+            // Ignore entity type key from response, ex.: developer,
+            // apiproduct, etc.
+            $responseArray = reset($responseArray);
 
             return $this->responseArrayToArrayOfEntities($responseArray, $key_provider);
         } else {
