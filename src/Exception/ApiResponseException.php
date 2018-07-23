@@ -53,26 +53,10 @@ class ApiResponseException extends ApiRequestException
     ) {
         $this->response = $response;
         $message = $message ?: $response->getReasonPhrase();
-        // Try to parse Edge error message and error code from the response body.
-        $contentTypeHeader = $response->getHeaderLine('Content-Type');
-        if ($contentTypeHeader && false !== strpos($contentTypeHeader, 'application/json')) {
-            $array = json_decode((string) $response->getBody(), true);
-            if (JSON_ERROR_NONE === json_last_error()) {
-                if (array_key_exists('fault', $array)) {
-                    $message = $array['fault']['faultstring'] ?? null;
-                    $this->edgeErrorCode = $array['fault']['detail']['errorcode'] ?? null;
-                } else {
-                    if (array_key_exists('code', $array)) {
-                        $this->edgeErrorCode = $array['code'];
-                    }
-                    if (array_key_exists('message', $array)) {
-                        // It could happen that the returned message by
-                        // Apigee Edge is also an array.
-                        $message = is_array($array['message']) ? json_encode($array['message']) : $array['message'];
-                    }
-                }
-            }
-        }
+        list('code' => $errorCode, 'message' => $errorMessage) = $this->parseErrorResponse($response);
+        $this->edgeErrorCode = $errorCode;
+        $message = $errorMessage ?: $message;
+
         parent::__construct($request, $message, $code, $previous, $formatter);
     }
 
@@ -105,5 +89,45 @@ class ApiResponseException extends ApiRequestException
     public function getEdgeErrorCode(): ?string
     {
         return $this->edgeErrorCode;
+    }
+
+    /**
+     * Tries to extract Apigee Edge error code and message from a response.
+     *
+     * @param \Psr\Http\Message\ResponseInterface $response
+     *   API response.
+     *
+     * @return array
+     *   An associative array where keys are "code" and "message" and their
+     *   values are either string or null.
+     */
+    private function parseErrorResponse(ResponseInterface $response): array
+    {
+        $error = [
+            'code' => null,
+            'message' => null,
+        ];
+        // Try to parse Edge error message and error code from the response body.
+        $contentTypeHeader = $response->getHeaderLine('Content-Type');
+        if ($contentTypeHeader && false !== strpos($contentTypeHeader, 'application/json')) {
+            $array = json_decode((string) $response->getBody(), true);
+            if (JSON_ERROR_NONE === json_last_error()) {
+                if (array_key_exists('fault', $array)) {
+                    $error['message'] = $array['fault']['faultstring'] ?? null;
+                    $error['code'] = $array['fault']['detail']['errorcode'] ?? null;
+                } else {
+                    if (array_key_exists('code', $array)) {
+                        $error['code'] = $array['code'];
+                    }
+                    if (array_key_exists('message', $array)) {
+                        // It could happen that the returned message by
+                        // Apigee Edge is also an array.
+                        $error['message'] = is_array($array['message']) ? json_encode($array['message']) : $array['message'];
+                    }
+                }
+            }
+        }
+
+        return $error;
     }
 }
