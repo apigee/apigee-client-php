@@ -147,6 +147,19 @@ class ClientTest extends TestCase
         $client->get('/');
     }
 
+    public function testRetryPlugin(): void
+    {
+        static::$httpClient->addResponse(new Response(500));
+        static::$httpClient->addResponse(new Response(200));
+        $builder = new Builder(self::$httpClient);
+        $client = new Client(new NullAuthentication(), null, [
+            Client::CONFIG_HTTP_CLIENT_BUILDER => $builder,
+            Client::CONFIG_RETRY_PLUGIN_CONFIG => ['retries' => 1],
+        ]);
+        $response = $client->get('/');
+        $this->assertEquals(200, $response->getStatusCode());
+    }
+
     public function testClientExceptionWithErrorResponse(): void
     {
         $errorCode = 'error code';
