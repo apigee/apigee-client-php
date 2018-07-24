@@ -147,6 +147,10 @@ class ClientTest extends TestCase
         $client->get('/');
     }
 
+    /**
+     * @expectedException \Apigee\Edge\Exception\ClientErrorException
+     * @expectedExceptionCode 401
+     */
     public function testRetryPlugin(): void
     {
         static::$httpClient->addResponse(new Response(500));
@@ -158,6 +162,10 @@ class ClientTest extends TestCase
         ]);
         $response = $client->get('/');
         $this->assertEquals(200, $response->getStatusCode());
+        // Do not retry API calls with authentication error.
+        static::$httpClient->addResponse(new Response(401));
+        static::$httpClient->addResponse(new Response(200));
+        $client->get('/');
     }
 
     public function testClientExceptionWithErrorResponse(): void

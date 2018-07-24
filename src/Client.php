@@ -18,6 +18,7 @@
 
 namespace Apigee\Edge;
 
+use Apigee\Edge\Exception\ApiResponseException;
 use Apigee\Edge\Exception\OauthAuthenticationException;
 use Apigee\Edge\HttpClient\Plugin\Authentication\Oauth;
 use Apigee\Edge\HttpClient\Plugin\ResponseHandlerPlugin;
@@ -312,11 +313,17 @@ class Client implements ClientInterface
         ];
 
         if (null !== $this->retryPluginConfig) {
-            // When Oauth authentication is in use retry decider should ignore
-            // OauthAuthenticationException.
             if (!isset($this->retryPluginConfig['decider'])) {
                 $this->retryPluginConfig['decider'] = function (RequestInterface $request, Exception $e) {
+                    // When Oauth authentication is in use retry decider should ignore
+                    // OauthAuthenticationException.
                     if (!$e instanceof OauthAuthenticationException) {
+                        // Do not retry API calls that failed with
+                        // authentication error.
+                        if ($e instanceof ApiResponseException && 401 === $e->getResponse()->getStatusCode()) {
+                            return false;
+                        }
+
                         return true;
                     }
 
@@ -330,7 +337,7 @@ class Client implements ClientInterface
             $middlePlugins[] = new RetryOauthAuthenticationPlugin($this->authentication);
         }
 
-        // Alters, analyze responses.
+        // Alters, analyzes responses.
         $finalPlugins = [
             new ResponseHandlerPlugin($this->errorFormatter),
         ];
