@@ -18,28 +18,22 @@
 
 namespace Apigee\Edge\Controller;
 
-use Apigee\Edge\Structure\CpsListLimitInterface;
-
 /**
- * Interface CpsListingEntityControllerInterface.
+ * Interface NoPaginationEntityListingControllerInterface.
+ *
+ * For those entities that can be listed as objects or by their entity ids but
+ * pagination is supported on their endpoint. Ex.: organizations.
+ *
+ * @see https://docs.apigee.com/management/apis/get/organizations
  */
-interface CpsListingEntityControllerInterface
+interface NonPaginatedEntityListingControllerInterface extends NonPaginatedEntityIdListingControllerInterface
 {
     /**
-     * Returns list of entities from Edge. The returned number of entities can be limited.
+     * Returns list of entities from Edge.
      *
-     * @param \Apigee\Edge\Structure\CpsListLimitInterface|null $cpsLimit
-     *
-     * @return array
-     */
-    public function getEntities(CpsListLimitInterface $cpsLimit = null): array;
-
-    /**
-     * Returns list of entity ids from Edge. The returned number of entities can be limited.
-     *
-     * @param \Apigee\Edge\Structure\CpsListLimitInterface|null $cpsLimit
+     * The returned number of entities can _not_ be limited.
      *
      * @return \Apigee\Edge\Entity\EntityInterface[]
      */
-    public function getEntityIds(CpsListLimitInterface $cpsLimit = null): array;
+    public function getEntities(): array;
 }

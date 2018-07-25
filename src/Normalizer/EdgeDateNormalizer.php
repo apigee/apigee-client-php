@@ -23,7 +23,7 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 class EdgeDateNormalizer implements NormalizerInterface
 {
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function supportsNormalization($data, $format = null)
     {

@@ -1,0 +1,46 @@
+{
+    "developer": [
+        {
+            "apps": [],
+            "companies": [],
+            "email": "3phpunit@example.com",
+            "developerId": "fb454422-e17d-4c48-81bd-7b32e9c3c448",
+            "firstName": "Php",
+            "lastName": "Unit",
+            "userName": "phpunit",
+            "organizationName": "phpunit",
+            "status": "active",
+            "attributes": [
+                {
+                    "name": "foo",
+                    "value": "bar"
+                }
+            ],
+            "createdAt": 648345600000,
+            "createdBy": "phpunit@example.com",
+            "lastModifiedAt": 648345600000,
+            "lastModifiedBy": "phpunit@example.com"
+        },
+        {
+            "apps": [],
+            "companies": [],
+            "email": "4phpunit@example.com",
+            "developerId": "36e2b5cf-9064-43fe-b528-8a50e8cc4eb4",
+            "firstName": "Php",
+            "lastName": "Unit",
+            "userName": "phpunit",
+            "organizationName": "phpunit",
+            "status": "active",
+            "attributes": [
+                {
+                    "name": "foo",
+                    "value": "bar"
+                }
+            ],
+            "createdAt": 648345600000,
+            "createdBy": "phpunit@example.com",
+            "lastModifiedAt": 648345600000,
+            "lastModifiedBy": "phpunit@example.com"
+        }
+    ]
+}

@@ -18,7 +18,9 @@
 
 namespace Apigee\Edge\Tests\Test\Controller;
 
+use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Controller\EntityControllerInterface;
+use Apigee\Edge\Tests\Test\HttpClient\FileSystemMockClient;
 use Apigee\Edge\Tests\Test\TestClientFactory;
 use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
@@ -77,11 +79,27 @@ abstract class EntityControllerValidator extends AbstractControllerValidator
     /**
      * Returns the entity controller that is being tested.
      *
-     * It is recommended to use static cache on the controller instance, however it should not be added as an
-     * attribute of a test class because it can be misleading later whether the static::$controller should be called in
+     * It is recommended to use static cache on the controller instance, however it should not be added as a
+     * property of a test class because it can be misleading later whether the static::$controller should be called in
      * a test method or this getter.
+     *
+     * @param \Apigee\Edge\ClientInterface|null $client
+     *   Overrides default API client in test. Allows to switch from online to
+     *   offline and vice-versa.
      *
      * @return \Apigee\Edge\Controller\EntityControllerInterface
      */
-    abstract protected static function getEntityController(): EntityControllerInterface;
+    abstract protected static function getEntityController(ClientInterface $client = null): EntityControllerInterface;
+
+    /**
+     * Returns an entity controller that uses the mock client.
+     *
+     * @return \Apigee\Edge\Controller\EntityControllerInterface
+     */
+    protected function getEntityControllerWithMockClient(): EntityControllerInterface
+    {
+        $factory = new TestClientFactory();
+
+        return $this->getEntityController($factory->getClient(FileSystemMockClient::class));
+    }
 }

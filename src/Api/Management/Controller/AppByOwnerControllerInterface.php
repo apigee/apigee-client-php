@@ -18,10 +18,10 @@
 
 namespace Apigee\Edge\Api\Management\Controller;
 
-use Apigee\Edge\Controller\CpsLimitEntityControllerInterface;
-use Apigee\Edge\Controller\CpsListingEntityControllerInterface;
 use Apigee\Edge\Controller\EntityControllerInterface;
 use Apigee\Edge\Controller\EntityCrudOperationsControllerInterface;
+use Apigee\Edge\Controller\PaginatedEntityControllerInterface;
+use Apigee\Edge\Controller\PaginatedEntityListingControllerInterface;
 use Apigee\Edge\Controller\StatusAwareEntityControllerInterface;
 
 /**
@@ -31,8 +31,8 @@ interface AppByOwnerControllerInterface extends
     AttributesAwareEntityControllerInterface,
     EntityControllerInterface,
     EntityCrudOperationsControllerInterface,
-    CpsLimitEntityControllerInterface,
-    CpsListingEntityControllerInterface,
+    PaginatedEntityControllerInterface,
+    PaginatedEntityListingControllerInterface,
     StatusAwareEntityControllerInterface
 {
     /**

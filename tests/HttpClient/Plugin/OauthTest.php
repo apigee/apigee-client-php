@@ -19,6 +19,7 @@
 namespace Apigee\Edge\Tests\HttpClient\Plugin;
 
 use Apigee\Edge\Client;
+use Apigee\Edge\ClientInterface;
 use Apigee\Edge\HttpClient\Utility\Builder;
 use Apigee\Edge\Tests\Test\HttpClient\Plugin\InMemoryOauthTokenStorage;
 use Apigee\Edge\Tests\Test\HttpClient\Plugin\MockOauth;
@@ -39,6 +40,7 @@ use PHPUnit\Framework\TestCase;
 class OauthTest extends TestCase
 {
     private const API_ENDPOINT = 'http://api.example.com/v1';
+
     /** @var \Http\Mock\Client */
     protected static $httpClient;
 
@@ -63,8 +65,7 @@ class OauthTest extends TestCase
         parent::setUp();
 
         $this->journal = new TestJournal();
-        $this->client = new Client(new MockOauth('', '', new InMemoryOauthTokenStorage(), static::$httpClient, $this->journal),
-            self::API_ENDPOINT, [Client::CONFIG_HTTP_CLIENT_BUILDER => new Builder(static::$httpClient), \Apigee\Edge\Client::CONFIG_JOURNAL => $this->journal]);
+        $this->client = $this->buildClient();
     }
 
     /**
@@ -215,5 +216,48 @@ class OauthTest extends TestCase
         // API server answers with a server error.
         static::$httpClient->addResponse(new Response(500));
         $this->client->get('');
+    }
+
+    /**
+     * @expectedException \Apigee\Edge\Exception\OauthAuthenticationException
+     * @expectedExceptionCode 500
+     */
+    public function testServerErrorMeanwhileRefreshingTokenWithRetryPlugin(): void
+    {
+        $client = $this->buildClient([Client::CONFIG_RETRY_PLUGIN_CONFIG => []]);
+        $body = [
+            'access_token' => 'access_token',
+            'expires_in' => 60,
+            'refresh_token' => 'refresh_token',
+        ];
+        // Auth server returns a new access token.
+        static::$httpClient->addResponse(new Response(200, ['Content-Type' => 'application/json'], json_encode((object) $body)));
+        // API server answers with authentication error. (Mimic expired token.)
+        static::$httpClient->addResponse(new Response(401));
+        // API server answers with authentication error. (Mimic expired refresh token.)
+        static::$httpClient->addResponse(new Response(401));
+        // API server answers with a server error.
+        static::$httpClient->addResponse(new Response(500));
+        $client->get('');
+    }
+
+    /**
+     * Builds a client for the test.
+     *
+     * @param array $options
+     *   Client options.
+     *
+     * @return \Apigee\Edge\ClientInterface
+     *   API client for the test.
+     */
+    private function buildClient(array $options = []): ClientInterface
+    {
+        $options = array_merge([Client::CONFIG_HTTP_CLIENT_BUILDER => new Builder(static::$httpClient), Client::CONFIG_JOURNAL => $this->journal], $options);
+
+        return new Client(
+            new MockOauth('', '', new InMemoryOauthTokenStorage(), static::$httpClient, $this->journal),
+            self::API_ENDPOINT,
+            $options
+        );
     }
 }

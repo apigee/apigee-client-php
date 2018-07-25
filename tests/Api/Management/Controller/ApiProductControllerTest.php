@@ -20,12 +20,13 @@ namespace Apigee\Edge\Tests\Api\Management\Controller;
 
 use Apigee\Edge\Api\Management\Controller\ApiProductController;
 use Apigee\Edge\Api\Management\Entity\ApiProduct;
+use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Controller\EntityControllerInterface;
 use Apigee\Edge\Entity\EntityInterface;
 use Apigee\Edge\Structure\AttributesProperty;
 use Apigee\Edge\Tests\Test\Controller\AttributesAwareEntityControllerTestTrait;
-use Apigee\Edge\Tests\Test\Controller\NonCpsLimitEntityControllerValidator;
 use Apigee\Edge\Tests\Test\Controller\OrganizationAwareEntityControllerValidatorTrait;
+use Apigee\Edge\Tests\Test\Controller\PaginatedEntityListingControllerValidator;
 use Apigee\Edge\Tests\Test\TestClientFactory;
 
 /**
@@ -33,7 +34,7 @@ use Apigee\Edge\Tests\Test\TestClientFactory;
  *
  * @group controller
  */
-class ApiProductControllerTest extends NonCpsLimitEntityControllerValidator
+class ApiProductControllerTest extends PaginatedEntityListingControllerValidator
 {
     use AttributesAwareEntityControllerTestTrait;
     use OrganizationAwareEntityControllerValidatorTrait;
@@ -47,7 +48,7 @@ class ApiProductControllerTest extends NonCpsLimitEntityControllerValidator
         if (null === $entity) {
             $isMock = TestClientFactory::isMockClient(static::$client);
             $entity = new ApiProduct([
-                'name' => $isMock ? 'phpunit_test' : 'phpunit_' . static::$random->unique()->userName,
+                'name' => $isMock ? static::getOfflineEntityId() : 'phpunit_' . static::$random->unique()->userName,
                 'displayName' => $isMock ? 'PHP Unit Test product' : static::$random->unique()->words(static::$random->numberBetween(1, 8), true),
                 'approvalType' => ApiProduct::APPROVAL_TYPE_AUTO,
                 'attributes' => new AttributesProperty(['foo' => 'bar']),
@@ -117,13 +118,33 @@ class ApiProductControllerTest extends NonCpsLimitEntityControllerValidator
     /**
      * @inheritdoc
      */
-    protected static function getEntityController(): EntityControllerInterface
+    public function paginatedTestEntityIdprovider(): array
+    {
+        return [['name']];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public static function getOfflineEntityId(): string
+    {
+        return 'phpunit_test';
+    }
+
+    /**
+     * @inheritdoc
+     */
+    protected static function getEntityController(ClientInterface $client = null): EntityControllerInterface
     {
         static $controller;
-        if (!$controller) {
-            $controller = new ApiProductController(static::getOrganization(static::$client), static::$client);
+        if (null === $client) {
+            if (null === $controller) {
+                $controller = new ApiProductController(static::getOrganization(static::$client), static::$client);
+            }
+
+            return $controller;
         }
 
-        return $controller;
+        return new ApiProductController(static::getOrganization($client), $client);
     }
 }

@@ -20,10 +20,11 @@ namespace Apigee\Edge\Tests\Api\Management\Controller;
 
 use Apigee\Edge\Api\Management\Controller\EnvironmentController;
 use Apigee\Edge\Api\Management\Entity\Environment;
+use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Controller\EntityControllerInterface;
 use Apigee\Edge\Entity\EntityInterface;
 use Apigee\Edge\Tests\Test\Controller\EntityCrudOperationsControllerValidator;
-use Apigee\Edge\Tests\Test\Controller\EntityIdsListingControllerValidatorTrait;
+use Apigee\Edge\Tests\Test\Controller\NonPaginatedEntityIdListingControllerValidatorTrait;
 use Apigee\Edge\Tests\Test\Controller\OrganizationAwareEntityControllerValidatorTrait;
 
 /**
@@ -37,7 +38,7 @@ use Apigee\Edge\Tests\Test\Controller\OrganizationAwareEntityControllerValidator
 class EnvironmentControllerTest extends EntityCrudOperationsControllerValidator
 {
     use OrganizationAwareEntityControllerValidatorTrait;
-    use EntityIdsListingControllerValidatorTrait {
+    use NonPaginatedEntityIdListingControllerValidatorTrait {
         testGetEntityIds as private traitTestGetEntityIds;
     }
 
@@ -107,13 +108,25 @@ class EnvironmentControllerTest extends EntityCrudOperationsControllerValidator
     /**
      * @inheritdoc
      */
-    protected static function getEntityController(): EntityControllerInterface
+    public static function getOfflineEntityId(): string
+    {
+        return '';
+    }
+
+    /**
+     * @inheritdoc
+     */
+    protected static function getEntityController(ClientInterface $client = null): EntityControllerInterface
     {
         static $controller;
-        if (!$controller) {
-            $controller = new EnvironmentController(static::getOrganization(static::$client), static::$client);
+        if (null === $client) {
+            if (null === $controller) {
+                $controller = new EnvironmentController(static::getOrganization(static::$client), static::$client);
+            }
+
+            return $controller;
         }
 
-        return $controller;
+        return new EnvironmentController(static::getOrganization($client), $client);
     }
 }

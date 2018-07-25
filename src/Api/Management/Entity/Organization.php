@@ -84,12 +84,4 @@ class Organization extends Entity implements OrganizationInterface
     {
         return self::TYPES;
     }
-
-    /**
-     * @inheritdoc
-     */
-    public function isCpsEnabled(): bool
-    {
-        return (bool) $this->getPropertyValue('features.isCpsEnabled');
-    }
 }

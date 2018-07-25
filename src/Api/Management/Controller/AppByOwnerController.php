@@ -18,11 +18,11 @@
 
 namespace Apigee\Edge\Api\Management\Controller;
 
-use Apigee\Edge\Controller\CpsLimitEntityController;
+use Apigee\Edge\Controller\PaginatedEntityController;
 
 /**
  * Common parent class for company- and developer app controllers.
  */
-abstract class AppByOwnerController extends CpsLimitEntityController implements AppByOwnerControllerInterface
+abstract class AppByOwnerController extends PaginatedEntityController implements AppByOwnerControllerInterface
 {
 }

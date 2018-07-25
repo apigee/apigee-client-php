@@ -19,31 +19,35 @@
 namespace Apigee\Edge\Structure;
 
 /**
- * Class CpsListLimitInterface.
+ * Interface PagerInterface.
  */
-interface CpsListLimitInterface
+interface PagerInterface
 {
     /**
-     * @return string The primary key of the entity that the list will start.
+     * @return string The primary key of the entity that the list should start
+     *   or null if list should start with the first item selected by
+     *   Apigee Edge.
      */
-    public function getStartKey(): string;
+    public function getStartKey(): ?string;
 
     /**
-     * @param string $startKey
-     *    The primary key of the entity that the list will start.
+     * @param null|string $startKey
+     *   The primary key of the entity that the list will start or null if list
+     *   should start with the first item selected by Apigee Edge.
      *
      * @return string
      */
-    public function setStartKey(string $startKey): string;
+    public function setStartKey(?string $startKey): ?string;
 
     /**
-     * @return int Number of entities to return.
+     * @return int Number of items to return.
      */
     public function getLimit(): int;
 
     /**
      * @param int $limit
-     *   Number of entities to return.
+     *   Number of entities to return. It can be higher than what Apigee Edge
+     *   supports on an endpoint but you do not get back more items.
      *
      * @return int
      */

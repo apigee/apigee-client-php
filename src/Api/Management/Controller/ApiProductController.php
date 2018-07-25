@@ -20,35 +20,38 @@ namespace Apigee\Edge\Api\Management\Controller;
 
 use Apigee\Edge\Api\Management\Entity\ApiProduct;
 use Apigee\Edge\ClientInterface;
-use Apigee\Edge\Controller\EntityController;
 use Apigee\Edge\Controller\EntityCrudOperationsControllerTrait;
-use Apigee\Edge\Controller\NonCpsListingEntityControllerTrait;
+use Apigee\Edge\Controller\PaginatedEntityController;
+use Apigee\Edge\Controller\PaginatedEntityListingControllerTrait;
 use Apigee\Edge\Denormalizer\AttributesPropertyDenormalizer;
 use Psr\Http\Message\UriInterface;
 
 /**
  * Class ApiProductController.
  */
-class ApiProductController extends EntityController implements ApiProductControllerInterface
+class ApiProductController extends PaginatedEntityController implements ApiProductControllerInterface
 {
     use AttributesAwareEntityControllerTrait;
     use EntityCrudOperationsControllerTrait;
-    use NonCpsListingEntityControllerTrait;
+    use PaginatedEntityListingControllerTrait;
 
     /**
      * ApiProductController constructor.
      *
      * @param string $organization
      * @param \Apigee\Edge\ClientInterface $client
-     * @param \Symfony\Component\Serializer\Normalizer\NormalizerInterface[]|\Symfony\Component\Serializer\Normalizer\DenormalizerInterface[] $entityNormalizers
+     * @param array $entityNormalizers
+     * @param \Apigee\Edge\Api\Management\Controller\OrganizationControllerInterface|null $organizationController
      */
     public function __construct(
-        string $organization,
-        ClientInterface $client,
-        array $entityNormalizers = []
+      string $organization,
+      ClientInterface $client,
+      $entityNormalizers = [],
+      ?OrganizationControllerInterface $organizationController = null
     ) {
         $entityNormalizers[] = new AttributesPropertyDenormalizer();
-        parent::__construct($organization, $client, $entityNormalizers);
+        parent::__construct($organization, $client, $entityNormalizers,
+        $organizationController);
     }
 
     /**

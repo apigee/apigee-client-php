@@ -15,6 +15,70 @@
             "createdBy": "phpunit@example.com",
             "lastModifiedAt": 648345600000,
             "lastModifiedBy": "phpunit@example.com"
+        },
+        {
+            "apps": [],
+            "name": "1phpunit",
+            "displayName": "A PHPUnit company",
+            "status": "active",
+            "attributes": [
+                {
+                    "name": "foo",
+                    "value": "bar"
+                }
+            ],
+            "createdAt": 648345600000,
+            "createdBy": "phpunit@example.com",
+            "lastModifiedAt": 648345600000,
+            "lastModifiedBy": "phpunit@example.com"
+        },
+        {
+            "apps": [],
+            "name": "2phpunit",
+            "displayName": "A PHPUnit company",
+            "status": "active",
+            "attributes": [
+                {
+                    "name": "foo",
+                    "value": "bar"
+                }
+            ],
+            "createdAt": 648345600000,
+            "createdBy": "phpunit@example.com",
+            "lastModifiedAt": 648345600000,
+            "lastModifiedBy": "phpunit@example.com"
+        },
+        {
+            "apps": [],
+            "name": "3phpunit",
+            "displayName": "A PHPUnit company",
+            "status": "active",
+            "attributes": [
+                {
+                    "name": "foo",
+                    "value": "bar"
+                }
+            ],
+            "createdAt": 648345600000,
+            "createdBy": "phpunit@example.com",
+            "lastModifiedAt": 648345600000,
+            "lastModifiedBy": "phpunit@example.com"
+        },
+        {
+            "apps": [],
+            "name": "4phpunit",
+            "displayName": "A PHPUnit company",
+            "status": "active",
+            "attributes": [
+                {
+                    "name": "foo",
+                    "value": "bar"
+                }
+            ],
+            "createdAt": 648345600000,
+            "createdBy": "phpunit@example.com",
+            "lastModifiedAt": 648345600000,
+            "lastModifiedBy": "phpunit@example.com"
         }
     ]
 }

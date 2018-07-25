@@ -16,19 +16,22 @@
  * limitations under the License.
  */
 
-namespace Apigee\Edge\Controller;
+namespace Apigee\Edge\Tests\Test\Controller;
 
 /**
- * For listing entity ids of an endpoint that does not support CPS limit.
+ * Trait NonPaginatedEntityIdListingControllerValidatorTrait.
+ *
+ * @see \Apigee\Edge\Controller\NonPaginatedEntityIdListingControllerInterface
  */
-interface EntityIdsListingControllerInterface
+trait NonPaginatedEntityIdListingControllerValidatorTrait
 {
     /**
-     * Returns list of entity ids from Edge. The returned number of entities can _not_ be limited.
-     *
-     * @return array
-     *
-     * @see \Apigee\Edge\Controller\EntityController::getEntityIds()
+     * @depends testCreate
      */
-    public function getEntityIds(): array;
+    public function testGetEntityIds(): void
+    {
+        /** @var \Apigee\Edge\Controller\NonPaginatedEntityListingControllerInterface $controller */
+        $controller = $this->getEntityController();
+        $this->assertNotEmpty($controller->getEntityIds());
+    }
 }

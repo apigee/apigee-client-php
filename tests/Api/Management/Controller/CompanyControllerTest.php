@@ -20,11 +20,12 @@ namespace Apigee\Edge\Tests\Api\Management\Controller;
 
 use Apigee\Edge\Api\Management\Controller\CompanyController;
 use Apigee\Edge\Api\Management\Entity\Company;
+use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Controller\EntityControllerInterface;
 use Apigee\Edge\Entity\EntityInterface;
 use Apigee\Edge\Structure\AttributesProperty;
-use Apigee\Edge\Tests\Test\Controller\NonCpsLimitEntityControllerValidator;
 use Apigee\Edge\Tests\Test\Controller\OrganizationAwareEntityControllerValidatorTrait;
+use Apigee\Edge\Tests\Test\Controller\PaginatedEntityListingControllerValidator;
 use Apigee\Edge\Tests\Test\TestClientFactory;
 
 /**
@@ -32,7 +33,7 @@ use Apigee\Edge\Tests\Test\TestClientFactory;
  *
  * @group controller
  */
-class CompanyControllerTest extends NonCpsLimitEntityControllerValidator
+class CompanyControllerTest extends PaginatedEntityListingControllerValidator
 {
     use OrganizationAwareEntityControllerValidatorTrait;
 
@@ -45,7 +46,7 @@ class CompanyControllerTest extends NonCpsLimitEntityControllerValidator
         if (null === $entity) {
             $isMock = TestClientFactory::isMockClient(static::$client);
             $entity = new Company([
-                'name' => $isMock ? 'phpunit' : 'phpunit_' . static::$random->unique()->userName,
+                'name' => $isMock ? static::getOfflineEntityId() : 'phpunit_' . static::$random->unique()->userName,
                 'displayName' => $isMock ? 'A PHPUnit company' : static::$random->unique()->words(static::$random->numberBetween(1, 8), true),
                 'attributes' => new AttributesProperty(['foo' => 'bar']),
             ]);
@@ -123,13 +124,33 @@ class CompanyControllerTest extends NonCpsLimitEntityControllerValidator
     /**
      * @inheritdoc
      */
-    protected static function getEntityController(): EntityControllerInterface
+    public function paginatedTestEntityIdprovider(): array
+    {
+        return [['name']];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function getOfflineEntityId(): string
+    {
+        return 'phpunit';
+    }
+
+    /**
+     * @inheritdoc
+     */
+    protected static function getEntityController(ClientInterface $client = null): EntityControllerInterface
     {
         static $controller;
-        if (!$controller) {
-            $controller = new CompanyController(static::getOrganization(static::$client), static::$client);
+        if (null === $client) {
+            if (null === $controller) {
+                $controller = new CompanyController(static::getOrganization(static::$client), static::$client);
+            }
+
+            return $controller;
         }
 
-        return $controller;
+        return new CompanyController(static::getOrganization($client), $client);
     }
 }

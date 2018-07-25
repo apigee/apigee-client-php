@@ -2,7 +2,7 @@
     "app": [
         {
             "appFamily": "default",
-            "appId": "b3e71cbb-7eb5-499b-b384-ac82bca1d9dc",
+            "appId": "b3e71cbb-7eb5-5555-b384-ac82bca1d9dc",
             "attributes": [
                 {
                     "name": "DisplayName",
@@ -31,10 +31,10 @@
                     "status": "approved"
                 }
             ],
-            "developerId": "f06c458a-ac2e-4729-806c-75116abf9ffb",
+            "companyName": "phpunit",
             "lastModifiedAt": 648345600000,
             "lastModifiedBy": "phpunit@example.com",
-            "name": "phpunit_test_app",
+            "name": "5phpunit_test_app",
             "scopes": [],
             "status": "approved"
         }

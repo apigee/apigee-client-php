@@ -18,24 +18,30 @@
 
 namespace Apigee\Edge\Controller;
 
+use Apigee\Edge\Structure\PagerInterface;
+
 /**
- * Trait EntityListingControllerTrait.
+ * Trait PaginatedEntityListingControllerTrait.
  *
- * @see \Apigee\Edge\Controller\EntityIdsListingControllerInterface
+ * @see \Apigee\Edge\Controller\PaginatedEntityListingControllerInterface
  */
-trait EntityIdsListingControllerTrait
+trait PaginatedEntityListingControllerTrait
 {
+    use PaginationHelperTrait;
+
     /**
      * @inheritdoc
      */
-    public function getEntityIds(): array
+    public function getEntities(PagerInterface $pager = null, string $key_provider = 'id'): array
     {
-        $query_params = [
-            'expand' => 'false',
-        ];
-        $uri = $this->getBaseEndpointUri()->withQuery(http_build_query($query_params));
-        $response = $this->client->get($uri);
+        return $this->listEntities($pager, [], $key_provider);
+    }
 
-        return $this->responseToArray($response);
+    /**
+     * @inheritdoc
+     */
+    public function getEntityIds(PagerInterface $pager = null): array
+    {
+        return $this->listEntityIds($pager);
     }
 }

@@ -22,21 +22,24 @@ use Apigee\Edge\Api\Management\Entity\Developer;
 use Apigee\Edge\Api\Management\Entity\DeveloperInterface;
 use Apigee\Edge\Api\Management\Exception\DeveloperNotFoundException;
 use Apigee\Edge\ClientInterface;
-use Apigee\Edge\Controller\CpsLimitEntityController;
-use Apigee\Edge\Controller\CpsListingEntityControllerTrait;
 use Apigee\Edge\Controller\EntityCrudOperationsControllerTrait;
+use Apigee\Edge\Controller\PaginatedEntityController;
+use Apigee\Edge\Controller\PaginatedEntityListingControllerTrait;
 use Apigee\Edge\Controller\StatusAwareEntityControllerTrait;
 use Apigee\Edge\Denormalizer\AttributesPropertyDenormalizer;
+use Apigee\Edge\Structure\PagerInterface;
 use Psr\Http\Message\UriInterface;
 
 /**
  * Class DeveloperController.
  */
-class DeveloperController extends CpsLimitEntityController implements DeveloperControllerInterface
+class DeveloperController extends PaginatedEntityController implements DeveloperControllerInterface
 {
     use AttributesAwareEntityControllerTrait;
-    use CpsListingEntityControllerTrait;
     use EntityCrudOperationsControllerTrait;
+    use PaginatedEntityListingControllerTrait {
+        getEntities as private traitGetEntities;
+    }
     use StatusAwareEntityControllerTrait;
 
     /**
@@ -74,6 +77,20 @@ class DeveloperController extends CpsLimitEntityController implements DeveloperC
         $values = reset($responseArray['developer']);
 
         return $this->entityTransformer->denormalize($values, $this->getEntityClass());
+    }
+
+    /**
+     * @inheritdoc
+     *
+     * @psalm-suppress UndefinedMethod
+     */
+    public function getEntities(
+        PagerInterface $pager = null,
+        string $key_provider = 'id'
+    ): array {
+        // The getEntityIds() returns email addresses so we should use email
+        // addresses as keys in the array as well.
+        return $this->traitGetEntities($pager, 'getEmail');
     }
 
     /**

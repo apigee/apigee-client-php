@@ -21,6 +21,7 @@ namespace Apigee\Edge\Tests\Api\Management\Controller;
 use Apigee\Edge\Api\Management\Controller\AppByOwnerController;
 use Apigee\Edge\Api\Management\Controller\DeveloperAppController;
 use Apigee\Edge\Api\Management\Controller\DeveloperAppCredentialController;
+use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Controller\EntityControllerInterface;
 use Apigee\Edge\Entity\EntityInterface;
 use Apigee\Edge\Exception\ApiRequestException;
@@ -113,7 +114,7 @@ class DeveloperAppCredentialControllerTest extends AppCredentialControllerBase
     /**
      * @inheritdoc
      */
-    protected static function getEntityController(): EntityControllerInterface
+    protected static function getEntityController(ClientInterface $client = null): EntityControllerInterface
     {
         static $controller;
         if (!$controller) {
@@ -124,8 +125,21 @@ class DeveloperAppCredentialControllerTest extends AppCredentialControllerBase
                 static::$client
             );
         }
+        static $controller;
+        if (null === $client) {
+            if (null === $controller) {
+                $controller = new DeveloperAppCredentialController(
+                    static::getOrganization(static::$client),
+                    static::$developerId,
+                    static::$appName,
+                    static::$client
+                );
+            }
 
-        return $controller;
+            return $controller;
+        }
+
+        return new DeveloperAppCredentialController(static::getOrganization($client), static::$developerId, static::$appName, $client);
     }
 
     protected static function getAppController(): AppByOwnerController

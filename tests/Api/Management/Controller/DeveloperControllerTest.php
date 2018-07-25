@@ -20,12 +20,13 @@ namespace Apigee\Edge\Tests\Api\Management\Controller;
 
 use Apigee\Edge\Api\Management\Controller\DeveloperController;
 use Apigee\Edge\Api\Management\Entity\Developer;
+use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Controller\EntityControllerInterface;
 use Apigee\Edge\Entity\EntityInterface;
 use Apigee\Edge\Structure\AttributesProperty;
 use Apigee\Edge\Tests\Test\Controller\AttributesAwareEntityControllerTestTrait;
-use Apigee\Edge\Tests\Test\Controller\CpsLimitEntityControllerValidator;
 use Apigee\Edge\Tests\Test\Controller\OrganizationAwareEntityControllerValidatorTrait;
+use Apigee\Edge\Tests\Test\Controller\PaginatedEntityListingControllerValidator;
 use Apigee\Edge\Tests\Test\TestClientFactory;
 
 /**
@@ -33,7 +34,7 @@ use Apigee\Edge\Tests\Test\TestClientFactory;
  *
  * @group controller
  */
-class DeveloperControllerTest extends CpsLimitEntityControllerValidator
+class DeveloperControllerTest extends PaginatedEntityListingControllerValidator
 {
     use AttributesAwareEntityControllerTestTrait;
     use OrganizationAwareEntityControllerValidatorTrait;
@@ -47,7 +48,7 @@ class DeveloperControllerTest extends CpsLimitEntityControllerValidator
         if (null === $entity) {
             $isMock = TestClientFactory::isMockClient(static::$client);
             $entity = new Developer([
-                'email' => $isMock ? 'phpunit@example.com' : static::$random->unique()->safeEmail,
+                'email' => $isMock ? static::getOfflineEntityId() : static::$random->unique()->safeEmail,
                 'firstName' => $isMock ? 'Php' : static::$random->unique()->firstName,
                 'lastName' => $isMock ? 'Unit' : static::$random->unique()->lastName,
                 'userName' => $isMock ? 'phpunit' : static::$random->unique()->userName,
@@ -139,7 +140,7 @@ class DeveloperControllerTest extends CpsLimitEntityControllerValidator
     /**
      * @inheritdoc
      */
-    public function cpsLimitTestIdFieldProvider(): array
+    public function paginatedTestEntityIdprovider(): array
     {
         // This override makes easier the offline testing.
         return [['email']];
@@ -148,14 +149,26 @@ class DeveloperControllerTest extends CpsLimitEntityControllerValidator
     /**
      * @inheritdoc
      */
-    protected static function getEntityController(): EntityControllerInterface
+    public static function getOfflineEntityId(): string
+    {
+        return 'phpunit@example.com';
+    }
+
+    /**
+     * @inheritdoc
+     */
+    protected static function getEntityController(ClientInterface $client = null): EntityControllerInterface
     {
         static $controller;
-        if (!$controller) {
-            $controller = new DeveloperController(static::getOrganization(static::$client), static::$client);
+        if (null === $client) {
+            if (null === $controller) {
+                $controller = new DeveloperController(static::getOrganization(static::$client), static::$client);
+            }
+
+            return $controller;
         }
 
-        return $controller;
+        return new DeveloperController(static::getOrganization($client), $client);
     }
 
     /**

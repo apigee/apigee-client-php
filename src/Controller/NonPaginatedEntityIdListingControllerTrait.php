@@ -16,22 +16,26 @@
  * limitations under the License.
  */
 
-namespace Apigee\Edge\Tests\Test\Controller;
+namespace Apigee\Edge\Controller;
 
 /**
- * Trait EntityIdsListingControllerValidatorTrait.
+ * Trait NonPaginatedEntityIdListingControllerTrait.
  *
- * @see \Apigee\Edge\Controller\EntityIdsListingControllerInterface
+ * @see \Apigee\Edge\Controller\NonPaginatedEntityIdListingControllerInterface
  */
-trait EntityIdsListingControllerValidatorTrait
+trait NonPaginatedEntityIdListingControllerTrait
 {
     /**
-     * @depends testCreate
+     * @inheritdoc
      */
-    public function testGetEntityIds(): void
+    public function getEntityIds(): array
     {
-        /** @var \Apigee\Edge\Controller\NonCpsListingEntityControllerInterface $controller */
-        $controller = $this->getEntityController();
-        $this->assertNotEmpty($controller->getEntityIds());
+        $query_params = [
+            'expand' => 'false',
+        ];
+        $uri = $this->getBaseEndpointUri()->withQuery(http_build_query($query_params));
+        $response = $this->client->get($uri);
+
+        return $this->responseToArray($response);
     }
 }

@@ -21,12 +21,14 @@ namespace Apigee\Edge\Tests\Api\Management\Controller;
 use Apigee\Edge\Api\Management\Controller\CompanyAppController;
 use Apigee\Edge\Api\Management\Controller\CompanyController;
 use Apigee\Edge\Api\Management\Entity\CompanyApp;
+use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Controller\EntityControllerInterface;
 use Apigee\Edge\Entity\EntityInterface;
 use Apigee\Edge\Exception\ApiException;
 use Apigee\Edge\Structure\AttributesProperty;
 use Apigee\Edge\Tests\Test\Controller\AttributesAwareEntityControllerTestTrait;
 use Apigee\Edge\Tests\Test\Controller\OrganizationAwareEntityControllerValidatorTrait;
+use Apigee\Edge\Tests\Test\HttpClient\FileSystemMockClient;
 use Apigee\Edge\Tests\Test\TestClientFactory;
 
 /**
@@ -75,7 +77,7 @@ class CompanyAppControllerTest extends AppByOwnerControllerBase
             $isMock = TestClientFactory::isMockClient(static::$client);
             $entity = new CompanyApp(
                 [
-                    'name' => $isMock ? 'phpunit_test_app' : static::$random->unique()->userName,
+                    'name' => $isMock ? static::getOfflineEntityId() : static::$random->unique()->userName,
                     'apiProducts' => [static::$apiProductName],
                     'attributes' => new AttributesProperty(['foo' => 'bar']),
                     'callbackUrl' => 'http://example.com',
@@ -160,7 +162,7 @@ class CompanyAppControllerTest extends AppByOwnerControllerBase
     /**
      * @inheritdoc
      */
-    public function cpsLimitTestIdFieldProvider(): array
+    public function paginatedTestEntityIdprovider(): array
     {
         return [['name']];
     }
@@ -168,18 +170,34 @@ class CompanyAppControllerTest extends AppByOwnerControllerBase
     /**
      * @inheritdoc
      */
-    protected static function getEntityController(): EntityControllerInterface
+    public static function getOfflineEntityId(): string
+    {
+        return 'phpunit_test_app';
+    }
+
+    /**
+     * @inheritdoc
+     */
+    protected static function getEntityController(ClientInterface $client = null): EntityControllerInterface
     {
         static $controller;
-        if (!$controller) {
-            $controller = new CompanyAppController(
-                static::getOrganization(static::$client),
-                static::$companyName,
-                static::$client
-            );
+        if (null === $client) {
+            if (null === $controller) {
+                $controller = new CompanyAppController(
+                    static::getOrganization(static::$client),
+                    static::$companyName,
+                    static::$client
+                );
+            }
+
+            return $controller;
         }
 
-        return $controller;
+        return new CompanyAppController(
+            static::getOrganization($client),
+            static::$companyName,
+            $client
+        );
     }
 
     /**
@@ -210,5 +228,16 @@ class CompanyAppControllerTest extends AppByOwnerControllerBase
         $entity->deleteAttribute('Notes');
 
         return $entity;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    protected function getEntityControllerWithMockClient(): EntityControllerInterface
+    {
+        $factory = new TestClientFactory();
+        $client = $factory->getClient(FileSystemMockClient::class);
+
+        return new CompanyAppController(static::getOrganization($client), 'phpunit', $client);
     }
 }

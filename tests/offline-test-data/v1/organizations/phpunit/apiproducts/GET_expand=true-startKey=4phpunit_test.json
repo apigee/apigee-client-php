@@ -1,0 +1,56 @@
+{
+    "apiProduct": [
+        {
+            "apiResources": [],
+            "approvalType": "auto",
+            "attributes": [
+                {
+                    "name": "foo",
+                    "value": "bar"
+                }
+            ],
+            "createdAt": 648345600000,
+            "createdBy": "phpunit@example.com",
+            "description": "",
+            "displayName": "PHP Unit Test product",
+            "environments": [],
+            "lastModifiedAt": 648345600000,
+            "lastModifiedBy": "phpunit@example.com",
+            "name": "4phpunit_test",
+            "proxies": [],
+            "quota": "10",
+            "quotaInterval": "1",
+            "quotaTimeUnit": "minute",
+            "scopes": [
+                "scope 1",
+                "scope 2"
+            ]
+        },
+        {
+            "apiResources": [],
+            "approvalType": "auto",
+            "attributes": [
+                {
+                    "name": "foo",
+                    "value": "bar"
+                }
+            ],
+            "createdAt": 648345600000,
+            "createdBy": "phpunit@example.com",
+            "description": "",
+            "displayName": "PHP Unit Test product",
+            "environments": [],
+            "lastModifiedAt": 648345600000,
+            "lastModifiedBy": "phpunit@example.com",
+            "name": "5phpunit_test",
+            "proxies": [],
+            "quota": "10",
+            "quotaInterval": "1",
+            "quotaTimeUnit": "minute",
+            "scopes": [
+                "scope 1",
+                "scope 2"
+            ]
+        }
+    ]
+}

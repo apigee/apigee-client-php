@@ -91,7 +91,7 @@ class EntityTransformer implements EntityTransformerInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function denormalize($data, $class, $format = null, array $context = [])
     {
@@ -99,7 +99,7 @@ class EntityTransformer implements EntityTransformerInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function supportsDenormalization($data, $type, $format = null)
     {
@@ -107,7 +107,7 @@ class EntityTransformer implements EntityTransformerInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function normalize($object, $format = null, array $context = [])
     {
@@ -115,7 +115,7 @@ class EntityTransformer implements EntityTransformerInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function supportsNormalization($data, $format = null)
     {
@@ -123,7 +123,7 @@ class EntityTransformer implements EntityTransformerInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function serialize($data, $format, array $context = [])
     {
@@ -131,7 +131,7 @@ class EntityTransformer implements EntityTransformerInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function deserialize($data, $type, $format, array $context = [])
     {

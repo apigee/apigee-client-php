@@ -44,6 +44,7 @@ install:
 # We run tests even if the code style analyses fails just to be able get a complete picture about what needs to be
 # improved.
 script:
+  - set -e
   # Check only changed files.
   - IFS=$'\n'; CHANGED_FILES=($(git diff --name-only --diff-filter=ACMRTUXB "${TRAVIS_COMMIT_RANGE}")); unset IFS
   - EXTRA_ARGS=('--path-mode=intersection' '--' "${CHANGED_FILES[@]}")
