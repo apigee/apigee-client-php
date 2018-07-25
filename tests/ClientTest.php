@@ -149,7 +149,7 @@ class ClientTest extends TestCase
 
     /**
      * @expectedException \Apigee\Edge\Exception\ClientErrorException
-     * @expectedExceptionCode 401
+     * @expectedExceptionCode 400
      */
     public function testRetryPlugin(): void
     {
@@ -162,9 +162,8 @@ class ClientTest extends TestCase
         ]);
         $response = $client->get('/');
         $this->assertEquals(200, $response->getStatusCode());
-        // Do not retry API calls with authentication error.
-        static::$httpClient->addResponse(new Response(401));
-        static::$httpClient->addResponse(new Response(200));
+        // Do not retry API calls that contained a bad request.
+        static::$httpClient->addResponse(new Response(400));
         $client->get('/');
     }
 
@@ -180,7 +179,7 @@ class ClientTest extends TestCase
         $builder = new Builder(static::$httpClient);
         $client = new Client(new NullAuthentication(), null, [Client::CONFIG_HTTP_CLIENT_BUILDER => $builder]);
         try {
-            $client->get('/');
+            $response = $client->get('/');
         } catch (\Exception $e) {
             $this->assertInstanceOf(ClientErrorException::class, $e);
             /* @var \Apigee\Edge\Exception\ClientErrorException $e */

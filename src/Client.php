@@ -319,8 +319,8 @@ class Client implements ClientInterface
                     // OauthAuthenticationException.
                     if (!$e instanceof OauthAuthenticationException) {
                         // Do not retry API calls that failed with
-                        // authentication error.
-                        if ($e instanceof ApiResponseException && 401 === $e->getResponse()->getStatusCode()) {
+                        // client error.
+                        if ($e instanceof ApiResponseException && $e->getResponse()->getStatusCode() >= 400 && $e->getResponse()->getStatusCode() < 500) {
                             return false;
                         }
 

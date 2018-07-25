@@ -20,11 +20,13 @@ namespace Apigee\Edge\Tests\Test;
 
 use Apigee\Edge\Client;
 use Apigee\Edge\ClientInterface;
+use Apigee\Edge\Exception\ApiResponseException;
 use Apigee\Edge\HttpClient\Utility\Builder;
 use Apigee\Edge\Tests\Test\HttpClient\DebuggerClient;
 use Apigee\Edge\Tests\Test\HttpClient\FileSystemMockClient;
 use Apigee\Edge\Tests\Test\HttpClient\MockClientInterface;
 use Apigee\Edge\Tests\Test\HttpClient\Plugin\NullAuthentication;
+use Http\Client\Exception;
 use Http\Client\HttpClient;
 use Http\Message\Authentication\BasicAuth;
 use Http\Message\Formatter\CurlCommandFormatter;
@@ -33,6 +35,7 @@ use Monolog\Formatter\LineFormatter;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 use Monolog\Processor\PsrLogMessageProcessor;
+use Psr\Http\Message\RequestInterface;
 
 /**
  * Class TestClientFactory.
@@ -91,7 +94,24 @@ class TestClientFactory
             $builder = new Builder($rc->newInstance());
         }
 
-        return new Client($auth, $endpoint, [Client::CONFIG_HTTP_CLIENT_BUILDER => $builder, Client::CONFIG_USER_AGENT_PREFIX => $userAgentPrefix, Client::CONFIG_RETRY_PLUGIN_CONFIG => []]);
+        return new Client($auth, $endpoint, [
+            Client::CONFIG_HTTP_CLIENT_BUILDER => $builder,
+            Client::CONFIG_USER_AGENT_PREFIX => $userAgentPrefix,
+            Client::CONFIG_RETRY_PLUGIN_CONFIG => [
+                'retries' => 5,
+                'decider' => function (RequestInterface $request, Exception $e) {
+                    // Only retry API calls that failed with this specific error.
+                    if ($e instanceof ApiResponseException && 'messaging.adaptors.http.flow.ApplicationNotFound' === $e->getEdgeErrorCode()) {
+                        return true;
+                    }
+
+                    return false;
+                },
+                'delay' => function (RequestInterface $request, Exception $e, $retries): int {
+                    return $retries * 15000000;
+                },
+            ],
+        ]);
     }
 
     /**
