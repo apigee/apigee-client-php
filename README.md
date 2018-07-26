@@ -27,13 +27,13 @@ categories:
 * [Stats](https://apidocs.apigee.com/api/stats)
 
 For more information about the Apigee Edge Management APIs, see [Getting started with the API Edge Management APIs](https://apidocs.apigee.com/api-reference/content/api-reference-getting-started)
-in the Apigee documentation. 
+in the Apigee documentation.
 
 The Apigee API Client Library for PHP, built using the HTTPlug library, provides an HTTP client
 implementation-independent library. You choose the client that best fits your project requirements.
 
 If you need PHP < 7.1 or Monetization API support please install the older [edge-php-sdk version](https://github.com/apigee/edge-php-sdk).
-We are planning to add Monetization API support to this library in the near future.  
+We are planning to add Monetization API support to this library in the near future.
 
 ## Installing the client library
 
@@ -52,7 +52,7 @@ If you would like to use [OAuth (SAML) authentication](https://docs.apigee.com/a
 then you have to install [this patch](https://patch-diff.githubusercontent.com/raw/php-http/client-common/pull/103.diff)
 from [this php-http/client-common pull request](https://github.com/php-http/client-common/pull/103). If you use
 [composer-patches](https://github.com/cweagans/composer-patches) plugin and you [allowed dependencies to apply patches](https://github.com/cweagans/composer-patches#allowing-patches-to-be-applied-from-dependencies)
-then this patch is automatically gets applied when this library is installed. 
+then this patch is automatically gets applied when this library is installed.
 
 ## Usage examples
 
@@ -134,11 +134,11 @@ Testing of new changes does not require Apigee Edge connection. By default, unit
 tests with a real Apigee Edge instance you have to specify the following environment variables (without brackets):
 
 ```shell
-APIGEE_EDGE_PHP_SDK_HTTP_CLIENT=\Http\Adapter\Guzzle6\Client
-APIGEE_EDGE_PHP_SDK_BASIC_AUTH_USER=[YOUR-EMAIL-ADDRESS@HOST.COM]
-APIGEE_EDGE_PHP_SDK_BASIC_AUTH_PASSWORD=[PASSWORD]
-APIGEE_EDGE_PHP_SDK_ORGANIZATION=[ORGANIZATION]
-APIGEE_EDGE_PHP_SDK_ENVIRONMENT=[ENVIRONMENT]
+APIGEE_EDGE_PHP_CLIENT_HTTP_CLIENT=\Http\Adapter\Guzzle6\Client
+APIGEE_EDGE_PHP_CLIENT_BASIC_AUTH_USER=[YOUR-EMAIL-ADDRESS@HOST.COM]
+APIGEE_EDGE_PHP_CLIENT_BASIC_AUTH_PASSWORD=[PASSWORD]
+APIGEE_EDGE_PHP_CLIENT_ORGANIZATION=[ORGANIZATION]
+APIGEE_EDGE_PHP_CLIENT_ENVIRONMENT=[ENVIRONMENT]
 ```
 
 There are multiple ways to set these environment variables, but probably the easiest is creating a copy from the
@@ -146,7 +146,7 @@ phpunit.xml.dist file as phpunit.xml and add these variables one-by-one inside t
 with an <env> element.
 
 It is also possible to create and use your own data set. If you would like to use your own offline test data set then
-you just need to define the `APIGEE_EDGE_PHP_SDK_OFFLINE_TEST_DATA_FOLDER` environment variable set its value to the parent
+you just need to define the `APIGEE_EDGE_PHP_CLIENT_OFFLINE_TEST_DATA_FOLDER` environment variable set its value to the parent
 folder of your own test data set.
 
 PS.: Some unit tests cannot be executed when the offline test data set is in use, those are automatically marked as
@@ -154,6 +154,6 @@ skipped.
 
 ## Support
 
-This is not an officially supported Google product. Please file issues in our GitHub Issue Queue. We would love to 
-accept contributions to this project, please see the [contribution guidelines for this project](CONTRIBUTING.md) for 
+This is not an officially supported Google product. Please file issues in our GitHub Issue Queue. We would love to
+accept contributions to this project, please see the [contribution guidelines for this project](CONTRIBUTING.md) for
 more details.

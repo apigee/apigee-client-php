@@ -32,6 +32,6 @@ trait OrganizationAwareEntityControllerValidatorTrait
             return 'phpunit';
         }
 
-        return getenv('APIGEE_EDGE_PHP_SDK_ORGANIZATION') ?: 'phpunit';
+        return getenv('APIGEE_EDGE_PHP_CLIENT_ORGANIZATION') ?: 'phpunit';
     }
 }

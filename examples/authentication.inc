@@ -20,13 +20,13 @@
  * Provides a client factory that can build a API client. It reads necessary credentials from environment variables.
  *
  * Requires the following environment variables to be set on your system:
- * - APIGEE_EDGE_PHP_SDK_BASIC_AUTH_USER
- * - APIGEE_EDGE_PHP_SDK_BASIC_AUTH_PASSWORD
- * - APIGEE_EDGE_PHP_SDK_ORGANIZATION
+ * - APIGEE_EDGE_PHP_CLIENT_BASIC_AUTH_USER
+ * - APIGEE_EDGE_PHP_CLIENT_BASIC_AUTH_PASSWORD
+ * - APIGEE_EDGE_PHP_CLIENT_ORGANIZATION
  *
  * Optional:
- * - APIGEE_EDGE_PHP_SDK_ENDPOINT
- * - APIGEE_EDGE_PHP_SDK_ENVIRONMENT
+ * - APIGEE_EDGE_PHP_CLIENT_ENDPOINT
+ * - APIGEE_EDGE_PHP_CLIENT_ENVIRONMENT
  */
 use Apigee\Edge\Client;
 use Apigee\Edge\ClientInterface;
@@ -71,7 +71,7 @@ class EnvironmentCredentialProvider implements CredentialProvider
      */
     public function getOrganization(): string
     {
-        return getenv('APIGEE_EDGE_PHP_SDK_ORGANIZATION') ?: 'my-organization';
+        return getenv('APIGEE_EDGE_PHP_CLIENT_ORGANIZATION') ?: 'my-organization';
     }
 
     /**
@@ -79,7 +79,7 @@ class EnvironmentCredentialProvider implements CredentialProvider
      */
     public function getUsername(): string
     {
-        return getenv('APIGEE_EDGE_PHP_SDK_BASIC_AUTH_USER') ?: 'my-email-address@example.com';
+        return getenv('APIGEE_EDGE_PHP_CLIENT_BASIC_AUTH_USER') ?: 'my-email-address@example.com';
     }
 
     /**
@@ -87,7 +87,7 @@ class EnvironmentCredentialProvider implements CredentialProvider
      */
     public function getPassword(): string
     {
-        return getenv('APIGEE_EDGE_PHP_SDK_BASIC_AUTH_PASSWORD') ?: 'my-secure-password';
+        return getenv('APIGEE_EDGE_PHP_CLIENT_BASIC_AUTH_PASSWORD') ?: 'my-secure-password';
     }
 }
 
@@ -115,7 +115,7 @@ class ClientFactory
      */
     public function __construct(CredentialProvider $credential, ?string $endpoint = null)
     {
-        $this->endpoint = $endpoint ?: getenv('APIGEE_EDGE_PHP_SDK_ENDPOINT') ?: null;
+        $this->endpoint = $endpoint ?: getenv('APIGEE_EDGE_PHP_CLIENT_ENDPOINT') ?: null;
         $this->credential = $credential;
     }
 

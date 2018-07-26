@@ -63,8 +63,6 @@ class Client implements ClientInterface
 
     public const CONFIG_RETRY_PLUGIN_CONFIG = 'retry_plugin_config';
 
-    protected const VERSION = '2.0.0-alpha2';
-
     /** @var \Http\Message\UriFactory */
     private $uriFactory;
 

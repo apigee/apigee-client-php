@@ -59,7 +59,7 @@ class TestClientFactory
      */
     public function getClient(string $fqcn = null): ClientInterface
     {
-        $fqcn = $fqcn ?: getenv('APIGEE_EDGE_PHP_SDK_HTTP_CLIENT') ?: FileSystemMockClient::class;
+        $fqcn = $fqcn ?: getenv('APIGEE_EDGE_PHP_CLIENT_HTTP_CLIENT') ?: FileSystemMockClient::class;
         $rc = new \ReflectionClass($fqcn);
         if (!$rc->implementsInterface(MockClientInterface::class) && !$rc->implementsInterface(HttpClient::class)) {
             throw new \InvalidArgumentException(
@@ -76,12 +76,12 @@ class TestClientFactory
             $userAgentPrefix = self::OFFLINE_CLIENT_USER_AGENT_PREFIX;
         }
         $auth = new NullAuthentication();
-        $user = getenv('APIGEE_EDGE_PHP_SDK_BASIC_AUTH_USER') ?: '';
-        $password = getenv('APIGEE_EDGE_PHP_SDK_BASIC_AUTH_PASSWORD') ?: '';
+        $user = getenv('APIGEE_EDGE_PHP_CLIENT_BASIC_AUTH_USER') ?: '';
+        $password = getenv('APIGEE_EDGE_PHP_CLIENT_BASIC_AUTH_PASSWORD') ?: '';
         if ($user || $password) {
             $auth = new BasicAuth($user, $password);
         }
-        $endpoint = getenv('APIGEE_EDGE_PHP_SDK_ENDPOINT') ?: null;
+        $endpoint = getenv('APIGEE_EDGE_PHP_CLIENT_ENDPOINT') ?: null;
         if (DebuggerClient::class == $rc->getName()) {
             $logHandler = new StreamHandler(__DIR__ . '/../../debug.log');
             // Only print the message.
