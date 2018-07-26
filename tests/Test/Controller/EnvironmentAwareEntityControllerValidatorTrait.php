@@ -32,6 +32,6 @@ trait EnvironmentAwareEntityControllerValidatorTrait
             return 'test';
         }
 
-        return getenv('APIGEE_EDGE_PHP_SDK_ENVIRONMENT') ?: 'test';
+        return getenv('APIGEE_EDGE_PHP_CLIENT_ENVIRONMENT') ?: 'test';
     }
 }

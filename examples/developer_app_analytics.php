@@ -26,7 +26,7 @@ use League\Period\Period;
 
 require_once 'authentication.inc';
 
-$environment = getenv('APIGEE_EDGE_PHP_SDK_ENVIRONMENT') ?: 'test';
+$environment = getenv('APIGEE_EDGE_PHP_CLIENT_ENVIRONMENT') ?: 'test';
 
 $developerMail = getenv('APIGEE_EDGE_PHP_EXAMPLE_DEVELOPER_MAIL') ?: 'developer1@example.com';
 $developerAppName = getenv('APIGEE_EDGE_PHP_EXAMPLE_DEVELOPER_APP_NAME') ?: 'test_app';
