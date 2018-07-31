@@ -58,10 +58,14 @@ trait PaginationHelperTrait
 
             return $this->responseArrayToArrayOfEntities($responseArray, $key_provider);
         } else {
+            // Pass an empty pager to load all entities.
             $responseArray = $this->getResultsInRange($this->createPager(), $query_params);
             // Ignore entity type key from response, ex.: developer, apiproduct,
             // etc.
             $responseArray = reset($responseArray);
+            if (empty($responseArray)) {
+                return [];
+            }
             $entities = $this->responseArrayToArrayOfEntities($responseArray, $key_provider);
             $lastEntity = end($entities);
             $lastId = $lastEntity->{$key_provider}();
@@ -76,11 +80,11 @@ trait PaginationHelperTrait
                 // (startKey).
                 array_shift($tmp);
                 $tmpEntities = $this->responseArrayToArrayOfEntities($tmp, $key_provider);
-                // The returned entity array is keyed by entity id which
-                // is unique so we can do this.
-                $entities += $tmpEntities;
 
                 if (count($tmpEntities) > 0) {
+                    // The returned entity array is keyed by entity id which
+                    // is unique so we can do this.
+                    $entities += $tmpEntities;
                     $lastEntity = end($tmpEntities);
                     $lastId = $lastEntity->{$key_provider}();
                 } else {
@@ -112,6 +116,9 @@ trait PaginationHelperTrait
             return $this->getResultsInRange($pager, $query_params);
         } else {
             $ids = $this->getResultsInRange($this->createPager(), $query_params);
+            if (empty($ids)) {
+                return [];
+            }
             $lastId = end($ids);
             do {
                 $tmp = $this->getResultsInRange($this->createPager(0, $lastId), $query_params);
@@ -120,9 +127,9 @@ trait PaginationHelperTrait
                 // Apigee Edge response always starts with the requested entity
                 // id (startKey).
                 array_shift($tmp);
-                $ids = array_merge($ids, $tmp);
 
                 if (count($tmp) > 0) {
+                    $ids = array_merge($ids, $tmp);
                     $lastId = end($tmp);
                 } else {
                     $lastId = false;
