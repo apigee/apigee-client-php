@@ -69,6 +69,9 @@ class DeveloperAppController extends AppByOwnerController implements DeveloperAp
      * FIXME We had to override this because pagination does not work the same
      * way on developer apps as on other endpoints with "expand=true" at this
      * moment.
+     * "shallowExpand" does not return app credentials so neither this method.
+     * If you need them you have to load the app objects one-by-one with load()
+     * at this moment.
      */
     public function getEntities(
         PagerInterface $pager = null,
