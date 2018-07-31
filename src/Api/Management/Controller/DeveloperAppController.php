@@ -69,6 +69,9 @@ class DeveloperAppController extends AppByOwnerController implements DeveloperAp
      * FIXME We had to override this because pagination does not work the same
      * way on developer apps as on other endpoints with "expand=true" at this
      * moment.
+     * "shallowExpand" does not return app credentials so neither this method.
+     * If you need them you have to load the app objects one-by-one with load()
+     * at this moment.
      */
     public function getEntities(
         PagerInterface $pager = null,
@@ -89,6 +92,9 @@ class DeveloperAppController extends AppByOwnerController implements DeveloperAp
             // Ignore entity type key from response, ex.: developer, apiproduct,
             // etc.
             $responseArray = reset($responseArray);
+            if (empty($responseArray)) {
+                return [];
+            }
             $entities = $this->responseArrayToArrayOfEntities($responseArray, $key_provider);
             $lastEntity = end($entities);
             $lastId = $lastEntity->{$key_provider}();
@@ -103,11 +109,11 @@ class DeveloperAppController extends AppByOwnerController implements DeveloperAp
                 // (startKey).
                 array_shift($tmp);
                 $tmpEntities = $this->responseArrayToArrayOfEntities($tmp, $key_provider);
-                // The returned entity array is keyed by entity id which
-                // is unique so we can do this.
-                $entities += $tmpEntities;
 
                 if (count($tmpEntities) > 0) {
+                    // The returned entity array is keyed by entity id which
+                    // is unique so we can do this.
+                    $entities += $tmpEntities;
                     $lastEntity = end($tmpEntities);
                     $lastId = $lastEntity->{$key_provider}();
                 } else {
