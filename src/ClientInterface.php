@@ -73,6 +73,7 @@ interface ClientInterface extends HttpClient
      * @param \Psr\Http\Message\UriInterface|string $uri
      * @param array $headers
      *
+     * @throws \Apigee\Edge\Exception\ApiException
      * @throws \Http\Client\Exception
      *
      * @return \Psr\Http\Message\ResponseInterface
@@ -85,6 +86,7 @@ interface ClientInterface extends HttpClient
      * @param \Psr\Http\Message\UriInterface|string $uri
      * @param array $headers
      *
+     * @throws \Apigee\Edge\Exception\ApiException
      * @throws \Http\Client\Exception
      *
      * @return \Psr\Http\Message\ResponseInterface
@@ -98,6 +100,7 @@ interface ClientInterface extends HttpClient
      * @param null|\Psr\Http\Message\StreamInterface|resource|string $body
      * @param array $headers
      *
+     * @throws \Apigee\Edge\Exception\ApiException
      * @throws \Http\Client\Exception
      *
      * @return \Psr\Http\Message\ResponseInterface
@@ -111,6 +114,7 @@ interface ClientInterface extends HttpClient
      * @param null|\Psr\Http\Message\StreamInterface|resource|string $body
      * @param array $headers
      *
+     * @throws \Apigee\Edge\Exception\ApiException
      * @throws \Http\Client\Exception
      *
      * @return \Psr\Http\Message\ResponseInterface
@@ -124,6 +128,7 @@ interface ClientInterface extends HttpClient
      * @param null|\Psr\Http\Message\StreamInterface|resource|string $body
      * @param array $headers
      *
+     * @throws \Apigee\Edge\Exception\ApiException
      * @throws \Http\Client\Exception
      *
      * @return \Psr\Http\Message\ResponseInterface
