@@ -24,6 +24,7 @@ use Apigee\Edge\Entity\Property\AppsPropertyInterface;
 use Apigee\Edge\Entity\Property\AttributesPropertyInterface;
 use Apigee\Edge\Entity\Property\CompaniesPropertyInterface;
 use Apigee\Edge\Entity\Property\DeveloperIdPropertyInterface;
+use Apigee\Edge\Entity\Property\EmailPropertyInterface;
 use Apigee\Edge\Entity\Property\OrganizationNamePropertyInterface;
 use Apigee\Edge\Entity\Property\StatusPropertyInterface;
 
@@ -37,6 +38,7 @@ interface DeveloperInterface extends
     CommonEntityPropertiesInterface,
     CompaniesPropertyInterface,
     DeveloperIdPropertyInterface,
+    EmailPropertyInterface,
     OrganizationNamePropertyInterface,
     StatusPropertyInterface
 {
