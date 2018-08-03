@@ -21,6 +21,7 @@ namespace Apigee\Edge\Api\Management\Controller;
 use Apigee\Edge\Controller\EntityControllerInterface;
 use Apigee\Edge\Controller\EntityCrudOperationsControllerInterface;
 use Apigee\Edge\Controller\PaginatedEntityControllerInterface;
+use Apigee\Edge\Controller\PaginatedEntityIdListingControllerInterface;
 use Apigee\Edge\Controller\PaginatedEntityListingControllerInterface;
 
 /**
@@ -33,7 +34,8 @@ interface ApiProductControllerInterface extends
     EntityControllerInterface,
     EntityCrudOperationsControllerInterface,
     PaginatedEntityControllerInterface,
-    PaginatedEntityListingControllerInterface
+    PaginatedEntityListingControllerInterface,
+    PaginatedEntityIdListingControllerInterface
 {
     /**
      * Search API products by their attributes.

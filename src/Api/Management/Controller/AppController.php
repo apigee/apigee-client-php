@@ -20,6 +20,7 @@ namespace Apigee\Edge\Api\Management\Controller;
 
 use Apigee\Edge\Api\Management\Entity\AppInterface;
 use Apigee\Edge\ClientInterface;
+use Apigee\Edge\Controller\EntityListingControllerTrait;
 use Apigee\Edge\Controller\PaginatedEntityController;
 use Apigee\Edge\Controller\PaginationHelperTrait;
 use Apigee\Edge\Structure\PagerInterface;
@@ -31,6 +32,7 @@ use Psr\Http\Message\UriInterface;
 class AppController extends PaginatedEntityController implements AppControllerInterface
 {
     use AppControllerTrait;
+    use EntityListingControllerTrait;
     use PaginationHelperTrait {
         listEntities as private traitListEntities;
     }

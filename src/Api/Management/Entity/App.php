@@ -62,8 +62,6 @@ abstract class App extends Entity implements AppInterface
      * App constructor.
      *
      * @param array $values
-     *
-     * @throws \ReflectionException
      */
     public function __construct(array $values = [])
     {

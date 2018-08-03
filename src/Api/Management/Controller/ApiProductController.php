@@ -21,8 +21,11 @@ namespace Apigee\Edge\Api\Management\Controller;
 use Apigee\Edge\Api\Management\Entity\ApiProduct;
 use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Controller\EntityCrudOperationsControllerTrait;
+use Apigee\Edge\Controller\EntityListingControllerTrait;
 use Apigee\Edge\Controller\PaginatedEntityController;
+use Apigee\Edge\Controller\PaginatedEntityIdListingControllerTrait;
 use Apigee\Edge\Controller\PaginatedEntityListingControllerTrait;
+use Apigee\Edge\Controller\PaginationHelperTrait;
 use Apigee\Edge\Denormalizer\AttributesPropertyDenormalizer;
 use Psr\Http\Message\UriInterface;
 
@@ -33,7 +36,10 @@ class ApiProductController extends PaginatedEntityController implements ApiProdu
 {
     use AttributesAwareEntityControllerTrait;
     use EntityCrudOperationsControllerTrait;
+    use EntityListingControllerTrait;
     use PaginatedEntityListingControllerTrait;
+    use PaginatedEntityIdListingControllerTrait;
+    use PaginationHelperTrait;
 
     /**
      * ApiProductController constructor.

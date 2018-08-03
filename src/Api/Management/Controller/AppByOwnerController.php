@@ -18,11 +18,25 @@
 
 namespace Apigee\Edge\Api\Management\Controller;
 
-use Apigee\Edge\Controller\PaginatedEntityController;
+use Apigee\Edge\Controller\EntityController;
+use Apigee\Edge\Controller\EntityCrudOperationsControllerTrait;
+use Apigee\Edge\Controller\EntityListingControllerTrait;
+use Apigee\Edge\Controller\NonPaginatedEntityListingControllerTrait;
+use Apigee\Edge\Controller\PaginatedEntityIdListingControllerTrait;
+use Apigee\Edge\Controller\PaginationHelperTrait;
+use Apigee\Edge\Controller\StatusAwareEntityControllerTrait;
 
 /**
  * Common parent class for company- and developer app controllers.
  */
-abstract class AppByOwnerController extends PaginatedEntityController implements AppByOwnerControllerInterface
+abstract class AppByOwnerController extends EntityController implements AppByOwnerControllerInterface
 {
+    use AttributesAwareEntityControllerTrait;
+    use AppControllerTrait;
+    use EntityCrudOperationsControllerTrait;
+    use EntityListingControllerTrait;
+    use NonPaginatedEntityListingControllerTrait;
+    use PaginatedEntityIdListingControllerTrait;
+    use PaginationHelperTrait;
+    use StatusAwareEntityControllerTrait;
 }

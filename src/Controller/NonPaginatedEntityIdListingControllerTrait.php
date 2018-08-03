@@ -18,6 +18,8 @@
 
 namespace Apigee\Edge\Controller;
 
+use Psr\Http\Message\ResponseInterface;
+
 /**
  * Trait NonPaginatedEntityIdListingControllerTrait.
  *
@@ -25,6 +27,9 @@ namespace Apigee\Edge\Controller;
  */
 trait NonPaginatedEntityIdListingControllerTrait
 {
+    use BaseEndpointAwareControllerTrait;
+    use ClientAwareControllerTrait;
+
     /**
      * @inheritdoc
      */
@@ -34,8 +39,13 @@ trait NonPaginatedEntityIdListingControllerTrait
             'expand' => 'false',
         ];
         $uri = $this->getBaseEndpointUri()->withQuery(http_build_query($query_params));
-        $response = $this->client->get($uri);
+        $response = $this->getClient()->get($uri);
 
         return $this->responseToArray($response);
     }
+
+    /**
+     * @inheritdoc
+     */
+    abstract protected function responseToArray(ResponseInterface $response): array;
 }

@@ -18,22 +18,21 @@
 
 namespace Apigee\Edge\Controller;
 
-/**
- * Trait StatusAwareEntityControllerTrait.
- *
- * @see \Apigee\Edge\Controller\StatusAwareEntityControllerInterface
- */
-trait StatusAwareEntityControllerTrait
-{
-    use ClientAwareControllerTrait;
-    use EntityEndpointAwareControllerTrait;
+use Apigee\Edge\Api\Management\Controller\OrganizationControllerInterface;
 
+/**
+ * Trait OrganizationControllerAwareTrait.
+ *
+ * This trait does not contain the "organizationController" property because
+ * we wanted to make sure that every class that uses this trait ensures that the
+ * returned value of getOrganizationController() is always set.
+ */
+trait OrganizationControllerAwareTrait
+{
     /**
-     * @inheritdoc
+     * Returns a configured organization controller.
+     *
+     * @return \Apigee\Edge\Api\Management\Controller\OrganizationControllerInterface
      */
-    public function setStatus(string $entityId, string $status): void
-    {
-        $uri = $this->getEntityEndpointUri($entityId)->withQuery(http_build_query(['action' => $status]));
-        $this->getClient()->post($uri, null, ['Content-Type' => 'application/octet-stream']);
-    }
+    abstract protected function getOrganizationController(): OrganizationControllerInterface;
 }

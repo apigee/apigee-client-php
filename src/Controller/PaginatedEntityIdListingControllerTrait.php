@@ -16,16 +16,27 @@
  * limitations under the License.
  */
 
-namespace Apigee\Edge\Tests\Test\Controller;
+namespace Apigee\Edge\Controller;
+
+use Apigee\Edge\Structure\PagerInterface;
 
 /**
- * Helps in validation of those entity controllers that implements
- * PaginatedEntityListingControllerInterface.
+ * Trait PaginatedEntityIdListingControllerTrait.
  *
- * @see \Apigee\Edge\Controller\PaginatedEntityListingControllerInterface
+ * @see \Apigee\Edge\Controller\PaginatedEntityIdListingControllerInterface
  */
-abstract class PaginatedEntityListingControllerValidator extends EntityCrudOperationsControllerValidator
+trait PaginatedEntityIdListingControllerTrait
 {
-    use PaginatedEntityListingControllerValidatorTrait;
-    use PaginatedEntityIdListingControllerValidatorTrait;
+    /**
+     * @inheritdoc
+     */
+    public function getEntityIds(PagerInterface $pager = null): array
+    {
+        return $this->listEntityIds($pager);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    abstract protected function listEntityIds(PagerInterface $pager = null, array $query_params = []): array;
 }

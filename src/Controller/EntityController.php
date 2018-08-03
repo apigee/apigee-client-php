@@ -27,12 +27,15 @@ abstract class EntityController extends AbstractEntityController
 {
     use OrganizationAwareControllerTrait;
 
+    /** @var string Name of the organization that the entity belongs to. */
+    protected $organization;
+
     /**
      * EntityController constructor.
      *
      * @param string $organization
      *   Name of the organization that the entities belongs to.
-     * @param ClientInterface $client
+     * @param \Apigee\Edge\ClientInterface $client
      * @param \Symfony\Component\Serializer\Normalizer\NormalizerInterface[]|\Symfony\Component\Serializer\Normalizer\DenormalizerInterface[] $entityNormalizers
      */
     public function __construct(
@@ -42,5 +45,10 @@ abstract class EntityController extends AbstractEntityController
     ) {
         $this->organization = $organization;
         parent::__construct($client, $entityNormalizers);
+    }
+
+    public function getOrganisationName(): string
+    {
+        return $this->organization;
     }
 }

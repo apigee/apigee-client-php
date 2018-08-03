@@ -16,16 +16,23 @@
  * limitations under the License.
  */
 
-namespace Apigee\Edge\Tests\Test\Controller;
+namespace Apigee\Edge\Controller;
+
+use Apigee\Edge\ClientInterface;
 
 /**
- * Helps in validation of those entity controllers that implements
- * PaginatedEntityListingControllerInterface.
+ * Trait ClientAwareControllerTrait.
  *
- * @see \Apigee\Edge\Controller\PaginatedEntityListingControllerInterface
+ * This trait does not contain the "client" property because we wanted
+ * to make sure that every class that uses this trait ensures that the
+ * returned value of getClient() is always set.
  */
-abstract class PaginatedEntityListingControllerValidator extends EntityCrudOperationsControllerValidator
+trait ClientAwareControllerTrait
 {
-    use PaginatedEntityListingControllerValidatorTrait;
-    use PaginatedEntityIdListingControllerValidatorTrait;
+    /**
+     * The API client.
+     *
+     * @return \Apigee\Edge\ClientInterface
+     */
+    abstract protected function getClient(): ClientInterface;
 }

@@ -18,25 +18,28 @@
 
 namespace Apigee\Edge\Api\Management\Controller;
 
+use Apigee\Edge\Controller\ClientAwareControllerTrait;
 use Apigee\Edge\Denormalizer\AttributesPropertyDenormalizer;
 use Apigee\Edge\Normalizer\KeyValueMapNormalizer;
 use Apigee\Edge\Structure\AttributesProperty;
+use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\UriInterface;
 
 /**
  * Trait AttributesAwareEntityControllerTrait.
  *
- *
- * @see AttributesAwareEntityControllerInterface
+ * @see \Apigee\Edge\Api\Management\Controller\AttributesAwareEntityControllerInterface
  */
 trait AttributesAwareEntityControllerTrait
 {
+    use ClientAwareControllerTrait;
+
     /**
      * @inheritdoc
      */
     public function getAttributes(string $entityId): AttributesProperty
     {
-        $responseArray = $this->responseToArray($this->client->get($this->getEntityAttributesUri($entityId)));
+        $responseArray = $this->responseToArray($this->getClient()->get($this->getEntityAttributesUri($entityId)));
 
         return $this->getAttributesPropertyDenormalizer()->denormalize(
             $responseArray['attribute'],
@@ -62,7 +65,7 @@ trait AttributesAwareEntityControllerTrait
     public function updateAttributes(string $entityId, AttributesProperty $attributes): AttributesProperty
     {
         $responseArray = $this->responseToArray(
-            $this->client->post(
+            $this->getClient()->post(
                 $this->getEntityAttributesUri($entityId),
                 (string) json_encode((object) [
                     'attribute' => $this->getAttributesPropertyNormalizer()->normalize($attributes),
@@ -95,7 +98,7 @@ trait AttributesAwareEntityControllerTrait
      */
     public function deleteAttribute(string $entityId, string $name): void
     {
-        $this->client->delete($this->getEntityAttributeUri($entityId, $name));
+        $this->getClient()->delete($this->getEntityAttributeUri($entityId, $name));
     }
 
     protected function getAttributesPropertyNormalizer(): KeyValueMapNormalizer
@@ -153,4 +156,9 @@ trait AttributesAwareEntityControllerTrait
 
         return $uri;
     }
+
+    /**
+     * @inheritdoc
+     */
+    abstract protected function responseToArray(ResponseInterface $response): array;
 }

@@ -20,6 +20,7 @@ namespace Apigee\Edge\Api\Management\Controller;
 
 use Apigee\Edge\Controller\EntityControllerInterface;
 use Apigee\Edge\Controller\EntityCrudOperationsControllerInterface;
+use Apigee\Edge\Controller\PaginatedEntityIdListingControllerInterface;
 use Apigee\Edge\Controller\PaginatedEntityListingControllerInterface;
 use Apigee\Edge\Controller\StatusAwareEntityControllerInterface;
 
@@ -33,6 +34,7 @@ interface CompanyControllerInterface extends
     EntityControllerInterface,
     EntityCrudOperationsControllerInterface,
     PaginatedEntityListingControllerInterface,
+    PaginatedEntityIdListingControllerInterface,
     StatusAwareEntityControllerInterface
 {
 }

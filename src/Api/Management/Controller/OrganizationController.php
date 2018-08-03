@@ -22,7 +22,9 @@ use Apigee\Edge\Api\Management\Entity\Organization;
 use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Controller\AbstractEntityController;
 use Apigee\Edge\Controller\EntityCrudOperationsControllerTrait;
-use Apigee\Edge\Controller\NoPaginationEntityListingControllerTrait;
+use Apigee\Edge\Controller\EntityListingControllerTrait;
+use Apigee\Edge\Controller\NonPaginatedEntityIdListingControllerTrait;
+use Apigee\Edge\Controller\NonPaginatedEntityListingControllerTrait;
 use Apigee\Edge\Denormalizer\PropertiesPropertyDenormalizer;
 use Apigee\Edge\Normalizer\PropertiesPropertyNormalizer;
 use Psr\Http\Message\UriInterface;
@@ -33,7 +35,9 @@ use Psr\Http\Message\UriInterface;
 class OrganizationController extends AbstractEntityController implements OrganizationControllerInterface
 {
     use EntityCrudOperationsControllerTrait;
-    use NoPaginationEntityListingControllerTrait;
+    use EntityListingControllerTrait;
+    use NonPaginatedEntityListingControllerTrait;
+    use NonPaginatedEntityIdListingControllerTrait;
 
     /**
      * OrganizationController constructor.

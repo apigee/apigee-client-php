@@ -16,16 +16,14 @@
  * limitations under the License.
  */
 
-namespace Apigee\Edge\Tests\Test\Controller;
+namespace Apigee\Edge\Controller;
 
-/**
- * Helps in validation of those entity controllers that implements
- * PaginatedEntityListingControllerInterface.
- *
- * @see \Apigee\Edge\Controller\PaginatedEntityListingControllerInterface
- */
-abstract class PaginatedEntityListingControllerValidator extends EntityCrudOperationsControllerValidator
+trait EntityClassAwareTrait
 {
-    use PaginatedEntityListingControllerValidatorTrait;
-    use PaginatedEntityIdListingControllerValidatorTrait;
+    /**
+     * Returns the fully-qualified class name of the entity that this controller works with.
+     *
+     * @return string
+     */
+    abstract protected function getEntityClass(): string;
 }

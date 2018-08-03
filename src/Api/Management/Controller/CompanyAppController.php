@@ -20,9 +20,6 @@ namespace Apigee\Edge\Api\Management\Controller;
 
 use Apigee\Edge\Api\Management\Entity\CompanyApp;
 use Apigee\Edge\ClientInterface;
-use Apigee\Edge\Controller\EntityCrudOperationsControllerTrait;
-use Apigee\Edge\Controller\PaginatedEntityListingControllerTrait;
-use Apigee\Edge\Controller\StatusAwareEntityControllerTrait;
 use Psr\Http\Message\UriInterface;
 
 /**
@@ -30,12 +27,11 @@ use Psr\Http\Message\UriInterface;
  */
 class CompanyAppController extends AppByOwnerController implements CompanyAppControllerInterface
 {
-    use AttributesAwareEntityControllerTrait;
-    use AppControllerTrait;
     use CompanyAwareControllerTrait;
-    use EntityCrudOperationsControllerTrait;
-    use PaginatedEntityListingControllerTrait;
-    use StatusAwareEntityControllerTrait;
+    /**
+     * @var \Apigee\Edge\Api\Management\Controller\OrganizationControllerInterface
+     */
+    protected $organizationController;
 
     /**
      * CompanyAppController constructor.
@@ -54,8 +50,9 @@ class CompanyAppController extends AppByOwnerController implements CompanyAppCon
         ?OrganizationControllerInterface $organizationController = null
     ) {
         $this->companyName = $companyName;
+        $this->organizationController = $organizationController ?? new OrganizationController($client, $entityNormalizers);
         $entityNormalizers = array_merge($entityNormalizers, $this->appEntityNormalizers());
-        parent::__construct($organization, $client, $entityNormalizers, $organizationController);
+        parent::__construct($organization, $client, $entityNormalizers);
     }
 
     /**
@@ -72,5 +69,13 @@ class CompanyAppController extends AppByOwnerController implements CompanyAppCon
     protected function getEntityClass(): string
     {
         return CompanyApp::class;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    protected function getOrganizationController(): OrganizationControllerInterface
+    {
+        return $this->organizationController;
     }
 }

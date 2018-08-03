@@ -41,8 +41,11 @@ class CompanyMembersController extends AbstractController implements CompanyMemb
      */
     protected $serializer;
 
+    /** @var string */
+    protected $organization;
+
     /**
-     * CompanyDevelopersController constructor.
+     * CompanyMembersController constructor.
      *
      * @param string $companyName
      * @param string $organization
@@ -82,6 +85,14 @@ class CompanyMembersController extends AbstractController implements CompanyMemb
     public function removeMember(string $email): void
     {
         $this->client->delete($this->getBaseEndpointUri()->withPath("{$this->getBaseEndpointUri()->getPath()}/{$email}"));
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getOrganisationName(): string
+    {
+        return $this->organization;
     }
 
     /**

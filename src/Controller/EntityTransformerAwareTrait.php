@@ -16,16 +16,21 @@
  * limitations under the License.
  */
 
-namespace Apigee\Edge\Tests\Test\Controller;
+namespace Apigee\Edge\Controller;
+
+use Apigee\Edge\Entity\EntityTransformerInterface;
 
 /**
- * Helps in validation of those entity controllers that implements
- * PaginatedEntityListingControllerInterface.
+ * Trait EntityTransformerAwareTrait.
  *
- * @see \Apigee\Edge\Controller\PaginatedEntityListingControllerInterface
+ * This trait does not contain the "entityTransformer" property because we
+ * wanted to make sure that every class that uses this trait ensures that the
+ * returned value of getEntityTransformer() is always set.
  */
-abstract class PaginatedEntityListingControllerValidator extends EntityCrudOperationsControllerValidator
+trait EntityTransformerAwareTrait
 {
-    use PaginatedEntityListingControllerValidatorTrait;
-    use PaginatedEntityIdListingControllerValidatorTrait;
+    /**
+     * @return \Apigee\Edge\Entity\EntityTransformerInterface
+     */
+    abstract protected function getEntityTransformer(): EntityTransformerInterface;
 }

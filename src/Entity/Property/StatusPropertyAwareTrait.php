@@ -38,7 +38,7 @@ trait StatusPropertyAwareTrait
     }
 
     /**
-     * Set status of this entity from an Edge API response.
+     * Set status of this entity from an API response.
      *
      * The status of an entity can not be changed by modifying the value of this property. Read more about this in
      * the header of the StatusPropertyInterface.

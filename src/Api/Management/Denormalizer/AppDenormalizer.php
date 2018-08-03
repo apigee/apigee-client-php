@@ -25,7 +25,7 @@ use Apigee\Edge\Denormalizer\EntityDenormalizer;
 use Symfony\Component\Serializer\Exception\UnexpectedValueException;
 
 /**
- * Class AppDenormalizer.
+ * Dynamically denormalizes apps to developer- or company apps.
  */
 class AppDenormalizer extends EntityDenormalizer
 {

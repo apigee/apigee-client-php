@@ -25,7 +25,7 @@ use Apigee\Edge\Denormalizer\CredentialProductDenormalizer;
 use Apigee\Edge\Normalizer\CredentialProductNormalizer;
 
 /**
- * Contains reusable functions for (developer, company) app controllers.
+ * Contains reusable functions for developer- and company app controllers.
  */
 trait AppControllerTrait
 {
@@ -34,7 +34,7 @@ trait AppControllerTrait
      *
      * @return \Symfony\Component\Serializer\Normalizer\NormalizerInterface[]|\Symfony\Component\Serializer\Normalizer\DenormalizerInterface[]
      */
-    private function appEntityNormalizers(): array
+    final protected function appEntityNormalizers(): array
     {
         return [
             new CredentialProductDenormalizer(),

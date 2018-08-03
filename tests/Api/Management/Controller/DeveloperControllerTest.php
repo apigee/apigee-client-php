@@ -140,7 +140,7 @@ class DeveloperControllerTest extends PaginatedEntityListingControllerValidator
     /**
      * @inheritdoc
      */
-    public function paginatedTestEntityIdprovider(): array
+    public function paginatedTestEntityIdProvider(): array
     {
         // This override makes easier the offline testing.
         return [['email']];

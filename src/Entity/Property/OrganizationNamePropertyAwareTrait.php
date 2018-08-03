@@ -21,8 +21,7 @@ namespace Apigee\Edge\Entity\Property;
 /**
  * Trait OrganizationNamePropertyAwareTrait.
  *
- *
- * @see OrganizationNamePropertyInterface
+ * @see \Apigee\Edge\Entity\Property\OrganizationNamePropertyInterface
  */
 trait OrganizationNamePropertyAwareTrait
 {
@@ -39,6 +38,8 @@ trait OrganizationNamePropertyAwareTrait
 
     /**
      * @inheritdoc
+     *
+     * @internal
      */
     public function setOrganizationName(string $orgName): void
     {

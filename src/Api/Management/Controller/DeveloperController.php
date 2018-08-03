@@ -23,8 +23,11 @@ use Apigee\Edge\Api\Management\Entity\DeveloperInterface;
 use Apigee\Edge\Api\Management\Exception\DeveloperNotFoundException;
 use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Controller\EntityCrudOperationsControllerTrait;
+use Apigee\Edge\Controller\EntityListingControllerTrait;
 use Apigee\Edge\Controller\PaginatedEntityController;
+use Apigee\Edge\Controller\PaginatedEntityIdListingControllerTrait;
 use Apigee\Edge\Controller\PaginatedEntityListingControllerTrait;
+use Apigee\Edge\Controller\PaginationHelperTrait;
 use Apigee\Edge\Controller\StatusAwareEntityControllerTrait;
 use Apigee\Edge\Denormalizer\AttributesPropertyDenormalizer;
 use Apigee\Edge\Structure\PagerInterface;
@@ -37,9 +40,12 @@ class DeveloperController extends PaginatedEntityController implements Developer
 {
     use AttributesAwareEntityControllerTrait;
     use EntityCrudOperationsControllerTrait;
+    use EntityListingControllerTrait;
     use PaginatedEntityListingControllerTrait {
         getEntities as private traitGetEntities;
     }
+    use PaginatedEntityIdListingControllerTrait;
+    use PaginationHelperTrait;
     use StatusAwareEntityControllerTrait;
 
     /**

@@ -16,16 +16,18 @@
  * limitations under the License.
  */
 
-namespace Apigee\Edge\Tests\Test\Controller;
+namespace Apigee\Edge\Controller;
 
-/**
- * Helps in validation of those entity controllers that implements
- * PaginatedEntityListingControllerInterface.
- *
- * @see \Apigee\Edge\Controller\PaginatedEntityListingControllerInterface
- */
-abstract class PaginatedEntityListingControllerValidator extends EntityCrudOperationsControllerValidator
+use Psr\Http\Message\UriInterface;
+
+trait BaseEndpointAwareControllerTrait
 {
-    use PaginatedEntityListingControllerValidatorTrait;
-    use PaginatedEntityIdListingControllerValidatorTrait;
+    /**
+     * Returns the API endpoint that the controller communicates with.
+     *
+     * In case of an entity that belongs to an organisation it should return organization/[orgName]/[endpoint].
+     *
+     * @return \Psr\Http\Message\UriInterface
+     */
+    abstract protected function getBaseEndpointUri(): UriInterface;
 }

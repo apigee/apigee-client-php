@@ -19,14 +19,14 @@
 namespace Apigee\Edge\Controller;
 
 /**
- * Interface NoPaginationEntityListingControllerInterface.
+ * Interface NonPaginatedEntityListingControllerInterface.
  *
  * For those entities that can be listed as objects or by their entity ids but
  * pagination is supported on their endpoint. Ex.: organizations.
  *
  * @see https://docs.apigee.com/management/apis/get/organizations
  */
-interface NonPaginatedEntityListingControllerInterface extends NonPaginatedEntityIdListingControllerInterface
+interface NonPaginatedEntityListingControllerInterface
 {
     /**
      * Returns list of entities from Edge.

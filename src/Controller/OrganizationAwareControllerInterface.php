@@ -29,5 +29,5 @@ interface OrganizationAwareControllerInterface
     /**
      * @return string The name of the organization.
      */
-    public function getOrganisation(): string;
+    public function getOrganisationName(): string;
 }

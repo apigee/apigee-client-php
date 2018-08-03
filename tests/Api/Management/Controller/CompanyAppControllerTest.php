@@ -162,7 +162,7 @@ class CompanyAppControllerTest extends AppByOwnerControllerBase
     /**
      * @inheritdoc
      */
-    public function paginatedTestEntityIdprovider(): array
+    public function paginatedTestEntityIdProvider(): array
     {
         return [['name']];
     }

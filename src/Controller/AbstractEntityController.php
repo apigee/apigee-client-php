@@ -20,7 +20,12 @@ namespace Apigee\Edge\Controller;
 
 use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Entity\EntityTransformer;
+use Apigee\Edge\Entity\EntityTransformerInterface;
 use Psr\Http\Message\UriInterface;
+use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
+use Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface;
+use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface;
+use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
 
 /**
  * Class AbstractEntityController.
@@ -30,6 +35,10 @@ use Psr\Http\Message\UriInterface;
  */
 abstract class AbstractEntityController extends AbstractController
 {
+    use EntityTransformerAwareTrait;
+    use EntityEndpointAwareControllerTrait;
+    use EntityClassAwareTrait;
+
     /**
      * @var \Apigee\Edge\Entity\EntityTransformerInterface
      */
@@ -46,15 +55,11 @@ abstract class AbstractEntityController extends AbstractController
     public function __construct(ClientInterface $client, array $entityNormalizers = [])
     {
         parent::__construct($client);
-        $this->entityTransformer = new EntityTransformer($entityNormalizers);
+        $this->entityTransformer = $this->buildEntityTransformer($entityNormalizers);
     }
 
     /**
-     * Returns the entity type specific base url for an API call.
-     *
-     * @param string $entityId
-     *
-     * @return \Psr\Http\Message\UriInterface
+     * @inheritdoc
      */
     protected function getEntityEndpointUri(string $entityId): UriInterface
     {
@@ -62,9 +67,27 @@ abstract class AbstractEntityController extends AbstractController
     }
 
     /**
-     * Returns the fully-qualified class name of the entity that this controller works with.
+     * Returns a configured entity transformer.
      *
-     * @return string
+     * @param array $normalizers
+     * @param array $encoders
+     * @param \Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface|null $classMetadataFactory
+     * @param \Symfony\Component\Serializer\NameConverter\NameConverterInterface|null $nameConverter
+     * @param \Symfony\Component\PropertyAccess\PropertyAccessorInterface|null $propertyAccessor
+     * @param \Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface|null $propertyTypeExtractor
+     *
+     * @return \Apigee\Edge\Entity\EntityTransformerInterface
      */
-    abstract protected function getEntityClass(): string;
+    protected function buildEntityTransformer(array $normalizers = [], array $encoders = [], ClassMetadataFactoryInterface $classMetadataFactory = null, NameConverterInterface $nameConverter = null, PropertyAccessorInterface $propertyAccessor = null, PropertyTypeExtractorInterface $propertyTypeExtractor = null): EntityTransformerInterface
+    {
+        return new EntityTransformer($normalizers, $encoders, $classMetadataFactory, $nameConverter, $propertyAccessor, $propertyTypeExtractor);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function getEntityTransformer(): EntityTransformerInterface
+    {
+        return $this->entityTransformer;
+    }
 }

@@ -21,17 +21,17 @@ namespace Apigee\Edge\Controller;
 use Apigee\Edge\Structure\PagerInterface;
 
 /**
- * Interface PaginatedEntityListingControllerInterface.
+ * Interface PaginatedEntityIdListingControllerInterface.
  *
- * For those entities that can be listed as objects and pagination is supported
- * on their endpoint.
+ * For those entities that can be listed as objects or by their entity ids and
+ * pagination is supported on their endpoint.
  */
-interface PaginatedEntityListingControllerInterface extends PaginatedEntityControllerInterface
+interface PaginatedEntityIdListingControllerInterface extends PaginatedEntityControllerInterface
 {
     /**
-     * Returns list of entities fro Apigee Edge. The returned number of entities
-     * can be limited, if you do not provide a limit then all entities are
-     * returned.
+     * Returns list of entity ids from Apigee Edge. The returned number of
+     * entity ids can be limited, if you do not provide a limit then all entity
+     * ids are returned.
      *
      * On CPS enabled orgs and pagination enabled endpoints Apigee Edge only
      * returns certain number of entities in one API call so we have to collect
@@ -41,10 +41,8 @@ interface PaginatedEntityListingControllerInterface extends PaginatedEntityContr
      *
      * @param \Apigee\Edge\Structure\PagerInterface|null $pager
      *   Pager.
-     * @param string $key_provider
-     *   Getter method on the entity that should provide a unique array key.
      *
-     * @return \Apigee\Edge\Entity\EntityInterface[]
+     * @return array
      */
-    public function getEntities(PagerInterface $pager = null, string $key_provider = 'id'): array;
+    public function getEntityIds(PagerInterface $pager = null): array;
 }

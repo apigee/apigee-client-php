@@ -20,17 +20,17 @@ namespace Apigee\Edge\Controller;
 
 /**
  * Trait OrganizationAwareControllerTrait.
+ *
+ * This trait does not contain the "organization" property because we wanted
+ * to make sure that every class that uses this trait ensures that the
+ * returned value of getOrganisationName() is always set.
  */
 trait OrganizationAwareControllerTrait
 {
-    /** @var string Name of the organization that the entity belongs to. */
-    protected $organization;
-
     /**
-     * @inheritdoc
+     * Name of the organization for the API endpoint URI.
+     *
+     * @return string
      */
-    public function getOrganisation(): string
-    {
-        return $this->organization;
-    }
+    abstract public function getOrganisationName(): string;
 }

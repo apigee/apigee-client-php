@@ -18,15 +18,17 @@
 
 namespace Apigee\Edge\Controller;
 
+use Psr\Http\Message\ResponseInterface;
+
 /**
- * Trait NoPaginationEntityListingControllerTrait.
+ * Trait NonPaginatedEntityListingControllerTrait.
  *
  * @see \Apigee\Edge\Controller\NonPaginatedEntityListingControllerInterface
  */
-trait NoPaginationEntityListingControllerTrait
+trait NonPaginatedEntityListingControllerTrait
 {
-    use NonPaginatedEntityIdListingControllerTrait;
-    use EntityListingControllerTrait;
+    use BaseEndpointAwareControllerTrait;
+    use ClientAwareControllerTrait;
 
     /**
      * @inheritdoc
@@ -37,11 +39,21 @@ trait NoPaginationEntityListingControllerTrait
             'expand' => 'true',
         ];
         $uri = $this->getBaseEndpointUri()->withQuery(http_build_query($query_params));
-        $response = $this->client->get($uri);
+        $response = $this->getClient()->get($uri);
         $responseArray = $this->responseToArray($response);
         // Ignore entity type key from response, ex.: apiProduct.
         $responseArray = reset($responseArray);
 
         return $this->responseArrayToArrayOfEntities($responseArray);
     }
+
+    /**
+     * @inheritdoc
+     */
+    abstract protected function responseToArray(ResponseInterface $response): array;
+
+    /**
+     * @inheritdoc
+     */
+    abstract protected function responseArrayToArrayOfEntities(array $responseArray, string $keyGetter = 'id'): array;
 }
