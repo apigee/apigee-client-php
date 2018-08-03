@@ -18,6 +18,7 @@
 
 namespace Apigee\Edge\Entity;
 
+use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\SerializerInterface;
@@ -27,4 +28,13 @@ use Symfony\Component\Serializer\SerializerInterface;
  */
 interface EntityTransformerInterface extends NormalizerInterface, DenormalizerInterface, SerializerInterface
 {
+    /**
+     * Set property values on an entity from an Apigee Edge response.
+     *
+     * @param \Psr\Http\Message\ResponseInterface $response
+     *   Response from Apigee Edge.
+     * @param \Apigee\Edge\Entity\EntityInterface $entity
+     *   Entity that properties should be updated.
+     */
+    public function setPropertiesFromResponse(ResponseInterface $response, EntityInterface $entity): void;
 }
