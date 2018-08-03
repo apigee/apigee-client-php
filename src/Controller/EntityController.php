@@ -37,6 +37,8 @@ abstract class EntityController extends AbstractEntityController
      *   Name of the organization that the entities belongs to.
      * @param \Apigee\Edge\ClientInterface $client
      * @param \Symfony\Component\Serializer\Normalizer\NormalizerInterface[]|\Symfony\Component\Serializer\Normalizer\DenormalizerInterface[] $entityNormalizers
+     *
+     * @psalm-suppress InvalidArgument - There is no issue with the arguments.
      */
     public function __construct(
         string $organization,
