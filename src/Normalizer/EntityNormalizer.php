@@ -78,9 +78,6 @@ class EntityNormalizer implements NormalizerInterface, SerializerAwareInterface
      */
     public function normalize($object, $format = null, array $context = [])
     {
-        if ($this->serializer) {
-            $this->objectNormalizer->setSerializer($this->serializer);
-        }
         $asArray = $this->objectNormalizer->normalize($object, $format, $context);
         // Exclude null values from the output, even if PATCH is not supported on Apigee Edge
         // sending a smaller portion of data in POST/PUT is always a good practice.
@@ -106,5 +103,6 @@ class EntityNormalizer implements NormalizerInterface, SerializerAwareInterface
     public function setSerializer(SerializerInterface $serializer): void
     {
         $this->serializer = $serializer;
+        $this->objectNormalizer->setSerializer($serializer);
     }
 }

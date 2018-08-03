@@ -76,10 +76,6 @@ class EntityDenormalizer implements DenormalizerInterface, SerializerAwareInterf
      */
     public function denormalize($data, $class, $format = null, array $context = [])
     {
-        if ($this->serializer) {
-            $this->objectNormalizer->setSerializer($this->serializer);
-        }
-
         return $this->objectNormalizer->denormalize($data, $class, $format, $context);
     }
 
@@ -101,5 +97,6 @@ class EntityDenormalizer implements DenormalizerInterface, SerializerAwareInterf
     public function setSerializer(SerializerInterface $serializer): void
     {
         $this->serializer = $serializer;
+        $this->objectNormalizer->setSerializer($this->serializer);
     }
 }
