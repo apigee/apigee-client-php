@@ -21,7 +21,7 @@ namespace Apigee\Edge\Structure;
 /**
  * Class KeyValueMap.
  */
-abstract class KeyValueMap implements KeyValueMapInterface
+abstract class KeyValueMap extends BaseObject implements KeyValueMapInterface
 {
     /** @var array */
     protected $values = [];
@@ -35,6 +35,7 @@ abstract class KeyValueMap implements KeyValueMapInterface
     public function __construct(array $values = [])
     {
         $this->values = $values;
+        parent::__construct($values);
     }
 
     /**

@@ -23,7 +23,7 @@ use Apigee\Edge\Entity\Property\StatusPropertyAwareTrait;
 /**
  * Describes a item in the list of API products included in a credential.
  */
-class CredentialProduct implements CredentialProductInterface
+final class CredentialProduct extends BaseObject implements CredentialProductInterface
 {
     use StatusPropertyAwareTrait;
 
@@ -40,6 +40,7 @@ class CredentialProduct implements CredentialProductInterface
     {
         $this->apiproduct = $apiproduct;
         $this->status = $status;
+        parent::__construct([]);
     }
 
     /**
