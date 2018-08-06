@@ -19,6 +19,7 @@
 namespace Apigee\Edge\Controller;
 
 use Apigee\Edge\ClientInterface;
+use Apigee\Edge\Utility\JsonDecoderAwareTrait;
 use Apigee\Edge\Utility\ResponseToArrayHelper;
 use Symfony\Component\Serializer\Encoder\JsonDecode;
 
@@ -31,6 +32,7 @@ abstract class AbstractController
 {
     use ClientAwareControllerTrait;
     use BaseEndpointAwareControllerTrait;
+    use JsonDecoderAwareTrait;
     use ResponseToArrayHelper;
 
     /**
@@ -61,5 +63,13 @@ abstract class AbstractController
     protected function getClient(): ClientInterface
     {
         return $this->client;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    protected function jsonDecoder(): JsonDecode
+    {
+        return $this->jsonDecoder;
     }
 }

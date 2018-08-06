@@ -26,6 +26,7 @@ use Psr\Http\Message\ResponseInterface;
 trait ResponseToArrayHelper
 {
     use ClientAwareControllerTrait;
+    use JsonDecoderAwareTrait;
 
     /**
      * Decodes an Apigee Edge API response to an associative array.
@@ -44,18 +45,18 @@ trait ResponseToArrayHelper
         if ($response->getHeaderLine('Content-Type') &&
             0 === strpos($response->getHeaderLine('Content-Type'), 'application/json')) {
             try {
-                return (array) $this->jsonDecoder->decode((string) $response->getBody(), 'json');
+                return (array) $this->jsonDecoder()->decode((string) $response->getBody(), 'json');
             } catch (\UnexpectedValueException $e) {
                 throw new InvalidJsonException(
                     $e->getMessage(),
                     $response,
-                    $this->client->getJournal()->getLastRequest()
+                    $this->getClient()->getJournal()->getLastRequest()
                 );
             }
         }
         throw new ApiResponseException(
             $response,
-            $this->client->getJournal()->getLastRequest(),
+            $this->getClient()->getJournal()->getLastRequest(),
             sprintf('Unable to parse response with %s type. Response body: %s', $response->getHeaderLine('Content-Type') ?: 'unknown', (string) $response->getBody())
         );
     }
