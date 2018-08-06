@@ -24,7 +24,7 @@ namespace Apigee\Edge\Controller;
 trait EntityListingControllerTrait
 {
     use EntityClassAwareTrait;
-    use EntityTransformerAwareTrait;
+    use EntitySerializerAwareTrait;
 
     /**
      * Parse an API response array to array of entity objects.
@@ -45,7 +45,7 @@ trait EntityListingControllerTrait
 
         foreach ($responseArray as $item) {
             /** @var \Apigee\Edge\Entity\EntityInterface $tmp */
-            $tmp = $this->getEntityTransformer()->denormalize($item,
+            $tmp = $this->getEntitySerializer()->denormalize($item,
                 $this->getEntityClass());
             $entities[$tmp->{$keyGetter}()] = $tmp;
         }

@@ -19,10 +19,12 @@
 namespace Apigee\Edge\Api\Management\Controller;
 
 use Apigee\Edge\Api\Management\Entity\AppInterface;
+use Apigee\Edge\Api\Management\Serializer\AppEntitySerializer;
 use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Controller\EntityListingControllerTrait;
 use Apigee\Edge\Controller\PaginatedEntityController;
 use Apigee\Edge\Controller\PaginationHelperTrait;
+use Apigee\Edge\Serializer\EntitySerializerInterface;
 use Apigee\Edge\Structure\PagerInterface;
 use Psr\Http\Message\UriInterface;
 
@@ -31,7 +33,6 @@ use Psr\Http\Message\UriInterface;
  */
 class AppController extends PaginatedEntityController implements AppControllerInterface
 {
-    use AppControllerTrait;
     use EntityListingControllerTrait;
     use PaginationHelperTrait {
         listEntities as private traitListEntities;
@@ -44,17 +45,17 @@ class AppController extends PaginatedEntityController implements AppControllerIn
      *
      * @param string $organization
      * @param \Apigee\Edge\ClientInterface $client
-     * @param \Symfony\Component\Serializer\Normalizer\NormalizerInterface[]|\Symfony\Component\Serializer\Normalizer\DenormalizerInterface[] $entityNormalizers
+     * @param \Apigee\Edge\Serializer\EntitySerializerInterface|null $entitySerializer
      * @param \Apigee\Edge\Api\Management\Controller\OrganizationControllerInterface|null $organizationController
      */
     public function __construct(
         string $organization,
         ClientInterface $client,
-        array $entityNormalizers = [],
+        ?EntitySerializerInterface $entitySerializer = null,
         ?OrganizationControllerInterface $organizationController = null
     ) {
-        $entityNormalizers = array_merge($entityNormalizers, $this->appEntityNormalizers());
-        parent::__construct($organization, $client, $entityNormalizers, $organizationController);
+        $entitySerializer = $entitySerializer ?? new AppEntitySerializer();
+        parent::__construct($organization, $client, $entitySerializer, $organizationController);
     }
 
     /**
@@ -64,7 +65,7 @@ class AppController extends PaginatedEntityController implements AppControllerIn
     {
         $response = $this->client->get($this->getEntityEndpointUri($appId));
 
-        return $this->entityTransformer->denormalize(
+        return $this->entitySerializer->denormalize(
             // Pass it as an object, because if serializer would have been used here (just as other places) it would
             // pass an object to the denormalizer and not an array.
             (object) $this->responseToArray($response),

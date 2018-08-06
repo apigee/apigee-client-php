@@ -19,6 +19,7 @@
 namespace Apigee\Edge\Api\Management\Controller;
 
 use Apigee\Edge\ClientInterface;
+use Apigee\Edge\Serializer\EntitySerializerInterface;
 use Psr\Http\Message\UriInterface;
 
 /**
@@ -38,17 +39,17 @@ class CompanyAppCredentialController extends AppCredentialController implements 
      * @param string $companyName
      * @param string $appName
      * @param \Apigee\Edge\ClientInterface $client
-     * @param \Symfony\Component\Serializer\Normalizer\NormalizerInterface[]|\Symfony\Component\Serializer\Normalizer\DenormalizerInterface[] $entityNormalizers
+     * @param \Apigee\Edge\Serializer\EntitySerializerInterface|null $entitySerializer
      */
     public function __construct(
         string $organization,
         string $companyName,
         string $appName,
         ClientInterface $client,
-        array $entityNormalizers = []
+        ?EntitySerializerInterface $entitySerializer = null
     ) {
         $this->companyName = $companyName;
-        parent::__construct($organization, $appName, $client, $entityNormalizers);
+        parent::__construct($organization, $appName, $client, $entitySerializer);
     }
 
     /**

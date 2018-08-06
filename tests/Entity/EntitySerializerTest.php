@@ -23,9 +23,9 @@ use Apigee\Edge\Denormalizer\AttributesPropertyDenormalizer;
 use Apigee\Edge\Denormalizer\CredentialProductDenormalizer;
 use Apigee\Edge\Denormalizer\EdgeDateDenormalizer;
 use Apigee\Edge\Denormalizer\PropertiesPropertyDenormalizer;
-use Apigee\Edge\Entity\EntityTransformer;
 use Apigee\Edge\Normalizer\EdgeDateNormalizer;
 use Apigee\Edge\Normalizer\PropertiesPropertyNormalizer;
+use Apigee\Edge\Serializer\EntitySerializer;
 use Apigee\Edge\Tests\Test\Entity\MockEntity;
 use PHPUnit\Framework\TestCase;
 use SebastianBergmann\Comparator\ComparisonFailure;
@@ -44,7 +44,7 @@ use SebastianBergmann\Comparator\Factory as ComparisonFactory;
  * @group offline
  * @small
  */
-class EntityTransformationTest extends TestCase
+class EntitySerializerTest extends TestCase
 {
     /** @var \Apigee\Edge\Normalizer\EntityNormalizer */
     protected static $normalizer;
@@ -66,7 +66,7 @@ class EntityTransformationTest extends TestCase
             new PropertiesPropertyDenormalizer(),
             new CredentialProductDenormalizer(),
         ];
-        static::$normalizer = new EntityTransformer($normalizers);
+        static::$normalizer = new EntitySerializer($normalizers);
     }
 
     public function testNormalize()

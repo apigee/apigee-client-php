@@ -18,19 +18,19 @@
 
 namespace Apigee\Edge\Controller;
 
-use Apigee\Edge\Entity\EntityTransformerInterface;
+use Apigee\Edge\Serializer\EntitySerializerInterface;
 
 /**
  * Trait EntityTransformerAwareTrait.
  *
- * This trait does not contain the "entityTransformer" property because we
+ * This trait does not contain the "entitySerializer" property because we
  * wanted to make sure that every class that uses this trait ensures that the
- * returned value of getEntityTransformer() is always set.
+ * returned value of getEntitySerializer() is always set.
  */
-trait EntityTransformerAwareTrait
+trait EntitySerializerAwareTrait
 {
     /**
-     * @return \Apigee\Edge\Entity\EntityTransformerInterface
+     * @return \Apigee\Edge\Serializer\EntitySerializerInterface
      */
-    abstract protected function getEntityTransformer(): EntityTransformerInterface;
+    abstract protected function getEntitySerializer(): EntitySerializerInterface;
 }

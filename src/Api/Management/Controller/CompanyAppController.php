@@ -19,7 +19,9 @@
 namespace Apigee\Edge\Api\Management\Controller;
 
 use Apigee\Edge\Api\Management\Entity\CompanyApp;
+use Apigee\Edge\Api\Management\Serializer\AppEntitySerializer;
 use Apigee\Edge\ClientInterface;
+use Apigee\Edge\Serializer\EntitySerializerInterface;
 use Psr\Http\Message\UriInterface;
 
 /**
@@ -39,20 +41,20 @@ class CompanyAppController extends AppByOwnerController implements CompanyAppCon
      * @param string $organization
      * @param string $companyName
      * @param \Apigee\Edge\ClientInterface $client
-     * @param \Symfony\Component\Serializer\Normalizer\NormalizerInterface[]|\Symfony\Component\Serializer\Normalizer\DenormalizerInterface[] $entityNormalizers
+     * @param \Apigee\Edge\Serializer\EntitySerializerInterface|null $entitySerializer
      * @param \Apigee\Edge\Api\Management\Controller\OrganizationControllerInterface|null $organizationController
      */
     public function __construct(
         string $organization,
         string $companyName,
         ClientInterface $client,
-        array $entityNormalizers = [],
+        ?EntitySerializerInterface $entitySerializer = null,
         ?OrganizationControllerInterface $organizationController = null
     ) {
         $this->companyName = $companyName;
-        $this->organizationController = $organizationController ?? new OrganizationController($client, $entityNormalizers);
-        $entityNormalizers = array_merge($entityNormalizers, $this->appEntityNormalizers());
-        parent::__construct($organization, $client, $entityNormalizers);
+        $entitySerializer = $entitySerializer ?? new AppEntitySerializer();
+        $this->organizationController = $organizationController ?? new OrganizationController($client);
+        parent::__construct($organization, $client, $entitySerializer);
     }
 
     /**

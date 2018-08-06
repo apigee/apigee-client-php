@@ -16,11 +16,12 @@
  * limitations under the License.
  */
 
-namespace Apigee\Edge\Entity;
+namespace Apigee\Edge\Serializer;
 
 use Apigee\Edge\Denormalizer\EdgeDateDenormalizer;
 use Apigee\Edge\Denormalizer\EntityDenormalizer;
 use Apigee\Edge\Denormalizer\KeyValueMapDenormalizer;
+use Apigee\Edge\Entity\EntityInterface;
 use Apigee\Edge\Normalizer\EdgeDateNormalizer;
 use Apigee\Edge\Normalizer\EntityNormalizer;
 use Apigee\Edge\Normalizer\KeyValueMapNormalizer;
@@ -40,13 +41,13 @@ use Symfony\Component\Serializer\Serializer;
 /**
  * Serializes, normalizes and denormalizes entities.
  */
-class EntityTransformer implements EntityTransformerInterface
+class EntitySerializer implements EntitySerializerInterface
 {
     /** @var \Symfony\Component\Serializer\Serializer */
     private $serializer;
 
     /**
-     * EntityTransformer constructor.
+     * EntitySerializer constructor.
      *
      * @param \Symfony\Component\Serializer\Normalizer\NormalizerInterface[]|\Symfony\Component\Serializer\Normalizer\DenormalizerInterface[] $normalizers
      * @param \Symfony\Component\Serializer\Encoder\EncoderInterface[]|\Symfony\Component\Serializer\Encoder\DecoderInterface[] $encoders

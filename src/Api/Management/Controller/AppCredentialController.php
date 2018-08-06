@@ -20,12 +20,11 @@ namespace Apigee\Edge\Api\Management\Controller;
 
 use Apigee\Edge\Api\Management\Entity\AppCredential;
 use Apigee\Edge\Api\Management\Entity\AppCredentialInterface;
-use Apigee\Edge\Api\Management\Normalizer\AppCredentialNormalizer;
+use Apigee\Edge\Api\Management\Serializer\AppCredentialSerializer;
+use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Controller\EntityController;
 use Apigee\Edge\Controller\StatusAwareEntityControllerTrait;
-use Apigee\Edge\Denormalizer\AttributesPropertyDenormalizer;
-use Apigee\Edge\Denormalizer\CredentialProductDenormalizer;
-use Apigee\Edge\Normalizer\CredentialProductNormalizer;
+use Apigee\Edge\Serializer\EntitySerializerInterface;
 use Apigee\Edge\Structure\AttributesProperty;
 
 /**
@@ -39,14 +38,19 @@ abstract class AppCredentialController extends EntityController implements AppCr
     /** @var string App name. */
     protected $appName;
 
-    public function __construct(string $organization, string $appName, \Apigee\Edge\ClientInterface $client, $entityNormalizers = [])
+    /**
+     * AppCredentialController constructor.
+     *
+     * @param string $organization
+     * @param string $appName
+     * @param \Apigee\Edge\ClientInterface $client
+     * @param \Apigee\Edge\Serializer\EntitySerializerInterface|null $entitySerializer
+     */
+    public function __construct(string $organization, string $appName, ClientInterface $client, ?EntitySerializerInterface $entitySerializer = null)
     {
         $this->appName = $appName;
-        $entityNormalizers[] = new AppCredentialNormalizer();
-        $entityNormalizers[] = new CredentialProductDenormalizer();
-        $entityNormalizers[] = new CredentialProductNormalizer();
-        $entityNormalizers[] = new AttributesPropertyDenormalizer();
-        parent::__construct($organization, $client, $entityNormalizers);
+        $entitySerializer = $entitySerializer ?? new AppCredentialSerializer();
+        parent::__construct($organization, $client, $entitySerializer);
     }
 
     /**
@@ -60,7 +64,7 @@ abstract class AppCredentialController extends EntityController implements AppCr
             (string) json_encode((object) ['consumerKey' => $consumerKey, 'consumerSecret' => $consumerSecret])
         );
 
-        return $this->entityTransformer->deserialize(
+        return $this->entitySerializer->deserialize(
             (string) $response->getBody(),
             $this->getEntityClass(),
             'json'
@@ -81,7 +85,7 @@ abstract class AppCredentialController extends EntityController implements AppCr
             $this->getBaseEndpointUri(),
             (string) json_encode((object) [
                 'apiProducts' => $apiProducts,
-                'attributes' => $this->entityTransformer->normalize($appAttributes),
+                'attributes' => $this->entitySerializer->normalize($appAttributes),
                 'callbackUrl' => $callbackUrl,
                 'keyExpiresIn' => $keyExpiresIn,
                 'scopes' => $scopes,
@@ -92,7 +96,7 @@ abstract class AppCredentialController extends EntityController implements AppCr
         $responseArray = $this->responseToArray($response);
         $credentialArray = reset($responseArray['credentials']);
 
-        return $this->entityTransformer->denormalize(
+        return $this->entitySerializer->denormalize(
             $credentialArray,
             $this->getEntityClass()
         );
@@ -108,7 +112,7 @@ abstract class AppCredentialController extends EntityController implements AppCr
             (string) json_encode((object) ['apiProducts' => $apiProducts])
         );
 
-        return $this->entityTransformer->deserialize(
+        return $this->entitySerializer->deserialize(
             (string) $response->getBody(),
             $this->getEntityClass(),
             'json'
@@ -134,7 +138,7 @@ abstract class AppCredentialController extends EntityController implements AppCr
         $uri = $this->getBaseEndpointUri()->withPath("{$this->getBaseEndpointUri()}/keys/{$consumerKey}/apiproducts/{$apiProduct}");
         $response = $this->client->delete($uri);
 
-        return $this->entityTransformer->deserialize(
+        return $this->entitySerializer->deserialize(
             (string) $response->getBody(),
             $this->getEntityClass(),
             'json'
@@ -151,7 +155,7 @@ abstract class AppCredentialController extends EntityController implements AppCr
             (string) json_encode((object) ['scopes' => $scopes])
         );
 
-        return $this->entityTransformer->deserialize(
+        return $this->entitySerializer->deserialize(
             (string) $response->getBody(),
             $this->getEntityClass(),
             'json'
@@ -165,7 +169,7 @@ abstract class AppCredentialController extends EntityController implements AppCr
     {
         $response = $this->client->get($this->getEntityEndpointUri($entityId));
 
-        return $this->entityTransformer->deserialize(
+        return $this->entitySerializer->deserialize(
         (string) $response->getBody(),
         $this->getEntityClass(),
         'json'
@@ -179,7 +183,7 @@ abstract class AppCredentialController extends EntityController implements AppCr
     {
         $response = $this->client->delete($this->getEntityEndpointUri($entityId));
 
-        return $this->entityTransformer->deserialize(
+        return $this->entitySerializer->deserialize(
         (string) $response->getBody(),
         $this->getEntityClass(),
         'json'

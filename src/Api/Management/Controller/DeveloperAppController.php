@@ -43,20 +43,19 @@ class DeveloperAppController extends AppByOwnerController implements DeveloperAp
      * @param string $organization
      * @param string $developerId
      * @param \Apigee\Edge\ClientInterface $client
-     * @param \Symfony\Component\Serializer\Normalizer\NormalizerInterface[]|\Symfony\Component\Serializer\Normalizer\DenormalizerInterface[] $entityNormalizers
+     * @param \Apigee\Edge\Serializer\EntitySerializerInterface|null $entitySerializer
      * @param \Apigee\Edge\Api\Management\Controller\OrganizationControllerInterface|null $organizationController
      */
     public function __construct(
         string $organization,
         string $developerId,
         ClientInterface $client,
-        array $entityNormalizers = [],
+        ?\Apigee\Edge\Serializer\EntitySerializerInterface $entitySerializer = null,
         ?OrganizationControllerInterface $organizationController = null
     ) {
         $this->developerId = $developerId;
-        $this->organizationController = $organizationController ?? new OrganizationController($client, $entityNormalizers);
-        $entityNormalizers = array_merge($entityNormalizers, $this->appEntityNormalizers());
-        parent::__construct($organization, $client, $entityNormalizers);
+        $this->organizationController = $organizationController ?? new OrganizationController($client);
+        parent::__construct($organization, $client, $entitySerializer);
     }
 
     /**

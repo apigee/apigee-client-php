@@ -16,8 +16,9 @@
  * limitations under the License.
  */
 
-namespace Apigee\Edge\Entity;
+namespace Apigee\Edge\Serializer;
 
+use Apigee\Edge\Entity\EntityInterface;
 use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
@@ -26,7 +27,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 /**
  * Serializes, deserializes, normalizes and denormalizes entities.
  */
-interface EntityTransformerInterface extends NormalizerInterface, DenormalizerInterface, SerializerInterface
+interface EntitySerializerInterface extends NormalizerInterface, DenormalizerInterface, SerializerInterface
 {
     /**
      * Set property values on an entity from an Apigee Edge response.

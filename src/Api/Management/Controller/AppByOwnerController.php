@@ -18,6 +18,8 @@
 
 namespace Apigee\Edge\Api\Management\Controller;
 
+use Apigee\Edge\Api\Management\Serializer\AppEntitySerializer;
+use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Controller\EntityController;
 use Apigee\Edge\Controller\EntityCrudOperationsControllerTrait;
 use Apigee\Edge\Controller\EntityListingControllerTrait;
@@ -25,6 +27,7 @@ use Apigee\Edge\Controller\NonPaginatedEntityListingControllerTrait;
 use Apigee\Edge\Controller\PaginatedEntityIdListingControllerTrait;
 use Apigee\Edge\Controller\PaginationHelperTrait;
 use Apigee\Edge\Controller\StatusAwareEntityControllerTrait;
+use Apigee\Edge\Serializer\EntitySerializerInterface;
 
 /**
  * Common parent class for company- and developer app controllers.
@@ -32,11 +35,23 @@ use Apigee\Edge\Controller\StatusAwareEntityControllerTrait;
 abstract class AppByOwnerController extends EntityController implements AppByOwnerControllerInterface
 {
     use AttributesAwareEntityControllerTrait;
-    use AppControllerTrait;
     use EntityCrudOperationsControllerTrait;
     use EntityListingControllerTrait;
     use NonPaginatedEntityListingControllerTrait;
     use PaginatedEntityIdListingControllerTrait;
     use PaginationHelperTrait;
     use StatusAwareEntityControllerTrait;
+
+    /**
+     * AppByOwnerController constructor.
+     *
+     * @param string $organization
+     * @param ClientInterface $client
+     * @param EntitySerializerInterface|null $entitySerializer
+     */
+    public function __construct(string $organization, ClientInterface $client, ?EntitySerializerInterface $entitySerializer = null)
+    {
+        $entitySerializer = $entitySerializer ?? new AppEntitySerializer();
+        parent::__construct($organization, $client, $entitySerializer);
+    }
 }

@@ -19,12 +19,12 @@
 namespace Apigee\Edge\Api\Management\Controller;
 
 use Apigee\Edge\Api\Management\Entity\Environment;
+use Apigee\Edge\Api\Management\Serializer\EnvironmentSerializer;
 use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Controller\EntityController;
 use Apigee\Edge\Controller\EntityCrudOperationsControllerTrait;
 use Apigee\Edge\Controller\NonPaginatedEntityIdListingControllerTrait;
-use Apigee\Edge\Denormalizer\PropertiesPropertyDenormalizer;
-use Apigee\Edge\Normalizer\PropertiesPropertyNormalizer;
+use Apigee\Edge\Serializer\EntitySerializerInterface;
 use Psr\Http\Message\UriInterface;
 
 /**
@@ -40,16 +40,15 @@ class EnvironmentController extends EntityController implements EnvironmentContr
      *
      * @param string $organization
      * @param \Apigee\Edge\ClientInterface $client
-     * @param array $entityNormalizers
+     * @param \Apigee\Edge\Serializer\EntitySerializerInterface|null $entitySerializer
      */
     public function __construct(
         string $organization,
         ClientInterface $client,
-        array $entityNormalizers = []
+        ?EntitySerializerInterface $entitySerializer = null
     ) {
-        $entityNormalizers[] = new PropertiesPropertyNormalizer();
-        $entityNormalizers[] = new PropertiesPropertyDenormalizer();
-        parent::__construct($organization, $client, $entityNormalizers);
+        $entitySerializer = $entitySerializer ?? new EnvironmentSerializer();
+        parent::__construct($organization, $client, $entitySerializer);
     }
 
     /**

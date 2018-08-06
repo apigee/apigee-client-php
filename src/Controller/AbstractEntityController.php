@@ -19,13 +19,9 @@
 namespace Apigee\Edge\Controller;
 
 use Apigee\Edge\ClientInterface;
-use Apigee\Edge\Entity\EntityTransformer;
-use Apigee\Edge\Entity\EntityTransformerInterface;
+use Apigee\Edge\Serializer\EntitySerializer;
+use Apigee\Edge\Serializer\EntitySerializerInterface;
 use Psr\Http\Message\UriInterface;
-use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
-use Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface;
-use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface;
-use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
 
 /**
  * Class AbstractEntityController.
@@ -35,27 +31,26 @@ use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
  */
 abstract class AbstractEntityController extends AbstractController
 {
-    use EntityTransformerAwareTrait;
+    use EntitySerializerAwareTrait;
     use EntityEndpointAwareControllerTrait;
     use EntityClassAwareTrait;
 
     /**
-     * @var \Apigee\Edge\Entity\EntityTransformerInterface
+     * @var \Apigee\Edge\Serializer\EntitySerializerInterface
      */
-    protected $entityTransformer;
+    protected $entitySerializer;
 
     /**
      * AbstractEntityController constructor.
      *
      * @param \Apigee\Edge\ClientInterface $client
      *   Apigee Edge API client.
-     * @param \Symfony\Component\Serializer\Normalizer\NormalizerInterface[]|\Symfony\Component\Serializer\Normalizer\DenormalizerInterface[] $entityNormalizers
-     *   Array of entity normalizers and denormalizers that are being called earlier than the default ones.
+     * @param \Apigee\Edge\Serializer\EntitySerializerInterface|null $entitySerializer
      */
-    public function __construct(ClientInterface $client, array $entityNormalizers = [])
+    public function __construct(ClientInterface $client, ?EntitySerializerInterface $entitySerializer = null)
     {
         parent::__construct($client);
-        $this->entityTransformer = $this->buildEntityTransformer($entityNormalizers);
+        $this->entitySerializer = $entitySerializer ?? new EntitySerializer();
     }
 
     /**
@@ -67,27 +62,10 @@ abstract class AbstractEntityController extends AbstractController
     }
 
     /**
-     * Returns a configured entity transformer.
-     *
-     * @param array $normalizers
-     * @param array $encoders
-     * @param \Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface|null $classMetadataFactory
-     * @param \Symfony\Component\Serializer\NameConverter\NameConverterInterface|null $nameConverter
-     * @param \Symfony\Component\PropertyAccess\PropertyAccessorInterface|null $propertyAccessor
-     * @param \Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface|null $propertyTypeExtractor
-     *
-     * @return \Apigee\Edge\Entity\EntityTransformerInterface
-     */
-    protected function buildEntityTransformer(array $normalizers = [], array $encoders = [], ClassMetadataFactoryInterface $classMetadataFactory = null, NameConverterInterface $nameConverter = null, PropertyAccessorInterface $propertyAccessor = null, PropertyTypeExtractorInterface $propertyTypeExtractor = null): EntityTransformerInterface
-    {
-        return new EntityTransformer($normalizers, $encoders, $classMetadataFactory, $nameConverter, $propertyAccessor, $propertyTypeExtractor);
-    }
-
-    /**
      * @inheritDoc
      */
-    protected function getEntityTransformer(): EntityTransformerInterface
+    protected function getEntitySerializer(): EntitySerializerInterface
     {
-        return $this->entityTransformer;
+        return $this->entitySerializer;
     }
 }

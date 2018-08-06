@@ -31,7 +31,7 @@ trait EntityCrudOperationsControllerTrait
     use ClientAwareControllerTrait;
     use EntityClassAwareTrait;
     use EntityEndpointAwareControllerTrait;
-    use EntityTransformerAwareTrait;
+    use EntitySerializerAwareTrait;
 
     /**
      * @inheritdoc
@@ -40,7 +40,7 @@ trait EntityCrudOperationsControllerTrait
     {
         $response = $this->getClient()->get($this->getEntityEndpointUri($entityId));
 
-        return $this->getEntityTransformer()->deserialize(
+        return $this->getEntitySerializer()->deserialize(
             (string) $response->getBody(),
             $this->getEntityClass(),
             'json'
@@ -54,9 +54,9 @@ trait EntityCrudOperationsControllerTrait
     {
         $response = $this->getClient()->post(
             $this->getBaseEndpointUri(),
-            $this->getEntityTransformer()->serialize($entity, 'json')
+            $this->getEntitySerializer()->serialize($entity, 'json')
         );
-        $this->getEntityTransformer()->setPropertiesFromResponse($response, $entity);
+        $this->getEntitySerializer()->setPropertiesFromResponse($response, $entity);
     }
 
     /**
@@ -70,9 +70,9 @@ trait EntityCrudOperationsControllerTrait
         // Update an existing entity.
         $response = $this->getClient()->put(
             $uri,
-            $this->getEntityTransformer()->serialize($entity, 'json')
+            $this->getEntitySerializer()->serialize($entity, 'json')
         );
-        $this->getEntityTransformer()->setPropertiesFromResponse($response, $entity);
+        $this->getEntitySerializer()->setPropertiesFromResponse($response, $entity);
     }
 
     /**
@@ -82,7 +82,7 @@ trait EntityCrudOperationsControllerTrait
     {
         $response = $this->getClient()->delete($this->getEntityEndpointUri($entityId));
 
-        return $this->getEntityTransformer()->deserialize(
+        return $this->getEntitySerializer()->deserialize(
             (string) $response->getBody(),
             $this->getEntityClass(),
             'json'

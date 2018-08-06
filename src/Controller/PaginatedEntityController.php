@@ -21,6 +21,7 @@ namespace Apigee\Edge\Controller;
 use Apigee\Edge\Api\Management\Controller\OrganizationController;
 use Apigee\Edge\Api\Management\Controller\OrganizationControllerInterface;
 use Apigee\Edge\ClientInterface;
+use Apigee\Edge\Serializer\EntitySerializerInterface;
 
 /**
  * Class PaginatedEntityController.
@@ -39,16 +40,16 @@ abstract class PaginatedEntityController extends EntityController implements Pag
      *
      * @param string $organization
      * @param \Apigee\Edge\ClientInterface $client
-     * @param \Symfony\Component\Serializer\Normalizer\NormalizerInterface[]|\Symfony\Component\Serializer\Normalizer\DenormalizerInterface[] $entityNormalizers
+     * @param \Apigee\Edge\Serializer\EntitySerializerInterface|null $entitySerializer
      * @param OrganizationControllerInterface|null $organizationController
      */
     public function __construct(
         string $organization,
         ClientInterface $client,
-        array $entityNormalizers = [],
+        ?EntitySerializerInterface $entitySerializer = null,
         OrganizationControllerInterface $organizationController = null
     ) {
-        parent::__construct($organization, $client, $entityNormalizers);
+        parent::__construct($organization, $client, $entitySerializer);
         $this->organizationController = $organizationController ?: new OrganizationController($client);
     }
 
