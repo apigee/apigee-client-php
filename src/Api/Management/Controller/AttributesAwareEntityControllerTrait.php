@@ -18,27 +18,32 @@
 
 namespace Apigee\Edge\Api\Management\Controller;
 
-use Apigee\Edge\Denormalizer\AttributesPropertyDenormalizer;
-use Apigee\Edge\Normalizer\KeyValueMapNormalizer;
+use Apigee\Edge\Api\Management\Serializer\AttributesPropertyAwareEntitySerializer;
+use Apigee\Edge\Controller\ClientAwareControllerTrait;
+use Apigee\Edge\Controller\EntitySerializerAwareTrait;
 use Apigee\Edge\Structure\AttributesProperty;
+use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\UriInterface;
 
 /**
  * Trait AttributesAwareEntityControllerTrait.
  *
- *
- * @see AttributesAwareEntityControllerInterface
+ * @see \Apigee\Edge\Api\Management\Controller\AttributesAwareEntityControllerInterface
  */
 trait AttributesAwareEntityControllerTrait
 {
+    use ClientAwareControllerTrait;
+    use EntitySerializerAwareTrait;
+
     /**
      * @inheritdoc
      */
     public function getAttributes(string $entityId): AttributesProperty
     {
-        $responseArray = $this->responseToArray($this->client->get($this->getEntityAttributesUri($entityId)));
+        $serializer = new AttributesPropertyAwareEntitySerializer();
+        $responseArray = $this->responseToArray($this->getClient()->get($this->getEntityAttributesUri($entityId)));
 
-        return $this->getAttributesPropertyDenormalizer()->denormalize(
+        return $serializer->denormalize(
             $responseArray['attribute'],
             AttributesProperty::class
         );
@@ -61,16 +66,17 @@ trait AttributesAwareEntityControllerTrait
      */
     public function updateAttributes(string $entityId, AttributesProperty $attributes): AttributesProperty
     {
+        $serializer = new AttributesPropertyAwareEntitySerializer();
         $responseArray = $this->responseToArray(
-            $this->client->post(
+            $this->getClient()->post(
                 $this->getEntityAttributesUri($entityId),
                 (string) json_encode((object) [
-                    'attribute' => $this->getAttributesPropertyNormalizer()->normalize($attributes),
+                    'attribute' => $serializer->normalize($attributes),
                 ])
             )
         );
 
-        return $this->getAttributesPropertyDenormalizer()->denormalize(
+        return $serializer->denormalize(
             $responseArray['attribute'],
             AttributesProperty::class
         );
@@ -95,30 +101,7 @@ trait AttributesAwareEntityControllerTrait
      */
     public function deleteAttribute(string $entityId, string $name): void
     {
-        $this->client->delete($this->getEntityAttributeUri($entityId, $name));
-    }
-
-    protected function getAttributesPropertyNormalizer(): KeyValueMapNormalizer
-    {
-        static $normalizer;
-        if (!$normalizer) {
-            $normalizer = new KeyValueMapNormalizer();
-        }
-
-        return $normalizer;
-    }
-
-    /**
-     * @return \Apigee\Edge\Denormalizer\AttributesPropertyDenormalizer
-     */
-    protected function getAttributesPropertyDenormalizer(): AttributesPropertyDenormalizer
-    {
-        static $denormalizer;
-        if (!$denormalizer) {
-            $denormalizer = new AttributesPropertyDenormalizer();
-        }
-
-        return $denormalizer;
+        $this->getClient()->delete($this->getEntityAttributeUri($entityId, $name));
     }
 
     /**
@@ -153,4 +136,9 @@ trait AttributesAwareEntityControllerTrait
 
         return $uri;
     }
+
+    /**
+     * @inheritdoc
+     */
+    abstract protected function responseToArray(ResponseInterface $response): array;
 }

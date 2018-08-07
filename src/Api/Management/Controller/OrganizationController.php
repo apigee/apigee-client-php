@@ -19,12 +19,14 @@
 namespace Apigee\Edge\Api\Management\Controller;
 
 use Apigee\Edge\Api\Management\Entity\Organization;
+use Apigee\Edge\Api\Management\Serializer\OrganizationSerializer;
 use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Controller\AbstractEntityController;
 use Apigee\Edge\Controller\EntityCrudOperationsControllerTrait;
-use Apigee\Edge\Controller\NoPaginationEntityListingControllerTrait;
-use Apigee\Edge\Denormalizer\PropertiesPropertyDenormalizer;
-use Apigee\Edge\Normalizer\PropertiesPropertyNormalizer;
+use Apigee\Edge\Controller\EntityListingControllerTrait;
+use Apigee\Edge\Controller\NonPaginatedEntityIdListingControllerTrait;
+use Apigee\Edge\Controller\NonPaginatedEntityListingControllerTrait;
+use Apigee\Edge\Serializer\EntitySerializerInterface;
 use Psr\Http\Message\UriInterface;
 
 /**
@@ -33,19 +35,20 @@ use Psr\Http\Message\UriInterface;
 class OrganizationController extends AbstractEntityController implements OrganizationControllerInterface
 {
     use EntityCrudOperationsControllerTrait;
-    use NoPaginationEntityListingControllerTrait;
+    use EntityListingControllerTrait;
+    use NonPaginatedEntityListingControllerTrait;
+    use NonPaginatedEntityIdListingControllerTrait;
 
     /**
      * OrganizationController constructor.
      *
      * @param \Apigee\Edge\ClientInterface $client
-     * @param \Symfony\Component\Serializer\Normalizer\NormalizerInterface[]|\Symfony\Component\Serializer\Normalizer\DenormalizerInterface[] $entityNormalizers
+     * @param \Apigee\Edge\Serializer\EntitySerializerInterface|null $entitySerializer
      */
-    public function __construct(ClientInterface $client, array $entityNormalizers = [])
+    public function __construct(ClientInterface $client, ?EntitySerializerInterface $entitySerializer = null)
     {
-        $entityNormalizers[] = new PropertiesPropertyNormalizer();
-        $entityNormalizers[] = new PropertiesPropertyDenormalizer();
-        parent::__construct($client, $entityNormalizers);
+        $entitySerializer = $entitySerializer ?? new OrganizationSerializer();
+        parent::__construct($client, $entitySerializer);
     }
 
     /**

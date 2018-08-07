@@ -118,7 +118,7 @@ class ApiProductControllerTest extends PaginatedEntityListingControllerValidator
     /**
      * @inheritdoc
      */
-    public function paginatedTestEntityIdprovider(): array
+    public function paginatedTestEntityIdProvider(): array
     {
         return [['name']];
     }

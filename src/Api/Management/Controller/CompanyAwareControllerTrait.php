@@ -35,7 +35,7 @@ trait CompanyAwareControllerTrait
     /**
      * @inheritdoc
      */
-    public function getCompanyName(): string
+    final public function getCompanyName(): string
     {
         return $this->companyName;
     }

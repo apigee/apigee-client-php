@@ -30,7 +30,7 @@ trait NonPaginatedEntityIdListingControllerValidatorTrait
      */
     public function testGetEntityIds(): void
     {
-        /** @var \Apigee\Edge\Controller\NonPaginatedEntityListingControllerInterface $controller */
+        /** @var \Apigee\Edge\Controller\NonPaginatedEntityIdListingControllerInterface $controller */
         $controller = $this->getEntityController();
         $this->assertNotEmpty($controller->getEntityIds());
     }

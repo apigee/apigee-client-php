@@ -16,14 +16,16 @@
  * limitations under the License.
  */
 
-namespace Apigee\Edge\Entity;
+namespace Apigee\Edge\Serializer;
 
 use Apigee\Edge\Denormalizer\EdgeDateDenormalizer;
 use Apigee\Edge\Denormalizer\EntityDenormalizer;
 use Apigee\Edge\Denormalizer\KeyValueMapDenormalizer;
+use Apigee\Edge\Entity\EntityInterface;
 use Apigee\Edge\Normalizer\EdgeDateNormalizer;
 use Apigee\Edge\Normalizer\EntityNormalizer;
 use Apigee\Edge\Normalizer\KeyValueMapNormalizer;
+use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 use Symfony\Component\PropertyInfo\Extractor\PhpDocExtractor;
 use Symfony\Component\PropertyInfo\Extractor\ReflectionExtractor;
@@ -39,13 +41,20 @@ use Symfony\Component\Serializer\Serializer;
 /**
  * Serializes, normalizes and denormalizes entities.
  */
-class EntityTransformer implements EntityTransformerInterface
+class EntitySerializer implements EntitySerializerInterface
 {
     /** @var \Symfony\Component\Serializer\Serializer */
     private $serializer;
 
     /**
-     * EntityTransformer constructor.
+     * The API client only communicates in JSON with Apigee Edge.
+     *
+     * @var string
+     */
+    private $format = JsonEncoder::FORMAT;
+
+    /**
+     * EntitySerializer constructor.
      *
      * @param \Symfony\Component\Serializer\Normalizer\NormalizerInterface[]|\Symfony\Component\Serializer\Normalizer\DenormalizerInterface[] $normalizers
      * @param \Symfony\Component\Serializer\Encoder\EncoderInterface[]|\Symfony\Component\Serializer\Encoder\DecoderInterface[] $encoders
@@ -73,10 +82,10 @@ class EntityTransformer implements EntityTransformerInterface
             );
         }
         $normalizers = array_merge($normalizers, [
-            // KVM is a commonly used object type. Let's make its normalizers/denormalizers available by default.
-                new KeyValueMapNormalizer(),
+            // KVM is a commonly used object type. Let's make its normalizers/denormalizers available by default
+            new KeyValueMapNormalizer(),
             new KeyValueMapDenormalizer(),
-            // Transforms Unix epoch timestamps to date objects and vice-versta.
+            // Transforms Unix epoch timestamps to date objects and vice-versa.
             new EdgeDateNormalizer(),
             new EdgeDateDenormalizer(),
             // Takes care of denormalizations of array objects.
@@ -95,7 +104,7 @@ class EntityTransformer implements EntityTransformerInterface
      */
     public function denormalize($data, $class, $format = null, array $context = [])
     {
-        return $this->serializer->denormalize($data, $class, $format, $context);
+        return $this->serializer->denormalize($data, $class, $this->format, $context);
     }
 
     /**
@@ -103,7 +112,7 @@ class EntityTransformer implements EntityTransformerInterface
      */
     public function supportsDenormalization($data, $type, $format = null)
     {
-        return $this->serializer->supportsDenormalization($data, $type, $format);
+        return $this->serializer->supportsDenormalization($data, $type, $this->format);
     }
 
     /**
@@ -111,7 +120,7 @@ class EntityTransformer implements EntityTransformerInterface
      */
     public function normalize($object, $format = null, array $context = [])
     {
-        return $this->serializer->normalize($object, $format, $context);
+        return $this->serializer->normalize($object, $this->format, $context);
     }
 
     /**
@@ -119,7 +128,7 @@ class EntityTransformer implements EntityTransformerInterface
      */
     public function supportsNormalization($data, $format = null)
     {
-        return $this->serializer->supportsNormalization($data, $format);
+        return $this->serializer->supportsNormalization($data, $this->format);
     }
 
     /**
@@ -127,7 +136,7 @@ class EntityTransformer implements EntityTransformerInterface
      */
     public function serialize($data, $format, array $context = [])
     {
-        return $this->serializer->serialize($data, $format, $context);
+        return $this->serializer->serialize($data, $this->format, $context);
     }
 
     /**
@@ -135,6 +144,48 @@ class EntityTransformer implements EntityTransformerInterface
      */
     public function deserialize($data, $type, $format, array $context = [])
     {
-        return $this->serializer->deserialize($data, $type, $format, $context);
+        return $this->serializer->deserialize($data, $type, $this->format, $context);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function setPropertiesFromResponse(ResponseInterface $response, EntityInterface $entity): void
+    {
+        // Parse Edge response to a temporary entity (with the same type as $entity).
+        // This is a crucial step because Edge response must be transformed before we would be able use it with some
+        // of our setters (ex.: attributes).
+        $tmp = $this->deserialize(
+            (string) $response->getBody(),
+            get_class($entity),
+            $this->format
+        );
+        $ro = new \ReflectionObject($entity);
+        // Copy property values from the temporary entity to $entity.
+        foreach ($ro->getProperties() as $property) {
+            // Ensure that these methods are exist. This is always true for all SDK entities but we can not be sure
+            // about custom implementation.
+            $setter = 'set' . ucfirst($property->getName());
+            if (!$ro->hasMethod($setter)) {
+                continue;
+            }
+
+            $getter = 'get' . ucfirst($property->getName());
+            if (!$ro->hasMethod($getter)) {
+                $getter = 'is' . ucfirst($property->getName());
+                if (!$ro->hasMethod($getter)) {
+                    continue;
+                }
+            }
+
+            $rm = new \ReflectionMethod($entity, $setter);
+            $value = $tmp->{$getter}();
+            // Exclude null values.
+            // (An entity property value is null (internally) if it is scalar and the Edge response from
+            // the entity object has been created did not contain value for the property.)
+            if (null !== $value) {
+                $rm->invoke($entity, $value);
+            }
+        }
     }
 }

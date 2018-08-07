@@ -19,6 +19,7 @@
 namespace Apigee\Edge\Controller;
 
 use Apigee\Edge\ClientInterface;
+use Apigee\Edge\Serializer\EntitySerializerInterface;
 
 /**
  * Class EntityController.
@@ -27,20 +28,30 @@ abstract class EntityController extends AbstractEntityController
 {
     use OrganizationAwareControllerTrait;
 
+    /** @var string Name of the organization that the entity belongs to. */
+    protected $organization;
+
     /**
      * EntityController constructor.
      *
      * @param string $organization
      *   Name of the organization that the entities belongs to.
-     * @param ClientInterface $client
-     * @param \Symfony\Component\Serializer\Normalizer\NormalizerInterface[]|\Symfony\Component\Serializer\Normalizer\DenormalizerInterface[] $entityNormalizers
+     * @param \Apigee\Edge\ClientInterface $client
+     * @param \Apigee\Edge\Serializer\EntitySerializerInterface|null $entitySerializer
+     *
+     * @psalm-suppress InvalidArgument - There is no issue with the arguments.
      */
     public function __construct(
         string $organization,
         ClientInterface $client,
-        array $entityNormalizers = []
+        ?EntitySerializerInterface $entitySerializer = null
     ) {
         $this->organization = $organization;
-        parent::__construct($client, $entityNormalizers);
+        parent::__construct($client, $entitySerializer);
+    }
+
+    public function getOrganisationName(): string
+    {
+        return $this->organization;
     }
 }

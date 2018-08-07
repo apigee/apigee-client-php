@@ -18,7 +18,9 @@
 
 namespace Apigee\Edge\Controller;
 
+use Apigee\Edge\Exception\CpsNotEnabledException;
 use Apigee\Edge\Structure\PagerInterface;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * Utility methods for those controllers that supports paginated listing.
@@ -27,7 +29,70 @@ use Apigee\Edge\Structure\PagerInterface;
  */
 trait PaginationHelperTrait
 {
-    use EntityListingControllerTrait;
+    use ClientAwareControllerTrait;
+    use BaseEndpointAwareControllerTrait;
+    use OrganizationControllerAwareTrait;
+
+    /**
+     * @inheritdoc
+     */
+    public function createPager(int $limit = 0, ?string $startKey = null): PagerInterface
+    {
+        /** @var \Apigee\Edge\Api\Management\Entity\OrganizationInterface $organization */
+        $organization = $this->getOrganizationController()->load($this->organization);
+        if (!$organization->getPropertyValue('features.isCpsEnabled')) {
+            throw new CpsNotEnabledException($this->organization);
+        }
+
+        // Create an anonymous class here because this class should not exist and be in use
+        // in those controllers that do not work with entities that belongs to an organization.
+        $pager = new class() implements PagerInterface {
+            protected $startKey;
+
+            protected $limit;
+
+            /**
+             * @inheritdoc
+             */
+            public function getStartKey(): ?string
+            {
+                return $this->startKey;
+            }
+
+            /**
+             * @inheritdoc
+             */
+            public function getLimit(): int
+            {
+                return $this->limit;
+            }
+
+            /**
+             * @inheritdoc
+             */
+            public function setStartKey(?string $startKey): ?string
+            {
+                $this->startKey = $startKey;
+
+                return $this->startKey;
+            }
+
+            /**
+             * @inheritdoc
+             */
+            public function setLimit(int $limit): int
+            {
+                $this->limit = $limit;
+
+                return $this->limit;
+            }
+        };
+
+        $pager->setLimit($limit);
+        $pager->setStartKey($startKey);
+
+        return $pager;
+    }
 
     /**
      * Loads entities from Apigee Edge.
@@ -44,7 +109,7 @@ trait PaginationHelperTrait
      *
      * @psalm-suppress PossiblyNullArrayOffset $tmp->id() is always not null here.
      */
-    private function listEntities(PagerInterface $pager = null, array $query_params = [], string $key_provider = 'id'): array
+    protected function listEntities(PagerInterface $pager = null, array $query_params = [], string $key_provider = 'id'): array
     {
         $query_params = [
             'expand' => 'true',
@@ -107,7 +172,7 @@ trait PaginationHelperTrait
      * @return string[]
      *   Array of entity ids.
      */
-    private function listEntityIds(PagerInterface $pager = null, array $query_params = []): array
+    protected function listEntityIds(PagerInterface $pager = null, array $query_params = []): array
     {
         $query_params = [
             'expand' => 'false',
@@ -141,6 +206,16 @@ trait PaginationHelperTrait
     }
 
     /**
+     * @inheritdoc
+     */
+    abstract protected function responseToArray(ResponseInterface $response): array;
+
+    /**
+     * @inheritdoc
+     */
+    abstract protected function responseArrayToArrayOfEntities(array $responseArray, string $keyGetter = 'id'): array;
+
+    /**
      * Gets entities and entity ids in a provided range from Apigee Edge.
      *
      * @param \Apigee\Edge\Structure\PagerInterface $pager
@@ -159,7 +234,7 @@ trait PaginationHelperTrait
             $query_params['count'] = $pager->getLimit();
         }
         $uri = $this->getBaseEndpointUri()->withQuery(http_build_query($query_params));
-        $response = $this->client->get($uri);
+        $response = $this->getClient()->get($uri);
 
         return $this->responseToArray($response);
     }

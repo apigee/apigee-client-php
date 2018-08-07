@@ -18,15 +18,12 @@
 
 namespace Apigee\Edge\Api\Management\Controller;
 
-use Apigee\Edge\Api\Management\Denormalizer\CompanyMembershipDenormalizer;
-use Apigee\Edge\Api\Management\Normalizer\CompanyMembershipNormalizer;
+use Apigee\Edge\Api\Management\Serializer\CompanyMembershipSerializer;
 use Apigee\Edge\Api\Management\Structure\CompanyMembership;
 use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Controller\AbstractController;
 use Apigee\Edge\Controller\OrganizationAwareControllerTrait;
 use Psr\Http\Message\UriInterface;
-use Symfony\Component\Serializer\Encoder\JsonEncode;
-use Symfony\Component\Serializer\Serializer;
 
 /**
  * Allows to manage company memberships.
@@ -37,12 +34,15 @@ class CompanyMembersController extends AbstractController implements CompanyMemb
     use OrganizationAwareControllerTrait;
 
     /**
-     * @var \Symfony\Component\Serializer\Serializer
+     * @var \Apigee\Edge\Serializer\EntitySerializerInterface
      */
     protected $serializer;
 
+    /** @var string */
+    protected $organization;
+
     /**
-     * CompanyDevelopersController constructor.
+     * CompanyMembersController constructor.
      *
      * @param string $companyName
      * @param string $organization
@@ -53,7 +53,7 @@ class CompanyMembersController extends AbstractController implements CompanyMemb
         parent::__construct($client);
         $this->companyName = $companyName;
         $this->organization = $organization;
-        $this->serializer = new Serializer([new CompanyMembershipDenormalizer(), new CompanyMembershipNormalizer()], [$this->jsonDecoder, new JsonEncode()]);
+        $this->serializer = new CompanyMembershipSerializer([], [$this->jsonDecoder]);
     }
 
     /**
@@ -82,6 +82,14 @@ class CompanyMembersController extends AbstractController implements CompanyMemb
     public function removeMember(string $email): void
     {
         $this->client->delete($this->getBaseEndpointUri()->withPath("{$this->getBaseEndpointUri()->getPath()}/{$email}"));
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getOrganisationName(): string
+    {
+        return $this->organization;
     }
 
     /**

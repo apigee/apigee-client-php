@@ -19,7 +19,8 @@
 namespace Apigee\Edge\Controller;
 
 use Apigee\Edge\ClientInterface;
-use Apigee\Edge\Entity\EntityTransformer;
+use Apigee\Edge\Serializer\EntitySerializer;
+use Apigee\Edge\Serializer\EntitySerializerInterface;
 use Psr\Http\Message\UriInterface;
 
 /**
@@ -30,31 +31,30 @@ use Psr\Http\Message\UriInterface;
  */
 abstract class AbstractEntityController extends AbstractController
 {
+    use EntitySerializerAwareTrait;
+    use EntityEndpointAwareControllerTrait;
+    use EntityClassAwareTrait;
+
     /**
-     * @var \Apigee\Edge\Entity\EntityTransformerInterface
+     * @var \Apigee\Edge\Serializer\EntitySerializerInterface
      */
-    protected $entityTransformer;
+    protected $entitySerializer;
 
     /**
      * AbstractEntityController constructor.
      *
      * @param \Apigee\Edge\ClientInterface $client
      *   Apigee Edge API client.
-     * @param \Symfony\Component\Serializer\Normalizer\NormalizerInterface[]|\Symfony\Component\Serializer\Normalizer\DenormalizerInterface[] $entityNormalizers
-     *   Array of entity normalizers and denormalizers that are being called earlier than the default ones.
+     * @param \Apigee\Edge\Serializer\EntitySerializerInterface|null $entitySerializer
      */
-    public function __construct(ClientInterface $client, array $entityNormalizers = [])
+    public function __construct(ClientInterface $client, ?EntitySerializerInterface $entitySerializer = null)
     {
         parent::__construct($client);
-        $this->entityTransformer = new EntityTransformer($entityNormalizers);
+        $this->entitySerializer = $entitySerializer ?? new EntitySerializer();
     }
 
     /**
-     * Returns the entity type specific base url for an API call.
-     *
-     * @param string $entityId
-     *
-     * @return \Psr\Http\Message\UriInterface
+     * @inheritdoc
      */
     protected function getEntityEndpointUri(string $entityId): UriInterface
     {
@@ -62,9 +62,10 @@ abstract class AbstractEntityController extends AbstractController
     }
 
     /**
-     * Returns the fully-qualified class name of the entity that this controller works with.
-     *
-     * @return string
+     * @inheritDoc
      */
-    abstract protected function getEntityClass(): string;
+    protected function getEntitySerializer(): EntitySerializerInterface
+    {
+        return $this->entitySerializer;
+    }
 }

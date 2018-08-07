@@ -36,10 +36,13 @@ class StatsController extends AbstractController implements StatsControllerInter
     use OrganizationAwareControllerTrait;
 
     /** @var string */
-    private $environment;
+    protected $environment;
 
     /** @var \Apigee\Edge\Api\Management\Query\StatsQueryNormalizer */
-    private $normalizer;
+    protected $normalizer;
+
+    /** @var string */
+    protected $organization;
 
     /**
      * StatsController constructor.
@@ -188,6 +191,14 @@ class StatsController extends AbstractController implements StatsControllerInter
         }
 
         return $response;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getOrganisationName(): string
+    {
+        return $this->organization;
     }
 
     /**

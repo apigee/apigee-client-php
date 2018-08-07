@@ -18,10 +18,12 @@
 
 namespace Apigee\Edge\Api\Management\Structure;
 
+use Apigee\Edge\Structure\BaseObject;
+
 /**
  * Contains members of a company.
  */
-final class CompanyMembership
+final class CompanyMembership extends BaseObject
 {
     /**
      * An associate array where developer email addresses are the keys and developer roles are the values.
@@ -40,6 +42,7 @@ final class CompanyMembership
     public function __construct(array $members = [])
     {
         $this->members = $members;
+        parent::__construct();
     }
 
     /**

@@ -21,8 +21,7 @@ namespace Apigee\Edge\Controller;
 use Apigee\Edge\Api\Management\Controller\OrganizationController;
 use Apigee\Edge\Api\Management\Controller\OrganizationControllerInterface;
 use Apigee\Edge\ClientInterface;
-use Apigee\Edge\Exception\CpsNotEnabledException;
-use Apigee\Edge\Structure\PagerInterface;
+use Apigee\Edge\Serializer\EntitySerializerInterface;
 
 /**
  * Class PaginatedEntityController.
@@ -31,6 +30,8 @@ use Apigee\Edge\Structure\PagerInterface;
  */
 abstract class PaginatedEntityController extends EntityController implements PaginatedEntityControllerInterface
 {
+    use OrganizationControllerAwareTrait;
+
     /** @var \Apigee\Edge\Api\Management\Controller\OrganizationControllerInterface */
     protected $organizationController;
 
@@ -39,77 +40,24 @@ abstract class PaginatedEntityController extends EntityController implements Pag
      *
      * @param string $organization
      * @param \Apigee\Edge\ClientInterface $client
-     * @param \Symfony\Component\Serializer\Normalizer\NormalizerInterface[]|\Symfony\Component\Serializer\Normalizer\DenormalizerInterface[] $entityNormalizers
+     * @param \Apigee\Edge\Serializer\EntitySerializerInterface|null $entitySerializer
      * @param OrganizationControllerInterface|null $organizationController
      */
     public function __construct(
         string $organization,
         ClientInterface $client,
-        array $entityNormalizers = [],
+        ?EntitySerializerInterface $entitySerializer = null,
         OrganizationControllerInterface $organizationController = null
     ) {
-        parent::__construct($organization, $client, $entityNormalizers);
+        parent::__construct($organization, $client, $entitySerializer);
         $this->organizationController = $organizationController ?: new OrganizationController($client);
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
-    public function createPager(int $limit = 0, ?string $startKey = null): PagerInterface
+    protected function getOrganizationController(): OrganizationControllerInterface
     {
-        /** @var \Apigee\Edge\Api\Management\Entity\OrganizationInterface $organization */
-        $organization = $this->organizationController->load($this->organization);
-        if (!$organization->getPropertyValue('features.isCpsEnabled')) {
-            throw new CpsNotEnabledException($this->organization);
-        }
-
-        // Create an anonymous class here because this class should not exist and be in use
-        // in those controllers that do not work with entities that belongs to an organization.
-        $pager = new class() implements PagerInterface {
-            protected $startKey;
-
-            protected $limit;
-
-            /**
-             * @inheritdoc
-             */
-            public function getStartKey(): ?string
-            {
-                return $this->startKey;
-            }
-
-            /**
-             * @inheritdoc
-             */
-            public function getLimit(): int
-            {
-                return $this->limit;
-            }
-
-            /**
-             * @inheritdoc
-             */
-            public function setStartKey(?string $startKey): ?string
-            {
-                $this->startKey = $startKey;
-
-                return $this->startKey;
-            }
-
-            /**
-             * @inheritdoc
-             */
-            public function setLimit(int $limit): int
-            {
-                $this->limit = $limit;
-
-                return $this->limit;
-            }
-        };
-
-        $pager->setLimit($limit);
-        $pager->setStartKey($startKey);
-
-        return $pager;
+        return $this->organizationController;
     }
 }

@@ -21,6 +21,6 @@ namespace Apigee\Edge\Structure;
 /**
  * Class PropertiesProperty.
  */
-class PropertiesProperty extends KeyValueMap
+final class PropertiesProperty extends KeyValueMap
 {
 }

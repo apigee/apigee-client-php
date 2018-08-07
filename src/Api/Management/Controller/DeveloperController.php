@@ -21,12 +21,16 @@ namespace Apigee\Edge\Api\Management\Controller;
 use Apigee\Edge\Api\Management\Entity\Developer;
 use Apigee\Edge\Api\Management\Entity\DeveloperInterface;
 use Apigee\Edge\Api\Management\Exception\DeveloperNotFoundException;
+use Apigee\Edge\Api\Management\Serializer\DeveloperSerializer;
 use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Controller\EntityCrudOperationsControllerTrait;
+use Apigee\Edge\Controller\EntityListingControllerTrait;
 use Apigee\Edge\Controller\PaginatedEntityController;
+use Apigee\Edge\Controller\PaginatedEntityIdListingControllerTrait;
 use Apigee\Edge\Controller\PaginatedEntityListingControllerTrait;
+use Apigee\Edge\Controller\PaginationHelperTrait;
 use Apigee\Edge\Controller\StatusAwareEntityControllerTrait;
-use Apigee\Edge\Denormalizer\AttributesPropertyDenormalizer;
+use Apigee\Edge\Serializer\EntitySerializerInterface;
 use Apigee\Edge\Structure\PagerInterface;
 use Psr\Http\Message\UriInterface;
 
@@ -37,9 +41,12 @@ class DeveloperController extends PaginatedEntityController implements Developer
 {
     use AttributesAwareEntityControllerTrait;
     use EntityCrudOperationsControllerTrait;
+    use EntityListingControllerTrait;
     use PaginatedEntityListingControllerTrait {
         getEntities as private traitGetEntities;
     }
+    use PaginatedEntityIdListingControllerTrait;
+    use PaginationHelperTrait;
     use StatusAwareEntityControllerTrait;
 
     /**
@@ -47,17 +54,17 @@ class DeveloperController extends PaginatedEntityController implements Developer
      *
      * @param string $organization
      * @param \Apigee\Edge\ClientInterface $client
-     * @param \Symfony\Component\Serializer\Normalizer\NormalizerInterface[]|\Symfony\Component\Serializer\Normalizer\DenormalizerInterface[] $entityNormalizers
+     * @param \Apigee\Edge\Serializer\EntitySerializerInterface|null $entitySerializer
      * @param OrganizationControllerInterface|null $organizationController
      */
     public function __construct(
         string $organization,
         ClientInterface $client,
-        array $entityNormalizers = [],
+        ?EntitySerializerInterface $entitySerializer = null,
         ?OrganizationControllerInterface $organizationController = null
     ) {
-        $entityNormalizers[] = new AttributesPropertyDenormalizer();
-        parent::__construct($organization, $client, $entityNormalizers, $organizationController);
+        $entitySerializer = $entitySerializer ?? new DeveloperSerializer();
+        parent::__construct($organization, $client, $entitySerializer, $organizationController);
     }
 
     /**
@@ -76,7 +83,7 @@ class DeveloperController extends PaginatedEntityController implements Developer
         }
         $values = reset($responseArray['developer']);
 
-        return $this->entityTransformer->denormalize($values, $this->getEntityClass());
+        return $this->entitySerializer->denormalize($values, $this->getEntityClass());
     }
 
     /**

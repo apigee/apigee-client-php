@@ -22,6 +22,7 @@ use Apigee\Edge\Api\Management\Entity\DeveloperInterface;
 use Apigee\Edge\Controller\EntityControllerInterface;
 use Apigee\Edge\Controller\EntityCrudOperationsControllerInterface;
 use Apigee\Edge\Controller\PaginatedEntityControllerInterface;
+use Apigee\Edge\Controller\PaginatedEntityIdListingControllerInterface;
 use Apigee\Edge\Controller\PaginatedEntityListingControllerInterface;
 use Apigee\Edge\Controller\StatusAwareEntityControllerInterface;
 
@@ -36,6 +37,7 @@ interface DeveloperControllerInterface extends
     EntityControllerInterface,
     EntityCrudOperationsControllerInterface,
     PaginatedEntityListingControllerInterface,
+    PaginatedEntityIdListingControllerInterface,
     StatusAwareEntityControllerInterface
 {
     /**

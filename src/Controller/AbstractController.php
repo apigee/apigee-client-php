@@ -19,12 +19,9 @@
 namespace Apigee\Edge\Controller;
 
 use Apigee\Edge\ClientInterface;
-use Apigee\Edge\Exception\ApiResponseException;
-use Apigee\Edge\Exception\InvalidJsonException;
-use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\UriInterface;
+use Apigee\Edge\Utility\JsonDecoderAwareTrait;
+use Apigee\Edge\Utility\ResponseToArrayHelper;
 use Symfony\Component\Serializer\Encoder\JsonDecode;
-use Symfony\Component\Serializer\Exception\UnexpectedValueException;
 
 /**
  * Class AbstractController.
@@ -33,6 +30,11 @@ use Symfony\Component\Serializer\Exception\UnexpectedValueException;
  */
 abstract class AbstractController
 {
+    use ClientAwareControllerTrait;
+    use BaseEndpointAwareControllerTrait;
+    use JsonDecoderAwareTrait;
+    use ResponseToArrayHelper;
+
     /**
      * Client interface that should be used for communication.
      *
@@ -56,44 +58,18 @@ abstract class AbstractController
     }
 
     /**
-     * Returns the API endpoint that the controller communicates with.
-     *
-     * In case of an entity that belongs to an organisation it should return organization/[orgName]/[endpoint].
-     *
-     * @return \Psr\Http\Message\UriInterface
+     * @inheritDoc
      */
-    abstract protected function getBaseEndpointUri(): UriInterface;
+    protected function getClient(): ClientInterface
+    {
+        return $this->client;
+    }
 
     /**
-     * Decodes an Apigee Edge API response to an associative array.
-     *
-     * The SDK only works with JSON responses, but let's be prepared for the unexpected.
-     *
-     * @param ResponseInterface $response
-     *
-     * @throws \RuntimeException If response can not be decoded, because the input format is unknown.
-     * @throws InvalidJsonException If there was an error with decoding a JSON response.
-     *
-     * @return array
+     * @inheritdoc
      */
-    protected function responseToArray(ResponseInterface $response): array
+    protected function jsonDecoder(): JsonDecode
     {
-        if ($response->getHeaderLine('Content-Type') &&
-            0 === strpos($response->getHeaderLine('Content-Type'), 'application/json')) {
-            try {
-                return (array) $this->jsonDecoder->decode((string) $response->getBody(), 'json');
-            } catch (UnexpectedValueException $e) {
-                throw new InvalidJsonException(
-                    $e->getMessage(),
-                    $response,
-                    $this->client->getJournal()->getLastRequest()
-                );
-            }
-        }
-        throw new ApiResponseException(
-            $response,
-            $this->client->getJournal()->getLastRequest(),
-            sprintf('Unable to parse response with %s type. Response body: %s', $response->getHeaderLine('Content-Type') ?: 'unknown', (string) $response->getBody())
-        );
+        return $this->jsonDecoder;
     }
 }

@@ -31,14 +31,14 @@ class CompanyMembershipDenormalizer implements DenormalizerInterface
      */
     public function denormalize($data, $class, $format = null, array $context = [])
     {
-        $normalized = [];
+        $denormalized = [];
         // Ignore parent "developer" key.
         $data = reset($data);
         foreach ($data as $item) {
-            $normalized[$item->email] = $item->role ?? null;
+            $denormalized[$item->email] = $item->role ?? null;
         }
 
-        return new CompanyMembership($normalized);
+        return new CompanyMembership($denormalized);
     }
 
     /**

@@ -23,6 +23,7 @@ use Apigee\Edge\Entity\Entity;
 use Apigee\Edge\Entity\Property\AppsPropertyAwareTrait;
 use Apigee\Edge\Entity\Property\AttributesPropertyAwareTrait;
 use Apigee\Edge\Entity\Property\DeveloperIdPropertyAwareTrait;
+use Apigee\Edge\Entity\Property\EmailPropertyAwareTrait;
 use Apigee\Edge\Entity\Property\OrganizationNamePropertyAwareTrait;
 use Apigee\Edge\Entity\Property\StatusPropertyAwareTrait;
 use Apigee\Edge\Structure\AttributesProperty;
@@ -36,14 +37,12 @@ class Developer extends Entity implements DeveloperInterface
     use AppsPropertyAwareTrait;
     use CommonEntityPropertiesAwareTrait;
     use DeveloperIdPropertyAwareTrait;
+    use EmailPropertyAwareTrait;
     use OrganizationNamePropertyAwareTrait;
     use StatusPropertyAwareTrait;
 
     /** @var string */
     protected $userName;
-
-    /** @var string */
-    protected $email;
 
     /** @var string */
     protected $firstName;
@@ -58,8 +57,6 @@ class Developer extends Entity implements DeveloperInterface
      * Developer constructor.
      *
      * @param array $values
-     *
-     * @throws \ReflectionException
      */
     public function __construct(array $values = [])
     {
@@ -123,22 +120,6 @@ class Developer extends Entity implements DeveloperInterface
     public function setUserName(string $userName): void
     {
         $this->userName = $userName;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function getEmail(): ?string
-    {
-        return $this->email;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function setEmail(string $email): void
-    {
-        $this->email = $email;
     }
 
     /**

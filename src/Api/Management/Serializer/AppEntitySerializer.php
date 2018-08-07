@@ -16,32 +16,33 @@
  * limitations under the License.
  */
 
-namespace Apigee\Edge\Api\Management\Controller;
+namespace Apigee\Edge\Api\Management\Serializer;
 
 use Apigee\Edge\Api\Management\Denormalizer\AppDenormalizer;
 use Apigee\Edge\Api\Management\Normalizer\AppCredentialNormalizer;
 use Apigee\Edge\Denormalizer\AttributesPropertyDenormalizer;
 use Apigee\Edge\Denormalizer\CredentialProductDenormalizer;
 use Apigee\Edge\Normalizer\CredentialProductNormalizer;
+use Apigee\Edge\Serializer\EntitySerializer;
+use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
+use Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface;
+use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface;
+use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
 
-/**
- * Contains reusable functions for (developer, company) app controllers.
- */
-trait AppControllerTrait
+class AppEntitySerializer extends EntitySerializer
 {
     /**
-     * Returns additional entity normalizers that are required to (de)normalize app data.
-     *
-     * @return \Symfony\Component\Serializer\Normalizer\NormalizerInterface[]|\Symfony\Component\Serializer\Normalizer\DenormalizerInterface[]
+     * @inheritDoc
      */
-    private function appEntityNormalizers(): array
+    public function __construct($normalizers = [], $encoders = [], ?ClassMetadataFactoryInterface $classMetadataFactory = null, ?NameConverterInterface $nameConverter = null, ?PropertyAccessorInterface $propertyAccessor = null, ?PropertyTypeExtractorInterface $propertyTypeExtractor = null)
     {
-        return [
+        $normalizers = array_merge($normalizers, [
             new CredentialProductDenormalizer(),
             new CredentialProductNormalizer(),
             new AttributesPropertyDenormalizer(),
             new AppCredentialNormalizer(),
             new AppDenormalizer(),
-        ];
+        ]);
+        parent::__construct($normalizers, $encoders, $classMetadataFactory, $nameConverter, $propertyAccessor, $propertyTypeExtractor);
     }
 }

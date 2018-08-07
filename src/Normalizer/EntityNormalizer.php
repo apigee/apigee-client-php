@@ -23,6 +23,7 @@ use Symfony\Component\PropertyInfo\Extractor\PhpDocExtractor;
 use Symfony\Component\PropertyInfo\Extractor\ReflectionExtractor;
 use Symfony\Component\PropertyInfo\PropertyInfoExtractor;
 use Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface;
 use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
@@ -40,6 +41,13 @@ class EntityNormalizer implements NormalizerInterface, SerializerAwareInterface
 
     /** @var \Symfony\Component\Serializer\SerializerInterface|null */
     private $serializer;
+
+    /**
+     * The API client only communicates in JSON with Apigee Edge.
+     *
+     * @var string
+     */
+    private $format = JsonEncoder::FORMAT;
 
     /**
      * EntityNormalizer constructor.
@@ -78,9 +86,7 @@ class EntityNormalizer implements NormalizerInterface, SerializerAwareInterface
      */
     public function normalize($object, $format = null, array $context = [])
     {
-        if ($this->serializer) {
-            $this->objectNormalizer->setSerializer($this->serializer);
-        }
+        $format = $this->format;
         $asArray = $this->objectNormalizer->normalize($object, $format, $context);
         // Exclude null values from the output, even if PATCH is not supported on Apigee Edge
         // sending a smaller portion of data in POST/PUT is always a good practice.
@@ -106,5 +112,6 @@ class EntityNormalizer implements NormalizerInterface, SerializerAwareInterface
     public function setSerializer(SerializerInterface $serializer): void
     {
         $this->serializer = $serializer;
+        $this->objectNormalizer->setSerializer($serializer);
     }
 }

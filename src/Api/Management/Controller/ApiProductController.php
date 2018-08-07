@@ -19,11 +19,15 @@
 namespace Apigee\Edge\Api\Management\Controller;
 
 use Apigee\Edge\Api\Management\Entity\ApiProduct;
+use Apigee\Edge\Api\Management\Serializer\ApiProductSerializer;
 use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Controller\EntityCrudOperationsControllerTrait;
+use Apigee\Edge\Controller\EntityListingControllerTrait;
 use Apigee\Edge\Controller\PaginatedEntityController;
+use Apigee\Edge\Controller\PaginatedEntityIdListingControllerTrait;
 use Apigee\Edge\Controller\PaginatedEntityListingControllerTrait;
-use Apigee\Edge\Denormalizer\AttributesPropertyDenormalizer;
+use Apigee\Edge\Controller\PaginationHelperTrait;
+use Apigee\Edge\Serializer\EntitySerializerInterface;
 use Psr\Http\Message\UriInterface;
 
 /**
@@ -33,25 +37,27 @@ class ApiProductController extends PaginatedEntityController implements ApiProdu
 {
     use AttributesAwareEntityControllerTrait;
     use EntityCrudOperationsControllerTrait;
+    use EntityListingControllerTrait;
     use PaginatedEntityListingControllerTrait;
+    use PaginatedEntityIdListingControllerTrait;
+    use PaginationHelperTrait;
 
     /**
      * ApiProductController constructor.
      *
      * @param string $organization
      * @param \Apigee\Edge\ClientInterface $client
-     * @param array $entityNormalizers
+     * @param \Apigee\Edge\Serializer\EntitySerializerInterface|null $entitySerializer
      * @param \Apigee\Edge\Api\Management\Controller\OrganizationControllerInterface|null $organizationController
      */
     public function __construct(
       string $organization,
       ClientInterface $client,
-      $entityNormalizers = [],
+      ?EntitySerializerInterface $entitySerializer = null,
       ?OrganizationControllerInterface $organizationController = null
     ) {
-        $entityNormalizers[] = new AttributesPropertyDenormalizer();
-        parent::__construct($organization, $client, $entityNormalizers,
-        $organizationController);
+        $entitySerializer = $entitySerializer ?? new ApiProductSerializer();
+        parent::__construct($organization, $client, $entitySerializer, $organizationController);
     }
 
     /**

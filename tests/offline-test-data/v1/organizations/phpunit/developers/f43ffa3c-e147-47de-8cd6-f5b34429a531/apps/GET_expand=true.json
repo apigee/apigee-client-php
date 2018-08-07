@@ -2,7 +2,7 @@
     "app": [
         {
             "appFamily": "default",
-            "appId": "b3e71cbb-7eb5-499b-b384-ac82bca1d9dc",
+            "appId": "a47891c5-ca20-4f2f-975e-0e7588ec81f0",
             "attributes": [
                 {
                     "name": "DisplayName",
@@ -14,24 +14,28 @@
                 },
                 {
                     "name": "foo",
-                    "value": "bar"
+                    "value": "foo"
+                },
+                {
+                    "name": "bar",
+                    "value": "baz"
                 }
             ],
-            "callbackUrl": "http://example.com",
+            "callbackUrl": "http://foo.example.com",
             "createdAt": 648345600000,
             "createdBy": "phpunit@example.com",
             "credentials": [
                 {
                     "apiProducts": [],
                     "attributes": [],
-                    "consumerKey": "wAXAIiOr2oJOVGqFltnm3Jwr2LE0GEuY",
-                    "consumerSecret": "S8YjnsjmdBqDAegR",
+                    "consumerKey": "Zww6GKaGRxQFGkfE36vgSN0eoac1Ymk3",
+                    "consumerSecret": "LtdYkcmgDYV7kzxz",
                     "issuedAt": 648345600000,
                     "scopes": [],
                     "status": "approved"
                 }
             ],
-            "developerId": "f06c458a-ac2e-4729-806c-75116abf9ffb",
+            "developerId": "f43ffa3c-e147-47de-8cd6-f5b34429a531",
             "lastModifiedAt": 648345600000,
             "lastModifiedBy": "phpunit@example.com",
             "name": "phpunit_test_app",
@@ -69,7 +73,7 @@
                     "status": "approved"
                 }
             ],
-            "developerId": "f06c458a-ac2e-4729-806c-75116abf9ffb",
+            "developerId": "f43ffa3c-e147-47de-8cd6-f5b34429a531",
             "lastModifiedAt": 648345600000,
             "lastModifiedBy": "phpunit@example.com",
             "name": "1phpunit_test_app",
@@ -107,7 +111,7 @@
                     "status": "approved"
                 }
             ],
-            "developerId": "f06c458a-ac2e-4729-806c-75116abf9ffb",
+            "developerId": "f43ffa3c-e147-47de-8cd6-f5b34429a531",
             "lastModifiedAt": 648345600000,
             "lastModifiedBy": "phpunit@example.com",
             "name": "2phpunit_test_app",
@@ -128,7 +132,11 @@
                 },
                 {
                     "name": "foo",
-                    "value": "bar"
+                    "value": "foo"
+                },
+                {
+                    "name": "bar",
+                    "value": "baz"
                 }
             ],
             "callbackUrl": "http://example.com",
@@ -145,7 +153,7 @@
                     "status": "approved"
                 }
             ],
-            "developerId": "f06c458a-ac2e-4729-806c-75116abf9ffb",
+            "developerId": "f43ffa3c-e147-47de-8cd6-f5b34429a531",
             "lastModifiedAt": 648345600000,
             "lastModifiedBy": "phpunit@example.com",
             "name": "3phpunit_test_app",
@@ -166,7 +174,11 @@
                 },
                 {
                     "name": "foo",
-                    "value": "bar"
+                    "value": "foo"
+                },
+                {
+                    "name": "bar",
+                    "value": "baz"
                 }
             ],
             "callbackUrl": "http://example.com",
@@ -183,7 +195,7 @@
                     "status": "approved"
                 }
             ],
-            "developerId": "f06c458a-ac2e-4729-806c-75116abf9ffb",
+            "developerId": "f43ffa3c-e147-47de-8cd6-f5b34429a531",
             "lastModifiedAt": 648345600000,
             "lastModifiedBy": "phpunit@example.com",
             "name": "4phpunit_test_app",

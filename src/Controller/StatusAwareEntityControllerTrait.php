@@ -25,12 +25,15 @@ namespace Apigee\Edge\Controller;
  */
 trait StatusAwareEntityControllerTrait
 {
+    use ClientAwareControllerTrait;
+    use EntityEndpointAwareControllerTrait;
+
     /**
      * @inheritdoc
      */
     public function setStatus(string $entityId, string $status): void
     {
         $uri = $this->getEntityEndpointUri($entityId)->withQuery(http_build_query(['action' => $status]));
-        $this->client->post($uri, null, ['Content-Type' => 'application/octet-stream']);
+        $this->getClient()->post($uri, null, ['Content-Type' => 'application/octet-stream']);
     }
 }

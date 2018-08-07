@@ -24,6 +24,7 @@ use Symfony\Component\PropertyInfo\Extractor\PhpDocExtractor;
 use Symfony\Component\PropertyInfo\Extractor\ReflectionExtractor;
 use Symfony\Component\PropertyInfo\PropertyInfoExtractor;
 use Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface;
 use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -41,6 +42,13 @@ class EntityDenormalizer implements DenormalizerInterface, SerializerAwareInterf
 
     /** @var \Symfony\Component\Serializer\SerializerInterface */
     private $serializer;
+
+    /**
+     * The API client only communicates in JSON with Apigee Edge.
+     *
+     * @var string
+     */
+    private $format = JsonEncoder::FORMAT;
 
     /**
      * EntityDenormalizer constructor.
@@ -76,11 +84,7 @@ class EntityDenormalizer implements DenormalizerInterface, SerializerAwareInterf
      */
     public function denormalize($data, $class, $format = null, array $context = [])
     {
-        if ($this->serializer) {
-            $this->objectNormalizer->setSerializer($this->serializer);
-        }
-
-        return $this->objectNormalizer->denormalize($data, $class, $format, $context);
+        return $this->objectNormalizer->denormalize($data, $class, $this->format, $context);
     }
 
     /**
@@ -101,5 +105,6 @@ class EntityDenormalizer implements DenormalizerInterface, SerializerAwareInterf
     public function setSerializer(SerializerInterface $serializer): void
     {
         $this->serializer = $serializer;
+        $this->objectNormalizer->setSerializer($this->serializer);
     }
 }

@@ -16,15 +16,21 @@
  * limitations under the License.
  */
 
-namespace Apigee\Edge\Entity;
+namespace Apigee\Edge\Controller;
 
-use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
-use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-use Symfony\Component\Serializer\SerializerInterface;
+use Apigee\Edge\Serializer\EntitySerializerInterface;
 
 /**
- * Serializes, deserializes, normalizes and denormalizes entities.
+ * Trait EntityTransformerAwareTrait.
+ *
+ * This trait does not contain the "entitySerializer" property because we
+ * wanted to make sure that every class that uses this trait ensures that the
+ * returned value of getEntitySerializer() is always set.
  */
-interface EntityTransformerInterface extends NormalizerInterface, DenormalizerInterface, SerializerInterface
+trait EntitySerializerAwareTrait
 {
+    /**
+     * @return \Apigee\Edge\Serializer\EntitySerializerInterface
+     */
+    abstract protected function getEntitySerializer(): EntitySerializerInterface;
 }

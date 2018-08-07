@@ -19,15 +19,12 @@
 namespace Apigee\Edge\Tests\Test\Controller;
 
 /**
- * Helps in validation of all entity controllers that implements
- * NonPaginatedEntityIdListingControllerInterface.
+ * Trait NonPaginatedEntityListingControllerValidatorTrait.
  *
  * @see \Apigee\Edge\Controller\NonPaginatedEntityIdListingControllerInterface
  */
-abstract class NonPaginatedEntityListingControllerValidator extends EntityCrudOperationsControllerValidator
+trait NonPaginatedEntityListingControllerValidatorTrait
 {
-    use NonPaginatedEntityIdListingControllerValidatorTrait;
-
     /**
      * @depends testCreate
      */
@@ -42,7 +39,7 @@ abstract class NonPaginatedEntityListingControllerValidator extends EntityCrudOp
             $this->assertEntityHasAllPropertiesSet($entity);
             if ($entity->id() == static::expectedAfterEntityCreate()->id()) {
                 $this->assertArraySubset(
-                    array_filter(static::$objectNormalizer->normalize(static::expectedAfterEntityCreate())),
+                    array_filter(static::$objectNormalizer->normalize(static::expectedAfterEntityUpdate())),
                     static::$objectNormalizer->normalize($entity)
                 );
             }
