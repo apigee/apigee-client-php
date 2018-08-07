@@ -47,6 +47,13 @@ class EntitySerializer implements EntitySerializerInterface
     private $serializer;
 
     /**
+     * The API client only communicates in JSON with Apigee Edge.
+     *
+     * @var string
+     */
+    private $format = JsonEncoder::FORMAT;
+
+    /**
      * EntitySerializer constructor.
      *
      * @param \Symfony\Component\Serializer\Normalizer\NormalizerInterface[]|\Symfony\Component\Serializer\Normalizer\DenormalizerInterface[] $normalizers
@@ -97,7 +104,7 @@ class EntitySerializer implements EntitySerializerInterface
      */
     public function denormalize($data, $class, $format = null, array $context = [])
     {
-        return $this->serializer->denormalize($data, $class, $format, $context);
+        return $this->serializer->denormalize($data, $class, $this->format, $context);
     }
 
     /**
@@ -105,7 +112,7 @@ class EntitySerializer implements EntitySerializerInterface
      */
     public function supportsDenormalization($data, $type, $format = null)
     {
-        return $this->serializer->supportsDenormalization($data, $type, $format);
+        return $this->serializer->supportsDenormalization($data, $type, $this->format);
     }
 
     /**
@@ -113,7 +120,7 @@ class EntitySerializer implements EntitySerializerInterface
      */
     public function normalize($object, $format = null, array $context = [])
     {
-        return $this->serializer->normalize($object, $format, $context);
+        return $this->serializer->normalize($object, $this->format, $context);
     }
 
     /**
@@ -121,7 +128,7 @@ class EntitySerializer implements EntitySerializerInterface
      */
     public function supportsNormalization($data, $format = null)
     {
-        return $this->serializer->supportsNormalization($data, $format);
+        return $this->serializer->supportsNormalization($data, $this->format);
     }
 
     /**
@@ -129,7 +136,7 @@ class EntitySerializer implements EntitySerializerInterface
      */
     public function serialize($data, $format, array $context = [])
     {
-        return $this->serializer->serialize($data, $format, $context);
+        return $this->serializer->serialize($data, $this->format, $context);
     }
 
     /**
@@ -137,7 +144,7 @@ class EntitySerializer implements EntitySerializerInterface
      */
     public function deserialize($data, $type, $format, array $context = [])
     {
-        return $this->serializer->deserialize($data, $type, $format, $context);
+        return $this->serializer->deserialize($data, $type, $this->format, $context);
     }
 
     /**
@@ -151,7 +158,7 @@ class EntitySerializer implements EntitySerializerInterface
         $tmp = $this->deserialize(
             (string) $response->getBody(),
             get_class($entity),
-            'json'
+            $this->format
         );
         $ro = new \ReflectionObject($entity);
         // Copy property values from the temporary entity to $entity.
