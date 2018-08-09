@@ -36,6 +36,26 @@ use Symfony\Component\Serializer\SerializerInterface;
  */
 class EntityNormalizer implements NormalizerInterface, SerializerAwareInterface
 {
+    /**
+     * @var null|\Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface
+     */
+    protected $classMetadataFactory;
+
+    /**
+     * @var null|\Symfony\Component\Serializer\NameConverter\NameConverterInterface
+     */
+    protected $nameConverter;
+
+    /**
+     * @var null|\Symfony\Component\PropertyAccess\PropertyAccessorInterface
+     */
+    protected $propertyAccessor;
+
+    /**
+     * @var null|\Symfony\Component\PropertyInfo\PropertyInfoExtractor|\Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface
+     */
+    protected $propertyTypeExtractor;
+
     /** @var \Symfony\Component\Serializer\Normalizer\ObjectNormalizer */
     private $objectNormalizer;
 
@@ -75,6 +95,10 @@ class EntityNormalizer implements NormalizerInterface, SerializerAwareInterface
                 ]
             );
         }
+        $this->classMetadataFactory = $classMetadataFactory;
+        $this->nameConverter = $nameConverter;
+        $this->propertyAccessor = $propertyAccessor;
+        $this->propertyTypeExtractor = $propertyTypeExtractor;
         $this->objectNormalizer = new ObjectNormalizer($classMetadataFactory, $nameConverter, $propertyAccessor, $propertyTypeExtractor);
     }
 

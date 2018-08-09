@@ -45,8 +45,7 @@ trait EntityListingControllerTrait
 
         foreach ($responseArray as $item) {
             /** @var \Apigee\Edge\Entity\EntityInterface $tmp */
-            $tmp = $this->getEntitySerializer()->denormalize($item,
-                $this->getEntityClass());
+            $tmp = $this->getEntitySerializer()->denormalize($item, $this->getEntityClass());
             $entities[$tmp->{$keyGetter}()] = $tmp;
         }
 
