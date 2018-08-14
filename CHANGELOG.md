@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## 2.0.0-alpha4 - 2018-08-14
+* Dropped paginated entity listing support from developer- and company apps controllers. Pagination only supported on developer- and company apps endpoints when entity ids listed. These endpoints only return maximum 100 entities (ids and objects), if a developer/company has more apps (it should not be) use the /apps endpoint to load all apps one by one in a loop.
+* Decoupled entity serialization logic from controller classes.
+* Introduced new traits that allows us to keep contract about methods use in traits and classes.
+* Now EntityTransformer handles updating entity properties from API responses.
+* Introducing a new BaseObject as a parent class for entities and (data) structures.
+
 ## 2.0.0-alpha3 - 2018-07-26
 
 * As CPS pagination got supported in the Management API for listing API products and Companies we also added it to API client.
