@@ -25,6 +25,7 @@ use Apigee\Edge\Entity\Property\AttributesPropertyAwareTrait;
 use Apigee\Edge\Entity\Property\DisplayNamePropertyAwareTrait;
 use Apigee\Edge\Entity\Property\NamePropertyAwareTrait;
 use Apigee\Edge\Entity\Property\StatusPropertyAwareTrait;
+use Apigee\Edge\Structure\AttributesProperty;
 
 /**
  * Describes a Company entity.
@@ -37,4 +38,15 @@ class Company extends Entity implements CompanyInterface
     use DisplayNamePropertyAwareTrait;
     use NamePropertyAwareTrait;
     use StatusPropertyAwareTrait;
+
+    /**
+     * Company constructor.
+     *
+     * @param array $values
+     */
+    public function __construct(array $values = [])
+    {
+        $this->attributes = new AttributesProperty();
+        parent::__construct($values);
+    }
 }
