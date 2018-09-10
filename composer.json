@@ -46,7 +46,7 @@
         "phpmetrics/phpmetrics": "^2.3",
         "phpunit/phpunit": "^6.4.0",
         "sebastian/comparator": "^2.1",
-        "vimeo/psalm": "^0.3.89"
+        "vimeo/psalm": "^2.0.0"
     },
     "conflict": {
         "phpdocumentor/type-resolver": "<0.2.1",
