@@ -49,6 +49,8 @@ class RetryOauthAuthenticationPlugin implements Plugin
      * @inheritdoc
      *
      * @see Oauth::getAccessToken()
+     *
+     * @psalm-suppress InvalidThrow - Exception with interface can be thrown.
      */
     public function handleRequest(RequestInterface $request, callable $next, callable $first)
     {

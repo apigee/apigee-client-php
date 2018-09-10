@@ -47,6 +47,9 @@ class EdgeDateDenormalizer implements DenormalizerInterface
      * @inheritdoc
      *
      * @return null|object
+     *
+     * @psalm-suppress ImplementedReturnTypeMismatch - We have to return null,
+     * even if it not officially supported by the overridden class.
      */
     public function denormalize($data, $class, $format = null, array $context = [])
     {

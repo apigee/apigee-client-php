@@ -52,9 +52,9 @@ class OrganizationController extends AbstractEntityController implements Organiz
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
-    public function getBaseEndpointUri(): UriInterface
+    protected function getBaseEndpointUri(): UriInterface
     {
         return $this->client->getUriFactory()->createUri('/organizations');
     }

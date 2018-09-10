@@ -1,9 +1,11 @@
 <?xml version="1.0"?>
 <psalm
-    name="Apigee Edge PHP SDK configuration"
-    stopOnFirstError="false"
-    useDocblockTypes="true"
+    name="Apigee Edge PHP API client default configuration"
     totallyTyped="false"
+    useDocblockTypes="true"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="https://getpsalm.org/schema/config"
+    xsi:schemaLocation="https://getpsalm.org/schema/config file:///var/www/html/vendor/vimeo/psalm/config.xsd"
 >
     <projectFiles>
         <directory name="src" />
@@ -11,21 +13,19 @@
 
     <issueHandlers>
         <LessSpecificReturnType errorLevel="info" />
-        <!-- Added because of inherited/overridden Symfony functions. -->
-        <LessSpecificReturnStatement errorLevel="info" />
-        <MissingParamType errorLevel="info" />
         <!-- Added to suppress typehinting on $this->entitySerializer->.. calls. -->
         <MoreSpecificReturnType errorLevel="info" />
+        <!-- Added because of inherited/overridden Symfony functions. -->
+        <LessSpecificReturnStatement errorLevel="info" />
         <!-- Disable errors caused by using class typehinting on variables and interfaces on setter's param types. -->
         <TypeCoercion errorLevel="info" />
 
         <!-- level 3 issues - slightly lazy code writing, but provably low false-negatives -->
         <DeprecatedMethod errorLevel="info" />
+        <DeprecatedProperty errorLevel="info" />
+        <DeprecatedClass errorLevel="info" />
 
         <MissingClosureReturnType errorLevel="info" />
-        <!-- Added to suppress errors on array_filter() calls in those places where all scalar types are possible as
-        variable type. Ex.: EntityNormalizer -->
-        <MissingClosureParamType errorLevel="info" />
         <MissingReturnType errorLevel="info" />
         <MissingPropertyType errorLevel="info" />
         <InvalidDocblock errorLevel="info" />
@@ -33,6 +33,14 @@
 
         <PropertyNotSetInConstructor errorLevel="info" />
         <MissingConstructor errorLevel="info" />
-        <UntypedParam errorLevel="info" />
+        <MissingClosureParamType errorLevel="info" />
+        <MissingParamType errorLevel="info" />
+
+        <DocblockTypeContradiction errorLevel="info" />
+        <RedundantConditionGivenDocblockType errorLevel="info" />
+
+        <UnresolvableInclude errorLevel="info" />
+
+        <RawObjectIteration errorLevel="info" />
     </issueHandlers>
 </psalm>
