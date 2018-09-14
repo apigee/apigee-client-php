@@ -1,0 +1,36 @@
+{
+    "developerRole": [
+        {
+            "description": "PHPUnit 2",
+            "id": "phpunit_2",
+            "name": "phpunit_2",
+            "organization": {
+                "approveTrusted": false,
+                "approveUntrusted": false,
+                "billingCycle": "CALENDAR_MONTH",
+                "country": "US",
+                "currency": "USD",
+                "description": "phpunit-description",
+                "hasBillingAdjustment": false,
+                "hasBroker": false,
+                "hasSelfBilling": false,
+                "hasSeparateInvoiceForProduct": false,
+                "id": "phpunit",
+                "issueNettingStmt": false,
+                "name": "name",
+                "nettingStmtPerCurrency": false,
+                "regNo": "123456-regno",
+                "selfBillingAsExchOrg": false,
+                "selfBillingForAllDev": false,
+                "separateInvoiceForFees": false,
+                "status": "ACTIVE",
+                "supportedBillingType": "BOTH",
+                "taxEngineExternalId": "APIGEE",
+                "taxModel": "HYBRID",
+                "timezone": "UTC",
+                "logoUrl": "http://example.com"
+            }
+        }
+    ],
+    "totalRecords": 2
+}
