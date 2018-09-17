@@ -29,7 +29,7 @@ namespace Apigee\Edge\Controller;
 interface NonPaginatedEntityListingControllerInterface
 {
     /**
-     * Returns list of entities from Edge.
+     * Returns list of entities from Apigee Edge.
      *
      * The returned number of entities can _not_ be limited.
      *
