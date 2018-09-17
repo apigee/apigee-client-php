@@ -44,4 +44,16 @@ interface AppByOwnerControllerInterface extends
      * String that should be sent to the API to change the status of an app to revoked.
      */
     public const STATUS_REVOKE = 'revoke';
+
+    /**
+     * Returns a list of entities from Apigee Edge.
+     *
+     * It only returns maximum 100 entities in case of developer- and company
+     * apps. Check the related API documentation for more information.
+     * Use implementation of the AppControllerInterface to load _all_ apps
+     * from Apigee Edge.
+     *
+     * @return \Apigee\Edge\Entity\EntityInterface[]
+     */
+    public function getEntities(): array;
 }
