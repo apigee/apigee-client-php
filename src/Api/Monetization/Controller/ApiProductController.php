@@ -22,7 +22,7 @@ use Apigee\Edge\Api\Monetization\Entity\ApiProduct;
 use Apigee\Edge\Controller\EntityListingControllerTrait;
 use Psr\Http\Message\UriInterface;
 
-class ApiProductController extends EntityController implements ApiProductControllerInterface
+class ApiProductController extends OrganizationAwareEntityController implements ApiProductControllerInterface
 {
     use EntityListingControllerTrait;
     use EntityLoadOperationControllerTrait;

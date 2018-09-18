@@ -16,16 +16,18 @@
  * limitations under the License.
  */
 
-namespace Apigee\Edge\Api\Monetization\Controller;
+namespace Apigee\Edge\Tests\Api\Monetization\EntitySerializer\PropertyValidator;
 
-use Apigee\Edge\Api\Monetization\Entity\EntityInterface;
-
-interface EntityUpdateControllerOperationInterface
+trait PropertyValidatorsAwareValidatorTrait
 {
+    /** @var \Apigee\Edge\Tests\Api\Monetization\EntitySerializer\PropertyValidator\PropertyValidatorInterface[] */
+    protected $propertyValidators = [];
+
     /**
-     * Updates an entity in Apigee Edge.
-     *
-     * @param \Apigee\Edge\Api\Monetization\Entity\EntityInterface $entity
+     * @param \Apigee\Edge\Tests\Api\Monetization\EntitySerializer\PropertyValidator\PropertyValidatorInterface[] $propertyValidators
      */
-    public function update(EntityInterface $entity): void;
+    public function setPropertyValidators(array $propertyValidators): void
+    {
+        $this->propertyValidators = $propertyValidators;
+    }
 }

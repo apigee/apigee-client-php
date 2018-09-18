@@ -25,13 +25,21 @@ namespace Apigee\Edge\Api\Monetization\Entity\Property;
  */
 trait BrokerPropertyAwareTrait
 {
-    /** @var bool */
+    /** @var null|bool */
     protected $broker;
 
     /**
      * @inheritdoc
      */
     public function isBroker(): bool
+    {
+        return (bool) $this->broker;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getBroker(): ?bool
     {
         return $this->broker;
     }

@@ -16,16 +16,17 @@
  * limitations under the License.
  */
 
-namespace Apigee\Edge\Api\Monetization\Controller;
+namespace Apigee\Edge\Tests\Api\Monetization\EntitySerializer;
 
-use Apigee\Edge\Api\Monetization\Entity\EntityInterface;
+use Apigee\Edge\Tests\Api\Monetization\EntitySerializer\PropertyValidator\OrganizationPropertyValidator;
 
-interface EntityUpdateControllerOperationInterface
+class OrganizationAwareEntitySerializerValidator extends EntitySerializerValidator
 {
-    /**
-     * Updates an entity in Apigee Edge.
-     *
-     * @param \Apigee\Edge\Api\Monetization\Entity\EntityInterface $entity
-     */
-    public function update(EntityInterface $entity): void;
+    public function __construct(\Apigee\Edge\Serializer\EntitySerializerInterface $serializer, array $propertyValidators = [])
+    {
+        $propertyValidators = array_merge($propertyValidators, [
+            new OrganizationPropertyValidator(),
+        ]);
+        parent::__construct($serializer, $propertyValidators);
+    }
 }

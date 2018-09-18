@@ -16,16 +16,20 @@
  * limitations under the License.
  */
 
-namespace Apigee\Edge\Api\Monetization\Controller;
+namespace Apigee\Edge\Tests\Api\Monetization\EntitySerializer\PropertyValidator;
 
-use Apigee\Edge\Api\Monetization\Entity\EntityInterface;
-
-interface EntityUpdateControllerOperationInterface
+trait SerializerAwarePropertyValidatorTrait
 {
     /**
-     * Updates an entity in Apigee Edge.
-     *
-     * @param \Apigee\Edge\Api\Monetization\Entity\EntityInterface $entity
+     * @var \Apigee\Edge\Serializer\EntitySerializerInterface
      */
-    public function update(EntityInterface $entity): void;
+    protected $entitySerializer;
+
+    /**
+     * @param \Apigee\Edge\Serializer\EntitySerializerInterface $entitySerializer
+     */
+    public function setEntitySerializer(\Apigee\Edge\Serializer\EntitySerializerInterface $entitySerializer): void
+    {
+        $this->entitySerializer = $entitySerializer;
+    }
 }

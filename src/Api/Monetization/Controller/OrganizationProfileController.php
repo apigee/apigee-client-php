@@ -18,7 +18,6 @@
 
 namespace Apigee\Edge\Api\Monetization\Controller;
 
-use Apigee\Edge\Api\Monetization\Entity\EntityInterface;
 use Apigee\Edge\Api\Monetization\Entity\OrganizationProfile;
 use Apigee\Edge\Api\Monetization\Entity\OrganizationProfileInterface;
 use Apigee\Edge\Api\Monetization\Serializer\OrganizationProfileSerializer;
@@ -28,6 +27,9 @@ use Psr\Http\Message\UriInterface;
 
 class OrganizationProfileController extends EntityController implements OrganizationProfileControllerInterface
 {
+    use EntityLoadOperationControllerTrait;
+    use EntityUpdateOperationControllerTrait;
+
     /**
      * OrganizationProfileController constructor.
      *
@@ -46,26 +48,13 @@ class OrganizationProfileController extends EntityController implements Organiza
      */
     public function load(): OrganizationProfileInterface
     {
-        $response = $this->client->get($this->getBaseEndpointUri());
+        $response = $this->client->get($this->getEntityEndpointUri($this->organization));
 
         return $this->entitySerializer->deserialize(
             (string) $response->getBody(),
             $this->getEntityClass(),
             'json'
         );
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function update(EntityInterface $entity): void
-    {
-        // Update an existing entity.
-        $response = $this->client->put(
-            $this->getBaseEndpointUri(),
-            $this->entitySerializer->serialize($entity, 'json')
-        );
-        $this->entitySerializer->setPropertiesFromResponse($response, $entity);
     }
 
     /**
@@ -81,6 +70,6 @@ class OrganizationProfileController extends EntityController implements Organiza
      */
     protected function getBaseEndpointUri(): UriInterface
     {
-        return $this->client->getUriFactory()->createUri("/mint/organizations/{$this->organization}");
+        return $this->client->getUriFactory()->createUri('/mint/organizations');
     }
 }

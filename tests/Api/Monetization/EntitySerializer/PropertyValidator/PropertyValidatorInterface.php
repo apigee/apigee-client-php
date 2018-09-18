@@ -16,16 +16,32 @@
  * limitations under the License.
  */
 
-namespace Apigee\Edge\Api\Monetization\Controller;
+namespace Apigee\Edge\Tests\Api\Monetization\EntitySerializer\PropertyValidator;
 
 use Apigee\Edge\Api\Monetization\Entity\EntityInterface;
 
-interface EntityUpdateControllerOperationInterface
+/**
+ * Validates serialized and deserialized values of complex properties.
+ */
+interface PropertyValidatorInterface
 {
     /**
-     * Updates an entity in Apigee Edge.
+     * Validates a property.
      *
+     * @param \stdClass $input
+     *   JSON decoded value of the input from Apigee Edge.
+     * @param \stdClass $output
      * @param \Apigee\Edge\Api\Monetization\Entity\EntityInterface $entity
+     *
+     * @throws \Exception
+     *   When the validation fails.
      */
-    public function update(EntityInterface $entity): void;
+    public function validate(\stdClass $input, \stdClass $output, EntityInterface $entity): void;
+
+    /**
+     * Returns the name of the validated property in the input and output.
+     *
+     * @return string
+     */
+    public function validatedProperty(): string;
 }

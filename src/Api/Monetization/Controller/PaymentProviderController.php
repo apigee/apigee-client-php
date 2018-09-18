@@ -22,7 +22,7 @@ use Apigee\Edge\Api\Monetization\Entity\PaymentProvider;
 use Apigee\Edge\Controller\EntityListingControllerTrait;
 use Psr\Http\Message\UriInterface;
 
-class PaymentProviderController extends EntityController implements PaymentProviderControllerInterface
+class PaymentProviderController extends OrganizationAwareEntityController implements PaymentProviderControllerInterface
 {
     use EntityCrudOperationsControllerTrait;
     use EntityListingControllerAwareTrait;

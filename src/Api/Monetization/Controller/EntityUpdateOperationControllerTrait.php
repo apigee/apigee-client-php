@@ -26,7 +26,7 @@ use Apigee\Edge\Controller\EntitySerializerAwareTrait;
 /**
  * Trait EntityUpdateOperationControllerTrait.
  *
- * @see \Apigee\Edge\Api\Monetization\Controller\EntityUpdateOperationInterface
+ * @see \Apigee\Edge\Api\Monetization\Controller\EntityUpdateControllerOperationInterface
  */
 trait EntityUpdateOperationControllerTrait
 {

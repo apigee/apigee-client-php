@@ -19,6 +19,7 @@
 namespace Apigee\Edge\Api\Monetization\Serializer;
 
 use Apigee\Edge\Api\Monetization\NameConverter\ApiPackageNameConverter;
+use Apigee\Edge\Api\Monetization\Normalizer\ApiPackageNormalizer;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 use Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface;
 use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface;
@@ -49,6 +50,10 @@ class ApiPackageSerializer extends EntitySerializer
     {
         $normalizers = parent::getEntityTypeSpecificDefaultNormalizers($classMetadataFactory, $nameConverter, $propertyAccessor, $propertyTypeExtractor);
 
-        return array_merge(OrganizationProfileSerializer::getEntityTypeSpecificDefaultNormalizers($classMetadataFactory, $nameConverter, $propertyAccessor, $propertyTypeExtractor), $normalizers);
+        return array_merge(
+            [new ApiPackageNormalizer($classMetadataFactory, $nameConverter, $propertyAccessor, $propertyTypeExtractor)],
+            OrganizationProfileSerializer::getEntityTypeSpecificDefaultNormalizers($classMetadataFactory, $nameConverter, $propertyAccessor, $propertyTypeExtractor),
+            $normalizers
+        );
     }
 }

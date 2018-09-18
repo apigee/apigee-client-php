@@ -1,0 +1,14 @@
+{
+    "address": [],
+    "billingCycle": "CALENDAR_MONTH",
+    "country": "US",
+    "currency": "USD",
+    "id": "phpunit-minimal",
+    "name": "name",
+    "supportedBillingType": "BOTH",
+    "selfBillingForAllDev": false,
+    "separateInvoiceForFees": false,
+    "taxModel": "HYBRID",
+    "timezone": "UTC",
+    "status": "ACTIVE"
+}

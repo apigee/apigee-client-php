@@ -28,7 +28,7 @@ use Apigee\Edge\Controller\EntityListingControllerTrait;
 use Apigee\Edge\Serializer\EntitySerializerInterface;
 use Psr\Http\Message\UriInterface;
 
-class RatePlanController extends EntityController implements RatePlanControllerInterface
+class RatePlanController extends OrganizationAwareEntityController implements RatePlanControllerInterface
 {
     use ApiPackageAwareControllerTrait;
     use EntityCrudOperationsControllerTrait {

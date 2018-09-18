@@ -24,7 +24,7 @@ namespace Apigee\Edge\Api\Monetization\Entity;
  *
  * Known issue:
  *  * The organization profile data is incomplete in these entities, for example
- *    it does not contains the address of the organization.
+ *    it does not contains the address of the organization even if it is set.
  */
 abstract class OrganizationAwareEntity extends Entity implements OrganizationAwareEntityInterface
 {

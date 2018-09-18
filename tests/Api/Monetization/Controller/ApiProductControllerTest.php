@@ -18,37 +18,29 @@
 
 namespace Apigee\Edge\Tests\Api\Monetization\Controller;
 
-use Apigee\Edge\Api\Monetization\Controller\DeveloperRoleController;
-use Apigee\Edge\ClientInterface;
+use Apigee\Edge\Api\Monetization\Controller\ApiProductController;
 use Apigee\Edge\Controller\EntityControllerInterface;
 use Apigee\Edge\Tests\Test\Controller\OrganizationAwareEntityControllerValidatorTrait;
 
-class DeveloperRoleControllerValidator extends OrganizationAwareEntityControllerValidator
+class ApiProductControllerTest extends OrganizationAwareEntityControllerValidator
 {
     use OrganizationAwareEntityControllerValidatorTrait;
 
-    public function testListing(): void
+    public function testLoad(): void
     {
-        /** @var \Apigee\Edge\Api\Monetization\Controller\DeveloperRoleControllerInterface $controller */
-        $controller = $this->getEntityController();
-        $entities = $controller->getEntities();
+        $entity = $this->getEntityController()->load('phpunit');
         $input = json_decode((string) static::$client->getJournal()->getLastResponse()->getBody());
-        $input = reset($input);
-        $i = 0;
-        foreach ($entities as $role) {
-            $this->getEntitySerializerValidator()->validate($input[$i], $role);
-            ++$i;
-        }
+        $this->getEntitySerializerValidator()->validate($input, $entity);
     }
 
     /**
      * @inheritdoc
      */
-    protected static function getEntityController(ClientInterface $client = null): EntityControllerInterface
+    protected static function getEntityController(): EntityControllerInterface
     {
         static $controller;
         if (null === $controller) {
-            $controller = new DeveloperRoleController(static::getOrganization(static::$client), static::$client);
+            $controller = new ApiProductController(static::getOrganization(static::$client), static::$client);
         }
 
         return $controller;

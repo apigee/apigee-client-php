@@ -16,37 +16,17 @@
  * limitations under the License.
  */
 
-namespace Apigee\Edge\Api\Monetization\Entity\Property;
+namespace Apigee\Edge\Tests\Api\Monetization\EntitySerializer\PropertyValidator;
 
 /**
- * Trait IdPropertyAwareTrait.
+ * Validates serialization and deserialization of entity reference properties
+ * that usually contains a complete entity object in the input but in the
+ * output only the id of the referenced entity should be sent to Apigee Edge.
  *
- * @see \Apigee\Edge\Api\Monetization\Entity\Property\IdPropertyInterface
+ * After an entity reference property got validated it should be removed from
+ * input and the output because as it is written above its content in the input
+ * and in the output is intentionally different.
  */
-trait IdPropertyAwareTrait
+interface EntityReferencePropertyValidatorInterface extends PropertyValidatorInterface
 {
-    /**
-     * It can be null only when a new entity is being created.
-     *
-     * @var null|string
-     */
-    protected $id;
-
-    /**
-     * @inheritdoc
-     */
-    public function getId(): ?string
-    {
-        return $this->id;
-    }
-
-    /**
-     * @inheritdoc
-     *
-     * @internal
-     */
-    public function setId(string $id): void
-    {
-        $this->id = $id;
-    }
 }

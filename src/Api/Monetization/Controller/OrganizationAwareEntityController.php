@@ -18,14 +18,18 @@
 
 namespace Apigee\Edge\Api\Monetization\Controller;
 
-use Apigee\Edge\Api\Monetization\Entity\EntityInterface;
+use Apigee\Edge\Api\Monetization\Serializer\OrganizationProfileSerializer;
+use Apigee\Edge\ClientInterface;
+use Apigee\Edge\Serializer\EntitySerializerInterface;
 
-interface EntityUpdateControllerOperationInterface
+abstract class OrganizationAwareEntityController extends EntityController
 {
     /**
-     * Updates an entity in Apigee Edge.
-     *
-     * @param \Apigee\Edge\Api\Monetization\Entity\EntityInterface $entity
+     * @inheritDoc
      */
-    public function update(EntityInterface $entity): void;
+    public function __construct(string $organization, ClientInterface $client, ?EntitySerializerInterface $entitySerializer = null)
+    {
+        $entitySerializer = $entitySerializer ?? new OrganizationProfileSerializer();
+        parent::__construct($organization, $client, $entitySerializer);
+    }
 }

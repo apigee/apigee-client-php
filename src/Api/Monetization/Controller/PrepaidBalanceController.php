@@ -29,7 +29,7 @@ use Apigee\Edge\Controller\EntityListingControllerTrait;
 use Apigee\Edge\Serializer\EntitySerializerInterface;
 use Psr\Http\Message\UriInterface;
 
-abstract class PrepaidBalanceController extends EntityController implements PrepaidBalanceControllerInterface
+abstract class PrepaidBalanceController extends OrganizationAwareEntityController implements PrepaidBalanceControllerInterface
 {
     use PaginatedListingHelperTrait;
     use EntityListingControllerTrait;

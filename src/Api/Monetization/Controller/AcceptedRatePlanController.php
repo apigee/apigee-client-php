@@ -28,7 +28,7 @@ use DateTimeImmutable;
 use Psr\Http\Message\UriInterface;
 use ReflectionClass;
 
-abstract class AcceptedRatePlanController extends EntityController implements AcceptedRatePlanControllerInterface
+abstract class AcceptedRatePlanController extends OrganizationAwareEntityController implements AcceptedRatePlanControllerInterface
 {
     use EntityListingControllerTrait;
     use EntityLoadOperationControllerTrait;

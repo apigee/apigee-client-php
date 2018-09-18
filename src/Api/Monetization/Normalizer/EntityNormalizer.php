@@ -19,9 +19,9 @@
 namespace Apigee\Edge\Api\Monetization\Normalizer;
 
 use Apigee\Edge\Api\Monetization\Entity\Entity;
+use Apigee\Edge\Api\Monetization\Entity\EntityInterface;
 use Apigee\Edge\Api\Monetization\Entity\Property\IdPropertyInterface;
 use Apigee\Edge\Normalizer\EntityNormalizer as BaseEntityNormalizer;
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
 
 /**
  * Ensures Monetization related entities gets normalized properly.
@@ -34,12 +34,6 @@ class EntityNormalizer extends BaseEntityNormalizer
      * developer do not need to set them on the entity manually.
      */
     public const MINT_ENTITY_REFERENCE_PROPERTY_VALUES = 'mint_entity_reference_values';
-    /**
-     * The API client only communicates in JSON with Apigee Edge.
-     *
-     * @var string
-     */
-    private $format = JsonEncoder::FORMAT;
 
     /**
      * @inheritdoc
@@ -48,7 +42,6 @@ class EntityNormalizer extends BaseEntityNormalizer
      */
     public function normalize($object, $format = null, array $context = [])
     {
-        $format = $this->format;
         $normalized = (array) parent::normalize($object, $format, $context);
 
         $entityReferenceProperties = $this->getEntityReferenceProperties($object);
@@ -86,7 +79,7 @@ class EntityNormalizer extends BaseEntityNormalizer
      */
     public function supportsNormalization($data, $format = null)
     {
-        return $data instanceof Entity && parent::supportsNormalization($data, $this->format);
+        return  $data instanceof EntityInterface && parent::supportsNormalization($data, $format);
     }
 
     /**
@@ -98,6 +91,9 @@ class EntityNormalizer extends BaseEntityNormalizer
      * created or updated, it is enough to send only the id of the
      * referenced entity. (Sending the id of the referenced entity is
      * required.)
+     *
+     * It does not support array object properties, those should be handled
+     * in child classes.
      *
      * @param \Apigee\Edge\Api\Monetization\Entity\Entity $entity
      *

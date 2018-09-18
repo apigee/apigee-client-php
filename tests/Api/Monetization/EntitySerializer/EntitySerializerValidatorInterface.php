@@ -16,16 +16,11 @@
  * limitations under the License.
  */
 
-namespace Apigee\Edge\Api\Monetization\Controller;
+namespace Apigee\Edge\Tests\Api\Monetization\EntitySerializer;
 
 use Apigee\Edge\Api\Monetization\Entity\EntityInterface;
 
-interface EntityUpdateControllerOperationInterface
+interface EntitySerializerValidatorInterface
 {
-    /**
-     * Updates an entity in Apigee Edge.
-     *
-     * @param \Apigee\Edge\Api\Monetization\Entity\EntityInterface $entity
-     */
-    public function update(EntityInterface $entity): void;
+    public function validate(\stdClass $input, EntityInterface $entity): void;
 }

@@ -27,7 +27,7 @@ use Apigee\Edge\Serializer\EntitySerializerInterface;
 /**
  * Parent class for listing developers and companies in Monetization.
  */
-abstract class LegalEntityController extends EntityController implements LegalEntityControllerInterface
+abstract class LegalEntityController extends OrganizationAwareEntityController implements LegalEntityControllerInterface
 {
     use EntityListingControllerTrait;
     use EntityLoadOperationControllerTrait;

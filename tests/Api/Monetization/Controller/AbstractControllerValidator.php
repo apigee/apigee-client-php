@@ -18,24 +18,20 @@
 
 namespace Apigee\Edge\Tests\Api\Monetization\Controller;
 
-/**
- * Trait PaginatedEntityListingControllerValidatorTrait.
- *
- * @see \Apigee\Edge\Api\Monetization\Controller\PaginatedEntityListingControllerInterface
- */
-trait PaginatedEntityListingControllerValidatorTrait
-{
-    public function testLoadAll(): void
-    {
-        $entities = $this->getEntityController()->loadAll();
-        $this->assertCount(2, $entities);
-    }
+use Apigee\Edge\Tests\Test\Controller\AbstractControllerValidator as BaseAbstractControllerValidator;
+use Apigee\Edge\Tests\Test\HttpClient\FileSystemMockClient;
+use Apigee\Edge\Tests\Test\TestClientFactory;
 
-    public function testLoadSubset(): void
+abstract class AbstractControllerValidator extends BaseAbstractControllerValidator
+{
+    /**
+     * @inheritDoc
+     */
+    public static function setUpBeforeClass(): void
     {
-        $entities = $this->getEntityController()->loadSubset(1, 2);
-        $this->assertCount(1, $entities);
-        $entity = reset($entities);
-        $this->assertEquals('phpunit_2', $entity->id());
+        parent::setUpBeforeClass();
+        // Monetization tests can be run with the offline client only, because
+        // Monetization feature of Apigee Edge is not available to everyone.
+        static::$client = (new TestClientFactory())->getClient(FileSystemMockClient::class);
     }
 }

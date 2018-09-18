@@ -16,16 +16,11 @@
  * limitations under the License.
  */
 
-namespace Apigee\Edge\Api\Monetization\Controller;
+namespace Apigee\Edge\Tests\Test\Controller;
 
-use Apigee\Edge\Api\Monetization\Entity\EntityInterface;
+use Apigee\Edge\Controller\EntityControllerInterface;
 
-interface EntityUpdateControllerOperationInterface
+trait EntityControllerAwareTrait
 {
-    /**
-     * Updates an entity in Apigee Edge.
-     *
-     * @param \Apigee\Edge\Api\Monetization\Entity\EntityInterface $entity
-     */
-    public function update(EntityInterface $entity): void;
+    abstract protected static function getEntityController(): EntityControllerInterface;
 }
