@@ -20,17 +20,19 @@ namespace Apigee\Edge\Tests\Api\Monetization\Controller;
 
 use Apigee\Edge\Api\Monetization\Controller\ApiProductController;
 use Apigee\Edge\Controller\EntityControllerInterface;
-use Apigee\Edge\Tests\Test\Controller\OrganizationAwareEntityControllerValidatorTrait;
 
 class ApiProductControllerTest extends OrganizationAwareEntityControllerValidator
 {
-    use OrganizationAwareEntityControllerValidatorTrait;
+    use EntityLoadOperationControllerValidatorTrait;
 
-    public function testLoad(): void
+    public function testEligibleProducts(): void
     {
-        $entity = $this->getEntityController()->load('phpunit');
-        $input = json_decode((string) static::$client->getJournal()->getLastResponse()->getBody());
-        $this->getEntitySerializerValidator()->validate($input, $entity);
+        /** @var \Apigee\Edge\Api\Monetization\Controller\ApiProductControllerInterface $controller */
+        $controller = $this->getEntityController();
+        $products = $controller->getEligibleProductsByDeveloper('phpunit@example.com');
+        $this->assertCount(2, $products);
+        $products = $controller->getEligibleProductsByCompany('phpunit');
+        $this->assertCount(2, $products);
     }
 
     /**

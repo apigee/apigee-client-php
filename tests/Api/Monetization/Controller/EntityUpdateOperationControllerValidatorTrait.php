@@ -40,11 +40,14 @@ trait EntityUpdateOperationControllerValidatorTrait
         // Because MINT tests are pure offline API tests the best thing that we
         // can do (in general) is to make sure that the POST API call is sent
         // to the right place. The testLoad() has already ensured that the
-        // API client and serialize and deserialize an API response properly.
+        // API client can serialize and deserialize an API response properly.
         // Classes can also do extra validation of course, like make sure that
         // the timezone conversation works properly.
         Assert::assertEquals(200, static::getClient()->getJournal()->getLastResponse()->getStatusCode());
     }
 
-    abstract protected function getEntityForTestUpdate(): EntityInterface;
+    protected function getEntityForTestUpdate(): EntityInterface
+    {
+        return $this->getEntityController()->load();
+    }
 }

@@ -18,7 +18,6 @@
 
 namespace Apigee\Edge\Tests\Api\Monetization\Controller;
 
-use Apigee\Edge\Api\Monetization\Serializer\EntitySerializer;
 use Apigee\Edge\Serializer\EntitySerializerInterface;
 use Apigee\Edge\Tests\Api\Monetization\EntitySerializer\EntitySerializerValidator;
 use Apigee\Edge\Tests\Api\Monetization\EntitySerializer\EntitySerializerValidatorInterface;
@@ -27,18 +26,7 @@ use Apigee\Edge\Tests\Test\Controller\EntityControllerAwareTrait;
 abstract class EntityControllerValidator extends AbstractControllerValidator
 {
     use EntityControllerAwareTrait;
-
-    /** @var \Symfony\Component\Serializer\Serializer */
-    protected static $entitySerializer;
-
-    /**
-     * @inheritDoc
-     */
-    public static function setUpBeforeClass(): void
-    {
-        parent::setUpBeforeClass();
-        static::$entitySerializer = new EntitySerializer();
-    }
+    use EntitySerializerAwareValidatorTrait;
 
     protected static function getEntitySerializer(): EntitySerializerInterface
     {

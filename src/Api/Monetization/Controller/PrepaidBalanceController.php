@@ -113,7 +113,7 @@ abstract class PrepaidBalanceController extends OrganizationAwareEntityControlle
             $this->getBaseEndpointUri()->withPath("{$this->getBaseEndpointUri()->getPath()}/recurring-setup")->withQuery(http_build_query(['supportedCurrencyId' => $currencyCode])),
             (string) json_encode((object) [
                 'providerId' => $paymentProviderId,
-                'isRecurring' => true,
+                'isRecurring' => 'true',
                 'replenishAmount' => $replenishAmount,
                 'recurringAmount' => $recurringAmount,
             ])
@@ -140,7 +140,7 @@ abstract class PrepaidBalanceController extends OrganizationAwareEntityControlle
             $this->getBaseEndpointUri()->withPath("{$this->getBaseEndpointUri()->getPath()}/recurring-setup")->withQuery(http_build_query(['supportedCurrencyId' => $currencyCode])),
             (string) json_encode((object) [
                 'providerId' => $paymentProviderId,
-                'chargePerUsage' => true,
+                'chargePerUsage' => 'true',
             ])
         );
 

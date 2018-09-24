@@ -19,13 +19,13 @@
 namespace Apigee\Edge\Tests\Api\Monetization\Controller;
 
 use Apigee\Edge\Api\Monetization\Controller\OrganizationProfileController;
-use Apigee\Edge\Api\Monetization\Entity\EntityInterface;
 use Apigee\Edge\Controller\EntityControllerInterface;
 use Apigee\Edge\Tests\Test\Controller\OrganizationAwareEntityControllerValidatorTrait;
 
 class OrganizationProfileControllerTest extends EntityControllerValidator
 {
     use OrganizationAwareEntityControllerValidatorTrait;
+    use EntityLoadOperationControllerValidatorTrait;
     use EntityUpdateOperationControllerValidatorTrait;
 
     public function testLoad(): void
@@ -49,10 +49,5 @@ class OrganizationProfileControllerTest extends EntityControllerValidator
         }
 
         return $controller;
-    }
-
-    protected function getEntityForTestUpdate(): EntityInterface
-    {
-        return $this->getEntityController()->load();
     }
 }

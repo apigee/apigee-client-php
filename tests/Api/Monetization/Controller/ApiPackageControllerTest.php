@@ -25,13 +25,39 @@ use Apigee\Edge\Tests\Api\Monetization\EntitySerializer\EntitySerializerValidato
 
 class ApiPackageControllerTest extends OrganizationAwareEntityControllerValidator
 {
-    public function testLoad(): void
+    use EntityLoadOperationControllerValidatorTrait;
+
+    public function testGetAvailableApiPackages(): void
     {
         /** @var \Apigee\Edge\Api\Monetization\Controller\ApiPackageControllerInterface $controller */
         $controller = $this->getEntityController();
-        $entity = $controller->load('phpunit');
-        $input = json_decode((string) static::$client->getJournal()->getLastResponse()->getBody());
-        $this->getEntitySerializerValidator()->validate($input, $entity);
+        $packages = $controller->getAvailableApiPackagesByDeveloper('phpunit@example.com');
+        $this->assertCount(2, $packages);
+        $this->assertEquals('current=false&allAvailable=true', $this->getClient()->getJournal()->getLastRequest()->getUri()->getQuery());
+        $controller->getAvailableApiPackagesByDeveloper('phpunit@example.com', true, false);
+        $this->assertEquals('current=true&allAvailable=false', $this->getClient()->getJournal()->getLastRequest()->getUri()->getQuery());
+        $controller->getAvailableApiPackagesByCompany('phpunit', true, false);
+        $this->assertEquals(200, $this->getClient()->getJournal()->getLastResponse()->getStatusCode());
+    }
+
+    public function testAddProduct(): void
+    {
+        /** @var \Apigee\Edge\Api\Monetization\Controller\ApiPackageControllerInterface $controller */
+        $controller = $this->getEntityController();
+        // To spare some extra lines of code we use the file system http client
+        // instead of the mock http client.
+        $controller->addProduct('phpunit', 'product1');
+        $this->assertEquals('{}', (string) $this->getClient()->getJournal()->getLastRequest()->getBody());
+    }
+
+    public function testDeleteProduct(): void
+    {
+        /** @var \Apigee\Edge\Api\Monetization\Controller\ApiPackageControllerInterface $controller */
+        $controller = $this->getEntityController();
+        // To spare some extra lines of code we use the file system http client
+        // instead of the mock http client.
+        $controller->deleteProduct('phpunit', 'product1');
+        $this->assertEquals(200, (string) $this->getClient()->getJournal()->getLastResponse()->getStatusCode());
     }
 
     protected static function getEntityController(): EntityControllerInterface

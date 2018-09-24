@@ -19,6 +19,7 @@
 namespace Apigee\Edge\Api\Monetization\Controller;
 
 use Apigee\Edge\Api\Monetization\Entity\ApiPackage;
+use Apigee\Edge\Api\Monetization\Entity\RatePlanInterface;
 use Apigee\Edge\Api\Monetization\Serializer\ApiPackageSerializer;
 use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Controller\EntityListingControllerTrait;
@@ -74,12 +75,26 @@ class ApiPackageController extends OrganizationAwareEntityController implements 
     /**
      * @inheritdoc
      */
-    public function getAvailableApiPackages(string $developerId, bool $active = false, bool $allAvailable = true): array
+    public function getAvailableApiPackagesByDeveloper(string $developerId, bool $active = false, bool $allAvailable = true): array
     {
-        return $this->listEntities($this->client->getUriFactory()->createUri("/mint/organizations/{$this->organization}/developers/{$developerId}/monetization-packages")->withQuery(http_build_query([
-            'current' => $active,
-            'allAvailable' => $allAvailable,
-        ])));
+        return $this->getAvailableApiPackages('developers', $developerId, $active, $allAvailable);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getAvailableApiPackagesByCompany(string $company, bool $active = false, bool $allAvailable = true): array
+    {
+        return $this->getAvailableApiPackages('companies', $company, $active, $allAvailable);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function addProductWithRatePlan(string $apiPackageId, string $productId, RatePlanInterface $ratePlan): void
+    {
+        // TODO: Implement addProductWithRatePlan() method.
+        // We need to figure out the correct payload for this in DRUP-302.
     }
 
     /**
@@ -96,5 +111,13 @@ class ApiPackageController extends OrganizationAwareEntityController implements 
     protected function getBaseEndpointUri(): UriInterface
     {
         return $this->client->getUriFactory()->createUri("/mint/organizations/{$this->organization}/monetization-packages");
+    }
+
+    private function getAvailableApiPackages(string $type, string $id, bool $active = false, bool $allAvailable = true): array
+    {
+        return $this->listEntities($this->client->getUriFactory()->createUri("/mint/organizations/{$this->organization}/{$type}/{$id}/monetization-packages")->withQuery(http_build_query([
+            'current' => $active ? 'true' : 'false',
+            'allAvailable' => $allAvailable ? 'true' : 'false',
+        ])));
     }
 }

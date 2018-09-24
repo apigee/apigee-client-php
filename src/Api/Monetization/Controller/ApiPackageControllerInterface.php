@@ -18,6 +18,7 @@
 
 namespace Apigee\Edge\Api\Monetization\Controller;
 
+use Apigee\Edge\Api\Monetization\Entity\RatePlanInterface;
 use Apigee\Edge\Controller\EntityControllerInterface;
 
 /**
@@ -38,7 +39,7 @@ interface ApiPackageControllerInterface extends
     PaginatedEntityListingControllerInterface
 {
     /**
-     * Adds an aPI product to an API package.
+     * Adds an API product to an API package.
      *
      * @param string $apiPackageId
      *   API package id.
@@ -48,6 +49,18 @@ interface ApiPackageControllerInterface extends
      * @see https://docs.apigee.com/api-platform/monetization/create-api-packages#addprodtopackapi
      */
     public function addProduct(string $apiPackageId, string $productId): void;
+
+    /**
+     * Adds an AŐI product to an API package with a product specific rate plan.
+     *
+     * @param string $apiPackageId
+     *   API package id.
+     * @param string $productId
+     *   API product id.
+     *
+     * @see https://docs.apigee.com/api-platform/monetization/create-api-packages#addprodtopackapi
+     */
+    public function addProductWithRatePlan(string $apiPackageId, string $productId, RatePlanInterface $ratePlan): void;
 
     /**
      * Removes an API product from an API package.
@@ -74,5 +87,22 @@ interface ApiPackageControllerInterface extends
      *
      * @see https://apidocs.apigee.com/monetize/apis/get/organizations/%7Borg_name%7D/developers/%7Bdeveloper_id%7D/monetization-packages
      */
-    public function getAvailableApiPackages(string $developerId, bool $active = false, bool $allAvailable = true): array;
+    public function getAvailableApiPackagesByDeveloper(string $developerId, bool $active = false, bool $allAvailable = true): array;
+
+    /**
+     * Gets all available API packages for a company.
+     *
+     * @param string $company
+     *   Name of a company.
+     * @param bool $active
+     *   Whether to show only API packages with active rate plans or not.
+     * @param bool $allAvailable
+     *   Whether to show all available packages or only packages with company
+     *   specific rate plans.
+     *
+     * @return \Apigee\Edge\Api\Monetization\Entity\ApiPackageInterface[]
+     *
+     * @see https://apidocs.apigee.com/monetize/apis/get/organizations/%7Borg_name%7D/companies/%7Bdeveloper_id%7D/monetization-packages
+     */
+    public function getAvailableApiPackagesByCompany(string $company, bool $active = false, bool $allAvailable = true): array;
 }

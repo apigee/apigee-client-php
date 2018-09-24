@@ -1,7 +1,8 @@
 {
-    "developerRole": [
+    "monetizationPackage": [
         {
-            "description": "PHPUnit",
+            "description": "This is a test API package.",
+            "displayName": "PHPUnit",
             "id": "phpunit",
             "name": "phpunit",
             "organization": {
@@ -51,12 +52,51 @@
                 "taxRegNo": "12345",
                 "timezone": "UTC",
                 "logoUrl": "http://example.com"
-            }
+            },
+            "product": [
+                {
+                    "displayName": "PHPUnit",
+                    "description": "This is a test product.",
+                    "id": "phpunit",
+                    "name": "phpunit",
+                    "organization": {
+                        "approveTrusted": false,
+                        "approveUntrusted": false,
+                        "billingCycle": "CALENDAR_MONTH",
+                        "country": "US",
+                        "currency": "USD",
+                        "description": "phpunit-description",
+                        "hasBillingAdjustment": false,
+                        "hasBroker": false,
+                        "hasSelfBilling": false,
+                        "hasSeparateInvoiceForProduct": false,
+                        "id": "phpunit",
+                        "issueNettingStmt": false,
+                        "name": "name",
+                        "nettingStmtPerCurrency": false,
+                        "regNo": "123456-regno",
+                        "selfBillingAsExchOrg": false,
+                        "selfBillingForAllDev": false,
+                        "separateInvoiceForFees": false,
+                        "status": "ACTIVE",
+                        "supportedBillingType": "BOTH",
+                        "taxEngineExternalId": "APIGEE",
+                        "taxModel": "HYBRID",
+                        "timezone": "UTC",
+                        "logoUrl": "http://example.com"
+                    },
+                    "status": "CREATED",
+                    "transactionSuccessCriteria": "txProviderStatus == 'OK'"
+                }
+
+            ],
+            "status": "CREATED"
         },
         {
-            "description": "PHPUnit 2",
-            "id": "phpunit_2",
-            "name": "phpunit_2",
+            "description": "This is a test API package.",
+            "displayName": "PHPUnit2",
+            "id": "phpunit2",
+            "name": "phpunit2",
             "organization": {
                 "address": [
                     {
@@ -104,8 +144,45 @@
                 "taxRegNo": "12345",
                 "timezone": "UTC",
                 "logoUrl": "http://example.com"
-            }
+            },
+            "product": [
+                {
+                    "displayName": "PHPUnit",
+                    "description": "This is a test product.",
+                    "id": "phpunit",
+                    "name": "phpunit",
+                    "organization": {
+                        "approveTrusted": false,
+                        "approveUntrusted": false,
+                        "billingCycle": "CALENDAR_MONTH",
+                        "country": "US",
+                        "currency": "USD",
+                        "description": "phpunit-description",
+                        "hasBillingAdjustment": false,
+                        "hasBroker": false,
+                        "hasSelfBilling": false,
+                        "hasSeparateInvoiceForProduct": false,
+                        "id": "phpunit",
+                        "issueNettingStmt": false,
+                        "name": "name",
+                        "nettingStmtPerCurrency": false,
+                        "regNo": "123456-regno",
+                        "selfBillingAsExchOrg": false,
+                        "selfBillingForAllDev": false,
+                        "separateInvoiceForFees": false,
+                        "status": "ACTIVE",
+                        "supportedBillingType": "BOTH",
+                        "taxEngineExternalId": "APIGEE",
+                        "taxModel": "HYBRID",
+                        "timezone": "UTC",
+                        "logoUrl": "http://example.com"
+                    },
+                    "status": "CREATED",
+                    "transactionSuccessCriteria": "txProviderStatus == 'OK'"
+                }
+
+            ],
+            "status": "CREATED"
         }
-    ],
-    "totalRecords": 2
+    ]
 }

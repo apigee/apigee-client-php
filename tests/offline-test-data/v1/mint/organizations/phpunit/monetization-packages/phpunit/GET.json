@@ -46,6 +46,8 @@
         "supportedBillingType": "BOTH",
         "taxEngineExternalId": "APIGEE",
         "taxModel": "HYBRID",
+        "transactionRelayURL": "http://localhost",
+        "taxRegNo": "12345",
         "timezone": "UTC",
         "logoUrl": "http://example.com"
     },

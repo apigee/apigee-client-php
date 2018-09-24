@@ -1,7 +1,8 @@
 {
-    "developerRole": [
+    "product": [
         {
-            "description": "PHPUnit",
+            "displayName": "PHPUnit",
+            "description": "This is a test product.",
             "id": "phpunit",
             "name": "phpunit",
             "organization": {
@@ -51,12 +52,15 @@
                 "taxRegNo": "12345",
                 "timezone": "UTC",
                 "logoUrl": "http://example.com"
-            }
+            },
+            "status": "CREATED",
+            "transactionSuccessCriteria": "txProviderStatus == 'OK'"
         },
         {
-            "description": "PHPUnit 2",
-            "id": "phpunit_2",
-            "name": "phpunit_2",
+            "displayName": "PHPUnit 2",
+            "description": "This is a test product.",
+            "id": "phpunit2",
+            "name": "phpunit2",
             "organization": {
                 "address": [
                     {
@@ -104,7 +108,9 @@
                 "taxRegNo": "12345",
                 "timezone": "UTC",
                 "logoUrl": "http://example.com"
-            }
+            },
+            "status": "CREATED",
+            "transactionSuccessCriteria": "txProviderStatus == 'OK'"
         }
     ],
     "totalRecords": 2

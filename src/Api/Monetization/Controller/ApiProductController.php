@@ -74,7 +74,7 @@ class ApiProductController extends OrganizationAwareEntityController implements 
      *
      * @psalm-suppress PossiblyNullArrayOffset id() is not null.
      */
-    private function getEligibleProducts(string $type, string $entityId)
+    private function getEligibleProducts(string $type, string $entityId): array
     {
         $products = [];
         foreach ($this->getRawList($this->client->getUriFactory()->createUri("/mint/organizations/{$this->organization}/{$type}/{$entityId}/eligible-products")) as $item) {
