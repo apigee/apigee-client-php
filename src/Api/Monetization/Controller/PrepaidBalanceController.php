@@ -90,11 +90,11 @@ abstract class PrepaidBalanceController extends OrganizationAwareEntityControlle
     /**
      * @inheritdoc
      */
-    public function getByCurrency(string $currencyCode): BalanceInterface
+    public function getByCurrency(string $currencyCode): ?BalanceInterface
     {
         $result = $this->listEntities($this->getBaseEndpointUri()->withQuery(http_build_query(['currencyId' => $currencyCode])));
 
-        return reset($result);
+        return empty($result) ? null : reset($result);
     }
 
     /**
@@ -152,11 +152,7 @@ abstract class PrepaidBalanceController extends OrganizationAwareEntityControlle
     }
 
     /**
-     * Gets prepaid balances.
-     *
-     * @param \DateTimeImmutable $billingMonth
-     *
-     * @return \Apigee\Edge\Api\Monetization\Entity\PrepaidBalanceInterface[]
+     * @inheritdoc
      */
     public function getPrepaidBalance(\DateTimeImmutable $billingMonth): array
     {
@@ -164,18 +160,13 @@ abstract class PrepaidBalanceController extends OrganizationAwareEntityControlle
     }
 
     /**
-     * Gets prepaid balance by currency.
-     *
-     * @param string $currencyCode
-     * @param \DateTimeImmutable $billingMonth
-     *
-     * @return \Apigee\Edge\Api\Monetization\Entity\PrepaidBalanceInterface
+     * @inheritdoc
      */
-    public function getPrepaidBalanceByCurrency(string $currencyCode, \DateTimeImmutable $billingMonth): PrepaidBalanceInterface
+    public function getPrepaidBalanceByCurrency(string $currencyCode, \DateTimeImmutable $billingMonth): ?PrepaidBalanceInterface
     {
         $result = $this->listPrepaidBalances($billingMonth, $currencyCode);
 
-        return reset($result);
+        return empty($result) ? null : reset($result);
     }
 
     /**
