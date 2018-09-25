@@ -32,6 +32,14 @@ trait PaginatedEntityListingControllerAwareTrait
     /**
      * @inheritdoc
      */
+    public function getEntities(): array
+    {
+        return $this->listAllEntities($this->getBaseEndpointUri());
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function getPaginatedEntityList(int $limit = null, int $page = 1): array
     {
         return $this->listEntitiesInRange($this->getBaseEndpointUri(), $limit, $page);
