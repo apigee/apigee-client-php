@@ -10,8 +10,14 @@
             "zip": "zip1"
         }
     ],
+    "approxTaxRate": 123.4567,
     "billingType": "PREPAID",
     "broker": false,
+    "developerCategory":         {
+        "description": "Test developer category.",
+        "id": "312004df-fc1e-4bc3-8ae0-f7a9652c1ac2",
+        "name": "PHPUnit"
+    },
     "customAttributes": [
         {
             "id": "1f905a1d-7370-4d56-b033-efab8fa61c3d",
@@ -73,5 +79,6 @@
         "logoUrl": "http://example.com"
     },
     "status": "ACTIVE",
-    "type": "UNTRUSTED"
+    "type": "UNTRUSTED",
+    "taxExemptAuthNo": "taxExemptAuthNo"
 }

@@ -38,16 +38,16 @@ interface SupportedCurrencyInterface extends OrganizationAwareEntityInterface,
     /**
      * Returns the credit limit.
      *
-     * @return int|null
+     * @return float|null
      */
-    public function getCreditLimit(): ?int;
+    public function getCreditLimit(): ?float;
 
     /**
      * Sets the credit limit.
      *
-     * @param int $creditLimit
+     * @param float $creditLimit
      */
-    public function setCreditLimit(int $creditLimit): void;
+    public function setCreditLimit(float $creditLimit): void;
 
     /**
      * Indicates whether the currency is a virtual currency.

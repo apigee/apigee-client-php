@@ -34,13 +34,13 @@ class SupportedCurrency extends OrganizationAwareEntity implements SupportedCurr
     }
     use VirtualCurrencyPropertyAwareTrait;
 
-    /** @var int|null */
+    /** @var float|null */
     protected $creditLimit;
 
     /**
      * @inheritdoc
      */
-    public function getCreditLimit(): ?int
+    public function getCreditLimit(): ?float
     {
         return $this->creditLimit;
     }
@@ -48,7 +48,7 @@ class SupportedCurrency extends OrganizationAwareEntity implements SupportedCurr
     /**
      * @inheritdoc
      */
-    public function setCreditLimit(int $creditLimit): void
+    public function setCreditLimit(float $creditLimit): void
     {
         $this->creditLimit = $creditLimit;
     }

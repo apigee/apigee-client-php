@@ -25,21 +25,21 @@ use PHPUnit\Framework\Assert;
 
 /**
  * Applicable to all entity controllers that implements
- * Apigee\Edge\Api\Monetization\Controller\EntityUpdateControllerOperationInterface.
+ * Apigee\Edge\Api\Monetization\Controller\EntityCreateControllerOperationInterface.
  */
-trait EntityUpdateOperationControllerValidatorTrait
+trait EntityCreateOperationControllerValidatorTrait
 {
     use EntityControllerAwareTrait;
     use ClientAwareTestTrait;
     use EntityIdAwareControllerTrait;
 
-    public function testUpdate(): void
+    public function testCreate(): void
     {
-        /** @var \Apigee\Edge\Api\Monetization\Controller\EntityUpdateControllerOperationInterface $controller */
+        /** @var \Apigee\Edge\Api\Monetization\Controller\EntityCreateOperationInterface $controller */
         $controller = static::getEntityController();
-        $controller->update($this->getEntityForTestUpdate());
+        $controller->create($this->getEntityForTestCreate());
         // Because MINT tests are pure offline API tests the best thing that we
-        // can do (in general) is to make sure that the PUT API call is sent
+        // can do (in general) is to make sure that the POST API call is sent
         // to the right place. The testLoad() has already ensured that the
         // API client can serialize and deserialize an API response properly.
         // Classes can also do extra validation of course, like make sure that
@@ -47,7 +47,7 @@ trait EntityUpdateOperationControllerValidatorTrait
         Assert::assertEquals(200, static::getClient()->getJournal()->getLastResponse()->getStatusCode());
     }
 
-    protected function getEntityForTestUpdate(): EntityInterface
+    protected function getEntityForTestCreate(): EntityInterface
     {
         return $this->getEntityController()->load($this->getEntityId());
     }

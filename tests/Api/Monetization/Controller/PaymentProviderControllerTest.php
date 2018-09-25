@@ -18,25 +18,28 @@
 
 namespace Apigee\Edge\Tests\Api\Monetization\Controller;
 
-use Apigee\Edge\Tests\Api\Monetization\EntitySerializer\EntitySerializerValidatorInterface;
-use Apigee\Edge\Tests\Api\Monetization\EntitySerializer\OrganizationAwareEntitySerializerValidator;
+use Apigee\Edge\Api\Monetization\Controller\PaymentProviderController;
+use Apigee\Edge\Controller\EntityControllerInterface;
 use Apigee\Edge\Tests\Test\Controller\OrganizationAwareEntityControllerValidatorTrait;
 
-/**
- * Test base class for those controllers that works with entities that holds
- * a reference to its parent organization entity.
- */
-abstract class OrganizationAwareEntityControllerValidator extends EntityControllerValidator
+class PaymentProviderControllerTest extends EntityControllerValidator
 {
     use OrganizationAwareEntityControllerValidatorTrait;
+    use EntityCreateOperationControllerValidatorTrait;
+    use EntityLoadOperationControllerValidatorTrait;
+    use EntityUpdateOperationControllerValidatorTrait;
+    use EntityDeleteOperationControllerValidatorTrait;
 
-    protected static function getEntitySerializerValidator(): EntitySerializerValidatorInterface
+    /**
+     * @inheritdoc
+     */
+    protected static function getEntityController(): EntityControllerInterface
     {
-        static $validator;
-        if (null === $validator) {
-            $validator = new OrganizationAwareEntitySerializerValidator(static::getEntitySerializer());
+        static $controller;
+        if (null === $controller) {
+            $controller = new PaymentProviderController(static::getOrganization(static::$client), static::$client);
         }
 
-        return $validator;
+        return $controller;
     }
 }

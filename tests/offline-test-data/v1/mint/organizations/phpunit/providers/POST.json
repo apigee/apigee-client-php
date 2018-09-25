@@ -1,0 +1,9 @@
+{
+    "authType": "1217531",
+    "credential": "credential",
+    "description": "test Worldpay payment provider",
+    "endpoint": "https://secure-test.worldpay.com/jsp/merchant/xml/paymentService.jsp",
+    "id": "phpunit",
+    "merchantCode": "APIGEETESTPAO",
+    "name": "PHPUnit"
+}

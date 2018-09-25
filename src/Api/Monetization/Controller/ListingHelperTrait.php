@@ -31,11 +31,6 @@ trait ListingHelperTrait
         return $this->responseArrayToArrayOfEntities($this->getRawList($uri));
     }
 
-    protected function listAllEntities(UriInterface $uri): array
-    {
-        return $this->listEntities($uri);
-    }
-
     /**
      * Returns a raw API response as an array of a listing API endpoint.
      *

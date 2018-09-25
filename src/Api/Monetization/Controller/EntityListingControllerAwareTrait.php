@@ -35,8 +35,8 @@ trait EntityListingControllerAwareTrait
      */
     public function getEntities(): array
     {
-        return $this->listAllEntities($this->getBaseEndpointUri());
+        return $this->listEntities($this->getBaseEndpointUri());
     }
 
-    abstract protected function listAllEntities(UriInterface $uri): array;
+    abstract protected function listEntities(UriInterface $uri): array;
 }
