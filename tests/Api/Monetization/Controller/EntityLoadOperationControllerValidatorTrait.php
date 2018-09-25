@@ -26,12 +26,13 @@ trait EntityLoadOperationControllerValidatorTrait
     use EntityControllerAwareTrait;
     use ClientAwareTestTrait;
     use EntitySerializerAwareValidatorTrait;
+    use EntityIdAwareControllerTrait;
 
     public function testLoad(): void
     {
         /** @var \Apigee\Edge\Api\Monetization\Controller\EntityLoadOperationControllerInterface $controller */
         $controller = $this->getEntityController();
-        $entity = $controller->load('phpunit');
+        $entity = $controller->load($this->getEntityId());
         $input = json_decode((string) $this->getClient()->getJournal()->getLastResponse()->getBody());
         /** @var \Apigee\Edge\Tests\Api\Monetization\EntitySerializer\EntitySerializerValidatorInterface $validator */
         $validator = $this->getEntitySerializerValidator();

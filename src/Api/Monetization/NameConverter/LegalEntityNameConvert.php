@@ -31,4 +31,16 @@ use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
  */
 abstract class LegalEntityNameConvert extends OrganizationProfileNameConverter implements NameConverterInterface
 {
+    /**
+     * @inheritdoc
+     */
+    protected function getExternalToLocalMapping(): array
+    {
+        $mapping = parent::getExternalToLocalMapping();
+        $mapping += [
+            'customAttributes' => 'attributes',
+        ];
+
+        return $mapping;
+    }
 }

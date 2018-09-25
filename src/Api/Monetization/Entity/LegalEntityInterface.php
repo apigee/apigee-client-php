@@ -21,6 +21,7 @@ namespace Apigee\Edge\Api\Monetization\Entity;
 use Apigee\Edge\Api\Monetization\Entity\Property\AddressesPropertyInterface;
 use Apigee\Edge\Api\Monetization\Entity\Property\BrokerPropertyInterface;
 use Apigee\Edge\Api\Monetization\Entity\Property\SelfBillingPropertyInterface;
+use Apigee\Edge\Entity\Property\AttributesPropertyInterface;
 use Apigee\Edge\Entity\Property\EmailPropertyInterface;
 use Apigee\Edge\Entity\Property\NamePropertyInterface;
 use Apigee\Edge\Entity\Property\StatusPropertyInterface;
@@ -29,6 +30,7 @@ use Apigee\Edge\Entity\Property\StatusPropertyInterface;
  * Parent interface for developer and company entities in Monetization.
  */
 interface LegalEntityInterface extends OrganizationAwareEntityInterface,
+    AttributesPropertyInterface,
     AddressesPropertyInterface,
     BrokerPropertyInterface,
     EmailPropertyInterface,

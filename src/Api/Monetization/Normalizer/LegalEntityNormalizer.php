@@ -40,6 +40,15 @@ class LegalEntityNormalizer extends EntityNormalizer
         } elseif ($object instanceof CompanyInterface) {
             $normalized->isCompany = true;
         }
+        // LegalEntityNameConverter extends OrganizationProfileNameConverter - according to our design pattern
+        // (parent name converter should extend all nested entity references' name converts) therefore "broker"
+        // automatically gets mapped to "hasBroker".
+        // Name converters does not know what is the current "context" therefore it could not be solve in
+        // the LegalEntityNameConverter to only map the "broker" (internal property name) to the "hasBroker"
+        // (external property name) when the nester organization property gets serialized in a developer
+        // or company entity.
+        $normalized->broker = $object->isBroker();
+        unset($normalized->hasBroker);
 
         return $normalized;
     }

@@ -21,6 +21,8 @@ namespace Apigee\Edge\Api\Monetization\Serializer;
 use Apigee\Edge\Api\Monetization\Denormalizer\LegalEntityDenormalizer;
 use Apigee\Edge\Api\Monetization\NameConverter\DeveloperNameConverter;
 use Apigee\Edge\Api\Monetization\Normalizer\LegalEntityNormalizer;
+use Apigee\Edge\Denormalizer\AttributesPropertyDenormalizer;
+use Apigee\Edge\Normalizer\KeyValueMapNormalizer;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 use Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface;
 use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface;
@@ -59,6 +61,8 @@ class LegalEntitySerializer extends EntitySerializer
         return array_merge([
             new LegalEntityDenormalizer($classMetadataFactory, $nameConverter, $propertyAccessor, $propertyTypeExtractor),
             new LegalEntityNormalizer($classMetadataFactory, $nameConverter, $propertyAccessor, $propertyTypeExtractor),
+            new AttributesPropertyDenormalizer(),
+            new KeyValueMapNormalizer(),
         ], $normalizers);
     }
 }

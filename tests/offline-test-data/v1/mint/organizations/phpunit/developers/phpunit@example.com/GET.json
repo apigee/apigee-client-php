@@ -1,0 +1,77 @@
+{
+    "address": [
+        {
+            "address1": "address1",
+            "city": "city1",
+            "country": "country1",
+            "id": "id1",
+            "isPrimary": true,
+            "state": "state1",
+            "zip": "zip1"
+        }
+    ],
+    "billingType": "PREPAID",
+    "broker": false,
+    "customAttributes": [
+        {
+            "id": "1f905a1d-7370-4d56-b033-efab8fa61c3d",
+            "name": "attribute1_name",
+            "parentId": "phpunit@@@phpunit",
+            "value": "value1"
+        }
+    ],
+    "email": "phpunit@example.com",
+    "id": "f67ea7a0-0839-4057-84fc-40a1a38a44e1",
+    "isCompany": false,
+    "name": "PHPUnit",
+    "organization": {
+        "address": [
+            {
+                "address1": "address1",
+                "city": "city1",
+                "country": "country1",
+                "id": "id1",
+                "isPrimary": true,
+                "state": "state1",
+                "zip": "zip1"
+            },
+            {
+                "address1": "address2",
+                "city": "city2",
+                "country": "country2",
+                "id": "id2",
+                "isPrimary": false,
+                "state": "state2",
+                "zip": "zip2"
+            }
+        ],
+        "approveTrusted": false,
+        "approveUntrusted": false,
+        "billingCycle": "CALENDAR_MONTH",
+        "country": "US",
+        "currency": "USD",
+        "description": "phpunit-description",
+        "hasBillingAdjustment": false,
+        "hasBroker": false,
+        "hasSelfBilling": false,
+        "hasSeparateInvoiceForProduct": false,
+        "id": "phpunit",
+        "issueNettingStmt": false,
+        "name": "name",
+        "nettingStmtPerCurrency": false,
+        "regNo": "123456-regno",
+        "selfBillingAsExchOrg": false,
+        "selfBillingForAllDev": false,
+        "separateInvoiceForFees": false,
+        "status": "ACTIVE",
+        "supportedBillingType": "BOTH",
+        "taxEngineExternalId": "APIGEE",
+        "taxModel": "HYBRID",
+        "transactionRelayURL": "http://localhost",
+        "taxRegNo": "12345",
+        "timezone": "UTC",
+        "logoUrl": "http://example.com"
+    },
+    "status": "ACTIVE",
+    "type": "UNTRUSTED"
+}

@@ -34,6 +34,13 @@ class ApiPackageControllerTest extends OrganizationAwareEntityControllerValidato
         $packages = $controller->getAvailableApiPackagesByDeveloper('phpunit@example.com');
         $this->assertCount(2, $packages);
         $this->assertEquals('current=false&allAvailable=true', $this->getClient()->getJournal()->getLastRequest()->getUri()->getQuery());
+        $json = json_decode((string) $this->getClient()->getJournal()->getLastResponse()->getBody());
+        $json = reset($json);
+        $i = 0;
+        foreach ($packages as $package) {
+            $this->getEntitySerializerValidator()->validate($json[$i], $package);
+            ++$i;
+        }
         $controller->getAvailableApiPackagesByDeveloper('phpunit@example.com', true, false);
         $this->assertEquals('current=true&allAvailable=false', $this->getClient()->getJournal()->getLastRequest()->getUri()->getQuery());
         $controller->getAvailableApiPackagesByCompany('phpunit', true, false);
@@ -60,6 +67,9 @@ class ApiPackageControllerTest extends OrganizationAwareEntityControllerValidato
         $this->assertEquals(200, (string) $this->getClient()->getJournal()->getLastResponse()->getStatusCode());
     }
 
+    /**
+     * @inheritdoc
+     */
     protected static function getEntityController(): EntityControllerInterface
     {
         static $controller;
@@ -70,6 +80,9 @@ class ApiPackageControllerTest extends OrganizationAwareEntityControllerValidato
         return $controller;
     }
 
+    /**
+     * @inheritdoc
+     */
     protected static function getEntitySerializerValidator(): EntitySerializerValidatorInterface
     {
         static $validator;

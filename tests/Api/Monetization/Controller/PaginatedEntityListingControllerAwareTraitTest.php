@@ -21,6 +21,7 @@ namespace Apigee\Edge\Tests\Api\Monetization\Controller;
 use Apigee\Edge\Api\Monetization\Controller\PaginatedEntityListingControllerAwareTrait;
 use Apigee\Edge\Api\Monetization\Controller\PaginatedListingHelperTrait;
 use Apigee\Edge\Api\Monetization\Serializer\EntitySerializer;
+use Apigee\Edge\Client;
 use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Controller\EntityListingControllerTrait;
 use Apigee\Edge\HttpClient\Utility\Builder;
@@ -30,7 +31,7 @@ use Apigee\Edge\Tests\Test\HttpClient\Plugin\NullAuthentication;
 use Apigee\Edge\Utility\JsonDecoderAwareTrait;
 use Apigee\Edge\Utility\ResponseToArrayHelper;
 use GuzzleHttp\Psr7\Response;
-use Http\Mock\Client;
+use Http\Mock\Client as HttpClient;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\UriInterface;
 use Symfony\Component\Serializer\Encoder\JsonDecode;
@@ -39,9 +40,9 @@ class PaginatedEntityListingControllerAwareTraitTest extends TestCase
 {
     public function testEntityListing(): void
     {
-        $httpClient = new Client();
+        $httpClient = new HttpClient();
         $httpClient->setDefaultResponse(new Response(200, ['Content-Type' => 'application/json'], json_encode((object) [[]])));
-        $client = new \Apigee\Edge\Client(new NullAuthentication(), null, [\Apigee\Edge\Client::CONFIG_HTTP_CLIENT_BUILDER => new Builder($httpClient)]);
+        $client = new Client(new NullAuthentication(), null, [Client::CONFIG_HTTP_CLIENT_BUILDER => new Builder($httpClient)]);
         $obj = new PaginatedEntityListingControllerAwareTraitClass($client);
         $obj->getEntities();
         $this->assertEquals('all=true', $client->getJournal()->getLastRequest()->getUri()->getQuery());

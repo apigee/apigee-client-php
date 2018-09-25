@@ -21,10 +21,11 @@ namespace Apigee\Edge\Api\Monetization\Entity;
 use Apigee\Edge\Api\Monetization\Entity\Property\AddressesPropertyAwareTrait;
 use Apigee\Edge\Api\Monetization\Entity\Property\BrokerPropertyAwareTrait;
 use Apigee\Edge\Api\Monetization\Entity\Property\SelfBillingPropertyAwareTrait;
-use Apigee\Edge\Api\Monetization\Structure\Address;
+use Apigee\Edge\Entity\Property\AttributesPropertyAwareTrait;
 use Apigee\Edge\Entity\Property\EmailPropertyAwareTrait;
 use Apigee\Edge\Entity\Property\NamePropertyAwareTrait;
 use Apigee\Edge\Entity\Property\StatusPropertyAwareTrait;
+use Apigee\Edge\Structure\AttributesProperty;
 
 /**
  * Parent class for developers and companies in Monetization.
@@ -37,6 +38,10 @@ use Apigee\Edge\Entity\Property\StatusPropertyAwareTrait;
  */
 abstract class LegalEntity extends OrganizationAwareEntity implements LegalEntityInterface
 {
+    // Because POST/PUT is not available in the Monetization API endpoints,
+    // we simply just store the attributes in the same structure as in the
+    // Management API integration and ignore "parent" and "id" properties.
+    use AttributesPropertyAwareTrait;
     use AddressesPropertyAwareTrait;
     use BrokerPropertyAwareTrait;
     use EmailPropertyAwareTrait;
@@ -67,6 +72,15 @@ abstract class LegalEntity extends OrganizationAwareEntity implements LegalEntit
 
     /** @var null|string */
     protected $taxExemptAuthNo;
+
+    /**
+     * @inheritDoc
+     */
+    public function __construct(array $values = [])
+    {
+        $this->attributes = new AttributesProperty();
+        parent::__construct($values);
+    }
 
     /**
      * @inheritdoc
