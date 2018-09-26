@@ -30,7 +30,11 @@ use Apigee\Edge\Structure\AttributesProperty;
 /**
  * Parent class for developers and companies in Monetization.
  *
- * @see https://apidocs.apigee.com/management/apis/put/organizations/%7Borg_name%7D/developers/%7Bdeveloper_email_or_id%7D
+ * All setters marked as internal because the related Monetization endpoint only
+ * supports GET. If you would like to modify developers or companies you should
+ * use the related Management API controllers and entities.
+ *
+ * @see https://docs.apigee.com/api-platform/publish/adding-developers-your-api-product#definingmonetizationattributes
  *
  * Known issues:
  *  * Value of MINT_DEVELOPER_ADDRESS is not returned as "address" by the
@@ -74,7 +78,9 @@ abstract class LegalEntity extends OrganizationAwareEntity implements LegalEntit
     protected $taxExemptAuthNo;
 
     /**
-     * @inheritDoc
+     * LegalEntity constructor.
+     *
+     * @param array $values
      */
     public function __construct(array $values = [])
     {
@@ -91,7 +97,9 @@ abstract class LegalEntity extends OrganizationAwareEntity implements LegalEntit
     }
 
     /**
-     * @inheritdoc
+     * @param string $billingType
+     *
+     * @internal
      */
     public function setBillingType(string $billingType): void
     {
@@ -107,7 +115,9 @@ abstract class LegalEntity extends OrganizationAwareEntity implements LegalEntit
     }
 
     /**
-     * @inheritdoc
+     * @param string $type
+     *
+     * @internal
      */
     public function setType(string $type): void
     {
@@ -123,7 +133,9 @@ abstract class LegalEntity extends OrganizationAwareEntity implements LegalEntit
     }
 
     /**
-     * @inheritdoc
+     * @param string $legalName
+     *
+     * @internal
      */
     public function setLegalName(string $legalName): void
     {
@@ -139,7 +151,9 @@ abstract class LegalEntity extends OrganizationAwareEntity implements LegalEntit
     }
 
     /**
-     * @inheritdoc
+     * @param string $phone
+     *
+     * @internal
      */
     public function setPhone(string $phone): void
     {
@@ -155,7 +169,9 @@ abstract class LegalEntity extends OrganizationAwareEntity implements LegalEntit
     }
 
     /**
-     * @inheritdoc
+     * @param string $registrationId
+     *
+     * @internal
      */
     public function setRegistrationId(string $registrationId): void
     {
@@ -171,7 +187,9 @@ abstract class LegalEntity extends OrganizationAwareEntity implements LegalEntit
     }
 
     /**
-     * @inheritdoc
+     * @param \Apigee\Edge\Api\Monetization\Entity\DeveloperCategory $developerCategory
+     *
+     * @internal
      */
     public function setDeveloperCategory(DeveloperCategory $developerCategory): void
     {
@@ -187,7 +205,9 @@ abstract class LegalEntity extends OrganizationAwareEntity implements LegalEntit
     }
 
     /**
-     * @inheritdoc
+     * @param float $approxTaxRate
+     *
+     * @internal
      */
     public function setApproxTaxRate(float $approxTaxRate): void
     {
@@ -203,7 +223,9 @@ abstract class LegalEntity extends OrganizationAwareEntity implements LegalEntit
     }
 
     /**
-     * @inheritdoc
+     * @param string $taxExemptAuthNo
+     *
+     * @internal
      */
     public function setTaxExemptAuthNo(string $taxExemptAuthNo): void
     {

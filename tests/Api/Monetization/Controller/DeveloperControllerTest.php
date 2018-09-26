@@ -20,6 +20,8 @@ namespace Apigee\Edge\Tests\Api\Monetization\Controller;
 
 use Apigee\Edge\Api\Monetization\Controller\DeveloperController;
 use Apigee\Edge\Controller\EntityControllerInterface;
+use Apigee\Edge\Tests\Api\Monetization\EntitySerializer\DeveloperEntitySerializerValidator;
+use Apigee\Edge\Tests\Api\Monetization\EntitySerializer\EntitySerializerValidatorInterface;
 
 class DeveloperControllerTest extends LegalEntityControllerValidator
 {
@@ -42,5 +44,18 @@ class DeveloperControllerTest extends LegalEntityControllerValidator
     protected function getEntityId(): string
     {
         return 'phpunit@example.com';
+    }
+
+    /**
+     * @inheritdoc
+     */
+    protected static function getEntitySerializerValidator(): EntitySerializerValidatorInterface
+    {
+        static $validator;
+        if (null === $validator) {
+            $validator = new DeveloperEntitySerializerValidator(static::getEntitySerializer());
+        }
+
+        return $validator;
     }
 }

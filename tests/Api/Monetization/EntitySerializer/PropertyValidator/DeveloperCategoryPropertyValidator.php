@@ -34,17 +34,17 @@ class DeveloperCategoryPropertyValidator implements EntityReferencePropertyValid
         if (!$entity instanceof LegalEntityInterface) {
             return;
         }
-        Assert::assertEquals($output->{$this->validatedProperty()}, (object) ['id' => $input->{$this->validatedProperty()}->id]);
+        Assert::assertEquals($output->{static::validatedProperty()}, (object) ['id' => $input->{static::validatedProperty()}->id]);
 
         $actual = json_decode($this->entitySerializer->serialize($entity->getDeveloperCategory(), 'json'));
-        $expected = $input->{$this->validatedProperty()};
+        $expected = $input->{static::validatedProperty()};
         Assert::assertEquals($expected, $actual);
     }
 
     /**
      * @inheritdoc
      */
-    public function validatedProperty(): string
+    public static function validatedProperty(): string
     {
         return 'developerCategory';
     }

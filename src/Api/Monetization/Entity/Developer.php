@@ -27,6 +27,8 @@ class Developer extends LegalEntity implements DeveloperInterface
      * This value only contains a reference to the company set in the
      * MINT_COMPANY_ID. (It could happen that the developer is not actually
      * member of the referenced company.)
+     * Also the nested company object does not contain some information, like
+     * address, customAttributes, etc.
      *
      * @var null|\Apigee\Edge\Api\Monetization\Entity\Company
      */
@@ -41,6 +43,8 @@ class Developer extends LegalEntity implements DeveloperInterface
     }
 
     /**
+     * @internal
+     *
      * @param \Apigee\Edge\Api\Monetization\Entity\Company $company
      */
     public function setCompany(Company $company): void

@@ -42,7 +42,7 @@ class ApiProductsPropertyValidator implements EntityReferencePropertyValidatorIn
         $i = 0;
         foreach ($entity->getApiProducts() as $product) {
             $json = json_decode($this->entitySerializer->serialize($product, 'json'));
-            $this->propertyValidatorsValidate($input->{$this->validatedProperty()}[$i], $json, $product);
+            $this->propertyValidatorsValidate($input->{static::validatedProperty()}[$i], $json, $product);
             ++$i;
         }
 
@@ -51,13 +51,13 @@ class ApiProductsPropertyValidator implements EntityReferencePropertyValidatorIn
         foreach ($entity->getApiProducts() as $product) {
             $expected[] = (object) ['id' => $product->id()];
         }
-        Assert::assertEquals($output->{$this->validatedProperty()}, $expected);
+        Assert::assertEquals($output->{static::validatedProperty()}, $expected);
     }
 
     /**
      * @inheritDoc
      */
-    public function validatedProperty(): string
+    public static function validatedProperty(): string
     {
         return 'product';
     }

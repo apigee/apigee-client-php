@@ -34,10 +34,10 @@ class OrganizationPropertyValidator implements EntityReferencePropertyValidatorI
         if (!$entity instanceof OrganizationAwareEntityInterface) {
             return;
         }
-        Assert::assertEquals($output->{$this->validatedProperty()}, (object) ['id' => $entity->getOrganization()->id()]);
+        Assert::assertEquals($output->{static::validatedProperty()}, (object) ['id' => $entity->getOrganization()->id()]);
 
         $actual = json_decode($this->entitySerializer->serialize($entity->getOrganization(), 'json'));
-        $expected = $input->{$this->validatedProperty()};
+        $expected = $input->{static::validatedProperty()};
         // If the organization is a nested property the address information is
         // missing from that.
         // @see \Apigee\Edge\Api\Monetization\Entity\OrganizationAwareEntity
@@ -50,7 +50,7 @@ class OrganizationPropertyValidator implements EntityReferencePropertyValidatorI
     /**
      * @inheritdoc
      */
-    public function validatedProperty(): string
+    public static function validatedProperty(): string
     {
         return 'organization';
     }

@@ -41,10 +41,10 @@ class CustomAttributesPropertyValidator implements EntityReferencePropertyValida
                 'value' => $value,
             ];
         }
-        Assert::assertEquals($output->{$this->validatedProperty()}, $expected);
+        Assert::assertEquals($output->{static::validatedProperty()}, $expected);
 
         $actual = json_decode($this->entitySerializer->serialize($entity->getAttributes(), 'json'));
-        $expected = $input->{$this->validatedProperty()};
+        $expected = $input->{static::validatedProperty()};
         // We do not store these extra, Monetization only additions on
         // attributes.
         // @see \Apigee\Edge\Api\Monetization\Entity\LegalEntity
@@ -58,7 +58,7 @@ class CustomAttributesPropertyValidator implements EntityReferencePropertyValida
     /**
      * @inheritdoc
      */
-    public function validatedProperty(): string
+    public static function validatedProperty(): string
     {
         return 'customAttributes';
     }

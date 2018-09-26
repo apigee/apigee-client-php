@@ -20,4 +20,8 @@ namespace Apigee\Edge\Api\Monetization\Entity;
 
 interface DeveloperInterface extends LegalEntityInterface
 {
+    /**
+     * @return \Apigee\Edge\Api\Monetization\Entity\Company|null
+     */
+    public function getCompany(): ?Company;
 }

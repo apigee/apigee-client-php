@@ -43,5 +43,5 @@ interface PropertyValidatorInterface
      *
      * @return string
      */
-    public function validatedProperty(): string;
+    public static function validatedProperty(): string;
 }

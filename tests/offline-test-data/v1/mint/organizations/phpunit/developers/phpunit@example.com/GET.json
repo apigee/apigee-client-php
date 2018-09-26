@@ -78,6 +78,66 @@
         "timezone": "UTC",
         "logoUrl": "http://example.com"
     },
+    "parent": {
+        "billingType": "PREPAID",
+        "broker": false,
+        "email": "phpunit###phpunit@APIGEE-GEN.FOR-COMPANY",
+        "id": "phpunit",
+        "isCompany": true,
+        "legalName": "PHPUnit",
+        "name": "phpunit",
+        "organization": {
+            "address": [
+                {
+                    "address1": "address1",
+                    "city": "city1",
+                    "country": "country1",
+                    "id": "id1",
+                    "isPrimary": true,
+                    "state": "state1",
+                    "zip": "zip1"
+                },
+                {
+                    "address1": "address2",
+                    "city": "city2",
+                    "country": "country2",
+                    "id": "id2",
+                    "isPrimary": false,
+                    "state": "state2",
+                    "zip": "zip2"
+                }
+            ],
+            "approveTrusted": false,
+            "approveUntrusted": false,
+            "billingCycle": "CALENDAR_MONTH",
+            "country": "US",
+            "currency": "USD",
+            "description": "phpunit-description",
+            "hasBillingAdjustment": false,
+            "hasBroker": false,
+            "hasSelfBilling": false,
+            "hasSeparateInvoiceForProduct": false,
+            "id": "phpunit",
+            "issueNettingStmt": false,
+            "name": "name",
+            "nettingStmtPerCurrency": false,
+            "regNo": "123456-regno",
+            "selfBillingAsExchOrg": false,
+            "selfBillingForAllDev": false,
+            "separateInvoiceForFees": false,
+            "status": "ACTIVE",
+            "supportedBillingType": "BOTH",
+            "taxEngineExternalId": "APIGEE",
+            "taxModel": "HYBRID",
+            "transactionRelayURL": "http://localhost",
+            "taxRegNo": "12345",
+            "timezone": "UTC",
+            "logoUrl": "http://example.com"
+        },
+        "registrationId": "EX",
+        "status": "ACTIVE",
+        "type": "UNTRUSTED"
+    },
     "status": "ACTIVE",
     "type": "UNTRUSTED",
     "taxExemptAuthNo": "taxExemptAuthNo"

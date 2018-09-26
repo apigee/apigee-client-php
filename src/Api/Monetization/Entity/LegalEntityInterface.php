@@ -52,19 +52,9 @@ interface LegalEntityInterface extends OrganizationAwareEntityInterface,
     public function getBillingType(): string;
 
     /**
-     * @param string $billingType
-     */
-    public function setBillingType(string $billingType): void;
-
-    /**
      * @return bool
      */
     public function isBroker(): bool;
-
-    /**
-     * @param bool $broker
-     */
-    public function setBroker(bool $broker): void;
 
     /**
      * @return string
@@ -72,19 +62,9 @@ interface LegalEntityInterface extends OrganizationAwareEntityInterface,
     public function getType(): string;
 
     /**
-     * @param string $type
-     */
-    public function setType(string $type): void;
-
-    /**
      * @return null|string
      */
     public function getLegalName(): ?string;
-
-    /**
-     * @param string $legalName
-     */
-    public function setLegalName(string $legalName): void;
 
     /**
      * @return null|string
@@ -92,19 +72,9 @@ interface LegalEntityInterface extends OrganizationAwareEntityInterface,
     public function getPhone(): ?string;
 
     /**
-     * @param string $phone
-     */
-    public function setPhone(string $phone): void;
-
-    /**
      * @return null|string
      */
     public function getRegistrationId(): ?string;
-
-    /**
-     * @param string $registrationId
-     */
-    public function setRegistrationId(string $registrationId): void;
 
     /**
      * @return \Apigee\Edge\Api\Monetization\Entity\DeveloperCategory|null
@@ -112,27 +82,12 @@ interface LegalEntityInterface extends OrganizationAwareEntityInterface,
     public function getDeveloperCategory(): ?DeveloperCategory;
 
     /**
-     * @param \Apigee\Edge\Api\Monetization\Entity\DeveloperCategory $developerCategory
-     */
-    public function setDeveloperCategory(DeveloperCategory $developerCategory): void;
-
-    /**
      * @return float|null
      */
     public function getApproxTaxRate(): ?float;
 
     /**
-     * @param float $approxTaxRate
-     */
-    public function setApproxTaxRate(float $approxTaxRate): void;
-
-    /**
      * @return null|string
      */
     public function getTaxExemptAuthNo(): ?string;
-
-    /**
-     * @param string $taxExemptAuthNo
-     */
-    public function setTaxExemptAuthNo(string $taxExemptAuthNo): void;
 }
