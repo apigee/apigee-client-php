@@ -29,15 +29,14 @@ use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
  *
  * @see \Apigee\Edge\Api\Monetization\Entity\ApiPackage
  */
-class ApiPackageNameConverter extends OrganizationProfileNameConverter implements NameConverterInterface
+class ApiPackageNameConverter extends NameConverterBase implements NameConverterInterface
 {
     /**
      * @inheritdoc
      */
     protected function getExternalToLocalMapping(): array
     {
-        $mapping = parent::getExternalToLocalMapping();
-        $mapping += [
+        $mapping = [
             'product' => 'apiProducts',
         ];
 

@@ -16,28 +16,24 @@
  * limitations under the License.
  */
 
-namespace Apigee\Edge\Api\Monetization\NameConverter;
+namespace Apigee\Edge\Api\Monetization\Serializer;
 
-use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
+use Apigee\Edge\Api\Monetization\Denormalizer\AddressDenormalizer;
+use Apigee\Edge\Api\Monetization\Normalizer\AddressNormalizer;
 
-/**
- * Maps "parent" from Developer API response to its internal name,
- * "company".
- *
- * @see \Apigee\Edge\Api\Monetization\Entity\Developer
- */
-class DeveloperNameConverter extends LegalEntityNameConvert implements NameConverterInterface
+class AddressSerializer extends EntitySerializer
 {
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
-    protected function getExternalToLocalMapping(): array
+    public static function getEntityTypeSpecificDefaultNormalizers(): array
     {
-        $mapping = parent::getExternalToLocalMapping();
-        $mapping += [
-            'parent' => 'company',
-        ];
+        $normalizers = parent::getEntityTypeSpecificDefaultNormalizers();
 
-        return $mapping;
+        return array_merge(
+            [new AddressDenormalizer()],
+            [new AddressNormalizer()],
+            $normalizers
+        );
     }
 }

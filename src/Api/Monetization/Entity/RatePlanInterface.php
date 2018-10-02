@@ -127,6 +127,8 @@ interface RatePlanInterface extends
     public function setPrivate(bool $private): void;
 
     /**
+     * It could be null only when a rate plan is created.
+     *
      * @return \Apigee\Edge\Api\Monetization\Entity\ApiPackageInterface|null
      */
     public function getPackage(): ?ApiPackageInterface;

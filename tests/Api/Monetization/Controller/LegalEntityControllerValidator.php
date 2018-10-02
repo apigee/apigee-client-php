@@ -22,7 +22,7 @@ use Apigee\Edge\Tests\Api\Monetization\EntitySerializer\EntitySerializerValidato
 use Apigee\Edge\Tests\Api\Monetization\EntitySerializer\LegalEntitySerializerValidator;
 
 /**
- * Class LegalEntityValidator.
+ * Base class for validating developer- and company controllers.
  */
 abstract class LegalEntityControllerValidator extends OrganizationAwareEntityControllerValidator
 {

@@ -18,62 +18,33 @@
 
 namespace Apigee\Edge\Api\Monetization\Denormalizer;
 
-use Apigee\Edge\Api\Monetization\Entity\DeveloperCategoryRatePlan;
-use Apigee\Edge\Api\Monetization\Entity\DeveloperCategoryRatePlanRevision;
-use Apigee\Edge\Api\Monetization\Entity\DeveloperRatePlan;
-use Apigee\Edge\Api\Monetization\Entity\DeveloperRatePlanRevision;
-use Apigee\Edge\Api\Monetization\Entity\RatePlan;
 use Apigee\Edge\Api\Monetization\Entity\RatePlanInterface;
-use Apigee\Edge\Api\Monetization\Entity\StandardRatePlan;
-use Apigee\Edge\Api\Monetization\Entity\StandardRatePlanRevision;
+use Apigee\Edge\Api\Monetization\NameConverter\RatePlanNameConverter;
+use Apigee\Edge\Denormalizer\ObjectDenormalizer;
+use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
+use Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface;
+use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface;
+use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
 use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
 
 /**
- * Dynamically denormalizes rate plan entities.
+ * Base class for denormalizing rate plan entities.
  */
-class RatePlanDenormalizer extends EntityDenormalizer
+abstract class RatePlanDenormalizer extends ObjectDenormalizer
 {
     /**
-     * Fully qualified class name of the standard rate plan entity.
+     * RatePlanDenormalizer constructor.
      *
-     * @var string
+     * @param null|\Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface $classMetadataFactory
+     * @param null|\Symfony\Component\Serializer\NameConverter\NameConverterInterface $nameConverter
+     * @param null|\Symfony\Component\PropertyAccess\PropertyAccessorInterface $propertyAccessor
+     * @param null|\Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface $propertyTypeExtractor
      */
-    protected $standardRatePlanClass = StandardRatePlan::class;
-
-    /**
-     * Fully qualified class name of the standard rate plan revision entity.
-     *
-     * @var string
-     */
-    protected $standardRatePlanRevisionClass = StandardRatePlanRevision::class;
-
-    /**
-     * Fully qualified class name of the developer rate plan entity.
-     *
-     * @var string
-     */
-    protected $developerRatePlanClass = DeveloperRatePlan::class;
-
-    /**
-     * Fully qualified class name of the developer rate plan revision entity.
-     *
-     * @var string
-     */
-    protected $developerRatePlanRevisionClass = DeveloperRatePlanRevision::class;
-
-    /**
-     * Fully qualified class name of the developer category rate plan entity.
-     *
-     * @var string
-     */
-    protected $developerCategoryRatePlanClass = DeveloperCategoryRatePlan::class;
-
-    /**
-     * Fully qualified class name of the developer category rate plan revision entity.
-     *
-     * @var string
-     */
-    protected $developerCategoryRatePlanRevisionClass = DeveloperCategoryRatePlanRevision::class;
+    public function __construct(?ClassMetadataFactoryInterface $classMetadataFactory = null, ?NameConverterInterface $nameConverter = null, ?PropertyAccessorInterface $propertyAccessor = null, ?PropertyTypeExtractorInterface $propertyTypeExtractor = null)
+    {
+        $nameConverter = $nameConverter ?? new RatePlanNameConverter();
+        parent::__construct($classMetadataFactory, $nameConverter, $propertyAccessor, $propertyTypeExtractor);
+    }
 
     /**
      * @inheritdoc
@@ -86,24 +57,8 @@ class RatePlanDenormalizer extends EntityDenormalizer
         // organization profile.
         $startDate = $data->startDate;
         $endDate = property_exists($data, 'endDate') ? $data->endDate : null;
-        /* @var \Apigee\Edge\Api\Monetization\Entity\RatePlanInterface $entity */
-        if (isset($data->parentRatePlan)) {
-            if (RatePlan::TYPE_DEVELOPER == $data->type) {
-                $entity = parent::denormalize($data, $this->developerRatePlanRevisionClass, $format, $context);
-            } elseif (RatePlan::TYPE_DEVELOPER_CATEGORY == $data->type) {
-                $entity = parent::denormalize($data, $this->developerCategoryRatePlanRevisionClass, $format, $context);
-            } else {
-                $entity = parent::denormalize($data, $this->standardRatePlanRevisionClass, $format, $context);
-            }
-        } else {
-            if (RatePlan::TYPE_DEVELOPER == $data->type) {
-                $entity = parent::denormalize($data, $this->developerRatePlanClass, $format, $context);
-            } elseif (RatePlan::TYPE_DEVELOPER_CATEGORY == $data->type) {
-                $entity = parent::denormalize($data, $this->developerCategoryRatePlanClass, $format, $context);
-            } else {
-                $entity = parent::denormalize($data, $this->standardRatePlanClass, $format, $context);
-            }
-        }
+
+        $entity = parent::denormalize($data, $class, $format, $context);
 
         // Fix the start- and end date of the rate plan if the organization's
         // timezone is different from the default PHP timezone.

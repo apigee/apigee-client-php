@@ -21,9 +21,28 @@ namespace Apigee\Edge\Api\Monetization\Normalizer;
 use Apigee\Edge\Api\Monetization\Entity\CompanyInterface;
 use Apigee\Edge\Api\Monetization\Entity\DeveloperInterface;
 use Apigee\Edge\Api\Monetization\Entity\LegalEntityInterface;
+use Apigee\Edge\Api\Monetization\NameConverter\LegalEntityNameConvert;
+use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
+use Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface;
+use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface;
+use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
 
 class LegalEntityNormalizer extends EntityNormalizer
 {
+    /**
+     * LegalEntityNormalizer constructor.
+     *
+     * @param null|\Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface $classMetadataFactory
+     * @param null|\Symfony\Component\Serializer\NameConverter\NameConverterInterface $nameConverter
+     * @param null|\Symfony\Component\PropertyAccess\PropertyAccessorInterface $propertyAccessor
+     * @param null|\Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface $propertyTypeExtractor
+     */
+    public function __construct(?ClassMetadataFactoryInterface $classMetadataFactory = null, ?NameConverterInterface $nameConverter = null, ?PropertyAccessorInterface $propertyAccessor = null, ?PropertyTypeExtractorInterface $propertyTypeExtractor = null)
+    {
+        $nameConverter = $nameConverter ?? new LegalEntityNameConvert();
+        parent::__construct($classMetadataFactory, $nameConverter, $propertyAccessor, $propertyTypeExtractor);
+    }
+
     /**
      * @inheritDoc
      *
@@ -40,15 +59,6 @@ class LegalEntityNormalizer extends EntityNormalizer
         } elseif ($object instanceof CompanyInterface) {
             $normalized->isCompany = true;
         }
-        // LegalEntityNameConverter extends OrganizationProfileNameConverter - according to our design pattern
-        // (parent name converter should extend all nested entity references' name converts) therefore "broker"
-        // automatically gets mapped to "hasBroker".
-        // Name converters does not know what is the current "context" therefore it could not be solve in
-        // the LegalEntityNameConverter to only map the "broker" (internal property name) to the "hasBroker"
-        // (external property name) when the nester organization property gets serialized in a developer
-        // or company entity.
-        $normalized->broker = $object->isBroker();
-        unset($normalized->hasBroker);
 
         return $normalized;
     }

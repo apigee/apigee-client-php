@@ -27,15 +27,14 @@ use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
  *
  * @see \Apigee\Edge\Api\Monetization\Entity\CompanyAcceptedRatePlan
  */
-class CompanyAcceptedRatePlanNameConverter extends AcceptedRatePlanNameConverter implements NameConverterInterface
+class CompanyAcceptedRatePlanNameConverter extends NameConverterBase implements NameConverterInterface
 {
     /**
      * @inheritdoc
      */
     protected function getExternalToLocalMapping(): array
     {
-        $mapping = parent::getExternalToLocalMapping();
-        $mapping += [
+        $mapping = [
             'developer' => 'company',
         ];
 

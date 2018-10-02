@@ -21,11 +21,17 @@ namespace Apigee\Edge\Api\Monetization\Denormalizer;
 use Apigee\Edge\Api\Monetization\Entity\Company;
 use Apigee\Edge\Api\Monetization\Entity\Developer;
 use Apigee\Edge\Api\Monetization\Entity\LegalEntityInterface;
+use Apigee\Edge\Api\Monetization\NameConverter\LegalEntityNameConvert;
+use Apigee\Edge\Denormalizer\ObjectDenormalizer;
+use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
+use Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface;
+use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface;
+use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
 
 /**
  * Dynamically denormalizes legal entities to developers or companies.
  */
-class LegalEntityDenormalizer extends EntityDenormalizer
+class LegalEntityDenormalizer extends ObjectDenormalizer
 {
     /**
      * Fully qualified class name of the developer entity.
@@ -40,6 +46,20 @@ class LegalEntityDenormalizer extends EntityDenormalizer
      * @var string
      */
     protected $companyClass = Company::class;
+
+    /**
+     * LegalEntityDenormalizer constructor.
+     *
+     * @param null|\Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface $classMetadataFactory
+     * @param null|\Symfony\Component\Serializer\NameConverter\NameConverterInterface $nameConverter
+     * @param null|\Symfony\Component\PropertyAccess\PropertyAccessorInterface $propertyAccessor
+     * @param null|\Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface $propertyTypeExtractor
+     */
+    public function __construct(?ClassMetadataFactoryInterface $classMetadataFactory = null, ?NameConverterInterface $nameConverter = null, ?PropertyAccessorInterface $propertyAccessor = null, ?PropertyTypeExtractorInterface $propertyTypeExtractor = null)
+    {
+        $nameConverter = $nameConverter ?? new LegalEntityNameConvert();
+        parent::__construct($classMetadataFactory, $nameConverter, $propertyAccessor, $propertyTypeExtractor);
+    }
 
     /**
      * @inheritdoc

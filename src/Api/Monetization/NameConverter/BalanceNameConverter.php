@@ -20,15 +20,14 @@ namespace Apigee\Edge\Api\Monetization\NameConverter;
 
 use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
 
-class BalanceNameConverter extends PaymentTransactionConverter implements NameConverterInterface
+class BalanceNameConverter extends NameConverterBase implements NameConverterInterface
 {
     /**
      * @inheritdoc
      */
     protected function getExternalToLocalMapping(): array
     {
-        $mapping = parent::getExternalToLocalMapping();
-        $mapping += [
+        $mapping = [
             'supportedCurrency' => 'currency',
             'isRecurring' => 'recurring',
         ];

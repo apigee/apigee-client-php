@@ -18,14 +18,30 @@
 
 namespace Apigee\Edge\Api\Monetization\Normalizer;
 
-use Apigee\Edge\Api\Monetization\Entity\DeveloperCategoryRatePlanInterface;
-use Apigee\Edge\Api\Monetization\Entity\DeveloperRatePlanInterface;
 use Apigee\Edge\Api\Monetization\Entity\RatePlanInterface;
-use Apigee\Edge\Api\Monetization\Entity\StandardRatePlanInterface;
+use Apigee\Edge\Api\Monetization\NameConverter\RatePlanNameConverter;
+use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
+use Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface;
+use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface;
+use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
 use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
 
-class RatePlanNormalizer extends EntityNormalizer
+abstract class RatePlanNormalizer extends EntityNormalizer
 {
+    /**
+     * RatePlanNormalizer constructor.
+     *
+     * @param null|\Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface $classMetadataFactory
+     * @param null|\Symfony\Component\Serializer\NameConverter\NameConverterInterface $nameConverter
+     * @param null|\Symfony\Component\PropertyAccess\PropertyAccessorInterface $propertyAccessor
+     * @param null|\Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface $propertyTypeExtractor
+     */
+    public function __construct(?ClassMetadataFactoryInterface $classMetadataFactory = null, ?NameConverterInterface $nameConverter = null, ?PropertyAccessorInterface $propertyAccessor = null, ?PropertyTypeExtractorInterface $propertyTypeExtractor = null)
+    {
+        $nameConverter = $nameConverter ?? new RatePlanNameConverter();
+        parent::__construct($classMetadataFactory, $nameConverter, $propertyAccessor, $propertyTypeExtractor);
+    }
+
     /**
      * @inheritDoc
      *
@@ -36,14 +52,6 @@ class RatePlanNormalizer extends EntityNormalizer
     {
         /** @var object $normalized */
         $normalized = parent::normalize($object, $format, $context);
-
-        if ($object instanceof StandardRatePlanInterface) {
-            $normalized->type = RatePlanInterface::TYPE_STANDARD;
-        } elseif ($object instanceof DeveloperRatePlanInterface) {
-            $normalized->type = RatePlanInterface::TYPE_DEVELOPER;
-        } elseif ($object instanceof DeveloperCategoryRatePlanInterface) {
-            $normalized->type = RatePlanInterface::TYPE_DEVELOPER_CATEGORY;
-        }
 
         // Fix the start- and end date of the rate plan if the organization's
         // timezone is different from the default PHP timezone.

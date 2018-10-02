@@ -18,27 +18,25 @@
 
 namespace Apigee\Edge\Api\Monetization\Serializer;
 
-use Apigee\Edge\Api\Monetization\NameConverter\OrganizationProfileNameConverter;
-use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
-use Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface;
-use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface;
-use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
+use Apigee\Edge\Api\Monetization\Denormalizer\OrganizationProfileDenormalizer;
+use Apigee\Edge\Api\Monetization\Normalizer\OrganizationProfileNormalizer;
 
 class OrganizationProfileSerializer extends EntitySerializer
 {
     /**
-     * OrganizationProfileSerializer constructor.
-     *
-     * @param array $normalizers
-     * @param array $encoders
-     * @param null|\Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface $classMetadataFactory
-     * @param null|\Symfony\Component\Serializer\NameConverter\NameConverterInterface $nameConverter
-     * @param null|\Symfony\Component\PropertyAccess\PropertyAccessorInterface $propertyAccessor
-     * @param null|\Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface $propertyTypeExtractor
+     * @inheritDoc
      */
-    public function __construct($normalizers = [], $encoders = [], ?ClassMetadataFactoryInterface $classMetadataFactory = null, ?NameConverterInterface $nameConverter = null, ?PropertyAccessorInterface $propertyAccessor = null, ?PropertyTypeExtractorInterface $propertyTypeExtractor = null)
+    public static function getEntityTypeSpecificDefaultNormalizers(): array
     {
-        $nameConverter = $nameConverter ?? new OrganizationProfileNameConverter();
-        parent::__construct($normalizers, $encoders, $classMetadataFactory, $nameConverter, $propertyAccessor, $propertyTypeExtractor);
+        $normalizers = parent::getEntityTypeSpecificDefaultNormalizers();
+
+        return array_merge(
+            [
+                new OrganizationProfileDenormalizer(),
+                new OrganizationProfileNormalizer(),
+            ],
+            AddressSerializer::getEntityTypeSpecificDefaultNormalizers(),
+            $normalizers
+        );
     }
 }

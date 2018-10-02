@@ -64,6 +64,8 @@ abstract class RatePlan extends OrganizationAwareEntity implements RatePlanInter
     /**
      * Value of "isPrivate" from the API response.
      *
+     * Defaults to false according to https://docs.apigee.com/api-platform/monetization/create-rate-plans#creatingrateplansusingtheapi-configurationsettingsforrateplans.
+     *
      * @var bool
      */
     protected $private = false;
@@ -71,7 +73,7 @@ abstract class RatePlan extends OrganizationAwareEntity implements RatePlanInter
     /**
      * Value of "monetizationPackage" from the API response.
      *
-     * It can be null when a new entity is created.
+     * It can be null when a new rate plan is created.
      *
      * @var null|\Apigee\Edge\Api\Monetization\Entity\ApiPackage
      */

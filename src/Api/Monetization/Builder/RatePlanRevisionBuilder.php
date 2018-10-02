@@ -18,17 +18,22 @@
 
 namespace Apigee\Edge\Api\Monetization\Builder;
 
-use Apigee\Edge\Api\Management\Serializer\OrganizationSerializer;
 use Apigee\Edge\Api\Monetization\Entity\RatePlanInterface;
 use Apigee\Edge\Api\Monetization\Entity\RatePlanRevisionInterface;
 use Apigee\Edge\Api\Monetization\Serializer\ApiPackageSerializer;
 use Apigee\Edge\Api\Monetization\Serializer\EntitySerializer;
+use Apigee\Edge\Api\Monetization\Serializer\OrganizationProfileSerializer;
 use Apigee\Edge\Api\Monetization\Serializer\RatePlanSerializer;
 use DateTimeImmutable;
 use InvalidArgumentException;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
-class RatePlanRevisionBuilder
+/**
+ * Utility class for creating new rate plan revisions more easily.
+ *
+ * @see https://docs.apigee.com/api-platform/monetization/create-future-rate-plans
+ */
+final class RatePlanRevisionBuilder
 {
     /**
      * Creates a new rate plan revision object from an existing rate plan (revision).
@@ -60,7 +65,7 @@ class RatePlanRevisionBuilder
         // returned by the rate plan serializer (as it should be) by default.
         /** @var object $normalized */
         $normalized = $ratePlanSerializer->normalize($ratePlan);
-        $normalized->organization = (new OrganizationSerializer())->normalize($ratePlan->getOrganization());
+        $normalized->organization = (new OrganizationProfileSerializer())->normalize($ratePlan->getOrganization());
         $normalized->currency = (new EntitySerializer())->normalize($ratePlan->getCurrency());
         $normalized->currency->organization = $normalized->organization;
         $normalized->monetizationPackage = (new ApiPackageSerializer())->normalize($ratePlan->getPackage());

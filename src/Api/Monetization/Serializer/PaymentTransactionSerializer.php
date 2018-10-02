@@ -16,25 +16,26 @@
  * limitations under the License.
  */
 
-namespace Apigee\Edge\Api\Monetization\NameConverter;
+namespace Apigee\Edge\Api\Monetization\Serializer;
 
-use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
+use Apigee\Edge\Api\Monetization\Denormalizer\PaymentTransactionDenormalizer;
+use Apigee\Edge\Api\Monetization\Normalizer\PaymentTransactionNormalizer;
 
-class PaymentTransactionConverter extends DeveloperNameConverter implements NameConverterInterface
+class PaymentTransactionSerializer extends EntitySerializer
 {
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
-    protected function getExternalToLocalMapping(): array
+    public static function getEntityTypeSpecificDefaultNormalizers(): array
     {
-        $mapping = parent::getExternalToLocalMapping();
-        $mapping += [
-            'isVirtualCurrency' => 'virtualCurrency',
-            'startTime' => 'startDate',
-            'endTime' => 'endDate',
-            'currency' => 'currencyCode',
-        ];
+        $normalizers = parent::getEntityTypeSpecificDefaultNormalizers();
 
-        return $mapping;
+        return array_merge(
+            [
+                new PaymentTransactionDenormalizer(),
+                new PaymentTransactionNormalizer(),
+            ],
+            $normalizers
+        );
     }
 }

@@ -21,9 +21,10 @@ namespace Apigee\Edge\Api\Monetization\Denormalizer;
 use Apigee\Edge\Api\Monetization\Structure\RatePlanRate;
 use Apigee\Edge\Api\Monetization\Structure\RatePlanRateRateCard;
 use Apigee\Edge\Api\Monetization\Structure\RatePlanRateRevShare;
+use Apigee\Edge\Denormalizer\ObjectDenormalizer;
 use Symfony\Component\Serializer\Exception\UnexpectedValueException;
 
-class RatePlanRateDenormalizer extends EntityDenormalizer
+class RatePlanRateDenormalizer extends ObjectDenormalizer
 {
     protected $revShareClass = RatePlanRateRevShare::class;
 

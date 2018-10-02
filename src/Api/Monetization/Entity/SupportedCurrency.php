@@ -37,6 +37,9 @@ class SupportedCurrency extends OrganizationAwareEntity implements SupportedCurr
     /** @var float|null */
     protected $creditLimit;
 
+    /** @var null|float */
+    protected $minimumTopUpAmount;
+
     /**
      * @inheritdoc
      */
@@ -61,5 +64,21 @@ class SupportedCurrency extends OrganizationAwareEntity implements SupportedCurr
         // This is not an internal method in this case so we had to override
         // the inherited one from the trait.
         $this->traitSetStatus($status);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getMinimumTopUpAmount(): ?float
+    {
+        return $this->minimumTopUpAmount;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function setMinimumTopUpAmount(float $minimumTopUpAmount): void
+    {
+        $this->minimumTopUpAmount = $minimumTopUpAmount;
     }
 }

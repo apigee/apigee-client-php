@@ -28,15 +28,15 @@ class CompanyPropertyValidator implements EntityReferencePropertyValidatorInterf
         setEntitySerializer as private traitSetEntitySerializer;
     }
 
-    /** @var \Apigee\Edge\Tests\Api\Monetization\EntitySerializer\PropertyValidator\OrganizationPropertyValidator */
+    /** @var \Apigee\Edge\Tests\Api\Monetization\EntitySerializer\PropertyValidator\OrganizationProfileEntityReferencePropertyValidator */
     protected $orgPropValidator;
 
     /**
-     * @inheritDoc
+     * CompanyPropertyValidator constructor.
      */
     public function __construct()
     {
-        $this->orgPropValidator = new OrganizationPropertyValidator();
+        $this->orgPropValidator = new OrganizationProfileEntityReferencePropertyValidator();
     }
 
     /**
@@ -47,6 +47,7 @@ class CompanyPropertyValidator implements EntityReferencePropertyValidatorInterf
         if (!$entity instanceof Developer) {
             return;
         }
+        // TODO What if company is not assigned?
         Assert::assertEquals($output->{static::validatedProperty()}, (object) ['id' => $input->{static::validatedProperty()}->id]);
 
         // Validate the nested company object.
@@ -60,12 +61,10 @@ class CompanyPropertyValidator implements EntityReferencePropertyValidatorInterf
         unset($expected->organization);
         Assert::assertEquals($expected, $actual);
 
-        $orgValidator = new OrganizationPropertyValidator();
-        $orgValidator->setEntitySerializer($this->entitySerializer);
-
         // Validate the nested organization profile inside the company object.
         $output = json_decode($this->entitySerializer->serialize($entity->getCompany(), 'json'));
-        $orgValidator->validate($input->{static::validatedProperty()}, $output, $entity->getCompany());
+
+        $this->orgPropValidator->validate($input->{static::validatedProperty()}, $output, $entity->getCompany());
     }
 
     /**

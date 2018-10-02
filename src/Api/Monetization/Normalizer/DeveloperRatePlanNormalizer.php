@@ -16,19 +16,17 @@
  * limitations under the License.
  */
 
-namespace Apigee\Edge\Api\Monetization\NameConverter;
+namespace Apigee\Edge\Api\Monetization\Normalizer;
 
-use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
+use Apigee\Edge\Api\Monetization\Entity\DeveloperRatePlanInterface;
 
-/**
- * Base name converter for accepted rate plans.
- *
- * Because it contains a reference to the accepted rate plan
- * we extend its name converter.
- *
- * @see \Apigee\Edge\Api\Monetization\Entity\DeveloperAcceptedRatePlan
- * @see \Apigee\Edge\Api\Monetization\Entity\CompanyAcceptedRatePlan
- */
-class AcceptedRatePlanNameConverter extends RatePlanNameConverter implements NameConverterInterface
+class DeveloperRatePlanNormalizer extends LegalEntityRatePlanNormalizer
 {
+    /**
+     * @inheritDoc
+     */
+    public function supportsNormalization($data, $format = null)
+    {
+        return $data instanceof DeveloperRatePlanInterface;
+    }
 }

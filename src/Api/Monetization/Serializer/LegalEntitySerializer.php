@@ -19,50 +19,27 @@
 namespace Apigee\Edge\Api\Monetization\Serializer;
 
 use Apigee\Edge\Api\Monetization\Denormalizer\LegalEntityDenormalizer;
-use Apigee\Edge\Api\Monetization\NameConverter\DeveloperNameConverter;
 use Apigee\Edge\Api\Monetization\Normalizer\LegalEntityNormalizer;
 use Apigee\Edge\Denormalizer\AttributesPropertyDenormalizer;
 use Apigee\Edge\Normalizer\KeyValueMapNormalizer;
-use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
-use Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface;
-use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface;
-use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
 
 class LegalEntitySerializer extends EntitySerializer
 {
     /**
-     * LegalEntitySerializer constructor.
-     *
-     * @param array $normalizers
-     * @param array $encoders
-     * @param null|\Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface $classMetadataFactory
-     * @param null|\Symfony\Component\Serializer\NameConverter\NameConverterInterface $nameConverter
-     * @param null|\Symfony\Component\PropertyAccess\PropertyAccessorInterface $propertyAccessor
-     * @param null|\Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface $propertyTypeExtractor
-     */
-    public function __construct($normalizers = [], $encoders = [], ?ClassMetadataFactoryInterface $classMetadataFactory = null, ?NameConverterInterface $nameConverter = null, ?PropertyAccessorInterface $propertyAccessor = null, ?PropertyTypeExtractorInterface $propertyTypeExtractor = null)
-    {
-        // Because "developers" and "companies" endpoints in Monetization API
-        // currently returns both developers and companies we have to
-        // use DeveloperPropertyNameConverter here. Normally we would only
-        // add LegalEntityPropertyNameConvert here and override it in the
-        // DeveloperController to DeveloperPropertyNameConverter.
-        $nameConverter = $nameConverter ?? new DeveloperNameConverter();
-        parent::__construct($normalizers, $encoders, $classMetadataFactory, $nameConverter, $propertyAccessor, $propertyTypeExtractor);
-    }
-
-    /**
      * @inheritDoc
      */
-    public static function getEntityTypeSpecificDefaultNormalizers(?ClassMetadataFactoryInterface $classMetadataFactory = null, ?NameConverterInterface $nameConverter = null, ?PropertyAccessorInterface $propertyAccessor = null, ?PropertyTypeExtractorInterface $propertyTypeExtractor = null): array
+    public static function getEntityTypeSpecificDefaultNormalizers(): array
     {
-        $normalizers = parent::getEntityTypeSpecificDefaultNormalizers($classMetadataFactory, $nameConverter, $propertyAccessor, $propertyTypeExtractor);
+        $normalizers = parent::getEntityTypeSpecificDefaultNormalizers();
 
         return array_merge([
-            new LegalEntityDenormalizer($classMetadataFactory, $nameConverter, $propertyAccessor, $propertyTypeExtractor),
-            new LegalEntityNormalizer($classMetadataFactory, $nameConverter, $propertyAccessor, $propertyTypeExtractor),
+            new LegalEntityDenormalizer(),
+            new LegalEntityNormalizer(),
             new AttributesPropertyDenormalizer(),
             new KeyValueMapNormalizer(),
-        ], $normalizers);
+        ],
+            OrganizationProfileSerializer::getEntityTypeSpecificDefaultNormalizers(),
+            $normalizers
+        );
     }
 }

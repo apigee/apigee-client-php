@@ -18,20 +18,24 @@
 
 namespace Apigee\Edge\Api\Monetization\Serializer;
 
-use Apigee\Edge\Api\Monetization\NameConverter\CompanyAcceptedRatePlanNameConverter;
-use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
-use Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface;
-use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface;
-use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
+use Apigee\Edge\Api\Monetization\Denormalizer\CompanyAcceptedRatePlanDenormalizer;
+use Apigee\Edge\Api\Monetization\Normalizer\CompanyAcceptedRatePlanNormalizer;
 
 class CompanyAcceptedRatePlanSerializer extends AcceptedRatePlanSerializer
 {
     /**
      * @inheritDoc
      */
-    public function __construct($normalizers = [], $encoders = [], ?ClassMetadataFactoryInterface $classMetadataFactory = null, ?NameConverterInterface $nameConverter = null, ?PropertyAccessorInterface $propertyAccessor = null, ?PropertyTypeExtractorInterface $propertyTypeExtractor = null)
+    public static function getEntityTypeSpecificDefaultNormalizers(): array
     {
-        $nameConverter = $nameConverter ?? new CompanyAcceptedRatePlanNameConverter();
-        parent::__construct($normalizers, $encoders, $classMetadataFactory, $nameConverter, $propertyAccessor, $propertyTypeExtractor);
+        $normalizers = parent::getEntityTypeSpecificDefaultNormalizers();
+
+        return array_merge(
+            [
+                new CompanyAcceptedRatePlanDenormalizer(),
+                new CompanyAcceptedRatePlanNormalizer(),
+            ],
+            $normalizers
+        );
     }
 }

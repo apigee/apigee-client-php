@@ -37,6 +37,13 @@ class PrepaidBalance extends Entity implements PrepaidBalanceInterface
     /** @var float */
     protected $currentTotalBalance;
 
+    /**
+     * Value of "supportedCurrency" from the API response.
+     *
+     * @var \Apigee\Edge\Api\Monetization\Entity\SupportedCurrency
+     */
+    protected $currency;
+
     /** @var float */
     protected $currentUsage;
 

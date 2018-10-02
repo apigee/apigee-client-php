@@ -28,7 +28,7 @@ trait EntityLoadOperationControllerValidatorTrait
     use EntitySerializerAwareValidatorTrait;
     use EntityIdAwareControllerTrait;
 
-    public function testLoad(): void
+    public function testLoad(): \Apigee\Edge\Api\Monetization\Entity\EntityInterface
     {
         /** @var \Apigee\Edge\Api\Monetization\Controller\EntityLoadOperationControllerInterface $controller */
         $controller = $this->getEntityController();
@@ -37,5 +37,7 @@ trait EntityLoadOperationControllerValidatorTrait
         /** @var \Apigee\Edge\Tests\Api\Monetization\EntitySerializer\EntitySerializerValidatorInterface $validator */
         $validator = $this->getEntitySerializerValidator();
         $validator->validate($input, $entity);
+
+        return $entity;
     }
 }

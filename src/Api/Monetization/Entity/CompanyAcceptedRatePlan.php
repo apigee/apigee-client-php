@@ -18,27 +18,12 @@
 
 namespace Apigee\Edge\Api\Monetization\Entity;
 
+use Apigee\Edge\Api\Monetization\Entity\Property\CompanyPropertyAwareTrait;
+
 /**
  * Represents an accepted rate plan by a company.
  */
 class CompanyAcceptedRatePlan extends AcceptedRatePlan implements CompanyAcceptedRatePlanInterface
 {
-    /** @var \Apigee\Edge\Api\Monetization\Entity\Company */
-    protected $company;
-
-    /**
-     * @inheritdoc
-     */
-    public function getCompany(): CompanyInterface
-    {
-        return $this->company;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function setCompany(CompanyInterface $company): void
-    {
-        $this->company = $company;
-    }
+    use CompanyPropertyAwareTrait;
 }

@@ -20,21 +20,15 @@ namespace Apigee\Edge\Api\Monetization\NameConverter;
 
 use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
 
-/**
- * Maps "address" from Organization Profile API response to its internal name,
- * "addresses", because there could be multiple.
- *
- * @see \Apigee\Edge\Api\Monetization\Entity\OrganizationProfile
- */
-class OrganizationProfileNameConverter extends AddressNameConverter implements NameConverterInterface
+class OrganizationProfileNameConverter extends NameConverterBase implements NameConverterInterface
 {
     /**
      * @inheritdoc
      */
     protected function getExternalToLocalMapping(): array
     {
-        $mapping = parent::getExternalToLocalMapping();
-        $mapping += [
+        $mapping = [
+            // There could be multiple addresses.
             'address' => 'addresses',
             'currency' => 'currencyCode',
             'hasSelfBilling' => 'selfBilling',

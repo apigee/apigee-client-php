@@ -18,15 +18,8 @@
 
 namespace Apigee\Edge\Api\Monetization\Entity;
 
-interface CompanyAcceptedRatePlanInterface extends AcceptedRatePlanInterface
-{
-    /**
-     * @return \Apigee\Edge\Api\Monetization\Entity\CompanyInterface
-     */
-    public function getCompany();
+use Apigee\Edge\Api\Monetization\Entity\Property\CompanyPropertyInterface;
 
-    /**
-     * @param \Apigee\Edge\Api\Monetization\Entity\CompanyInterface $company
-     */
-    public function setCompany(CompanyInterface $company): void;
+interface CompanyAcceptedRatePlanInterface extends AcceptedRatePlanInterface, CompanyPropertyInterface
+{
 }

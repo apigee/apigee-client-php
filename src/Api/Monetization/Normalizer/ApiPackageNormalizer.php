@@ -19,9 +19,28 @@
 namespace Apigee\Edge\Api\Monetization\Normalizer;
 
 use Apigee\Edge\Api\Monetization\Entity\ApiPackageInterface;
+use Apigee\Edge\Api\Monetization\NameConverter\ApiPackageNameConverter;
+use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
+use Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface;
+use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface;
+use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
 
 class ApiPackageNormalizer extends EntityNormalizer
 {
+    /**
+     * ApiPackageNormalizer constructor.
+     *
+     * @param null|\Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface $classMetadataFactory
+     * @param null|\Symfony\Component\Serializer\NameConverter\NameConverterInterface $nameConverter
+     * @param null|\Symfony\Component\PropertyAccess\PropertyAccessorInterface $propertyAccessor
+     * @param null|\Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface $propertyTypeExtractor
+     */
+    public function __construct(?ClassMetadataFactoryInterface $classMetadataFactory = null, ?NameConverterInterface $nameConverter = null, ?PropertyAccessorInterface $propertyAccessor = null, ?PropertyTypeExtractorInterface $propertyTypeExtractor = null)
+    {
+        $nameConverter = $nameConverter ?? new ApiPackageNameConverter();
+        parent::__construct($classMetadataFactory, $nameConverter, $propertyAccessor, $propertyTypeExtractor);
+    }
+
     /**
      * @inheritDoc
      *
@@ -33,7 +52,7 @@ class ApiPackageNormalizer extends EntityNormalizer
         $normalized = (array) parent::normalize($object, $format, $context);
 
         // Do not send redundant API product information to Apigee Edge, the
-        // id of the referenced API products is enough.
+        // id of a referenced API product is enough.
         foreach ($normalized['product'] as $id => $data) {
             $normalized['product'][$id] = (object) ['id' => $data->id];
         }

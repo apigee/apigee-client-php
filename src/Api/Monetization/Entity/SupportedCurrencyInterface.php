@@ -62,4 +62,14 @@ interface SupportedCurrencyInterface extends OrganizationAwareEntityInterface,
      * @param bool $virtualCurrency
      */
     public function setVirtualCurrency(bool $virtualCurrency): void;
+
+    /**
+     * @return float|null
+     */
+    public function getMinimumTopUpAmount(): ?float;
+
+    /**
+     * @param float $minimumTopUpAmount
+     */
+    public function setMinimumTopUpAmount(float $minimumTopUpAmount): void;
 }

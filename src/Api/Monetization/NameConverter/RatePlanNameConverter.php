@@ -23,20 +23,16 @@ use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
 /**
  * Maps rate plan properties from the API response to their destination properties.
  *
- * Because it contains a reference to the its parent API package
- * we extend its name converter.
- *
  * @see \Apigee\Edge\Api\Monetization\Entity\RatePlan
  */
-class RatePlanNameConverter extends ApiPackageNameConverter implements NameConverterInterface
+class RatePlanNameConverter extends NameConverterBase implements NameConverterInterface
 {
     /**
      * @inheritdoc
      */
     protected function getExternalToLocalMapping(): array
     {
-        $mapping = parent::getExternalToLocalMapping();
-        $mapping += [
+        $mapping = [
             'monetizationPackage' => 'package',
             'isPrivate' => 'private',
             'parentRatePlan' => 'previousRatePlanRevision',

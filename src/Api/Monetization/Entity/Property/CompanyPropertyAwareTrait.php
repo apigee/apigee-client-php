@@ -16,30 +16,37 @@
  * limitations under the License.
  */
 
-namespace Apigee\Edge\Api\Monetization\Denormalizer;
+namespace Apigee\Edge\Api\Monetization\Entity\Property;
 
-use Apigee\Edge\Api\Monetization\Structure\RatePlanDetail;
+use Apigee\Edge\Api\Monetization\Entity\CompanyInterface;
 
-class RatePlanDetailDenormalizer extends EntityDenormalizer
+/**
+ * Trait CompanyPropertyAwareTrait.
+ *
+ * @see \Apigee\Edge\Api\Monetization\Entity\Property\CompanyPropertyInterface
+ */
+trait CompanyPropertyAwareTrait
 {
+    /**
+     * Value of "developer" from the API response.
+     *
+     * @var \Apigee\Edge\Api\Monetization\Entity\Company
+     */
+    protected $company;
+
     /**
      * @inheritdoc
      */
-    public function denormalize($data, $class, $format = null, array $context = [])
+    public function getCompany(): CompanyInterface
     {
-        return parent::denormalize($data, $class, $format, $context);
+        return $this->company;
     }
 
     /**
      * @inheritdoc
      */
-    public function supportsDenormalization($data, $type, $format = null)
+    public function setCompany(CompanyInterface $company): void
     {
-        // Do not apply this on array objects. ArrayDenormalizer takes care of them.
-        if ('[]' === substr($type, -2)) {
-            return false;
-        }
-
-        return RatePlanDetail::class === $type || $type instanceof RatePlanDetail;
+        $this->company = $company;
     }
 }

@@ -19,14 +19,17 @@
 namespace Apigee\Edge\Api\Monetization\Normalizer;
 
 use Apigee\Edge\Api\Monetization\Entity\Entity;
-use Apigee\Edge\Api\Monetization\Entity\EntityInterface;
 use Apigee\Edge\Api\Monetization\Entity\Property\IdPropertyInterface;
-use Apigee\Edge\Normalizer\EntityNormalizer as BaseEntityNormalizer;
+use Apigee\Edge\Normalizer\ObjectNormalizer;
+use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
+use Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface;
+use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface;
+use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
 
 /**
  * Ensures Monetization related entities gets normalized properly.
  */
-class EntityNormalizer extends BaseEntityNormalizer
+class EntityNormalizer extends ObjectNormalizer
 {
     /**
      * Contains values of referenced entities. When a new entity is created
@@ -34,6 +37,25 @@ class EntityNormalizer extends BaseEntityNormalizer
      * developer do not need to set them on the entity manually.
      */
     public const MINT_ENTITY_REFERENCE_PROPERTY_VALUES = 'mint_entity_reference_values';
+
+    /**
+     * @var null|\Symfony\Component\Serializer\NameConverter\NameConverterInterface
+     */
+    protected $nameConverter;
+
+    /**
+     * EntityNormalizer constructor.
+     *
+     * @param null|\Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface $classMetadataFactory
+     * @param null|\Symfony\Component\Serializer\NameConverter\NameConverterInterface $nameConverter
+     * @param null|\Symfony\Component\PropertyAccess\PropertyAccessorInterface $propertyAccessor
+     * @param null|\Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface $propertyTypeExtractor
+     */
+    public function __construct(?ClassMetadataFactoryInterface $classMetadataFactory = null, ?NameConverterInterface $nameConverter = null, ?PropertyAccessorInterface $propertyAccessor = null, ?PropertyTypeExtractorInterface $propertyTypeExtractor = null)
+    {
+        $this->nameConverter = $nameConverter;
+        parent::__construct($classMetadataFactory, $nameConverter, $propertyAccessor, $propertyTypeExtractor);
+    }
 
     /**
      * @inheritdoc
@@ -79,12 +101,13 @@ class EntityNormalizer extends BaseEntityNormalizer
      */
     public function supportsNormalization($data, $format = null)
     {
-        return  $data instanceof EntityInterface && parent::supportsNormalization($data, $format);
+        // Support only Monetization entities.
+        return $data instanceof Entity && parent::supportsNormalization($data, $format);
     }
 
     /**
-     * Return list of properties on the entity objects that contain references
-     * (nested objects) to an other monetization entity.
+     * Returns a list of properties on the entity objects that contain
+     * references (nested objects) to another monetization entity.
      *
      * In case of these properties there is no need to send the complete
      * nested entity object to the Monetization API when a new entity is

@@ -22,7 +22,7 @@ use Apigee\Edge\Api\Monetization\Entity\EntityInterface;
 use Apigee\Edge\Entity\Property\AttributesPropertyInterface;
 use PHPUnit\Framework\Assert;
 
-class CustomAttributesPropertyValidator implements EntityReferencePropertyValidatorInterface, SerializerAwarePropertyValidatorInterface
+class CustomAttributesPropertyValidator implements PropertyValidatorInterface, SerializerAwarePropertyValidatorInterface
 {
     use SerializerAwarePropertyValidatorTrait;
 
@@ -34,6 +34,7 @@ class CustomAttributesPropertyValidator implements EntityReferencePropertyValida
         if (!$entity instanceof AttributesPropertyInterface) {
             return;
         }
+
         $expected = [];
         foreach ($entity->getAttributes()->values() as $name => $value) {
             $expected[] = (object) [

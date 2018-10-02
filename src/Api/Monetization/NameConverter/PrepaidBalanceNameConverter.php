@@ -18,15 +18,17 @@
 
 namespace Apigee\Edge\Api\Monetization\NameConverter;
 
-class PrepaidBalanceNameConverter extends BalanceNameConverter
+use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
+
+class PrepaidBalanceNameConverter extends NameConverterBase implements NameConverterInterface
 {
     /**
      * @inheritdoc
      */
     protected function getExternalToLocalMapping(): array
     {
-        $mapping = parent::getExternalToLocalMapping();
-        $mapping += [
+        $mapping = [
+            'supportedCurrency' => 'currency',
             'topups' => 'topUps',
         ];
 

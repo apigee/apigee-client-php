@@ -18,6 +18,7 @@
 
 namespace Apigee\Edge\Api\Monetization\Entity;
 
+use Apigee\Edge\Api\Monetization\Entity\Property\KeepOriginalStartDatePropertyInterface;
 use Apigee\Edge\Api\Monetization\Entity\Property\PreviousRatePlanRevisionPropertyInterface;
 
 /**
@@ -25,6 +26,7 @@ use Apigee\Edge\Api\Monetization\Entity\Property\PreviousRatePlanRevisionPropert
  */
 interface RatePlanRevisionInterface extends
     RatePlanInterface,
+    KeepOriginalStartDatePropertyInterface,
     PreviousRatePlanRevisionPropertyInterface
 {
 }

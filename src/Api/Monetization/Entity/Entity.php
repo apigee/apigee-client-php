@@ -33,8 +33,8 @@ abstract class Entity extends BaseEntity implements EntityInterface
      */
     public function idProperty(): string
     {
-        // All Monetization entity has an "id" property (besides name) and even
-        // if both are unique and unchangeable we should use the "id".
+        // All Monetization entities have an "id" property (besides name) and
+        // even if both are unique and unchangeable we should use the "id".
         return 'id';
     }
 }

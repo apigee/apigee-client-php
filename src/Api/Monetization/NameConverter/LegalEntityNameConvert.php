@@ -24,21 +24,23 @@ use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
  * Maps some properties to its internal representation from developer- and
  * company data in Monetization.
  *
- * Because it contains a reference to the parent organization profile
- * we extend its name converter.
- *
  * @see \Apigee\Edge\Api\Monetization\Entity\LegalEntity
  */
-abstract class LegalEntityNameConvert extends OrganizationProfileNameConverter implements NameConverterInterface
+class LegalEntityNameConvert extends NameConverterBase implements NameConverterInterface
 {
     /**
      * @inheritdoc
      */
     protected function getExternalToLocalMapping(): array
     {
-        $mapping = parent::getExternalToLocalMapping();
-        $mapping += [
+        $mapping = [
+            // There could be multiple addresses.
+            'address' => 'addresses',
             'customAttributes' => 'attributes',
+            // Because "developers" and "companies" endpoints in Monetization API
+            // currently can return both developers and companies we have to
+            // handle this here instead in a DeveloperNameConverter.
+            'parent' => 'company',
         ];
 
         return $mapping;

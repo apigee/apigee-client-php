@@ -19,6 +19,7 @@
 namespace Apigee\Edge\Tests\Api\Monetization\EntitySerializer;
 
 use Apigee\Edge\Api\Monetization\Entity\EntityInterface;
+use Apigee\Edge\Serializer\EntitySerializer;
 use Apigee\Edge\Serializer\EntitySerializerInterface;
 use Apigee\Edge\Tests\Api\Monetization\EntitySerializer\PropertyValidator\PropertyValidatorsAwareValidatorInterface;
 use Apigee\Edge\Tests\Api\Monetization\EntitySerializer\PropertyValidator\PropertyValidatorTrait;
@@ -33,8 +34,15 @@ class EntitySerializerValidator implements EntitySerializerValidatorInterface
      */
     protected $serializer;
 
-    public function __construct(EntitySerializerInterface $serializer, array $propertyValidators = [])
+    /**
+     * EntitySerializerValidator constructor.
+     *
+     * @param \Apigee\Edge\Serializer\EntitySerializerInterface $serializer
+     * @param array $propertyValidators
+     */
+    public function __construct(EntitySerializerInterface $serializer = null, array $propertyValidators = [])
     {
+        $serializer = $serializer ?? new EntitySerializer();
         $this->serializer = $serializer;
         $this->propertyValidators = $propertyValidators;
 

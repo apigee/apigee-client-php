@@ -19,11 +19,12 @@
 namespace Apigee\Edge\Api\Monetization\Denormalizer;
 
 use Apigee\Edge\Api\Monetization\Entity\AcceptedRatePlanInterface;
+use Apigee\Edge\Denormalizer\ObjectDenormalizer;
 use DateTimeImmutable;
 use ReflectionObject;
 use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
 
-class AcceptedRatePlanDenormalizer extends EntityDenormalizer
+class AcceptedRatePlanDenormalizer extends ObjectDenormalizer
 {
     /**
      * @inheritDoc

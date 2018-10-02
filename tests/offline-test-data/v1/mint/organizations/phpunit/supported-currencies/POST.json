@@ -4,6 +4,7 @@
     "displayName": "PHPUnit",
     "id": "phpunit",
     "name": "phpunit",
+    "minimumTopupAmount" : 10.0000,
     "organization": {
         "address": [
             {

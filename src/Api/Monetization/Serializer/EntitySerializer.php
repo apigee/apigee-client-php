@@ -19,15 +19,10 @@
 namespace Apigee\Edge\Api\Monetization\Serializer;
 
 use Apigee\Edge\Api\Monetization\Denormalizer\DateTimeZoneDenormalizer;
-use Apigee\Edge\Api\Monetization\Denormalizer\EntityDenormalizer;
 use Apigee\Edge\Api\Monetization\Entity\EntityInterface;
 use Apigee\Edge\Api\Monetization\Normalizer\DateTimeZoneNormalizer;
 use Apigee\Edge\Api\Monetization\Normalizer\EntityNormalizer;
 use Apigee\Edge\Serializer\EntitySerializer as BaseEntitySerializer;
-use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
-use Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface;
-use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface;
-use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
 use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
 
 class EntitySerializer extends BaseEntitySerializer
@@ -36,41 +31,35 @@ class EntitySerializer extends BaseEntitySerializer
      * EntitySerializer constructor.
      *
      * @param array $normalizers
-     * @param array $encoders
-     * @param null|ClassMetadataFactoryInterface $classMetadataFactory
-     * @param null|NameConverterInterface $nameConverter
-     * @param null|PropertyAccessorInterface $propertyAccessor
-     * @param null|PropertyTypeExtractorInterface $propertyTypeExtractor
      */
-    public function __construct($normalizers = [], $encoders = [], ?ClassMetadataFactoryInterface $classMetadataFactory = null, ?NameConverterInterface $nameConverter = null, ?PropertyAccessorInterface $propertyAccessor = null, ?PropertyTypeExtractorInterface $propertyTypeExtractor = null)
+    public function __construct($normalizers = [])
     {
         $normalizers = array_merge(
             $normalizers,
-            static::getEntityTypeSpecificDefaultNormalizers($classMetadataFactory, $nameConverter, $propertyAccessor, $propertyTypeExtractor),
+            static::getEntityTypeSpecificDefaultNormalizers(),
             [
                 // Apigee Edge's default timezone is UTC, let's pass it as
                 // timezone instead of user's current timezone.
                 new DateTimeNormalizer(EntityInterface::DATE_FORMAT, new \DateTimeZone('UTC')),
                 new DateTimeZoneDenormalizer(),
                 new DateTimeZoneNormalizer(),
-                new EntityDenormalizer($classMetadataFactory, $nameConverter, $propertyAccessor, $propertyTypeExtractor),
-                new EntityNormalizer($classMetadataFactory, $nameConverter, $propertyAccessor, $propertyTypeExtractor),
+                new EntityNormalizer(),
             ]
         );
-        parent::__construct($normalizers, $encoders, $classMetadataFactory, $nameConverter, $propertyAccessor, $propertyTypeExtractor);
+        parent::__construct($normalizers);
     }
 
     /**
      * Returns the default entity type specific normalizers used by the serializer.
      *
-     * @param null|\Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface $classMetadataFactory
-     * @param null|\Symfony\Component\Serializer\NameConverter\NameConverterInterface $nameConverter
-     * @param null|\Symfony\Component\PropertyAccess\PropertyAccessorInterface $propertyAccessor
-     * @param null|\Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface $propertyTypeExtractor
+     * In case of Monetization API, thanks for the nested entity references,
+     * we have to expose normalizers used by an entity specific serializer to
+     * be able to easily normalized nested entity references in an entity
+     * specific normalizer (without code duplication).
      *
      * @return \Symfony\Component\Serializer\Normalizer\NormalizerInterface[]|\Symfony\Component\Serializer\Normalizer\DenormalizerInterface[]
      */
-    public static function getEntityTypeSpecificDefaultNormalizers(?ClassMetadataFactoryInterface $classMetadataFactory = null, ?NameConverterInterface $nameConverter = null, ?PropertyAccessorInterface $propertyAccessor = null, ?PropertyTypeExtractorInterface $propertyTypeExtractor = null): array
+    public static function getEntityTypeSpecificDefaultNormalizers(): array
     {
         return [];
     }

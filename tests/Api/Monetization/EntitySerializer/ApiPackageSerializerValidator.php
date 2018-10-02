@@ -29,7 +29,7 @@ class ApiPackageSerializerValidator extends OrganizationAwareEntitySerializerVal
      * @param \Apigee\Edge\Serializer\EntitySerializerInterface $serializer
      * @param array $propertyValidators
      */
-    public function __construct(EntitySerializerInterface $serializer, array $propertyValidators = [])
+    public function __construct(EntitySerializerInterface $serializer = null, array $propertyValidators = [])
     {
         $propertyValidators = array_merge($propertyValidators, [
             new ApiProductsPropertyValidator(),

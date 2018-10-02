@@ -18,49 +18,30 @@
 
 namespace Apigee\Edge\Api\Monetization\Serializer;
 
-use Apigee\Edge\Api\Monetization\Denormalizer\RatePlanDenormalizer;
-use Apigee\Edge\Api\Monetization\Denormalizer\RatePlanDetailDenormalizer;
+use Apigee\Edge\Api\Monetization\Denormalizer\RatePlanDenormalizerFactory;
 use Apigee\Edge\Api\Monetization\Denormalizer\RatePlanRateDenormalizer;
-use Apigee\Edge\Api\Monetization\NameConverter\RatePlanNameConverter;
-use Apigee\Edge\Api\Monetization\Normalizer\RatePlanNormalizer;
-use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
-use Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface;
-use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface;
-use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
+use Apigee\Edge\Api\Monetization\Normalizer\RatePlanNormalizerFactory;
 
 class RatePlanSerializer extends EntitySerializer
 {
     /**
-     * RatePlanSerializer constructor.
-     *
-     * @param array $normalizers
-     * @param array $encoders
-     * @param null|\Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface $classMetadataFactory
-     * @param null|\Symfony\Component\Serializer\NameConverter\NameConverterInterface $nameConverter
-     * @param null|\Symfony\Component\PropertyAccess\PropertyAccessorInterface $propertyAccessor
-     * @param null|\Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface $propertyTypeExtractor
-     */
-    public function __construct($normalizers = [], $encoders = [], ?ClassMetadataFactoryInterface $classMetadataFactory = null, ?NameConverterInterface $nameConverter = null, ?PropertyAccessorInterface $propertyAccessor = null, ?PropertyTypeExtractorInterface $propertyTypeExtractor = null)
-    {
-        $nameConverter = $nameConverter ?? new RatePlanNameConverter();
-        parent::__construct($normalizers, $encoders, $classMetadataFactory, $nameConverter, $propertyAccessor, $propertyTypeExtractor);
-    }
-
-    /**
      * @inheritDoc
      */
-    public static function getEntityTypeSpecificDefaultNormalizers(?ClassMetadataFactoryInterface $classMetadataFactory = null, ?NameConverterInterface $nameConverter = null, ?PropertyAccessorInterface $propertyAccessor = null, ?PropertyTypeExtractorInterface $propertyTypeExtractor = null): array
+    public static function getEntityTypeSpecificDefaultNormalizers(): array
     {
-        $normalizers = parent::getEntityTypeSpecificDefaultNormalizers($classMetadataFactory, $nameConverter, $propertyAccessor, $propertyTypeExtractor);
+        $normalizers = parent::getEntityTypeSpecificDefaultNormalizers();
 
         return array_merge(
             [
                 new RatePlanRateDenormalizer(),
-                new RatePlanDetailDenormalizer(),
-                new RatePlanDenormalizer($classMetadataFactory, $nameConverter, $propertyAccessor, $propertyTypeExtractor),
-                new RatePlanNormalizer($classMetadataFactory, $nameConverter, $propertyAccessor, $propertyTypeExtractor),
+                new RatePlanDenormalizerFactory(),
+                new RatePlanNormalizerFactory(),
             ],
-            ApiPackageSerializer::getEntityTypeSpecificDefaultNormalizers($classMetadataFactory, $nameConverter, $propertyAccessor, $propertyTypeExtractor),
+            ApiPackageSerializer::getEntityTypeSpecificDefaultNormalizers(),
+            SupportedCurrencySerializer::getEntityTypeSpecificDefaultNormalizers(),
+            // Because of the developer/company specific rate plans we need
+            // this.
+            LegalEntitySerializer::getEntityTypeSpecificDefaultNormalizers(),
             $normalizers
         );
     }

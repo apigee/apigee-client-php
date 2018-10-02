@@ -29,7 +29,7 @@ class OrganizationProfileControllerTest extends EntityControllerValidator
     use EntityLoadOperationControllerValidatorTrait;
     use EntityUpdateOperationControllerValidatorTrait;
 
-    public function testLoad(): void
+    public function testLoad(): EntityInterface
     {
         $entity = $this->getEntityController()->load();
         $input = json_decode((string) static::$client->getJournal()->getLastResponse()->getBody());
@@ -37,6 +37,8 @@ class OrganizationProfileControllerTest extends EntityControllerValidator
         $entity = (new OrganizationProfileController('phpunit-minimal', static::$client))->load();
         $input = json_decode((string) static::$client->getJournal()->getLastResponse()->getBody());
         $this->getEntitySerializerValidator()->validate($input, $entity);
+
+        return $entity;
     }
 
     /**

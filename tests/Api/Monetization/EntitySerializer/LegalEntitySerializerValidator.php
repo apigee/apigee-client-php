@@ -20,21 +20,21 @@ namespace Apigee\Edge\Tests\Api\Monetization\EntitySerializer;
 
 use Apigee\Edge\Serializer\EntitySerializerInterface;
 use Apigee\Edge\Tests\Api\Monetization\EntitySerializer\PropertyValidator\CustomAttributesPropertyValidator;
-use Apigee\Edge\Tests\Api\Monetization\EntitySerializer\PropertyValidator\DeveloperCategoryPropertyValidator;
+use Apigee\Edge\Tests\Api\Monetization\EntitySerializer\PropertyValidator\DeveloperCategoryEntityReferencePropertyValidator;
 
 class LegalEntitySerializerValidator extends OrganizationAwareEntitySerializerValidator
 {
     /**
      * LegalEntitySerializerValidator constructor.
      *
-     * @param \Apigee\Edge\Serializer\EntitySerializerInterface $serializer
+     * @param \Apigee\Edge\Serializer\EntitySerializerInterface|null $serializer
      * @param array $propertyValidators
      */
-    public function __construct(EntitySerializerInterface $serializer, array $propertyValidators = [])
+    public function __construct(EntitySerializerInterface $serializer = null, array $propertyValidators = [])
     {
         $propertyValidators = array_merge($propertyValidators, [
             new CustomAttributesPropertyValidator(),
-            new DeveloperCategoryPropertyValidator(),
+            new DeveloperCategoryEntityReferencePropertyValidator(),
         ]);
         parent::__construct($serializer, $propertyValidators);
     }

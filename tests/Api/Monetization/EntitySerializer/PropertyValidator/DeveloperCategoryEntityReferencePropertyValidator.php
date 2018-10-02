@@ -19,10 +19,10 @@
 namespace Apigee\Edge\Tests\Api\Monetization\EntitySerializer\PropertyValidator;
 
 use Apigee\Edge\Api\Monetization\Entity\EntityInterface;
-use Apigee\Edge\Api\Monetization\Entity\OrganizationAwareEntityInterface;
+use Apigee\Edge\Api\Monetization\Entity\LegalEntityInterface;
 use PHPUnit\Framework\Assert;
 
-class OrganizationPropertyValidator implements EntityReferencePropertyValidatorInterface, SerializerAwarePropertyValidatorInterface
+class DeveloperCategoryEntityReferencePropertyValidator implements EntityReferencePropertyValidatorInterface, SerializerAwarePropertyValidatorInterface
 {
     use SerializerAwarePropertyValidatorTrait;
 
@@ -31,19 +31,13 @@ class OrganizationPropertyValidator implements EntityReferencePropertyValidatorI
      */
     public function validate(\stdClass $input, \stdClass $output, EntityInterface $entity): void
     {
-        if (!$entity instanceof OrganizationAwareEntityInterface) {
+        if (!$entity instanceof LegalEntityInterface) {
             return;
         }
-        Assert::assertEquals($output->{static::validatedProperty()}, (object) ['id' => $entity->getOrganization()->id()]);
+        Assert::assertEquals($output->{static::validatedProperty()}, (object) ['id' => $input->{static::validatedProperty()}->id]);
 
-        $actual = json_decode($this->entitySerializer->serialize($entity->getOrganization(), 'json'));
+        $actual = json_decode($this->entitySerializer->serialize($entity->getDeveloperCategory(), 'json'));
         $expected = $input->{static::validatedProperty()};
-        // If the organization is a nested property the address information is
-        // missing from that.
-        // @see \Apigee\Edge\Api\Monetization\Entity\OrganizationAwareEntity
-        if (!property_exists($expected, 'address')) {
-            unset($actual->address);
-        }
         Assert::assertEquals($expected, $actual);
     }
 
@@ -52,6 +46,6 @@ class OrganizationPropertyValidator implements EntityReferencePropertyValidatorI
      */
     public static function validatedProperty(): string
     {
-        return 'organization';
+        return 'developerCategory';
     }
 }
