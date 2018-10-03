@@ -49,9 +49,10 @@
         "vimeo/psalm": "^2.0.0"
     },
     "conflict": {
-        "phpdocumentor/type-resolver": "<0.2.1",
         "guzzlehttp/guzzle": "<6.1.0",
-        "guzzlehttp/psr7": "<1.4.1"
+        "guzzlehttp/psr7": "<1.4.1",
+        "phpdocumentor/type-resolver": "<0.2.1",
+        "php-http/client-common": ">1.7"
     },
     "autoload": {
         "psr-4": {
