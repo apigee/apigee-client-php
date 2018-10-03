@@ -27,7 +27,7 @@ namespace Apigee\Edge\Entity\Property;
 trait DescriptionPropertyAwareTrait
 {
     /** @var string */
-    protected $description = '';
+    protected $description;
 
     /**
      * @inheritdoc
