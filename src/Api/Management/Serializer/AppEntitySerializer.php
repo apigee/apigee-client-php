@@ -24,17 +24,15 @@ use Apigee\Edge\Denormalizer\AttributesPropertyDenormalizer;
 use Apigee\Edge\Denormalizer\CredentialProductDenormalizer;
 use Apigee\Edge\Normalizer\CredentialProductNormalizer;
 use Apigee\Edge\Serializer\EntitySerializer;
-use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
-use Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface;
-use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface;
-use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
 
 class AppEntitySerializer extends EntitySerializer
 {
     /**
-     * @inheritDoc
+     * AppEntitySerializer constructor.
+     *
+     * @param array $normalizers
      */
-    public function __construct($normalizers = [], $encoders = [], ?ClassMetadataFactoryInterface $classMetadataFactory = null, ?NameConverterInterface $nameConverter = null, ?PropertyAccessorInterface $propertyAccessor = null, ?PropertyTypeExtractorInterface $propertyTypeExtractor = null)
+    public function __construct($normalizers = [])
     {
         $normalizers = array_merge($normalizers, [
             new CredentialProductDenormalizer(),
@@ -43,6 +41,6 @@ class AppEntitySerializer extends EntitySerializer
             new AppCredentialNormalizer(),
             new AppDenormalizer(),
         ]);
-        parent::__construct($normalizers, $encoders, $classMetadataFactory, $nameConverter, $propertyAccessor, $propertyTypeExtractor);
+        parent::__construct($normalizers);
     }
 }

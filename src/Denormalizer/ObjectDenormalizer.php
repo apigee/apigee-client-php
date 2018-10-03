@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-namespace Apigee\Edge\Normalizer;
+namespace Apigee\Edge\Denormalizer;
 
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 use Symfony\Component\PropertyInfo\Extractor\PhpDocExtractor;
@@ -26,40 +26,21 @@ use Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface;
 use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
-use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer as BaseObjectNormalizer;
 use Symfony\Component\Serializer\SerializerAwareInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 
 /**
- * Object normalizer decorator that can normalize can entity object to a structure that Apigee Edge can digest.
+ * Object normalizer decorator that can denormalize an object to a valid
+ * payload for Apigee Edge.
  */
-class EntityNormalizer implements NormalizerInterface, SerializerAwareInterface
+class ObjectDenormalizer implements DenormalizerInterface, SerializerAwareInterface
 {
-    /**
-     * @var null|\Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface
-     */
-    protected $classMetadataFactory;
-
-    /**
-     * @var null|\Symfony\Component\Serializer\NameConverter\NameConverterInterface
-     */
-    protected $nameConverter;
-
-    /**
-     * @var null|\Symfony\Component\PropertyAccess\PropertyAccessorInterface
-     */
-    protected $propertyAccessor;
-
-    /**
-     * @var null|\Symfony\Component\PropertyInfo\PropertyInfoExtractor|\Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface
-     */
-    protected $propertyTypeExtractor;
-
     /** @var \Symfony\Component\Serializer\Normalizer\ObjectNormalizer */
     private $objectNormalizer;
 
-    /** @var \Symfony\Component\Serializer\SerializerInterface|null */
+    /** @var \Symfony\Component\Serializer\SerializerInterface */
     private $serializer;
 
     /**
@@ -70,7 +51,7 @@ class EntityNormalizer implements NormalizerInterface, SerializerAwareInterface
     private $format = JsonEncoder::FORMAT;
 
     /**
-     * EntityNormalizer constructor.
+     * EntityDenormalizer constructor.
      *
      * @param \Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface|null $classMetadataFactory
      * @param \Symfony\Component\Serializer\NameConverter\NameConverterInterface|null $nameConverter
@@ -95,39 +76,30 @@ class EntityNormalizer implements NormalizerInterface, SerializerAwareInterface
                 ]
             );
         }
-        $this->classMetadataFactory = $classMetadataFactory;
-        $this->nameConverter = $nameConverter;
-        $this->propertyAccessor = $propertyAccessor;
-        $this->propertyTypeExtractor = $propertyTypeExtractor;
-        $this->objectNormalizer = new ObjectNormalizer($classMetadataFactory, $nameConverter, $propertyAccessor, $propertyTypeExtractor);
-    }
-
-    /**
-     * @inheritdoc
-     *
-     * @psalm-suppress InvalidReturnType stdClass is also an object.
-     * @psalm-suppress PossiblyInvalidArgument First argument of array_filter is always an array.
-     */
-    public function normalize($object, $format = null, array $context = [])
-    {
-        $format = $this->format;
-        $asArray = $this->objectNormalizer->normalize($object, $format, $context);
-        // Exclude null values from the output, even if PATCH is not supported on Apigee Edge
-        // sending a smaller portion of data in POST/PUT is always a good practice.
-        $asArray = array_filter($asArray, function ($value) {
-            return !is_null($value);
-        });
-        ksort($asArray);
-
-        return (object) $asArray;
+        $this->objectNormalizer = new BaseObjectNormalizer($classMetadataFactory, $nameConverter, $propertyAccessor, $propertyTypeExtractor);
     }
 
     /**
      * @inheritdoc
      */
-    public function supportsNormalization($data, $format = null)
+    public function denormalize($data, $class, $format = null, array $context = [])
     {
-        return $this->objectNormalizer->supportsNormalization($data, $format);
+        return $this->objectNormalizer->denormalize($data, $class, $this->format, $context);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function supportsDenormalization($data, $type, $format = null)
+    {
+        if ('[]' === substr($type, -2)) {
+            return false;
+        }
+
+        // Enforce the only supported format if format is null.
+        $format = $format ?? $this->format;
+
+        return $format === $this->format && $this->objectNormalizer->supportsDenormalization($data, $type, $format);
     }
 
     /**
@@ -136,6 +108,6 @@ class EntityNormalizer implements NormalizerInterface, SerializerAwareInterface
     public function setSerializer(SerializerInterface $serializer): void
     {
         $this->serializer = $serializer;
-        $this->objectNormalizer->setSerializer($serializer);
+        $this->objectNormalizer->setSerializer($this->serializer);
     }
 }
