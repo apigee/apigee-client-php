@@ -20,6 +20,8 @@ namespace Apigee\Edge\Serializer;
 
 use Apigee\Edge\Entity\EntityInterface;
 use Psr\Http\Message\ResponseInterface;
+use Symfony\Component\Serializer\Encoder\DecoderInterface;
+use Symfony\Component\Serializer\Encoder\EncoderInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\SerializerInterface;
@@ -27,7 +29,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 /**
  * Serializes, deserializes, normalizes and denormalizes entities.
  */
-interface EntitySerializerInterface extends NormalizerInterface, DenormalizerInterface, SerializerInterface
+interface EntitySerializerInterface extends NormalizerInterface, DenormalizerInterface, EncoderInterface, DecoderInterface, SerializerInterface
 {
     /**
      * Set property values on an entity from an Apigee Edge response.

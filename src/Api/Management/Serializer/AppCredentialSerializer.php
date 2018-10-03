@@ -25,15 +25,17 @@ use Apigee\Edge\Normalizer\CredentialProductNormalizer;
 class AppCredentialSerializer extends AttributesPropertyAwareEntitySerializer
 {
     /**
-     * @inheritDoc
+     * AppCredentialSerializer constructor.
+     *
+     * @param array $normalizers
      */
-    public function __construct(array $normalizers = [], array $encoders = [], ?\Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface $classMetadataFactory = null, ?\Symfony\Component\Serializer\NameConverter\NameConverterInterface $nameConverter = null, ?\Symfony\Component\PropertyAccess\PropertyAccessorInterface $propertyAccessor = null, ?\Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface $propertyTypeExtractor = null)
+    public function __construct(array $normalizers = [])
     {
         $normalizers = array_merge($normalizers, [
             new AppCredentialNormalizer(),
             new CredentialProductNormalizer(),
             new CredentialProductDenormalizer(),
         ]);
-        parent::__construct($normalizers, $encoders, $classMetadataFactory, $nameConverter, $propertyAccessor, $propertyTypeExtractor);
+        parent::__construct($normalizers);
     }
 }

@@ -19,13 +19,13 @@
 namespace Apigee\Edge\Api\Management\Normalizer;
 
 use Apigee\Edge\Api\Management\Entity\AppCredentialInterface;
-use Apigee\Edge\Normalizer\EntityNormalizer;
+use Apigee\Edge\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 /**
  * Class AppCredentialNormalizer.
  */
-class AppCredentialNormalizer extends EntityNormalizer implements NormalizerInterface
+class AppCredentialNormalizer extends ObjectNormalizer implements NormalizerInterface
 {
     /**
      * @inheritdoc

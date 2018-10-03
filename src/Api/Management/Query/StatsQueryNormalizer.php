@@ -18,7 +18,7 @@
 
 namespace Apigee\Edge\Api\Management\Query;
 
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Apigee\Edge\Serializer\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;

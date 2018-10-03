@@ -53,7 +53,7 @@ class CompanyMembersController extends AbstractController implements CompanyMemb
         parent::__construct($client);
         $this->companyName = $companyName;
         $this->organization = $organization;
-        $this->serializer = new CompanyMembershipSerializer([], [$this->jsonDecoder]);
+        $this->serializer = new CompanyMembershipSerializer();
     }
 
     /**

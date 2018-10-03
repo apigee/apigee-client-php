@@ -19,22 +19,14 @@
 namespace Apigee\Edge\Serializer;
 
 use Apigee\Edge\Denormalizer\EdgeDateDenormalizer;
-use Apigee\Edge\Denormalizer\EntityDenormalizer;
 use Apigee\Edge\Denormalizer\KeyValueMapDenormalizer;
+use Apigee\Edge\Denormalizer\ObjectDenormalizer;
 use Apigee\Edge\Entity\EntityInterface;
 use Apigee\Edge\Normalizer\EdgeDateNormalizer;
-use Apigee\Edge\Normalizer\EntityNormalizer;
 use Apigee\Edge\Normalizer\KeyValueMapNormalizer;
+use Apigee\Edge\Normalizer\ObjectNormalizer;
 use Psr\Http\Message\ResponseInterface;
-use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
-use Symfony\Component\PropertyInfo\Extractor\PhpDocExtractor;
-use Symfony\Component\PropertyInfo\Extractor\ReflectionExtractor;
-use Symfony\Component\PropertyInfo\PropertyInfoExtractor;
-use Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface;
-use Symfony\Component\Serializer\Encoder\JsonDecode;
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface;
-use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
+use Symfony\Component\Serializer\Exception\NotEncodableValueException;
 use Symfony\Component\Serializer\Normalizer\ArrayDenormalizer;
 use Symfony\Component\Serializer\Serializer;
 
@@ -57,30 +49,9 @@ class EntitySerializer implements EntitySerializerInterface
      * EntitySerializer constructor.
      *
      * @param \Symfony\Component\Serializer\Normalizer\NormalizerInterface[]|\Symfony\Component\Serializer\Normalizer\DenormalizerInterface[] $normalizers
-     * @param \Symfony\Component\Serializer\Encoder\EncoderInterface[]|\Symfony\Component\Serializer\Encoder\DecoderInterface[] $encoders
-     * @param \Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface|null $classMetadataFactory
-     * @param \Symfony\Component\Serializer\NameConverter\NameConverterInterface|null $nameConverter
-     * @param \Symfony\Component\PropertyAccess\PropertyAccessorInterface|null $propertyAccessor
-     * @param \Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface|null $propertyTypeExtractor
      */
-    public function __construct(array $normalizers = [], array $encoders = [], ClassMetadataFactoryInterface $classMetadataFactory = null, NameConverterInterface $nameConverter = null, PropertyAccessorInterface $propertyAccessor = null, PropertyTypeExtractorInterface $propertyTypeExtractor = null)
+    public function __construct(array $normalizers = [])
     {
-        if (null === $propertyTypeExtractor) {
-            $reflectionExtractor = new ReflectionExtractor();
-            $phpDocExtractor = new PhpDocExtractor();
-
-            $propertyTypeExtractor = new PropertyInfoExtractor(
-                [
-                    $reflectionExtractor,
-                    $phpDocExtractor,
-                ],
-                // Type extractors
-                [
-                    $phpDocExtractor,
-                    $reflectionExtractor,
-                ]
-            );
-        }
         $normalizers = array_merge($normalizers, [
             // KVM is a commonly used object type. Let's make its normalizers/denormalizers available by default
             new KeyValueMapNormalizer(),
@@ -90,13 +61,11 @@ class EntitySerializer implements EntitySerializerInterface
             new EdgeDateDenormalizer(),
             // Takes care of denormalizations of array objects.
             new ArrayDenormalizer(),
-            new EntityNormalizer($classMetadataFactory, $nameConverter, $propertyAccessor, $propertyTypeExtractor),
-            new EntityDenormalizer($classMetadataFactory, $nameConverter, $propertyAccessor, $propertyTypeExtractor),
+            new ObjectNormalizer(),
+            new ObjectDenormalizer(),
             ]
         );
-        // Keep the same structure that we get from Apigee Edge, do not transforms objects to arrays.
-        $encoders = [new JsonEncoder(null, new JsonDecode())];
-        $this->serializer = new Serializer($normalizers, $encoders);
+        $this->serializer = new Serializer($normalizers, [$this->jsonEncoder()]);
     }
 
     /**
@@ -104,7 +73,7 @@ class EntitySerializer implements EntitySerializerInterface
      */
     public function denormalize($data, $class, $format = null, array $context = [])
     {
-        return $this->serializer->denormalize($data, $class, $this->format, $context);
+        return $this->serializer->denormalize($data, $class, $format, $context);
     }
 
     /**
@@ -112,7 +81,7 @@ class EntitySerializer implements EntitySerializerInterface
      */
     public function supportsDenormalization($data, $type, $format = null)
     {
-        return $this->serializer->supportsDenormalization($data, $type, $this->format);
+        return $this->format === $format && $this->serializer->supportsDenormalization($data, $type, $format);
     }
 
     /**
@@ -120,7 +89,7 @@ class EntitySerializer implements EntitySerializerInterface
      */
     public function normalize($object, $format = null, array $context = [])
     {
-        return $this->serializer->normalize($object, $this->format, $context);
+        return $this->serializer->normalize($object, $format, $context);
     }
 
     /**
@@ -128,7 +97,7 @@ class EntitySerializer implements EntitySerializerInterface
      */
     public function supportsNormalization($data, $format = null)
     {
-        return $this->serializer->supportsNormalization($data, $this->format);
+        return $this->format === $format && $this->serializer->supportsNormalization($data, $format);
     }
 
     /**
@@ -136,7 +105,11 @@ class EntitySerializer implements EntitySerializerInterface
      */
     public function serialize($data, $format, array $context = [])
     {
-        return $this->serializer->serialize($data, $this->format, $context);
+        if (!$this->supportsEncoding($format)) {
+            throw new NotEncodableValueException(sprintf('Serialization for the format %s is not supported. Only %s supported.', $format, $this->format));
+        }
+
+        return $this->serializer->serialize($data, $format, $context);
     }
 
     /**
@@ -144,7 +117,11 @@ class EntitySerializer implements EntitySerializerInterface
      */
     public function deserialize($data, $type, $format, array $context = [])
     {
-        return $this->serializer->deserialize($data, $type, $this->format, $context);
+        if (!$this->supportsDecoding($format)) {
+            throw new NotEncodableValueException(sprintf('Deserialization for the format %s is not supported. Only %s is supported.', $format, $this->format));
+        }
+
+        return $this->serializer->deserialize($data, $type, $format, $context);
     }
 
     /**
@@ -187,5 +164,49 @@ class EntitySerializer implements EntitySerializerInterface
                 $rm->invoke($entity, $value);
             }
         }
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function decode($data, $format, array $context = []): void
+    {
+        $this->serializer->decode($data, $format, $context = []);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function supportsDecoding($format)
+    {
+        return $this->format === $format && $this->serializer->supportsDecoding($format);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function encode($data, $format, array $context = [])
+    {
+        return $this->serializer->encode($data, $format, $context = []);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function supportsEncoding($format)
+    {
+        return $this->format === $format && $this->serializer->supportsEncoding($format);
+    }
+
+    /**
+     * Allows subclasses to replace the default JSON encoder.
+     *
+     * @return \Apigee\Edge\Serializer\JsonEncoder
+     */
+    protected function jsonEncoder(): JsonEncoder
+    {
+        // Keep the same structure that we get from Apigee Edge, do not
+        // transforms objects to arrays.
+        return new JsonEncoder(new JsonDecode());
     }
 }
