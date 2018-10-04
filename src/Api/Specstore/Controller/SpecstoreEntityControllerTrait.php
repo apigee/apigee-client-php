@@ -59,7 +59,7 @@ trait SpecstoreEntityControllerTrait
     {
         $uri = $this->getEntityEndpointUri($entity->id());
         // Update an existing entity.
-        $response = $this->getClient()->put(
+        $response = $this->getClient()->patch(
             $uri,
             $this->getEntitySerializer()->serialize($entity, 'json'),
             $this->getHeaders()
