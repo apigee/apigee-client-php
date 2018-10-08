@@ -32,7 +32,7 @@ interface ClientInterface extends HttpClient
 {
     public const DEFAULT_ENDPOINT = 'https://api.enterprise.apigee.com/v1';
 
-    public const VERSION = '2.0.0-alpha4';
+    public const VERSION = '2.0.0-alpha5';
 
     /**
      * Allows access to the last request, response and exception.
