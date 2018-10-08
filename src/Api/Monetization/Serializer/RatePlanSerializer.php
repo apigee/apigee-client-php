@@ -21,6 +21,7 @@ namespace Apigee\Edge\Api\Monetization\Serializer;
 use Apigee\Edge\Api\Monetization\Denormalizer\RatePlanDenormalizerFactory;
 use Apigee\Edge\Api\Monetization\Denormalizer\RatePlanRateDenormalizer;
 use Apigee\Edge\Api\Monetization\Normalizer\RatePlanNormalizerFactory;
+use Apigee\Edge\Api\Monetization\Normalizer\RatePlanRateNormalizer;
 
 class RatePlanSerializer extends EntitySerializer
 {
@@ -34,6 +35,7 @@ class RatePlanSerializer extends EntitySerializer
         return array_merge(
             [
                 new RatePlanRateDenormalizer(),
+                new RatePlanRateNormalizer(),
                 new RatePlanDenormalizerFactory(),
                 new RatePlanNormalizerFactory(),
             ],

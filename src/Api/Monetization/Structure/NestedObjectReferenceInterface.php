@@ -16,19 +16,19 @@
  * limitations under the License.
  */
 
-namespace Apigee\Edge\Api\Monetization\Entity;
+namespace Apigee\Edge\Api\Monetization\Structure;
 
-use Apigee\Edge\Api\Monetization\Entity\Property\OrganizationPropertyAwareTrait;
+use Apigee\Edge\Api\Monetization\Entity\Property\IdPropertyInterface;
 
 /**
- * Base class for those Monetization entities that contains reference to
- * the organization that it belongs.
+ * Interface NestedObjectReferenceInterface.
  *
- * Known issue:
- *  * The organization profile data is incomplete in these entities, for example
- *    it does not contains the address of the organization even if it is set.
+ * If an object implements this interface is the type of a property
+ * on an other object then the id of the object should be sent as the value of
+ * the property in POST/PUT requests instead of the complete serialized object.
+ *
+ * @see \Apigee\Edge\Api\Monetization\Normalizer\EntityNormalizer
  */
-abstract class OrganizationAwareEntity extends Entity implements OrganizationAwareEntityInterface
+interface NestedObjectReferenceInterface extends IdPropertyInterface
 {
-    use OrganizationPropertyAwareTrait;
 }

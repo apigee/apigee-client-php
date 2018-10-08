@@ -16,19 +16,16 @@
  * limitations under the License.
  */
 
-namespace Apigee\Edge\Api\Monetization\Entity;
+namespace Apigee\Edge\Api\Monetization\Entity\Property;
 
-use Apigee\Edge\Api\Monetization\Entity\Property\OrganizationPropertyAwareTrait;
+use Apigee\Edge\Api\Monetization\Entity\OrganizationProfileInterface;
 
-/**
- * Base class for those Monetization entities that contains reference to
- * the organization that it belongs.
- *
- * Known issue:
- *  * The organization profile data is incomplete in these entities, for example
- *    it does not contains the address of the organization even if it is set.
- */
-abstract class OrganizationAwareEntity extends Entity implements OrganizationAwareEntityInterface
+interface OrganizationPropertyInterface
 {
-    use OrganizationPropertyAwareTrait;
+    /**
+     * Returns the organization that this entity belongs.
+     *
+     * @return null|\Apigee\Edge\Api\Monetization\Entity\OrganizationProfileInterface
+     */
+    public function getOrganization(): ?OrganizationProfileInterface;
 }

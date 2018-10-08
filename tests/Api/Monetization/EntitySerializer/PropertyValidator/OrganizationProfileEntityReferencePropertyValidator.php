@@ -19,7 +19,7 @@
 namespace Apigee\Edge\Tests\Api\Monetization\EntitySerializer\PropertyValidator;
 
 use Apigee\Edge\Api\Monetization\Entity\EntityInterface;
-use Apigee\Edge\Api\Monetization\Entity\OrganizationAwareEntityInterface;
+use Apigee\Edge\Api\Monetization\Entity\Property\OrganizationPropertyInterface;
 use PHPUnit\Framework\Assert;
 
 class OrganizationProfileEntityReferencePropertyValidator implements EntityReferencePropertyValidatorInterface, SerializerAwarePropertyValidatorInterface
@@ -31,7 +31,7 @@ class OrganizationProfileEntityReferencePropertyValidator implements EntityRefer
      */
     public function validate(\stdClass $input, \stdClass $output, EntityInterface $entity): void
     {
-        if (!$entity instanceof OrganizationAwareEntityInterface) {
+        if (!$entity instanceof OrganizationPropertyInterface) {
             return;
         }
         Assert::assertEquals($output->{static::validatedProperty()}, (object) ['id' => $entity->getOrganization()->id()]);

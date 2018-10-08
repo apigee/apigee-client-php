@@ -36,10 +36,10 @@ class RatePlanControllerValidator extends OrganizationAwareEntityControllerValid
     {
         // TODO Validate timezone conversion.
         date_default_timezone_set('Australia/Eucla');
+        // Validate standard rate plan.
         $entity = $this->traitTestLoad();
-        // TODO Continue with the standard rate plan, rename it to "phpunit"
-        // and rename "phpunit" to company_rate_plan.
-        // Add tests for developer_rate_plan, developer_category_rate_plan
+
+        // Add tests for company_rate_plan, developer_rate_plan, developer_category_rate_plan
         // as well.
         /* @var \Apigee\Edge\Api\Monetization\Controller\EntityLoadOperationControllerInterface $controller */
 //        $controller = $this->getEntityController();

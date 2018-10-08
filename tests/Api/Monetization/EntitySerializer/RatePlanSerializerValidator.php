@@ -24,6 +24,7 @@ use Apigee\Edge\Serializer\EntitySerializerInterface;
 use Apigee\Edge\Tests\Api\Monetization\EntitySerializer\PropertyValidator\ApiPackageEntityReferencePropertyValidator;
 use Apigee\Edge\Tests\Api\Monetization\EntitySerializer\PropertyValidator\CurrencyEntityReferencePropertyValidator;
 use Apigee\Edge\Tests\Api\Monetization\EntitySerializer\PropertyValidator\LegalEntityReferencePropertyValidator;
+use Apigee\Edge\Tests\Api\Monetization\EntitySerializer\PropertyValidator\RatePlanDetailsPropertyValidator;
 
 class RatePlanSerializerValidator extends OrganizationAwareEntitySerializerValidator
 {
@@ -39,6 +40,7 @@ class RatePlanSerializerValidator extends OrganizationAwareEntitySerializerValid
             new CurrencyEntityReferencePropertyValidator(),
             new LegalEntityReferencePropertyValidator(),
             new ApiPackageEntityReferencePropertyValidator(),
+            new RatePlanDetailsPropertyValidator(),
         ]);
         parent::__construct($serializer, $propertyValidators);
     }
@@ -48,9 +50,13 @@ class RatePlanSerializerValidator extends OrganizationAwareEntitySerializerValid
      */
     public function validate(\stdClass $input, EntityInterface $entity): void
     {
+        /* @var \Apigee\Edge\Api\Monetization\Entity\StandardRatePlanInterface $entity */
         // According to engineering this is a transient property and it should
         // be ignored.
         unset($input->customPaymentTerm);
+        foreach ($entity->getRatePlanDetails() as $id => $detail) {
+            unset($input->ratePlanDetails[$id]->customPaymentTerm);
+        }
         if (!$entity instanceof RatePlanRevisionInterface) {
             // This property can be ignored because its value only matters on
             // rate plan revisions (future rate plans).

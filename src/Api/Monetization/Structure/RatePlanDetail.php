@@ -18,8 +18,14 @@
 
 namespace Apigee\Edge\Api\Monetization\Structure;
 
+use Apigee\Edge\Api\Monetization\Entity\Property\CurrencyPropertyAwareTrait;
+use Apigee\Edge\Api\Monetization\Entity\Property\CurrencyPropertyInterface;
 use Apigee\Edge\Api\Monetization\Entity\Property\FreemiumPropertiesAwareTrait;
 use Apigee\Edge\Api\Monetization\Entity\Property\FreemiumPropertiesInterface;
+use Apigee\Edge\Api\Monetization\Entity\Property\IdPropertyAwareTrait;
+use Apigee\Edge\Api\Monetization\Entity\Property\IdPropertyInterface;
+use Apigee\Edge\Api\Monetization\Entity\Property\OrganizationPropertyAwareTrait;
+use Apigee\Edge\Api\Monetization\Entity\Property\OrganizationPropertyInterface;
 use Apigee\Edge\Api\Monetization\Entity\Property\PaymentDueDaysPropertyAwareTrait;
 use Apigee\Edge\Api\Monetization\Entity\Property\PaymentDueDaysPropertyInterface;
 use Apigee\Edge\Structure\BaseObject;
@@ -30,10 +36,17 @@ use Apigee\Edge\Structure\BaseObject;
  * @see https://docs.apigee.com/api-platform/monetization/create-rate-plans#rateplandetails
  */
 final class RatePlanDetail extends BaseObject implements
+    CurrencyPropertyInterface,
     FreemiumPropertiesInterface,
+    IdPropertyInterface,
+    NestedObjectReferenceInterface,
+    OrganizationPropertyInterface,
     PaymentDueDaysPropertyInterface
 {
+    use CurrencyPropertyAwareTrait;
+    use IdPropertyAwareTrait;
     use FreemiumPropertiesAwareTrait;
+    use OrganizationPropertyAwareTrait;
     use PaymentDueDaysPropertyAwareTrait;
 
     public const DURATION_DAY = 'DAY';
@@ -73,6 +86,9 @@ final class RatePlanDetail extends BaseObject implements
 
     /** @var null|bool */
     private $aggregateStandardCounters;
+
+    /** @var bool */
+    private $aggregateTransactions;
 
     /** @var null|int */
     private $duration;
@@ -256,5 +272,21 @@ final class RatePlanDetail extends BaseObject implements
     public function setType(string $type): void
     {
         $this->type = $type;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isAggregateTransactions(): bool
+    {
+        return $this->aggregateTransactions;
+    }
+
+    /**
+     * @param bool $aggregateTransactions
+     */
+    public function setAggregateTransactions(bool $aggregateTransactions): void
+    {
+        $this->aggregateTransactions = $aggregateTransactions;
     }
 }

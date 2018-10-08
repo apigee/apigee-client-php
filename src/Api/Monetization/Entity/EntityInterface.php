@@ -19,12 +19,13 @@
 namespace Apigee\Edge\Api\Monetization\Entity;
 
 use Apigee\Edge\Api\Monetization\Entity\Property\IdPropertyInterface;
+use Apigee\Edge\Api\Monetization\Structure\NestedObjectReferenceInterface;
 use Apigee\Edge\Entity\EntityInterface as BaseEntityInterface;
 
 /**
  * Base interface for Monetization entities.
  */
-interface EntityInterface extends BaseEntityInterface, IdPropertyInterface
+interface EntityInterface extends BaseEntityInterface, IdPropertyInterface, NestedObjectReferenceInterface
 {
     public const DATE_FORMAT = 'Y-m-d H:i:s';
 }

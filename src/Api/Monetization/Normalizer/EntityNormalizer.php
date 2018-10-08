@@ -18,8 +18,7 @@
 
 namespace Apigee\Edge\Api\Monetization\Normalizer;
 
-use Apigee\Edge\Api\Monetization\Entity\Entity;
-use Apigee\Edge\Api\Monetization\Entity\Property\IdPropertyInterface;
+use Apigee\Edge\Api\Monetization\Structure\NestedObjectReferenceInterface;
 use Apigee\Edge\Normalizer\ObjectNormalizer;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 use Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface;
@@ -66,7 +65,7 @@ class EntityNormalizer extends ObjectNormalizer
     {
         $normalized = (array) parent::normalize($object, $format, $context);
 
-        $entityReferenceProperties = $this->getEntityReferenceProperties($object);
+        $entityReferenceProperties = $this->getNestedObjectProperties($object);
 
         if (!empty($entityReferenceProperties)) {
             foreach ($entityReferenceProperties as $entityProperty => $normalizedProperty) {
@@ -97,54 +96,40 @@ class EntityNormalizer extends ObjectNormalizer
     }
 
     /**
-     * @inheritdoc
-     */
-    public function supportsNormalization($data, $format = null)
-    {
-        // Support only Monetization entities.
-        return $data instanceof Entity && parent::supportsNormalization($data, $format);
-    }
-
-    /**
-     * Returns a list of properties on the entity objects that contain
-     * references (nested objects) to another monetization entity.
+     * Returns a list of properties on an object that contain
+     * references (nested objects) to another objects.
      *
      * In case of these properties there is no need to send the complete
-     * nested entity object to the Monetization API when a new entity is
+     * nested object to the Monetization API when a new entity is
      * created or updated, it is enough to send only the id of the
-     * referenced entity. (Sending the id of the referenced entity is
+     * referenced object. (Sending the id of the referenced object is
      * required.)
      *
      * It does not support array object properties, those should be handled
      * in child classes.
      *
-     * @param \Apigee\Edge\Api\Monetization\Entity\Entity $entity
+     * @param object $object
      *
      * @return array
-     *   An associative array of properties that contain nested entity
-     *   references. Array keys are the (internal) property names on an entity
+     *   An associative array of properties that contain nested object
+     *   references. Array keys are the (internal) property names on an
      *   object and values are the normalized (external) property names that
      *   should be sent to Apigee Edge.
      */
-    protected function getEntityReferenceProperties(Entity $entity): array
+    protected function getNestedObjectProperties($object): array
     {
         $entityReferenceProperties = [];
-        $ro = new \ReflectionObject($entity);
+        $ro = new \ReflectionObject($object);
         foreach ($ro->getProperties() as $property) {
             $property->setAccessible(true);
-            $value = $property->getValue($entity);
-            if (is_object($value)) {
-                $rpo = new \ReflectionObject($value);
-                // Anything not in the Entity namespace should be sent as-is
-                // even if it implements the IdPropertyInterface.
-                if ('Apigee\Edge\Api\Monetization\Entity' === $rpo->getNamespaceName() && $rpo->implementsInterface(IdPropertyInterface::class)) {
-                    if ($this->nameConverter) {
-                        $normalizedPropertyName = $this->nameConverter->normalize($property->getName());
-                    } else {
-                        $normalizedPropertyName = $property->getName();
-                    }
-                    $entityReferenceProperties[$property->getName()] = $normalizedPropertyName;
+            $value = $property->getValue($object);
+            if (is_object($value) && $value instanceof NestedObjectReferenceInterface) {
+                if ($this->nameConverter) {
+                    $normalizedPropertyName = $this->nameConverter->normalize($property->getName());
+                } else {
+                    $normalizedPropertyName = $property->getName();
                 }
+                $entityReferenceProperties[$property->getName()] = $normalizedPropertyName;
             }
         }
 

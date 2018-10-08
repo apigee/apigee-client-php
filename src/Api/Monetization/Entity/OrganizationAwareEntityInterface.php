@@ -18,17 +18,8 @@
 
 namespace Apigee\Edge\Api\Monetization\Entity;
 
-interface OrganizationAwareEntityInterface extends EntityInterface
-{
-    /**
-     * @return null|\Apigee\Edge\Api\Monetization\Entity\OrganizationProfileInterface
-     */
-    public function getOrganization(): ?OrganizationProfileInterface;
+use Apigee\Edge\Api\Monetization\Entity\Property\OrganizationPropertyInterface;
 
-    /**
-     * @param \Apigee\Edge\Api\Monetization\Entity\OrganizationProfileInterface $organization
-     *
-     * @internal
-     */
-    public function setOrganization(OrganizationProfileInterface $organization): void;
+interface OrganizationAwareEntityInterface extends EntityInterface, OrganizationPropertyInterface
+{
 }
