@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## 2.0.0-alpha5 - 2018-10-08
+* Added missing constructor to the Company entity.
+* Added "JSON_PRESERVE_ZERO_FRACTION" to the serializer to ensure float values are always encoded as a float value.
+* Simplified and improved serialization. The EntityNormalizer now called as ObjectNormalizer and the EntityDenormalizer called as ObjectDenormalizer.
+* Blocked installation php-http/client-common>=1.8.0 until this issue does not get solved: https://github.com/php-http/client-common/issues/109.
+* Updated vimeo/psalm dev dependency to the latest 2.x version.
+
 ## 2.0.0-alpha4 - 2018-08-14
 * Dropped paginated entity listing support from developer- and company apps controllers. Pagination only supported on developer- and company apps endpoints when entity ids listed. These endpoints only return maximum 100 entities (ids and objects), if a developer/company has more apps (it should not be) use the /apps endpoint to load all apps one by one in a loop.
 * Decoupled entity serialization logic from controller classes.
