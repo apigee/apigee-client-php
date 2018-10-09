@@ -50,7 +50,7 @@
                 "taxModel": "HYBRID",
                 "transactionRelayURL": "http://localhost",
                 "taxRegNo": "12345",
-                "timezone": "UTC",
+                "timezone": "Australia/Eucla",
                 "logoUrl": "http://example.com"
             },
             "product": [
@@ -82,7 +82,7 @@
                         "supportedBillingType": "BOTH",
                         "taxEngineExternalId": "APIGEE",
                         "taxModel": "HYBRID",
-                        "timezone": "UTC",
+                        "timezone": "Australia/Eucla",
                         "logoUrl": "http://example.com"
                     },
                     "status": "CREATED",
@@ -142,7 +142,7 @@
                 "taxModel": "HYBRID",
                 "transactionRelayURL": "http://localhost",
                 "taxRegNo": "12345",
-                "timezone": "UTC",
+                "timezone": "Australia/Eucla",
                 "logoUrl": "http://example.com"
             },
             "product": [
@@ -174,7 +174,7 @@
                         "supportedBillingType": "BOTH",
                         "taxEngineExternalId": "APIGEE",
                         "taxModel": "HYBRID",
-                        "timezone": "UTC",
+                        "timezone": "Australia/Eucla",
                         "logoUrl": "http://example.com"
                     },
                     "status": "CREATED",

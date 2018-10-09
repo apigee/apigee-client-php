@@ -42,8 +42,8 @@ trait EntityUpdateOperationControllerValidatorTrait
         // can do (in general) is to make sure that the PUT API call is sent
         // to the right place. The testLoad() has already ensured that the
         // API client can serialize and deserialize an API response properly.
-        // Classes can also do extra validation of course, like make sure that
-        // the timezone conversation works properly.
+        // Classes that use this trait can also do extra validations on the
+        // entity.
         Assert::assertEquals(200, static::getClient()->getJournal()->getLastResponse()->getStatusCode());
     }
 

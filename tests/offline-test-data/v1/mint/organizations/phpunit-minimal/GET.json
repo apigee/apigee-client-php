@@ -9,6 +9,6 @@
     "selfBillingForAllDev": false,
     "separateInvoiceForFees": false,
     "taxModel": "HYBRID",
-    "timezone": "UTC",
+    "timezone": "Australia/Eucla",
     "status": "ACTIVE"
 }

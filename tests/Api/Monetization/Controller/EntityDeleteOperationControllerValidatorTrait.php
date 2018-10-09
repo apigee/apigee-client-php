@@ -39,7 +39,7 @@ trait EntityDeleteOperationControllerValidatorTrait
         $controller->delete($this->getEntityIdForTestDelete());
         // Because MINT tests are pure offline API tests the best thing that we
         // can do (in general) is to make sure that the DELETE API call is sent
-        // to the right place.
+        // to the right endpoint.
         Assert::assertEquals(200, static::getClient()->getJournal()->getLastResponse()->getStatusCode());
     }
 

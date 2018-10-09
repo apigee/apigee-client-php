@@ -16,32 +16,19 @@
  * limitations under the License.
  */
 
-namespace Apigee\Edge\Entity\Property;
+namespace Apigee\Edge\Api\Monetization\NameConverter;
 
-/**
- * Trait DescriptionPropertyAwareTrait.
- *
- *
- * @see \Apigee\Edge\Entity\Property\DescriptionPropertyInterface
- */
-trait DescriptionPropertyAwareTrait
+use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
+
+class TermsAndConditionsNameConverter extends NameConverterBase implements NameConverterInterface
 {
-    /** @var string|null */
-    protected $description;
-
     /**
      * @inheritdoc
      */
-    public function getDescription(): ?string
+    protected function getExternalToLocalMapping(): array
     {
-        return $this->description;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function setDescription(string $description): void
-    {
-        $this->description = $description;
+        return [
+            'tncText' => 'description',
+        ];
     }
 }

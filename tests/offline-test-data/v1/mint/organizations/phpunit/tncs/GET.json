@@ -1,30 +1,8 @@
 {
-    "developerRole": [
+    "tnc": [
         {
-            "description": "PHPUnit",
             "id": "phpunit",
-            "name": "phpunit",
             "organization": {
-                "address": [
-                    {
-                        "address1": "address1",
-                        "city": "city1",
-                        "country": "country1",
-                        "id": "id1",
-                        "isPrimary": true,
-                        "state": "state1",
-                        "zip": "zip1"
-                    },
-                    {
-                        "address1": "address2",
-                        "city": "city2",
-                        "country": "country2",
-                        "id": "id2",
-                        "isPrimary": false,
-                        "state": "state2",
-                        "zip": "zip2"
-                    }
-                ],
                 "approveTrusted": false,
                 "approveUntrusted": false,
                 "billingCycle": "CALENDAR_MONTH",
@@ -51,33 +29,14 @@
                 "taxRegNo": "12345",
                 "timezone": "Australia/Eucla",
                 "logoUrl": "http://example.com"
-            }
+            },
+            "startDate": "2018-01-01 22:00:00",
+            "tncText": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+            "version": "1.0"
         },
         {
-            "description": "PHPUnit 2",
-            "id": "phpunit_2",
-            "name": "phpunit_2",
+            "id": "id",
             "organization": {
-                "address": [
-                    {
-                        "address1": "address1",
-                        "city": "city1",
-                        "country": "country1",
-                        "id": "id1",
-                        "isPrimary": true,
-                        "state": "state1",
-                        "zip": "zip1"
-                    },
-                    {
-                        "address1": "address2",
-                        "city": "city2",
-                        "country": "country2",
-                        "id": "id2",
-                        "isPrimary": false,
-                        "state": "state2",
-                        "zip": "zip2"
-                    }
-                ],
                 "approveTrusted": false,
                 "approveUntrusted": false,
                 "billingCycle": "CALENDAR_MONTH",
@@ -104,7 +63,10 @@
                 "taxRegNo": "12345",
                 "timezone": "Australia/Eucla",
                 "logoUrl": "http://example.com"
-            }
+            },
+            "startDate": "2018-12-01 00:00:00",
+            "url": "http://example.com",
+            "version": "2.0"
         }
     ],
     "totalRecords": 2

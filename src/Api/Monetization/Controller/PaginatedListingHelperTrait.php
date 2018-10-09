@@ -26,12 +26,20 @@ trait PaginatedListingHelperTrait
 
     protected function listAllEntities(UriInterface $uri): array
     {
-        return $this->listEntities($uri->withQuery(http_build_query(['all' => 'true'])));
+        // Do not lose already set query parameters.
+        $query_params = [];
+        parse_str($uri->getQuery(), $query_params);
+        $query_params['all'] = 'true';
+
+        return $this->listEntities($uri->withQuery(http_build_query($query_params)));
     }
 
     protected function listEntitiesInRange(UriInterface $uri, int $limit = null, int $page = 1): array
     {
-        $query_params = [
+        // Do not lose already set query parameters.
+        $query_params = [];
+        parse_str($uri->getQuery(), $query_params);
+        $query_params += [
             'page' => $page,
         ];
 

@@ -55,7 +55,7 @@
         "taxModel": "HYBRID",
         "transactionRelayURL": "http://localhost",
         "taxRegNo": "12345",
-        "timezone": "UTC",
+        "timezone": "Australia/Eucla",
         "logoUrl": "http://example.com"
     },
     "parent": {
@@ -91,7 +91,7 @@
             "taxModel": "HYBRID",
             "transactionRelayURL": "http://localhost",
             "taxRegNo": "12345",
-            "timezone": "UTC",
+            "timezone": "Australia/Eucla",
             "logoUrl": "http://example.com"
         },
         "registrationId": "EX",

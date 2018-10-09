@@ -17,7 +17,7 @@
             "selfBillingForAllDev": false,
             "separateInvoiceForFees": false,
             "taxModel": "HYBRID",
-            "timezone": "UTC",
+            "timezone": "Australia/Eucla",
             "status": "ACTIVE"
         },
         "status" : "ACTIVE",
@@ -45,7 +45,7 @@
             "selfBillingForAllDev": false,
             "separateInvoiceForFees": false,
             "taxModel": "HYBRID",
-            "timezone": "UTC",
+            "timezone": "Australia/Eucla",
             "status": "ACTIVE"
         },
         "product" : [ {
@@ -63,7 +63,7 @@
                 "selfBillingForAllDev": false,
                 "separateInvoiceForFees": false,
                 "taxModel": "HYBRID",
-                "timezone": "UTC",
+                "timezone": "Australia/Eucla",
                 "status": "ACTIVE"
             },
             "status" : "CREATED",
@@ -83,7 +83,7 @@
         "selfBillingForAllDev": false,
         "separateInvoiceForFees": false,
         "taxModel": "HYBRID",
-        "timezone": "UTC",
+        "timezone": "Australia/Eucla",
         "status": "ACTIVE"
     },
     "prorate" : false,
