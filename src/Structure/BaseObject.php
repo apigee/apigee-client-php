@@ -67,11 +67,11 @@ abstract class BaseObject
             $property->setAccessible(true);
             $value = $property->getValue($this);
             if (is_object($value)) {
-                $this->{$property->getName()} = clone $value;
+                $property->setValue($this, clone $value);
             }
             if (is_array($value)) {
                 $this->cloneArray($value);
-                $this->{$property->getName()} = $value;
+                $property->setValue($this, $value);
             }
         }
     }
