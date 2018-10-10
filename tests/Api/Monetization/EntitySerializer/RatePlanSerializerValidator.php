@@ -23,6 +23,7 @@ use Apigee\Edge\Api\Monetization\Entity\RatePlanRevisionInterface;
 use Apigee\Edge\Serializer\EntitySerializerInterface;
 use Apigee\Edge\Tests\Api\Monetization\EntitySerializer\PropertyValidator\ApiPackageEntityReferencePropertyValidator;
 use Apigee\Edge\Tests\Api\Monetization\EntitySerializer\PropertyValidator\CurrencyEntityReferencePropertyValidator;
+use Apigee\Edge\Tests\Api\Monetization\EntitySerializer\PropertyValidator\DeveloperCategoryEntityReferencePropertyValidator;
 use Apigee\Edge\Tests\Api\Monetization\EntitySerializer\PropertyValidator\LegalEntityReferencePropertyValidator;
 use Apigee\Edge\Tests\Api\Monetization\EntitySerializer\PropertyValidator\RatePlanDetailsPropertyValidator;
 
@@ -38,9 +39,12 @@ class RatePlanSerializerValidator extends OrganizationAwareEntitySerializerValid
     {
         $propertyValidators = array_merge($propertyValidators, [
             new CurrencyEntityReferencePropertyValidator(),
-            new LegalEntityReferencePropertyValidator(),
             new ApiPackageEntityReferencePropertyValidator(),
             new RatePlanDetailsPropertyValidator(),
+            // For developer specific rate plans.
+            new LegalEntityReferencePropertyValidator(),
+            // For developer category specific rate plans.
+            new DeveloperCategoryEntityReferencePropertyValidator(),
         ]);
         parent::__construct($serializer, $propertyValidators);
     }

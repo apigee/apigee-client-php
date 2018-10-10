@@ -31,7 +31,7 @@ trait EntityCreateOperationControllerValidatorTrait
 {
     use EntityControllerAwareTrait;
     use ClientAwareTestTrait;
-    use EntityIdAwareControllerTrait;
+    use TestEntityIdAwareControllerValidatorTrait;
 
     public function testCreate(): void
     {
@@ -49,6 +49,6 @@ trait EntityCreateOperationControllerValidatorTrait
 
     protected function getEntityForTestCreate(): EntityInterface
     {
-        return $this->getEntityController()->load($this->getEntityId());
+        return $this->getEntityController()->load($this->getTestEntityId());
     }
 }

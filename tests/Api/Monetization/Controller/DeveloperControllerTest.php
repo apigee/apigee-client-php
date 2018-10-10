@@ -41,7 +41,7 @@ class DeveloperControllerTest extends LegalEntityControllerValidator
     /**
      * @inheritdoc
      */
-    protected function getEntityId(): string
+    protected function getTestEntityId(): string
     {
         return 'phpunit@example.com';
     }

@@ -73,11 +73,13 @@ trait TimezoneConversionValidatorTrait
     }
 
     /**
-     * We rely on this method which is provided by the EntityLoadOperationControllerValidatorTrait.
+     * We depend on this method which is provided by the EntityLoadOperationControllerValidatorTrait.
+     *
+     * @param null|string $entityId
      *
      * @return \Apigee\Edge\Api\Monetization\Entity\EntityInterface
      */
-    abstract protected function loadTestEntity(): EntityInterface;
+    abstract protected function loadTestEntity(?string $entityId = null): EntityInterface;
 
     /**
      * Extracts parent Organization's timezone information from an entity.

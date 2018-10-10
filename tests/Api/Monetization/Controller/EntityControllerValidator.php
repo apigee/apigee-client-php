@@ -27,6 +27,7 @@ abstract class EntityControllerValidator extends AbstractControllerValidator
 {
     use EntityControllerAwareTrait;
     use EntitySerializerAwareValidatorTrait;
+    use TestEntityIdAwareControllerValidatorTrait;
 
     protected static function getEntitySerializer(): EntitySerializerInterface
     {
@@ -47,7 +48,7 @@ abstract class EntityControllerValidator extends AbstractControllerValidator
         return $validator;
     }
 
-    protected function getEntityId(): string
+    protected function getTestEntityId(): string
     {
         return 'phpunit';
     }

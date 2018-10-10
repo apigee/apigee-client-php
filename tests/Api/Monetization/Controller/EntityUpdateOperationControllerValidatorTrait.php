@@ -31,7 +31,7 @@ trait EntityUpdateOperationControllerValidatorTrait
 {
     use EntityControllerAwareTrait;
     use ClientAwareTestTrait;
-    use EntityIdAwareControllerTrait;
+    use TestEntityIdAwareControllerValidatorTrait;
 
     public function testUpdate(): void
     {
@@ -49,6 +49,6 @@ trait EntityUpdateOperationControllerValidatorTrait
 
     protected function getEntityForTestUpdate(): EntityInterface
     {
-        return $this->getEntityController()->load($this->getEntityId());
+        return $this->getEntityController()->load($this->getTestEntityId());
     }
 }

@@ -28,23 +28,28 @@ class RatePlanControllerValidator extends OrganizationAwareEntityControllerValid
     use EntityLoadOperationControllerValidatorTrait {
         testLoad as private traitTestLoad;
     }
+    use TimezoneConversionValidatorTrait;
 
     /**
      * @inheritdoc
      */
-    public function testLoad(): \Apigee\Edge\Api\Monetization\Entity\EntityInterface
+    public function testLoad(): void
     {
-        // TODO Validate timezone conversion.
-        date_default_timezone_set('Australia/Eucla');
-        // Validate standard rate plan.
-        $entity = $this->traitTestLoad();
-
-        // Add tests for company_rate_plan, developer_rate_plan, developer_category_rate_plan
-        // as well.
-        /* @var \Apigee\Edge\Api\Monetization\Controller\EntityLoadOperationControllerInterface $controller */
-//        $controller = $this->getEntityController();
-//        $entity = $controller->load($this->getEntityId());
-        return $entity;
+        // Standard rate plan.
+        $entity = $this->loadTestEntity();
+        $this->validateLoadedEntity($entity);
+        // Developer rate plan.
+        $entity = $this->loadTestEntity('developer');
+        $this->validateLoadedEntity($entity);
+        // Company (developer) rate plan.
+        $entity = $this->loadTestEntity('company');
+        $this->validateLoadedEntity($entity);
+        // Rate plan with revenue share and rate card.
+        $entity = $this->loadTestEntity('revshare_ratecard');
+        $this->validateLoadedEntity($entity);
+        // Developer category specific rate plan.
+        $entity = $this->loadTestEntity('developer_category');
+        $this->validateLoadedEntity($entity);
     }
 
     /**

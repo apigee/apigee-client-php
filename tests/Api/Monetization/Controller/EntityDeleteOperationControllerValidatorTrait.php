@@ -30,7 +30,6 @@ trait EntityDeleteOperationControllerValidatorTrait
 {
     use EntityControllerAwareTrait;
     use ClientAwareTestTrait;
-    use EntityIdAwareControllerTrait;
 
     public function testDelete(): void
     {

@@ -18,7 +18,7 @@
 
 namespace Apigee\Edge\Tests\Api\Monetization\Controller;
 
-trait EntityIdAwareControllerTrait
+trait TestEntityIdAwareControllerValidatorTrait
 {
-    abstract protected function getEntityId(): string;
+    abstract protected function getTestEntityId(): string;
 }

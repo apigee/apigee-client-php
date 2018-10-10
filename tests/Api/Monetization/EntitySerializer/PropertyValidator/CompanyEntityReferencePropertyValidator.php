@@ -22,7 +22,7 @@ use Apigee\Edge\Api\Monetization\Entity\Developer;
 use Apigee\Edge\Api\Monetization\Entity\EntityInterface;
 use PHPUnit\Framework\Assert;
 
-class CompanyPropertyValidator implements EntityReferencePropertyValidatorInterface, SerializerAwarePropertyValidatorInterface
+class CompanyEntityReferencePropertyValidator implements EntityReferencePropertyValidatorInterface, SerializerAwarePropertyValidatorInterface
 {
     use SerializerAwarePropertyValidatorTrait {
         setEntitySerializer as private traitSetEntitySerializer;
@@ -44,10 +44,9 @@ class CompanyPropertyValidator implements EntityReferencePropertyValidatorInterf
      */
     public function validate(\stdClass $input, \stdClass $output, EntityInterface $entity): void
     {
-        if (!$entity instanceof Developer) {
+        if (!$entity instanceof Developer || !$entity->getCompany()) {
             return;
         }
-        // TODO What if company is not assigned?
         Assert::assertEquals($output->{static::validatedProperty()}, (object) ['id' => $input->{static::validatedProperty()}->id]);
 
         // Validate the nested company object.
