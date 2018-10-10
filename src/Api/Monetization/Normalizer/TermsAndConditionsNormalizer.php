@@ -53,8 +53,9 @@ class TermsAndConditionsNormalizer extends EntityNormalizer
         /** @var object $normalized */
         $normalized = parent::normalize($object, $format, $context);
 
-        // Fix the start- and end date of the rate plan if the organization's
-        // timezone is different from the default PHP timezone.
+        // Fix the start- and end date of the terms and conditions
+        // if the organization's timezone is different from the default
+        // PHP timezone.
         /** @var \Apigee\Edge\Api\Monetization\Entity\TermsAndConditionsInterface $object */
         if (date_default_timezone_get() !== $object->getOrganization()->getTimezone()->getName()) {
             $dateDenormalizer = new DateTimeNormalizer(TermsAndConditionsInterface::DATE_FORMAT, $object->getOrganization()->getTimezone());

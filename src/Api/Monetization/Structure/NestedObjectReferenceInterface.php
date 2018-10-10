@@ -23,7 +23,7 @@ use Apigee\Edge\Api\Monetization\Entity\Property\IdPropertyInterface;
 /**
  * Interface NestedObjectReferenceInterface.
  *
- * If an object implements this interface is the type of a property
+ * If an object that implements this interface is the type of a property
  * on an other object then the id of the object should be sent as the value of
  * the property in POST/PUT requests instead of the complete serialized object.
  *
