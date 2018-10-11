@@ -19,6 +19,11 @@
 namespace Apigee\Edge\Tests\Api\Monetization\Controller;
 
 use Apigee\Edge\Api\Monetization\Controller\RatePlanController;
+use Apigee\Edge\Api\Monetization\Entity\CompanyRatePlanInterface;
+use Apigee\Edge\Api\Monetization\Entity\DeveloperCategoryRatePlanInterface;
+use Apigee\Edge\Api\Monetization\Entity\DeveloperRatePlanInterface;
+use Apigee\Edge\Api\Monetization\Entity\RatePlanRevisionInterface;
+use Apigee\Edge\Api\Monetization\Entity\StandardRatePlanInterface;
 use Apigee\Edge\Controller\EntityControllerInterface;
 use Apigee\Edge\Tests\Api\Monetization\EntitySerializer\EntitySerializerValidatorInterface;
 use Apigee\Edge\Tests\Api\Monetization\EntitySerializer\RatePlanSerializerValidator;
@@ -35,21 +40,41 @@ class RatePlanControllerTest extends OrganizationAwareEntityControllerValidator
      */
     public function testLoad(): void
     {
-        // Standard rate plan.
-        $entity = $this->loadTestEntity();
-        $this->validateLoadedEntity($entity);
-        // Developer rate plan.
-        $entity = $this->loadTestEntity('developer');
-        $this->validateLoadedEntity($entity);
-        // Company (developer) rate plan.
-        $entity = $this->loadTestEntity('company');
-        $this->validateLoadedEntity($entity);
-        // Rate plan with revenue share and rate card.
-        $entity = $this->loadTestEntity('revshare_ratecard');
-        $this->validateLoadedEntity($entity);
-        // Developer category specific rate plan.
-        $entity = $this->loadTestEntity('developer_category');
-        $this->validateLoadedEntity($entity);
+        $ids = [
+            // Standard rate plan.
+            'standard' => [StandardRatePlanInterface::class],
+            // Standard rate plan revision.
+            'standard-rev' => [StandardRatePlanInterface::class, RatePlanRevisionInterface::class],
+            // Developer rate plan.
+            'developer' => [DeveloperRatePlanInterface::class],
+            // Developer rate plan revision.
+            'developer-rev' => [DeveloperRatePlanInterface::class, RatePlanRevisionInterface::class],
+            // Company (developer) rate plan.
+            'company' => [CompanyRatePlanInterface::class],
+            // Company (developer) rate plan revision.
+            'company-rev' => [CompanyRatePlanInterface::class, RatePlanRevisionInterface::class],
+            // Developer category specific rate plan.
+            'developer_category' => [DeveloperCategoryRatePlanInterface::class],
+            // Developer category specific rate plan revision.
+            'developer_category-rev' => [DeveloperCategoryRatePlanInterface::class, RatePlanRevisionInterface::class],
+            // Rate plan with revenue share and rate card.
+            // We do not expect any class here, because it is not a special
+            // type of rate plans.
+            'revshare_ratecard' => [],
+        ];
+
+        foreach ($ids as $id => $expectedClasses) {
+            $entity = $this->loadTestEntity($id);
+            foreach ($expectedClasses as $expectedClass) {
+                $this->assertInstanceOf($expectedClass, $entity, $id);
+            }
+            $this->validateLoadedEntity($entity);
+        }
+    }
+
+    protected function getTestEntityId(): string
+    {
+        return 'standard';
     }
 
     /**

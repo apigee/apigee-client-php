@@ -22,7 +22,7 @@ use Apigee\Edge\Api\Monetization\Entity\EntityInterface;
 use Apigee\Edge\Tests\Api\Monetization\EntitySerializer\LegalEntitySerializerValidator;
 use PHPUnit\Framework\Assert;
 
-class LegalEntityReferencePropertyValidator implements EntityReferencePropertyValidatorInterface, SerializerAwarePropertyValidatorInterface
+class LegalEntityEntityReferencePropertyValidator implements EntityReferencePropertyValidatorInterface, SerializerAwarePropertyValidatorInterface
 {
     use SerializerAwarePropertyValidatorTrait {
         setEntitySerializer as private traitSetEntitySerializer;

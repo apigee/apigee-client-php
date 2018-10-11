@@ -24,7 +24,8 @@ use Apigee\Edge\Serializer\EntitySerializerInterface;
 use Apigee\Edge\Tests\Api\Monetization\EntitySerializer\PropertyValidator\ApiPackageEntityReferencePropertyValidator;
 use Apigee\Edge\Tests\Api\Monetization\EntitySerializer\PropertyValidator\CurrencyEntityReferencePropertyValidator;
 use Apigee\Edge\Tests\Api\Monetization\EntitySerializer\PropertyValidator\DeveloperCategoryEntityReferencePropertyValidator;
-use Apigee\Edge\Tests\Api\Monetization\EntitySerializer\PropertyValidator\LegalEntityReferencePropertyValidator;
+use Apigee\Edge\Tests\Api\Monetization\EntitySerializer\PropertyValidator\LegalEntityEntityReferencePropertyValidator;
+use Apigee\Edge\Tests\Api\Monetization\EntitySerializer\PropertyValidator\ParentRatePlanEntityReferencePropertyValidator;
 use Apigee\Edge\Tests\Api\Monetization\EntitySerializer\PropertyValidator\RatePlanDetailsPropertyValidator;
 
 class RatePlanSerializerValidator extends OrganizationAwareEntitySerializerValidator
@@ -35,16 +36,18 @@ class RatePlanSerializerValidator extends OrganizationAwareEntitySerializerValid
      * @param \Apigee\Edge\Serializer\EntitySerializerInterface $serializer
      * @param array $propertyValidators
      */
-    public function __construct(EntitySerializerInterface $serializer, array $propertyValidators = [])
+    public function __construct(EntitySerializerInterface $serializer = null, array $propertyValidators = [])
     {
         $propertyValidators = array_merge($propertyValidators, [
             new CurrencyEntityReferencePropertyValidator(),
             new ApiPackageEntityReferencePropertyValidator(),
             new RatePlanDetailsPropertyValidator(),
             // For developer specific rate plans.
-            new LegalEntityReferencePropertyValidator(),
+            new LegalEntityEntityReferencePropertyValidator(),
             // For developer category specific rate plans.
             new DeveloperCategoryEntityReferencePropertyValidator(),
+            // For rate plan revisions.
+            new ParentRatePlanEntityReferencePropertyValidator(),
         ]);
         parent::__construct($serializer, $propertyValidators);
     }
@@ -61,7 +64,13 @@ class RatePlanSerializerValidator extends OrganizationAwareEntitySerializerValid
         foreach ($entity->getRatePlanDetails() as $id => $detail) {
             unset($input->ratePlanDetails[$id]->customPaymentTerm);
         }
-        if (!$entity instanceof RatePlanRevisionInterface) {
+        if ($entity instanceof RatePlanRevisionInterface) {
+            // Validate here whether the serializer could deserialize all
+            // information from the input about the parent rate plan properly.
+            // Testing the serialization of the parent rate plan reference
+            // happens in ParentRatePlanEntityReferencePropertyValidator.
+            $this->validate($input->parentRatePlan, $entity->getPreviousRatePlanRevision());
+        } else {
             // This property can be ignored because its value only matters on
             // rate plan revisions (future rate plans).
             unset($input->keepOriginalStartDate);

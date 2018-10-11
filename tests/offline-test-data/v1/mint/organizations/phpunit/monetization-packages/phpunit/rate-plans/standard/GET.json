@@ -1,5 +1,7 @@
 {
     "advance" : false,
+    "contractDuration" : 1,
+    "contractDurationType" : "MONTH",
     "currency" : {
         "description" : "United States Dollars",
         "displayName" : "United States Dollars",
@@ -43,7 +45,7 @@
     "earlyTerminationFee" : 21.4400,
     "frequencyDuration" : 1,
     "frequencyDurationType" : "MONTH",
-    "id" : "phpunit",
+    "id" : "standard",
     "isPrivate" : false,
     "keepOriginalStartDate" : false,
     "monetizationPackage" : {
@@ -118,7 +120,7 @@
         ],
         "status": "CREATED"
     },
-    "name" : "phpunit",
+    "name" : "standard",
     "organization" : {
         "approveTrusted": false,
         "approveUntrusted": false,
