@@ -23,7 +23,7 @@ use Apigee\Edge\Controller\EntityControllerInterface;
 use Apigee\Edge\Tests\Api\Monetization\EntitySerializer\EntitySerializerValidatorInterface;
 use Apigee\Edge\Tests\Api\Monetization\EntitySerializer\RatePlanSerializerValidator;
 
-class RatePlanControllerValidator extends OrganizationAwareEntityControllerValidator
+class RatePlanControllerTest extends OrganizationAwareEntityControllerValidator
 {
     use EntityLoadOperationControllerValidatorTrait {
         testLoad as private traitTestLoad;

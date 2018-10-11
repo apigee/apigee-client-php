@@ -26,7 +26,7 @@ use Apigee\Edge\Tests\Test\HttpClient\Plugin\NullAuthentication;
 use GuzzleHttp\Psr7\Response;
 use Http\Mock\Client as HttpClient;
 
-class TermsAndConditionsControllerValidator extends OrganizationAwareEntityControllerValidator
+class TermsAndConditionsControllerTest extends OrganizationAwareEntityControllerValidator
 {
     use EntityCreateOperationControllerValidatorTrait;
     use EntityLoadOperationControllerValidatorTrait;
