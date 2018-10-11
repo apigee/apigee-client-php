@@ -121,7 +121,7 @@
         ],
         "status": "CREATED"
     },
-    "name" : "dev category",
+    "name" : "developer_category",
     "organization" : {
         "approveTrusted": false,
         "approveUntrusted": false,

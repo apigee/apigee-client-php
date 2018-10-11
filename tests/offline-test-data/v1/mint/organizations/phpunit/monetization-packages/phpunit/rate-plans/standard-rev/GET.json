@@ -45,7 +45,7 @@
     "earlyTerminationFee" : 21.4400,
     "frequencyDuration" : 1,
     "frequencyDurationType" : "MONTH",
-    "id" : "standard",
+    "id" : "standard-rev",
     "isPrivate" : false,
     "keepOriginalStartDate" : true,
     "monetizationPackage" : {
@@ -120,7 +120,7 @@
         ],
         "status": "CREATED"
     },
-    "name" : "standard",
+    "name" : "standard-rev",
     "organization" : {
         "approveTrusted": false,
         "approveUntrusted": false,

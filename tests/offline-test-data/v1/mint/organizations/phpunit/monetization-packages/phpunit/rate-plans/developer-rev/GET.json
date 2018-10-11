@@ -135,7 +135,7 @@
     "displayName" : "Developer specific rate plan",
     "earlyTerminationFee" : 0.0000,
     "endDate" : "2019-07-31 00:00:00",
-    "id" : "developer_rate_plan",
+    "id" : "developer-rev",
     "isPrivate" : false,
     "keepOriginalStartDate" : true,
     "monetizationPackage" : {
@@ -210,7 +210,7 @@
         ],
         "status": "CREATED"
     },
-    "name" : "developer_rate_plan",
+    "name" : "developer-rev",
     "organization" : {
         "approveTrusted": false,
         "approveUntrusted": false,

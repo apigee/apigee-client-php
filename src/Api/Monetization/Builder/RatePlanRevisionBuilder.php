@@ -61,7 +61,7 @@ final class RatePlanRevisionBuilder
         $ratePlanSerializer = new RatePlanSerializer();
         // Normalize the parent rate plan to an array.
         // We have to normalize all "nested" entity references recursively
-        // with their dedicated serializer because only their ids is being
+        // with their dedicated serializer because only their ids are being
         // returned by the rate plan serializer (as it should be) by default.
         /** @var object $normalized */
         $normalized = $ratePlanSerializer->normalize($ratePlan);
@@ -70,6 +70,10 @@ final class RatePlanRevisionBuilder
         $normalized->currency->organization = $normalized->organization;
         $normalized->monetizationPackage = (new ApiPackageSerializer())->normalize($ratePlan->getPackage());
         $normalized->monetizationPackage->organization = $normalized->organization;
+        foreach ($normalized->ratePlanDetails as $detail) {
+            $detail->currency = clone $normalized->currency;
+            $detail->organization = clone $normalized->organization;
+        }
         // We do not need the "parent" rate plan of the "parent" rate plan for
         // this API call.
         if ($ratePlan instanceof RatePlanRevisionInterface) {

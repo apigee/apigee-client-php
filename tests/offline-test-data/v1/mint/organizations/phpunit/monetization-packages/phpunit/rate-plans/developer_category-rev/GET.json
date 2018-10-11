@@ -198,7 +198,7 @@
         },
         "displayName" : "dev category",
         "earlyTerminationFee" : 0.0000,
-        "id" : "developer_category",
+        "id" : "developer_category-rev",
         "isPrivate" : false,
         "keepOriginalStartDate" : false,
         "monetizationPackage" : {
@@ -273,7 +273,7 @@
             ],
             "status": "CREATED"
         },
-        "name" : "dev category",
+        "name" : "developer_category-rev",
         "organization" : {
             "approveTrusted": false,
             "approveUntrusted": false,

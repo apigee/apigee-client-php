@@ -18,15 +18,23 @@
 
 namespace Apigee\Edge\Tests\Api\Monetization\Controller;
 
+use Apigee\Edge\Api\Monetization\Builder\RatePlanRevisionBuilder;
 use Apigee\Edge\Api\Monetization\Controller\RatePlanController;
 use Apigee\Edge\Api\Monetization\Entity\CompanyRatePlanInterface;
 use Apigee\Edge\Api\Monetization\Entity\DeveloperCategoryRatePlanInterface;
 use Apigee\Edge\Api\Monetization\Entity\DeveloperRatePlanInterface;
 use Apigee\Edge\Api\Monetization\Entity\RatePlanRevisionInterface;
 use Apigee\Edge\Api\Monetization\Entity\StandardRatePlanInterface;
+use Apigee\Edge\Client;
 use Apigee\Edge\Controller\EntityControllerInterface;
+use Apigee\Edge\HttpClient\Utility\Builder;
 use Apigee\Edge\Tests\Api\Monetization\EntitySerializer\EntitySerializerValidatorInterface;
 use Apigee\Edge\Tests\Api\Monetization\EntitySerializer\RatePlanSerializerValidator;
+use Apigee\Edge\Tests\Test\HttpClient\FileSystemResponseFactory;
+use Apigee\Edge\Tests\Test\HttpClient\Plugin\NullAuthentication;
+use Apigee\Edge\Tests\Test\TestClientFactory;
+use GuzzleHttp\Psr7\Request;
+use Http\Mock\Client as HttpClient;
 
 class RatePlanControllerTest extends OrganizationAwareEntityControllerValidator
 {
@@ -70,6 +78,60 @@ class RatePlanControllerTest extends OrganizationAwareEntityControllerValidator
             }
             $this->validateLoadedEntity($entity);
         }
+    }
+
+    public function testGetEntities(): void
+    {
+        $client = (new TestClientFactory())->getClient(HttpClient::class);
+        $controller = new RatePlanController('phpunit', static::getOrganization(static::$client), $client);
+        $controller->getEntities();
+        $this->assertEmpty($client->getJournal()->getLastRequest()->getUri()->getQuery());
+        $controller->getEntities(true, true, true);
+        $this->assertEquals('current=true&showPrivate=true&standard=true', $client->getJournal()->getLastRequest()->getUri()->getQuery());
+        $controller->getEntities(false, false, false);
+        $this->assertEquals('current=false&showPrivate=false&standard=false', $client->getJournal()->getLastRequest()->getUri()->getQuery());
+    }
+
+    public function testCreateNewRevision(): void
+    {
+        /** @var \Apigee\Edge\Api\Monetization\Entity\RatePlanInterface $rate_plan */
+        // Create a new revision from a rate plan revision.
+        $rate_plan = $this->loadTestEntity('standard-rev');
+        $rate_plan->setStartDate(new \DateTimeImmutable('now'));
+        /** @var \Apigee\Edge\Api\Monetization\Entity\RatePlanRevisionInterface $rate_plan_revision */
+        $rate_plan_revision_start_date = new \DateTimeImmutable('tomorrow');
+        $rate_plan_revision = RatePlanRevisionBuilder::buildRatePlanRevision($rate_plan, $rate_plan_revision_start_date);
+        $this->assertNull($rate_plan_revision->id());
+        $this->assertNull($rate_plan_revision->getEndDate());
+        // We do not validate whether previous rate plan === rate plan, because
+        // it is not always true, see the next assert.
+        $this->assertEquals($rate_plan_revision->getPreviousRatePlanRevision()->id(), $rate_plan->id());
+        // The parent rate plan is not a rate plan revision anymore.
+        $this->assertNotInstanceOf(RatePlanRevisionInterface::class, $rate_plan_revision->getPreviousRatePlanRevision());
+        $this->assertEquals($rate_plan_revision_start_date, $rate_plan_revision->getStartDate());
+        $httpClient = new HttpClient();
+        $client = new Client(new NullAuthentication(), null, [Client::CONFIG_HTTP_CLIENT_BUILDER => new Builder($httpClient)]);
+        // Read (the same) rate plan revision JSON object from the filesystem
+        // and return it a response to the sent API call.
+        $response = (new FileSystemResponseFactory())->createResponseForRequest(new Request('GET', 'v1/mint/organizations/phpunit/monetization-packages/phpunit/rate-plans/standard-rev'));
+        $httpClient->addResponse($response);
+        $controller = new RatePlanController('phpunit', static::getOrganization(static::$client), $client);
+        $controller->createNewRevision($rate_plan_revision);
+        // After we got back the same rate plan revision object that we started
+        // the ID should be set again.
+        $this->assertNotNull($rate_plan_revision->id());
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage Start date should not be earlier than parent rate plan's start date.
+     */
+    public function testCreateNewRevisionWithIncorrectStartDate(): void
+    {
+        /** @var \Apigee\Edge\Api\Monetization\Entity\RatePlanInterface $rate_plan */
+        $rate_plan = $this->loadTestEntity('standard');
+        $rate_plan->setStartDate(new \DateTimeImmutable('now'));
+        RatePlanRevisionBuilder::buildRatePlanRevision($rate_plan, new \DateTimeImmutable('yesterday'));
     }
 
     protected function getTestEntityId(): string

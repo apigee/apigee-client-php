@@ -97,7 +97,7 @@
     },
     "displayName" : "Company rate plan",
     "earlyTerminationFee" : 0.0000,
-    "id" : "company_rate_plan",
+    "id" : "company-rev",
     "isPrivate" : false,
     "keepOriginalStartDate" : true,
     "monetizationPackage" : {
@@ -172,7 +172,7 @@
         ],
         "status": "CREATED"
     },
-    "name" : "company_rate_plan",
+    "name" : "company-rev",
     "organization" : {
         "approveTrusted": false,
         "approveUntrusted": false,

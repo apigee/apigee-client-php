@@ -30,7 +30,6 @@ use Psr\Http\Message\UriInterface;
 
 class RatePlanController extends OrganizationAwareEntityController implements RatePlanControllerInterface
 {
-    use ApiPackageAwareControllerTrait;
     use EntityCrudOperationsControllerTrait {
         buildContextForEntityTransformerInCreate as private traitBuildContextForEntityTransformerInCreate;
     }
@@ -67,9 +66,13 @@ class RatePlanController extends OrganizationAwareEntityController implements Ra
             'standard' => $showStandardOnly,
         ];
 
-        $query_params = array_filter($query_params, function ($param) {
-            return null !== $param;
-        });
+        foreach ($query_params as $param => $value) {
+            if (null === $value) {
+                unset($query_params[$param]);
+            } else {
+                $query_params[$param] = $value ? 'true' : 'false';
+            }
+        }
 
         $uri = $this->getBaseEndpointUri()->withQuery(http_build_query($query_params));
         $response = $this->client->get($uri);
@@ -82,6 +85,9 @@ class RatePlanController extends OrganizationAwareEntityController implements Ra
 
     /**
      * @inheritdoc
+     *
+     * Use RatePlanRevisionBuilder that makes it easier way to create
+     * new rate plan revisions.
      *
      * @psalm-suppress PossiblyNullArgument - id is not null in this context.
      */
@@ -106,14 +112,6 @@ class RatePlanController extends OrganizationAwareEntityController implements Ra
     protected function getEntityClass(): string
     {
         return RatePlanInterface::class;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    protected function getApiPackage(): string
-    {
-        return $this->apiPackage;
     }
 
     /**
