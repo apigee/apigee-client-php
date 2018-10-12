@@ -49,10 +49,6 @@
             },
             "endDate": "2019-09-21 07:00:00",
             "id": "phpunit",
-            "nextCycleStartDate" : "2018-02-19 00:00:00",
-            "nextRecurringFeeDate" : "2018-02-19 00:00:00",
-            "prevRecurringFeeDate" : "2018-01-25 00:00:00",
-            "renewalDate" : "2018-01-25 00:00:00",
             "ratePlan": {
                 "advance" : false,
                 "contractDuration" : 1,
@@ -301,6 +297,10 @@
                 "startDate" : "2018-08-01 00:00:00",
                 "type" : "STANDARD"
             },
+            "nextCycleStartDate" : "2018-02-19 00:00:00",
+            "nextRecurringFeeDate" : "2018-02-19 00:00:00",
+            "prevRecurringFeeDate" : "2018-01-25 00:00:00",
+            "renewalDate" : "2018-01-25 00:00:00",
             "startDate": "2018-09-25 00:00:00",
             "updated": "2018-09-25 23:42:49"
         }

@@ -37,16 +37,14 @@ class AcceptedRatePlanNormalizer extends EntityNormalizer
         // timezone if it is different than the default PHP timezone.
         /** @var \Apigee\Edge\Api\Monetization\Entity\AcceptedRatePlanInterface $object */
         if (date_default_timezone_get() !== $object->getRatePlan()->getPackage()->getOrganization()->getTimezone()->getName()) {
+            $ro = new \ReflectionObject($object);
             $dateDenormalizer = new DateTimeNormalizer(AcceptedRatePlanInterface::DATE_FORMAT, $object->getRatePlan()->getPackage()->getOrganization()->getTimezone());
-            $normalized->startDate = $dateDenormalizer->normalize($object->getStartDate());
-            if (null !== $object->getCreated()) {
-                $normalized->created = $dateDenormalizer->normalize($object->getCreated());
-            }
-            if (null !== $object->getUpdated()) {
-                $normalized->updated = $dateDenormalizer->normalize($object->getUpdated());
-            }
-            if (property_exists($normalized, 'endDate')) {
-                $normalized->endDate = $dateDenormalizer->normalize($object->getEndDate());
+            foreach ($ro->getProperties() as $property) {
+                $property->setAccessible(true);
+                $value = $property->getValue($object);
+                if ($value instanceof \DateTimeImmutable) {
+                    $normalized->{$property->getName()} = $dateDenormalizer->normalize($value, \DateTimeImmutable::class);
+                }
             }
         }
 
