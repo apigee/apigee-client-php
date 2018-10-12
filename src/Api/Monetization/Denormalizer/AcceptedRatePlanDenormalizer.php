@@ -36,8 +36,8 @@ abstract class AcceptedRatePlanDenormalizer extends ObjectDenormalizer
     {
         /** @var \Apigee\Edge\Api\Monetization\Entity\AcceptedRatePlanInterface $denormalized */
         $denormalized = parent::denormalize($data, $class, $format, $context);
-        // Fix the start- and end date of the rate plan if the organization's
-        // timezone is different from the default PHP timezone.
+        // Change timezone of all date objects to organization's current
+        // timezone if it is different than the default PHP timezone.
         if (date_default_timezone_get() !== $denormalized->getRatePlan()->getPackage()->getOrganization()->getTimezone()->getName()) {
             $ro = new ReflectionObject($denormalized);
             $dateDenormalizer = new DateTimeNormalizer(AcceptedRatePlanInterface::DATE_FORMAT, $denormalized->getRatePlan()->getPackage()->getOrganization()->getTimezone());

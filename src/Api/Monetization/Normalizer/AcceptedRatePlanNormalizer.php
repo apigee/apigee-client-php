@@ -33,8 +33,8 @@ class AcceptedRatePlanNormalizer extends EntityNormalizer
     {
         /** @var object $normalized */
         $normalized = parent::normalize($object, $format, $context);
-        // Fix the start- and end date of the rate plan if the organization's
-        // timezone is different from the default PHP timezone.
+        // Change timezone of all normalized dates to organization's current
+        // timezone if it is different than the default PHP timezone.
         /** @var \Apigee\Edge\Api\Monetization\Entity\AcceptedRatePlanInterface $object */
         if (date_default_timezone_get() !== $object->getRatePlan()->getPackage()->getOrganization()->getTimezone()->getName()) {
             $dateDenormalizer = new DateTimeNormalizer(AcceptedRatePlanInterface::DATE_FORMAT, $object->getRatePlan()->getPackage()->getOrganization()->getTimezone());

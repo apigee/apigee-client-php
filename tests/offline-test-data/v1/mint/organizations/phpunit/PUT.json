@@ -41,6 +41,7 @@
     "supportedBillingType": "BOTH",
     "taxEngineExternalId": "APIGEE",
     "taxModel": "HYBRID",
+    "taxNexus": "taxNexus",
     "transactionRelayURL": "http://localhost",
     "taxRegNo": "12345",
     "timezone": "Australia/Eucla",
