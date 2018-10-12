@@ -82,10 +82,10 @@ abstract class AcceptedRatePlanControllerValidator extends OrganizationAwareEnti
         $acceptedRatePlan = $acceptedController->acceptRatePlan($ratePlan, $startDate);
         $payload = json_decode((string) $client->getJournal()->getLastRequest()->getBody());
         // Make sure we do not send properties with null values.
-        $this->assertNull($payload->endDate);
-        $this->assertNull($payload->quotaTarget);
-        $this->assertNull($payload->suppressWarning);
-        $this->assertNull($payload->waveTerminationCharge);
+        $this->assertObjectNotHasAttribute('endDate', $payload);
+        $this->assertObjectNotHasAttribute('quotaTarget', $payload);
+        $this->assertObjectNotHasAttribute('suppressWarning', $payload);
+        $this->assertObjectNotHasAttribute('waveTerminationCharge', $payload);
         // Make sure the properties copied from the response to the created
         // object.
         $this->assertNotNull($acceptedRatePlan->id());
@@ -125,8 +125,8 @@ abstract class AcceptedRatePlanControllerValidator extends OrganizationAwareEnti
         $acceptedController->updateSubscription($acceptedRatePlan);
         $payload = json_decode((string) $client->getJournal()->getLastRequest()->getBody());
         // Make sure we do not send properties with null values.
-        $this->assertNull($payload->suppressWarning);
-        $this->assertNull($payload->waveTerminationCharge);
+        $this->assertObjectNotHasAttribute('suppressWarning', $payload);
+        $this->assertObjectNotHasAttribute('waveTerminationCharge', $payload);
         // Make sure response values override values in the original object.
         $this->assertEquals($originalStartDate, $acceptedRatePlan->getStartDate());
 
