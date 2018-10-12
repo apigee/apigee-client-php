@@ -18,10 +18,13 @@
 
 namespace Apigee\Edge\Api\Monetization\Entity\Property;
 
+use Apigee\Edge\Api\Monetization\Entity\CompanyInterface;
+
 interface CompanyPropertyInterface
 {
     /**
-     * @return \Apigee\Edge\Api\Monetization\Entity\CompanyInterface
+     * @return \Apigee\Edge\Api\Monetization\Entity\CompanyInterface|null
+     *   It can be null only when a new entity is created.
      */
-    public function getCompany();
+    public function getCompany(): ?CompanyInterface;
 }

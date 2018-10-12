@@ -18,13 +18,11 @@
 
 namespace Apigee\Edge\Api\Monetization\Controller;
 
-use Apigee\Edge\Api\Monetization\Entity\DeveloperAcceptedRatePlan;
-use Apigee\Edge\Api\Monetization\Normalizer\EntityNormalizer;
 use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Serializer\EntitySerializerInterface;
 use Psr\Http\Message\UriInterface;
 
-class DeveloperAcceptedRatePlanController extends AcceptedRatePlanController
+class DeveloperActiveRatePlanController extends ActiveRatePlanController
 {
     /**
      * UUID or email address of a developer.
@@ -34,7 +32,7 @@ class DeveloperAcceptedRatePlanController extends AcceptedRatePlanController
     protected $developer;
 
     /**
-     * DeveloperAcceptedRatePlanController constructor.
+     * DeveloperActiveRatePlanController constructor.
      *
      * @param string $developer
      * @param string $organization
@@ -52,39 +50,14 @@ class DeveloperAcceptedRatePlanController extends AcceptedRatePlanController
      */
     protected function getBaseEndpointUri(): UriInterface
     {
-        // For these API endpoint:
-        // https://apidocs.apigee.com/monetize/apis/post/organizations/%7Borg_name%7D/developers/%7Bdeveloper_or_company_id%7D/developer-rateplans (create)
-        // https://apidocs.apigee.com/monetize/apis/put/organizations/%7Borg_name%7D/developers/%7Bdeveloper_id%7D/developer-rateplans/%7Bplan_id%7D (update)
-        // https://apidocs.apigee.com/monetize/apis/put/organizations/%7Borg_name%7D/developers/%7Bdeveloper_id%7D/developer-rateplans/%7Bplan_id%7D (load)
         return $this->client->getUriFactory()->createUri("/mint/organizations/{$this->organization}/developers/{$this->developer}/developer-rateplans");
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
-    protected function getEntityClass(): string
+    protected function getActiveRatePlanForApiProductEndpoint(string $apiProductName): UriInterface
     {
-        return DeveloperAcceptedRatePlan::class;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    protected function buildContextForEntityTransformerInCreate(): array
-    {
-        $context = [];
-        $context[EntityNormalizer::MINT_ENTITY_REFERENCE_PROPERTY_VALUES]['developer'] = $this->developer;
-
-        return $context;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    protected function getAcceptedRatePlansEndpoint(): UriInterface
-    {
-        // For this API endpoint:
-        // https://apidocs.apigee.com/monetize/apis/get/organizations/%7Borg_name%7D/developers/%7Bdeveloper_id%7D/developer-accepted-rateplans
-        return $this->client->getUriFactory()->createUri("/mint/organizations/{$this->organization}/developers/{$this->developer}/developer-accepted-rateplans");
+        return $this->client->getUriFactory()->createUri("/mint/organizations/{$this->organization}/developers/{$this->developer}/products/{$apiProductName}/rate-plan-by-developer-product");
     }
 }

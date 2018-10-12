@@ -74,22 +74,6 @@ abstract class AcceptedRatePlanController extends OrganizationAwareEntityControl
     /**
      * @inheritDoc
      */
-    public function getAllActiveRatePlans(): array
-    {
-        return $this->listAllEntities($this->getActiveRatePlansEndpoint());
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getPaginatedActiveRatePlanList(int $limit = null, int $page = 1): array
-    {
-        return $this->listEntitiesInRange($this->getActiveRatePlansEndpoint(), $limit, $page);
-    }
-
-    /**
-     * @inheritDoc
-     */
     public function acceptRatePlan(RatePlanInterface $ratePlan, DateTimeImmutable $startDate, ?DateTimeImmutable $endDate = null, ?int $quotaTarget = null, ?bool $suppressWarning = null, ?bool $waveTerminationCharge = null): AcceptedRatePlanInterface
     {
         $rc = new ReflectionClass($this->getEntityClass());
@@ -109,13 +93,13 @@ abstract class AcceptedRatePlanController extends OrganizationAwareEntityControl
         $payload = $this->getEntitySerializer()->serialize($acceptedRatePlan, 'json', $this->buildContextForEntityTransformerInCreate());
         $tmp = json_decode($payload, true);
         if (null !== $suppressWarning) {
-            $tmp['suppressWarning'] = $suppressWarning;
+            $tmp['suppressWarning'] = $suppressWarning ? 'true' : 'false';
         }
         if (null !== $waveTerminationCharge) {
-            $tmp['waveTerminationCharge'] = $waveTerminationCharge;
+            $tmp['waveTerminationCharge'] = $waveTerminationCharge ? 'true' : 'false';
         }
         $payload = json_encode($tmp);
-        $response = $this->getClient()->post($this->getBaseEndpointUri(), $payload);
+        $response = $this->client->post($this->getBaseEndpointUri(), $payload);
         $this->getEntitySerializer()->setPropertiesFromResponse($response, $acceptedRatePlan);
 
         return $acceptedRatePlan;
@@ -131,55 +115,16 @@ abstract class AcceptedRatePlanController extends OrganizationAwareEntityControl
         $payload = $this->getEntitySerializer()->serialize($acceptedRatePlan, 'json', $this->buildContextForEntityTransformerInCreate());
         $tmp = json_decode($payload, true);
         if (null !== $suppressWarning) {
-            $tmp['suppressWarning'] = $suppressWarning;
+            $tmp['suppressWarning'] = $suppressWarning ? 'true' : 'false';
         }
         if (null !== $waveTerminationCharge) {
-            $tmp['waveTerminationCharge'] = $waveTerminationCharge;
+            $tmp['waveTerminationCharge'] = $waveTerminationCharge ? 'true' : 'false';
         }
         $payload = json_encode($tmp);
         // Update an existing entity.
-        $response = $this->getClient()->put($this->getEntityEndpointUri($acceptedRatePlan->id()), $payload);
+        $response = $this->client->put($this->getEntityEndpointUri($acceptedRatePlan->id()), $payload);
         $this->getEntitySerializer()->setPropertiesFromResponse($response, $acceptedRatePlan);
     }
-
-    /**
-     * @inheritDoc
-     */
-    public function getActiveRatePlanForApiProduct(string $apiProductName): RatePlanInterface
-    {
-        $response = $this->getClient()->get($this->getActiveRatePlanForApiProductEndpoint($apiProductName));
-
-        return $this->getEntitySerializer()->deserialize(
-            (string) $response->getBody(),
-            RatePlanInterface::class,
-            'json'
-        );
-    }
-
-    /**
-     * Returns the URI of the list active rate plans endpoint.
-     *
-     * We have to introduce this because it is not regular that an entity
-     * has more than one listing endpoint so getBaseEntityEndpoint() was
-     * enough until this time.
-     *
-     * @return \Psr\Http\Message\UriInterface
-     */
-    abstract protected function getActiveRatePlansEndpoint(): UriInterface;
-
-    /**
-     * Returns the URI of the get active rate plan for an API product endpoint.
-     *
-     * We have to introduce this because it is not regular that an entity
-     * has more than one listing endpoint so getBaseEntityEndpoint() was
-     * enough until this time.
-     *
-     * @param string $apiProductName
-     *   Name of the API product.
-     *
-     * @return \Psr\Http\Message\UriInterface
-     */
-    abstract protected function getActiveRatePlanForApiProductEndpoint(string $apiProductName): UriInterface;
 
     /**
      * Builds context for the entity normalizer.
@@ -191,12 +136,23 @@ abstract class AcceptedRatePlanController extends OrganizationAwareEntityControl
     abstract protected function buildContextForEntityTransformerInCreate(): array;
 
     /**
+     * Returns the URI for listing accepted rate plans.
+     *
+     * We have to introduce this because it is not regular that an entity
+     * has more than one listing endpoint so getBaseEntityEndpoint() was
+     * enough until this time.
+     *
+     * @return \Psr\Http\Message\UriInterface
+     */
+    abstract protected function getAcceptedRatePlansEndpoint(): UriInterface;
+
+    /**
      * Helper function for listing accepted rate plans.
      *
      * @param array $query_params
      *   Additional query parameters.
      *
-     * @return \Apigee\Edge\Api\Monetization\Entity\RatePlanInterface[]
+     * @return \Apigee\Edge\Api\Monetization\Entity\AcceptedRatePlanInterface[]
      *
      * @psalm-suppress PossiblyNullArrayOffset - id() does not return null here.
      */
@@ -204,11 +160,11 @@ abstract class AcceptedRatePlanController extends OrganizationAwareEntityControl
     {
         $entities = [];
 
-        foreach ($this->getRawList($this->getBaseEndpointUri()->withQuery(http_build_query($query_params))) as $item) {
+        foreach ($this->getRawList($this->getAcceptedRatePlansEndpoint()->withQuery(http_build_query($query_params))) as $item) {
             /** @var \Apigee\Edge\Entity\EntityInterface $tmp */
             $tmp = $this->getEntitySerializer()->denormalize(
                 $item,
-                RatePlanInterface::class,
+                AcceptedRatePlanInterface::class,
                 'json'
             );
             $entities[$tmp->id()] = $tmp;

@@ -18,27 +18,12 @@
 
 namespace Apigee\Edge\Api\Monetization\Entity;
 
+use Apigee\Edge\Api\Monetization\Entity\Property\DeveloperPropertyAwareTrait;
+
 /**
  * Represents an accepted rate plan by a developer.
  */
 class DeveloperAcceptedRatePlan extends AcceptedRatePlan implements DeveloperAcceptedRatePlanInterface
 {
-    /** @var \Apigee\Edge\Api\Monetization\Entity\Developer */
-    protected $developer;
-
-    /**
-     * @inheritdoc
-     */
-    public function getDeveloper()
-    {
-        return $this->developer;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function setDeveloper(DeveloperInterface $developer): void
-    {
-        $this->developer = $developer;
-    }
+    use DeveloperPropertyAwareTrait;
 }

@@ -28,14 +28,15 @@ use DateTimeImmutable;
  *
  * @see https://apidocs.apigee.com/monetize/apis/
  * @see https://docs.apigee.com/api-platform/monetization/subscribe-published-rate-plan-using-api
- * @see https://docs.apigee.com/api-platform/monetization/view-rate-plans#viewingrateplansusingtheapi-viewingallactiverateplansforadeveloperusingtheapi
+ * @see https://docs.apigee.com/api-platform/monetization/view-rate-plans#viewingrateplansusingtheapi-viewingallacceptedrateplansforadeveloperusingtheapi
  */
-interface AcceptedRatePlanControllerInterface extends EntityControllerInterface
+interface AcceptedRatePlanControllerInterface extends EntityControllerInterface,
+    EntityLoadOperationControllerInterface
 {
     /**
      * Gets all accepted rate plans.
      *
-     * @return \Apigee\Edge\Api\Monetization\Entity\RatePlanInterface[]
+     * @return \Apigee\Edge\Api\Monetization\Entity\AcceptedRatePlanInterface[]
      */
     public function getAllAcceptedRatePlans(): array;
 
@@ -45,37 +46,9 @@ interface AcceptedRatePlanControllerInterface extends EntityControllerInterface
      * @param int|null $limit
      * @param int $page
      *
-     * @return \Apigee\Edge\Api\Monetization\Entity\RatePlanInterface[]
+     * @return \Apigee\Edge\Api\Monetization\Entity\AcceptedRatePlanInterface[]
      */
     public function getPaginatedAcceptedRatePlanList(int $limit = null, int $page = 1): array;
-
-    /**
-     * Gets all active rate plans.
-     *
-     * @return \Apigee\Edge\Api\Monetization\Entity\AcceptedRatePlanInterface[]
-     */
-    public function getAllActiveRatePlans(): array;
-
-    /**
-     * Gets active rate plans in the provided range.
-     *
-     * @param int|null $limit
-     * @param int $page
-     *
-     * @return \Apigee\Edge\Api\Monetization\Entity\AcceptedRatePlanInterface[]
-     */
-    public function getPaginatedActiveRatePlanList(int $limit = null, int $page = 1): array;
-
-    /**
-     * Get active rate plan for a developer that contains an API product.
-     *
-     * @param string $apiProductName
-     *   Name of the API product.
-     *
-     * @return \Apigee\Edge\Api\Monetization\Entity\RatePlanInterface
-     *   Rate plan.
-     */
-    public function getActiveRatePlanForApiProduct(string $apiProductName): RatePlanInterface;
 
     /**
      * Accepts a rate plan.

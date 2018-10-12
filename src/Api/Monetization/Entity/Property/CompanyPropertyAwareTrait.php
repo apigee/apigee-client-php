@@ -30,14 +30,14 @@ trait CompanyPropertyAwareTrait
     /**
      * Value of "developer" from the API response.
      *
-     * @var \Apigee\Edge\Api\Monetization\Entity\Company
+     * @var \Apigee\Edge\Api\Monetization\Entity\CompanyInterface|null
      */
     protected $company;
 
     /**
      * @inheritdoc
      */
-    public function getCompany(): CompanyInterface
+    public function getCompany(): ?CompanyInterface
     {
         return $this->company;
     }

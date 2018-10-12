@@ -24,7 +24,7 @@ use DateTimeImmutable;
 use ReflectionObject;
 use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
 
-class AcceptedRatePlanDenormalizer extends ObjectDenormalizer
+abstract class AcceptedRatePlanDenormalizer extends ObjectDenormalizer
 {
     /**
      * @inheritDoc

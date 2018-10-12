@@ -18,16 +18,22 @@
 
 namespace Apigee\Edge\Api\Monetization\Denormalizer;
 
-use Apigee\Edge\Api\Monetization\Entity\CompanyAcceptedRatePlanInterface;
+use Apigee\Edge\Api\Monetization\Entity\CompanyAcceptedRatePlan;
 use Apigee\Edge\Api\Monetization\NameConverter\CompanyAcceptedRatePlanNameConverter;
-use Apigee\Edge\Denormalizer\ObjectDenormalizer;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 use Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface;
 use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface;
 use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
 
-class CompanyAcceptedRatePlanDenormalizer extends ObjectDenormalizer
+class CompanyAcceptedRatePlanDenormalizer extends AcceptedRatePlanDenormalizer
 {
+    /**
+     * Fully qualified class name of the company accepted rate plan entity.
+     *
+     * @var string
+     */
+    protected $companyAcceptedRatePlanClass = CompanyAcceptedRatePlan::class;
+
     /**
      * CompanyAcceptedRatePlanDenormalizer constructor.
      *
@@ -43,15 +49,22 @@ class CompanyAcceptedRatePlanDenormalizer extends ObjectDenormalizer
     }
 
     /**
+     * @inheritDoc
+     */
+    public function denormalize($data, $class, $format = null, array $context = [])
+    {
+        return parent::denormalize($data, $this->companyAcceptedRatePlanClass, $format, $context);
+    }
+
+    /**
      * @inheritdoc
      */
     public function supportsDenormalization($data, $type, $format = null)
     {
-        // Do not apply this on array objects. ArrayDenormalizer takes care of them.
-        if ('[]' === substr($type, -2)) {
-            return false;
+        if (parent::supportsDenormalization($data, $type, $format)) {
+            return $data->developer->isCompany;
         }
 
-        return CompanyAcceptedRatePlanInterface::class === $type || $type instanceof CompanyAcceptedRatePlanInterface || in_array(CompanyAcceptedRatePlanInterface::class, class_implements($type));
+        return false;
     }
 }

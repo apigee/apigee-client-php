@@ -32,7 +32,7 @@ abstract class AcceptedRatePlan extends Entity implements AcceptedRatePlanInterf
     /** @var null|int */
     protected $quotaTarget;
 
-    /** @var \Apigee\Edge\Api\Monetization\Entity\StandardRatePlan|\Apigee\Edge\Api\Monetization\Entity\DeveloperRatePlan|\Apigee\Edge\Api\Monetization\Entity\DeveloperCategoryRatePlan */
+    /** @var \Apigee\Edge\Api\Monetization\Entity\RatePlanInterface */
     protected $ratePlan;
 
     /** @var null|\DateTimeImmutable */

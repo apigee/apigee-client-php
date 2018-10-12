@@ -39,6 +39,12 @@ class AcceptedRatePlanNormalizer extends EntityNormalizer
         if (date_default_timezone_get() !== $object->getRatePlan()->getPackage()->getOrganization()->getTimezone()->getName()) {
             $dateDenormalizer = new DateTimeNormalizer(AcceptedRatePlanInterface::DATE_FORMAT, $object->getRatePlan()->getPackage()->getOrganization()->getTimezone());
             $normalized->startDate = $dateDenormalizer->normalize($object->getStartDate());
+            if (null !== $object->getCreated()) {
+                $normalized->created = $dateDenormalizer->normalize($object->getCreated());
+            }
+            if (null !== $object->getUpdated()) {
+                $normalized->updated = $dateDenormalizer->normalize($object->getUpdated());
+            }
             if (property_exists($normalized, 'endDate')) {
                 $normalized->endDate = $dateDenormalizer->normalize($object->getEndDate());
             }

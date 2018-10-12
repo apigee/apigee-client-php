@@ -16,33 +16,23 @@
  * limitations under the License.
  */
 
-namespace Apigee\Edge\Api\Monetization\Entity\Property;
+namespace Apigee\Edge\Tests\Api\Monetization\Controller;
 
-use Apigee\Edge\Api\Monetization\Entity\DeveloperInterface;
+use Apigee\Edge\Api\Monetization\Controller\DeveloperActiveRatePlanController;
+use Apigee\Edge\Controller\EntityControllerInterface;
 
-/**
- * Trait DeveloperPropertyAwareTrait.
- *
- * @see \Apigee\Edge\Api\Monetization\Entity\Property\DeveloperPropertyInterface
- */
-trait DeveloperPropertyAwareTrait
+class DeveloperActiveRatePlanControllerTest extends ActiveRatePlanControllerValidator
 {
-    /** @var \Apigee\Edge\Api\Monetization\Entity\DeveloperInterface|null */
-    protected $developer;
-
     /**
      * @inheritdoc
      */
-    public function getDeveloper(): ?DeveloperInterface
+    protected static function getEntityController(): EntityControllerInterface
     {
-        return $this->developer;
-    }
+        static $controller;
+        if (null === $controller) {
+            $controller = new DeveloperActiveRatePlanController('phpunit@example.com', static::getOrganization(static::$client), static::$client);
+        }
 
-    /**
-     * @inheritdoc
-     */
-    public function setDeveloper(DeveloperInterface $developer): void
-    {
-        $this->developer = $developer;
+        return $controller;
     }
 }

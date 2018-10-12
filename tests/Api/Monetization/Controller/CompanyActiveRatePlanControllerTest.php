@@ -16,13 +16,23 @@
  * limitations under the License.
  */
 
-namespace Apigee\Edge\Api\Monetization\Entity;
+namespace Apigee\Edge\Tests\Api\Monetization\Controller;
 
-interface DeveloperAcceptedRatePlanInterface extends AcceptedRatePlanInterface
+use Apigee\Edge\Api\Monetization\Controller\CompanyActiveRatePlanController;
+use Apigee\Edge\Controller\EntityControllerInterface;
+
+class CompanyActiveRatePlanControllerTest extends ActiveRatePlanControllerValidator
 {
     /**
-     * @return \Apigee\Edge\Api\Monetization\Entity\DeveloperInterface|null
-     *   It can be null only when a new rate plan gets accepted.
+     * @inheritdoc
      */
-    public function getDeveloper(): ?DeveloperInterface;
+    protected static function getEntityController(): EntityControllerInterface
+    {
+        static $controller;
+        if (null === $controller) {
+            $controller = new CompanyActiveRatePlanController('phpunit', static::getOrganization(static::$client), static::$client);
+        }
+
+        return $controller;
+    }
 }
