@@ -18,11 +18,15 @@
 
 namespace Apigee\Edge\Tests\Api\Monetization\Controller;
 
+use Apigee\Edge\Client;
 use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Controller\EntityControllerInterface;
+use Apigee\Edge\HttpClient\Utility\Builder;
 use Apigee\Edge\Tests\Api\Monetization\EntitySerializer\EntitySerializerValidatorInterface;
 use Apigee\Edge\Tests\Api\Monetization\EntitySerializer\PrepaidBalanceSerializerValidator;
+use Apigee\Edge\Tests\Test\HttpClient\Plugin\NullAuthentication;
 use Apigee\Edge\Tests\Test\TestClientFactory;
+use GuzzleHttp\Psr7\Response;
 use Http\Mock\Client as HttpClient;
 
 abstract class PrepaidBalanceControllerValidator extends OrganizationAwareEntityControllerValidator
@@ -48,7 +52,9 @@ abstract class PrepaidBalanceControllerValidator extends OrganizationAwareEntity
      */
     public function testMethodsThatReturnsBalance(): void
     {
-        $client = (new TestClientFactory())->getClient(HttpClient::class);
+        $httpClient = new HttpClient();
+        $httpClient->setDefaultResponse(new Response(200, ['Content-Type' => 'application/json'], json_encode((object) [])));
+        $client = new Client(new NullAuthentication(), null, [Client::CONFIG_HTTP_CLIENT_BUILDER => new Builder($httpClient)]);
         /** @var \Apigee\Edge\Api\Monetization\Controller\PrepaidBalanceControllerInterface $controller */
         $controller = $this->getMockEntityController($client);
         $currencyCode = 'USD';
@@ -74,6 +80,7 @@ abstract class PrepaidBalanceControllerValidator extends OrganizationAwareEntity
         $this->assertEquals($paymentProviderId, $payload->providerId);
         $this->assertEquals('true', $payload->chargePerUsage);
 
+        $httpClient->addResponse(new Response(200, ['Content-Type' => 'application/json'], json_encode((object) [[]])));
         $controller->getByCurrency($currencyCode);
         $this->assertEquals('currencyId=USD', $client->getJournal()->getLastRequest()->getUri()->getQuery());
 
