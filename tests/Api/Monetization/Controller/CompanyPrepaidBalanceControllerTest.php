@@ -47,7 +47,7 @@ class CompanyPrepaidBalanceControllerTest extends PrepaidBalanceControllerValida
 
     protected static function validateRecurringPath(string $actual): void
     {
-        $companyName = \self::$companyName;
+        $companyName = self::$companyName;
         Assert::assertEquals("/v1/mint/organizations/phpunit/companies/{$companyName}/developer-balances/recurring-setup", $actual);
     }
 }
