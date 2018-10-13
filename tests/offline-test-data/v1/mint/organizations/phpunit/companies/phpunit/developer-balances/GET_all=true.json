@@ -57,7 +57,7 @@
                     },
                     "email": "phpunit@example.com",
                     "id": "f67ea7a0-0839-4057-84fc-40a1a38a44e1",
-                    "isCompany": false,
+                    "isCompany": true,
                     "name": "PHPUnit",
                     "organization": {
                         "approveTrusted": false,
