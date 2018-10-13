@@ -42,6 +42,12 @@ class CustomAttributesPropertyValidator implements PropertyValidatorInterface, S
                 'value' => $value,
             ];
         }
+
+        // This property may not be set in nested objects.
+        if (!isset($input->{static::validatedProperty()}) && empty($expected)) {
+            return;
+        }
+
         Assert::assertEquals($output->{static::validatedProperty()}, $expected);
 
         $actual = json_decode($this->entitySerializer->serialize($entity->getAttributes(), 'json'));

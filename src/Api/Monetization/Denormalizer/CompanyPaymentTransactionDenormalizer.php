@@ -18,18 +18,24 @@
 
 namespace Apigee\Edge\Api\Monetization\Denormalizer;
 
-use Apigee\Edge\Api\Monetization\NameConverter\PaymentTransactionNameConverter;
-use Apigee\Edge\Api\Monetization\Structure\PaymentTransaction;
-use Apigee\Edge\Denormalizer\ObjectDenormalizer;
+use Apigee\Edge\Api\Monetization\NameConverter\CompanyPaymentTransactionNameConverter;
+use Apigee\Edge\Api\Monetization\Structure\CompanyPaymentTransaction;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 use Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface;
 use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface;
 use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
 
-abstract class PaymentTransactionDenormalizer extends ObjectDenormalizer
+class CompanyPaymentTransactionDenormalizer extends PaymentTransactionDenormalizer
 {
     /**
-     * PaymentTransactionDenormalizer.php constructor.
+     * Fully qualified class name of the company payment transaction object.
+     *
+     * @var string
+     */
+    protected $companyPaymentTransactionClass = CompanyPaymentTransaction::class;
+
+    /**
+     * CompanyPaymentTransactionDenormalizer constructor.
      *
      * @param null|\Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface $classMetadataFactory
      * @param null|\Symfony\Component\Serializer\NameConverter\NameConverterInterface $nameConverter
@@ -38,8 +44,16 @@ abstract class PaymentTransactionDenormalizer extends ObjectDenormalizer
      */
     public function __construct(?ClassMetadataFactoryInterface $classMetadataFactory = null, ?NameConverterInterface $nameConverter = null, ?PropertyAccessorInterface $propertyAccessor = null, ?PropertyTypeExtractorInterface $propertyTypeExtractor = null)
     {
-        $nameConverter = $nameConverter ?? new PaymentTransactionNameConverter();
+        $nameConverter = $nameConverter ?? new CompanyPaymentTransactionNameConverter();
         parent::__construct($classMetadataFactory, $nameConverter, $propertyAccessor, $propertyTypeExtractor);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function denormalize($data, $class, $format = null, array $context = [])
+    {
+        return parent::denormalize($data, $this->companyPaymentTransactionClass, $format, $context);
     }
 
     /**
@@ -47,11 +61,10 @@ abstract class PaymentTransactionDenormalizer extends ObjectDenormalizer
      */
     public function supportsDenormalization($data, $type, $format = null)
     {
-        // Do not apply this on array objects. ArrayDenormalizer takes care of them.
-        if ('[]' === substr($type, -2)) {
-            return false;
+        if (parent::supportsDenormalization($data, $type, $format)) {
+            return $data->developer->isCompany;
         }
 
-        return PaymentTransaction::class === $type || $type instanceof PaymentTransaction;
+        return false;
     }
 }

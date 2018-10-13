@@ -29,6 +29,7 @@
         "logoUrl": "http://example.com"
     },
     "startDate": "2018-01-01 22:00:00",
+    "url": "http://example.com",
     "tncText": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     "version": "1.0"
 }

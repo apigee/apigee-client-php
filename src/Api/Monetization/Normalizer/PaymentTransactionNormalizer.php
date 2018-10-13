@@ -26,7 +26,7 @@ use Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface;
 use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface;
 use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
 
-class PaymentTransactionNormalizer extends ObjectNormalizer
+abstract class PaymentTransactionNormalizer extends ObjectNormalizer
 {
     /**
      * PaymentTransactionNormalizer constructor.

@@ -16,20 +16,19 @@
  * limitations under the License.
  */
 
-namespace Apigee\Edge\Api\Monetization\Denormalizer;
+namespace Apigee\Edge\Api\Monetization\Normalizer;
 
-use Apigee\Edge\Api\Monetization\NameConverter\PaymentTransactionNameConverter;
-use Apigee\Edge\Api\Monetization\Structure\PaymentTransaction;
-use Apigee\Edge\Denormalizer\ObjectDenormalizer;
+use Apigee\Edge\Api\Monetization\NameConverter\CompanyRatePlanNameConverter;
+use Apigee\Edge\Api\Monetization\Structure\CompanyPaymentTransaction;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 use Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface;
 use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface;
 use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
 
-abstract class PaymentTransactionDenormalizer extends ObjectDenormalizer
+class CompanyPaymentTransactionNormalizer extends PaymentTransactionNormalizer
 {
     /**
-     * PaymentTransactionDenormalizer.php constructor.
+     * CompanyPaymentTransactionNormalizer constructor.
      *
      * @param null|\Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface $classMetadataFactory
      * @param null|\Symfony\Component\Serializer\NameConverter\NameConverterInterface $nameConverter
@@ -38,20 +37,30 @@ abstract class PaymentTransactionDenormalizer extends ObjectDenormalizer
      */
     public function __construct(?ClassMetadataFactoryInterface $classMetadataFactory = null, ?NameConverterInterface $nameConverter = null, ?PropertyAccessorInterface $propertyAccessor = null, ?PropertyTypeExtractorInterface $propertyTypeExtractor = null)
     {
-        $nameConverter = $nameConverter ?? new PaymentTransactionNameConverter();
+        $nameConverter = $nameConverter ?? new CompanyRatePlanNameConverter();
         parent::__construct($classMetadataFactory, $nameConverter, $propertyAccessor, $propertyTypeExtractor);
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
+     *
+     * @psalm-suppress InvalidReturnType Returning an object here is required
+     * for creating a valid Apigee Edge request.
      */
-    public function supportsDenormalization($data, $type, $format = null)
+    public function normalize($object, $format = null, array $context = [])
     {
-        // Do not apply this on array objects. ArrayDenormalizer takes care of them.
-        if ('[]' === substr($type, -2)) {
-            return false;
-        }
+        /** @var object $normalized */
+        $normalized = parent::normalize($object, $format, $context);
+        $normalized->developer->isCompany = true;
 
-        return PaymentTransaction::class === $type || $type instanceof PaymentTransaction;
+        return $normalized;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function supportsNormalization($data, $format = null)
+    {
+        return $data instanceof CompanyPaymentTransaction;
     }
 }

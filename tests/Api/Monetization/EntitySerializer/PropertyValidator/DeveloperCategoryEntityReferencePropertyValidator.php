@@ -34,6 +34,7 @@ class DeveloperCategoryEntityReferencePropertyValidator implements EntityReferen
         if (!$entity instanceof LegalEntityInterface) {
             return;
         }
+
         Assert::assertEquals($output->{static::validatedProperty()}, (object) ['id' => $input->{static::validatedProperty()}->id]);
 
         $actual = json_decode($this->entitySerializer->serialize($entity->getDeveloperCategory(), 'json'));

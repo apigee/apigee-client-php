@@ -34,6 +34,11 @@ class OrganizationProfileEntityReferencePropertyValidator implements EntityRefer
         if (!$entity instanceof OrganizationPropertyInterface) {
             return;
         }
+
+        if (!isset($input->{static::validatedProperty()}) && null === $entity->getOrganization()) {
+            return;
+        }
+
         Assert::assertEquals($output->{static::validatedProperty()}, (object) ['id' => $entity->getOrganization()->id()]);
 
         $actual = json_decode($this->entitySerializer->serialize($entity->getOrganization(), 'json'));

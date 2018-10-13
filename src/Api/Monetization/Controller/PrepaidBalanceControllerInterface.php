@@ -22,7 +22,7 @@ use Apigee\Edge\Api\Monetization\Entity\BalanceInterface;
 use Apigee\Edge\Api\Monetization\Entity\PrepaidBalanceInterface;
 use Apigee\Edge\Controller\EntityControllerInterface;
 
-interface PrepaidBalanceControllerInterface extends EntityControllerInterface
+interface PrepaidBalanceControllerInterface extends EntityControllerInterface, PaginatedEntityListingControllerInterface
 {
     /**
      * @param string $currencyCode

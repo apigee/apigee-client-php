@@ -18,8 +18,10 @@
 
 namespace Apigee\Edge\Api\Monetization\Serializer;
 
-use Apigee\Edge\Api\Monetization\Denormalizer\PaymentTransactionDenormalizer;
-use Apigee\Edge\Api\Monetization\Normalizer\PaymentTransactionNormalizer;
+use Apigee\Edge\Api\Monetization\Denormalizer\CompanyPaymentTransactionDenormalizer;
+use Apigee\Edge\Api\Monetization\Denormalizer\DeveloperPaymentTransactionDenormalizer;
+use Apigee\Edge\Api\Monetization\Normalizer\CompanyPaymentTransactionNormalizer;
+use Apigee\Edge\Api\Monetization\Normalizer\DeveloperPaymentTransactionNormalizer;
 
 class PaymentTransactionSerializer extends EntitySerializer
 {
@@ -32,8 +34,10 @@ class PaymentTransactionSerializer extends EntitySerializer
 
         return array_merge(
             [
-                new PaymentTransactionDenormalizer(),
-                new PaymentTransactionNormalizer(),
+                new CompanyPaymentTransactionNormalizer(),
+                new CompanyPaymentTransactionDenormalizer(),
+                new DeveloperPaymentTransactionNormalizer(),
+                new DeveloperPaymentTransactionDenormalizer(),
             ],
             $normalizers
         );

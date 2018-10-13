@@ -35,6 +35,7 @@ class BalanceSerializer extends EntitySerializer
                 new BalanceDenormalizer(),
                 new BalanceNormalizer(),
             ],
+            PaymentTransactionSerializer::getEntityTypeSpecificDefaultNormalizers(),
             LegalEntitySerializer::getEntityTypeSpecificDefaultNormalizers(),
             SupportedCurrencySerializer::getEntityTypeSpecificDefaultNormalizers(),
             $normalizers

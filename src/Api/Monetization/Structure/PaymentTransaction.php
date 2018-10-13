@@ -18,8 +18,6 @@
 
 namespace Apigee\Edge\Api\Monetization\Structure;
 
-use Apigee\Edge\Api\Monetization\Entity\Property\DeveloperPropertyAwareTrait;
-use Apigee\Edge\Api\Monetization\Entity\Property\DeveloperPropertyInterface;
 use Apigee\Edge\Api\Monetization\Entity\Property\EndDatePropertyAwareTrait;
 use Apigee\Edge\Api\Monetization\Entity\Property\EndDatePropertyInterface;
 use Apigee\Edge\Api\Monetization\Entity\Property\IdPropertyAwareTrait;
@@ -34,9 +32,11 @@ use Apigee\Edge\Entity\Property\StatusPropertyAwareTrait;
 use Apigee\Edge\Entity\Property\StatusPropertyInterface;
 use Apigee\Edge\Structure\BaseObject;
 
-final class PaymentTransaction extends BaseObject implements
+/**
+ * @internal
+ */
+class PaymentTransaction extends BaseObject implements
     IdPropertyInterface,
-    DeveloperPropertyInterface,
     EndDatePropertyInterface,
     RatePropertyInterface,
     StartDatePropertyInterface,
@@ -44,7 +44,6 @@ final class PaymentTransaction extends BaseObject implements
     VirtualCurrencyPropertyInterface
 {
     use IdPropertyAwareTrait;
-    use DeveloperPropertyAwareTrait;
     use EndDatePropertyAwareTrait;
     use RatePropertyAwareTrait;
     use StartDatePropertyAwareTrait;
@@ -81,7 +80,7 @@ final class PaymentTransaction extends BaseObject implements
     protected $virtualCurrency;
 
     /** @var int */
-    private $batchSize;
+    protected $batchSize;
 
     /**
      * Value of "currency" from the API response.
@@ -90,28 +89,28 @@ final class PaymentTransaction extends BaseObject implements
      *
      * @var string
      */
-    private $currencyCode;
+    protected $currencyCode;
 
     /** @var string */
-    private $custAtt1;
+    protected $custAtt1;
 
     /** @var string */
-    private $environment;
+    protected $environment;
 
     /** @var string */
-    private $notes;
+    protected $notes;
 
     /** @var string */
-    private $providerTxId;
+    protected $providerTxId;
 
     /** @var float */
-    private $revenueShareAmount;
+    protected $revenueShareAmount;
 
     /** @var string */
-    private $txProviderStatus;
+    protected $txProviderStatus;
 
     /** @var string */
-    private $type;
+    protected $type;
 
     /**
      * @return int

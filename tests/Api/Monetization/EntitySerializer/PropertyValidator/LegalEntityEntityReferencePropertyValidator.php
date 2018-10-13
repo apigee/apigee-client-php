@@ -53,7 +53,7 @@ class LegalEntityEntityReferencePropertyValidator implements EntityReferenceProp
         /** @var \Apigee\Edge\Api\Monetization\Entity\LegalEntityInterface $lentity */
         $lentity = method_exists($entity, 'getCompany') ? $entity->getCompany() : $entity->getDeveloper();
         $expected = clone $input->{static::validatedProperty()};
-        // These properties are missing (not returned by Apigee Edge) from
+        // These properties are missing (not returned by Apigee Edge) on a
         // nested legal entity object.
         if (empty($lentity->getAddresses())) {
             $expected->address = [];
