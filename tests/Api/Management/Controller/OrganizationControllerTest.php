@@ -21,6 +21,7 @@ namespace Apigee\Edge\Tests\Api\Management\Controller;
 use Apigee\Edge\Api\Management\Controller\OrganizationController;
 use Apigee\Edge\Api\Management\Controller\OrganizationControllerInterface;
 use Apigee\Edge\Api\Management\Entity\OrganizationInterface;
+use Apigee\Edge\Tests\Test\FileSystemMockClient;
 use Apigee\Edge\Tests\Test\TestClientFactory;
 use PHPUnit\Framework\TestCase;
 
@@ -53,7 +54,7 @@ class OrganizationControllerTest extends TestCase
         // Apigee Edge Cloud we do not have permission to create
         // an organization.
         // https://docs.apigee.com/management/apis/post/organizations
-        static::$client = (new TestClientFactory())->getClient('\Apigee\Edge\Tests\Test\HttpClient\FileSystemMockClient');
+        static::$client = (new TestClientFactory())->getClient(FileSystemMockClient::class);
         parent::setUpBeforeClass();
     }
 

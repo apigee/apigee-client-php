@@ -21,15 +21,13 @@ namespace Apigee\Edge\Tests\Api\Management\Controller;
 use Apigee\Edge\Api\Management\Controller\StatsController;
 use Apigee\Edge\Api\Management\Query\StatsQuery;
 use Apigee\Edge\Client;
-use Apigee\Edge\HttpClient\Utility\Builder;
 use Apigee\Edge\Tests\Test\Controller\AbstractControllerValidator;
 use Apigee\Edge\Tests\Test\Controller\EnvironmentAwareEntityControllerValidatorTrait;
 use Apigee\Edge\Tests\Test\Controller\OrganizationAwareEntityControllerValidatorTrait;
-use Apigee\Edge\Tests\Test\HttpClient\FileSystemMockClient;
-use Apigee\Edge\Tests\Test\HttpClient\Plugin\NullAuthentication;
+use Apigee\Edge\Tests\Test\FileSystemMockClient;
+use Apigee\Edge\Tests\Test\MockClient;
 use Apigee\Edge\Tests\Test\TestClientFactory;
 use GuzzleHttp\Psr7\Response;
-use Http\Mock\Client as MockClient;
 use League\Period\Period;
 
 /**
@@ -141,8 +139,8 @@ class StatsControllerTest extends AbstractControllerValidator
     {
         date_default_timezone_set('UTC');
         $q = new StatsQuery([], new Period('2018-02-01 00:00', '2018-02-28 23:59'));
-        $httpClient = new MockClient();
-        $client = new Client(new NullAuthentication(), null, [Client::CONFIG_HTTP_CLIENT_BUILDER => new Builder($httpClient)]);
+        $client = new MockClient();
+        $httpClient = $client->getMockHttpClient();
         $controller = new StatsController(static::getEnvironment($client), static::getOrganization($client), $client);
         foreach (['decade', 'century', 'millennium'] as $tu) {
             $q->setTimeUnit($tu);
@@ -160,8 +158,8 @@ class StatsControllerTest extends AbstractControllerValidator
         date_default_timezone_set('UTC');
         $q = new StatsQuery([], new Period('2018-02-01 11:11', '2018-02-14 23:23'));
         $q->setTimeUnit('day');
-        $httpClient = new MockClient();
-        $client = new Client(new NullAuthentication(), null, [Client::CONFIG_HTTP_CLIENT_BUILDER => new Builder($httpClient)]);
+        $client = new MockClient();
+        $httpClient = $client->getMockHttpClient();
         $httpClient->addResponse(new Response(200, ['Content-Type' => 'application/json'], json_encode($this->emptyResponseArray())));
         $controller = new StatsController(static::getEnvironment($client), static::getOrganization($client), $client);
         $response = $controller->getOptimisedMetrics($q);

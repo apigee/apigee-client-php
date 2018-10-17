@@ -28,7 +28,7 @@ use Apigee\Edge\Exception\ApiException;
 use Apigee\Edge\Structure\AttributesProperty;
 use Apigee\Edge\Tests\Test\Controller\AttributesAwareEntityControllerTestTrait;
 use Apigee\Edge\Tests\Test\Controller\OrganizationAwareEntityControllerValidatorTrait;
-use Apigee\Edge\Tests\Test\HttpClient\FileSystemMockClient;
+use Apigee\Edge\Tests\Test\HttpClient\FileSystemHttpMockHttpClient;
 use Apigee\Edge\Tests\Test\TestClientFactory;
 
 /**
@@ -232,7 +232,7 @@ class DeveloperAppControllerTest extends AppByOwnerControllerBase
     protected function getEntityControllerWithMockClient(): EntityControllerInterface
     {
         $factory = new TestClientFactory();
-        $client = $factory->getClient(FileSystemMockClient::class);
+        $client = $factory->getClient(FileSystemHttpMockHttpClient::class);
 
         return new DeveloperAppController(static::getOrganization($client), 'f43ffa3c-e147-47de-8cd6-f5b34429a531', $client);
     }
