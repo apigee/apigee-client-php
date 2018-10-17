@@ -32,6 +32,6 @@ abstract class AbstractControllerTestBase extends BaseAbstractControllerValidato
         parent::setUpBeforeClass();
         // Monetization tests can be run with the offline client only, because
         // Monetization feature of Apigee Edge is not available to everyone.
-        static::$client = (new TestClientFactory())->getClient(FileSystemMockClient::class);
+        static::$client = TestClientFactory::getClient(FileSystemMockClient::class);
     }
 }

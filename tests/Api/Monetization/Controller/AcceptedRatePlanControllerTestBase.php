@@ -52,7 +52,7 @@ abstract class AcceptedRatePlanControllerTestBase extends OrganizationAwareEntit
     public function testGetPaginatedAcceptedRatePlanList(): void
     {
         /** @var \Apigee\Edge\Tests\Test\MockClient $client */
-        $client = (new TestClientFactory())->getClient(MockClient::class);
+        $client = TestClientFactory::getClient(MockClient::class);
         /** @var \Apigee\Edge\Tests\Test\HttpClient\MockHttpClient $httpClient */
         $httpClient = $client->getMockHttpClient();
         $httpClient->setDefaultResponse(new Response(200, ['Content-Type' => 'application/json'], json_encode((object) [[]])));

@@ -50,7 +50,7 @@ abstract class PrepaidBalanceControllerTestBase extends OrganizationAwareEntityC
     public function testMethodsThatReturnsBalance(): void
     {
         /** @var \Apigee\Edge\Tests\Test\MockClient $client */
-        $client = (new TestClientFactory())->getClient(MockClient::class);
+        $client = TestClientFactory::getClient(MockClient::class);
         /** @var \Apigee\Edge\Tests\Test\HttpClient\MockHttpClient $httpClient */
         $httpClient = $client->getMockHttpClient();
         $httpClient->setDefaultResponse(new Response(200, ['Content-Type' => 'application/json'], json_encode((object) [])));
@@ -118,7 +118,7 @@ abstract class PrepaidBalanceControllerTestBase extends OrganizationAwareEntityC
     public function testMethodsThatReturnsPrepaidBalance(): void
     {
         /** @var \Apigee\Edge\Tests\Test\MockClient $client */
-        $client = (new TestClientFactory())->getClient(MockClient::class);
+        $client = TestClientFactory::getClient(MockClient::class);
         /** @var \Apigee\Edge\Tests\Test\HttpClient\MockHttpClient $httpClient */
         $httpClient = $client->getMockHttpClient();
         $httpClient->setDefaultResponse(new Response(200, ['Content-Type' => 'application/json'], json_encode((object) [[]])));
