@@ -25,10 +25,11 @@ use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Controller\EntityListingControllerTrait;
 use Apigee\Edge\Serializer\EntitySerializerInterface;
 use Apigee\Edge\Tests\Test\Entity\MockEntity;
+use Apigee\Edge\Tests\Test\MockClient;
 use Apigee\Edge\Tests\Test\TestClientFactory;
 use Apigee\Edge\Utility\JsonDecoderAwareTrait;
 use Apigee\Edge\Utility\ResponseToArrayHelper;
-use Http\Mock\Client;
+use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\UriInterface;
 use Symfony\Component\Serializer\Encoder\JsonDecode;
@@ -37,7 +38,11 @@ class PaginatedEntityListingControllerAwareTraitTest extends TestCase
 {
     public function testEntityListing(): void
     {
-        $client = (new TestClientFactory())->getClient(Client::class);
+        /** @var \Apigee\Edge\Tests\Test\MockClient $client */
+        $client = (new TestClientFactory())->getClient(MockClient::class);
+        /** @var \Apigee\Edge\Tests\Test\HttpClient\MockHttpClient $httpClient */
+        $httpClient = $client->getMockHttpClient();
+        $httpClient->setDefaultResponse(new Response(200, ['Content-Type' => 'application/json'], json_encode((object) [[]])));
         $obj = new PaginatedEntityListingControllerAwareTraitClass($client);
         $obj->getEntities();
         $this->assertEquals('all=true', $client->getJournal()->getLastRequest()->getUri()->getQuery());
@@ -55,6 +60,7 @@ class PaginatedEntityListingControllerAwareTraitClass
     use PaginatedEntityListingControllerAwareTrait;
     use ResponseToArrayHelper;
     use JsonDecoderAwareTrait;
+
     /**
      * @var \Apigee\Edge\ClientInterface
      */

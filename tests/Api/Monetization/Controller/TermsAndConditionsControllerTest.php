@@ -19,12 +19,10 @@
 namespace Apigee\Edge\Tests\Api\Monetization\Controller;
 
 use Apigee\Edge\Api\Monetization\Controller\TermsAndConditionsController;
-use Apigee\Edge\Client;
 use Apigee\Edge\Controller\EntityControllerInterface;
-use Apigee\Edge\HttpClient\Utility\Builder;
-use Apigee\Edge\Tests\Test\HttpClient\Plugin\NullAuthentication;
+use Apigee\Edge\Tests\Test\MockClient;
+use Apigee\Edge\Tests\Test\TestClientFactory;
 use GuzzleHttp\Psr7\Response;
-use Http\Mock\Client as HttpClient;
 
 class TermsAndConditionsControllerTest extends OrganizationAwareEntityControllerTestBase
 {
@@ -36,9 +34,11 @@ class TermsAndConditionsControllerTest extends OrganizationAwareEntityController
 
     public function testEntityListing(): void
     {
-        $httpClient = new HttpClient();
+        /** @var \Apigee\Edge\Tests\Test\MockClient $client */
+        $client = (new TestClientFactory())->getClient(MockClient::class);
+        /** @var \Apigee\Edge\Tests\Test\HttpClient\MockHttpClient $httpClient */
+        $httpClient = $client->getMockHttpClient();
         $httpClient->setDefaultResponse(new Response(200, ['Content-Type' => 'application/json'], json_encode((object) [[]])));
-        $client = new Client(new NullAuthentication(), null, [Client::CONFIG_HTTP_CLIENT_BUILDER => new Builder($httpClient)]);
         $obj = new TermsAndConditionsController(static::getOrganization(static::$client), $client);
         $obj->getEntities();
         $this->assertEquals('current=false&all=true', $client->getJournal()->getLastRequest()->getUri()->getQuery());

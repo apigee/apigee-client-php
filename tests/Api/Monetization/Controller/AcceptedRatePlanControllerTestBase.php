@@ -19,17 +19,15 @@
 namespace Apigee\Edge\Tests\Api\Monetization\Controller;
 
 use Apigee\Edge\Api\Monetization\Controller\RatePlanController;
-use Apigee\Edge\Client;
 use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Controller\EntityControllerInterface;
-use Apigee\Edge\HttpClient\Utility\Builder;
 use Apigee\Edge\Tests\Api\Monetization\EntitySerializer\AcceptedRatePlanSerializerValidator;
 use Apigee\Edge\Tests\Api\Monetization\EntitySerializer\EntitySerializerValidatorInterface;
 use Apigee\Edge\Tests\Test\HttpClient\FileSystemResponseFactory;
-use Apigee\Edge\Tests\Test\HttpClient\Plugin\NullAuthentication;
+use Apigee\Edge\Tests\Test\MockClient;
 use Apigee\Edge\Tests\Test\TestClientFactory;
 use GuzzleHttp\Psr7\Request;
-use Http\Mock\Client as HttpClient;
+use GuzzleHttp\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
 
 abstract class AcceptedRatePlanControllerTestBase extends OrganizationAwareEntityControllerTestBase
@@ -53,7 +51,11 @@ abstract class AcceptedRatePlanControllerTestBase extends OrganizationAwareEntit
 
     public function testGetPaginatedAcceptedRatePlanList(): void
     {
-        $client = (new TestClientFactory())->getClient(HttpClient::class);
+        /** @var \Apigee\Edge\Tests\Test\MockClient $client */
+        $client = (new TestClientFactory())->getClient(MockClient::class);
+        /** @var \Apigee\Edge\Tests\Test\HttpClient\MockHttpClient $httpClient */
+        $httpClient = $client->getMockHttpClient();
+        $httpClient->setDefaultResponse(new Response(200, ['Content-Type' => 'application/json'], json_encode((object) [[]])));
         /** @var \Apigee\Edge\Api\Monetization\Controller\AcceptedRatePlanControllerInterface $controller */
         $controller = $this->getMockEntityController($client);
         $controller->getPaginatedAcceptedRatePlanList();
@@ -64,8 +66,8 @@ abstract class AcceptedRatePlanControllerTestBase extends OrganizationAwareEntit
 
     public function testAcceptRatePlan(): void
     {
-        $httpClient = new HttpClient();
-        $client = new Client(new NullAuthentication(), null, [Client::CONFIG_HTTP_CLIENT_BUILDER => new Builder($httpClient)]);
+        $client = new MockClient();
+        $httpClient = $client->getMockHttpClient();
         // Load a rate plan revision to make sure that works as well.
         $response = (new FileSystemResponseFactory())->createResponseForRequest(new Request('GET', 'v1/mint/organizations/phpunit/monetization-packages/phpunit/rate-plans/standard-rev'));
         $httpClient->addResponse($response);
@@ -109,8 +111,8 @@ abstract class AcceptedRatePlanControllerTestBase extends OrganizationAwareEntit
 
     public function testUpdateSubscription(): void
     {
-        $httpClient = new HttpClient();
-        $client = new Client(new NullAuthentication(), null, [Client::CONFIG_HTTP_CLIENT_BUILDER => new Builder($httpClient)]);
+        $client = new MockClient();
+        $httpClient = $client->getMockHttpClient();
         /** @var \Apigee\Edge\Api\Monetization\Controller\AcceptedRatePlanControllerInterface $acceptedController */
         $acceptedController = $this->getMockEntityController($client);
         $response = $this->getAcceptRatePlanResponse();

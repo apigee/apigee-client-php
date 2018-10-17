@@ -19,7 +19,7 @@
 namespace Apigee\Edge\Tests\Api\Monetization\Controller;
 
 use Apigee\Edge\Tests\Test\Controller\AbstractControllerValidator as BaseAbstractControllerValidator;
-use Apigee\Edge\Tests\Test\HttpClient\FileSystemMockClient;
+use Apigee\Edge\Tests\Test\FileSystemMockClient;
 use Apigee\Edge\Tests\Test\TestClientFactory;
 
 abstract class AbstractControllerTestBase extends BaseAbstractControllerValidator
