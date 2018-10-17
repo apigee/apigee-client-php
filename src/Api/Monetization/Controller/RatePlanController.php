@@ -18,7 +18,6 @@
 
 namespace Apigee\Edge\Api\Monetization\Controller;
 
-use Apigee\Edge\Api\Monetization\Entity\EntityInterface;
 use Apigee\Edge\Api\Monetization\Entity\RatePlanInterface;
 use Apigee\Edge\Api\Monetization\Entity\RatePlanRevisionInterface;
 use Apigee\Edge\Api\Monetization\Normalizer\EntityNormalizer;
@@ -31,7 +30,7 @@ use Psr\Http\Message\UriInterface;
 class RatePlanController extends OrganizationAwareEntityController implements RatePlanControllerInterface
 {
     use EntityCrudOperationsControllerTrait {
-        buildContextForEntityTransformerInCreate as private traitBuildContextForEntityTransformerInCreate;
+        buildEntityCreatePayload as private traitBuildContextForEntityTransformerInCreate;
     }
     use EntityListingControllerTrait;
 
@@ -115,15 +114,12 @@ class RatePlanController extends OrganizationAwareEntityController implements Ra
     }
 
     /**
-     * @inheritdoc
-     *
-     * @psalm-suppress UndefinedMethod - trait method is defined.
+     * @inheritDoc
      */
-    protected function buildContextForEntityTransformerInCreate(EntityInterface $entity): array
+    protected function buildEntityCreatePayload(\Apigee\Edge\Entity\EntityInterface $entity, array $context = []): string
     {
-        $context = $this->traitBuildContextForEntityTransformerInCreate($entity);
         $context[EntityNormalizer::MINT_ENTITY_REFERENCE_PROPERTY_VALUES]['monetizationPackage'] = $this->apiPackage;
 
-        return $context;
+        return $this->baseBuildEntityCreatePayload($entity, $context);
     }
 }

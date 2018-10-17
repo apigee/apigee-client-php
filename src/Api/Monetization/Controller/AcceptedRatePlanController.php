@@ -23,6 +23,7 @@ use Apigee\Edge\Api\Monetization\Entity\RatePlanInterface;
 use Apigee\Edge\Api\Monetization\Serializer\AcceptedRatePlanSerializer;
 use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Controller\EntityListingControllerTrait;
+use Apigee\Edge\Controller\EntityLoadOperationControllerTrait;
 use Apigee\Edge\Serializer\EntitySerializerInterface;
 use DateTimeImmutable;
 use Psr\Http\Message\UriInterface;

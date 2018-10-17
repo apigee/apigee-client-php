@@ -19,6 +19,7 @@
 namespace Apigee\Edge\Api\Monetization\Controller;
 
 use Apigee\Edge\Controller\EntityControllerInterface;
+use Apigee\Edge\Controller\EntityCreateOperationControllerInterface;
 
 /**
  * Interface DeveloperRoleControllerInterface.
@@ -28,7 +29,7 @@ use Apigee\Edge\Controller\EntityControllerInterface;
  */
 interface DeveloperRoleControllerInterface extends
     EntityControllerInterface,
-    EntityCreateOperationInterface,
+    EntityCreateOperationControllerInterface,
     PaginatedEntityListingControllerInterface
 {
 }

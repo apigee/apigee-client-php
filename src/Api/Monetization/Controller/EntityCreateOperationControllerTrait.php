@@ -18,55 +18,37 @@
 
 namespace Apigee\Edge\Api\Monetization\Controller;
 
-use Apigee\Edge\Api\Monetization\Entity\EntityInterface;
 use Apigee\Edge\Api\Monetization\Entity\OrganizationAwareEntity;
 use Apigee\Edge\Api\Monetization\Normalizer\EntityNormalizer;
 use Apigee\Edge\Controller\ClientAwareControllerTrait;
+use Apigee\Edge\Controller\EntityCreateOperationControllerTrait as BaseEntityCreateOperationControllerTrait;
 use Apigee\Edge\Controller\EntitySerializerAwareTrait;
 use Apigee\Edge\Controller\OrganizationAwareControllerTrait;
+use Apigee\Edge\Entity\EntityInterface;
 
 /**
  * Trait EntityCreateOperationControllerTrait.
  *
- * @see \Apigee\Edge\Api\Monetization\Controller\EntityCreateOperationInterface
+ * @see \Apigee\Edge\Controller\EntityCreateOperationControllerInterface
  */
 trait EntityCreateOperationControllerTrait
 {
     use ClientAwareControllerTrait;
     use OrganizationAwareControllerTrait;
     use EntitySerializerAwareTrait;
-
-    /**
-     * @inheritdoc
-     */
-    public function create(EntityInterface $entity): void
-    {
-        $payload = $this->getEntitySerializer()->serialize($entity, 'json', $this->buildContextForEntityTransformerInCreate($entity));
-        $response = $this->getClient()->post($this->getBaseEndpointUri(), $payload);
-        $this->getEntitySerializer()->setPropertiesFromResponse($response, $entity);
+    use BaseEntityCreateOperationControllerTrait {
+        buildEntityCreatePayload as private baseBuildEntityCreatePayload;
     }
 
     /**
-     * Builds context for the entity normalizer.
-     *
-     * Allows controllers to add extra metadata to the payload. Ex.: to be able
-     * to create a rate plan you do not need to load the API package and pass
-     * it to the rate plan's constructor, it is enough to save the created
-     * rate plan entity with the rate plan controller that will add the package
-     * id to the request payload.
-     *
-     * @param \Apigee\Edge\Api\Monetization\Entity\EntityInterface $entity
-     *   Entity to be created.
-     *
-     * @return array
+     * @inheritDoc
      */
-    protected function buildContextForEntityTransformerInCreate(EntityInterface $entity): array
+    protected function buildEntityCreatePayload(EntityInterface $entity, array $context = []): string
     {
-        $context = [];
         if ($entity instanceof OrganizationAwareEntity) {
             $context[EntityNormalizer::MINT_ENTITY_REFERENCE_PROPERTY_VALUES]['organization'] = $this->getOrganisationName();
         }
 
-        return $context;
+        return $this->baseBuildEntityCreatePayload($entity, $context);
     }
 }

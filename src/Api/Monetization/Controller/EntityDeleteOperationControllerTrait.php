@@ -19,6 +19,7 @@
 namespace Apigee\Edge\Api\Monetization\Controller;
 
 use Apigee\Edge\Controller\ClientAwareControllerTrait;
+use Apigee\Edge\Controller\EntityEndpointAwareControllerTrait;
 
 /**
  * Trait EntityDeleteOperationControllerTrait.
@@ -28,6 +29,7 @@ use Apigee\Edge\Controller\ClientAwareControllerTrait;
 trait EntityDeleteOperationControllerTrait
 {
     use ClientAwareControllerTrait;
+    use EntityEndpointAwareControllerTrait;
 
     /**
      * @inheritdoc

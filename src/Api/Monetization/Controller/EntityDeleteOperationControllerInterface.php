@@ -23,6 +23,9 @@ interface EntityDeleteOperationControllerInterface
     /**
      * Removes an entity from Apigee Edge.
      *
+     * Monetization API does not return the deleted entity in the response
+     * payload.
+     *
      * @param string $entityId
      */
     public function delete(string $entityId): void;

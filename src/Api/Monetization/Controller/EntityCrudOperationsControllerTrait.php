@@ -18,6 +18,9 @@
 
 namespace Apigee\Edge\Api\Monetization\Controller;
 
+use Apigee\Edge\Controller\EntityLoadOperationControllerTrait;
+use Apigee\Edge\Controller\EntityUpdateOperationControllerTrait;
+
 /**
  * Trait EntityCrudOperationsControllerTrait.
  *

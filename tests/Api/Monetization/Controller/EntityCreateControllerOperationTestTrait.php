@@ -25,7 +25,7 @@ use PHPUnit\Framework\Assert;
 
 /**
  * Applicable to all entity controllers that implements
- * Apigee\Edge\Api\Monetization\Controller\EntityCreateControllerOperationInterface.
+ * EntityCreateControllerOperationInterface.
  */
 trait EntityCreateControllerOperationTestTrait
 {
@@ -35,7 +35,7 @@ trait EntityCreateControllerOperationTestTrait
 
     public function testCreate(): void
     {
-        /** @var \Apigee\Edge\Api\Monetization\Controller\EntityCreateOperationInterface $controller */
+        /** @var \Apigee\Edge\Controller\EntityCreateOperationControllerInterface $controller */
         $controller = static::getEntityController();
         $controller->create($this->getEntityForTestCreate());
         // Because MINT tests are pure offline API tests the best thing that we

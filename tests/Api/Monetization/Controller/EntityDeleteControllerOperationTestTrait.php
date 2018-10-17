@@ -24,7 +24,7 @@ use PHPUnit\Framework\Assert;
 
 /**
  * Applicable to all entity controllers that implements
- * Apigee\Edge\Api\Monetization\Controller\EntityDeleteControllerOperationInterface.
+ * EntityDeleteControllerOperationInterface.
  */
 trait EntityDeleteControllerOperationTestTrait
 {

@@ -20,6 +20,7 @@ namespace Apigee\Edge\Api\Monetization\Controller;
 
 use Apigee\Edge\Api\Monetization\Entity\ApiProduct;
 use Apigee\Edge\Controller\EntityListingControllerTrait;
+use Apigee\Edge\Controller\EntityLoadOperationControllerTrait;
 use Psr\Http\Message\UriInterface;
 
 class ApiProductController extends OrganizationAwareEntityController implements ApiProductControllerInterface

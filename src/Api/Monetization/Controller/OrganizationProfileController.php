@@ -22,6 +22,8 @@ use Apigee\Edge\Api\Monetization\Entity\OrganizationProfile;
 use Apigee\Edge\Api\Monetization\Entity\OrganizationProfileInterface;
 use Apigee\Edge\Api\Monetization\Serializer\OrganizationProfileSerializer;
 use Apigee\Edge\ClientInterface;
+use Apigee\Edge\Controller\EntityLoadOperationControllerTrait;
+use Apigee\Edge\Controller\EntityUpdateOperationControllerTrait;
 use Apigee\Edge\Serializer\EntitySerializerInterface;
 use Psr\Http\Message\UriInterface;
 

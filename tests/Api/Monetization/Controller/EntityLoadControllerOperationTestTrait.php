@@ -24,7 +24,7 @@ use Apigee\Edge\Tests\Test\Controller\EntityControllerAwareTrait;
 
 /**
  * Applicable to all entity controllers that implements
- * Apigee\Edge\Api\Monetization\Controller\EntityLoadControllerOperationInterface.
+ * EntityLoadControllerOperationInterface.
  */
 trait EntityLoadControllerOperationTestTrait
 {
@@ -63,7 +63,7 @@ trait EntityLoadControllerOperationTestTrait
     protected function loadTestEntity(?string $entityId = null): EntityInterface
     {
         $entityId = $entityId ?? $this->getTestEntityId();
-        /** @var \Apigee\Edge\Api\Monetization\Controller\EntityLoadOperationControllerInterface $controller */
+        /** @var \Apigee\Edge\Controller\EntityLoadOperationControllerInterface $controller */
         $controller = $this->getEntityController();
 
         return $controller->load($entityId);

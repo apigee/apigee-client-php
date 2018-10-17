@@ -20,6 +20,8 @@ namespace Apigee\Edge\Api\Monetization\Controller;
 
 use Apigee\Edge\Api\Monetization\Entity\RatePlanInterface;
 use Apigee\Edge\Controller\EntityControllerInterface;
+use Apigee\Edge\Controller\EntityCreateOperationControllerInterface;
+use Apigee\Edge\Controller\EntityLoadOperationControllerInterface;
 
 /**
  * Interface ApiPackageControllerInterface.
@@ -33,7 +35,7 @@ use Apigee\Edge\Controller\EntityControllerInterface;
  */
 interface ApiPackageControllerInterface extends
     EntityControllerInterface,
-    EntityCreateOperationInterface,
+    EntityCreateOperationControllerInterface,
     EntityDeleteOperationControllerInterface,
     EntityLoadOperationControllerInterface,
     PaginatedEntityListingControllerInterface
