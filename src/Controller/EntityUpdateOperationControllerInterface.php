@@ -18,20 +18,15 @@
 
 namespace Apigee\Edge\Controller;
 
-/**
- * Trait EntityCrudOperationsControllerTrait.
- *
- * @see \Apigee\Edge\Controller\EntityCrudOperationsControllerInterface
- */
-trait EntityCrudOperationsControllerTrait
+use Apigee\Edge\Entity\EntityInterface;
+
+interface EntityUpdateControllerOperationInterface
 {
-    use BaseEndpointAwareControllerTrait;
-    use ClientAwareControllerTrait;
-    use EntityClassAwareTrait;
-    use EntityEndpointAwareControllerTrait;
-    use EntitySerializerAwareTrait;
-    use EntityCreateOperationControllerTrait;
-    use EntityDeleteOperationControllerTrait;
-    use EntityLoadOperationControllerTrait;
-    use EntityUpdateOperationControllerTrait;
+    /**
+     * Updates an entity in Apigee Edge.
+     *
+     * @param \Apigee\Edge\Entity\EntityInterface $entity
+     *   Entity object with changes.
+     */
+    public function update(EntityInterface $entity): void;
 }

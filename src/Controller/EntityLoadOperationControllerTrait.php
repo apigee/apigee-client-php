@@ -18,20 +18,29 @@
 
 namespace Apigee\Edge\Controller;
 
+use Apigee\Edge\Entity\EntityInterface;
+
 /**
- * Trait EntityCrudOperationsControllerTrait.
+ * Trait EntityLoadOperationControllerTrait.
  *
- * @see \Apigee\Edge\Controller\EntityCrudOperationsControllerInterface
+ * @see \Apigee\Edge\Controller\EntityLoadOperationControllerInterface
  */
-trait EntityCrudOperationsControllerTrait
+trait EntityLoadOperationControllerTrait
 {
-    use BaseEndpointAwareControllerTrait;
     use ClientAwareControllerTrait;
-    use EntityClassAwareTrait;
-    use EntityEndpointAwareControllerTrait;
     use EntitySerializerAwareTrait;
-    use EntityCreateOperationControllerTrait;
-    use EntityDeleteOperationControllerTrait;
-    use EntityLoadOperationControllerTrait;
-    use EntityUpdateOperationControllerTrait;
+
+    /**
+     * @inheritdoc
+     */
+    public function load(string $entityId): EntityInterface
+    {
+        $response = $this->getClient()->get($this->getEntityEndpointUri($entityId));
+
+        return $this->getEntitySerializer()->deserialize(
+            (string) $response->getBody(),
+            $this->getEntityClass(),
+            'json'
+        );
+    }
 }

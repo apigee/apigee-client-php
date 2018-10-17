@@ -18,20 +18,29 @@
 
 namespace Apigee\Edge\Controller;
 
+use Apigee\Edge\Entity\EntityInterface;
+
 /**
- * Trait EntityCrudOperationsControllerTrait.
+ * Trait EntityDeleteOperationControllerTrait.
  *
- * @see \Apigee\Edge\Controller\EntityCrudOperationsControllerInterface
+ * @see \Apigee\Edge\Controller\EntityDeleteOperationControllerInterface
  */
-trait EntityCrudOperationsControllerTrait
+trait EntityDeleteOperationControllerTrait
 {
-    use BaseEndpointAwareControllerTrait;
     use ClientAwareControllerTrait;
-    use EntityClassAwareTrait;
-    use EntityEndpointAwareControllerTrait;
     use EntitySerializerAwareTrait;
-    use EntityCreateOperationControllerTrait;
-    use EntityDeleteOperationControllerTrait;
-    use EntityLoadOperationControllerTrait;
-    use EntityUpdateOperationControllerTrait;
+
+    /**
+     * @inheritdoc
+     */
+    public function delete(string $entityId): EntityInterface
+    {
+        $response = $this->getClient()->delete($this->getEntityEndpointUri($entityId));
+
+        return $this->getEntitySerializer()->deserialize(
+            (string) $response->getBody(),
+            $this->getEntityClass(),
+            'json'
+        );
+    }
 }

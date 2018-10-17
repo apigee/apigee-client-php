@@ -18,20 +18,18 @@
 
 namespace Apigee\Edge\Controller;
 
-/**
- * Trait EntityCrudOperationsControllerTrait.
- *
- * @see \Apigee\Edge\Controller\EntityCrudOperationsControllerInterface
- */
-trait EntityCrudOperationsControllerTrait
+use Apigee\Edge\Entity\EntityInterface;
+
+interface EntityLoadOperationControllerInterface
 {
-    use BaseEndpointAwareControllerTrait;
-    use ClientAwareControllerTrait;
-    use EntityClassAwareTrait;
-    use EntityEndpointAwareControllerTrait;
-    use EntitySerializerAwareTrait;
-    use EntityCreateOperationControllerTrait;
-    use EntityDeleteOperationControllerTrait;
-    use EntityLoadOperationControllerTrait;
-    use EntityUpdateOperationControllerTrait;
+    /**
+     * Loads an entity by ID from Apigee Edge.
+     *
+     * @param string $entityId
+     *   Id of the entity.
+     *
+     * @return \Apigee\Edge\Entity\EntityInterface
+     *   Entity object.
+     */
+    public function load(string $entityId): EntityInterface;
 }

@@ -18,20 +18,31 @@
 
 namespace Apigee\Edge\Controller;
 
+use Apigee\Edge\Entity\EntityInterface;
+
 /**
- * Trait EntityCrudOperationsControllerTrait.
+ * Trait EntityUpdateOperationControllerTrait.
  *
- * @see \Apigee\Edge\Controller\EntityCrudOperationsControllerInterface
+ * @see \Apigee\Edge\Controller\EntityUpdateControllerOperationInterface
  */
-trait EntityCrudOperationsControllerTrait
+trait EntityUpdateOperationControllerTrait
 {
-    use BaseEndpointAwareControllerTrait;
     use ClientAwareControllerTrait;
-    use EntityClassAwareTrait;
     use EntityEndpointAwareControllerTrait;
     use EntitySerializerAwareTrait;
-    use EntityCreateOperationControllerTrait;
-    use EntityDeleteOperationControllerTrait;
-    use EntityLoadOperationControllerTrait;
-    use EntityUpdateOperationControllerTrait;
+
+    /**
+     * @inheritdoc
+     *
+     * @psalm-suppress PossiblyNullArgument $entity->id() is not null here.
+     */
+    public function update(EntityInterface $entity): void
+    {
+        $uri = $this->getEntityEndpointUri($entity->id());
+        $response = $this->getClient()->put(
+            $uri,
+            $this->getEntitySerializer()->serialize($entity, 'json')
+        );
+        $this->getEntitySerializer()->setPropertiesFromResponse($response, $entity);
+    }
 }

@@ -18,20 +18,18 @@
 
 namespace Apigee\Edge\Controller;
 
-/**
- * Trait EntityCrudOperationsControllerTrait.
- *
- * @see \Apigee\Edge\Controller\EntityCrudOperationsControllerInterface
- */
-trait EntityCrudOperationsControllerTrait
+use Apigee\Edge\Entity\EntityInterface;
+
+interface EntityDeleteOperationControllerInterface
 {
-    use BaseEndpointAwareControllerTrait;
-    use ClientAwareControllerTrait;
-    use EntityClassAwareTrait;
-    use EntityEndpointAwareControllerTrait;
-    use EntitySerializerAwareTrait;
-    use EntityCreateOperationControllerTrait;
-    use EntityDeleteOperationControllerTrait;
-    use EntityLoadOperationControllerTrait;
-    use EntityUpdateOperationControllerTrait;
+    /**
+     * Removes an entity from Apigee Edge.
+     *
+     * @param string $entityId
+     *   ID of the entity to be deleted.
+     *
+     * @return \Apigee\Edge\Entity\EntityInterface
+     *   The deleted entity.
+     */
+    public function delete(string $entityId): EntityInterface;
 }

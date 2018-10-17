@@ -18,20 +18,14 @@
 
 namespace Apigee\Edge\Controller;
 
-/**
- * Trait EntityCrudOperationsControllerTrait.
- *
- * @see \Apigee\Edge\Controller\EntityCrudOperationsControllerInterface
- */
-trait EntityCrudOperationsControllerTrait
+use Apigee\Edge\Entity\EntityInterface;
+
+interface EntityCreateOperationControllerInterface
 {
-    use BaseEndpointAwareControllerTrait;
-    use ClientAwareControllerTrait;
-    use EntityClassAwareTrait;
-    use EntityEndpointAwareControllerTrait;
-    use EntitySerializerAwareTrait;
-    use EntityCreateOperationControllerTrait;
-    use EntityDeleteOperationControllerTrait;
-    use EntityLoadOperationControllerTrait;
-    use EntityUpdateOperationControllerTrait;
+    /**
+     * Creates an entity in Apigee Edge.
+     *
+     * @param \Apigee\Edge\Entity\EntityInterface $entity
+     */
+    public function create(EntityInterface $entity): void;
 }
