@@ -22,12 +22,16 @@ use Apigee\Edge\Api\Monetization\Entity\EntityInterface;
 use Apigee\Edge\Tests\Test\Controller\ClientAwareTestTrait;
 use Apigee\Edge\Tests\Test\Controller\EntityControllerAwareTrait;
 
-trait EntityLoadOperationControllerValidatorTrait
+/**
+ * Applicable to all entity controllers that implements
+ * Apigee\Edge\Api\Monetization\Controller\EntityLoadControllerOperationInterface.
+ */
+trait EntityLoadControllerOperationTestTrait
 {
     use EntityControllerAwareTrait;
     use ClientAwareTestTrait;
-    use EntitySerializerAwareValidatorTrait;
-    use TestEntityIdAwareControllerValidatorTrait;
+    use EntitySerializerAwareTestTrait;
+    use TestEntityIdAwareControllerTestTrait;
 
     public function testLoad(?string $entityId = null): void
     {

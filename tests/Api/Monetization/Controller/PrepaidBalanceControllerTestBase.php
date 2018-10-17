@@ -29,7 +29,7 @@ use Apigee\Edge\Tests\Test\TestClientFactory;
 use GuzzleHttp\Psr7\Response;
 use Http\Mock\Client as HttpClient;
 
-abstract class PrepaidBalanceControllerValidator extends OrganizationAwareEntityControllerValidator
+abstract class PrepaidBalanceControllerTestBase extends OrganizationAwareEntityControllerTestBase
 {
     public function testGetEntities(): void
     {

@@ -26,7 +26,7 @@ use Apigee\Edge\Tests\Test\Controller\OrganizationAwareEntityControllerValidator
  * Test base class for those controllers that works with entities that holds
  * a reference to its parent organization entity.
  */
-abstract class OrganizationAwareEntityControllerValidator extends EntityControllerValidator
+abstract class OrganizationAwareEntityControllerTestBase extends EntityControllerTestBase
 {
     use OrganizationAwareEntityControllerValidatorTrait;
 

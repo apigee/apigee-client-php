@@ -25,7 +25,7 @@ use Apigee\Edge\Tests\Test\HttpClient\FileSystemResponseFactory;
 use GuzzleHttp\Psr7\Request;
 use Psr\Http\Message\ResponseInterface;
 
-class CompanyAcceptedRatePlanControllerTest extends AcceptedRatePlanControllerValidator
+class CompanyAcceptedRatePlanControllerTest extends AcceptedRatePlanControllerTestBase
 {
     /**
      * @inheritdoc

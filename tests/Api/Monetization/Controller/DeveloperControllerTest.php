@@ -23,7 +23,7 @@ use Apigee\Edge\Controller\EntityControllerInterface;
 use Apigee\Edge\Tests\Api\Monetization\EntitySerializer\DeveloperEntitySerializerValidator;
 use Apigee\Edge\Tests\Api\Monetization\EntitySerializer\EntitySerializerValidatorInterface;
 
-class DeveloperControllerTest extends LegalEntityControllerValidator
+class DeveloperControllerTest extends LegalEntityControllerTestBase
 {
     /**
      * @inheritdoc

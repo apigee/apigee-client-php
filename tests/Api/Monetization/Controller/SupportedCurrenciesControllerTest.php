@@ -22,13 +22,13 @@ use Apigee\Edge\Api\Monetization\Controller\SupportedCurrencyController;
 use Apigee\Edge\Controller\EntityControllerInterface;
 use Apigee\Edge\Tests\Test\Controller\OrganizationAwareEntityControllerValidatorTrait;
 
-class SupportedCurrenciesControllerTest extends OrganizationAwareEntityControllerValidator
+class SupportedCurrenciesControllerTest extends OrganizationAwareEntityControllerTestBase
 {
     use OrganizationAwareEntityControllerValidatorTrait;
-    use EntityCreateOperationControllerValidatorTrait;
-    use EntityLoadOperationControllerValidatorTrait;
-    use EntityUpdateOperationControllerValidatorTrait;
-    use EntityDeleteOperationControllerValidatorTrait;
+    use EntityCreateControllerOperationTestTrait;
+    use EntityLoadControllerOperationTestTrait;
+    use EntityUpdateControllerOperationTestTrait;
+    use EntityDeleteControllerOperationTestTrait;
 
     /**
      * @inheritdoc

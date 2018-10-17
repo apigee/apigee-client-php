@@ -21,7 +21,7 @@ namespace Apigee\Edge\Tests\Api\Monetization\Controller;
 use Apigee\Edge\Api\Monetization\Controller\CompanyController;
 use Apigee\Edge\Controller\EntityControllerInterface;
 
-class CompanyControllerTest extends LegalEntityControllerValidator
+class CompanyControllerTest extends LegalEntityControllerTestBase
 {
     /**
      * @inheritdoc

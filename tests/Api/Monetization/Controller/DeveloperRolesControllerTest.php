@@ -23,7 +23,7 @@ use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Controller\EntityControllerInterface;
 use Apigee\Edge\Tests\Test\Controller\OrganizationAwareEntityControllerValidatorTrait;
 
-class DeveloperRoleControllerValidator extends OrganizationAwareEntityControllerValidator
+class DeveloperRoleControllerTest extends OrganizationAwareEntityControllerTestBase
 {
     use OrganizationAwareEntityControllerValidatorTrait;
 

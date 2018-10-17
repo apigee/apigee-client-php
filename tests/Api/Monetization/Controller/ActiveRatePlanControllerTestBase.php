@@ -20,7 +20,7 @@ namespace Apigee\Edge\Tests\Api\Monetization\Controller;
 
 use Apigee\Edge\Exception\ApiRequestException;
 
-abstract class ActiveRatePlanControllerValidator extends OrganizationAwareEntityControllerValidator
+abstract class ActiveRatePlanControllerTestBase extends OrganizationAwareEntityControllerTestBase
 {
     public function testGetActiveRatePlanByApiProduct(): void
     {

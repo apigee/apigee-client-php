@@ -23,7 +23,7 @@ use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Controller\EntityControllerInterface;
 use PHPUnit\Framework\Assert;
 
-class CompanyPrepaidBalanceControllerTest extends PrepaidBalanceControllerValidator
+class CompanyPrepaidBalanceControllerTest extends PrepaidBalanceControllerTestBase
 {
     protected static $companyName = 'phpunit';
 

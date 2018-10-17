@@ -23,7 +23,7 @@ use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Controller\EntityControllerInterface;
 use PHPUnit\Framework\Assert;
 
-class DeveloperPrepaidBalanceControllerTest extends PrepaidBalanceControllerValidator
+class DeveloperPrepaidBalanceControllerTest extends PrepaidBalanceControllerTestBase
 {
     protected static $developerId = 'phpunit@example.com';
 

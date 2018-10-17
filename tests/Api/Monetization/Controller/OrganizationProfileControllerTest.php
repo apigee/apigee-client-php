@@ -23,11 +23,11 @@ use Apigee\Edge\Api\Monetization\Entity\EntityInterface;
 use Apigee\Edge\Controller\EntityControllerInterface;
 use Apigee\Edge\Tests\Test\Controller\OrganizationAwareEntityControllerValidatorTrait;
 
-class OrganizationProfileControllerTest extends EntityControllerValidator
+class OrganizationProfileControllerTest extends EntityControllerTestBase
 {
     use OrganizationAwareEntityControllerValidatorTrait;
-    use EntityLoadOperationControllerValidatorTrait;
-    use EntityUpdateOperationControllerValidatorTrait;
+    use EntityLoadControllerOperationTestTrait;
+    use EntityUpdateControllerOperationTestTrait;
 
     public function testLoad(): void
     {

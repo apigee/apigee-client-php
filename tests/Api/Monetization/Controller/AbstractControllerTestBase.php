@@ -22,7 +22,7 @@ use Apigee\Edge\Tests\Test\Controller\AbstractControllerValidator as BaseAbstrac
 use Apigee\Edge\Tests\Test\HttpClient\FileSystemMockClient;
 use Apigee\Edge\Tests\Test\TestClientFactory;
 
-abstract class AbstractControllerValidator extends BaseAbstractControllerValidator
+abstract class AbstractControllerTestBase extends BaseAbstractControllerValidator
 {
     /**
      * @inheritDoc

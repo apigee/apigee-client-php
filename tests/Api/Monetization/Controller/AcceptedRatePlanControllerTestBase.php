@@ -32,9 +32,9 @@ use GuzzleHttp\Psr7\Request;
 use Http\Mock\Client as HttpClient;
 use Psr\Http\Message\ResponseInterface;
 
-abstract class AcceptedRatePlanControllerValidator extends OrganizationAwareEntityControllerValidator
+abstract class AcceptedRatePlanControllerTestBase extends OrganizationAwareEntityControllerTestBase
 {
-    use EntityLoadOperationControllerValidatorTrait;
+    use EntityLoadControllerOperationTestTrait;
 
     public function testGetAcceptedRatePlans(): void
     {

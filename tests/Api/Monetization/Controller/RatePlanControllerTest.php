@@ -36,12 +36,12 @@ use Apigee\Edge\Tests\Test\TestClientFactory;
 use GuzzleHttp\Psr7\Request;
 use Http\Mock\Client as HttpClient;
 
-class RatePlanControllerTest extends OrganizationAwareEntityControllerValidator
+class RatePlanControllerTest extends OrganizationAwareEntityControllerTestBase
 {
-    use EntityLoadOperationControllerValidatorTrait {
+    use EntityLoadControllerOperationTestTrait {
         testLoad as private traitTestLoad;
     }
-    use TimezoneConversionValidatorTrait;
+    use TimezoneConversionTestTrait;
 
     /**
      * @inheritdoc

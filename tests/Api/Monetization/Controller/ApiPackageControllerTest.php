@@ -23,9 +23,9 @@ use Apigee\Edge\Controller\EntityControllerInterface;
 use Apigee\Edge\Tests\Api\Monetization\EntitySerializer\ApiPackageSerializerValidator;
 use Apigee\Edge\Tests\Api\Monetization\EntitySerializer\EntitySerializerValidatorInterface;
 
-class ApiPackageControllerTest extends OrganizationAwareEntityControllerValidator
+class ApiPackageControllerTest extends OrganizationAwareEntityControllerTestBase
 {
-    use EntityLoadOperationControllerValidatorTrait;
+    use EntityLoadControllerOperationTestTrait;
 
     public function testGetAvailableApiPackages(): void
     {

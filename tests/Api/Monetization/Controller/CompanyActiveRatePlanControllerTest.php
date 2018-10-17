@@ -21,7 +21,7 @@ namespace Apigee\Edge\Tests\Api\Monetization\Controller;
 use Apigee\Edge\Api\Monetization\Controller\CompanyActiveRatePlanController;
 use Apigee\Edge\Controller\EntityControllerInterface;
 
-class CompanyActiveRatePlanControllerTest extends ActiveRatePlanControllerValidator
+class CompanyActiveRatePlanControllerTest extends ActiveRatePlanControllerTestBase
 {
     /**
      * @inheritdoc

@@ -22,11 +22,11 @@ use Apigee\Edge\Api\Monetization\Entity\EntityInterface;
 use Apigee\Edge\Tests\Test\Controller\ClientAwareTestTrait;
 use Apigee\Edge\Tests\Test\Controller\EntityControllerAwareTrait;
 
-trait TimezoneConversionValidatorTrait
+trait TimezoneConversionTestTrait
 {
     use ClientAwareTestTrait;
     use EntityControllerAwareTrait;
-    use EntitySerializerAwareValidatorTrait;
+    use EntitySerializerAwareTestTrait;
 
     /**
      * The difference between Europe/Budapest and Australia/Eucla (used as

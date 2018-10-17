@@ -20,7 +20,7 @@ namespace Apigee\Edge\Tests\Api\Monetization\Controller;
 
 use Apigee\Edge\Serializer\EntitySerializerInterface;
 
-trait EntitySerializerAwareValidatorTrait
+trait EntitySerializerAwareTestTrait
 {
     abstract protected static function getEntitySerializer(): EntitySerializerInterface;
 }

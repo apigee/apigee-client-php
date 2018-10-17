@@ -18,26 +18,38 @@
 
 namespace Apigee\Edge\Tests\Api\Monetization\Controller;
 
+use Apigee\Edge\Serializer\EntitySerializerInterface;
+use Apigee\Edge\Tests\Api\Monetization\EntitySerializer\EntitySerializerValidator;
 use Apigee\Edge\Tests\Api\Monetization\EntitySerializer\EntitySerializerValidatorInterface;
-use Apigee\Edge\Tests\Api\Monetization\EntitySerializer\LegalEntitySerializerValidator;
+use Apigee\Edge\Tests\Test\Controller\EntityControllerAwareTrait;
 
-/**
- * Base class for validating developer- and company controllers.
- */
-abstract class LegalEntityControllerValidator extends OrganizationAwareEntityControllerValidator
+abstract class EntityControllerTestBase extends AbstractControllerTestBase
 {
-    use EntityLoadOperationControllerValidatorTrait;
+    use EntityControllerAwareTrait;
+    use EntitySerializerAwareTestTrait;
+    use TestEntityIdAwareControllerTestTrait;
 
-    /**
-     * @inheritdoc
-     */
+    protected static function getEntitySerializer(): EntitySerializerInterface
+    {
+        $ro = new \ReflectionObject(static::getEntityController());
+        $rm = $ro->getMethod('getEntitySerializer');
+        $rm->setAccessible(true);
+
+        return $rm->invoke(static::getEntityController());
+    }
+
     protected static function getEntitySerializerValidator(): EntitySerializerValidatorInterface
     {
         static $validator;
         if (null === $validator) {
-            $validator = new LegalEntitySerializerValidator(static::getEntitySerializer());
+            $validator = new EntitySerializerValidator(static::getEntitySerializer());
         }
 
         return $validator;
+    }
+
+    protected function getTestEntityId(): string
+    {
+        return 'phpunit';
     }
 }

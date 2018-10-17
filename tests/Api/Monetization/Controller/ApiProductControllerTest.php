@@ -21,9 +21,9 @@ namespace Apigee\Edge\Tests\Api\Monetization\Controller;
 use Apigee\Edge\Api\Monetization\Controller\ApiProductController;
 use Apigee\Edge\Controller\EntityControllerInterface;
 
-class ApiProductControllerTest extends OrganizationAwareEntityControllerValidator
+class ApiProductControllerTest extends OrganizationAwareEntityControllerTestBase
 {
-    use EntityLoadOperationControllerValidatorTrait;
+    use EntityLoadControllerOperationTestTrait;
 
     public function testEligibleProducts(): void
     {

@@ -18,32 +18,37 @@
 
 namespace Apigee\Edge\Tests\Api\Monetization\Controller;
 
+use Apigee\Edge\Api\Monetization\Entity\EntityInterface;
 use Apigee\Edge\Tests\Test\Controller\ClientAwareTestTrait;
 use Apigee\Edge\Tests\Test\Controller\EntityControllerAwareTrait;
 use PHPUnit\Framework\Assert;
 
 /**
  * Applicable to all entity controllers that implements
- * Apigee\Edge\Api\Monetization\Controller\EntityDeleteControllerOperationInterface.
+ * Apigee\Edge\Api\Monetization\Controller\EntityCreateControllerOperationInterface.
  */
-trait EntityDeleteOperationControllerValidatorTrait
+trait EntityCreateControllerOperationTestTrait
 {
     use EntityControllerAwareTrait;
     use ClientAwareTestTrait;
+    use TestEntityIdAwareControllerTestTrait;
 
-    public function testDelete(): void
+    public function testCreate(): void
     {
-        /** @var \Apigee\Edge\Api\Monetization\Controller\EntityDeleteOperationControllerInterface $controller */
+        /** @var \Apigee\Edge\Api\Monetization\Controller\EntityCreateOperationInterface $controller */
         $controller = static::getEntityController();
-        $controller->delete($this->getEntityIdForTestDelete());
+        $controller->create($this->getEntityForTestCreate());
         // Because MINT tests are pure offline API tests the best thing that we
-        // can do (in general) is to make sure that the DELETE API call is sent
-        // to the right endpoint.
+        // can do (in general) is to make sure that the POST API call is sent
+        // to the right place. The testLoad() has already ensured that the
+        // API client can serialize and deserialize an API response properly.
+        // Classes that use this trait can also do extra validations on the
+        // entity.
         Assert::assertEquals(200, static::getClient()->getJournal()->getLastResponse()->getStatusCode());
     }
 
-    protected function getEntityIdForTestDelete(): string
+    protected function getEntityForTestCreate(): EntityInterface
     {
-        return 'phpunit';
+        return $this->getEntityController()->load($this->getTestEntityId());
     }
 }

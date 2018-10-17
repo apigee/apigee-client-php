@@ -26,13 +26,13 @@ use Apigee\Edge\Tests\Test\HttpClient\Plugin\NullAuthentication;
 use GuzzleHttp\Psr7\Response;
 use Http\Mock\Client as HttpClient;
 
-class TermsAndConditionsControllerTest extends OrganizationAwareEntityControllerValidator
+class TermsAndConditionsControllerTest extends OrganizationAwareEntityControllerTestBase
 {
-    use EntityCreateOperationControllerValidatorTrait;
-    use EntityLoadOperationControllerValidatorTrait;
-    use EntityUpdateOperationControllerValidatorTrait;
-    use EntityDeleteOperationControllerValidatorTrait;
-    use TimezoneConversionValidatorTrait;
+    use EntityCreateControllerOperationTestTrait;
+    use EntityLoadControllerOperationTestTrait;
+    use EntityUpdateControllerOperationTestTrait;
+    use EntityDeleteControllerOperationTestTrait;
+    use TimezoneConversionTestTrait;
 
     public function testEntityListing(): void
     {
