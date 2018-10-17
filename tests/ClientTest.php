@@ -21,13 +21,13 @@ namespace Apigee\Edge\Tests;
 use Apigee\Edge\Client;
 use Apigee\Edge\Exception\ClientErrorException;
 use Apigee\Edge\HttpClient\Utility\Builder;
+use Apigee\Edge\Tests\Test\HttpClient\MockHttpClient;
 use Apigee\Edge\Tests\Test\HttpClient\Plugin\NullAuthentication;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 use Http\Client\Common\Plugin\HeaderAppendPlugin;
 use Http\Client\Exception\NetworkException;
 use Http\Client\Exception\RequestException;
-use Http\Mock\Client as MockClient;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -40,7 +40,7 @@ use PHPUnit\Framework\TestCase;
  */
 class ClientTest extends TestCase
 {
-    /** @var \Http\Mock\Client */
+    /** @var \Apigee\Edge\Tests\Test\HttpClient\MockHttpClient */
     protected static $httpClient;
 
     /**
@@ -49,7 +49,7 @@ class ClientTest extends TestCase
     public static function setUpBeforeClass(): void
     {
         // Use the Mock HTTP Client for all requests.
-        self::$httpClient = new MockClient();
+        self::$httpClient = new MockHttpClient();
         parent::setUpBeforeClass();
     }
 

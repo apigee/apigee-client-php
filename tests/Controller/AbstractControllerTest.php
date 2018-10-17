@@ -18,14 +18,11 @@
 
 namespace Apigee\Edge\Tests\Controller;
 
-use Apigee\Edge\Client;
 use Apigee\Edge\Controller\AbstractEntityController;
-use Apigee\Edge\HttpClient\Utility\Builder;
 use Apigee\Edge\Tests\Test\Entity\MockEntity;
-use Apigee\Edge\Tests\Test\HttpClient\Plugin\NullAuthentication;
+use Apigee\Edge\Tests\Test\MockClient;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
-use Http\Mock\Client as MockClient;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\UriInterface;
@@ -47,14 +44,14 @@ class AbstractControllerTest extends TestCase
     /** @var \Http\Client\HttpClient */
     private static $mockClient;
 
-    /** @var \Apigee\Edge\ClientInterface */
+    /** @var \Apigee\Edge\Tests\Test\OnlineClientInterface|\Apigee\Edge\Tests\Test\OfflineClientInterface */
     private static $client;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        static::$mockClient = new MockClient();
-        static::$client = new Client(new NullAuthentication(), null, [Client::CONFIG_HTTP_CLIENT_BUILDER => new Builder(static::$mockClient)]);
+        static::$client = new MockClient();
+        static::$mockClient = static::$client->getMockHttpClient();
         $client = static::$client;
         static::$stub = new class($client) extends AbstractEntityController {
             /**

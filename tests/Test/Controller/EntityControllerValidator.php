@@ -20,7 +20,7 @@ namespace Apigee\Edge\Tests\Test\Controller;
 
 use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Controller\EntityControllerInterface;
-use Apigee\Edge\Tests\Test\HttpClient\FileSystemMockClient;
+use Apigee\Edge\Tests\Test\FileSystemMockClient;
 use Apigee\Edge\Tests\Test\TestClientFactory;
 use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;

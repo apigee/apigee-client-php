@@ -16,18 +16,22 @@
  * limitations under the License.
  */
 
-namespace Apigee\Edge\Tests\Test\HttpClient;
+namespace Apigee\Edge\Tests\Test;
 
-use Http\Client\HttpAsyncClient;
-use Http\Client\HttpClient;
+use Apigee\Edge\ClientInterface;
+use Apigee\Edge\Tests\Test\HttpClient\MockHttpClientInterface;
 
 /**
- * Interface MockClientInterface.
- *
- * Creates a common interface that can be implemented by Mock http clients until this PR is not going to be merged.
- *
- * @see https://github.com/php-http/mock-client/pull/24
+ * Base interface for those test clients that does not call Apigee Edge.
  */
-interface MockClientInterface extends HttpClient, HttpAsyncClient
+interface OfflineClientInterface extends ClientInterface
 {
+    public const USER_AGENT_PREFIX = 'OFFLINE';
+
+    /**
+     * Exposes the underlying mock http client.
+     *
+     * @return \Apigee\Edge\Tests\Test\HttpClient\MockHttpClientInterface
+     */
+    public function getMockHttpClient(): MockHttpClientInterface;
 }

@@ -28,7 +28,7 @@ use Psr\Http\Message\RequestInterface;
  *
  * Loads the content of an HTTP response from the file system.
  */
-class FileSystemMockClient implements MockClientInterface
+class FileSystemHttpMockHttpClient implements MockHttpClientInterface
 {
     use HttpAsyncClientEmulator;
 

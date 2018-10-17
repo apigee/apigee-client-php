@@ -24,7 +24,7 @@
          printerClass="LimeDeck\Testing\Printer"
          verbose="true">
     <testsuites>
-        <testsuite name="All Apigee Edge PHP SDK Tests">
+        <testsuite name="All Apigee Edge PHP API Client Tests">
             <directory>tests/</directory>
         </testsuite>
     </testsuites>

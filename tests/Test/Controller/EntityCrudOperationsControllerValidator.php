@@ -27,7 +27,6 @@ use Apigee\Edge\Tests\Test\TestClientFactory;
  *
  * Helps in validation of all entity controllers that implements EntityCrudOperationsControllerInterface.
  *
- *
  * @see \Apigee\Edge\Entity\EntityCrudOperationsControllerInterface
  */
 abstract class EntityCrudOperationsControllerValidator extends EntityControllerValidator

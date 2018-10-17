@@ -37,36 +37,46 @@ use Psr\Log\NullLogger;
  *
  * @see https://github.com/guzzle/guzzle/pull/1202
  */
-class DebuggerClient implements HttpClient, HttpAsyncClient
+class DebuggerHttpClient implements HttpClient, HttpAsyncClient
 {
     /**
      * @var \GuzzleHttp\ClientInterface
      */
     private $client;
+
     /**
      * @var \Http\Message\Formatter
      */
     private $formatter;
+
     /**
      * @var \Psr\Log\LoggerInterface
      */
     private $logger;
+
     /**
      * @var string
      */
     private $logFormat;
 
-    public function __construct(array $config = [], Formatter $formatter = null, LoggerInterface $logger = null, string $logFormat = '{request_formatted} {response_formatted}')
+    /**
+     * DebuggerHttpClient constructor.
+     *
+     * @param array $config
+     * @param \Http\Message\Formatter|null $formatter
+     * @param \Psr\Log\LoggerInterface|null $logger
+     * @param string|null $logFormat
+     */
+    public function __construct(array $config = [], ?Formatter $formatter = null, ?LoggerInterface $logger = null, ?string $logFormat = null)
     {
-        if (null === $formatter) {
-            $formatter = new SimpleFormatter();
-        }
-        if (null === $logger) {
-            $logger = new NullLogger();
-        }
+        $formatter = $formatter ?? new SimpleFormatter();
+        $logger = $logger ?? new NullLogger();
+        $logFormat = $logFormat ?? '{request_formatted} {response_formatted}';
+
         $this->formatter = $formatter;
         $this->logger = $logger;
         $this->logFormat = $logFormat;
+
         $config += [
             RequestOptions::ON_STATS => function (TransferStats $stats) use ($logger, $formatter, $logFormat): void {
                 /** @var RequestInterface $request */
@@ -92,6 +102,7 @@ class DebuggerClient implements HttpClient, HttpAsyncClient
                 $logger->log(LogLevel::DEBUG, $logFormat, $context);
             },
         ];
+
         $this->client = Client::createWithConfig($config);
     }
 

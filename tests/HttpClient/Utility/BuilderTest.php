@@ -19,10 +19,10 @@
 namespace Apigee\Edge\Tests\HttpClient\Utility;
 
 use Apigee\Edge\HttpClient\Utility\Builder;
+use Apigee\Edge\Tests\Test\HttpClient\MockHttpClient;
 use GuzzleHttp\Psr7\Request;
 use Http\Client\Common\Plugin\AddPathPlugin;
 use Http\Discovery\UriFactoryDiscovery;
-use Http\Mock\Client as MockClient;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -36,7 +36,7 @@ use PHPUnit\Framework\TestCase;
  */
 class BuilderTest extends TestCase
 {
-    /** @var \Http\Mock\Client */
+    /** @var \Apigee\Edge\Tests\Test\HttpClient\MockHttpClient */
     protected static $httpClient;
 
     /**
@@ -45,7 +45,7 @@ class BuilderTest extends TestCase
     public static function setUpBeforeClass(): void
     {
         // Use the Mock HTTP Client for all requests.
-        self::$httpClient = new MockClient();
+        self::$httpClient = new MockHttpClient();
         parent::setUpBeforeClass();
     }
 

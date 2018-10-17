@@ -23,10 +23,10 @@ use Apigee\Edge\ClientInterface;
 use Apigee\Edge\HttpClient\Plugin\Authentication\Oauth;
 use Apigee\Edge\HttpClient\Utility\Builder;
 use Apigee\Edge\HttpClient\Utility\JournalInterface;
+use Apigee\Edge\Tests\Test\HttpClient\MockHttpClient;
 use Apigee\Edge\Tests\Test\HttpClient\Utility\TestJournal;
 use Http\Client\HttpClient;
 use Http\Message\Authentication\BasicAuth;
-use Http\Mock\Client as MockClient;
 
 /**
  * OAuth authentication plugin that uses mock API client for authorisation.
@@ -57,7 +57,7 @@ class MockOauth extends Oauth
     ) {
         parent::__construct($username, $password, $token_storage, $mfa_token, $client_id, $client_secret, $scope, $auth_server);
         $this->journal = $journal ?: new TestJournal();
-        $this->httpClient = $httpClient ?: new MockClient();
+        $this->httpClient = $httpClient ?: new MockHttpClient();
     }
 
     protected function authClient(): ClientInterface
