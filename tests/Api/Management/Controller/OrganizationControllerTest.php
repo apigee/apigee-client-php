@@ -54,7 +54,7 @@ class OrganizationControllerTest extends TestCase
         // Apigee Edge Cloud we do not have permission to create
         // an organization.
         // https://docs.apigee.com/management/apis/post/organizations
-        static::$client = (new TestClientFactory())->getClient(FileSystemMockClient::class);
+        static::$client = TestClientFactory::getClient(FileSystemMockClient::class);
         parent::setUpBeforeClass();
     }
 

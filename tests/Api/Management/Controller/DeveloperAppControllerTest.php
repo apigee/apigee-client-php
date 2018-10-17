@@ -231,8 +231,7 @@ class DeveloperAppControllerTest extends AppByOwnerControllerBase
      */
     protected function getEntityControllerWithMockClient(): EntityControllerInterface
     {
-        $factory = new TestClientFactory();
-        $client = $factory->getClient(FileSystemHttpMockHttpClient::class);
+        $client = TestClientFactory::getClient(FileSystemHttpMockHttpClient::class);
 
         return new DeveloperAppController(static::getOrganization($client), 'f43ffa3c-e147-47de-8cd6-f5b34429a531', $client);
     }

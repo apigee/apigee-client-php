@@ -235,8 +235,7 @@ class CompanyAppControllerTest extends AppByOwnerControllerBase
      */
     protected function getEntityControllerWithMockClient(): EntityControllerInterface
     {
-        $factory = new TestClientFactory();
-        $client = $factory->getClient(FileSystemHttpMockHttpClient::class);
+        $client = TestClientFactory::getClient(FileSystemHttpMockHttpClient::class);
 
         return new CompanyAppController(static::getOrganization($client), 'phpunit', $client);
     }

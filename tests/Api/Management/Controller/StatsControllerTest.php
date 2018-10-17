@@ -188,7 +188,7 @@ class StatsControllerTest extends AbstractControllerValidator
     {
         static $controller;
         if (!$controller) {
-            $client = (new TestClientFactory())->getClient(FileSystemMockClient::class);
+            $client = TestClientFactory::getClient(FileSystemMockClient::class);
             $controller = new StatsController(static::getEnvironment($client), static::getOrganization($client), $client);
         }
 
