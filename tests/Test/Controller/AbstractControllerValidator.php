@@ -43,7 +43,7 @@ abstract class AbstractControllerValidator extends TestCase
     {
         parent::setUpBeforeClass();
         static::$random = Factory::create();
-        static::$client = (new TestClientFactory())->getClient();
+        static::$client = TestClientFactory::getClient();
     }
 
     protected static function getClient(): ClientInterface

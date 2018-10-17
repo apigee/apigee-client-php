@@ -46,7 +46,7 @@ class TestClientFactory
      *
      * @return \Apigee\Edge\ClientInterface
      */
-    public function getClient(string $fqcn = null): ClientInterface
+    public static function getClient(string $fqcn = null): ClientInterface
     {
         $fqcn = $fqcn ?: getenv('APIGEE_EDGE_PHP_CLIENT_API_CLIENT') ?: FileSystemMockClient::class;
         $clientRC = new \ReflectionClass($fqcn);

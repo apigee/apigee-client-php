@@ -98,8 +98,6 @@ abstract class EntityControllerValidator extends AbstractControllerValidator
      */
     protected function getEntityControllerWithMockClient(): EntityControllerInterface
     {
-        $factory = new TestClientFactory();
-
-        return $this->getEntityController($factory->getClient(FileSystemMockClient::class));
+        return $this->getEntityController(TestClientFactory::getClient(FileSystemMockClient::class));
     }
 }
