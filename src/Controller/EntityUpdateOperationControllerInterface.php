@@ -20,7 +20,7 @@ namespace Apigee\Edge\Controller;
 
 use Apigee\Edge\Entity\EntityInterface;
 
-interface EntityUpdateOperationControllerInterface
+interface EntityUpdateControllerOperationInterface
 {
     /**
      * Updates an entity in Apigee Edge.
