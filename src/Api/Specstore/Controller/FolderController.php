@@ -42,7 +42,7 @@ class FolderController extends EntityController
      */
     public function getFolderContents(Folder $entity): Collection
     {
-        $response = $this->getClient()->get($entity->getContents());
+        $response = $this->getClient()->get($entity->getContents(), $this->getHeaders());
         $collectionSerializer = new CollectionSerializer();
 
         return $collectionSerializer->deserialize(
@@ -78,9 +78,9 @@ class FolderController extends EntityController
     public function loadByPath(string $path, SpecstoreObject $parent = null)
     {
         if (null === $parent) {
-            $parent = $this->load('homeFolder');
+            $parent = $this->load('/homeFolder');
         }
-        $contents = $this->getFolderContents($parent);
+        $contents = $this->getFolderContents($parent)->getContents();
         $path_arr = explode('/', $path);
         $current_folder = array_shift($path_arr);
         $found_obj = null;

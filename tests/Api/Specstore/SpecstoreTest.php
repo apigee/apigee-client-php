@@ -20,7 +20,6 @@ namespace Apigee\Edge\Tests\Api\Specstore;
 
 use Apigee\Edge\Api\Specstore\Controller\FolderController;
 use Apigee\Edge\Api\Specstore\Controller\SpecController;
-use Apigee\Edge\Api\Specstore\Entity\Spec;
 use Apigee\Edge\Client;
 use Apigee\Edge\HttpClient\Plugin\Authentication\Oauth;
 use Apigee\Edge\Tests\Test\HttpClient\Plugin\InMemoryOauthTokenStorage;
@@ -36,31 +35,38 @@ use PHPUnit\Framework\TestCase;
  */
 class SpecstoreTest extends TestCase
 {
+    static $folderController;
+    static $specController;
     /**
      * @inheritdoc
      */
     public static function setUpBeforeClass(): void
     {
-        parent::setUpBeforeClass();
-    }
-
-    public function testSpecStore(): void
-    {
-        $username = 'some-test-account@google.com';
-        $password = 'passw0rd';
-        $organization = 'sample-org';
+        $username = 'some user@google.com';
+        $password = 'password of user';
+        $organization = 'orgname';
 
         $auth = new Oauth($username, $password, new InMemoryOauthTokenStorage());
 
         $client = new Client($auth, 'https://apigee.com');
 
+        static::$folderController = new FolderController($organization, $client);
+        static::$specController = new SpecController($organization, $client);
+
+        parent::setUpBeforeClass();
+    }
+
+    public function testSpecStore(): void
+    {
+
+
         $expected = 'Hello World';
         $data = 'Hello World';
+        $folderController = static:: $folderController;
+        $specController = static:: $specController;
 
-        $folderController = new FolderController($organization, $client);
-        $specController = new SpecController($organization, $client);
         $homeFolder = $folderController->load('/homeFolder');
-
+        //var_dump($homeFolder);
 //        $spec = new Spec();
 //        $spec->setName("petstoreSpec". time());
 //        $spec->setFolder($homeFolder->id());
@@ -73,19 +79,18 @@ class SpecstoreTest extends TestCase
 //        $folder->setName("abcd-" . time());
 //        $folder->setFolder($homeFolder->id());
 //        $folderController->create($folder);
-
-        foreach ($folderController->getFolderContents($homeFolder) as $obj) {
-//            var_dump($obj);
-            if ($obj instanceof Spec) {
-                var_dump($specController->getSpecContents($obj));
-            }
-//            if($obj instanceof Folder){
-//                $folderController->delete($obj->id());
+//$contents_collection = $folderController->getFolderContents($homeFolder);
+//        foreach ($contents_collection->getContents() as $obj) {
+//            if ($obj instanceof Spec) {
+//                var_dump($specController->getSpecContents($obj));
 //            }
-        }
+//        }
 
 //        var_dump($entity);
 //        exit;
+        $folderObj = $specController->load("/c3Rvc-Zmxk-117786");
+        var_dump($folderController->getPath($folderObj));
+        var_dump($folderController->loadByPath("abcd/gitesh/spec1"));
         $this->assertEquals($expected, $data);
     }
 }
