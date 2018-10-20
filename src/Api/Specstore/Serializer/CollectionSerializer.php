@@ -24,7 +24,7 @@ use Apigee\Edge\Serializer\EntitySerializer;
 class CollectionSerializer extends EntitySerializer
 {
     /**
-     * AppCredentialSerializer constructor.
+     * CollectionSerializer constructor.
      *
      * @param array $normalizers
      */
