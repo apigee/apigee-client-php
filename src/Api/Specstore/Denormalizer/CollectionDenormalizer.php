@@ -18,13 +18,14 @@
 
 namespace Apigee\Edge\Api\Specstore\Denormalizer;
 
+use Apigee\Edge\Api\Specstore\Entity\Collection;
 use Apigee\Edge\Api\Specstore\Entity\Folder;
 use Apigee\Edge\Api\Specstore\Entity\Spec;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 
 /**
  * Class CredentialProductDenormalizer to help process response from the
- * specstore apis which could be a Folder or a Spec
+ * specstore apis which could be a Folder or a Spec.
  */
 class CollectionDenormalizer implements DenormalizerInterface
 {
@@ -37,7 +38,7 @@ class CollectionDenormalizer implements DenormalizerInterface
     }
 
     /**
-     * @inheritdoc
+     * @return Collection
      */
     public function denormalize($data, $class, $format = null, array $context = [])
     {
@@ -51,6 +52,6 @@ class CollectionDenormalizer implements DenormalizerInterface
             }
         }
 
-        return $collection;
+        return new Collection(['contents' => $collection]);
     }
 }

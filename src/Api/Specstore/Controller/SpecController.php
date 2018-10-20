@@ -23,19 +23,18 @@ use Apigee\Edge\Controller\EntityController;
 
 /**
  * Class SpecController which allows for CRUD operations related to Spec
- * and also allows for upload and download of openAPI specifications
- *
- * @package Apigee\Edge\Api\Specstore\Controller
+ * and also allows for upload and download of openAPI specifications.
  */
 class SpecController extends EntityController
 {
     use SpecstoreEntityControllerTrait;
 
     /**
-     * Upload a openAPI file to the backend
+     * Upload a openAPI file to the backend.
      *
      * @param Spec $entity
      * @param $content
+     *
      * @throws \Http\Client\Exception
      */
     public function uploadJsonSpec(Spec $entity, $content): void
@@ -47,13 +46,15 @@ class SpecController extends EntityController
     }
 
     /**
-     * Get the contents of the spec
+     * Get the contents of the spec.
      *
      * Always returns application/json
      *
      * @param Spec $entity
-     * @return string
+     *
      * @throws \Http\Client\Exception
+     *
+     * @return string
      */
     public function getSpecContents(Spec $entity)
     {

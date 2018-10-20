@@ -23,9 +23,7 @@ use Apigee\Edge\Entity\Property\DescriptionPropertyAwareTrait;
 use Apigee\Edge\Entity\Property\NamePropertyAwareTrait;
 
 /**
- * Abstract object to represent the Specstore entities
- *
- * @package Apigee\Edge\Api\Specstore\Entity
+ * Abstract object to represent the Specstore entities.
  */
 abstract class SpecstoreObject extends Entity
 {
@@ -95,16 +93,14 @@ abstract class SpecstoreObject extends Entity
 
     /**
      * Set the permissions associated with the Specstore object.
-     *
-     * @return mixed
      */
-    public function setPermissions($permissions)
+    public function setPermissions($permissions): void
     {
         $this->permissions = $permissions;
     }
 
     /**
-     * Is the specstore object trashed
+     * Is the specstore object trashed.
      *
      * @return mixed
      */
@@ -115,10 +111,8 @@ abstract class SpecstoreObject extends Entity
 
     /**
      * Set the flag to indicate the specstore object is trashed.
-     *
-     * @return mixed
      */
-    public function setIsTrashed($isTrashed)
+    public function setIsTrashed($isTrashed): void
     {
         $this->isTrashed = $isTrashed;
     }
