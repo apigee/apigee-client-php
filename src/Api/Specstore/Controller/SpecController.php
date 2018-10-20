@@ -42,7 +42,7 @@ class SpecController extends EntityController
         $this->getClient()->put(
             $entity->getContent(),
             $content,
-            ['Content-Type' => 'application/x-yaml']);
+            $this->getHeaders() + ['Content-Type' => 'application/x-yaml']);
     }
 
     /**
@@ -58,7 +58,8 @@ class SpecController extends EntityController
      */
     public function getSpecContents(Spec $entity)
     {
-        $response = $this->getClient()->get($entity->getContent(), ['Accept' => 'application/json, text/plain, */*']);
+        $response = $this->getClient()->get($entity->getContent(),
+            $this->getHeaders() + ['Accept' => 'application/json, text/plain, */*']);
 
         return (string)$response->getBody();
     }
