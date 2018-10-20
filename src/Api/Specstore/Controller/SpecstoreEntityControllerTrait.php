@@ -21,6 +21,13 @@ namespace Apigee\Edge\Api\Specstore\Controller;
 use Apigee\Edge\Api\Specstore\Entity\SpecstoreObject;
 use Psr\Http\Message\UriInterface;
 
+/**
+ * Trait SpecstoreEntityControllerTrait rewrites the CRUD operations
+ * because the specstore APIs do not accept org name in the URL but need a new header
+ * parameter (X-Org-Name)
+ *
+ * @package Apigee\Edge\Api\Specstore\Controller
+ */
 trait SpecstoreEntityControllerTrait
 {
     /**
@@ -28,9 +35,7 @@ trait SpecstoreEntityControllerTrait
      */
     public function load(string $entityId): SpecstoreObject
     {
-        var_dump($this->getHeaders());
         $response = $this->getClient()->get($this->getEntityEndpointUri($entityId), $this->getHeaders());
-
         return $this->getEntitySerializer()->deserialize(
             (string)$response->getBody(),
             $this->getEntityClass(),
@@ -87,6 +92,7 @@ trait SpecstoreEntityControllerTrait
     }
 
     /**
+     * EntityID is always prefixed by a "/" in specstore apis
      * @inheritdoc
      */
     protected function getEntityEndpointUri(string $entityId): UriInterface
@@ -95,4 +101,5 @@ trait SpecstoreEntityControllerTrait
     }
 
     abstract protected function getCreateEndpointUri();
+
 }

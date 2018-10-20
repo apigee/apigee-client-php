@@ -23,7 +23,8 @@ use Apigee\Edge\Api\Specstore\Entity\Spec;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 
 /**
- * Class CredentialProductDenormalizer.
+ * Class CredentialProductDenormalizer to help process response from the
+ * specstore apis which could be a Folder or a Spec
  */
 class CollectionDenormalizer implements DenormalizerInterface
 {

@@ -21,12 +21,24 @@ namespace Apigee\Edge\Api\Specstore\Controller;
 use Apigee\Edge\Api\Specstore\Entity\Spec;
 use Apigee\Edge\Controller\EntityController;
 
+/**
+ * Class SpecController which allows for CRUD operations related to Spec
+ * and also allows for upload and download of openAPI specifications
+ *
+ * @package Apigee\Edge\Api\Specstore\Controller
+ */
 class SpecController extends EntityController
 {
-//    use EntityCrudOperationsControllerTrait;
     use SpecstoreEntityControllerTrait;
 
-    public function uploadSpec(Spec $entity, $content): void
+    /**
+     * Upload a openAPI file to the backend
+     *
+     * @param Spec $entity
+     * @param $content
+     * @throws \Http\Client\Exception
+     */
+    public function uploadJsonSpec(Spec $entity, $content): void
     {
         $this->getClient()->put(
             $entity->getContent(),
@@ -34,6 +46,15 @@ class SpecController extends EntityController
             ['Content-Type' => 'application/x-yaml']);
     }
 
+    /**
+     * Get the contents of the spec
+     *
+     * Always returns application/json
+     *
+     * @param Spec $entity
+     * @return string
+     * @throws \Http\Client\Exception
+     */
     public function getSpecContents(Spec $entity)
     {
         $response = $this->getClient()->get($entity->getContent(), ['Accept' => 'application/json, text/plain, */*']);
@@ -43,8 +64,6 @@ class SpecController extends EntityController
 
     /**
      * Returns the API endpoint that the controller communicates with.
-     *
-     * In case of an entity that belongs to an organisation it should return organization/[orgName]/[endpoint].
      *
      * @return \Psr\Http\Message\UriInterface
      */

@@ -19,9 +19,18 @@
 namespace Apigee\Edge\Api\Specstore\Controller;
 
 use Apigee\Edge\Api\Specstore\Entity\Folder;
+use Apigee\Edge\Api\Specstore\Entity\SpecstoreObject;
 use Apigee\Edge\Api\Specstore\Serializer\CollectionSerializer;
 use Apigee\Edge\Controller\EntityController;
 
+/**
+ *
+ * Class FolderController allows for CRUD operations for folders
+ *
+ * In addition it allows to get the contents of a Folder
+ *
+ * @package Apigee\Edge\Api\Specstore\Controller
+ */
 class FolderController extends EntityController
 {
     use SpecstoreEntityControllerTrait;
@@ -63,5 +72,22 @@ class FolderController extends EntityController
     protected function getCreateEndpointUri()
     {
         return 'folders';
+    }
+
+    /**
+     * Map a folder path for the current specstore object
+     *
+     * @param SpecstoreObject $entity
+     * @return string
+     */
+    public function getPath(SpecstoreObject $entity): string
+    {
+        $parent_folder_id = $entity->getFolder();
+        $parent_specstore_folder = $this->load($parent_folder_id);
+        if (!empty($parent_specstore_folder->getFolder())) {
+            return $this->getPath($parent_specstore_folder) . "/" . $entity->getName();
+        } else {
+            return $entity->getName();
+        }
     }
 }
