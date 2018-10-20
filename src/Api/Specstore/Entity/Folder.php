@@ -19,14 +19,13 @@
 namespace Apigee\Edge\Api\Specstore\Entity;
 
 /**
- * Folder object in Specstore
- *
- * @package Apigee\Edge\Api\Specstore\Entity
+ * Folder object in Specstore.
  */
 class Folder extends SpecstoreObject
 {
     /**
-     * URL to fetch the contents of the folders
+     * URL to fetch the contents of the folders.
+     *
      * @var
      */
     protected $contents;

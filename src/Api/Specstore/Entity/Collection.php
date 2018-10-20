@@ -19,9 +19,7 @@
 namespace  Apigee\Edge\Api\Specstore\Entity;
 
 /**
- * Collection object in Specstore
- *
- * @package Apigee\Edge\Api\Specstore\Entity
+ * Collection object in Specstore.
  */
 class Collection extends \Apigee\Edge\Api\Specstore\Entity\SpecstoreObject
 {

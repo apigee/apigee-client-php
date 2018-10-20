@@ -18,24 +18,29 @@
 
 namespace Apigee\Edge\Api\Specstore\Controller;
 
+use Apigee\Edge\Api\Specstore\Entity\Collection;
 use Apigee\Edge\Api\Specstore\Entity\Folder;
 use Apigee\Edge\Api\Specstore\Entity\SpecstoreObject;
 use Apigee\Edge\Api\Specstore\Serializer\CollectionSerializer;
 use Apigee\Edge\Controller\EntityController;
 
 /**
- *
- * Class FolderController allows for CRUD operations for folders
+ * Class FolderController allows for CRUD operations for folders.
  *
  * In addition it allows to get the contents of a Folder
- *
- * @package Apigee\Edge\Api\Specstore\Controller
  */
 class FolderController extends EntityController
 {
     use SpecstoreEntityControllerTrait;
 
-    public function getFolderContents(Folder $entity)
+    /**
+     * @param Folder $entity
+     *
+     * @throws \Http\Client\Exception
+     *
+     * @return Collection
+     */
+    public function getFolderContents(Folder $entity): Collection
     {
         $response = $this->getClient()->get($entity->getContents());
         $collectionSerializer = new CollectionSerializer();
@@ -45,6 +50,51 @@ class FolderController extends EntityController
             Collection::class,
             'json'
         );
+    }
+
+    /**
+     * Map a folder path for the current specstore object.
+     *
+     * @param SpecstoreObject $entity
+     *
+     * @return string
+     */
+    public function getPath(SpecstoreObject $entity): string
+    {
+        $parent_folder_id = $entity->getFolder();
+        $parent_specstore_folder = $this->load($parent_folder_id);
+        if (!empty($parent_specstore_folder->getFolder())) {
+            return $this->getPath($parent_specstore_folder) . '/' . ($entity->getName() ?: '');
+        } else {
+            return $entity->getName() ?: '';
+        }
+    }
+
+    /**
+     * Given the path load the specstore object.
+     *
+     * @returns null|SpecstoreObject
+     */
+    public function loadByPath(string $path, SpecstoreObject $parent = null)
+    {
+        if (null === $parent) {
+            $parent = $this->load('homeFolder');
+        }
+        $contents = $this->getFolderContents($parent);
+        $path_arr = explode('/', $path);
+        $current_folder = array_shift($path_arr);
+        $found_obj = null;
+        foreach ($contents as $specstoreObject) {
+            if ($specstoreObject->getName() == $current_folder) {
+                $found_obj = $specstoreObject;
+                break;
+            }
+        }
+        if (empty($path_arr)) {
+            return $found_obj;
+        } else {
+            return null === $found_obj ? null : $this->loadByPath(implode('/', $path_arr), $found_obj);
+        }
     }
 
     /**
@@ -72,22 +122,5 @@ class FolderController extends EntityController
     protected function getCreateEndpointUri()
     {
         return 'folders';
-    }
-
-    /**
-     * Map a folder path for the current specstore object
-     *
-     * @param SpecstoreObject $entity
-     * @return string
-     */
-    public function getPath(SpecstoreObject $entity): string
-    {
-        $parent_folder_id = $entity->getFolder();
-        $parent_specstore_folder = $this->load($parent_folder_id);
-        if (!empty($parent_specstore_folder->getFolder())) {
-            return $this->getPath($parent_specstore_folder) . "/" . $entity->getName();
-        } else {
-            return $entity->getName();
-        }
     }
 }

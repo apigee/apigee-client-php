@@ -19,14 +19,12 @@
 namespace Apigee\Edge\Api\Specstore\Entity;
 
 /**
- * Spec object from the specstore
- *
- * @package Apigee\Edge\Api\Specstore\Entity
+ * Spec object from the specstore.
  */
 class Spec extends SpecstoreObject
 {
     /**
-     * url to fetch the spec file
+     * url to fetch the spec file.
      *
      * @var
      */
