@@ -30,11 +30,9 @@ use SebastianBergmann\Comparator\Factory as ComparisonFactory;
  *
  * Validates that our custom attributes normalizer and denormalizer are working properly.
  *
- *
  * @group structure
  * @group normalizer
  * @group denormalizer
- * @group offline
  * @small
  */
 class AttributesPropertyTransformationTest extends TestCase

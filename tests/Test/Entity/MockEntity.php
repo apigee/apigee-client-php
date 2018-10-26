@@ -47,7 +47,7 @@ class MockEntity extends Entity
     private $zero = 0;
 
     /** @var float */
-    private $double = 2.2;
+    private $double = 2.0;
 
     /** @var string */
     private $string = 'string';

@@ -33,8 +33,6 @@ use PHPUnit\Framework\TestCase;
  * Class OauthTest.
  *
  * @group client
- * @group mock
- * @group offline
  * @small
  */
 class OauthTest extends TestCase
@@ -60,6 +58,9 @@ class OauthTest extends TestCase
         parent::setUpBeforeClass();
     }
 
+    /**
+     * @inheritdoc
+     */
     protected function setUp(): void
     {
         parent::setUp();

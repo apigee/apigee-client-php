@@ -18,20 +18,21 @@
 
 namespace Apigee\Edge\Tests\Test\Controller;
 
-use Apigee\Edge\ClientInterface;
+use Apigee\Edge\Tests\Test\MockClient;
 use Apigee\Edge\Tests\Test\TestClientFactory;
 
-/**
- * Trait EnvironmentAwareEntityControllerValidatorTrait.
- */
-trait EnvironmentAwareEntityControllerValidatorTrait
+trait MockClientAwareTrait
 {
-    protected static function getEnvironment(ClientInterface $client)
+    /**
+     * Returns a mock API client.
+     *
+     * @return \Apigee\Edge\Tests\Test\MockClient
+     */
+    protected static function mockApiClient(): MockClient
     {
-        if (TestClientFactory::isMockClient($client)) {
-            return 'test';
-        }
+        /** @var \Apigee\Edge\Tests\Test\MockClient $client */
+        $client = TestClientFactory::getClient(MockClient::class);
 
-        return getenv('APIGEE_EDGE_PHP_CLIENT_ENVIRONMENT') ?: 'test';
+        return $client;
     }
 }

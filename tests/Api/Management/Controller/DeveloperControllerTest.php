@@ -18,169 +18,113 @@
 
 namespace Apigee\Edge\Tests\Api\Management\Controller;
 
-use Apigee\Edge\Api\Management\Controller\DeveloperController;
 use Apigee\Edge\Api\Management\Entity\Developer;
-use Apigee\Edge\ClientInterface;
-use Apigee\Edge\Controller\EntityControllerInterface;
+use Apigee\Edge\Api\Management\Entity\DeveloperInterface;
 use Apigee\Edge\Entity\EntityInterface;
-use Apigee\Edge\Structure\AttributesProperty;
-use Apigee\Edge\Tests\Test\Controller\AttributesAwareEntityControllerTestTrait;
-use Apigee\Edge\Tests\Test\Controller\OrganizationAwareEntityControllerValidatorTrait;
-use Apigee\Edge\Tests\Test\Controller\PaginatedEntityListingControllerValidator;
+use Apigee\Edge\Tests\Api\Management\Entity\DeveloperTestEntityProviderTrait;
+use Apigee\Edge\Tests\Test\Controller\DefaultAPIClientAwareTrait;
+use Apigee\Edge\Tests\Test\Controller\EntityControllerTesterInterface;
+use Apigee\Edge\Tests\Test\Controller\EntityCreateOperationControllerTester;
+use Apigee\Edge\Tests\Test\Controller\EntityCreateOperationControllerTraitTest;
+use Apigee\Edge\Tests\Test\Controller\EntityCreateOperationTestControllerTesterInterface;
+use Apigee\Edge\Tests\Test\Controller\EntityDeleteOperationControllerTestTrait;
+use Apigee\Edge\Tests\Test\Controller\EntityLoadOperationControllerTestTrait;
+use Apigee\Edge\Tests\Test\Controller\EntityUpdateOperationControllerTestTrait;
 use Apigee\Edge\Tests\Test\TestClientFactory;
+use Apigee\Edge\Tests\Test\Utility\MarkOnlineTestSkippedAwareTrait;
 
 /**
  * Class DeveloperControllerTest.
  *
  * @group controller
+ * @group management
  */
-class DeveloperControllerTest extends PaginatedEntityListingControllerValidator
+class DeveloperControllerTest extends EntityControllerTestBase
 {
+    use DeveloperControllerAwareTestTrait;
+    use DeveloperTestEntityProviderTrait;
+    use DefaultAPIClientAwareTrait;
+    use MarkOnlineTestSkippedAwareTrait;
+    // The order of these trait matters. Check @depends in test methods.
+    use EntityCreateOperationControllerTraitTest;
+    use EntityLoadOperationControllerTestTrait;
+    use EntityUpdateOperationControllerTestTrait;
+    use EntityDeleteOperationControllerTestTrait;
+    use PaginatedEntityListingControllerTestTraitBase;
+    use PaginatedEntityIdListingControllerTestTrait;
+    use PaginatedEntityListingControllerTestTrait;
     use AttributesAwareEntityControllerTestTrait;
-    use OrganizationAwareEntityControllerValidatorTrait;
-
-    /**
-     * @inheritdoc
-     */
-    public static function sampleDataForEntityCreate(): EntityInterface
-    {
-        static $entity;
-        if (null === $entity) {
-            $isMock = TestClientFactory::isMockClient(static::$client);
-            $entity = new Developer([
-                'email' => $isMock ? static::getOfflineEntityId() : static::$random->unique()->safeEmail,
-                'firstName' => $isMock ? 'Php' : static::$random->unique()->firstName,
-                'lastName' => $isMock ? 'Unit' : static::$random->unique()->lastName,
-                'userName' => $isMock ? 'phpunit' : static::$random->unique()->userName,
-                'attributes' => new AttributesProperty(['foo' => 'bar']),
-            ]);
-        }
-
-        return $entity;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public static function sampleDataForEntityUpdate(): EntityInterface
-    {
-        static $entity;
-        if (null === $entity) {
-            $isMock = TestClientFactory::isMockClient(static::$client);
-            $entity = new Developer([
-                'email' => $isMock ? 'phpunit-edited@example.com' : static::$random->unique()->safeEmail,
-                'firstName' => $isMock ? 'Php' : static::$random->unique()->firstName,
-                'lastName' => $isMock ? 'Unit' : static::$random->unique()->lastName,
-                'userName' => $isMock ? 'phpunit' : static::$random->unique()->userName,
-                'attributes' => new AttributesProperty(['foo' => 'foo', 'bar' => 'baz']),
-            ]);
-        }
-
-        return $entity;
-    }
 
     /**
      * @group online
+     *
      * @expectedException \Apigee\Edge\Exception\ClientErrorException
      */
     public function testCreateWithIncorrectData(): void
     {
-        if (TestClientFactory::isMockClient(static::$client)) {
-            $this->markTestSkipped(static::$onlyOnlineClientSkipMessage);
-        }
+        static::markOnlineTestSkipped(__FUNCTION__);
         $entity = new Developer(['email' => 'developer-create-exception@example.com']);
-        static::getEntityController()->create($entity);
+        static::entityCreateOperationTestController()->create($entity);
     }
 
     /**
-     * We have to override this otherwise dependents of this function are being skipped.
-     * Also, "@inheritdoc" is not going to work in case of "@depends" annotations so those must be repeated.
-     *
-     * @inheritdoc
+     * @group online
      */
-    public function testCreate()
+    public function testStatusChange(): void
     {
-        return parent::testCreate();
-    }
-
-    /**
-     * We have to override this otherwise dependents of this function are being skipped.
-     * Also, "@inheritdoc" is not going to work in case of "@depends" annotations so those must be repeated.
-     *
-     * @depends testCreate
-     *
-     * @inheritdoc
-     */
-    public function testLoad(string $entityId)
-    {
-        return parent::testLoad($entityId);
-    }
-
-    /**
-     * @depends testLoad
-     *
-     * @param string $entityId
-     */
-    public function testStatusChange(string $entityId): void
-    {
-        if (TestClientFactory::isMockClient(static::$client)) {
-            $this->markTestSkipped(static::$onlyOnlineClientSkipMessage);
-        }
-        $entity = static::getEntityController()->load($entityId);
-        static::getEntityController()->setStatus($entity->id(), Developer::STATUS_INACTIVE);
+        static::markOnlineTestSkipped(__FUNCTION__);
+        /** @var \Apigee\Edge\Api\Management\Controller\DeveloperControllerInterface $controller */
+        $controller = static::entityController();
         /** @var \Apigee\Edge\Api\Management\Entity\DeveloperInterface $entity */
-        $entity = static::getEntityController()->load($entity->id());
-        $this->assertEquals($entity->getStatus(), Developer::STATUS_INACTIVE);
-        static::getEntityController()->setStatus($entity->id(), Developer::STATUS_ACTIVE);
-        /** @var \Apigee\Edge\Api\Management\Entity\DeveloperInterface $entity */
-        $entity = static::getEntityController()->load($entity->id());
-        $this->assertEquals($entity->getStatus(), Developer::STATUS_ACTIVE);
+        $entity = static::getNewEntity();
+        $controller->create($entity);
+        $controller->setStatus($entity->id(), DeveloperInterface::STATUS_INACTIVE);
+        $entity = $controller->load($entity->id());
+        $this->assertEquals($entity->getStatus(), DeveloperInterface::STATUS_INACTIVE);
+        $controller->setStatus($entity->id(), DeveloperInterface::STATUS_ACTIVE);
+        $entity = $controller->load($entity->id());
+        $this->assertEquals($entity->getStatus(), DeveloperInterface::STATUS_ACTIVE);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function entityIdShouldBeUsedInPagination(EntityInterface $entity): string
+    {
+        /* @var \Apigee\Edge\Api\Management\Entity\DeveloperInterface $entity */
+        return $entity->getEmail();
     }
 
     /**
      * @inheritdoc
      */
-    public function paginatedTestEntityIdProvider(): array
+    protected static function entityController(): EntityControllerTesterInterface
     {
-        // This override makes easier the offline testing.
-        return [['email']];
+        return static::developerController();
     }
 
     /**
      * @inheritdoc
      */
-    public static function getOfflineEntityId(): string
+    protected static function getNewEntity(): EntityInterface
     {
-        return 'phpunit@example.com';
+        return static::getNewDeveloper(!TestClientFactory::isOfflineClient(static::defaultAPIClient()));
     }
 
     /**
      * @inheritdoc
      */
-    protected static function getEntityController(ClientInterface $client = null): EntityControllerInterface
+    protected function entityForUpdateTest(EntityInterface $existing): EntityInterface
     {
-        static $controller;
-        if (null === $client) {
-            if (null === $controller) {
-                $controller = new DeveloperController(static::getOrganization(static::$client), static::$client);
-            }
-
-            return $controller;
-        }
-
-        return new DeveloperController(static::getOrganization($client), $client);
+        /* @var \Apigee\Edge\Api\Management\Entity\DeveloperInterface $existing */
+        return static::getUpdatedDeveloper($existing, !TestClientFactory::isOfflineClient(static::defaultAPIClient()));
     }
 
     /**
      * @inheritdoc
      */
-    protected static function expectedAfterEntityCreate(): EntityInterface
+    protected static function entityCreateOperationTestController(): EntityCreateOperationTestControllerTesterInterface
     {
-        /** @var Developer $entity */
-        $entity = clone static::sampleDataForEntityCreate();
-        // We can be sure one another thing, the status of the created developer is active by default.
-        $entity->setStatus(Developer::STATUS_ACTIVE);
-
-        return $entity;
+        return new EntityCreateOperationControllerTester(static::entityController());
     }
 }

@@ -19,49 +19,32 @@
 namespace Apigee\Edge\Tests\Api\Management\Controller;
 
 use Apigee\Edge\Api\Management\Controller\OrganizationController;
-use Apigee\Edge\Api\Management\Controller\OrganizationControllerInterface;
-use Apigee\Edge\Api\Management\Entity\OrganizationInterface;
-use Apigee\Edge\Tests\Test\FileSystemMockClient;
-use Apigee\Edge\Tests\Test\TestClientFactory;
-use PHPUnit\Framework\TestCase;
+use Apigee\Edge\Tests\Test\Controller\ControllerTestBase;
+use Apigee\Edge\Tests\Test\Controller\FileSystemMockAPIClientAwareTrait;
 
 /**
  * Class OrganizationControllerTest.
  *
  * This test only covers the "Get Organization" API call, because that is the
- * only one which is available in Apigee Edge Cloud. Also other API calls,
- * like delete and create, should not be used for organization operations,
- * because these operations usually require extra configurations that can
- * not be solved by Management API calls.
+ * only one which is available in Apigee Edge Public Cloud. Also other
+ * API calls like delete and create, should not be used because these operations
+ * usually require extra configurations that can not be solved by
+ * simple Management API calls.
  *
  * @see https://docs.apigee.com/api-services/latest/creating-organization-environment-and-virtual-host
  *
  * @group controller
- * @group offline
- * @group small
+ * @group management
  */
-class OrganizationControllerTest extends TestCase
+class OrganizationControllerTest extends ControllerTestBase
 {
-    /** @var \Apigee\Edge\ClientInterface */
-    protected static $client;
-
-    /**
-     * @inheritdoc
-     */
-    public static function setUpBeforeClass(): void
-    {
-        // We always use the offline client for this test, because on
-        // Apigee Edge Cloud we do not have permission to create
-        // an organization.
-        // https://docs.apigee.com/management/apis/post/organizations
-        static::$client = TestClientFactory::getClient(FileSystemMockClient::class);
-        parent::setUpBeforeClass();
-    }
+    use FileSystemMockAPIClientAwareTrait;
 
     public function testLoad(): void
     {
-        /** @var OrganizationInterface $entity */
-        $entity = static::getEntityController()->load('phpunit');
+        $controller = new OrganizationController(static::fileSystemMockClient());
+        /** @var \Apigee\Edge\Api\Management\Entity\OrganizationInterface $entity */
+        $entity = $controller->load('phpunit');
         $this->assertEquals('PHPUnit', $entity->getDisplayName());
         $this->assertEquals(['prod', 'test'], $entity->getEnvironments());
         $this->assertTrue($entity->hasProperty('self.service.virtual.host.enabled'));
@@ -71,18 +54,5 @@ class OrganizationControllerTest extends TestCase
         $this->assertEquals(new \DateTimeImmutable('@648345600'), $entity->getLastModifiedAt());
         $this->assertEquals('phpunit@example.com', $entity->getCreatedBy());
         $this->assertEquals('phpunit@example.com', $entity->getLastModifiedBy());
-    }
-
-    /**
-     * Returns the controller that is being tested.
-     */
-    protected static function getEntityController(): OrganizationControllerInterface
-    {
-        static $controller;
-        if (!$controller) {
-            $controller = new OrganizationController(static::$client);
-        }
-
-        return $controller;
     }
 }

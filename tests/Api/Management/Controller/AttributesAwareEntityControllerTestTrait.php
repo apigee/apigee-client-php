@@ -16,29 +16,30 @@
  * limitations under the License.
  */
 
-namespace Apigee\Edge\Tests\Test\Controller;
+namespace Apigee\Edge\Tests\Api\Management\Controller;
 
 use Apigee\Edge\Exception\ApiResponseException;
-use Apigee\Edge\Tests\Test\TestClientFactory;
+use Apigee\Edge\Tests\Test\Controller\DefaultAPIClientAwareTrait;
+use Apigee\Edge\Tests\Test\Controller\EntityControllerAwareTestTrait;
+use Apigee\Edge\Tests\Test\Controller\EntityCreateOperationTestControllerAwareTrait;
+use Apigee\Edge\Tests\Test\Entity\NewEntityProviderTrait;
+use Apigee\Edge\Tests\Test\Utility\MarkOnlineTestSkippedAwareTrait;
 
-/**
- * Trait AttributesAwareEntityControllerTestTrait.
- */
 trait AttributesAwareEntityControllerTestTrait
 {
-    /**
-     * @depends testUpdate
-     *
-     * @param string $entityId
-     *
-     * @return string
-     */
-    public function testAddAttributesToEntity(string $entityId): string
+    use DefaultAPIClientAwareTrait;
+    use EntityCreateOperationTestControllerAwareTrait;
+    use EntityControllerAwareTestTrait;
+    use NewEntityProviderTrait;
+    use MarkOnlineTestSkippedAwareTrait;
+
+    public function testAddAttributesToEntity(): string
     {
         /** @var \Apigee\Edge\Api\Management\Controller\AttributesAwareEntityControllerInterface $controller */
-        $controller = $this->getEntityController();
-        /** @var \Apigee\Edge\Entity\Property\AttributesPropertyAwareTrait $entity */
-        $entity = $controller->load($entityId);
+        $controller = $this->entityController();
+        /** @var \Apigee\Edge\Entity\Property\AttributesPropertyInterface|\Apigee\Edge\Entity\EntityInterface $entity */
+        $entity = static::getNewEntity();
+        static::entityCreateOperationTestController()->create($entity);
         /** @var \Apigee\Edge\Structure\AttributesProperty $attributes */
         $attributes = $entity->getAttributes();
         $originalAttributes = $attributes->values();
@@ -54,7 +55,7 @@ trait AttributesAwareEntityControllerTestTrait
         $this->assertEquals('value1', $newAttributes['name1']);
         $this->assertEquals('value2', $newAttributes['name2']);
 
-        return $entityId;
+        return $entity->id();
     }
 
     /**
@@ -65,7 +66,7 @@ trait AttributesAwareEntityControllerTestTrait
     public function testGetAttributes(string $entityId): void
     {
         /** @var \Apigee\Edge\Api\Management\Controller\AttributesAwareEntityControllerInterface $controller */
-        $controller = $this->getEntityController();
+        $controller = $this->entityController();
         /** @var \Apigee\Edge\Structure\AttributesProperty $attributesProperty */
         $attributesProperty = $controller->getAttributes($entityId);
         $attributes = $attributesProperty->values();
@@ -84,7 +85,7 @@ trait AttributesAwareEntityControllerTestTrait
     public function testGetAttribute(string $entityId): void
     {
         /** @var \Apigee\Edge\Api\Management\Controller\AttributesAwareEntityControllerInterface $controller */
-        $controller = $this->getEntityController();
+        $controller = $this->entityController();
         $value = $controller->getAttribute($entityId, 'name1');
         $this->assertEquals('value1', $value);
     }
@@ -99,7 +100,7 @@ trait AttributesAwareEntityControllerTestTrait
     public function testUpdateAttribute(string $entityId): string
     {
         /** @var \Apigee\Edge\Api\Management\Controller\AttributesAwareEntityControllerInterface $controller */
-        $controller = $this->getEntityController();
+        $controller = $this->entityController();
         $expected = 'value1-edited';
         $value = $controller->updateAttribute($entityId, 'name1', $expected);
         $this->assertEquals($expected, $value);
@@ -110,17 +111,17 @@ trait AttributesAwareEntityControllerTestTrait
     /**
      * @depends testUpdateAttribute
      *
+     * @group online
+     *
      * @param string $entityId
      */
     public function testDeleteAttribute(string $entityId): void
     {
-        if (TestClientFactory::isMockClient(static::$client)) {
-            $this->markTestSkipped(static::$onlyOnlineClientSkipMessage);
-        }
+        static::markOnlineTestSkipped(__FUNCTION__);
         /** @var \Apigee\Edge\Api\Management\Controller\AttributesAwareEntityControllerInterface $controller */
-        $controller = $this->getEntityController();
+        $controller = $this->entityController();
         $attribute = 'name1';
-        $controller->deleteAttribute($entityId, 'name1', $attribute);
+        $controller->deleteAttribute($entityId, $attribute);
         try {
             $controller->getAttribute($entityId, $attribute);
         } catch (ApiResponseException $e) {

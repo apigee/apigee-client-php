@@ -26,9 +26,9 @@ use PHPUnit\Framework\TestCase;
 /**
  * Class StatsQueryNormalizerTest.
  *
+ * @group management
  * @group normalizer
  * @group query
- * @group offline
  * @small
  */
 class StatsQueryNormalizerTest extends TestCase

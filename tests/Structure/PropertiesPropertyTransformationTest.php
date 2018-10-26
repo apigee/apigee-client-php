@@ -30,11 +30,9 @@ use SebastianBergmann\Comparator\Factory as ComparisonFactory;
  *
  * Validates that our custom properties normalizer and denormalizer are working properly.
  *
- *
  * @group structure
  * @group normalizer
  * @group denormalizer
- * @group offline
  * @small
  */
 class PropertiesPropertyTransformationTest extends TestCase

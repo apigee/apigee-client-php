@@ -18,146 +18,72 @@
 
 namespace Apigee\Edge\Tests\Api\Management\Controller;
 
-use Apigee\Edge\Api\Management\Controller\AppByOwnerController;
-use Apigee\Edge\Api\Management\Controller\DeveloperAppController;
 use Apigee\Edge\Api\Management\Controller\DeveloperAppCredentialController;
-use Apigee\Edge\ClientInterface;
-use Apigee\Edge\Controller\EntityControllerInterface;
+use Apigee\Edge\Api\Management\Entity\AppInterface;
+use Apigee\Edge\Api\Management\Entity\AppOwnerInterface;
+use Apigee\Edge\Api\Management\Entity\DeveloperInterface;
 use Apigee\Edge\Entity\EntityInterface;
-use Apigee\Edge\Exception\ApiRequestException;
-use Apigee\Edge\Exception\ClientErrorException;
-use Apigee\Edge\Tests\Test\TestClientFactory;
+use Apigee\Edge\Tests\Api\Management\Entity\DeveloperAppTestEntityProviderTrait;
+use Apigee\Edge\Tests\Api\Management\Entity\DeveloperTestEntityProviderTrait;
+use Apigee\Edge\Tests\Test\Controller\EntityControllerTester;
+use Apigee\Edge\Tests\Test\Controller\EntityControllerTesterInterface;
+use Apigee\Edge\Tests\Test\Controller\EntityCreateOperationControllerTester;
+use Apigee\Edge\Tests\Test\Controller\EntityCreateOperationTestControllerTesterInterface;
 
 /**
  * Class DeveloperAppCredentialControllerTest.
  *
  * @group controller
+ * @group management
  */
-class DeveloperAppCredentialControllerTest extends AppCredentialControllerBase
+class DeveloperAppCredentialControllerTest extends AppCredentialControllerTestBase
 {
-    use DeveloperAwareControllerTestTrait;
+    use DeveloperControllerAwareTestTrait;
+    use DeveloperAppControllerAwareTestTrait;
+    use DeveloperTestEntityProviderTrait;
+    use DeveloperAppTestEntityProviderTrait;
 
     /**
      * @inheritdoc
      */
-    public static function setUpBeforeClass(): void
+    protected static function entityController(): EntityControllerTesterInterface
     {
-        parent::setUpBeforeClass();
-        static::setupDeveloper();
-
-        try {
-            $controller = static::getAppController();
-            try {
-                // We have to keep a copy of phpunit@example.com developer's data because of this for offline tests.
-                // See: offline-test-data/v1/organizations/phpunit/developers/phpunit@example.com .
-                $entity = $controller->load(static::getAppSampleDataForEntityCreate()->id());
-                static::$appName = $entity->id();
-            } catch (ClientErrorException $e) {
-                if ($e->getEdgeErrorCode() && 'developer.service.AppDoesNotExist' === $e->getEdgeErrorCode()) {
-                    $entity = clone static::getAppSampleDataForEntityCreate();
-                    $controller->create($entity);
-                    static::$appName = $entity->id();
-                }
-            }
-        } catch (ApiRequestException $e) {
-            // Ensure that created test data always gets removed after an API call fails here.
-            // (By default tearDownAfterClass() is not called if (any) exception occurred here.)
-            static::tearDownDeveloper();
-            throw $e;
-        }
+        return new EntityControllerTester(new DeveloperAppCredentialController(static::defaultTestOrganization(static::defaultAPIClient()), static::$testAppOwner->id(), static::$testApp->id(), static::defaultAPIClient()));
     }
 
-    /**
-     * @inheritdoc
-     */
-    public static function tearDownAfterClass(): void
+    protected static function setupTestApp(AppOwnerInterface $appOwner): AppInterface
     {
-        if (TestClientFactory::isMockClient(static::$client)) {
-            return;
-        }
+        $app = static::getNewDeveloperApp();
+        static::developerAppController()->create($app);
 
-        if (null === static::$appName) {
-            return;
-        }
-
-        $appController = static::getAppController();
-        /** @var \Apigee\Edge\Api\Management\Controller\AppCredentialControllerInterface $credentialController */
-        $credentialController = static::getEntityController();
-        // First, we have to delete all credentials of the created test app otherwise we are not going to be able to
-        // delete the created test API product because Edge still thinks that there is an app associated with
-        // the API product. After that the test API product becomes a ghost and it can not be removed without
-        // additional help.
-        try {
-            /** @var \Apigee\Edge\Api\Management\Entity\AppInterface $app */
-            $app = $appController->load(static::$appName);
-            foreach ($app->getCredentials() as $credential) {
-                $credentialController->delete($credential->getConsumerKey());
-            }
-        } catch (ClientErrorException $e) {
-            // Hope that we can still remove the created test API product.
-        }
-        try {
-            $appController->delete(static::$appName);
-        } catch (ClientErrorException $e) {
-            if (!$e->getEdgeErrorCode() || 'developer.service.AppDoesNotExist' !== $e->getEdgeErrorCode()) {
-                printf(
-                    "Unable to delete app entity with %s id.\n",
-                    static::$appName
-                );
-            }
-        }
-
-        static::tearDownDeveloper();
-        parent::tearDownAfterClass();
+        return $app;
     }
 
-    /**
-     * @inheritdoc
-     */
-    protected static function getEntityController(ClientInterface $client = null): EntityControllerInterface
+    protected static function setupTestAppOwner(): AppOwnerInterface
     {
-        static $controller;
-        if (!$controller) {
-            $controller = new DeveloperAppCredentialController(
-                static::getOrganization(static::$client),
-                static::$developerId,
-                static::$appName,
-                static::$client
-            );
-        }
-        static $controller;
-        if (null === $client) {
-            if (null === $controller) {
-                $controller = new DeveloperAppCredentialController(
-                    static::getOrganization(static::$client),
-                    static::$developerId,
-                    static::$appName,
-                    static::$client
-                );
-            }
+        $developer = static::getNewDeveloper();
+        static::developerController()->create($developer);
 
-            return $controller;
-        }
-
-        return new DeveloperAppCredentialController(static::getOrganization($client), static::$developerId, static::$appName, $client);
+        return $developer;
     }
 
-    protected static function getAppController(): AppByOwnerController
+    protected static function developerAppControllerDeveloperAppOwner(): DeveloperInterface
     {
-        static $controller;
-        if (!$controller) {
-            $controller = new DeveloperAppController(
-                static::getOrganization(static::$client),
-                static::$developerId,
-                static::$client
-            );
-        }
-
-        return $controller;
+        return static::$testAppOwner;
     }
 
-    protected static function getAppSampleDataForEntityCreate(): EntityInterface
+    protected static function entityCreateOperationTestController(): EntityCreateOperationTestControllerTesterInterface
     {
-        return DeveloperAppControllerTest::sampleDataForEntityCreate();
+        return new EntityCreateOperationControllerTester(static::developerAppController());
+    }
+
+    protected static function getNewEntity(): EntityInterface
+    {
+        return static::getNewDeveloperApp();
+    }
+
+    protected static function appByOwnerController(): EntityControllerTesterInterface
+    {
+        return static::developerAppController();
     }
 }

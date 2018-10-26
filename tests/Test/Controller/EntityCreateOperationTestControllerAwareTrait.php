@@ -18,20 +18,7 @@
 
 namespace Apigee\Edge\Tests\Test\Controller;
 
-/**
- * Trait NonPaginatedEntityIdListingControllerValidatorTrait.
- *
- * @see \Apigee\Edge\Controller\NonPaginatedEntityIdListingControllerInterface
- */
-trait NonPaginatedEntityIdListingControllerValidatorTrait
+trait EntityCreateOperationTestControllerAwareTrait
 {
-    /**
-     * @depends testCreate
-     */
-    public function testGetEntityIds(): void
-    {
-        /** @var \Apigee\Edge\Controller\NonPaginatedEntityIdListingControllerInterface $controller */
-        $controller = $this->getEntityController();
-        $this->assertNotEmpty($controller->getEntityIds());
-    }
+    abstract protected static function entityCreateOperationTestController(): EntityCreateOperationTestControllerTesterInterface;
 }

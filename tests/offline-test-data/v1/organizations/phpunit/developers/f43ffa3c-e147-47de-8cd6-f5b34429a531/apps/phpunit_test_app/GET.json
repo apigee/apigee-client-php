@@ -2,16 +2,16 @@
     "appId": "f98678b9-4d1b-4927-ba17-62e6efaadfb3",
     "attributes": [
         {
-            "name": "foo",
-            "value": "bar"
-        },
-        {
             "name": "DisplayName",
             "value": "PHP Unit: Test app"
         },
         {
             "name": "Notes",
             "value": "This is a test app created by PHP Unit."
+        },
+        {
+            "name": "foo",
+            "value": "bar"
         }
     ],
     "callbackUrl": "http://example.com",

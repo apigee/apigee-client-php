@@ -34,14 +34,14 @@ use SebastianBergmann\Comparator\Factory as ComparisonFactory;
 /**
  * Class EntityTransformationTest.
  *
- * Validates that our custom entity normalizer and denormalizer are working properly and they can normalize and
- * denormalize all types of data (scalar and objects) to Edge's structure and back to our internal structure.
- * Also validates that the two components is compatible with each other.
- *
+ * Validates that our custom entity normalizer and denormalizer are working
+ * properly and they can normalize and denormalize all types of data
+ * (scalar and objects) to Apigee Edge's structure and back to our internal
+ * structure. Also validates that the two components is compatible with
+ * each other.
  *
  * @group normalizer
  * @group denormalizer
- * @group offline
  * @small
  */
 class EntitySerializerTest extends TestCase
@@ -76,7 +76,7 @@ class EntitySerializerTest extends TestCase
         $this->assertTrue(true === $normalized->bool);
         $this->assertTrue(2 === $normalized->int);
         $this->assertTrue(0 === $normalized->zero);
-        $this->assertTrue(2.2 === $normalized->double);
+        $this->assertTrue(2.0 === $normalized->double);
         $this->assertTrue('string' === $normalized->string);
         $this->assertTrue('' === $normalized->emptyString);
         $this->assertEquals('foo', $normalized->attributes[0]->name);
@@ -113,7 +113,7 @@ class EntitySerializerTest extends TestCase
         $this->assertTrue(true === $object->isBool());
         $this->assertTrue(2 === $object->getInt());
         $this->assertTrue(0 === $object->getZero());
-        $this->assertTrue(2.2 === $object->getDouble());
+        $this->assertTrue(2.0 === $object->getDouble());
         $this->assertTrue('string' === $object->getString());
         $this->assertTrue('' === $object->getEmptyString());
         $this->assertEquals('bar', $object->getAttributeValue('foo'));

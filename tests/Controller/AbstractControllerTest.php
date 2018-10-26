@@ -19,8 +19,8 @@
 namespace Apigee\Edge\Tests\Controller;
 
 use Apigee\Edge\Controller\AbstractEntityController;
+use Apigee\Edge\Tests\Test\Controller\MockClientAwareTrait;
 use Apigee\Edge\Tests\Test\Entity\MockEntity;
-use Apigee\Edge\Tests\Test\MockClient;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
@@ -30,29 +30,21 @@ use Psr\Http\Message\UriInterface;
 /**
  * Class AbstractEntityControllerTest.
  *
- *
  * @group controller
  * @group mock
- * @group offline
  * @small
  */
 class AbstractControllerTest extends TestCase
 {
+    use MockClientAwareTrait;
+
     /** @var \Apigee\Edge\Controller\AbstractEntityController */
     private static $stub;
-
-    /** @var \Http\Client\HttpClient */
-    private static $mockClient;
-
-    /** @var \Apigee\Edge\Tests\Test\OnlineClientInterface|\Apigee\Edge\Tests\Test\OfflineClientInterface */
-    private static $client;
 
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        static::$client = new MockClient();
-        static::$mockClient = static::$client->getMockHttpClient();
-        $client = static::$client;
+        $client = static::mockApiClient();
         static::$stub = new class($client) extends AbstractEntityController {
             /**
              * @inheritdoc
@@ -90,8 +82,10 @@ class AbstractControllerTest extends TestCase
      */
     public function testParseResponseWithUnknownContentType(): void
     {
-        static::$mockClient->addResponse(new Response(200, [], '<xml></xml>'));
-        $response = static::$client->sendRequest(new Request('GET', ''));
+        /** @var \Apigee\Edge\Tests\Test\HttpClient\MockHttpClient $httpClient */
+        $httpClient = static::mockApiClient()->getMockHttpClient();
+        $httpClient->addResponse(new Response(200, [], '<xml></xml>'));
+        $response = static::mockApiClient()->sendRequest(new Request('GET', ''));
         static::$stub->toArray($response);
     }
 
@@ -100,8 +94,10 @@ class AbstractControllerTest extends TestCase
      */
     public function testParseResponseWithInvalidJson(): void
     {
-        static::$mockClient->addResponse(new Response(200, ['Content-Type' => 'application/json'], ''));
-        $response = static::$client->sendRequest(new Request('GET', ''));
+        /** @var \Apigee\Edge\Tests\Test\HttpClient\MockHttpClient $httpClient */
+        $httpClient = static::mockApiClient()->getMockHttpClient();
+        $httpClient->addResponse(new Response(200, ['Content-Type' => 'application/json'], ''));
+        $response = static::mockApiClient()->sendRequest(new Request('GET', ''));
         static::$stub->toArray($response);
     }
 }

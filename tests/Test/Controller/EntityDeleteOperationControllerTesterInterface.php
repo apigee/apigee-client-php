@@ -18,14 +18,8 @@
 
 namespace Apigee\Edge\Tests\Test\Controller;
 
-/**
- * Helps in validation of those entity controllers that implements
- * PaginatedEntityListingControllerInterface.
- *
- * @see \Apigee\Edge\Controller\PaginatedEntityListingControllerInterface
- */
-abstract class PaginatedEntityListingControllerValidator extends EntityCrudOperationsControllerValidator
+use Apigee\Edge\Controller\EntityDeleteOperationControllerInterface;
+
+interface EntityDeleteOperationControllerTesterInterface extends EntityDeleteOperationControllerInterface, EntityControllerTesterInterface
 {
-    use PaginatedEntityListingControllerValidatorTrait;
-    use PaginatedEntityIdListingControllerValidatorTrait;
 }

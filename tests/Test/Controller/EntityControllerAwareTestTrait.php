@@ -18,20 +18,12 @@
 
 namespace Apigee\Edge\Tests\Test\Controller;
 
-use Apigee\Edge\ClientInterface;
-use Apigee\Edge\Tests\Test\TestClientFactory;
-
-/**
- * Trait OrganizationAwareEntityControllerValidatorTrait.
- */
-trait OrganizationAwareEntityControllerValidatorTrait
+trait EntityControllerAwareTestTrait
 {
-    protected static function getOrganization(ClientInterface $client)
-    {
-        if (TestClientFactory::isMockClient($client)) {
-            return 'phpunit';
-        }
-
-        return getenv('APIGEE_EDGE_PHP_CLIENT_ORGANIZATION') ?: 'phpunit';
-    }
+    /**
+     * Returns the decorated entity controller used in a test.
+     *
+     * @return \Apigee\Edge\Tests\Test\Controller\EntityControllerTesterInterface
+     */
+    abstract protected static function entityController(): EntityControllerTesterInterface;
 }

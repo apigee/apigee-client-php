@@ -1,10 +1,5 @@
 {
-    "apiProducts": [
-        {
-            "apiproduct": "phpunit_test",
-            "status": "approved"
-        }
-    ],
+    "apiProducts": [],
     "attributes": [],
     "consumerKey": "phpunit_test_app_key",
     "consumerSecret": "phpunit_test_app_secret",
