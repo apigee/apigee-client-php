@@ -29,20 +29,20 @@ class CompanyActiveRatePlanController extends ActiveRatePlanController
      *
      * @var string
      */
-    protected $company;
+    protected $companyName;
 
     /**
      * CompanyActiveRatePlanController constructor.
      *
-     * @param string $company
+     * @param string $companyName
      * @param string $organization
      * @param \Apigee\Edge\ClientInterface $client
      * @param \Apigee\Edge\Serializer\EntitySerializerInterface|null $entitySerializer
      */
-    public function __construct(string $company, string $organization, ClientInterface $client, ?EntitySerializerInterface $entitySerializer = null)
+    public function __construct(string $companyName, string $organization, ClientInterface $client, ?EntitySerializerInterface $entitySerializer = null)
     {
         parent::__construct($organization, $client, $entitySerializer);
-        $this->company = $company;
+        $this->companyName = $companyName;
     }
 
     /**
@@ -50,14 +50,8 @@ class CompanyActiveRatePlanController extends ActiveRatePlanController
      */
     protected function getBaseEndpointUri(): UriInterface
     {
-        return $this->client->getUriFactory()->createUri("/mint/organizations/{$this->organization}/companies/{$this->company}/developer-rateplans");
-    }
-
-    /**
-     * @inheritDoc
-     */
-    protected function getActiveRatePlanForApiProductEndpoint(string $apiProductName): UriInterface
-    {
-        return $this->client->getUriFactory()->createUri("/mint/organizations/{$this->organization}/companies/{$this->company}/products/{$apiProductName}/rate-plan-by-developer-product");
+        // Active rate plans has no real base endpoint so let's fallback
+        // to the MINT companies endpoint.
+        return $this->client->getUriFactory()->createUri("/mint/organizations/{$this->organization}/companies/{$this->companyName}");
     }
 }

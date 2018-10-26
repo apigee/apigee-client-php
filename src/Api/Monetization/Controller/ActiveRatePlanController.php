@@ -74,7 +74,10 @@ abstract class ActiveRatePlanController extends OrganizationAwareEntityControlle
      *
      * @return \Psr\Http\Message\UriInterface
      */
-    abstract protected function getActiveRatePlanForApiProductEndpoint(string $apiProductName): UriInterface;
+    protected function getActiveRatePlanForApiProductEndpoint(string $apiProductName): UriInterface
+    {
+        return $this->getBaseEndpointUri()->withPath($this->getBaseEndpointUri()->getPath() . "/products/{$apiProductName}/rate-plan-by-developer-product");
+    }
 
     /**
      * @inheritdoc
