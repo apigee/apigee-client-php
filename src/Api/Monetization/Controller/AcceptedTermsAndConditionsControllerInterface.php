@@ -34,9 +34,6 @@ interface AcceptedTermsAndConditionsControllerInterface extends OrganizationAwar
      * Gets all accepted terms and conditions by a developer -or company.
      *
      * @return \Apigee\Edge\Api\Monetization\Structure\AcceptedTermsAndConditions[]
-     *
-     * TODO What about the current query parameter?
-     * https://github.com/apigee/edge-php-sdk/blob/master/Apigee/Mint/TermAndCondition.php#L139
      */
     public function getAcceptedTermsAndConditions(): array;
 

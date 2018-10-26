@@ -29,20 +29,20 @@ class CompanyAcceptedTermsAndConditionsController extends AcceptedTermsAndCondit
      *
      * @var string
      */
-    protected $company;
+    protected $companyName;
 
     /**
      * CompanyAcceptedTermsAndConditionsController constructor.
      *
-     * @param string $company
+     * @param string $companyName
      * @param string $organization
      * @param \Apigee\Edge\ClientInterface $client
      * @param \Apigee\Edge\Serializer\EntitySerializerInterface|null $entitySerializer
      */
-    public function __construct(string $company, string $organization, ClientInterface $client, ?EntitySerializerInterface $entitySerializer = null)
+    public function __construct(string $companyName, string $organization, ClientInterface $client, ?EntitySerializerInterface $entitySerializer = null)
     {
         parent::__construct($organization, $client, $entitySerializer);
-        $this->company = $company;
+        $this->companyName = $companyName;
     }
 
     /**
@@ -50,7 +50,7 @@ class CompanyAcceptedTermsAndConditionsController extends AcceptedTermsAndCondit
      */
     protected function getBaseEndpointUri(): UriInterface
     {
-        return $this->client->getUriFactory()->createUri("/mint/organizations/{$this->organization}/companies/{$this->company}/developer-tncs");
+        return $this->client->getUriFactory()->createUri("/mint/organizations/{$this->organization}/companies/{$this->companyName}/developer-tncs");
     }
 
     /**
@@ -58,6 +58,6 @@ class CompanyAcceptedTermsAndConditionsController extends AcceptedTermsAndCondit
      */
     protected function getAcceptTermsAndConditionsEndpoint(string $tncId): UriInterface
     {
-        return $this->client->getUriFactory()->createUri("/mint/organizations/{$this->organization}/companies/{$this->company}/tncs/{$tncId}/developer-tncs");
+        return $this->client->getUriFactory()->createUri("/mint/organizations/{$this->organization}/companies/{$this->companyName}/tncs/{$tncId}/developer-tncs");
     }
 }

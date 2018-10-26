@@ -27,20 +27,20 @@ class DeveloperAcceptedTermsAndConditionsController extends AcceptedTermsAndCond
     /**
      * @var string
      */
-    protected $developer;
+    protected $developerId;
 
     /**
      * DeveloperAcceptedTermsAndConditionsController constructor.
      *
-     * @param string $developer
+     * @param string $developerId
      * @param string $organization
      * @param \Apigee\Edge\ClientInterface $client
      * @param \Apigee\Edge\Serializer\EntitySerializerInterface|null $entitySerializer
      */
-    public function __construct(string $developer, string $organization, ClientInterface $client, ?EntitySerializerInterface $entitySerializer = null)
+    public function __construct(string $developerId, string $organization, ClientInterface $client, ?EntitySerializerInterface $entitySerializer = null)
     {
         parent::__construct($organization, $client, $entitySerializer);
-        $this->developer = $developer;
+        $this->developerId = $developerId;
     }
 
     /**
@@ -48,7 +48,7 @@ class DeveloperAcceptedTermsAndConditionsController extends AcceptedTermsAndCond
      */
     protected function getBaseEndpointUri(): UriInterface
     {
-        return $this->client->getUriFactory()->createUri("/mint/organizations/{$this->organization}/developers/{$this->developer}/developer-tncs");
+        return $this->client->getUriFactory()->createUri("/mint/organizations/{$this->organization}/developers/{$this->developerId}/developer-tncs");
     }
 
     /**
@@ -56,6 +56,6 @@ class DeveloperAcceptedTermsAndConditionsController extends AcceptedTermsAndCond
      */
     protected function getAcceptTermsAndConditionsEndpoint(string $tncId): UriInterface
     {
-        return $this->client->getUriFactory()->createUri("/mint/organizations/{$this->organization}/developers/{$this->developer}/tncs/{$tncId}/developer-tncs");
+        return $this->client->getUriFactory()->createUri("/mint/organizations/{$this->organization}/developers/{$this->developerId}/tncs/{$tncId}/developer-tncs");
     }
 }

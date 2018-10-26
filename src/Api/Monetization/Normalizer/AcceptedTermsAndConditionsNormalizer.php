@@ -35,12 +35,11 @@ class AcceptedTermsAndConditionsNormalizer extends EntityNormalizer
         /** @var object $normalized */
         $normalized = parent::normalize($object, $format, $context);
 
-        // Fix the audit date of the accepted terms and conditions
-        // if the organization's timezone is different from the default
-        // PHP timezone.
-        /** @var \Apigee\Edge\Api\Monetization\Structure\AcceptedTermsAndConditions $object */
-        if (date_default_timezone_get() !== $object->getTnc()->getOrganization()->getTimezone()->getName()) {
-            $dateDenormalizer = new DateTimeNormalizer(TermsAndConditionsInterface::DATE_FORMAT, $object->getTnc()->getOrganization()->getTimezone());
+        // Fix the audit date of the accepted terms and conditions.
+        // @see \Apigee\Edge\Api\Monetization\Structure\AcceptedTermsAndConditions
+        /* @var \Apigee\Edge\Api\Monetization\Structure\AcceptedTermsAndConditions $object */
+        if ('UTC' !== date_default_timezone_get()) {
+            $dateDenormalizer = new DateTimeNormalizer(TermsAndConditionsInterface::DATE_FORMAT, new \DateTimeZone('UTC'));
             $normalized->auditDate = $dateDenormalizer->normalize($object->getAuditDate());
         }
 

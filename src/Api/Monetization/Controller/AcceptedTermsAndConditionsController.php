@@ -96,7 +96,8 @@ abstract class AcceptedTermsAndConditionsController extends OrganizationAwareEnt
     protected function responseArrayToArrayOfEntities(array $responseArray, string $keyGetter = 'getId'): array
     {
         // We had to override the default key getter method name because an
-        // accepted rate plan is not an entity so it does not have "id" method.
+        // accepted rate plan is not an entity so it does not have the
+        // "id" method.
         return $this->traitResponseArrayToArrayOfEntities($responseArray, $keyGetter);
     }
 

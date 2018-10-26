@@ -39,16 +39,9 @@ class AcceptedTermsAndConditionsDenormalizer extends ObjectDenormalizer
         /** @var \Apigee\Edge\Api\Monetization\Structure\AcceptedTermsAndConditions $entity */
         $entity = parent::denormalize($data, $class, $format, $context);
 
-        // Fix the audit date of the accepted tnc if the organization's
-        // timezone is different from the default PHP timezone.
-        // if (date_default_timezone_get() !== $entity->getTnc()->getOrganization()->getTimezone()->getName()) {
-        // FIXME Wait until engineering team answers.
-        // So it seems, compared with other entities, even if the timezone of
-        // the org is not UTC you always get back an UTC date. Moreover, no
-        // matter what do you send when you accept a tnc you always get
-        // back the current time (according to Edge's org) in UTC as audit date.
+        // Fix the audit date of the accepted tnc.
+        // @see \Apigee\Edge\Api\Monetization\Structure\AcceptedTermsAndConditions
         if ('UTC' !== date_default_timezone_get()) {
-            // $dateDenormalizer = new DateTimeNormalizer(TermsAndConditionsInterface::DATE_FORMAT, $entity->getTnc()->getOrganization()->getTimezone());
             $dateDenormalizer = new DateTimeNormalizer(TermsAndConditionsInterface::DATE_FORMAT, new \DateTimeZone('UTC'));
             $entity->setAuditDate($dateDenormalizer->denormalize($auditDate, \DateTimeImmutable::class));
         }

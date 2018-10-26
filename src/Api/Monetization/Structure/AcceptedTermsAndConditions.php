@@ -32,10 +32,19 @@ final class AcceptedTermsAndConditions extends BaseObject implements IdPropertyI
 
     public const ACTION_ACCEPTED = 'ACCEPTED';
 
+    public const ACTION_DECLINED = 'DECLINED';
+
     /** @var string */
     private $action;
 
-    /** @var \DateTimeImmutable */
+    /**
+     * According to Apigee Edge engineers the timezone of the audit date is
+     * always UTC and it is always the current time on the server
+     * no matter what is being sent in the payload - even if the
+     * auditDate is a required parameter at this moment.
+     *
+     * @var \DateTimeImmutable
+     */
     private $auditDate;
 
     /** @var \Apigee\Edge\Api\Monetization\Entity\TermsAndConditions */
