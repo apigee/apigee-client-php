@@ -38,7 +38,13 @@ interface CompanyInterface extends
     NamePropertyInterface,
     StatusPropertyInterface
 {
-    public const STATUS_ACTIVE = 'active';
+    /**
+     * @param string $organization
+     */
+    public function setOrganization(string $organization): void;
 
-    public const STATUS_INACTIVE = 'inactive';
+    /**
+     * @return null|string
+     */
+    public function getOrganization(): ?string;
 }

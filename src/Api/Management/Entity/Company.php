@@ -37,7 +37,17 @@ class Company extends Entity implements CompanyInterface
     use CommonEntityPropertiesAwareTrait;
     use DisplayNamePropertyAwareTrait;
     use NamePropertyAwareTrait;
-    use StatusPropertyAwareTrait;
+
+    /**
+     * It is organization and not organizationName in the API response.
+     *
+     * This is the reason why it does not implement
+     * OrganizationNamePropertyInterface. We also id not created a name
+     * converter just to hide this small inconsistency.
+     *
+     * @var string|null
+     */
+    protected $organization;
 
     /**
      * Company constructor.
@@ -48,5 +58,21 @@ class Company extends Entity implements CompanyInterface
     {
         $this->attributes = new AttributesProperty();
         parent::__construct($values);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function setOrganization(string $organization): void
+    {
+        $this->organization = $organization;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getOrganization(): ?string
+    {
+        return $this->organization;
     }
 }
