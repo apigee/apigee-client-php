@@ -282,7 +282,8 @@ abstract class AppCredentialControllerTestBase extends EntityControllerTestBase
     public function testAddAttributesToEntity(): string
     {
         /** @var \Apigee\Edge\Api\Management\Entity\AppCredentialInterface $credential */
-        $credential = reset(static::$testApp->getCredentials());
+        $credentials = static::$testApp->getCredentials();
+        $credential = reset($credentials);
         /** @var \Apigee\Edge\Structure\AttributesProperty $attributes */
         $attributes = $credential->getAttributes();
         $originalAttributes = $attributes->values();

@@ -32,7 +32,8 @@ class AppSerializerValidator extends EntitySerializerValidator
         /** @var \Apigee\Edge\Api\Management\Entity\AppCredentialInterface $credential */
         // We have to validate issued at date separately because we do not
         // store the milliseconds.
-        $credential = reset($entity->getCredentials());
+        $credentials = $entity->getCredentials();
+        $credential = reset($credentials);
         Assert::assertEquals(intval($input->credentials[0]->issuedAt / 1000), $credential->getIssuedAt()->getTimestamp());
         $input->credentials[0]->issuedAt = $credential->getIssuedAt()->getTimestamp() * 1000;
         parent::validate($input, $entity);
