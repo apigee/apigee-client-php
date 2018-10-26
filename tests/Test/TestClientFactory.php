@@ -33,23 +33,48 @@ use ReflectionClass;
  */
 class TestClientFactory
 {
+    /** @var \Apigee\Edge\ClientInterface[] */
+    private static $instances = [];
+
+    /**
+     * TestClientFactory constructor.
+     */
+    private function __construct()
+    {
+    }
+
+    private function __clone()
+    {
+    }
+
+    private function __wakeup(): void
+    {
+    }
+
     /**
      * Factory method that returns a configured test API client.
      *
      * @param string|null $fqcn
      *   Fully qualified name of a test API client.
-     *
-     * @throws \ReflectionException
-     *   By ReflectionClass.
-     * @throws \Exception
-     *   By StreamHandler.
+     * @param bool $reset
+     *   Enforces factory to rebuild the test client instead of returning it
+     *   from its static cache.
      *
      * @return \Apigee\Edge\ClientInterface
      */
-    public static function getClient(string $fqcn = null): ClientInterface
+    public static function getClient(string $fqcn = null, bool $reset = false): ClientInterface
     {
         $fqcn = $fqcn ?: getenv('APIGEE_EDGE_PHP_CLIENT_API_CLIENT') ?: FileSystemMockClient::class;
-        $clientRC = new \ReflectionClass($fqcn);
+
+        if (!$reset && array_key_exists($fqcn, self::$instances)) {
+            return self::$instances[$fqcn];
+        }
+
+        try {
+            $clientRC = new \ReflectionClass($fqcn);
+        } catch (\ReflectionException $e) {
+            throw new \InvalidArgumentException("Unable to initialize client class with {$fqcn} name.", $e->getCode(), $e);
+        }
 
         if ($clientRC->implementsInterface(OnlineClientInterface::class)) {
             $options = [];
@@ -73,11 +98,11 @@ class TestClientFactory
                 $options[OnlineClientInterface::CONFIG_HTTP_CLIENT] = new DebuggerHttpClient([], $formatter, $logger, $logFormat);
             }
 
-            /** @var \Apigee\Edge\Tests\Test\OnlineClientInterface $client */
-            $client = $clientRC->newInstance(new BasicAuth($username, $password), $endpoint, $options);
+            /* @var \Apigee\Edge\Tests\Test\OnlineClientInterface $client */
+            self::$instances[$fqcn] = $clientRC->newInstance(new BasicAuth($username, $password), $endpoint, $options);
         } elseif ($clientRC->implementsInterface(OfflineClientInterface::class)) {
-            /** @var \Apigee\Edge\Tests\Test\OfflineClientInterface $client */
-            $client = $clientRC->newInstance();
+            /* @var \Apigee\Edge\Tests\Test\OfflineClientInterface $client */
+            self::$instances[$fqcn] = $clientRC->newInstance();
         } else {
             throw new \InvalidArgumentException(
                 sprintf(
@@ -89,20 +114,19 @@ class TestClientFactory
             );
         }
 
-        return $client;
+        return self::$instances[$fqcn];
     }
 
     /**
-     * Helper function that returns whether the API client is using a mock HTTP client or not.
+     * Helper function that returns whether an API client is offline or not.
      *
      * @param \Apigee\Edge\ClientInterface $client
      *   API client.
      *
      * @return bool
-     *
-     * @deprecated
+     *   TRUE if the client is an offline client.
      */
-    public static function isMockClient(ClientInterface $client): bool
+    public static function isOfflineClient(ClientInterface $client): bool
     {
         return $client instanceof OfflineClientInterface;
     }
