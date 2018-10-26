@@ -99,11 +99,7 @@ class DeveloperController extends PaginatedEntityController implements Developer
     }
 
     /**
-     * Returns the API endpoint that the controller communicates with.
-     *
-     * In case of an entity that belongs to an organisation it should return organization/[orgName]/[endpoint].
-     *
-     * @return UriInterface
+     * @inheritdoc
      */
     protected function getBaseEndpointUri(): UriInterface
     {
