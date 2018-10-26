@@ -33,8 +33,7 @@ trait PaymentProviderEntityProviderTrait
             'name' => $randomData ? static::randomGenerator()->machineName() : 'PHPUnit',
             'merchantCode' => $randomData ? static::randomGenerator()->displayName() : 'merchant-code',
             'description' => $randomData ? static::randomGenerator()->text() : 'test payment provider',
-            // TODO Change this URL.
-            'endpoint' => $randomData ? static::randomGenerator()->machineName() : 'http://example.com/api',
+            'endpoint' => $randomData ? static::randomGenerator()->url() : 'http://example.com/api',
             'credential' => $randomData ? static::randomGenerator()->machineName() : 'credential',
         ]);
 

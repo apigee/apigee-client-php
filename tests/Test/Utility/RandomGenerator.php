@@ -41,7 +41,7 @@ class RandomGenerator implements RandomGeneratorInterface
      */
     public function displayName(): string
     {
-        return '(Test)' . $this->faker->unique()->words($this->faker->numberBetween(1, 3), true);
+        return $this->faker->unique()->words($this->faker->numberBetween(1, 3), true);
     }
 
     /**
@@ -68,13 +68,27 @@ class RandomGenerator implements RandomGeneratorInterface
         return $this->faker->unique()->word;
     }
 
+    /**
+     * @inheritdoc
+     */
     public function text(int $mintLength = 1, int $maxLength = 10): string
     {
         return $this->faker->unique()->words($this->faker->numberBetween($mintLength, $maxLength), true);
     }
 
+    /**
+     * @inheritdoc
+     */
     public function email(): string
     {
         return 'test_' . $this->faker->unique()->email;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function url(): string
+    {
+        return $this->faker->unique()->url;
     }
 }

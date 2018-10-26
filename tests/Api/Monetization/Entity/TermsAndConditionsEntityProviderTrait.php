@@ -37,8 +37,7 @@ trait TermsAndConditionsEntityProviderTrait
             // Because it is a string JSON float serialization trick does
             // not work on it.
             'version' => $randomData ? (string) static::randomGenerator()->number() : '1.0',
-            // TODO change this to random url.
-            'url' => $randomData ? static::randomGenerator()->text() : 'http://example.com',
+            'url' => $randomData ? static::randomGenerator()->url() : 'http://example.com',
             // Organization profile must be passed otherwise the normalizer
             // does not know how to fix the timezone of date properties.
             'organization' => static::organizationProfileController()->load(),

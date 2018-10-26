@@ -34,4 +34,6 @@ interface RandomGeneratorInterface
     public function string(): string;
 
     public function text(int $mintLength = 1, int $maxLength = 10): string;
+
+    public function url(): string;
 }
