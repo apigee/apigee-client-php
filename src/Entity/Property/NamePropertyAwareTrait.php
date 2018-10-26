@@ -35,10 +35,10 @@ trait NamePropertyAwareTrait
     }
 
     /**
-     * Set the name of this entity from an Edge API response.
+     * Set the name of this entity from an Apigee Edge API response.
      *
-     * The name of an entity can not be changed by modifying the value of this property because it is a primary key
-     * when it is available.
+     * The name of an entity can not be changed by modifying the value of this
+     * property because it is a primary key when it is available.
      *
      * @param string $name
      *   Name of the entity.

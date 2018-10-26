@@ -95,7 +95,7 @@ trait PaginationHelperTrait
     }
 
     /**
-     * Loads entities from Apigee Edge.
+     * Loads paginated list of entities from Apigee Edge.
      *
      * @param \Apigee\Edge\Structure\PagerInterface|null $pager
      *   Pager.
