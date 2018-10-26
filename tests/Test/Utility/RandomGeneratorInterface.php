@@ -16,22 +16,22 @@
  * limitations under the License.
  */
 
-namespace Apigee\Edge\Tests\Test\FrameWork\Constrait;
-
-use PHPUnit\Framework\Constraint\ArraySubset;
+namespace Apigee\Edge\Tests\Test\Utility;
 
 /**
- * Class EntityHasValues.
+ * Base definition of a random generator.
  */
-class EntityHasValues extends ArraySubset
+interface RandomGeneratorInterface
 {
-    public function toString()
-    {
-        return 'is a subset of ' . $this->exporter->export($this->subset);
-    }
+    public function displayName(): string;
 
-    protected function failureDescription($other)
-    {
-        return 'an entity values ' . $this->toString();
-    }
+    public function email(): string;
+
+    public function machineName(): string;
+
+    public function number(int $min = 1, int $max = 1000): string;
+
+    public function string(): string;
+
+    public function text(int $mintLength = 1, int $maxLength = 10): string;
 }
