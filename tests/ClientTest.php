@@ -21,13 +21,13 @@ namespace Apigee\Edge\Tests;
 use Apigee\Edge\Client;
 use Apigee\Edge\Exception\ClientErrorException;
 use Apigee\Edge\HttpClient\Utility\Builder;
-use Apigee\Edge\Tests\Test\HttpClient\MockHttpClient;
 use Apigee\Edge\Tests\Test\HttpClient\Plugin\NullAuthentication;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 use Http\Client\Common\Plugin\HeaderAppendPlugin;
 use Http\Client\Exception\NetworkException;
 use Http\Client\Exception\RequestException;
+use Http\Mock\Client as MockHttpClient;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -35,12 +35,11 @@ use PHPUnit\Framework\TestCase;
  *
  * @group client
  * @group mock
- * @group offline
  * @small
  */
 class ClientTest extends TestCase
 {
-    /** @var \Apigee\Edge\Tests\Test\HttpClient\MockHttpClient */
+    /** @var \Http\Mock\Client */
     protected static $httpClient;
 
     /**
@@ -48,8 +47,9 @@ class ClientTest extends TestCase
      */
     public static function setUpBeforeClass(): void
     {
-        // Use the Mock HTTP Client for all requests.
-        self::$httpClient = new MockHttpClient();
+        // We use the original, undecorated mock http client for this that
+        // does not wrap all exceptions to MockHttpClientExceptions.
+        static::$httpClient = new MockHttpClient();
         parent::setUpBeforeClass();
     }
 
@@ -179,7 +179,7 @@ class ClientTest extends TestCase
         $builder = new Builder(static::$httpClient);
         $client = new Client(new NullAuthentication(), null, [Client::CONFIG_HTTP_CLIENT_BUILDER => $builder]);
         try {
-            $response = $client->get('/');
+            $client->get('/');
         } catch (\Exception $e) {
             $this->assertInstanceOf(ClientErrorException::class, $e);
             /* @var \Apigee\Edge\Exception\ClientErrorException $e */
