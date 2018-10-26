@@ -21,7 +21,7 @@ namespace Apigee\Edge\Api\Monetization\Controller;
 interface EntityListingControllerInterface
 {
     /**
-     * Loads all entity.
+     * Loads all entities from Apigee Edge.
      *
      * @return \Apigee\Edge\Entity\EntityInterface[]
      */
