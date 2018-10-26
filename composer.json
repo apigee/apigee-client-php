@@ -86,7 +86,7 @@
         },
         "patches": {
             "php-http/client-common": {
-                "Only add path prefix if the path does not contain it already #103": "https://patch-diff.githubusercontent.com/raw/php-http/client-common/pull/103.diff"
+                "Path prefix must be present #113": "https://github.com/php-http/client-common/pull/113.diff"
             }
         }
     }
