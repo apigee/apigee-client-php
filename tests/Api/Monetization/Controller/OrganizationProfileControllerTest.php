@@ -19,39 +19,54 @@
 namespace Apigee\Edge\Tests\Api\Monetization\Controller;
 
 use Apigee\Edge\Api\Monetization\Controller\OrganizationProfileController;
-use Apigee\Edge\Api\Monetization\Entity\EntityInterface;
-use Apigee\Edge\Controller\EntityControllerInterface;
-use Apigee\Edge\Tests\Test\Controller\OrganizationAwareEntityControllerValidatorTrait;
+use Apigee\Edge\Entity\EntityInterface;
+use Apigee\Edge\Tests\Test\Controller\DefaultTestOrganizationAwareTrait;
+use Apigee\Edge\Tests\Test\Controller\EntityControllerTester;
+use Apigee\Edge\Tests\Test\Controller\EntityControllerTesterInterface;
+use Apigee\Edge\Tests\Test\Controller\EntityUpdateOperationControllerTestTrait;
 
+/**
+ * Class OrganizationProfileControllerTest.
+ *
+ * @group controller
+ * @group monetization
+ */
 class OrganizationProfileControllerTest extends EntityControllerTestBase
 {
-    use OrganizationAwareEntityControllerValidatorTrait;
-    use EntityLoadControllerOperationTestTrait;
-    use EntityUpdateControllerOperationTestTrait;
+    use DefaultTestOrganizationAwareTrait;
+    use EntityLoadOperationControllerTestTrait {
+        testLoad as private traitTestLoad;
+    }
+    use EntityUpdateOperationControllerTestTrait;
 
-    public function testLoad(): void
+    /**
+     * @inheritDoc
+     */
+    public function testLoad($created = null): EntityInterface
     {
-        $entity = $this->getEntityController()->load();
-        $this->validateLoadedEntity($entity);
-        $entity = (new OrganizationProfileController('phpunit-minimal', static::$client))->load();
-        $this->validateLoadedEntity($entity);
+        $this->traitTestLoad('phpunit-minimal');
+
+        return $this->traitTestLoad('phpunit');
     }
 
     /**
      * @inheritdoc
      */
-    protected static function getEntityController(): EntityControllerInterface
+    protected static function entityController(): EntityControllerTesterInterface
     {
-        static $controller;
-        if (null === $controller) {
-            $controller = new OrganizationProfileController(static::getOrganization(static::$client), static::$client);
-        }
-
-        return $controller;
+        return new EntityControllerTester(new OrganizationProfileController(static::defaultTestOrganization(static::defaultAPIClient()), static::defaultAPIClient()));
     }
 
-    protected function getEntityForTestUpdate(): EntityInterface
+    /**
+     * @inheritdoc
+     */
+    protected function entityForUpdateTest(EntityInterface $existing): EntityInterface
     {
-        return $this->getEntityController()->load();
+        /** @var \Apigee\Edge\Api\Monetization\Entity\OrganizationProfileInterface $updated */
+        $updated = clone $existing;
+        $updated->setTransactionRelayURL('http://example.com');
+        $updated->setLogoUrl('http://foo.example.com');
+
+        return $updated;
     }
 }

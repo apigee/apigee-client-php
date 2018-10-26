@@ -18,9 +18,8 @@
 
 namespace Apigee\Edge\Tests\Api\Monetization\Controller;
 
-use Apigee\Edge\Serializer\EntitySerializerInterface;
+use Apigee\Edge\Tests\Test\Controller\ControllerTestBase as BaseControllerTestBase;
 
-trait EntitySerializerAwareTestTrait
+abstract class ControllerTestBase extends BaseControllerTestBase
 {
-    abstract protected static function getEntitySerializer(): EntitySerializerInterface;
 }

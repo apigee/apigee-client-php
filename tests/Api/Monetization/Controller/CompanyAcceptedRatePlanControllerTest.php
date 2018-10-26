@@ -19,33 +19,37 @@
 namespace Apigee\Edge\Tests\Api\Monetization\Controller;
 
 use Apigee\Edge\Api\Monetization\Controller\CompanyAcceptedRatePlanController;
-use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Controller\EntityControllerInterface;
+use Apigee\Edge\Tests\Test\Controller\EntityControllerTester;
+use Apigee\Edge\Tests\Test\Controller\EntityControllerTesterInterface;
 use Apigee\Edge\Tests\Test\HttpClient\FileSystemResponseFactory;
 use GuzzleHttp\Psr7\Request;
 use Psr\Http\Message\ResponseInterface;
 
+/**
+ * Class CompanyAcceptedRatePlanControllerTest.
+ *
+ * @group controller
+ * @group monetization
+ */
 class CompanyAcceptedRatePlanControllerTest extends AcceptedRatePlanControllerTestBase
 {
+    protected static $testCompanyName = 'phpunit';
+
     /**
      * @inheritdoc
      */
-    protected static function getEntityController(): EntityControllerInterface
+    protected static function entityController(): EntityControllerTesterInterface
     {
-        static $controller;
-        if (null === $controller) {
-            $controller = new CompanyAcceptedRatePlanController('phpunit', static::getOrganization(static::$client), static::$client);
-        }
-
-        return $controller;
+        return new EntityControllerTester(new CompanyAcceptedRatePlanController(static::$testCompanyName, static::defaultTestOrganization(static::defaultAPIClient()), static::defaultAPIClient()));
     }
 
     /**
      * @inheritdoc
      */
-    protected static function getMockEntityController(ClientInterface $client): EntityControllerInterface
+    protected static function getMockEntityController(): EntityControllerInterface
     {
-        return $controller = new CompanyAcceptedRatePlanController('phpunit', static::getOrganization(static::$client), $client);
+        return $controller = new CompanyAcceptedRatePlanController(static::$testCompanyName, static::defaultTestOrganization(static::mockApiClient()), static::mockApiClient());
     }
 
     /**
@@ -53,6 +57,8 @@ class CompanyAcceptedRatePlanControllerTest extends AcceptedRatePlanControllerTe
      */
     protected function getAcceptRatePlanResponse(): ResponseInterface
     {
-        return (new FileSystemResponseFactory())->createResponseForRequest(new Request('GET', 'v1/mint/organizations/phpunit/companies/phpunit/developer-rateplans/phpunit'));
+        $id = static::$testCompanyName;
+
+        return (new FileSystemResponseFactory())->createResponseForRequest(new Request('GET', "v1/mint/organizations/phpunit/companies/{$id}/developer-rateplans/phpunit"));
     }
 }

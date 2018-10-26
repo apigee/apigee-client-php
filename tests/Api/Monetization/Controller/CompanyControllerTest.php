@@ -19,20 +19,22 @@
 namespace Apigee\Edge\Tests\Api\Monetization\Controller;
 
 use Apigee\Edge\Api\Monetization\Controller\CompanyController;
-use Apigee\Edge\Controller\EntityControllerInterface;
+use Apigee\Edge\Tests\Test\Controller\EntityControllerTester;
+use Apigee\Edge\Tests\Test\Controller\EntityControllerTesterInterface;
 
+/**
+ * Class CompanyControllerTest.
+ *
+ * @group controller
+ * @group monetization
+ */
 class CompanyControllerTest extends LegalEntityControllerTestBase
 {
     /**
      * @inheritdoc
      */
-    protected static function getEntityController(): EntityControllerInterface
+    protected static function entityController(): EntityControllerTesterInterface
     {
-        static $controller;
-        if (null === $controller) {
-            $controller = new CompanyController(static::getOrganization(static::$client), static::$client);
-        }
-
-        return $controller;
+        return new EntityControllerTester(new CompanyController(static::defaultTestOrganization(static::defaultAPIClient()), static::defaultAPIClient()));
     }
 }

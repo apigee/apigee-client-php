@@ -18,9 +18,9 @@
 
 namespace Apigee\Edge\Tests\Api\Monetization\Controller;
 
-use Apigee\Edge\Api\Monetization\Controller\PaymentProviderController;
+use Apigee\Edge\Api\Monetization\Controller\SupportedCurrencyController;
 use Apigee\Edge\Entity\EntityInterface;
-use Apigee\Edge\Tests\Api\Monetization\Entity\PaymentProviderEntityProviderTrait;
+use Apigee\Edge\Tests\Api\Monetization\Entity\SupportedCurrencyEntityProviderTrait;
 use Apigee\Edge\Tests\Test\Controller\EntityControllerTester;
 use Apigee\Edge\Tests\Test\Controller\EntityControllerTesterInterface;
 use Apigee\Edge\Tests\Test\Controller\EntityCreateOperationControllerTester;
@@ -30,14 +30,14 @@ use Apigee\Edge\Tests\Test\Controller\EntityUpdateOperationControllerTestTrait;
 use Apigee\Edge\Tests\Test\TestClientFactory;
 
 /**
- * Class PaymentProviderControllerTest.
+ * Class SupportedCurrencyControllerTest.
  *
  * @group controller
  * @group monetization
  */
-class PaymentProviderControllerTest extends EntityControllerTestBase
+class SupportedCurrencyControllerTest extends EntityControllerTestBase
 {
-    use PaymentProviderEntityProviderTrait;
+    use SupportedCurrencyEntityProviderTrait;
     // The order of these trait matters. Check @depends in test methods.
     use EntityCreateOperationControllerTraitTest;
     use EntityLoadOperationControllerTestTrait;
@@ -49,7 +49,7 @@ class PaymentProviderControllerTest extends EntityControllerTestBase
      */
     protected static function entityController(): EntityControllerTesterInterface
     {
-        return new EntityControllerTester(new PaymentProviderController(static::defaultTestOrganization(static::defaultAPIClient()), static::defaultAPIClient()));
+        return new EntityControllerTester(new SupportedCurrencyController(static::defaultTestOrganization(static::defaultAPIClient()), static::defaultAPIClient()));
     }
 
     /**
@@ -65,7 +65,7 @@ class PaymentProviderControllerTest extends EntityControllerTestBase
      */
     protected static function getNewEntity(): EntityInterface
     {
-        return static::getNewPaymentProvider(!TestClientFactory::isOfflineClient(static::defaultAPIClient()));
+        return static::getNewSupportedCurrency(!TestClientFactory::isOfflineClient(static::defaultAPIClient()));
     }
 
     /**
@@ -73,6 +73,6 @@ class PaymentProviderControllerTest extends EntityControllerTestBase
      */
     protected function entityForUpdateTest(EntityInterface $existing): EntityInterface
     {
-        return static::getUpdatedPaymentProvider($existing, !TestClientFactory::isOfflineClient(static::defaultAPIClient()));
+        return static::getUpdatedSupportedCurrency($existing, !TestClientFactory::isOfflineClient(static::defaultAPIClient()));
     }
 }

@@ -18,8 +18,8 @@
 
 namespace Apigee\Edge\Tests\Api\Monetization\EntitySerializer;
 
-use Apigee\Edge\Api\Monetization\Entity\EntityInterface;
 use Apigee\Edge\Api\Monetization\Entity\RatePlanRevisionInterface;
+use Apigee\Edge\Entity\EntityInterface;
 use Apigee\Edge\Serializer\EntitySerializerInterface;
 use Apigee\Edge\Tests\Api\Monetization\EntitySerializer\PropertyValidator\ApiPackageEntityReferencePropertyValidator;
 use Apigee\Edge\Tests\Api\Monetization\EntitySerializer\PropertyValidator\CurrencyEntityReferencePropertyValidator;

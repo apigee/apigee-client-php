@@ -19,32 +19,40 @@
 namespace Apigee\Edge\Tests\Api\Monetization\Controller;
 
 use Apigee\Edge\Api\Monetization\Controller\DeveloperPrepaidBalanceController;
-use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Controller\EntityControllerInterface;
+use Apigee\Edge\Tests\Test\Controller\EntityControllerTester;
+use Apigee\Edge\Tests\Test\Controller\EntityControllerTesterInterface;
 use PHPUnit\Framework\Assert;
 
+/**
+ * Class DeveloperPrepaidBalanceControllerTest.
+ *
+ * @group controller
+ * @group monetization
+ */
 class DeveloperPrepaidBalanceControllerTest extends PrepaidBalanceControllerTestBase
 {
     protected static $developerId = 'phpunit@example.com';
 
-    protected static function getEntityController(): EntityControllerInterface
+    /**
+     * @inheritdoc
+     */
+    protected static function entityController(): EntityControllerTesterInterface
     {
-        static $controller;
-        if (null === $controller) {
-            $controller = new DeveloperPrepaidBalanceController(self::$developerId, static::getOrganization(static::$client), static::$client);
-        }
-
-        return $controller;
+        return new EntityControllerTester(new DeveloperPrepaidBalanceController(self::$developerId, static::defaultTestOrganization(static::defaultAPIClient()), static::defaultAPIClient()));
     }
 
     /**
      * @inheritdoc
      */
-    protected static function getMockEntityController(ClientInterface $client): EntityControllerInterface
+    protected static function getMockEntityController(): EntityControllerInterface
     {
-        return $controller = new DeveloperPrepaidBalanceController(self::$developerId, static::getOrganization(static::$client), $client);
+        return new DeveloperPrepaidBalanceController(self::$developerId, static::defaultTestOrganization(static::mockApiClient()), static::mockApiClient());
     }
 
+    /**
+     * @inheritdoc
+     */
     protected static function validateRecurringPath(string $actual): void
     {
         $developerId = self::$developerId;

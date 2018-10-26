@@ -18,38 +18,70 @@
 
 namespace Apigee\Edge\Tests\Api\Monetization\Controller;
 
-use Apigee\Edge\Serializer\EntitySerializerInterface;
-use Apigee\Edge\Tests\Api\Monetization\EntitySerializer\EntitySerializerValidator;
-use Apigee\Edge\Tests\Api\Monetization\EntitySerializer\EntitySerializerValidatorInterface;
-use Apigee\Edge\Tests\Test\Controller\EntityControllerAwareTrait;
+use Apigee\Edge\Api\Monetization\Controller\OrganizationProfileController;
+use Apigee\Edge\Api\Monetization\Controller\OrganizationProfileControllerInterface;
+use Apigee\Edge\ClientInterface;
+use Apigee\Edge\Tests\Api\Monetization\EntitySerializer\OrganizationAwareEntitySerializerValidator;
+use Apigee\Edge\Tests\Test\Controller\EntityControllerTestBase as BaseEntityControllerTesterBase;
+use Apigee\Edge\Tests\Test\Controller\FileSystemMockAPIClientAwareTrait;
+use Apigee\Edge\Tests\Test\EntitySerializer\EntitySerializerValidatorInterface;
 
-abstract class EntityControllerTestBase extends AbstractControllerTestBase
+/**
+ * Base class for Monetization API tests.
+ */
+abstract class EntityControllerTestBase extends BaseEntityControllerTesterBase
 {
-    use EntityControllerAwareTrait;
-    use EntitySerializerAwareTestTrait;
-    use TestEntityIdAwareControllerTestTrait;
+    use FileSystemMockAPIClientAwareTrait;
+    use OrganizationProfileControllerAwareTestTrait;
 
-    protected static function getEntitySerializer(): EntitySerializerInterface
+    protected static $originalTimezone;
+
+    /**
+     * @inheritDoc
+     */
+    public static function setUpBeforeClass(): void
     {
-        $ro = new \ReflectionObject(static::getEntityController());
-        $rm = $ro->getMethod('getEntitySerializer');
-        $rm->setAccessible(true);
-
-        return $rm->invoke(static::getEntityController());
+        // Use a specific timezone in all tests.
+        static::$originalTimezone = date_default_timezone_get();
+        date_default_timezone_set('Europe/Budapest');
     }
 
-    protected static function getEntitySerializerValidator(): EntitySerializerValidatorInterface
+    /**
+     * @inheritDoc
+     */
+    public static function tearDownAfterClass(): void
+    {
+        date_default_timezone_set(static::$originalTimezone);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected static function defaultAPIClient(): ClientInterface
+    {
+        // Currently majority of the Monetization API tests are using the
+        // file system mock API client.
+        return static::fileSystemMockClient();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function entitySerializerValidator(): EntitySerializerValidatorInterface
     {
         static $validator;
         if (null === $validator) {
-            $validator = new EntitySerializerValidator(static::getEntitySerializer());
+            $validator = new OrganizationAwareEntitySerializerValidator($this->entitySerializer());
         }
 
         return $validator;
     }
 
-    protected function getTestEntityId(): string
+    /**
+     * @inheritDoc
+     */
+    protected static function organizationProfileController(): OrganizationProfileControllerInterface
     {
-        return 'phpunit';
+        return new OrganizationProfileController(static::defaultTestOrganization(static::defaultAPIClient()), static::defaultAPIClient());
     }
 }

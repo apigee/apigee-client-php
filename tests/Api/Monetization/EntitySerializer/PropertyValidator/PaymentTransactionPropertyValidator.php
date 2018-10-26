@@ -20,9 +20,11 @@ namespace Apigee\Edge\Tests\Api\Monetization\EntitySerializer\PropertyValidator;
 
 use Apigee\Edge\Api\Monetization\Entity\BalanceInterface;
 use Apigee\Edge\Api\Monetization\Entity\DeveloperCategory;
-use Apigee\Edge\Api\Monetization\Entity\EntityInterface;
 use Apigee\Edge\Api\Monetization\Structure\DeveloperPaymentTransaction;
+use Apigee\Edge\Entity\EntityInterface;
 use Apigee\Edge\Tests\Api\Monetization\EntitySerializer\LegalEntitySerializerValidator;
+use Apigee\Edge\Tests\Test\EntitySerializer\PropertyValidator\SerializerAwarePropertyValidatorInterface;
+use Apigee\Edge\Tests\Test\EntitySerializer\PropertyValidator\SerializerAwarePropertyValidatorTrait;
 use PHPUnit\Framework\Assert;
 
 /**
@@ -30,7 +32,7 @@ use PHPUnit\Framework\Assert;
  * reference property validator to remove it from the validated object if
  * validation passes here.
  */
-class PaymentTransactionPropertyValidator implements EntityReferencePropertyValidatorInterface, SerializerAwarePropertyValidatorInterface
+class PaymentTransactionPropertyValidator implements \Apigee\Edge\Tests\Test\EntitySerializer\PropertyValidator\RemoveIfPropertyValidPropertyValidatorInterface, SerializerAwarePropertyValidatorInterface
 {
     use SerializerAwarePropertyValidatorTrait {
         setEntitySerializer as private traitSetEntitySerializer;

@@ -42,8 +42,8 @@
     "taxEngineExternalId": "APIGEE",
     "taxModel": "HYBRID",
     "taxNexus": "taxNexus",
-    "transactionRelayURL": "http://localhost",
+    "transactionRelayURL": "http://example.com",
     "taxRegNo": "12345",
     "timezone": "Australia/Eucla",
-    "logoUrl": "http://example.com"
+    "logoUrl": "http://foo.example.com"
 }

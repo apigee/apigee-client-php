@@ -18,20 +18,9 @@
 
 namespace Apigee\Edge\Tests\Api\Monetization\Controller;
 
-use Apigee\Edge\Tests\Test\Controller\AbstractControllerValidator as BaseAbstractControllerValidator;
-use Apigee\Edge\Tests\Test\FileSystemMockClient;
-use Apigee\Edge\Tests\Test\TestClientFactory;
+use Apigee\Edge\Api\Monetization\Controller\OrganizationProfileControllerInterface;
 
-abstract class AbstractControllerTestBase extends BaseAbstractControllerValidator
+trait OrganizationProfileControllerAwareTestTrait
 {
-    /**
-     * @inheritDoc
-     */
-    public static function setUpBeforeClass(): void
-    {
-        parent::setUpBeforeClass();
-        // Monetization tests can be run with the offline client only, because
-        // Monetization feature of Apigee Edge is not available to everyone.
-        static::$client = TestClientFactory::getClient(FileSystemMockClient::class);
-    }
+    abstract protected static function organizationProfileController(): OrganizationProfileControllerInterface;
 }

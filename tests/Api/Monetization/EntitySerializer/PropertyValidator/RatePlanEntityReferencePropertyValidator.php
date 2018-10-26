@@ -19,11 +19,13 @@
 namespace Apigee\Edge\Tests\Api\Monetization\EntitySerializer\PropertyValidator;
 
 use Apigee\Edge\Api\Monetization\Entity\AcceptedRatePlanInterface;
-use Apigee\Edge\Api\Monetization\Entity\EntityInterface;
+use Apigee\Edge\Entity\EntityInterface;
 use Apigee\Edge\Tests\Api\Monetization\EntitySerializer\RatePlanSerializerValidator;
+use Apigee\Edge\Tests\Test\EntitySerializer\PropertyValidator\RemoveIfPropertyValidPropertyValidatorInterface;
+use Apigee\Edge\Tests\Test\EntitySerializer\PropertyValidator\SerializerAwarePropertyValidatorTrait;
 use PHPUnit\Framework\Assert;
 
-class RatePlanEntityReferencePropertyValidator implements EntityReferencePropertyValidatorInterface, SerializerAwarePropertyValidatorInterface
+class RatePlanEntityReferencePropertyValidator implements RemoveIfPropertyValidPropertyValidatorInterface, \Apigee\Edge\Tests\Test\EntitySerializer\PropertyValidator\SerializerAwarePropertyValidatorInterface
 {
     use SerializerAwarePropertyValidatorTrait {
         setEntitySerializer as private traitSetEntitySerializer;

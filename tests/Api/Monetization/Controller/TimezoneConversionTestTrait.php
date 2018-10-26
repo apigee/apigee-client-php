@@ -19,14 +19,16 @@
 namespace Apigee\Edge\Tests\Api\Monetization\Controller;
 
 use Apigee\Edge\Api\Monetization\Entity\EntityInterface;
-use Apigee\Edge\Tests\Test\Controller\ClientAwareTestTrait;
-use Apigee\Edge\Tests\Test\Controller\EntityControllerAwareTrait;
+use Apigee\Edge\Tests\Test\Controller\DefaultAPIClientAwareTrait;
+use Apigee\Edge\Tests\Test\Controller\EntityControllerAwareTestTrait;
+use Apigee\Edge\Tests\Test\EntitySerializer\EntitySerializerAwareTestTrait;
+use PHPUnit\Framework\Assert;
 
 trait TimezoneConversionTestTrait
 {
-    use ClientAwareTestTrait;
-    use EntityControllerAwareTrait;
+    use EntityControllerAwareTestTrait;
     use EntitySerializerAwareTestTrait;
+    use DefaultAPIClientAwareTrait;
 
     /**
      * The difference between Europe/Budapest and Australia/Eucla (used as
@@ -40,13 +42,13 @@ trait TimezoneConversionTestTrait
         // We change the timezone before we would do anything else to ensure
         // any subsequent calls as working properly.
         date_default_timezone_set($currentTimezone);
-        $entity = clone $this->loadTestEntity();
+        $entity = clone $this->getTestEntityForTimezoneConversion();
         $dateProperties = $this->getDateProperties($entity);
         if (empty($dateProperties)) {
             // Inform us that this test trait is being use on an entity
             // that does not have a date property - or something unaccepted
             // happened.
-            $this->markTestSkipped(sprintf('No date property found in %s.', get_class($entity)));
+            Assert::markTestSkipped(sprintf('No date property found in %s.', get_class($entity)));
         }
         foreach ($dateProperties as $property) {
             $getter = 'get' . ucfirst($property);
@@ -63,7 +65,7 @@ trait TimezoneConversionTestTrait
         }
         // Ensure the serializer converts the value of date properties to org's
         // timezone properly.
-        $payload = static::getEntitySerializer()->serialize($entity, 'json');
+        $payload = $this->entitySerializer()->serialize($entity, 'json');
         $json = json_decode($payload);
         foreach ($dateProperties as $property) {
             $this->assertEquals('2018-01-01 00:00:59', $json->{$property});
@@ -72,14 +74,7 @@ trait TimezoneConversionTestTrait
         date_default_timezone_set($original_timezone);
     }
 
-    /**
-     * We depend on this method which is provided by the EntityLoadOperationControllerValidatorTrait.
-     *
-     * @param null|string $entityId
-     *
-     * @return \Apigee\Edge\Api\Monetization\Entity\EntityInterface
-     */
-    abstract protected function loadTestEntity(?string $entityId = null): EntityInterface;
+    abstract protected function getTestEntityForTimezoneConversion(): EntityInterface;
 
     /**
      * Extracts parent Organization's timezone information from an entity.

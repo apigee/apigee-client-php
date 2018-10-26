@@ -18,27 +18,30 @@
 
 namespace Apigee\Edge\Tests\Api\Monetization\Controller;
 
-use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Controller\EntityControllerInterface;
-use Apigee\Edge\Tests\Api\Monetization\EntitySerializer\EntitySerializerValidatorInterface;
 use Apigee\Edge\Tests\Api\Monetization\EntitySerializer\PrepaidBalanceSerializerValidator;
-use Apigee\Edge\Tests\Test\MockClient;
-use Apigee\Edge\Tests\Test\TestClientFactory;
+use Apigee\Edge\Tests\Test\Controller\MockClientAwareTrait;
+use Apigee\Edge\Tests\Test\EntitySerializer\EntitySerializerValidatorInterface;
 use GuzzleHttp\Psr7\Response;
 
-abstract class PrepaidBalanceControllerTestBase extends OrganizationAwareEntityControllerTestBase
+/**
+ * Base class for developer- and company prepaid balance tests.
+ */
+abstract class PrepaidBalanceControllerTestBase extends EntityControllerTestBase
 {
+    use MockClientAwareTrait;
+
     public function testGetEntities(): void
     {
         /** @var \Apigee\Edge\Api\Monetization\Controller\PrepaidBalanceControllerInterface $controller */
-        $controller = $this->getEntityController();
+        $controller = $this->entityController();
         /** @var \Apigee\Edge\Api\Monetization\Entity\BalanceInterface[] $entities */
         $entities = $controller->getEntities();
-        $json = json_decode((string) static::getClient()->getJournal()->getLastResponse()->getBody());
+        $json = json_decode((string) static::defaultAPIClient()->getJournal()->getLastResponse()->getBody());
         $json = reset($json);
         $i = 0;
         foreach ($entities as $entity) {
-            $this->getEntitySerializerValidator()->validate($json[$i], $entity);
+            $this->entitySerializerValidator()->validate($json[$i], $entity);
             ++$i;
         }
     }
@@ -49,21 +52,19 @@ abstract class PrepaidBalanceControllerTestBase extends OrganizationAwareEntityC
      */
     public function testMethodsThatReturnsBalance(): void
     {
-        /** @var \Apigee\Edge\Tests\Test\MockClient $client */
-        $client = TestClientFactory::getClient(MockClient::class);
         /** @var \Apigee\Edge\Tests\Test\HttpClient\MockHttpClient $httpClient */
-        $httpClient = $client->getMockHttpClient();
+        $httpClient = static::mockApiClient()->getMockHttpClient();
         $httpClient->setDefaultResponse(new Response(200, ['Content-Type' => 'application/json'], json_encode((object) [])));
         /** @var \Apigee\Edge\Api\Monetization\Controller\PrepaidBalanceControllerInterface $controller */
-        $controller = $this->getMockEntityController($client);
+        $controller = $this->getMockEntityController();
         $currencyCode = 'USD';
         $paymentProviderId = 'example';
         $replenishAmount = 10;
         $recurringAmount = 10;
         $controller->setupRecurringPayments($currencyCode, $paymentProviderId, $replenishAmount, $recurringAmount);
-        static::validateRecurringPath($client->getJournal()->getLastRequest()->getUri()->getPath());
-        $this->assertEquals('supportedCurrencyId=USD', $client->getJournal()->getLastRequest()->getUri()->getQuery());
-        $payload = json_decode((string) $client->getJournal()->getLastRequest()->getBody());
+        static::validateRecurringPath(static::mockApiClient()->getJournal()->getLastRequest()->getUri()->getPath());
+        $this->assertEquals('supportedCurrencyId=USD', static::mockApiClient()->getJournal()->getLastRequest()->getUri()->getQuery());
+        $payload = json_decode((string) static::mockApiClient()->getJournal()->getLastRequest()->getBody());
         // Ensure we validate all properties in the payload.
         $this->assertCount(4, (array) $payload);
         $this->assertEquals($paymentProviderId, $payload->providerId);
@@ -72,8 +73,8 @@ abstract class PrepaidBalanceControllerTestBase extends OrganizationAwareEntityC
         $this->assertEquals($recurringAmount, $payload->recurringAmount);
 
         $controller->disableRecurringPayments($currencyCode, $paymentProviderId);
-        $this->assertEquals('supportedCurrencyId=USD', $client->getJournal()->getLastRequest()->getUri()->getQuery());
-        $payload = json_decode((string) $client->getJournal()->getLastRequest()->getBody());
+        $this->assertEquals('supportedCurrencyId=USD', static::mockApiClient()->getJournal()->getLastRequest()->getUri()->getQuery());
+        $payload = json_decode((string) static::mockApiClient()->getJournal()->getLastRequest()->getBody());
         // Ensure we validate all properties in the payload.
         $this->assertCount(2, (array) $payload);
         $this->assertEquals($paymentProviderId, $payload->providerId);
@@ -81,10 +82,10 @@ abstract class PrepaidBalanceControllerTestBase extends OrganizationAwareEntityC
 
         $httpClient->addResponse(new Response(200, ['Content-Type' => 'application/json'], json_encode((object) [[]])));
         $controller->getByCurrency($currencyCode);
-        $this->assertEquals('currencyId=USD', $client->getJournal()->getLastRequest()->getUri()->getQuery());
+        $this->assertEquals('currencyId=USD', static::mockApiClient()->getJournal()->getLastRequest()->getUri()->getQuery());
 
         $controller->topUpBalance($recurringAmount, $currencyCode);
-        $payload = json_decode((string) $client->getJournal()->getLastRequest()->getBody());
+        $payload = json_decode((string) static::mockApiClient()->getJournal()->getLastRequest()->getBody());
         // Ensure we validate all properties in the payload.
         $this->assertCount(2, (array) $payload);
         $this->assertEquals($recurringAmount, $payload->amount);
@@ -94,17 +95,20 @@ abstract class PrepaidBalanceControllerTestBase extends OrganizationAwareEntityC
     public function testGetPrepaidBalance(): void
     {
         /** @var \Apigee\Edge\Api\Monetization\Controller\PrepaidBalanceControllerInterface $controller */
-        $controller = $this->getEntityController();
+        $controller = $this->entityController();
         /** @var \Apigee\Edge\Api\Monetization\Entity\PrepaidBalanceInterface[] $entities */
         $entities = $controller->getPrepaidBalance(new \DateTimeImmutable('2018-10-01'));
-        $json = json_decode((string) static::getClient()->getJournal()->getLastResponse()->getBody());
+        $json = json_decode((string) static::defaultAPIClient()->getJournal()->getLastResponse()->getBody());
         $json = reset($json);
         $i = 0;
         // We need to prepaid balance serializer from the controller.
-        $ro = new \ReflectionObject(static::getEntityController());
+        $ro = new \ReflectionObject(static::entityController());
+        $property = $ro->getProperty('decorated');
+        $property->setAccessible(true);
+        $ro = new \ReflectionObject($property->getValue(static::entityController()));
         $rp = $ro->getProperty('prepaidBalanceSerializer');
         $rp->setAccessible(true);
-        $validator = new PrepaidBalanceSerializerValidator($rp->getValue(static::getEntityController()));
+        $validator = new PrepaidBalanceSerializerValidator($rp->getValue($property->getValue(static::entityController())));
         foreach ($entities as $entity) {
             $validator->validate($json[$i], $entity);
             ++$i;
@@ -117,13 +121,11 @@ abstract class PrepaidBalanceControllerTestBase extends OrganizationAwareEntityC
      */
     public function testMethodsThatReturnsPrepaidBalance(): void
     {
-        /** @var \Apigee\Edge\Tests\Test\MockClient $client */
-        $client = TestClientFactory::getClient(MockClient::class);
         /** @var \Apigee\Edge\Tests\Test\HttpClient\MockHttpClient $httpClient */
-        $httpClient = $client->getMockHttpClient();
+        $httpClient = static::mockApiClient()->getMockHttpClient();
         $httpClient->setDefaultResponse(new Response(200, ['Content-Type' => 'application/json'], json_encode((object) [[]])));
         /** @var \Apigee\Edge\Api\Monetization\Controller\PrepaidBalanceControllerInterface $controller */
-        $controller = $this->getMockEntityController($client);
+        $controller = $this->getMockEntityController();
         $currencyCode = 'USD';
         $billingMonth = new \DateTimeImmutable('now');
         $balance = $controller->getPrepaidBalanceByCurrency($currencyCode, $billingMonth);
@@ -132,21 +134,21 @@ abstract class PrepaidBalanceControllerTestBase extends OrganizationAwareEntityC
         $expected = 'billingMonth=' . strtoupper($billingMonth->format('F'));
         $expected .= "&billingYear={$billingMonth->format('Y')}";
         $expected .= '&supportedCurrencyId=USD';
-        $this->assertEquals($expected, $client->getJournal()->getLastRequest()->getUri()->getQuery());
+        $this->assertEquals($expected, static::mockApiClient()->getJournal()->getLastRequest()->getUri()->getQuery());
     }
 
     abstract protected static function validateRecurringPath(string $actual): void;
 
-    abstract protected static function getMockEntityController(ClientInterface $client): EntityControllerInterface;
+    abstract protected static function getMockEntityController(): EntityControllerInterface;
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
-    protected static function getEntitySerializerValidator(): EntitySerializerValidatorInterface
+    protected function entitySerializerValidator(): EntitySerializerValidatorInterface
     {
         static $validator;
         if (null === $validator) {
-            $validator = new PrepaidBalanceSerializerValidator(static::getEntitySerializer());
+            $validator = new PrepaidBalanceSerializerValidator($this->entitySerializer());
         }
 
         return $validator;

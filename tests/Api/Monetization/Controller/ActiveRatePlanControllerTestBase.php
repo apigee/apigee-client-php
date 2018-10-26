@@ -18,24 +18,25 @@
 
 namespace Apigee\Edge\Tests\Api\Monetization\Controller;
 
-use Apigee\Edge\Exception\ApiRequestException;
-
-abstract class ActiveRatePlanControllerTestBase extends OrganizationAwareEntityControllerTestBase
+/**
+ * Base test class for developer- and company active rate plans.
+ */
+abstract class ActiveRatePlanControllerTestBase extends EntityControllerTestBase
 {
     public function testGetActiveRatePlanByApiProduct(): void
     {
         /** @var \Apigee\Edge\Api\Monetization\Controller\ActiveRatePlanControllerInterface $controller */
-        $controller = $this->getEntityController();
+        $controller = $this->entityController();
         // This ensures the right API endpoint gets called and the API response
         // can be parsed.
         $controller->getActiveRatePlanByApiProduct('phpunit');
         // No query parameters.
-        $this->assertEmpty(static::$client->getJournal()->getLastRequest()->getUri()->getQuery());
+        $this->assertEmpty(static::defaultAPIClient()->getJournal()->getLastRequest()->getUri()->getQuery());
         try {
             $controller->getActiveRatePlanByApiProduct('phpunit', true);
-        } catch (ApiRequestException $exception) {
+        } catch (\Exception $exception) {
             // File does not exist, so it is fine.
         }
-        $this->assertEquals('showPrivate=true', static::$client->getJournal()->getLastRequest()->getUri()->getQuery());
+        $this->assertEquals('showPrivate=true', static::defaultAPIClient()->getJournal()->getLastRequest()->getUri()->getQuery());
     }
 }

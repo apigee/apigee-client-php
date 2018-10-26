@@ -18,11 +18,13 @@
 
 namespace Apigee\Edge\Tests\Api\Monetization\EntitySerializer\PropertyValidator;
 
-use Apigee\Edge\Api\Monetization\Entity\EntityInterface;
+use Apigee\Edge\Entity\EntityInterface;
 use Apigee\Edge\Entity\Property\AttributesPropertyInterface;
+use Apigee\Edge\Tests\Test\EntitySerializer\PropertyValidator\PropertyValidatorInterface;
+use Apigee\Edge\Tests\Test\EntitySerializer\PropertyValidator\SerializerAwarePropertyValidatorTrait;
 use PHPUnit\Framework\Assert;
 
-class CustomAttributesPropertyValidator implements PropertyValidatorInterface, SerializerAwarePropertyValidatorInterface
+class CustomAttributesPropertyValidator implements PropertyValidatorInterface, \Apigee\Edge\Tests\Test\EntitySerializer\PropertyValidator\SerializerAwarePropertyValidatorInterface
 {
     use SerializerAwarePropertyValidatorTrait;
 

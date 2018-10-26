@@ -19,47 +19,71 @@
 namespace Apigee\Edge\Tests\Api\Monetization\Controller;
 
 use Apigee\Edge\Api\Monetization\Controller\TermsAndConditionsController;
-use Apigee\Edge\Controller\EntityControllerInterface;
-use Apigee\Edge\Tests\Test\MockClient;
+use Apigee\Edge\Api\Monetization\Entity\EntityInterface as MintEntityInterface;
+use Apigee\Edge\Entity\EntityInterface;
+use Apigee\Edge\Tests\Api\Monetization\Entity\TermsAndConditionsEntityProviderTrait;
+use Apigee\Edge\Tests\Test\Controller\EntityControllerTester;
+use Apigee\Edge\Tests\Test\Controller\EntityControllerTesterInterface;
+use Apigee\Edge\Tests\Test\Controller\EntityCreateOperationControllerTester;
+use Apigee\Edge\Tests\Test\Controller\EntityCreateOperationControllerTraitTest;
+use Apigee\Edge\Tests\Test\Controller\EntityCreateOperationTestControllerTesterInterface;
+use Apigee\Edge\Tests\Test\Controller\EntityUpdateOperationControllerTestTrait;
 use Apigee\Edge\Tests\Test\TestClientFactory;
-use GuzzleHttp\Psr7\Response;
 
-class TermsAndConditionsControllerTest extends OrganizationAwareEntityControllerTestBase
+/**
+ * Class TermsAndConditionsControllerTest.
+ *
+ * @group controller
+ * @group monetization
+ */
+class TermsAndConditionsControllerTest extends EntityControllerTestBase
 {
-    use EntityCreateControllerOperationTestTrait;
-    use EntityLoadControllerOperationTestTrait;
-    use EntityUpdateControllerOperationTestTrait;
-    use EntityDeleteControllerOperationTestTrait;
+    use TermsAndConditionsEntityProviderTrait;
+    // The order of these trait matters. Check @depends in test methods.
+    use EntityCreateOperationControllerTraitTest;
+    use EntityLoadOperationControllerTestTrait;
+    use EntityUpdateOperationControllerTestTrait;
+    use EntityDeleteOperationControllerTestTrait;
     use TimezoneConversionTestTrait;
 
-    public function testEntityListing(): void
+    /**
+     * @inheritdoc
+     */
+    protected static function entityController(): EntityControllerTesterInterface
     {
-        /** @var \Apigee\Edge\Tests\Test\MockClient $client */
-        $client = TestClientFactory::getClient(MockClient::class);
-        /** @var \Apigee\Edge\Tests\Test\HttpClient\MockHttpClient $httpClient */
-        $httpClient = $client->getMockHttpClient();
-        $httpClient->setDefaultResponse(new Response(200, ['Content-Type' => 'application/json'], json_encode((object) [[]])));
-        $obj = new TermsAndConditionsController(static::getOrganization(static::$client), $client);
-        $obj->getEntities();
-        $this->assertEquals('current=false&all=true', $client->getJournal()->getLastRequest()->getUri()->getQuery());
-        $obj->getEntities(true);
-        $this->assertEquals('current=true&all=true', $client->getJournal()->getLastRequest()->getUri()->getQuery());
-        $obj->getPaginatedEntityList();
-        $this->assertEquals('current=false&page=1', $client->getJournal()->getLastRequest()->getUri()->getQuery());
-        $obj->getPaginatedEntityList(1, 2, true);
-        $this->assertEquals('current=true&page=2&size=1', $client->getJournal()->getLastRequest()->getUri()->getQuery());
+        return new EntityControllerTester(new TermsAndConditionsController(static::defaultTestOrganization(static::defaultAPIClient()), static::defaultAPIClient()));
     }
 
     /**
      * @inheritdoc
      */
-    protected static function getEntityController(): EntityControllerInterface
+    protected static function entityCreateOperationTestController(): EntityCreateOperationTestControllerTesterInterface
     {
-        static $controller;
-        if (null === $controller) {
-            $controller = new TermsAndConditionsController(static::getOrganization(static::$client), static::$client);
-        }
+        return new EntityCreateOperationControllerTester(static::entityController());
+    }
 
-        return $controller;
+    /**
+     * @inheritdoc
+     */
+    protected static function getNewEntity(): EntityInterface
+    {
+        return static::getNewTnC(!TestClientFactory::isOfflineClient(static::defaultAPIClient()));
+    }
+
+    /**
+     * @inheritdoc
+     */
+    protected function entityForUpdateTest(EntityInterface $existing): EntityInterface
+    {
+        return static::getUpdatedTnC($existing, !TestClientFactory::isOfflineClient(static::defaultAPIClient()));
+    }
+
+    /**
+     * @inheritdoc
+     */
+    protected function getTestEntityForTimezoneConversion(): MintEntityInterface
+    {
+        // This is fine for now.
+        return static::controllerForEntityLoad()->load('phpunit');
     }
 }

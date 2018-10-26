@@ -1,7 +1,7 @@
 {
     "creditLimit": 10.01,
-    "description": "Test supported currency.",
-    "displayName": "PHPUnit",
+    "description": "(edited) Test supported currency.",
+    "displayName": "(edited) PHPUnit",
     "id": "phpunit",
     "name": "phpunit",
     "minimumTopupAmount" : 10.0000,

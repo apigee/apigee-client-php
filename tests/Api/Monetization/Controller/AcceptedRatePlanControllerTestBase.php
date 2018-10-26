@@ -19,70 +19,61 @@
 namespace Apigee\Edge\Tests\Api\Monetization\Controller;
 
 use Apigee\Edge\Api\Monetization\Controller\RatePlanController;
-use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Controller\EntityControllerInterface;
 use Apigee\Edge\Tests\Api\Monetization\EntitySerializer\AcceptedRatePlanSerializerValidator;
-use Apigee\Edge\Tests\Api\Monetization\EntitySerializer\EntitySerializerValidatorInterface;
-use Apigee\Edge\Tests\Test\HttpClient\FileSystemResponseFactory;
-use Apigee\Edge\Tests\Test\MockClient;
-use Apigee\Edge\Tests\Test\TestClientFactory;
-use GuzzleHttp\Psr7\Request;
+use Apigee\Edge\Tests\Test\Controller\MockClientAwareTrait;
+use Apigee\Edge\Tests\Test\EntitySerializer\EntitySerializerValidatorInterface;
 use GuzzleHttp\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
 
-abstract class AcceptedRatePlanControllerTestBase extends OrganizationAwareEntityControllerTestBase
+abstract class AcceptedRatePlanControllerTestBase extends EntityControllerTestBase
 {
-    use EntityLoadControllerOperationTestTrait;
+    use MockClientAwareTrait;
+    use EntityLoadOperationControllerTestTrait;
 
     public function testGetAcceptedRatePlans(): void
     {
         /** @var \Apigee\Edge\Api\Monetization\Controller\AcceptedRatePlanControllerInterface $controller */
-        $controller = $this->getEntityController();
+        $controller = $this->entityController();
         $ratePlans = $controller->getAllAcceptedRatePlans();
-        $input = json_decode((string) static::$client->getJournal()->getLastResponse()->getBody());
+        $input = json_decode((string) static::defaultAPIClient()->getJournal()->getLastResponse()->getBody());
         $input = reset($input);
         $i = 0;
         // Ensure array of objects can be parsed properly.
         foreach ($ratePlans as $ratePlan) {
-            $this->getEntitySerializerValidator()->validate($input[$i], $ratePlan);
+            $this->entitySerializerValidator()->validate($input[$i], $ratePlan);
             ++$i;
         }
     }
 
     public function testGetPaginatedAcceptedRatePlanList(): void
     {
-        /** @var \Apigee\Edge\Tests\Test\MockClient $client */
-        $client = TestClientFactory::getClient(MockClient::class);
         /** @var \Apigee\Edge\Tests\Test\HttpClient\MockHttpClient $httpClient */
-        $httpClient = $client->getMockHttpClient();
+        $httpClient = static::mockApiClient()->getMockHttpClient();
         $httpClient->setDefaultResponse(new Response(200, ['Content-Type' => 'application/json'], json_encode((object) [[]])));
         /** @var \Apigee\Edge\Api\Monetization\Controller\AcceptedRatePlanControllerInterface $controller */
-        $controller = $this->getMockEntityController($client);
+        $controller = $this->getMockEntityController();
         $controller->getPaginatedAcceptedRatePlanList();
-        $this->assertEquals('page=1', $client->getJournal()->getLastRequest()->getUri()->getQuery());
+        $this->assertEquals('page=1', static::mockApiClient()->getJournal()->getLastRequest()->getUri()->getQuery());
         $controller->getPaginatedAcceptedRatePlanList(1, 2);
-        $this->assertEquals('page=2&size=1', $client->getJournal()->getLastRequest()->getUri()->getQuery());
+        $this->assertEquals('page=2&size=1', static::mockApiClient()->getJournal()->getLastRequest()->getUri()->getQuery());
     }
 
     public function testAcceptRatePlan(): void
     {
-        $client = new MockClient();
-        $httpClient = $client->getMockHttpClient();
-        // Load a rate plan revision to make sure that works as well.
-        $response = (new FileSystemResponseFactory())->createResponseForRequest(new Request('GET', 'v1/mint/organizations/phpunit/monetization-packages/phpunit/rate-plans/standard-rev'));
-        $httpClient->addResponse($response);
+        $httpClient = static::mockApiClient()->getMockHttpClient();
         /** @var \Apigee\Edge\Api\Monetization\Controller\RatePlanControllerInterface $ratePlanController */
-        $ratePlanController = new RatePlanController('phpunit', static::getOrganization(static::$client), $client);
+        $ratePlanController = new RatePlanController('phpunit', static::defaultTestOrganization(static::defaultAPIClient()), static::defaultAPIClient());
         /** @var \Apigee\Edge\Api\Monetization\Controller\AcceptedRatePlanControllerInterface $acceptedController */
-        $acceptedController = $this->getMockEntityController($client);
+        $acceptedController = $this->getMockEntityController();
         /** @var \Apigee\Edge\Api\Monetization\Entity\RatePlanInterface $ratePlan */
-        $ratePlan = $ratePlanController->load('phpunit');
+        $ratePlan = $ratePlanController->load('standard-rev');
         $startDate = new \DateTimeImmutable('now');
         $response = $this->getAcceptRatePlanResponse();
         $httpClient->addResponse($response);
         /** @var \Apigee\Edge\Api\Monetization\Entity\AcceptedRatePlanInterface $acceptedRatePlan */
         $acceptedRatePlan = $acceptedController->acceptRatePlan($ratePlan, $startDate);
-        $payload = json_decode((string) $client->getJournal()->getLastRequest()->getBody());
+        $payload = json_decode((string) static::mockApiClient()->getJournal()->getLastRequest()->getBody());
         // Make sure we do not send properties with null values.
         $this->assertObjectNotHasAttribute('endDate', $payload);
         $this->assertObjectNotHasAttribute('quotaTarget', $payload);
@@ -95,7 +86,7 @@ abstract class AcceptedRatePlanControllerTestBase extends OrganizationAwareEntit
         $httpClient->addResponse($response);
         /* @var \Apigee\Edge\Api\Monetization\Entity\AcceptedRatePlanInterface $acceptedRatePlan */
         $acceptedController->acceptRatePlan($ratePlan, $startDate, new \DateTimeImmutable('tomorrow'), 10, false, false);
-        $payload = json_decode((string) $client->getJournal()->getLastRequest()->getBody());
+        $payload = json_decode((string) static::mockApiClient()->getJournal()->getLastRequest()->getBody());
         $this->assertNotNull($payload->endDate);
         $this->assertEquals(10, $payload->quotaTarget);
         $this->assertEquals('false', $payload->suppressWarning);
@@ -104,17 +95,16 @@ abstract class AcceptedRatePlanControllerTestBase extends OrganizationAwareEntit
         $httpClient->addResponse($response);
         /* @var \Apigee\Edge\Api\Monetization\Entity\AcceptedRatePlanInterface $acceptedRatePlan */
         $acceptedController->acceptRatePlan($ratePlan, $startDate, new \DateTimeImmutable('tomorrow'), 10, true, true);
-        $payload = json_decode((string) $client->getJournal()->getLastRequest()->getBody());
+        $payload = json_decode((string) static::mockApiClient()->getJournal()->getLastRequest()->getBody());
         $this->assertEquals('true', $payload->suppressWarning);
         $this->assertEquals('true', $payload->waveTerminationCharge);
     }
 
     public function testUpdateSubscription(): void
     {
-        $client = new MockClient();
-        $httpClient = $client->getMockHttpClient();
+        $httpClient = static::mockApiClient()->getMockHttpClient();
         /** @var \Apigee\Edge\Api\Monetization\Controller\AcceptedRatePlanControllerInterface $acceptedController */
-        $acceptedController = $this->getMockEntityController($client);
+        $acceptedController = $this->getMockEntityController();
         $response = $this->getAcceptRatePlanResponse();
         // Response to the load().
         $httpClient->addResponse($response);
@@ -125,7 +115,7 @@ abstract class AcceptedRatePlanControllerTestBase extends OrganizationAwareEntit
         $originalStartDate = $acceptedRatePlan->getStartDate();
         $acceptedRatePlan->setStartDate(new \DateTimeImmutable('now'));
         $acceptedController->updateSubscription($acceptedRatePlan);
-        $payload = json_decode((string) $client->getJournal()->getLastRequest()->getBody());
+        $payload = json_decode((string) static::mockApiClient()->getJournal()->getLastRequest()->getBody());
         // Make sure we do not send properties with null values.
         $this->assertObjectNotHasAttribute('suppressWarning', $payload);
         $this->assertObjectNotHasAttribute('waveTerminationCharge', $payload);
@@ -135,7 +125,7 @@ abstract class AcceptedRatePlanControllerTestBase extends OrganizationAwareEntit
         // Response to updateSubscription().
         $httpClient->addResponse($response);
         $acceptedController->updateSubscription($acceptedRatePlan, false, false);
-        $payload = json_decode((string) $client->getJournal()->getLastRequest()->getBody());
+        $payload = json_decode((string) static::mockApiClient()->getJournal()->getLastRequest()->getBody());
         // Make sure we do not send properties with null values.
         $this->assertEquals('false', $payload->suppressWarning);
         $this->assertEquals('false', $payload->waveTerminationCharge);
@@ -143,7 +133,7 @@ abstract class AcceptedRatePlanControllerTestBase extends OrganizationAwareEntit
         // Response to updateSubscription().
         $httpClient->addResponse($response);
         $acceptedController->updateSubscription($acceptedRatePlan, true, true);
-        $payload = json_decode((string) $client->getJournal()->getLastRequest()->getBody());
+        $payload = json_decode((string) static::mockApiClient()->getJournal()->getLastRequest()->getBody());
         // Make sure we do not send properties with null values.
         $this->assertEquals('true', $payload->suppressWarning);
         $this->assertEquals('true', $payload->waveTerminationCharge);
@@ -159,15 +149,15 @@ abstract class AcceptedRatePlanControllerTestBase extends OrganizationAwareEntit
     /**
      * @inheritdoc
      */
-    protected static function getEntitySerializerValidator(): EntitySerializerValidatorInterface
+    protected function entitySerializerValidator(): EntitySerializerValidatorInterface
     {
         static $validator;
         if (null === $validator) {
-            $validator = new AcceptedRatePlanSerializerValidator(static::getEntitySerializer());
+            $validator = new AcceptedRatePlanSerializerValidator($this->entitySerializer());
         }
 
         return $validator;
     }
 
-    abstract protected static function getMockEntityController(ClientInterface $client): EntityControllerInterface;
+    abstract protected static function getMockEntityController(): EntityControllerInterface;
 }

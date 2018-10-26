@@ -28,8 +28,8 @@
         "timezone": "Australia/Eucla",
         "logoUrl": "http://example.com"
     },
-    "startDate": "2018-01-01 22:00:00",
-    "url": "http://example.com",
-    "tncText": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    "version": "1.0"
+    "startDate": "2018-01-01 00:00:59",
+    "url": "http://foo.example.com",
+    "tncText": "Maecenas tristique vulputate leo porta sagittis.",
+    "version": "2.0"
 }

@@ -24,9 +24,8 @@ use Apigee\Edge\Api\Monetization\Serializer\EntitySerializer;
 use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Controller\EntityListingControllerTrait;
 use Apigee\Edge\Serializer\EntitySerializerInterface;
+use Apigee\Edge\Tests\Test\Controller\MockClientAwareTrait;
 use Apigee\Edge\Tests\Test\Entity\MockEntity;
-use Apigee\Edge\Tests\Test\MockClient;
-use Apigee\Edge\Tests\Test\TestClientFactory;
 use Apigee\Edge\Utility\JsonDecoderAwareTrait;
 use Apigee\Edge\Utility\ResponseToArrayHelper;
 use GuzzleHttp\Psr7\Response;
@@ -34,22 +33,27 @@ use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\UriInterface;
 use Symfony\Component\Serializer\Encoder\JsonDecode;
 
+/**
+ * Class PaginatedEntityListingControllerAwareTraitTest.
+ *
+ * @monetization
+ */
 class PaginatedEntityListingControllerAwareTraitTest extends TestCase
 {
+    use MockClientAwareTrait;
+
     public function testEntityListing(): void
     {
-        /** @var \Apigee\Edge\Tests\Test\MockClient $client */
-        $client = TestClientFactory::getClient(MockClient::class);
         /** @var \Apigee\Edge\Tests\Test\HttpClient\MockHttpClient $httpClient */
-        $httpClient = $client->getMockHttpClient();
+        $httpClient = static::mockApiClient()->getMockHttpClient();
         $httpClient->setDefaultResponse(new Response(200, ['Content-Type' => 'application/json'], json_encode((object) [[]])));
-        $obj = new PaginatedEntityListingControllerAwareTraitClass($client);
+        $obj = new PaginatedEntityListingControllerAwareTraitClass(static::mockApiClient());
         $obj->getEntities();
-        $this->assertEquals('all=true', $client->getJournal()->getLastRequest()->getUri()->getQuery());
+        $this->assertEquals('all=true', static::mockApiClient()->getJournal()->getLastRequest()->getUri()->getQuery());
         $obj->getPaginatedEntityList();
-        $this->assertEquals('page=1', $client->getJournal()->getLastRequest()->getUri()->getQuery());
+        $this->assertEquals('page=1', static::mockApiClient()->getJournal()->getLastRequest()->getUri()->getQuery());
         $obj->getPaginatedEntityList(1, 2);
-        $this->assertEquals('page=2&size=1', $client->getJournal()->getLastRequest()->getUri()->getQuery());
+        $this->assertEquals('page=2&size=1', static::mockApiClient()->getJournal()->getLastRequest()->getUri()->getQuery());
     }
 }
 

@@ -19,35 +19,43 @@
 namespace Apigee\Edge\Tests\Api\Monetization\Controller;
 
 use Apigee\Edge\Api\Monetization\Controller\CompanyPrepaidBalanceController;
-use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Controller\EntityControllerInterface;
+use Apigee\Edge\Tests\Test\Controller\EntityControllerTester;
+use Apigee\Edge\Tests\Test\Controller\EntityControllerTesterInterface;
 use PHPUnit\Framework\Assert;
 
+/**
+ * Class CompanyPrepaidBalanceControllerTest.
+ *
+ * @group controller
+ * @group monetization
+ */
 class CompanyPrepaidBalanceControllerTest extends PrepaidBalanceControllerTestBase
 {
     protected static $companyName = 'phpunit';
 
-    protected static function getEntityController(): EntityControllerInterface
+    /**
+     * @inheritdoc
+     */
+    protected static function entityController(): EntityControllerTesterInterface
     {
-        static $controller;
-        if (null === $controller) {
-            $controller = new CompanyPrepaidBalanceController(self::$companyName, static::getOrganization(static::$client), static::$client);
-        }
-
-        return $controller;
+        return new EntityControllerTester(new CompanyPrepaidBalanceController(self::$companyName, static::defaultTestOrganization(static::defaultAPIClient()), static::defaultAPIClient()));
     }
 
     /**
      * @inheritdoc
      */
-    protected static function getMockEntityController(ClientInterface $client): EntityControllerInterface
+    protected static function getMockEntityController(): EntityControllerInterface
     {
-        return $controller = new CompanyPrepaidBalanceController(self::$companyName, static::getOrganization(static::$client), $client);
+        return $controller = new CompanyPrepaidBalanceController(self::$companyName, static::defaultTestOrganization(static::mockApiClient()), static::mockApiClient());
     }
 
+    /**
+     * @inheritdoc
+     */
     protected static function validateRecurringPath(string $actual): void
     {
-        $companyName = self::$companyName;
+        $companyName = static::$companyName;
         Assert::assertEquals("/v1/mint/organizations/phpunit/companies/{$companyName}/developer-balances/recurring-setup", $actual);
     }
 }

@@ -19,33 +19,37 @@
 namespace Apigee\Edge\Tests\Api\Monetization\Controller;
 
 use Apigee\Edge\Api\Monetization\Controller\DeveloperAcceptedRatePlanController;
-use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Controller\EntityControllerInterface;
+use Apigee\Edge\Tests\Test\Controller\EntityControllerTester;
+use Apigee\Edge\Tests\Test\Controller\EntityControllerTesterInterface;
 use Apigee\Edge\Tests\Test\HttpClient\FileSystemResponseFactory;
 use GuzzleHttp\Psr7\Request;
 use Psr\Http\Message\ResponseInterface;
 
+/**
+ * Class DeveloperAcceptedRatePlanControllerTest.
+ *
+ * @group controller
+ * @group monetization
+ */
 class DeveloperAcceptedRatePlanControllerTest extends AcceptedRatePlanControllerTestBase
 {
+    protected static $testDeveloperId = 'phpunit@example.com';
+
     /**
      * @inheritdoc
      */
-    protected static function getEntityController(): EntityControllerInterface
+    protected static function entityController(): EntityControllerTesterInterface
     {
-        static $controller;
-        if (null === $controller) {
-            $controller = new DeveloperAcceptedRatePlanController('phpunit@example.com', static::getOrganization(static::$client), static::$client);
-        }
-
-        return $controller;
+        return new EntityControllerTester(new DeveloperAcceptedRatePlanController(static::$testDeveloperId, static::defaultTestOrganization(static::defaultAPIClient()), static::defaultAPIClient()));
     }
 
     /**
      * @inheritdoc
      */
-    protected static function getMockEntityController(ClientInterface $client): EntityControllerInterface
+    protected static function getMockEntityController(): EntityControllerInterface
     {
-        return $controller = new DeveloperAcceptedRatePlanController('phpunit@example.com', static::getOrganization(static::$client), $client);
+        return $controller = new DeveloperAcceptedRatePlanController(static::$testDeveloperId, static::defaultTestOrganization(static::mockApiClient()), static::mockApiClient());
     }
 
     /**
@@ -53,6 +57,8 @@ class DeveloperAcceptedRatePlanControllerTest extends AcceptedRatePlanController
      */
     protected function getAcceptRatePlanResponse(): ResponseInterface
     {
-        return (new FileSystemResponseFactory())->createResponseForRequest(new Request('GET', 'v1/mint/organizations/phpunit/developers/phpunit@example.com/developer-rateplans/phpunit'));
+        $id = static::$testDeveloperId;
+
+        return (new FileSystemResponseFactory())->createResponseForRequest(new Request('GET', "v1/mint/organizations/phpunit/developers/{$id}/developer-rateplans/phpunit"));
     }
 }

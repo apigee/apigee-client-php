@@ -19,16 +19,23 @@
 namespace Apigee\Edge\Tests\Api\Monetization\Controller;
 
 use Apigee\Edge\Api\Monetization\Controller\ApiProductController;
-use Apigee\Edge\Controller\EntityControllerInterface;
+use Apigee\Edge\Tests\Test\Controller\EntityControllerTester;
+use Apigee\Edge\Tests\Test\Controller\EntityControllerTesterInterface;
 
-class ApiProductControllerTest extends OrganizationAwareEntityControllerTestBase
+/**
+ * Class ApiProductControllerTest.
+ *
+ * @group controller
+ * @group monetization
+ */
+class ApiProductControllerTest extends EntityControllerTestBase
 {
-    use EntityLoadControllerOperationTestTrait;
+    use EntityLoadOperationControllerTestTrait;
 
     public function testEligibleProducts(): void
     {
         /** @var \Apigee\Edge\Api\Monetization\Controller\ApiProductControllerInterface $controller */
-        $controller = $this->getEntityController();
+        $controller = $this->entityController();
         $products = $controller->getEligibleProductsByDeveloper('phpunit@example.com');
         $this->assertCount(2, $products);
         $products = $controller->getEligibleProductsByCompany('phpunit');
@@ -38,13 +45,8 @@ class ApiProductControllerTest extends OrganizationAwareEntityControllerTestBase
     /**
      * @inheritdoc
      */
-    protected static function getEntityController(): EntityControllerInterface
+    protected static function entityController(): EntityControllerTesterInterface
     {
-        static $controller;
-        if (null === $controller) {
-            $controller = new ApiProductController(static::getOrganization(static::$client), static::$client);
-        }
-
-        return $controller;
+        return new EntityControllerTester(new ApiProductController(static::defaultTestOrganization(static::defaultAPIClient()), static::defaultAPIClient()));
     }
 }

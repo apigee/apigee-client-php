@@ -19,20 +19,22 @@
 namespace Apigee\Edge\Tests\Api\Monetization\Controller;
 
 use Apigee\Edge\Api\Monetization\Controller\DeveloperActiveRatePlanController;
-use Apigee\Edge\Controller\EntityControllerInterface;
+use Apigee\Edge\Tests\Test\Controller\EntityControllerTester;
+use Apigee\Edge\Tests\Test\Controller\EntityControllerTesterInterface;
 
+/**
+ * Class DeveloperActiveRatePlanControllerTest.
+ *
+ * @group controller
+ * @group monetization
+ */
 class DeveloperActiveRatePlanControllerTest extends ActiveRatePlanControllerTestBase
 {
     /**
      * @inheritdoc
      */
-    protected static function getEntityController(): EntityControllerInterface
+    protected static function entityController(): EntityControllerTesterInterface
     {
-        static $controller;
-        if (null === $controller) {
-            $controller = new DeveloperActiveRatePlanController('phpunit@example.com', static::getOrganization(static::$client), static::$client);
-        }
-
-        return $controller;
+        return new EntityControllerTester(new DeveloperActiveRatePlanController('phpunit@example.com', static::defaultTestOrganization(static::defaultAPIClient()), static::defaultAPIClient()));
     }
 }

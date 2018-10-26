@@ -19,24 +19,27 @@
 namespace Apigee\Edge\Tests\Api\Monetization\Controller;
 
 use Apigee\Edge\Api\Monetization\Controller\DeveloperRoleController;
-use Apigee\Edge\ClientInterface;
-use Apigee\Edge\Controller\EntityControllerInterface;
-use Apigee\Edge\Tests\Test\Controller\OrganizationAwareEntityControllerValidatorTrait;
+use Apigee\Edge\Tests\Test\Controller\EntityControllerTester;
+use Apigee\Edge\Tests\Test\Controller\EntityControllerTesterInterface;
 
-class DeveloperRoleControllerTest extends OrganizationAwareEntityControllerTestBase
+/**
+ * Class DeveloperRoleControllerTest.
+ *
+ * @group controller
+ * @group monetization
+ */
+class DeveloperRoleControllerTest extends EntityControllerTestBase
 {
-    use OrganizationAwareEntityControllerValidatorTrait;
-
     public function testListing(): void
     {
         /** @var \Apigee\Edge\Api\Monetization\Controller\DeveloperRoleControllerInterface $controller */
-        $controller = $this->getEntityController();
+        $controller = $this->entityController();
         $entities = $controller->getEntities();
-        $input = json_decode((string) static::$client->getJournal()->getLastResponse()->getBody());
+        $input = json_decode((string) static::defaultAPIClient()->getJournal()->getLastResponse()->getBody());
         $input = reset($input);
         $i = 0;
         foreach ($entities as $role) {
-            $this->getEntitySerializerValidator()->validate($input[$i], $role);
+            $this->entitySerializerValidator()->validate($input[$i], $role);
             ++$i;
         }
     }
@@ -44,13 +47,8 @@ class DeveloperRoleControllerTest extends OrganizationAwareEntityControllerTestB
     /**
      * @inheritdoc
      */
-    protected static function getEntityController(ClientInterface $client = null): EntityControllerInterface
+    protected static function entityController(): EntityControllerTesterInterface
     {
-        static $controller;
-        if (null === $controller) {
-            $controller = new DeveloperRoleController(static::getOrganization(static::$client), static::$client);
-        }
-
-        return $controller;
+        return new EntityControllerTester(new DeveloperRoleController(static::defaultTestOrganization(static::defaultAPIClient()), static::defaultAPIClient()));
     }
 }

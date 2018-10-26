@@ -18,32 +18,35 @@
 
 namespace Apigee\Edge\Tests\Api\Monetization\Controller;
 
-use Apigee\Edge\Tests\Test\Controller\ClientAwareTestTrait;
-use Apigee\Edge\Tests\Test\Controller\EntityControllerAwareTrait;
+use Apigee\Edge\Entity\EntityInterface;
+use Apigee\Edge\Tests\Test\Controller\DefaultAPIClientAwareTrait;
+use Apigee\Edge\Tests\Test\Controller\EntityControllerAwareTestTrait;
 use PHPUnit\Framework\Assert;
 
 /**
- * Applicable to all entity controllers that implements
- * EntityDeleteControllerOperationInterface.
+ * Monetization API version of EntityDeleteOperationControllerTestTrait.
  */
-trait EntityDeleteControllerOperationTestTrait
+trait EntityDeleteOperationControllerTestTrait
 {
-    use EntityControllerAwareTrait;
-    use ClientAwareTestTrait;
+    use DefaultAPIClientAwareTrait;
+    use EntityControllerAwareTestTrait;
 
-    public function testDelete(): void
+    /**
+     * @depends testLoad
+     *
+     * @param \Apigee\Edge\Entity\EntityInterface $entity
+     */
+    public function testDelete(EntityInterface $entity): void
     {
         /** @var \Apigee\Edge\Api\Monetization\Controller\EntityDeleteOperationControllerInterface $controller */
-        $controller = static::getEntityController();
-        $controller->delete($this->getEntityIdForTestDelete());
+        $controller = static::entityController();
+        $controller->delete($entity->id());
         // Because MINT tests are pure offline API tests the best thing that we
         // can do (in general) is to make sure that the DELETE API call is sent
         // to the right endpoint.
-        Assert::assertEquals(200, static::getClient()->getJournal()->getLastResponse()->getStatusCode());
-    }
-
-    protected function getEntityIdForTestDelete(): string
-    {
-        return 'phpunit';
+        // TODO Maybe use the mock client to validate the path of the request.
+        // This way we would not need an offline test file to validate this
+        // API call.
+        Assert::assertEquals(200, static::defaultAPIClient()->getJournal()->getLastResponse()->getStatusCode());
     }
 }

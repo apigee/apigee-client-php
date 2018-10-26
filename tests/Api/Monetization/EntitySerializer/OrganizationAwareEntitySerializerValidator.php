@@ -20,6 +20,7 @@ namespace Apigee\Edge\Tests\Api\Monetization\EntitySerializer;
 
 use Apigee\Edge\Serializer\EntitySerializerInterface;
 use Apigee\Edge\Tests\Api\Monetization\EntitySerializer\PropertyValidator\OrganizationProfileEntityReferencePropertyValidator;
+use Apigee\Edge\Tests\Test\EntitySerializer\EntitySerializerValidator;
 
 class OrganizationAwareEntitySerializerValidator extends EntitySerializerValidator
 {

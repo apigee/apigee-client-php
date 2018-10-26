@@ -19,23 +19,35 @@
 namespace Apigee\Edge\Tests\Api\Monetization\Controller;
 
 use Apigee\Edge\Api\Monetization\Controller\DeveloperController;
-use Apigee\Edge\Controller\EntityControllerInterface;
 use Apigee\Edge\Tests\Api\Monetization\EntitySerializer\DeveloperEntitySerializerValidator;
-use Apigee\Edge\Tests\Api\Monetization\EntitySerializer\EntitySerializerValidatorInterface;
+use Apigee\Edge\Tests\Test\Controller\EntityControllerTester;
+use Apigee\Edge\Tests\Test\Controller\EntityControllerTesterInterface;
+use Apigee\Edge\Tests\Test\EntitySerializer\EntitySerializerValidatorInterface;
 
+/**
+ * Class DeveloperControllerTest.
+ *
+ * @group controller
+ * @group monetization
+ */
 class DeveloperControllerTest extends LegalEntityControllerTestBase
 {
     /**
      * @inheritdoc
      */
-    protected static function getEntityController(): EntityControllerInterface
+    protected function entitySerializerValidator(): EntitySerializerValidatorInterface
     {
-        static $controller;
-        if (null === $controller) {
-            $controller = new DeveloperController(static::getOrganization(static::$client), static::$client);
+        static $validator;
+        if (null === $validator) {
+            $validator = new DeveloperEntitySerializerValidator($this->entitySerializer());
         }
 
-        return $controller;
+        return $validator;
+    }
+
+    protected static function entityController(): EntityControllerTesterInterface
+    {
+        return new EntityControllerTester(new DeveloperController(static::defaultTestOrganization(static::defaultAPIClient()), static::defaultAPIClient()));
     }
 
     /**
@@ -44,18 +56,5 @@ class DeveloperControllerTest extends LegalEntityControllerTestBase
     protected function getTestEntityId(): string
     {
         return 'phpunit@example.com';
-    }
-
-    /**
-     * @inheritdoc
-     */
-    protected static function getEntitySerializerValidator(): EntitySerializerValidatorInterface
-    {
-        static $validator;
-        if (null === $validator) {
-            $validator = new DeveloperEntitySerializerValidator(static::getEntitySerializer());
-        }
-
-        return $validator;
     }
 }

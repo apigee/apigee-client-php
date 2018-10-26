@@ -18,26 +18,42 @@
 
 namespace Apigee\Edge\Tests\Api\Monetization\Controller;
 
-use Apigee\Edge\Tests\Api\Monetization\EntitySerializer\EntitySerializerValidatorInterface;
+use Apigee\Edge\Entity\EntityInterface;
 use Apigee\Edge\Tests\Api\Monetization\EntitySerializer\LegalEntitySerializerValidator;
+use Apigee\Edge\Tests\Test\EntitySerializer\EntitySerializerValidatorInterface;
 
 /**
  * Base class for validating developer- and company controllers.
  */
-abstract class LegalEntityControllerTestBase extends OrganizationAwareEntityControllerTestBase
+abstract class LegalEntityControllerTestBase extends EntityControllerTestBase
 {
-    use EntityLoadControllerOperationTestTrait;
+    use EntityLoadOperationControllerTestTrait {
+        testLoad as private traitTestLoad;
+    }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
-    protected static function getEntitySerializerValidator(): EntitySerializerValidatorInterface
+    public function testLoad($created = null): EntityInterface
+    {
+        return $this->traitTestLoad($this->getTestEntityId());
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function entitySerializerValidator(): EntitySerializerValidatorInterface
     {
         static $validator;
         if (null === $validator) {
-            $validator = new LegalEntitySerializerValidator(static::getEntitySerializer());
+            $validator = new LegalEntitySerializerValidator($this->entitySerializer());
         }
 
         return $validator;
+    }
+
+    protected function getTestEntityId(): string
+    {
+        return 'phpunit';
     }
 }
