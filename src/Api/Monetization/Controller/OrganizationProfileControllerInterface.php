@@ -18,6 +18,7 @@
 
 namespace Apigee\Edge\Api\Monetization\Controller;
 
+use Apigee\Edge\Api\Monetization\Entity\OrganizationProfileInterface;
 use Apigee\Edge\Controller\EntityControllerInterface;
 use Apigee\Edge\Controller\EntityUpdateControllerOperationInterface;
 
@@ -30,4 +31,8 @@ use Apigee\Edge\Controller\EntityUpdateControllerOperationInterface;
 interface OrganizationProfileControllerInterface extends EntityControllerInterface,
     EntityUpdateControllerOperationInterface
 {
+    /**
+     * @return \Apigee\Edge\Api\Monetization\Entity\OrganizationProfileInterface
+     */
+    public function load(): OrganizationProfileInterface;
 }
