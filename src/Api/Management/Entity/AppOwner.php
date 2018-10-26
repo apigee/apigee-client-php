@@ -18,23 +18,19 @@
 
 namespace Apigee\Edge\Api\Management\Entity;
 
-use Apigee\Edge\Entity\Property\DisplayNamePropertyInterface;
-use Apigee\Edge\Entity\Property\NamePropertyInterface;
+use Apigee\Edge\Entity\CommonEntityPropertiesAwareTrait;
+use Apigee\Edge\Entity\Entity;
+use Apigee\Edge\Entity\Property\AppsPropertyAwareTrait;
+use Apigee\Edge\Entity\Property\AttributesPropertyAwareTrait;
+use Apigee\Edge\Entity\Property\StatusPropertyAwareTrait;
 
 /**
- * Interface CompanyInterface.
+ * Base class for developer- and company entities.
  */
-interface CompanyInterface extends AppOwnerInterface,
-    DisplayNamePropertyInterface,
-    NamePropertyInterface
+abstract class AppOwner extends Entity implements AppOwnerInterface
 {
-    /**
-     * @param string $organization
-     */
-    public function setOrganization(string $organization): void;
-
-    /**
-     * @return null|string
-     */
-    public function getOrganization(): ?string;
+    use AttributesPropertyAwareTrait;
+    use AppsPropertyAwareTrait;
+    use CommonEntityPropertiesAwareTrait;
+    use StatusPropertyAwareTrait;
 }

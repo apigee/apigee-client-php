@@ -18,28 +18,19 @@
 
 namespace Apigee\Edge\Api\Management\Entity;
 
-use Apigee\Edge\Entity\CommonEntityPropertiesAwareTrait;
-use Apigee\Edge\Entity\Entity;
-use Apigee\Edge\Entity\Property\AppsPropertyAwareTrait;
-use Apigee\Edge\Entity\Property\AttributesPropertyAwareTrait;
 use Apigee\Edge\Entity\Property\DeveloperIdPropertyAwareTrait;
 use Apigee\Edge\Entity\Property\EmailPropertyAwareTrait;
 use Apigee\Edge\Entity\Property\OrganizationNamePropertyAwareTrait;
-use Apigee\Edge\Entity\Property\StatusPropertyAwareTrait;
 use Apigee\Edge\Structure\AttributesProperty;
 
 /**
  * Describes a Developer entity.
  */
-class Developer extends Entity implements DeveloperInterface
+class Developer extends AppOwner implements DeveloperInterface
 {
-    use AttributesPropertyAwareTrait;
-    use AppsPropertyAwareTrait;
-    use CommonEntityPropertiesAwareTrait;
     use DeveloperIdPropertyAwareTrait;
     use EmailPropertyAwareTrait;
     use OrganizationNamePropertyAwareTrait;
-    use StatusPropertyAwareTrait;
 
     /** @var string */
     protected $userName;

@@ -18,23 +18,15 @@
 
 namespace Apigee\Edge\Api\Management\Entity;
 
-use Apigee\Edge\Entity\CommonEntityPropertiesAwareTrait;
-use Apigee\Edge\Entity\Entity;
-use Apigee\Edge\Entity\Property\AppsPropertyAwareTrait;
-use Apigee\Edge\Entity\Property\AttributesPropertyAwareTrait;
 use Apigee\Edge\Entity\Property\DisplayNamePropertyAwareTrait;
 use Apigee\Edge\Entity\Property\NamePropertyAwareTrait;
-use Apigee\Edge\Entity\Property\StatusPropertyAwareTrait;
 use Apigee\Edge\Structure\AttributesProperty;
 
 /**
  * Describes a Company entity.
  */
-class Company extends Entity implements CompanyInterface
+class Company extends AppOwner implements CompanyInterface
 {
-    use AttributesPropertyAwareTrait;
-    use AppsPropertyAwareTrait;
-    use CommonEntityPropertiesAwareTrait;
     use DisplayNamePropertyAwareTrait;
     use NamePropertyAwareTrait;
 
