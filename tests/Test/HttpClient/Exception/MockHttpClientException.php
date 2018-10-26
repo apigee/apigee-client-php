@@ -16,19 +16,13 @@
  * limitations under the License.
  */
 
-namespace Apigee\Edge\Tests\Test\HttpClient;
+namespace Apigee\Edge\Tests\Test\HttpClient\Exception;
 
-use Http\Client\HttpAsyncClient;
-use Http\Client\HttpClient;
+use Apigee\Edge\Exception\ApiException;
 
 /**
- * Interface MockClientInterface.
- *
- * Creates a common interface that can be implemented by mock http clients
- * until this PR is not going to be merged.
- *
- * @see https://github.com/php-http/mock-client/pull/24
+ * All mock http client implementations must throw this exception.
  */
-interface MockHttpClientInterface extends HttpClient, HttpAsyncClient
+class MockHttpClientException extends ApiException
 {
 }

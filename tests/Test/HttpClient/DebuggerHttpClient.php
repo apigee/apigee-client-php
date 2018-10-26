@@ -33,7 +33,8 @@ use Psr\Log\NullLogger;
 /**
  * Debugger client that logs information about the sent requests to the API.
  *
- * Requires Guzzle >= 6.1.0. because on_stats option is only available since that version.
+ * Requires Guzzle >= 6.1.0. because on_stats option is only available since
+ * that version.
  *
  * @see https://github.com/guzzle/guzzle/pull/1202
  */

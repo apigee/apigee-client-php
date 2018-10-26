@@ -18,17 +18,16 @@
 
 namespace Apigee\Edge\Tests\Test\HttpClient;
 
+use Apigee\Edge\Tests\Test\HttpClient\Exception\MockHttpClientException;
 use Http\Client\Common\HttpAsyncClientEmulator;
 use Http\Client\HttpClient;
 use League\Flysystem\AdapterInterface;
 use Psr\Http\Message\RequestInterface;
 
 /**
- * Class FileSystemMockClient.
- *
- * Loads the content of an HTTP response from the file system.
+ * Loads the content of an HTTP response from the file system if available.
  */
-class FileSystemHttpMockHttpClient implements MockHttpClientInterface
+class FileSystemHttpMockClient implements MockHttpClientInterface
 {
     use HttpAsyncClientEmulator;
 
@@ -52,6 +51,10 @@ class FileSystemHttpMockHttpClient implements MockHttpClientInterface
      */
     public function sendRequest(RequestInterface $request)
     {
-        return $this->fileSystemResponseFactory->createResponseForRequest($request, 200, null, ['Content-Type' => 'application/json']);
+        try {
+            return $this->fileSystemResponseFactory->createResponseForRequest($request, 200, null, ['Content-Type' => 'application/json']);
+        } catch (\Exception $e) {
+            throw new MockHttpClientException($e->getMessage(), $e->getCode(), $e);
+        }
     }
 }

@@ -20,13 +20,13 @@ namespace Apigee\Edge\Tests\Test;
 
 use Apigee\Edge\Client;
 use Apigee\Edge\HttpClient\Utility\Builder;
-use Apigee\Edge\Tests\Test\HttpClient\FileSystemHttpMockHttpClient;
+use Apigee\Edge\Tests\Test\HttpClient\FileSystemHttpMockClient;
 use Apigee\Edge\Tests\Test\HttpClient\MockHttpClientInterface;
 use League\Flysystem\AdapterInterface;
 
 class FileSystemMockClient extends OfflineClientBase implements OfflineClientInterface
 {
-    /** @var \Apigee\Edge\Tests\Test\HttpClient\FileSystemHttpMockHttpClient */
+    /** @var \Apigee\Edge\Tests\Test\HttpClient\FileSystemHttpMockClient */
     private $httpClient;
 
     /**
@@ -36,7 +36,7 @@ class FileSystemMockClient extends OfflineClientBase implements OfflineClientInt
      */
     public function __construct(AdapterInterface $adapter = null)
     {
-        $this->httpClient = new FileSystemHttpMockHttpClient($adapter);
+        $this->httpClient = new FileSystemHttpMockClient($adapter);
         parent::__construct([Client::CONFIG_HTTP_CLIENT_BUILDER => new Builder($this->httpClient)]);
     }
 
