@@ -31,20 +31,20 @@ class CompanyAcceptedRatePlanController extends AcceptedRatePlanController
      *
      * @var string
      */
-    protected $company;
+    protected $companyName;
 
     /**
      * CompanyAcceptedRatePlanController constructor.
      *
-     * @param string $company
+     * @param string $companyName
      * @param string $organization
      * @param \Apigee\Edge\ClientInterface $client
      * @param \Apigee\Edge\Serializer\EntitySerializerInterface|null $entitySerializer
      */
-    public function __construct(string $company, string $organization, ClientInterface $client, ?EntitySerializerInterface $entitySerializer = null)
+    public function __construct(string $companyName, string $organization, ClientInterface $client, ?EntitySerializerInterface $entitySerializer = null)
     {
         parent::__construct($organization, $client, $entitySerializer);
-        $this->company = $company;
+        $this->companyName = $companyName;
     }
 
     /**
@@ -56,7 +56,7 @@ class CompanyAcceptedRatePlanController extends AcceptedRatePlanController
         // https://apidocs.apigee.com/monetize/apis/post/organizations/%7Borg_name%7D/developers/%7Bdeveloper_or_company_id%7D/developer-rateplans (create)
         // https://apidocs.apigee.com/monetize/apis/put/organizations/%7Borg_name%7D/developers/%7Bdeveloper_id%7D/developer-rateplans/%7Bplan_id%7D (update)
         // https://apidocs.apigee.com/monetize/apis/put/organizations/%7Borg_name%7D/developers/%7Bdeveloper_id%7D/developer-rateplans/%7Bplan_id%7D (load)
-        return $this->client->getUriFactory()->createUri("/mint/organizations/{$this->organization}/companies/{$this->company}/developer-rateplans");
+        return $this->client->getUriFactory()->createUri("/mint/organizations/{$this->organization}/companies/{$this->companyName}/developer-rateplans");
     }
 
     /**
@@ -73,7 +73,7 @@ class CompanyAcceptedRatePlanController extends AcceptedRatePlanController
     protected function buildContextForEntityTransformerInCreate(): array
     {
         $context = [];
-        $context[EntityNormalizer::MINT_ENTITY_REFERENCE_PROPERTY_VALUES]['developer'] = $this->company;
+        $context[EntityNormalizer::MINT_ENTITY_REFERENCE_PROPERTY_VALUES]['developer'] = $this->companyName;
 
         return $context;
     }
@@ -85,6 +85,6 @@ class CompanyAcceptedRatePlanController extends AcceptedRatePlanController
     {
         // For this API endpoint:
         // https://apidocs.apigee.com/monetize/apis/get/organizations/%7Borg_name%7D/developers/%7Bdeveloper_id%7D/developer-accepted-rateplans
-        return $this->client->getUriFactory()->createUri("/mint/organizations/{$this->organization}/companies/{$this->company}/developer-accepted-rateplans");
+        return $this->client->getUriFactory()->createUri("/mint/organizations/{$this->organization}/companies/{$this->companyName}/developer-accepted-rateplans");
     }
 }

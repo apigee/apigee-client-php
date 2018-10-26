@@ -29,20 +29,20 @@ class DeveloperPrepaidBalanceController extends PrepaidBalanceController impleme
      *
      * @var string
      */
-    protected $developer;
+    protected $developerId;
 
     /**
      * DeveloperPrepaidBalanceController constructor.
      *
-     * @param string $developer
+     * @param string $developerId
      * @param string $organization
      * @param \Apigee\Edge\ClientInterface $client
      * @param \Apigee\Edge\Serializer\EntitySerializerInterface|null $entitySerializer
      */
-    public function __construct(string $developer, string $organization, ClientInterface $client, ?EntitySerializerInterface $entitySerializer = null)
+    public function __construct(string $developerId, string $organization, ClientInterface $client, ?EntitySerializerInterface $entitySerializer = null)
     {
         parent::__construct($organization, $client, $entitySerializer);
-        $this->developer = $developer;
+        $this->developerId = $developerId;
     }
 
     /**
@@ -50,7 +50,7 @@ class DeveloperPrepaidBalanceController extends PrepaidBalanceController impleme
      */
     protected function getBaseEndpointUri(): UriInterface
     {
-        return $this->client->getUriFactory()->createUri("/mint/organizations/{$this->organization}/developers/{$this->developer}/developer-balances");
+        return $this->client->getUriFactory()->createUri("/mint/organizations/{$this->organization}/developers/{$this->developerId}/developer-balances");
     }
 
     /**
@@ -58,6 +58,6 @@ class DeveloperPrepaidBalanceController extends PrepaidBalanceController impleme
      */
     protected function getPrepaidBalanceEndpoint(): UriInterface
     {
-        return $this->client->getUriFactory()->createUri("/mint/organizations/{$this->organization}/developers/{$this->developer}/prepaid-developer-balance");
+        return $this->client->getUriFactory()->createUri("/mint/organizations/{$this->organization}/developers/{$this->developerId}/prepaid-developer-balance");
     }
 }

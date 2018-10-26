@@ -36,15 +36,15 @@ class DeveloperAcceptedRatePlanController extends AcceptedRatePlanController
     /**
      * DeveloperAcceptedRatePlanController constructor.
      *
-     * @param string $developer
+     * @param string $developerId
      * @param string $organization
      * @param \Apigee\Edge\ClientInterface $client
      * @param \Apigee\Edge\Serializer\EntitySerializerInterface|null $entitySerializer
      */
-    public function __construct(string $developer, string $organization, ClientInterface $client, ?EntitySerializerInterface $entitySerializer = null)
+    public function __construct(string $developerId, string $organization, ClientInterface $client, ?EntitySerializerInterface $entitySerializer = null)
     {
         parent::__construct($organization, $client, $entitySerializer);
-        $this->developer = $developer;
+        $this->developer = $developerId;
     }
 
     /**

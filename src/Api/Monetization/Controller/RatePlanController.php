@@ -24,6 +24,7 @@ use Apigee\Edge\Api\Monetization\Normalizer\EntityNormalizer;
 use Apigee\Edge\Api\Monetization\Serializer\RatePlanSerializer;
 use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Controller\EntityListingControllerTrait;
+use Apigee\Edge\Entity\EntityInterface;
 use Apigee\Edge\Serializer\EntitySerializerInterface;
 use Psr\Http\Message\UriInterface;
 
@@ -116,7 +117,7 @@ class RatePlanController extends OrganizationAwareEntityController implements Ra
     /**
      * @inheritDoc
      */
-    protected function buildEntityCreatePayload(\Apigee\Edge\Entity\EntityInterface $entity, array $context = []): string
+    protected function buildEntityCreatePayload(EntityInterface $entity, array $context = []): string
     {
         $context[EntityNormalizer::MINT_ENTITY_REFERENCE_PROPERTY_VALUES]['monetizationPackage'] = $this->apiPackage;
 

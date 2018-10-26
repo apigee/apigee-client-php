@@ -27,20 +27,20 @@ class CompanyPrepaidBalanceController extends PrepaidBalanceController implement
      *
      * @var string
      */
-    protected $company;
+    protected $companyName;
 
     /**
      * CompanyPrepaidBalanceController constructor.
      *
-     * @param string $company
+     * @param string $companyName
      * @param string $organization
      * @param \Apigee\Edge\ClientInterface $client
      * @param \Apigee\Edge\Serializer\EntitySerializerInterface|null $entitySerializer
      */
-    public function __construct(string $company, string $organization, \Apigee\Edge\ClientInterface $client, ?\Apigee\Edge\Serializer\EntitySerializerInterface $entitySerializer = null)
+    public function __construct(string $companyName, string $organization, \Apigee\Edge\ClientInterface $client, ?\Apigee\Edge\Serializer\EntitySerializerInterface $entitySerializer = null)
     {
         parent::__construct($organization, $client, $entitySerializer);
-        $this->company = $company;
+        $this->companyName = $companyName;
     }
 
     /**
@@ -48,7 +48,7 @@ class CompanyPrepaidBalanceController extends PrepaidBalanceController implement
      */
     protected function getBaseEndpointUri(): UriInterface
     {
-        return $this->client->getUriFactory()->createUri("/mint/organizations/{$this->organization}/companies/{$this->company}/developer-balances");
+        return $this->client->getUriFactory()->createUri("/mint/organizations/{$this->organization}/companies/{$this->companyName}/developer-balances");
     }
 
     /**
@@ -56,6 +56,6 @@ class CompanyPrepaidBalanceController extends PrepaidBalanceController implement
      */
     protected function getPrepaidBalanceEndpoint(): UriInterface
     {
-        return $this->client->getUriFactory()->createUri("/mint/organizations/{$this->organization}/companies/{$this->company}/prepaid-developer-balance");
+        return $this->client->getUriFactory()->createUri("/mint/organizations/{$this->organization}/companies/{$this->companyName}/prepaid-developer-balance");
     }
 }
