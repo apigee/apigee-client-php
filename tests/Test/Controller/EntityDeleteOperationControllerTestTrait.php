@@ -49,8 +49,6 @@ trait EntityDeleteOperationControllerTestTrait
         static::markOnlineTestSkipped(__FUNCTION__);
         // There is nothing to validate the entity returned in response.
         static::controllerForEntityDelete()->delete($entity->id());
-        // TODO Introduce an entity delete controller decorator and store created
-        // entities outside of these controller decorators in a global state.
         EntityStorage::getInstance()->removeEntity($entity->id(), static::entityController());
         $this->validateDeletedEntity($entity);
     }

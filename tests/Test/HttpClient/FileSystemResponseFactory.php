@@ -31,8 +31,6 @@ use Symfony\Component\Serializer\Encoder\JsonDecode;
 
 /**
  * Class FileSystemResponseFactory.
- *
- * TODO Parse files as templates and fill some values from the request body.
  */
 class FileSystemResponseFactory implements ResponseFactory
 {
