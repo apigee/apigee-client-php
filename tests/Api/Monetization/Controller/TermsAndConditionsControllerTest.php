@@ -28,7 +28,9 @@ use Apigee\Edge\Tests\Test\Controller\EntityCreateOperationControllerTester;
 use Apigee\Edge\Tests\Test\Controller\EntityCreateOperationControllerTraitTest;
 use Apigee\Edge\Tests\Test\Controller\EntityCreateOperationTestControllerTesterInterface;
 use Apigee\Edge\Tests\Test\Controller\EntityUpdateOperationControllerTestTrait;
+use Apigee\Edge\Tests\Test\Controller\MockClientAwareTrait;
 use Apigee\Edge\Tests\Test\TestClientFactory;
+use GuzzleHttp\Psr7\Response;
 
 /**
  * Class TermsAndConditionsControllerTest.
@@ -39,12 +41,32 @@ use Apigee\Edge\Tests\Test\TestClientFactory;
 class TermsAndConditionsControllerTest extends EntityControllerTestBase
 {
     use TermsAndConditionsEntityProviderTrait;
+    use MockClientAwareTrait;
     // The order of these trait matters. Check @depends in test methods.
     use EntityCreateOperationControllerTraitTest;
     use EntityLoadOperationControllerTestTrait;
     use EntityUpdateOperationControllerTestTrait;
     use EntityDeleteOperationControllerTestTrait;
     use TimezoneConversionTestTrait;
+
+    public function testGetEntities(): void
+    {
+        /** @var \Apigee\Edge\Tests\Test\HttpClient\MockHttpClient $httpClient */
+        $httpClient = static::mockApiClient()->getMockHttpClient();
+        $httpClient->setDefaultResponse(new Response(200, ['Content-Type' => 'application/json'], json_encode((object) [[]])));
+        /** @var \Apigee\Edge\Api\Monetization\Controller\TermsAndConditionsControllerInterface $controller */
+        $controller = new TermsAndConditionsController(static::defaultTestOrganization(static::mockApiClient()), static::mockApiClient());
+        $controller->getEntities();
+        $this->assertEquals('current=false&all=true', static::mockApiClient()->getJournal()->getLastRequest()->getUri()->getQuery());
+        $controller->getEntities(true);
+        $this->assertEquals('current=true&all=true', static::mockApiClient()->getJournal()->getLastRequest()->getUri()->getQuery());
+        $controller->getPaginatedEntityList();
+        $this->assertEquals('current=false&page=1', static::mockApiClient()->getJournal()->getLastRequest()->getUri()->getQuery());
+        $controller->getPaginatedEntityList(1, 2, true);
+        $this->assertEquals('current=true&page=2&size=1', static::mockApiClient()->getJournal()->getLastRequest()->getUri()->getQuery());
+        $controller->getPaginatedEntityList(2, 1, false);
+        $this->assertEquals('current=false&page=1&size=2', static::mockApiClient()->getJournal()->getLastRequest()->getUri()->getQuery());
+    }
 
     /**
      * @inheritdoc
