@@ -31,8 +31,10 @@ use Apigee\Edge\Tests\Test\Controller\EntityCreateOperationTestControllerTesterI
 use Apigee\Edge\Tests\Test\Controller\EntityDeleteOperationControllerTestTrait;
 use Apigee\Edge\Tests\Test\Controller\EntityLoadOperationControllerTestTrait;
 use Apigee\Edge\Tests\Test\Controller\EntityUpdateOperationControllerTestTrait;
+use Apigee\Edge\Tests\Test\Controller\MockClientAwareTrait;
 use Apigee\Edge\Tests\Test\TestClientFactory;
 use Apigee\Edge\Tests\Test\Utility\MarkOnlineTestSkippedAwareTrait;
+use GuzzleHttp\Psr7\Response;
 
 /**
  * Class DeveloperControllerTest.
@@ -46,6 +48,7 @@ class DeveloperControllerTest extends EntityControllerTestBase
     use DeveloperTestEntityProviderTrait;
     use DefaultAPIClientAwareTrait;
     use MarkOnlineTestSkippedAwareTrait;
+    use MockClientAwareTrait;
     // The order of these trait matters. Check @depends in test methods.
     use EntityCreateOperationControllerTraitTest;
     use EntityLoadOperationControllerTestTrait;
@@ -85,6 +88,38 @@ class DeveloperControllerTest extends EntityControllerTestBase
         $controller->setStatus($entity->id(), DeveloperInterface::STATUS_ACTIVE);
         $entity = $controller->load($entity->id());
         $this->assertEquals($entity->getStatus(), DeveloperInterface::STATUS_ACTIVE);
+    }
+
+    /**
+     * @expectedException \Apigee\Edge\Api\Management\Exception\DeveloperNotFoundException
+     */
+    public function testGetDeveloperByApp(): void
+    {
+        $developer = (object) [
+            'createdAt' => time() * 1000,
+            'lastModifiedAt' => time() * 1000,
+            'createdBy' => 'phpunit@example.com',
+            'lastModifiedBy' => 'phpunit@example.com',
+            'name' => 'phpunit',
+            'firstName' => 'phpunit',
+            'lastName' => 'phpunit',
+            'developerId' => 'phpunit',
+            'email' => 'phpunit@example.com',
+            'organizationName' => 'phpunit',
+            'attributes' => [],
+            'companies' => [],
+            'status' => DeveloperInterface::STATUS_ACTIVE,
+        ];
+        /** @var \Apigee\Edge\Api\Management\Controller\DeveloperControllerInterface $controller */
+        $controller = static::entityController(static::mockApiClient());
+        /** @var \Apigee\Edge\Tests\Test\HttpClient\MockHttpClient $httpClient */
+        $httpClient = static::mockApiClient()->getMockHttpClient();
+        $httpClient->addResponse(new Response(200, ['Content-Type' => 'application/json'], json_encode(['developer' => [$developer]])));
+        // Non-empty response payload can be parsed.
+        $this->assertInstanceOf(DeveloperInterface::class, $controller->getDeveloperByApp('app1'));
+        // Empty response should trigger an exception.
+        $httpClient->addResponse(new Response(200, ['Content-Type' => 'application/json'], json_encode(['developer' => []])));
+        $controller->getDeveloperByApp('app1');
     }
 
     /**
