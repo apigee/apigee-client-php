@@ -50,8 +50,14 @@ class CompanyActiveRatePlanController extends ActiveRatePlanController
      */
     protected function getBaseEndpointUri(): UriInterface
     {
-        // Active rate plans has no real base endpoint so let's fallback
-        // to the MINT companies endpoint.
-        return $this->client->getUriFactory()->createUri("/mint/organizations/{$this->organization}/companies/{$this->companyName}");
+        return $this->client->getUriFactory()->createUri("/mint/organizations/{$this->organization}/companies/{$this->companyName}/developer-rateplans");
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function getActiveRatePlanForApiProductEndpoint(string $apiProductName): UriInterface
+    {
+        return $this->client->getUriFactory()->createUri("/mint/organizations/{$this->organization}/companies/{$this->companyName}/products/{$apiProductName}/rate-plan-by-developer-product");
     }
 }

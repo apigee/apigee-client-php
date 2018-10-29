@@ -25,11 +25,14 @@ use Apigee\Edge\Controller\EntityListingControllerTrait;
 use Apigee\Edge\Serializer\EntitySerializerInterface;
 use Psr\Http\Message\UriInterface;
 
+/**
+ * Base class for developer- and company active rate plans listing.
+ */
 abstract class ActiveRatePlanController extends OrganizationAwareEntityController implements ActiveRatePlanControllerInterface
 {
     use EntityListingControllerTrait;
-    use PaginatedListingHelperTrait;
-    use PaginatedEntityListingControllerAwareTrait;
+    use EntityListingControllerAwareTrait;
+    use ListingHelperTrait;
 
     /**
      * ActiveRatePlanController constructor.
@@ -74,10 +77,7 @@ abstract class ActiveRatePlanController extends OrganizationAwareEntityControlle
      *
      * @return \Psr\Http\Message\UriInterface
      */
-    protected function getActiveRatePlanForApiProductEndpoint(string $apiProductName): UriInterface
-    {
-        return $this->getBaseEndpointUri()->withPath($this->getBaseEndpointUri()->getPath() . "/products/{$apiProductName}/rate-plan-by-developer-product");
-    }
+    abstract protected function getActiveRatePlanForApiProductEndpoint(string $apiProductName): UriInterface;
 
     /**
      * @inheritdoc

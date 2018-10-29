@@ -18,15 +18,33 @@
 
 namespace Apigee\Edge\Tests\Api\Monetization\Controller;
 
+use Apigee\Edge\Tests\Api\Monetization\EntitySerializer\RatePlanSerializerValidator;
+use Apigee\Edge\Tests\Test\EntitySerializer\EntitySerializerValidatorInterface;
+
 /**
  * Base test class for developer- and company active rate plans.
  */
 abstract class ActiveRatePlanControllerTestBase extends EntityControllerTestBase
 {
+    public function testGetEntities(): void
+    {
+        /** @var \Apigee\Edge\Api\Monetization\Controller\ActiveRatePlanControllerInterface $controller */
+        $controller = static::entityController();
+        /** @var \Apigee\Edge\Api\Monetization\Entity\RatePlanInterface[] $entities */
+        $entities = $controller->getEntities();
+        $json = json_decode((string) static::defaultAPIClient()->getJournal()->getLastResponse()->getBody());
+        $json = reset($json);
+        $i = 0;
+        foreach ($entities as $entity) {
+            $this->entitySerializerValidator()->validate($json[$i], $entity);
+            ++$i;
+        }
+    }
+
     public function testGetActiveRatePlanByApiProduct(): void
     {
         /** @var \Apigee\Edge\Api\Monetization\Controller\ActiveRatePlanControllerInterface $controller */
-        $controller = $this->entityController();
+        $controller = static::entityController();
         // This ensures the right API endpoint gets called and the API response
         // can be parsed.
         $controller->getActiveRatePlanByApiProduct('phpunit');
@@ -38,5 +56,18 @@ abstract class ActiveRatePlanControllerTestBase extends EntityControllerTestBase
             // File does not exist, so it is fine.
         }
         $this->assertEquals('showPrivate=true', static::defaultAPIClient()->getJournal()->getLastRequest()->getUri()->getQuery());
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function entitySerializerValidator(): EntitySerializerValidatorInterface
+    {
+        static $validator;
+        if (null === $validator) {
+            $validator = new RatePlanSerializerValidator($this->entitySerializer());
+        }
+
+        return $validator;
     }
 }

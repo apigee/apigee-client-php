@@ -29,7 +29,7 @@ use Apigee\Edge\Controller\EntityControllerInterface;
  * @see https://docs.apigee.com/api-platform/monetization/view-rate-plans#viewingrateplansusingtheapi-viewingallactiverateplansforadeveloperusingtheapi
  */
 interface ActiveRatePlanControllerInterface extends EntityControllerInterface,
-    PaginatedEntityListingControllerInterface
+    EntityListingControllerInterface
 {
     /**
      * Get active rate plan for a developer that contains an API product.
