@@ -19,7 +19,7 @@
 namespace Apigee\Edge\Tests\Api\Monetization\Controller;
 
 use Apigee\Edge\Api\Monetization\Controller\DeveloperPrepaidBalanceController;
-use Apigee\Edge\Controller\EntityControllerInterface;
+use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Tests\Test\Controller\EntityControllerTester;
 use Apigee\Edge\Tests\Test\Controller\EntityControllerTesterInterface;
 use PHPUnit\Framework\Assert;
@@ -37,17 +37,11 @@ class DeveloperPrepaidBalanceControllerTest extends PrepaidBalanceControllerTest
     /**
      * @inheritdoc
      */
-    protected static function entityController(): EntityControllerTesterInterface
+    protected static function entityController(ClientInterface $client = null): EntityControllerTesterInterface
     {
-        return new EntityControllerTester(new DeveloperPrepaidBalanceController(self::$developerId, static::defaultTestOrganization(static::defaultAPIClient()), static::defaultAPIClient()));
-    }
+        $client = $client ?? static::defaultAPIClient();
 
-    /**
-     * @inheritdoc
-     */
-    protected static function getMockEntityController(): EntityControllerInterface
-    {
-        return new DeveloperPrepaidBalanceController(self::$developerId, static::defaultTestOrganization(static::mockApiClient()), static::mockApiClient());
+        return new EntityControllerTester(new DeveloperPrepaidBalanceController(self::$developerId, static::defaultTestOrganization($client), $client));
     }
 
     /**

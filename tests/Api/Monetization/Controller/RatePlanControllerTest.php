@@ -26,6 +26,7 @@ use Apigee\Edge\Api\Monetization\Entity\DeveloperRatePlanInterface;
 use Apigee\Edge\Api\Monetization\Entity\EntityInterface;
 use Apigee\Edge\Api\Monetization\Entity\RatePlanRevisionInterface;
 use Apigee\Edge\Api\Monetization\Entity\StandardRatePlanInterface;
+use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Tests\Api\Monetization\EntitySerializer\RatePlanSerializerValidator;
 use Apigee\Edge\Tests\Test\Controller\EntityControllerTester;
 use Apigee\Edge\Tests\Test\Controller\EntityControllerTesterInterface;
@@ -158,9 +159,11 @@ class RatePlanControllerTest extends EntityControllerTestBase
     /**
      * @inheritdoc
      */
-    protected static function entityController(): EntityControllerTesterInterface
+    protected static function entityController(ClientInterface $client = null): EntityControllerTesterInterface
     {
-        return new EntityControllerTester(new RatePlanController('phpunit', static::defaultTestOrganization(static::defaultAPIClient()), static::defaultAPIClient()));
+        $client = $client ?? static::defaultAPIClient();
+
+        return new EntityControllerTester(new RatePlanController('phpunit', static::defaultTestOrganization($client), $client));
     }
 
     protected function getTestEntityForTimezoneConversion(): EntityInterface

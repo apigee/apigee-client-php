@@ -19,6 +19,7 @@
 namespace Apigee\Edge\Tests\Api\Monetization\Controller;
 
 use Apigee\Edge\Api\Monetization\Controller\ApiPackageController;
+use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Tests\Api\Monetization\EntitySerializer\ApiPackageSerializerValidator;
 use Apigee\Edge\Tests\Test\Controller\EntityControllerTester;
 use Apigee\Edge\Tests\Test\Controller\EntityControllerTesterInterface;
@@ -37,7 +38,7 @@ class ApiPackageControllerTest extends EntityControllerTestBase
     public function testGetAvailableApiPackages(): void
     {
         /** @var \Apigee\Edge\Api\Monetization\Controller\ApiPackageControllerInterface $controller */
-        $controller = $this->entityController();
+        $controller = static::entityController();
         $packages = $controller->getAvailableApiPackagesByDeveloper('phpunit@example.com');
         $this->assertCount(2, $packages);
         $this->assertEquals('current=false&allAvailable=true', static::defaultAPIClient()->getJournal()->getLastRequest()->getUri()->getQuery());
@@ -57,7 +58,7 @@ class ApiPackageControllerTest extends EntityControllerTestBase
     public function testAddProduct(): void
     {
         /** @var \Apigee\Edge\Api\Monetization\Controller\ApiPackageControllerInterface $controller */
-        $controller = $this->entityController();
+        $controller = static::entityController();
         // To spare some extra lines of code we use the file system http client
         // instead of the mock http client.
         $controller->addProduct('phpunit', 'product1');
@@ -67,7 +68,7 @@ class ApiPackageControllerTest extends EntityControllerTestBase
     public function testDeleteProduct(): void
     {
         /** @var \Apigee\Edge\Api\Monetization\Controller\ApiPackageControllerInterface $controller */
-        $controller = $this->entityController();
+        $controller = static::entityController();
         // To spare some extra lines of code we use the file system http client
         // instead of the mock http client.
         $controller->deleteProduct('phpunit', 'product1');
@@ -77,9 +78,11 @@ class ApiPackageControllerTest extends EntityControllerTestBase
     /**
      * @inheritdoc
      */
-    protected static function entityController(): EntityControllerTesterInterface
+    protected static function entityController(ClientInterface $client = null): EntityControllerTesterInterface
     {
-        return new EntityControllerTester(new ApiPackageController(static::defaultTestOrganization(static::defaultAPIClient()), static::defaultAPIClient()));
+        $client = $client ?? static::defaultAPIClient();
+
+        return new EntityControllerTester(new ApiPackageController(static::defaultTestOrganization($client), $client));
     }
 
     /**

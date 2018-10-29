@@ -18,7 +18,6 @@
 
 namespace Apigee\Edge\Tests\Api\Monetization\Controller;
 
-use Apigee\Edge\Controller\EntityControllerInterface;
 use Apigee\Edge\Tests\Api\Monetization\EntitySerializer\PrepaidBalanceSerializerValidator;
 use Apigee\Edge\Tests\Test\Controller\MockClientAwareTrait;
 use Apigee\Edge\Tests\Test\EntitySerializer\EntitySerializerValidatorInterface;
@@ -34,7 +33,7 @@ abstract class PrepaidBalanceControllerTestBase extends EntityControllerTestBase
     public function testGetEntities(): void
     {
         /** @var \Apigee\Edge\Api\Monetization\Controller\PrepaidBalanceControllerInterface $controller */
-        $controller = $this->entityController();
+        $controller = static::entityController();
         /** @var \Apigee\Edge\Api\Monetization\Entity\BalanceInterface[] $entities */
         $entities = $controller->getEntities();
         $json = json_decode((string) static::defaultAPIClient()->getJournal()->getLastResponse()->getBody());
@@ -56,7 +55,7 @@ abstract class PrepaidBalanceControllerTestBase extends EntityControllerTestBase
         $httpClient = static::mockApiClient()->getMockHttpClient();
         $httpClient->setDefaultResponse(new Response(200, ['Content-Type' => 'application/json'], json_encode((object) [])));
         /** @var \Apigee\Edge\Api\Monetization\Controller\PrepaidBalanceControllerInterface $controller */
-        $controller = $this->getMockEntityController();
+        $controller = static::entityController(static::mockApiClient());
         $currencyCode = 'USD';
         $paymentProviderId = 'example';
         $replenishAmount = 10;
@@ -95,7 +94,7 @@ abstract class PrepaidBalanceControllerTestBase extends EntityControllerTestBase
     public function testGetPrepaidBalance(): void
     {
         /** @var \Apigee\Edge\Api\Monetization\Controller\PrepaidBalanceControllerInterface $controller */
-        $controller = $this->entityController();
+        $controller = static::entityController();
         /** @var \Apigee\Edge\Api\Monetization\Entity\PrepaidBalanceInterface[] $entities */
         $entities = $controller->getPrepaidBalance(new \DateTimeImmutable('2018-10-01'));
         $json = json_decode((string) static::defaultAPIClient()->getJournal()->getLastResponse()->getBody());
@@ -125,7 +124,7 @@ abstract class PrepaidBalanceControllerTestBase extends EntityControllerTestBase
         $httpClient = static::mockApiClient()->getMockHttpClient();
         $httpClient->setDefaultResponse(new Response(200, ['Content-Type' => 'application/json'], json_encode((object) [[]])));
         /** @var \Apigee\Edge\Api\Monetization\Controller\PrepaidBalanceControllerInterface $controller */
-        $controller = $this->getMockEntityController();
+        $controller = static::entityController(static::mockApiClient());
         $currencyCode = 'USD';
         $billingMonth = new \DateTimeImmutable('now');
         $balance = $controller->getPrepaidBalanceByCurrency($currencyCode, $billingMonth);
@@ -138,8 +137,6 @@ abstract class PrepaidBalanceControllerTestBase extends EntityControllerTestBase
     }
 
     abstract protected static function validateRecurringPath(string $actual): void;
-
-    abstract protected static function getMockEntityController(): EntityControllerInterface;
 
     /**
      * @inheritDoc

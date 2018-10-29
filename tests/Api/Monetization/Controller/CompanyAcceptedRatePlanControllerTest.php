@@ -19,7 +19,7 @@
 namespace Apigee\Edge\Tests\Api\Monetization\Controller;
 
 use Apigee\Edge\Api\Monetization\Controller\CompanyAcceptedRatePlanController;
-use Apigee\Edge\Controller\EntityControllerInterface;
+use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Tests\Test\Controller\EntityControllerTester;
 use Apigee\Edge\Tests\Test\Controller\EntityControllerTesterInterface;
 use Apigee\Edge\Tests\Test\HttpClient\FileSystemResponseFactory;
@@ -39,17 +39,11 @@ class CompanyAcceptedRatePlanControllerTest extends AcceptedRatePlanControllerTe
     /**
      * @inheritdoc
      */
-    protected static function entityController(): EntityControllerTesterInterface
+    protected static function entityController(ClientInterface $client = null): EntityControllerTesterInterface
     {
-        return new EntityControllerTester(new CompanyAcceptedRatePlanController(static::$testCompanyName, static::defaultTestOrganization(static::defaultAPIClient()), static::defaultAPIClient()));
-    }
+        $client = $client ?? static::defaultAPIClient();
 
-    /**
-     * @inheritdoc
-     */
-    protected static function getMockEntityController(): EntityControllerInterface
-    {
-        return $controller = new CompanyAcceptedRatePlanController(static::$testCompanyName, static::defaultTestOrganization(static::mockApiClient()), static::mockApiClient());
+        return new EntityControllerTester(new CompanyAcceptedRatePlanController(static::$testCompanyName, static::defaultTestOrganization($client), $client));
     }
 
     /**

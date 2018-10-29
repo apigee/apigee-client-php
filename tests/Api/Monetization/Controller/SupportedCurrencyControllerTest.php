@@ -19,6 +19,7 @@
 namespace Apigee\Edge\Tests\Api\Monetization\Controller;
 
 use Apigee\Edge\Api\Monetization\Controller\SupportedCurrencyController;
+use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Entity\EntityInterface;
 use Apigee\Edge\Tests\Api\Monetization\Entity\SupportedCurrencyEntityProviderTrait;
 use Apigee\Edge\Tests\Test\Controller\EntityControllerTester;
@@ -47,9 +48,11 @@ class SupportedCurrencyControllerTest extends EntityControllerTestBase
     /**
      * @inheritdoc
      */
-    protected static function entityController(): EntityControllerTesterInterface
+    protected static function entityController(ClientInterface $client = null): EntityControllerTesterInterface
     {
-        return new EntityControllerTester(new SupportedCurrencyController(static::defaultTestOrganization(static::defaultAPIClient()), static::defaultAPIClient()));
+        $client = $client ?? static::defaultAPIClient();
+
+        return new EntityControllerTester(new SupportedCurrencyController(static::defaultTestOrganization($client), $client));
     }
 
     /**

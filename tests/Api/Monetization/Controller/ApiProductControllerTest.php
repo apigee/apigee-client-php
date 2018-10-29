@@ -19,6 +19,7 @@
 namespace Apigee\Edge\Tests\Api\Monetization\Controller;
 
 use Apigee\Edge\Api\Monetization\Controller\ApiProductController;
+use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Tests\Test\Controller\EntityControllerTester;
 use Apigee\Edge\Tests\Test\Controller\EntityControllerTesterInterface;
 
@@ -35,7 +36,7 @@ class ApiProductControllerTest extends EntityControllerTestBase
     public function testEligibleProducts(): void
     {
         /** @var \Apigee\Edge\Api\Monetization\Controller\ApiProductControllerInterface $controller */
-        $controller = $this->entityController();
+        $controller = static::entityController();
         $products = $controller->getEligibleProductsByDeveloper('phpunit@example.com');
         $this->assertCount(2, $products);
         $products = $controller->getEligibleProductsByCompany('phpunit');
@@ -45,8 +46,10 @@ class ApiProductControllerTest extends EntityControllerTestBase
     /**
      * @inheritdoc
      */
-    protected static function entityController(): EntityControllerTesterInterface
+    protected static function entityController(ClientInterface $client = null): EntityControllerTesterInterface
     {
-        return new EntityControllerTester(new ApiProductController(static::defaultTestOrganization(static::defaultAPIClient()), static::defaultAPIClient()));
+        $client = $client ?? static::defaultAPIClient();
+
+        return new EntityControllerTester(new ApiProductController(static::defaultTestOrganization($client), $client));
     }
 }
