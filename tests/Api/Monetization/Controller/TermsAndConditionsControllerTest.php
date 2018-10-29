@@ -57,11 +57,11 @@ class TermsAndConditionsControllerTest extends EntityControllerTestBase
         /** @var \Apigee\Edge\Api\Monetization\Controller\TermsAndConditionsControllerInterface $controller */
         $controller = new TermsAndConditionsController(static::defaultTestOrganization(static::mockApiClient()), static::mockApiClient());
         $controller->getEntities();
-        $this->assertEquals('current=false&all=true', static::mockApiClient()->getJournal()->getLastRequest()->getUri()->getQuery());
+        $this->assertEquals('all=true', static::mockApiClient()->getJournal()->getLastRequest()->getUri()->getQuery());
         $controller->getEntities(true);
         $this->assertEquals('current=true&all=true', static::mockApiClient()->getJournal()->getLastRequest()->getUri()->getQuery());
         $controller->getPaginatedEntityList();
-        $this->assertEquals('current=false&page=1', static::mockApiClient()->getJournal()->getLastRequest()->getUri()->getQuery());
+        $this->assertEquals('page=1', static::mockApiClient()->getJournal()->getLastRequest()->getUri()->getQuery());
         $controller->getPaginatedEntityList(1, 2, true);
         $this->assertEquals('current=true&page=2&size=1', static::mockApiClient()->getJournal()->getLastRequest()->getUri()->getQuery());
         $controller->getPaginatedEntityList(2, 1, false);

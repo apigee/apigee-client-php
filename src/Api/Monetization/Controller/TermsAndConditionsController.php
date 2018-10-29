@@ -47,17 +47,27 @@ class TermsAndConditionsController extends OrganizationAwareEntityController imp
     /**
      * @inheritdoc
      */
-    public function getEntities(bool $currentOnly = false): array
+    public function getEntities(bool $currentOnly = null): array
     {
-        return $this->listAllEntities($this->getBaseEndpointUri()->withQuery(http_build_query(['current' => $currentOnly ? 'true' : 'false'])));
+        $queryParams = [];
+        if (null !== $currentOnly) {
+            $queryParams = ['current' => $currentOnly ? 'true' : 'false'];
+        }
+
+        return $this->listAllEntities($this->getBaseEndpointUri()->withQuery(http_build_query($queryParams)));
     }
 
     /**
      * @inheritdoc
      */
-    public function getPaginatedEntityList(int $limit = null, int $page = 1, bool $currentOnly = false): array
+    public function getPaginatedEntityList(int $limit = null, int $page = 1, bool $currentOnly = null): array
     {
-        return $this->listEntitiesInRange($this->getBaseEndpointUri()->withQuery(http_build_query(['current' => $currentOnly ? 'true' : 'false'])), $limit, $page);
+        $queryParams = [];
+        if (null !== $currentOnly) {
+            $queryParams = ['current' => $currentOnly ? 'true' : 'false'];
+        }
+
+        return $this->listEntitiesInRange($this->getBaseEndpointUri()->withQuery(http_build_query($queryParams)), $limit, $page);
     }
 
     /**
