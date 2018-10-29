@@ -22,25 +22,27 @@ use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Serializer\EntitySerializerInterface;
 use Psr\Http\Message\UriInterface;
 
-class DeveloperAcceptedTermsAndConditionsController extends AcceptedTermsAndConditionsController
+class CompanyTermsAndConditionsController extends LegalEntityTermsAndConditionsController
 {
     /**
+     * Name of the company.
+     *
      * @var string
      */
-    protected $developerId;
+    protected $companyName;
 
     /**
-     * DeveloperAcceptedTermsAndConditionsController constructor.
+     * CompanyAcceptedTermsAndConditionsController constructor.
      *
-     * @param string $developerId
+     * @param string $companyName
      * @param string $organization
      * @param \Apigee\Edge\ClientInterface $client
      * @param \Apigee\Edge\Serializer\EntitySerializerInterface|null $entitySerializer
      */
-    public function __construct(string $developerId, string $organization, ClientInterface $client, ?EntitySerializerInterface $entitySerializer = null)
+    public function __construct(string $companyName, string $organization, ClientInterface $client, ?EntitySerializerInterface $entitySerializer = null)
     {
         parent::__construct($organization, $client, $entitySerializer);
-        $this->developerId = $developerId;
+        $this->companyName = $companyName;
     }
 
     /**
@@ -48,7 +50,7 @@ class DeveloperAcceptedTermsAndConditionsController extends AcceptedTermsAndCond
      */
     protected function getBaseEndpointUri(): UriInterface
     {
-        return $this->client->getUriFactory()->createUri("/mint/organizations/{$this->organization}/developers/{$this->developerId}/developer-tncs");
+        return $this->client->getUriFactory()->createUri("/mint/organizations/{$this->organization}/companies/{$this->companyName}/developer-tncs");
     }
 
     /**
@@ -56,6 +58,6 @@ class DeveloperAcceptedTermsAndConditionsController extends AcceptedTermsAndCond
      */
     protected function getAcceptTermsAndConditionsEndpoint(string $tncId): UriInterface
     {
-        return $this->client->getUriFactory()->createUri("/mint/organizations/{$this->organization}/developers/{$this->developerId}/tncs/{$tncId}/developer-tncs");
+        return $this->client->getUriFactory()->createUri("/mint/organizations/{$this->organization}/companies/{$this->companyName}/tncs/{$tncId}/developer-tncs");
     }
 }

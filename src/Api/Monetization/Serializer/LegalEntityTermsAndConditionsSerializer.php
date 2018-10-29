@@ -18,12 +18,10 @@
 
 namespace Apigee\Edge\Api\Monetization\Serializer;
 
-use Apigee\Edge\Api\Monetization\Denormalizer\AcceptedTermsAndConditionsDenormalizer;
 use Apigee\Edge\Api\Monetization\Denormalizer\TermsAndConditionsDenormalizer;
-use Apigee\Edge\Api\Monetization\Normalizer\AcceptedTermsAndConditionsNormalizer;
 use Apigee\Edge\Api\Monetization\Normalizer\TermsAndConditionsNormalizer;
 
-class AcceptedTermsAndConditionsSerializer extends EntitySerializer
+class LegalEntityTermsAndConditionsSerializer extends EntitySerializer
 {
     /**
      * @inheritDoc
@@ -34,8 +32,6 @@ class AcceptedTermsAndConditionsSerializer extends EntitySerializer
 
         return array_merge(
             [
-                new AcceptedTermsAndConditionsDenormalizer(),
-                new AcceptedTermsAndConditionsNormalizer(),
                 new TermsAndConditionsDenormalizer(),
                 new TermsAndConditionsNormalizer(),
             ],

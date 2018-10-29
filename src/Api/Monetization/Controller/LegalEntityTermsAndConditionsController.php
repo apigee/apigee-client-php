@@ -18,9 +18,8 @@
 
 namespace Apigee\Edge\Api\Monetization\Controller;
 
-use Apigee\Edge\Api\Monetization\Entity\TermsAndConditionsInterface;
-use Apigee\Edge\Api\Monetization\Serializer\AcceptedTermsAndConditionsSerializer;
-use Apigee\Edge\Api\Monetization\Structure\AcceptedTermsAndConditions;
+use Apigee\Edge\Api\Monetization\Serializer\LegalEntityTermsAndConditionsSerializer;
+use Apigee\Edge\Api\Monetization\Structure\LegalEntityTermsAndConditionsHistoryItem;
 use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Controller\EntityListingControllerTrait;
 use Apigee\Edge\Serializer\EntitySerializerInterface;
@@ -30,7 +29,7 @@ use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
 /**
  * Base class for developer- and company accepted terms and conditions.
  */
-abstract class AcceptedTermsAndConditionsController extends OrganizationAwareEntityController implements AcceptedTermsAndConditionsControllerInterface
+abstract class LegalEntityTermsAndConditionsController extends OrganizationAwareEntityController implements LegalEntityTermsAndConditionsControllerInterface
 {
     use EntityListingControllerTrait;
     use ListingHelperTrait {
@@ -46,32 +45,52 @@ abstract class AcceptedTermsAndConditionsController extends OrganizationAwareEnt
      */
     public function __construct(string $organization, ClientInterface $client, ?EntitySerializerInterface $entitySerializer = null)
     {
-        $entitySerializer = $entitySerializer ?? new AcceptedTermsAndConditionsSerializer();
+        $entitySerializer = $entitySerializer ?? new LegalEntityTermsAndConditionsSerializer();
         parent::__construct($organization, $client, $entitySerializer);
     }
 
     /**
      * @inheritdoc
      */
-    public function getAcceptedTermsAndConditions(): array
+    public function getTermsAndConditionsHistory(): array
     {
         return $this->listEntities($this->getBaseEndpointUri());
     }
 
     /**
-     * @inheritdoc
-     *
-     * @psalm-suppress PossiblyNullArgument - id can not be null here.
-     * @psalm-suppress PossiblyNullReference - it can not be null here.
+     * @inheritDoc
      */
-    public function acceptTermsAndConditions(TermsAndConditionsInterface $tnc, \DateTimeImmutable $auditDate): AcceptedTermsAndConditions
+    public function acceptTermsAndConditionsById(string $tncId): LegalEntityTermsAndConditionsHistoryItem
     {
-        $response = $this->client->post($this->getAcceptTermsAndConditionsEndpoint($tnc->id()),
+        $response = $this->client->post($this->getAcceptTermsAndConditionsEndpoint($tncId),
             (string) json_encode((object) [
-            'action' => AcceptedTermsAndConditions::ACTION_ACCEPTED,
-            // Ensure we are sending the audit date in the right timezone.
-            'auditDate' => $this->entitySerializer->normalize($auditDate, null, [DateTimeNormalizer::TIMEZONE_KEY => $tnc->getOrganization()->getTimezone()]),
-        ]));
+                'action' => LegalEntityTermsAndConditionsHistoryItem::ACTION_ACCEPTED,
+                // It does not matter what time we send here and in which
+                // timezone.
+                // @see \Apigee\Edge\Api\Monetization\Structure\LegalEntityTermsAndConditionsHistoryItem::$auditDate
+                'auditDate' => $this->entitySerializer->normalize(new \DateTimeImmutable('now'), null, [DateTimeNormalizer::TIMEZONE_KEY => 'UTC']),
+            ]));
+
+        return $this->entitySerializer->deserialize(
+            (string) $response->getBody(),
+            $this->getEntityClass(),
+            'json'
+        );
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function declineTermsAndConditionsById(string $tncId): LegalEntityTermsAndConditionsHistoryItem
+    {
+        $response = $this->client->post($this->getAcceptTermsAndConditionsEndpoint($tncId),
+            (string) json_encode((object) [
+                'action' => LegalEntityTermsAndConditionsHistoryItem::ACTION_DECLINED,
+                // It does not matter what time we send here and in which
+                // timezone.
+                // @see \Apigee\Edge\Api\Monetization\Structure\LegalEntityTermsAndConditionsHistoryItem::$auditDate
+                'auditDate' => $this->entitySerializer->normalize(new \DateTimeImmutable('now'), null, [DateTimeNormalizer::TIMEZONE_KEY => 'UTC']),
+            ]));
 
         return $this->entitySerializer->deserialize(
             (string) $response->getBody(),
@@ -106,6 +125,6 @@ abstract class AcceptedTermsAndConditionsController extends OrganizationAwareEnt
      */
     protected function getEntityClass(): string
     {
-        return AcceptedTermsAndConditions::class;
+        return LegalEntityTermsAndConditionsHistoryItem::class;
     }
 }

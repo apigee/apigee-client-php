@@ -24,9 +24,10 @@ use Apigee\Edge\Api\Monetization\Entity\TermsAndConditionsInterface;
 use Apigee\Edge\Structure\BaseObject;
 
 /**
- * Represents an accepted terms and conditions by a developer- or company.
+ * Represents an accepted or declined terms & conditions by a developer- or
+ * company.
  */
-final class AcceptedTermsAndConditions extends BaseObject implements IdPropertyInterface
+final class LegalEntityTermsAndConditionsHistoryItem extends BaseObject implements IdPropertyInterface
 {
     use IdPropertyAwareTrait;
 
@@ -60,6 +61,8 @@ final class AcceptedTermsAndConditions extends BaseObject implements IdPropertyI
 
     /**
      * @param \DateTimeImmutable $auditDate
+     *
+     * @internal
      */
     public function setAuditDate(\DateTimeImmutable $auditDate): void
     {
