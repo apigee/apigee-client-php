@@ -18,6 +18,7 @@
 
 namespace Apigee\Edge\Tests\Api\Management\Controller;
 
+use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Entity\EntityInterface;
 use Apigee\Edge\Tests\Api\Management\Entity\ApiProductTestEntityProviderTrait;
 use Apigee\Edge\Tests\Test\Controller\DefaultAPIClientAwareTrait;
@@ -82,9 +83,9 @@ class ApiProductControllerTest extends EntityControllerTestBase
     /**
      * @inheritdoc
      */
-    protected static function entityController(): EntityControllerTesterInterface
+    protected static function entityController(ClientInterface $client = null): EntityControllerTesterInterface
     {
-        return static::apiProductController();
+        return static::apiProductController($client);
     }
 
     /**

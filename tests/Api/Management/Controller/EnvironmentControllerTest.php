@@ -19,6 +19,7 @@
 namespace Apigee\Edge\Tests\Api\Management\Controller;
 
 use Apigee\Edge\Api\Management\Controller\EnvironmentController;
+use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Entity\EntityInterface;
 use Apigee\Edge\Tests\Test\Controller\DefaultAPIClientAwareTrait;
 use Apigee\Edge\Tests\Test\Controller\DefaultTestOrganizationAwareTrait;
@@ -63,9 +64,11 @@ class EnvironmentControllerTest extends EntityControllerTestBase
     /**
      * @inheritdoc
      */
-    protected static function entityController(): EntityControllerTesterInterface
+    protected static function entityController(ClientInterface $client = null): EntityControllerTesterInterface
     {
-        return new EntityControllerTester(new EnvironmentController(static::defaultTestOrganization(static::defaultAPIClient()), static::defaultAPIClient()));
+        $client = $client ?? static::defaultAPIClient();
+
+        return new EntityControllerTester(new EnvironmentController(static::defaultTestOrganization($client), $client));
     }
 
     /**

@@ -26,6 +26,7 @@ use Apigee\Edge\Api\Management\Entity\CompanyAppInterface;
 use Apigee\Edge\Api\Management\Entity\CompanyInterface;
 use Apigee\Edge\Api\Management\Entity\DeveloperAppInterface;
 use Apigee\Edge\Api\Management\Entity\DeveloperInterface;
+use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Tests\Api\Management\Entity\CompanyAppTestEntityProviderTrait;
 use Apigee\Edge\Tests\Api\Management\Entity\CompanyTestEntityProviderTrait;
 use Apigee\Edge\Tests\Api\Management\Entity\DeveloperAppTestEntityProviderTrait;
@@ -173,8 +174,10 @@ class AppControllerTest extends EntityControllerTestBase
      *
      * @return \Apigee\Edge\Tests\Test\Controller\EntityControllerTesterInterface|\Apigee\Edge\Api\Management\Controller\AppControllerInterface
      */
-    protected static function entityController(): EntityControllerTesterInterface
+    protected static function entityController(ClientInterface $client = null): EntityControllerTesterInterface
     {
-        return new EntityControllerTester(new AppController(static::defaultTestOrganization(static::defaultAPIClient()), static::defaultAPIClient()));
+        $client = $client ?? static::defaultAPIClient();
+
+        return new EntityControllerTester(new AppController(static::defaultTestOrganization($client), $client));
     }
 }

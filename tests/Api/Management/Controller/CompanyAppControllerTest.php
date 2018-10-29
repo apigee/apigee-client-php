@@ -19,6 +19,7 @@
 namespace Apigee\Edge\Tests\Api\Management\Controller;
 
 use Apigee\Edge\Api\Management\Entity\CompanyInterface;
+use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Entity\EntityInterface;
 use Apigee\Edge\Tests\Api\Management\Entity\CompanyAppTestEntityProviderTrait;
 use Apigee\Edge\Tests\Api\Management\Entity\CompanyTestEntityProviderTrait;
@@ -56,9 +57,9 @@ class CompanyAppControllerTest extends AppControllerTestBase
     /**
      * @inheritdoc
      */
-    protected static function entityController(): EntityControllerTesterInterface
+    protected static function entityController(ClientInterface $client = null): EntityControllerTesterInterface
     {
-        return static::companyAppController();
+        return static::companyAppController($client);
     }
 
     /**

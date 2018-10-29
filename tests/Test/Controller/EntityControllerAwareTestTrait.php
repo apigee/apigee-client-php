@@ -18,12 +18,16 @@
 
 namespace Apigee\Edge\Tests\Test\Controller;
 
+use Apigee\Edge\ClientInterface;
+
 trait EntityControllerAwareTestTrait
 {
     /**
      * Returns the decorated entity controller used in a test.
      *
+     * @param \Apigee\Edge\ClientInterface|null $client
+     *
      * @return \Apigee\Edge\Tests\Test\Controller\EntityControllerTesterInterface
      */
-    abstract protected static function entityController(): EntityControllerTesterInterface;
+    abstract protected static function entityController(ClientInterface $client = null): EntityControllerTesterInterface;
 }

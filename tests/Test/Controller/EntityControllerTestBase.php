@@ -18,6 +18,7 @@
 
 namespace Apigee\Edge\Tests\Test\Controller;
 
+use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Serializer\EntitySerializerInterface;
 use Apigee\Edge\Tests\Test\EntitySerializer\EntitySerializerAwareTestTrait;
 use Apigee\Edge\Tests\Test\EntitySerializer\EntitySerializerValidator;
@@ -39,7 +40,7 @@ abstract class EntityControllerTestBase extends ControllerTestBase
         parent::tearDownAfterClass();
     }
 
-    abstract protected static function entityController(): EntityControllerTesterInterface;
+    abstract protected static function entityController(ClientInterface $client = null): EntityControllerTesterInterface;
 
     /**
      * @inheritdoc

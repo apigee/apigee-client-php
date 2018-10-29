@@ -22,6 +22,7 @@ use Apigee\Edge\Api\Management\Controller\CompanyAppCredentialController;
 use Apigee\Edge\Api\Management\Entity\AppInterface;
 use Apigee\Edge\Api\Management\Entity\AppOwnerInterface;
 use Apigee\Edge\Api\Management\Entity\CompanyInterface;
+use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Entity\EntityInterface;
 use Apigee\Edge\Tests\Api\Management\Entity\CompanyAppTestEntityProviderTrait;
 use Apigee\Edge\Tests\Api\Management\Entity\CompanyTestEntityProviderTrait;
@@ -46,9 +47,11 @@ class CompanyAppCredentialControllerTest extends AppCredentialControllerTestBase
     /**
      * @inheritdoc
      */
-    protected static function entityController(): EntityControllerTesterInterface
+    protected static function entityController(ClientInterface $client = null): EntityControllerTesterInterface
     {
-        return new EntityControllerTester(new CompanyAppCredentialController(static::defaultTestOrganization(static::defaultAPIClient()), static::$testAppOwner->id(), static::$testApp->id(), static::defaultAPIClient()));
+        $client = $client ?? static::defaultAPIClient();
+
+        return new EntityControllerTester(new CompanyAppCredentialController(static::defaultTestOrganization($client), static::$testAppOwner->id(), static::$testApp->id(), $client));
     }
 
     protected static function setupTestApp(AppOwnerInterface $appOwner): AppInterface
