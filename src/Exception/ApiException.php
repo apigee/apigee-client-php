@@ -23,7 +23,7 @@ use Http\Client\Exception;
 /**
  * General exception class for API communication errors.
  */
-class ApiException extends \RuntimeException implements Exception
+class ApiException extends RuntimeException implements Exception
 {
     /**
      * @inheritdoc
