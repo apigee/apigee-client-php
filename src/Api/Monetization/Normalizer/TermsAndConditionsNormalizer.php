@@ -20,6 +20,7 @@ namespace Apigee\Edge\Api\Monetization\Normalizer;
 
 use Apigee\Edge\Api\Monetization\Entity\TermsAndConditionsInterface;
 use Apigee\Edge\Api\Monetization\NameConverter\TermsAndConditionsNameConverter;
+use Apigee\Edge\Exception\UninitializedPropertyException;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 use Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface;
 use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface;
@@ -57,6 +58,10 @@ class TermsAndConditionsNormalizer extends EntityNormalizer
         // if the organization's timezone is different from the default
         // PHP timezone.
         /** @var \Apigee\Edge\Api\Monetization\Entity\TermsAndConditionsInterface $object */
+        if (null === $object->getOrganization()) {
+            throw new UninitializedPropertyException($object, 'organization', 'Apigee\Edge\Api\Monetization\Entity\OrganizationProfileInterface');
+        }
+
         if (date_default_timezone_get() !== $object->getOrganization()->getTimezone()->getName()) {
             $dateDenormalizer = new DateTimeNormalizer(TermsAndConditionsInterface::DATE_FORMAT, $object->getOrganization()->getTimezone());
             $normalized->startDate = $dateDenormalizer->normalize($object->getStartDate());

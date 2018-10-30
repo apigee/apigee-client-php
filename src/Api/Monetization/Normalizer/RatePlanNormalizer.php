@@ -20,6 +20,7 @@ namespace Apigee\Edge\Api\Monetization\Normalizer;
 
 use Apigee\Edge\Api\Monetization\Entity\RatePlanInterface;
 use Apigee\Edge\Api\Monetization\NameConverter\RatePlanNameConverter;
+use Apigee\Edge\Exception\UninitializedPropertyException;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 use Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface;
 use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface;
@@ -56,6 +57,14 @@ abstract class RatePlanNormalizer extends EntityNormalizer
         // Fix the start- and end date of the rate plan if the organization's
         // timezone is different from the default PHP timezone.
         /** @var \Apigee\Edge\Api\Monetization\Entity\RatePlanInterface $object */
+        if (null === $object->getPackage()) {
+            throw new UninitializedPropertyException($object, 'package', 'Apigee\Edge\Api\Monetization\Entity\ApiPackageInterface');
+        }
+
+        if (null === $object->getPackage()->getOrganization()) {
+            throw new UninitializedPropertyException($object->getPackage(), 'organization', 'Apigee\Edge\Api\Monetization\Entity\OrganizationProfileInterface');
+        }
+
         if (date_default_timezone_get() !== $object->getPackage()->getOrganization()->getTimezone()->getName()) {
             $dateDenormalizer = new DateTimeNormalizer(RatePlanInterface::DATE_FORMAT, $object->getPackage()->getOrganization()->getTimezone());
             $normalized->startDate = $dateDenormalizer->normalize($object->getStartDate());
