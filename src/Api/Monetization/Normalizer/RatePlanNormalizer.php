@@ -20,15 +20,17 @@ namespace Apigee\Edge\Api\Monetization\Normalizer;
 
 use Apigee\Edge\Api\Monetization\Entity\RatePlanInterface;
 use Apigee\Edge\Api\Monetization\NameConverter\RatePlanNameConverter;
+use Apigee\Edge\Api\Monetization\Utility\TimezoneFixerHelperTrait;
 use Apigee\Edge\Exception\UninitializedPropertyException;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 use Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface;
 use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface;
 use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
-use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
 
 abstract class RatePlanNormalizer extends EntityNormalizer
 {
+    use TimezoneFixerHelperTrait;
+
     /**
      * RatePlanNormalizer constructor.
      *
@@ -65,13 +67,7 @@ abstract class RatePlanNormalizer extends EntityNormalizer
             throw new UninitializedPropertyException($object->getPackage(), 'organization', 'Apigee\Edge\Api\Monetization\Entity\OrganizationProfileInterface');
         }
 
-        if (date_default_timezone_get() !== $object->getPackage()->getOrganization()->getTimezone()->getName()) {
-            $dateDenormalizer = new DateTimeNormalizer(RatePlanInterface::DATE_FORMAT, $object->getPackage()->getOrganization()->getTimezone());
-            $normalized->startDate = $dateDenormalizer->normalize($object->getStartDate());
-            if (property_exists($normalized, 'endDate')) {
-                $normalized->endDate = $dateDenormalizer->normalize($object->getEndDate());
-            }
-        }
+        $this->fixTimeZoneOnNormalization($object, $normalized, $object->getPackage()->getOrganization()->getTimezone());
 
         return $normalized;
     }

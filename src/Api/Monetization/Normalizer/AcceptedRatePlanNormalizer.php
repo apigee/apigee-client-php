@@ -19,10 +19,12 @@
 namespace Apigee\Edge\Api\Monetization\Normalizer;
 
 use Apigee\Edge\Api\Monetization\Entity\AcceptedRatePlanInterface;
-use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
+use Apigee\Edge\Api\Monetization\Utility\TimezoneFixerHelperTrait;
 
 class AcceptedRatePlanNormalizer extends EntityNormalizer
 {
+    use TimezoneFixerHelperTrait;
+
     /**
      * @inheritDoc
      *
@@ -34,19 +36,7 @@ class AcceptedRatePlanNormalizer extends EntityNormalizer
         /** @var \Apigee\Edge\Api\Monetization\Entity\AcceptedRatePlanInterface $object */
         /** @var object $normalized */
         $normalized = parent::normalize($object, $format, $context);
-        // Change timezone of all normalized dates to organization's current
-        // timezone if it is different than the default PHP timezone.
-        if (date_default_timezone_get() !== $object->getRatePlan()->getPackage()->getOrganization()->getTimezone()->getName()) {
-            $ro = new \ReflectionObject($object);
-            $dateDenormalizer = new DateTimeNormalizer(AcceptedRatePlanInterface::DATE_FORMAT, $object->getRatePlan()->getPackage()->getOrganization()->getTimezone());
-            foreach ($ro->getProperties() as $property) {
-                $property->setAccessible(true);
-                $value = $property->getValue($object);
-                if ($value instanceof \DateTimeImmutable) {
-                    $normalized->{$property->getName()} = $dateDenormalizer->normalize($value, \DateTimeImmutable::class);
-                }
-            }
-        }
+        $this->fixTimeZoneOnNormalization($object, $normalized, $object->getRatePlan()->getPackage()->getOrganization()->getTimezone());
 
         return $normalized;
     }

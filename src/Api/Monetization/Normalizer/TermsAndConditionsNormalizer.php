@@ -20,15 +20,17 @@ namespace Apigee\Edge\Api\Monetization\Normalizer;
 
 use Apigee\Edge\Api\Monetization\Entity\TermsAndConditionsInterface;
 use Apigee\Edge\Api\Monetization\NameConverter\TermsAndConditionsNameConverter;
+use Apigee\Edge\Api\Monetization\Utility\TimezoneFixerHelperTrait;
 use Apigee\Edge\Exception\UninitializedPropertyException;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 use Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface;
 use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface;
 use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
-use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
 
 class TermsAndConditionsNormalizer extends EntityNormalizer
 {
+    use TimezoneFixerHelperTrait;
+
     /**
      * TermsAndConditionsNormalizer constructor.
      *
@@ -62,10 +64,7 @@ class TermsAndConditionsNormalizer extends EntityNormalizer
             throw new UninitializedPropertyException($object, 'organization', 'Apigee\Edge\Api\Monetization\Entity\OrganizationProfileInterface');
         }
 
-        if (date_default_timezone_get() !== $object->getOrganization()->getTimezone()->getName()) {
-            $dateDenormalizer = new DateTimeNormalizer(TermsAndConditionsInterface::DATE_FORMAT, $object->getOrganization()->getTimezone());
-            $normalized->startDate = $dateDenormalizer->normalize($object->getStartDate());
-        }
+        $this->fixTimeZoneOnNormalization($object, $normalized, $object->getOrganization()->getTimezone());
 
         return $normalized;
     }

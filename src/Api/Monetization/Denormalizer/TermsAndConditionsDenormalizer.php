@@ -20,15 +20,17 @@ namespace Apigee\Edge\Api\Monetization\Denormalizer;
 
 use Apigee\Edge\Api\Monetization\Entity\TermsAndConditionsInterface;
 use Apigee\Edge\Api\Monetization\NameConverter\TermsAndConditionsNameConverter;
+use Apigee\Edge\Api\Monetization\Utility\TimezoneFixerHelperTrait;
 use Apigee\Edge\Denormalizer\ObjectDenormalizer;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 use Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface;
 use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface;
 use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
-use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
 
 class TermsAndConditionsDenormalizer extends ObjectDenormalizer
 {
+    use TimezoneFixerHelperTrait;
+
     /**
      * TermsAndConditionsDenormalizer constructor.
      *
@@ -45,23 +47,16 @@ class TermsAndConditionsDenormalizer extends ObjectDenormalizer
 
     /**
      * @inheritdoc
+     *
+     * @psalm-suppress PossiblyNullReference - Organization should not be null
+     * here.
      */
     public function denormalize($data, $class, $format = null, array $context = [])
     {
-        // To be able to transform date strings to proper date objects we need
-        // the timezone, but it is only available on the organization profile
-        // object. Luckily all tncs have a reference to the parent
-        // organization profile.
-        $startDate = $data->startDate;
-
+        /** @var \Apigee\Edge\Api\Monetization\Entity\TermsAndConditionsInterface $entity */
         $entity = parent::denormalize($data, $class, $format, $context);
 
-        // Fix the start date of the tnc if the organization's
-        // timezone is different from the default PHP timezone.
-        if (date_default_timezone_get() !== $entity->getOrganization()->getTimezone()->getName()) {
-            $dateDenormalizer = new DateTimeNormalizer(TermsAndConditionsInterface::DATE_FORMAT, $entity->getOrganization()->getTimezone());
-            $entity->setStartDate($dateDenormalizer->denormalize($startDate, \DateTimeImmutable::class));
-        }
+        $this->fixTimeZoneOnDenormalization($data, $entity, $entity->getOrganization()->getTimezone());
 
         return $entity;
     }
