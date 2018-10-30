@@ -25,6 +25,6 @@ interface EntityCrudOperationsControllerInterface extends
     EntityCreateOperationControllerInterface,
     EntityDeleteOperationControllerInterface,
     EntityLoadOperationControllerInterface,
-    EntityUpdateControllerOperationInterface
+    EntityUpdateOperationControllerInterface
 {
 }

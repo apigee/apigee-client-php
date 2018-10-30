@@ -18,7 +18,7 @@
 
 namespace Apigee\Edge\Tests\Test\Controller;
 
-use Apigee\Edge\Controller\EntityUpdateControllerOperationInterface;
+use Apigee\Edge\Controller\EntityUpdateOperationControllerInterface;
 use Apigee\Edge\Entity\EntityInterface;
 use Apigee\Edge\Tests\Test\Utility\EntityStorage;
 
@@ -42,7 +42,7 @@ final class EntityUpdateOperationControllerTester extends EntityControllerTester
     protected function validateController($controller): void
     {
         parent::validateController($controller);
-        if (!$controller instanceof EntityUpdateControllerOperationInterface && !$controller instanceof EntityControllerTesterInterface) {
+        if (!$controller instanceof EntityUpdateOperationControllerInterface && !$controller instanceof EntityControllerTesterInterface) {
             $class = get_class($controller);
             throw new \InvalidArgumentException("Controller must implement EntityUpdateControllerOperationInterface or EntityControllerTesterInterface. Got {$class}.");
         }

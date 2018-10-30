@@ -20,7 +20,7 @@ namespace Apigee\Edge\Tests\Test\Controller;
 
 use Apigee\Edge\Controller\EntityCreateOperationControllerInterface;
 use Apigee\Edge\Controller\EntityDeleteOperationControllerInterface;
-use Apigee\Edge\Controller\EntityUpdateControllerOperationInterface;
+use Apigee\Edge\Controller\EntityUpdateOperationControllerInterface;
 use Apigee\Edge\Tests\Test\Utility\EntityStorage;
 
 final class EntityControllerTester extends EntityControllerTesterBase implements EntityControllerTesterInterface
@@ -34,7 +34,7 @@ final class EntityControllerTester extends EntityControllerTesterBase implements
 
         if ('create' === $name && $this->decorated instanceof EntityCreateOperationControllerInterface) {
             EntityStorage::getInstance()->addEntity(reset($arguments), $this->decorated);
-        } elseif ('update' === $name && $this->decorated instanceof EntityUpdateControllerOperationInterface) {
+        } elseif ('update' === $name && $this->decorated instanceof EntityUpdateOperationControllerInterface) {
             EntityStorage::getInstance()->addEntity(reset($arguments), $this->decorated);
         } elseif ('delete' === $name && $this->decorated instanceof EntityDeleteOperationControllerInterface) {
             EntityStorage::getInstance()->removeEntity(reset($arguments), $this->decorated);

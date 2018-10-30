@@ -18,8 +18,8 @@
 
 namespace Apigee\Edge\Tests\Test\Controller;
 
-use Apigee\Edge\Controller\EntityUpdateControllerOperationInterface;
+use Apigee\Edge\Controller\EntityUpdateOperationControllerInterface;
 
-interface EntityUpdateOperationControllerTesterInterface extends EntityUpdateControllerOperationInterface, EntityControllerTesterInterface
+interface EntityUpdateOperationControllerTesterInterface extends EntityUpdateOperationControllerInterface, EntityControllerTesterInterface
 {
 }

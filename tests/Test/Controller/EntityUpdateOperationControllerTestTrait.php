@@ -87,7 +87,7 @@ trait EntityUpdateOperationControllerTestTrait
      */
     protected static function controllerForEntityUpdate(): EntityUpdateOperationControllerTesterInterface
     {
-        /** @var \Apigee\Edge\Controller\EntityUpdateControllerOperationInterface $controller */
+        /** @var \Apigee\Edge\Controller\EntityUpdateOperationControllerInterface $controller */
         $controller = static::entityController();
 
         return new EntityUpdateOperationControllerTester($controller);
