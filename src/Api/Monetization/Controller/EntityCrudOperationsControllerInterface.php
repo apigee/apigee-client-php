@@ -20,7 +20,7 @@ namespace Apigee\Edge\Api\Monetization\Controller;
 
 use Apigee\Edge\Controller\EntityCreateOperationControllerInterface;
 use Apigee\Edge\Controller\EntityLoadOperationControllerInterface;
-use Apigee\Edge\Controller\EntityUpdateControllerOperationInterface;
+use Apigee\Edge\Controller\EntityUpdateOperationControllerInterface;
 
 /**
  * Interface EntityCrudOperationsControllerInterface.
@@ -29,6 +29,6 @@ interface EntityCrudOperationsControllerInterface extends
     EntityCreateOperationControllerInterface,
     EntityDeleteOperationControllerInterface,
     EntityLoadOperationControllerInterface,
-    EntityUpdateControllerOperationInterface
+    EntityUpdateOperationControllerInterface
 {
 }

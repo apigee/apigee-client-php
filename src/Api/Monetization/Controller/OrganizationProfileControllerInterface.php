@@ -20,7 +20,7 @@ namespace Apigee\Edge\Api\Monetization\Controller;
 
 use Apigee\Edge\Api\Monetization\Entity\OrganizationProfileInterface;
 use Apigee\Edge\Controller\EntityControllerInterface;
-use Apigee\Edge\Controller\EntityUpdateControllerOperationInterface;
+use Apigee\Edge\Controller\EntityUpdateOperationControllerInterface;
 
 /**
  * Interface OrganizationProfileControllerInterface.
@@ -29,7 +29,7 @@ use Apigee\Edge\Controller\EntityUpdateControllerOperationInterface;
  * @see https://docs.apigee.com/api-platform/monetization/edit-organization-profile
  */
 interface OrganizationProfileControllerInterface extends EntityControllerInterface,
-    EntityUpdateControllerOperationInterface
+    EntityUpdateOperationControllerInterface
 {
     /**
      * @return \Apigee\Edge\Api\Monetization\Entity\OrganizationProfileInterface
