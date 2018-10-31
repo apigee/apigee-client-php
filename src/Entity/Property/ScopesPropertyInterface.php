@@ -33,7 +33,7 @@ interface ScopesPropertyInterface
     /**
      * Set OAuth scopes.
      *
-     * @param string[] $scopes
+     * @param string ...$scopes
      */
-    public function setScopes(array $scopes): void;
+    public function setScopes(string ...$scopes): void;
 }

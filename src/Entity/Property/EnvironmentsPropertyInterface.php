@@ -29,7 +29,7 @@ interface EnvironmentsPropertyInterface
     public function getEnvironments(): array;
 
     /**
-     * @param string[] $environments
+     * @param string ...$environments
      */
-    public function setEnvironments(array $environments): void;
+    public function setEnvironments(string ...$environments): void;
 }

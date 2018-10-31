@@ -20,6 +20,7 @@ namespace Apigee\Edge\PropertyAccess;
 
 use Apigee\Edge\Exception\UnexpectedValueException;
 use Apigee\Edge\Exception\UninitializedPropertyException;
+use Symfony\Component\PropertyAccess\Exception\InvalidArgumentException;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 
 /**
@@ -47,7 +48,22 @@ final class PropertyAccessorDecorator implements PropertyAccessorInterface
      */
     public function setValue(&$objectOrArray, $propertyPath, $value): void
     {
-        $this->propertyAccessor->setValue($objectOrArray, $propertyPath, $value);
+        try {
+            $this->propertyAccessor->setValue($objectOrArray, $propertyPath, $value);
+        } catch (InvalidArgumentException $exception) {
+            // Auto-retry, pass the value as variable-length arguments to the
+            // setter method.
+            if (is_object($objectOrArray) && is_array($value)) {
+                $setter = 'set' . ucfirst((string) $propertyPath);
+                if (method_exists($objectOrArray, $setter)) {
+                    $objectOrArray->{$setter}(...$value);
+                } else {
+                    throw $exception;
+                }
+            } else {
+                throw $exception;
+            }
+        }
     }
 
     /**

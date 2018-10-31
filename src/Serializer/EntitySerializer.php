@@ -161,7 +161,16 @@ class EntitySerializer implements EntitySerializerInterface
             // (An entity property value is null (internally) if it is scalar and the Edge response from
             // the entity object has been created did not contain value for the property.)
             if (null !== $value) {
-                $rm->invoke($entity, $value);
+                try {
+                    $rm->invoke($entity, $value);
+                } catch (\TypeError $error) {
+                    // Auto-retry, pass the value as variable-length arguments.
+                    if (is_array($value)) {
+                        $rm->invoke($entity, ...$value);
+                    } else {
+                        throw $error;
+                    }
+                }
             }
         }
     }

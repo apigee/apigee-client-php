@@ -78,13 +78,14 @@ class Developer extends AppOwner implements DeveloperInterface
     /**
      * Set company names from an Edge API response.
      *
-     * Company memberships of a developer can not be changed by modifying this property's value.
+     * Company memberships of a developer can not be changed by modifying this
+     * property's value.
      *
      * @param string[] $companies
      *
      * @internal
      */
-    public function setCompanies(array $companies): void
+    public function setCompanies(string ...$companies): void
     {
         $this->companies = $companies;
     }

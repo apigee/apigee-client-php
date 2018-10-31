@@ -23,6 +23,7 @@ use Apigee\Edge\Entity\Property\AttributesPropertyAwareTrait;
 use Apigee\Edge\Entity\Property\ScopesPropertyAwareTrait;
 use Apigee\Edge\Entity\Property\StatusPropertyAwareTrait;
 use Apigee\Edge\Structure\AttributesProperty;
+use Apigee\Edge\Structure\CredentialProductInterface;
 
 /**
  * Class AppCredential.
@@ -96,7 +97,7 @@ class AppCredential extends Entity implements AppCredentialInterface
      *
      * @internal
      */
-    public function setApiProducts(array $apiProducts): void
+    public function setApiProducts(CredentialProductInterface ...$apiProducts): void
     {
         $this->apiProducts = $apiProducts;
     }

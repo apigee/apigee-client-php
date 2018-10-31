@@ -40,7 +40,16 @@ abstract class BaseObject
             if ($ro->hasMethod($setter)) {
                 $value = $values[$property->getName()];
                 $rm = new \ReflectionMethod($this, $setter);
-                $rm->invoke($this, $value);
+                try {
+                    $rm->invoke($this, $value);
+                } catch (\TypeError $error) {
+                    // Auto-retry, pass the value as variable-length arguments.
+                    if (is_array($value)) {
+                        $rm->invoke($this, ...$value);
+                    } else {
+                        throw $error;
+                    }
+                }
             }
         }
     }

@@ -95,7 +95,7 @@ class ApiProduct extends Entity implements ApiProductInterface
     /**
      * @inheritdoc
      */
-    public function setProxies(array $proxies): void
+    public function setProxies(string ...$proxies): void
     {
         $this->proxies = $proxies;
     }
@@ -175,7 +175,7 @@ class ApiProduct extends Entity implements ApiProductInterface
     /**
      * @inheritdoc
      */
-    public function setApiResources(array $apiResources): void
+    public function setApiResources(string ...$apiResources): void
     {
         $this->apiResources = $apiResources;
     }
