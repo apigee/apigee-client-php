@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-namespace Apigee\Edge\Tests\Entity;
+namespace Apigee\Edge\Tests\Serializer;
 
 use Apigee\Edge\Api\Management\Normalizer\AppCredentialNormalizer;
 use Apigee\Edge\Denormalizer\AttributesPropertyDenormalizer;
@@ -27,9 +27,11 @@ use Apigee\Edge\Normalizer\EdgeDateNormalizer;
 use Apigee\Edge\Normalizer\PropertiesPropertyNormalizer;
 use Apigee\Edge\Serializer\EntitySerializer;
 use Apigee\Edge\Tests\Test\Entity\MockEntity;
+use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
 use SebastianBergmann\Comparator\ComparisonFailure;
 use SebastianBergmann\Comparator\Factory as ComparisonFactory;
+use function GuzzleHttp\Psr7\stream_for;
 
 /**
  * Class EntityTransformationTest.
@@ -46,8 +48,8 @@ use SebastianBergmann\Comparator\Factory as ComparisonFactory;
  */
 class EntitySerializerTest extends TestCase
 {
-    /** @var \Apigee\Edge\Normalizer\EntityNormalizer */
-    protected static $normalizer;
+    /** @var \Apigee\Edge\Serializer\EntitySerializer */
+    protected static $serializer;
 
     /**
      * @inheritdoc
@@ -66,13 +68,13 @@ class EntitySerializerTest extends TestCase
             new PropertiesPropertyDenormalizer(),
             new CredentialProductDenormalizer(),
         ];
-        static::$normalizer = new EntitySerializer($normalizers);
+        static::$serializer = new EntitySerializer($normalizers);
     }
 
     public function testNormalize()
     {
         $entity = new MockEntity();
-        $normalized = static::$normalizer->normalize($entity);
+        $normalized = static::$serializer->normalize($entity);
         $this->assertTrue(true === $normalized->bool);
         $this->assertTrue(2 === $normalized->int);
         $this->assertTrue(0 === $normalized->zero);
@@ -93,7 +95,7 @@ class EntitySerializerTest extends TestCase
         $this->assertObjectNotHasAttribute('date', $normalized);
         $date = new \DateTimeImmutable();
         $entity->setDate($date);
-        $normalized = static::$normalizer->normalize($entity);
+        $normalized = static::$serializer->normalize($entity);
         $this->assertEquals($entity->getDate()->getTimestamp() * 1000, $normalized->date);
 
         return $normalized;
@@ -109,7 +111,7 @@ class EntitySerializerTest extends TestCase
         // Set value of this nullable value to ensure that a special condition is triggered in the EntityDenormalizer.
         $normalized->nullable = null;
         /** @var \Apigee\Edge\Tests\Test\Entity\MockEntity $object */
-        $object = static::$normalizer->denormalize($normalized, MockEntity::class);
+        $object = static::$serializer->denormalize($normalized, MockEntity::class);
         $this->assertTrue(true === $object->isBool());
         $this->assertTrue(2 === $object->getInt());
         $this->assertTrue(0 === $object->getZero());
@@ -126,7 +128,7 @@ class EntitySerializerTest extends TestCase
         $this->assertEquals('foo', $object->getAppCredential()[0]->getApiProducts()[0]->getApiproduct());
         $this->assertEquals('bar', $object->getAppCredential()[0]->getAttributeValue('foo'));
         $this->assertEquals(new \DateTimeImmutable('@' . $normalized->date / 1000), $object->getDate());
-        $renormalized = static::$normalizer->normalize($object);
+        $renormalized = static::$serializer->normalize($object);
         // Unset it to ensure that the two objects can be equal.
         unset($normalized->nullable);
         $compFactory = new ComparisonFactory();
@@ -136,5 +138,52 @@ class EntitySerializerTest extends TestCase
         } catch (ComparisonFailure $failure) {
             $this->fail($failure->toString());
         }
+    }
+
+    public function testSetPropertiesFromResponseWithValidValues(): void
+    {
+        $entity = new MockEntity();
+        $original = clone $entity;
+        $response = (object) [
+            // Has setter + getter.
+            'int' => 1,
+            // Has setter + isser.
+            'bool' => true,
+            'variableLengthArgs' => ['first', 'second'],
+            'propertyWithoutSetter' => 1,
+            'propertyWithoutGetter' => true,
+        ];
+        static::$serializer->setPropertiesFromResponse(new Response('200', ['Content-type' => 'application/json'], stream_for(json_encode($response))), $entity);
+        // These properties should change.
+        $this->assertEquals($response->int, $entity->getInt());
+        $this->assertEquals($response->bool, $entity->isBool());
+        $this->assertEquals($response->variableLengthArgs, $entity->getVariableLengthArgs());
+        // These properties should not change.
+        $this->assertEquals($original->getPropertyWithoutSetter(), $entity->getPropertyWithoutSetter());
+        $roOriginal = new \ReflectionObject($original);
+        $roEntity = new \ReflectionObject($entity);
+        /** @var \ReflectionProperty $originalProperty */
+        /** @var \ReflectionProperty $entityProperty */
+        $originalProperty = $roOriginal->getProperty('propertyWithoutGetter');
+        $originalProperty->setAccessible(true);
+        $entityProperty = $roEntity->getProperty('propertyWithoutGetter');
+        $entityProperty->setAccessible(true);
+        $this->assertEquals($originalProperty->getValue($original), $entityProperty->getValue($entity));
+    }
+
+    /**
+     * @expectedException \TypeError
+     * @expectedExceptionMessage Argument 1 passed to Apigee\Edge\Tests\Test\Entity\MockEntity::setVariableLengthArgs() must be of the type string, object given
+     */
+    public function testSetPropertiesFromResponseWithInvalidValue(): void
+    {
+        $entity = new MockEntity();
+        $response = (object) [
+            // Only string acceptable.
+            // Scalar values automatically gets casted to strings - this is
+            // what we can not fix.
+            'variableLengthArgs' => [(object) []],
+        ];
+        static::$serializer->setPropertiesFromResponse(new Response('200', ['Content-type' => 'application/json'], stream_for(json_encode($response))), $entity);
     }
 }
