@@ -23,6 +23,7 @@ use Apigee\Edge\Api\Monetization\Entity\Property\EndDatePropertyAwareTrait;
 use Apigee\Edge\Api\Monetization\Entity\Property\FreemiumPropertiesAwareTrait;
 use Apigee\Edge\Api\Monetization\Entity\Property\PaymentDueDaysPropertyAwareTrait;
 use Apigee\Edge\Api\Monetization\Entity\Property\StartDatePropertyAwareTrait;
+use Apigee\Edge\Api\Monetization\Structure\RatePlanDetail;
 use Apigee\Edge\Entity\Property\DescriptionPropertyAwareTrait;
 use Apigee\Edge\Entity\Property\DisplayNamePropertyAwareTrait;
 use Apigee\Edge\Entity\Property\NamePropertyAwareTrait;
@@ -271,7 +272,7 @@ abstract class RatePlan extends OrganizationAwareEntity implements RatePlanInter
     /**
      * @inheritdoc
      */
-    public function setRatePlanDetails(array $ratePlanDetails): void
+    public function setRatePlanDetails(RatePlanDetail ...$ratePlanDetails): void
     {
         $this->ratePlanDetails = $ratePlanDetails;
     }

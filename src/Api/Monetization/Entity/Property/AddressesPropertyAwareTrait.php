@@ -18,6 +18,8 @@
 
 namespace Apigee\Edge\Api\Monetization\Entity\Property;
 
+use Apigee\Edge\Api\Monetization\Structure\Address;
+
 /**
  * Trait AddressesPropertyAwareTrait.
  *
@@ -39,8 +41,8 @@ trait AddressesPropertyAwareTrait
     /**
      * @@inheritdoc
      */
-    public function setAddresses(array $address): void
+    public function setAddresses(Address ...$addresses): void
     {
-        $this->addresses = $address;
+        $this->addresses = $addresses;
     }
 }

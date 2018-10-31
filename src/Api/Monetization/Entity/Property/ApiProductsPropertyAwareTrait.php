@@ -18,6 +18,8 @@
 
 namespace Apigee\Edge\Api\Monetization\Entity\Property;
 
+use Apigee\Edge\Api\Monetization\Entity\ApiProductInterface;
+
 /**
  * Trait ApiProductsPropertyAwareTrait.
  *
@@ -43,7 +45,7 @@ trait ApiProductsPropertyAwareTrait
      *
      * @internal
      */
-    public function setApiProducts(array $products): void
+    public function setApiProducts(ApiProductInterface ...$products): void
     {
         $this->apiProducts = $products;
     }

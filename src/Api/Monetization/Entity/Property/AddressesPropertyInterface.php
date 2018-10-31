@@ -18,6 +18,8 @@
 
 namespace Apigee\Edge\Api\Monetization\Entity\Property;
 
+use Apigee\Edge\Api\Monetization\Structure\Address;
+
 interface AddressesPropertyInterface
 {
     /**
@@ -26,7 +28,7 @@ interface AddressesPropertyInterface
     public function getAddresses(): array;
 
     /**
-     * @param \Apigee\Edge\Api\Monetization\Structure\Address[] $addresses
+     * @param \Apigee\Edge\Api\Monetization\Structure\Address ...$addresses
      */
-    public function setAddresses(array $addresses): void;
+    public function setAddresses(Address ...$addresses): void;
 }

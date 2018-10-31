@@ -203,9 +203,9 @@ final class RatePlanDetail extends BaseObject implements
     }
 
     /**
-     * @param \Apigee\Edge\Api\Monetization\Structure\RatePlanRate[] $ratePlanRates
+     * @param \Apigee\Edge\Api\Monetization\Structure\RatePlanRate ...$ratePlanRates
      */
-    public function setRatePlanRates(array $ratePlanRates): void
+    public function setRatePlanRates(RatePlanRate ...$ratePlanRates): void
     {
         $this->ratePlanRates = $ratePlanRates;
     }

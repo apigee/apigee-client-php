@@ -23,6 +23,7 @@ use Apigee\Edge\Api\Monetization\Entity\Property\EndDatePropertyInterface;
 use Apigee\Edge\Api\Monetization\Entity\Property\FreemiumPropertiesInterface;
 use Apigee\Edge\Api\Monetization\Entity\Property\PaymentDueDaysPropertyInterface;
 use Apigee\Edge\Api\Monetization\Entity\Property\StartDatePropertyInterface;
+use Apigee\Edge\Api\Monetization\Structure\RatePlanDetail;
 use Apigee\Edge\Entity\Property\DescriptionPropertyInterface;
 use Apigee\Edge\Entity\Property\DisplayNamePropertyInterface;
 use Apigee\Edge\Entity\Property\NamePropertyInterface;
@@ -164,9 +165,9 @@ interface RatePlanInterface extends
     public function getRatePlanDetails(): array;
 
     /**
-     * @param \Apigee\Edge\Api\Monetization\Structure\RatePlanDetail[] $ratePlanDetails
+     * @param \Apigee\Edge\Api\Monetization\Structure\RatePlanDetail ...$ratePlanDetails
      */
-    public function setRatePlanDetails(array $ratePlanDetails): void;
+    public function setRatePlanDetails(RatePlanDetail ...$ratePlanDetails): void;
 
     /**
      * @return float|null
