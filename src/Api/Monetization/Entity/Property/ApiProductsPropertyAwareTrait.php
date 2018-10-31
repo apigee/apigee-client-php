@@ -41,7 +41,7 @@ trait ApiProductsPropertyAwareTrait
     /**
      * Sets API products associated with this API package.
      *
-     * @param \Apigee\Edge\Api\Monetization\Entity\ApiProductInterface[] $products
+     * @param \Apigee\Edge\Api\Monetization\Entity\ApiProductInterface ...$products
      *
      * @internal
      */
