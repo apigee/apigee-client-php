@@ -190,7 +190,7 @@ abstract class App extends Entity implements AppInterface
      *
      * Credentials, included in app, can not be changed by modifying them on the entity level.
      *
-     * @param \Apigee\Edge\Api\Management\Entity\AppCredentialInterface[] $credentials
+     * @param \Apigee\Edge\Api\Management\Entity\AppCredentialInterface ...$credentials
      *
      * @internal
      */
@@ -206,7 +206,7 @@ abstract class App extends Entity implements AppInterface
      * You should modify them by using the app credential
      * controllers.
      *
-     * @param string[] $scopes
+     * @param string ...$scopes
      *
      * @internal
      */

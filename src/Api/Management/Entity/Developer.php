@@ -81,7 +81,7 @@ class Developer extends AppOwner implements DeveloperInterface
      * Company memberships of a developer can not be changed by modifying this
      * property's value.
      *
-     * @param string[] $companies
+     * @param string ...$companies
      *
      * @internal
      */

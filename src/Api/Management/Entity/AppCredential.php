@@ -93,7 +93,7 @@ class AppCredential extends Entity implements AppCredentialInterface
      *
      * Included API products in an app credential can not be changed by modifying this property's value.
      *
-     * @param \Apigee\Edge\Structure\CredentialProductInterface[] $apiProducts
+     * @param \Apigee\Edge\Structure\CredentialProductInterface ...$apiProducts
      *
      * @internal
      */
