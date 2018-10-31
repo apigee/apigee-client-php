@@ -83,8 +83,8 @@ class EntitySerializerTest extends TestCase
         $this->assertEquals('bar', $normalized->attributes[0]->value);
         $this->assertEquals('foo', $normalized->credentialProduct->apiproduct);
         $this->assertEquals('bar', $normalized->credentialProduct->status);
-        $this->assertArrayHasKey('foo', $normalized->properties);
-        $this->assertEquals('bar', $normalized->properties['foo']);
+        $this->assertEquals('foo', $normalized->properties->property[0]->name);
+        $this->assertEquals('bar', $normalized->properties->property[0]->value);
         $this->assertNotEmpty($normalized->appCredential);
         $this->assertEquals('consumerKey', $normalized->appCredential[0]->consumerKey);
         $this->assertEquals(-1, $normalized->appCredential[0]->expiresAt);

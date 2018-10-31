@@ -26,9 +26,9 @@ use Apigee\Edge\Structure\PropertiesProperty;
 interface PropertiesPropertyInterface
 {
     /**
-     * @return array
+     * @return \Apigee\Edge\Structure\PropertiesProperty
      */
-    public function getProperties(): array;
+    public function getProperties(): PropertiesProperty;
 
     /**
      * @param PropertiesProperty $properties

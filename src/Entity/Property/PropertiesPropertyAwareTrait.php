@@ -31,9 +31,9 @@ trait PropertiesPropertyAwareTrait
     /**
      * @inheritdoc
      */
-    public function getProperties(): array
+    public function getProperties(): PropertiesProperty
     {
-        return $this->properties->values();
+        return $this->properties;
     }
 
     /**
