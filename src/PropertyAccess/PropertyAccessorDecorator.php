@@ -20,6 +20,7 @@ namespace Apigee\Edge\PropertyAccess;
 
 use Apigee\Edge\Exception\UnexpectedValueException;
 use Apigee\Edge\Exception\UninitializedPropertyException;
+use Symfony\Component\PropertyAccess\Exception\AccessException;
 use Symfony\Component\PropertyAccess\Exception\InvalidArgumentException;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 
@@ -51,14 +52,30 @@ final class PropertyAccessorDecorator implements PropertyAccessorInterface
         try {
             $this->propertyAccessor->setValue($objectOrArray, $propertyPath, $value);
         } catch (InvalidArgumentException $exception) {
-            // Auto-retry, pass the value as variable-length arguments to the
-            // setter method.
+            // Auto-retry, try to pass the value as variable-length arguments to
+            // the setter method.
             if (is_object($objectOrArray) && is_array($value)) {
+                if (empty($value)) {
+                    // If an empty array triggered this exception throw it,
+                    // because it is a sign of a real error. Empty arrays from
+                    // API response payloads got excluded.
+                    // @see \Apigee\Edge\Denormalizer\ObjectDenormalizer::denormalize()
+                    throw $exception;
+                }
                 $setter = 'set' . ucfirst((string) $propertyPath);
                 if (method_exists($objectOrArray, $setter)) {
-                    $objectOrArray->{$setter}(...$value);
+                    try {
+                        // Value must not be an empty array.
+                        $objectOrArray->{$setter}(...$value);
+                    } catch (\TypeError $typeError) {
+                        self::processTypeErrorOnSetValue($typeError->getMessage(), $typeError->getTrace(), 0);
+
+                        // Rethrow the exception if it could not be transformed
+                        // to an invalid argument exception.
+                        throw $typeError;
+                    }
                 } else {
-                    throw $exception;
+                    throw new AccessException("Setter method not found for {$propertyPath} property.", 0, $exception);
                 }
             } else {
                 throw $exception;
@@ -79,7 +96,7 @@ final class PropertyAccessorDecorator implements PropertyAccessorInterface
                 self::processTypeErrorOnGetValue($objectOrArray, (string) $propertyPath, $error);
             }
 
-            // Rethrow the exception if it could not be parsed to something
+            // Rethrow the exception if it could not be transformed to something
             // else.
             throw $error;
         }
@@ -104,12 +121,12 @@ final class PropertyAccessorDecorator implements PropertyAccessorInterface
     }
 
     /**
-     * Processes type error exception.
+     * Processes type error exception on value get.
      *
      * Throws better, more meaningful exception if a value is uninitialised
      * or initialized with an incorrect value on an object.
      *
-     * Based on PropertyAccessor::throwInvalidArgumentException.
+     * Based on PropertyAccessor::throwInvalidArgumentException().
      *
      * @param object $object
      * @param string $property
@@ -125,8 +142,11 @@ final class PropertyAccessorDecorator implements PropertyAccessorInterface
 
         $pos = strpos($error->getMessage(), $delim = 'must be of the type ') ?: (strpos($error->getMessage(), $delim = 'must be an instance of ') ?: strpos($error->getMessage(), $delim = 'must implement interface '));
         if (false !== $pos) {
+            $ro = new \ReflectionObject($object);
+            $rp = $ro->getProperty($property);
+            $rp->setAccessible(true);
             $pos += strlen($delim);
-            $actualValue = array_key_exists(0, $error->getTrace()[0]['args']) ? $error->getTrace()[0]['args'][0] : null;
+            $actualValue = $rp->getValue($object);
             $expectedType = substr($error->getMessage(), $pos, (int) strpos($error->getMessage(), ',', $pos) - $pos);
 
             if (null === $actualValue) {
@@ -137,6 +157,36 @@ final class PropertyAccessorDecorator implements PropertyAccessorInterface
 
             // Until we are using strongly typed variables this should not happen.
             throw new UnexpectedValueException($object, $property, $expectedType, $actualType);
+        }
+    }
+
+    /**
+     * Processes type error exception on value set.
+     *
+     * Copy-paste of PropertyAccessor::throwInvalidArgumentException()
+     * because it is private.
+     *
+     * @param $message
+     * @param $trace
+     * @param $i
+     *
+     * @see \Symfony\Component\PropertyAccess\PropertyAccessor::throwInvalidArgumentException()
+     */
+    private static function processTypeErrorOnSetValue($message, $trace, $i): void
+    {
+        if (0 !== strpos($message, 'Argument ')) {
+            return;
+        }
+
+        if (isset($trace[$i]['file']) && __FILE__ === $trace[$i]['file'] && array_key_exists(0, $trace[$i]['args'])) {
+            $pos = strpos($message, $delim = 'must be of the type ') ?: (strpos($message, $delim = 'must be an instance of ') ?: strpos($message, $delim = 'must implement interface '));
+            if (false !== $pos) {
+                $pos += \strlen($delim);
+                $type = $trace[$i]['args'][0];
+                $type = \is_object($type) ? \get_class($type) : \gettype($type);
+
+                throw new InvalidArgumentException(sprintf('Expected argument of type "%s", "%s" given.', substr($message, $pos, (int) strpos($message, ',', $pos) - $pos), $type));
+            }
         }
     }
 }

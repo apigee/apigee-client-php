@@ -92,7 +92,23 @@ class ObjectDenormalizer implements DenormalizerInterface, SerializerAwareInterf
      */
     public function denormalize($data, $class, $format = null, array $context = [])
     {
-        return $this->objectNormalizer->denormalize($data, $class, $this->format, $context);
+        // The original input should not be altered.
+        if (is_object($data)) {
+            $cleanData = clone $data;
+        } else {
+            $cleanData = $data;
+        }
+        // Exclude empty arrays from the denormalization process since
+        // we are using variable-length arguments in entity setters instead
+        // of arrays.
+        // @see \Apigee\Edge\PropertyAccess\PropertyAccessorDecorator::setValue()
+        foreach ($cleanData as $key => $value) {
+            if (is_array($value) && empty($value)) {
+                unset($cleanData->{$key});
+            }
+        }
+
+        return $this->objectNormalizer->denormalize($cleanData, $class, $this->format, $context);
     }
 
     /**

@@ -172,8 +172,8 @@ class EntitySerializerTest extends TestCase
     }
 
     /**
-     * @expectedException \TypeError
-     * @expectedExceptionMessage Argument 1 passed to Apigee\Edge\Tests\Test\Entity\MockEntity::setVariableLengthArgs() must be of the type string, object given
+     * @expectedException \Symfony\Component\Serializer\Exception\NotNormalizableValueException
+     * @expectedExceptionMessage Expected argument of type "string", "stdClass" given.
      */
     public function testSetPropertiesFromResponseWithInvalidValue(): void
     {
