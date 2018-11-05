@@ -135,7 +135,7 @@ class PropertyAccessorDecoratorTest extends PropertyAccessorTest
             $this->propertyAccessor->setValue(static::$testObj, $property, $value);
         } catch (\Exception $exception) {
             $this->assertInstanceOf($expectedException, $exception);
-            $this->assertEquals($expectedExceptionMessage, $exception->getMessage());
+            $this->assertRegExp($expectedExceptionMessage, $exception->getMessage());
         } finally {
             if (!isset($exception)) {
                 $this->fail('An exception should have been thrown.');
@@ -154,8 +154,8 @@ class PropertyAccessorDecoratorTest extends PropertyAccessorTest
     public function exceptionsToGetOnSetValue(): array
     {
         return [
-            ['shouldBeAStringArray', [], InvalidArgumentException::class, 'Expected argument of type "string", "array" given.'],
-            ['shouldBeAStringArray', [null], InvalidArgumentException::class, 'Expected argument of type "string", "NULL" given.'],
+            ['shouldBeAStringArray', [], InvalidArgumentException::class, '/^Expected argument of type "string", "array" given/'],
+            ['shouldBeAStringArray', [null], InvalidArgumentException::class, '/^Expected argument of type "string", "NULL" given/'],
         ];
     }
 }
