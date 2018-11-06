@@ -105,11 +105,6 @@ abstract class AppControllerTestBase extends EntityControllerTestBase
      */
     protected function alterArraysBeforeCompareSentAndReceivedPayloadsInCreate(array &$sentEntityAsArray, array $responseEntityAsArray): void
     {
-        // These stored in custom attributes so should not exist as properties.
-        // TODO Create a normalizer/denormalizer that removes this from the
-        // payload.
-        unset($sentEntityAsArray['description']);
-        unset($sentEntityAsArray['displayName']);
         // This is not returned in the POST/PUT API call responses only in GET.
         unset($sentEntityAsArray['appFamily']);
     }
@@ -121,8 +116,6 @@ abstract class AppControllerTestBase extends EntityControllerTestBase
     {
         /* @var \Apigee\Edge\Api\Management\Entity\DeveloperAppInterface $created */
         $responseObject->appFamily = $created->getAppFamily();
-        $responseObject->description = $created->getDescription();
-        $responseObject->displayName = $created->getDisplayName();
     }
 
     /**

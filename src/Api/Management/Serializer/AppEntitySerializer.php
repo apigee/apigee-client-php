@@ -20,6 +20,7 @@ namespace Apigee\Edge\Api\Management\Serializer;
 
 use Apigee\Edge\Api\Management\Denormalizer\AppDenormalizer;
 use Apigee\Edge\Api\Management\Normalizer\AppCredentialNormalizer;
+use Apigee\Edge\Api\Management\Normalizer\AppNormalizer;
 use Apigee\Edge\Denormalizer\AttributesPropertyDenormalizer;
 use Apigee\Edge\Denormalizer\CredentialProductDenormalizer;
 use Apigee\Edge\Normalizer\CredentialProductNormalizer;
@@ -39,6 +40,7 @@ class AppEntitySerializer extends EntitySerializer
             new CredentialProductNormalizer(),
             new AttributesPropertyDenormalizer(),
             new AppCredentialNormalizer(),
+            new AppNormalizer(),
             new AppDenormalizer(),
         ]);
         parent::__construct($normalizers);
