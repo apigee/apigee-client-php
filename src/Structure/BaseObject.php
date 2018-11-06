@@ -40,7 +40,22 @@ abstract class BaseObject
             if ($ro->hasMethod($setter)) {
                 $value = $values[$property->getName()];
                 $rm = new \ReflectionMethod($this, $setter);
-                $rm->invoke($this, $value);
+                try {
+                    $rm->invoke($this, $value);
+                } catch (\TypeError $error) {
+                    // Auto-retry, pass the value as variable-length arguments.
+                    // Ignore empty variable list.
+                    if (is_array($value)) {
+                        // Clear the value of the property.
+                        if (empty($value)) {
+                            $rm->invoke($this);
+                        } else {
+                            $rm->invoke($this, ...$value);
+                        }
+                    } else {
+                        throw $error;
+                    }
+                }
             }
         }
     }
@@ -57,11 +72,11 @@ abstract class BaseObject
             $property->setAccessible(true);
             $value = $property->getValue($this);
             if (is_object($value)) {
-                $this->{$property->getName()} = clone $value;
+                $property->setValue($this, clone $value);
             }
             if (is_array($value)) {
                 $this->cloneArray($value);
-                $this->{$property->getName()} = $value;
+                $property->setValue($this, $value);
             }
         }
     }

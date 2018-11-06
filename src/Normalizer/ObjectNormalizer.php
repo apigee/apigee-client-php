@@ -18,6 +18,8 @@
 
 namespace Apigee\Edge\Normalizer;
 
+use Apigee\Edge\PropertyAccess\PropertyAccessorDecorator;
+use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 use Symfony\Component\PropertyInfo\Extractor\PhpDocExtractor;
 use Symfony\Component\PropertyInfo\Extractor\ReflectionExtractor;
@@ -76,7 +78,13 @@ class ObjectNormalizer implements NormalizerInterface, SerializerAwareInterface
                 ]
             );
         }
-        $this->objectNormalizer = new BaseObjectNormalizer($classMetadataFactory, $nameConverter, $propertyAccessor, $propertyTypeExtractor);
+
+        if (null === $propertyAccessor) {
+            // BaseObjectNormalizer would do the same.
+            $propertyAccessor = PropertyAccess::createPropertyAccessor();
+        }
+
+        $this->objectNormalizer = new BaseObjectNormalizer($classMetadataFactory, $nameConverter, new PropertyAccessorDecorator($propertyAccessor), $propertyTypeExtractor);
     }
 
     /**

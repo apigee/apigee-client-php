@@ -9,12 +9,9 @@ addons:
 php:
   - 7.1
   - 7.2
-  - nightly
 
 matrix:
   fast_finish: true
-  allow_failures:
-    - php: nightly
 
 cache:
   directories:
@@ -27,6 +24,9 @@ notifications:
 env:
   global:
     - COMPOSER_OPTIONS="--no-suggest --no-interaction"
+    # To prevent failing test runs caused by
+    # "The process "phpunit" exceeded the timeout of 300 seconds.
+    - COMPOSER_PROCESS_TIMEOUT=0
   matrix:
     - DEPENDENCIES="--prefer-lowest"
     - DEPENDENCIES=""

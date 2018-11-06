@@ -1,5 +1,5 @@
 {
-    "appId": "a47891c5-ca20-4f2f-975e-0e7588ec81f0",
+    "appId": "f98678b9-4d1b-4927-ba17-62e6efaadfb3",
     "attributes": [
         {
             "name": "foo",
@@ -25,8 +25,9 @@
         {
             "apiProducts": [],
             "attributes": [],
-            "consumerKey": "Zww6GKaGRxQFGkfE36vgSN0eoac1Ymk3",
-            "consumerSecret": "LtdYkcmgDYV7kzxz",
+            "consumerKey": "0YQxigR9Fcbo1vKLBrM5QRWgXx6nU1k1",
+            "consumerSecret": "6DwTp11hKT4fap65",
+            "expiresAt": -1,
             "issuedAt": 648345600000,
             "scopes": [],
             "status": "approved"

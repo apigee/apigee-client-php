@@ -58,9 +58,9 @@ interface ApiProductInterface extends
     public function getProxies(): array;
 
     /**
-     * @param string[] $proxy
+     * @param string ...$proxy
      */
-    public function setProxies(array $proxy): void;
+    public function setProxies(string ...$proxy): void;
 
     /**
      * @return string|null
@@ -108,7 +108,7 @@ interface ApiProductInterface extends
     public function getApiResources(): array;
 
     /**
-     * @param string[] $apiResources
+     * @param string ...$apiResources
      */
-    public function setApiResources(array $apiResources): void;
+    public function setApiResources(string ...$apiResources): void;
 }

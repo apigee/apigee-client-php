@@ -18,27 +18,23 @@
 
 namespace Apigee\Edge\Api\Management\Entity;
 
-use Apigee\Edge\Entity\CommonEntityPropertiesInterface;
-use Apigee\Edge\Entity\EntityInterface;
-use Apigee\Edge\Entity\Property\AppsPropertyInterface;
-use Apigee\Edge\Entity\Property\AttributesPropertyInterface;
 use Apigee\Edge\Entity\Property\DisplayNamePropertyInterface;
 use Apigee\Edge\Entity\Property\NamePropertyInterface;
-use Apigee\Edge\Entity\Property\StatusPropertyInterface;
 
 /**
  * Interface CompanyInterface.
  */
-interface CompanyInterface extends
-    EntityInterface,
-    AttributesPropertyInterface,
-    AppsPropertyInterface,
-    CommonEntityPropertiesInterface,
+interface CompanyInterface extends AppOwnerInterface,
     DisplayNamePropertyInterface,
-    NamePropertyInterface,
-    StatusPropertyInterface
+    NamePropertyInterface
 {
-    public const STATUS_ACTIVE = 'active';
+    /**
+     * @param string $organization
+     */
+    public function setOrganization(string $organization): void;
 
-    public const STATUS_INACTIVE = 'inactive';
+    /**
+     * @return null|string
+     */
+    public function getOrganization(): ?string;
 }

@@ -25,8 +25,12 @@ namespace Apigee\Edge\Entity\Property;
  */
 trait OrganizationNamePropertyAwareTrait
 {
-    /** @var string Name of the organization that this entity belongs to. */
-    protected $organizationName = '';
+    /**
+     * Name of the organization that this entity belongs to.
+     *
+     * @var null|string
+     */
+    protected $organizationName;
 
     /**
      * @inheritdoc

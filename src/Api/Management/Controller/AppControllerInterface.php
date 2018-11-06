@@ -31,12 +31,24 @@ use Apigee\Edge\Structure\PagerInterface;
 interface AppControllerInterface extends PaginatedEntityControllerInterface, EntityControllerInterface
 {
     /**
-     * String that should be sent to the API to change the status of a credential to approved.
+     * Type of a developer app.
+     */
+    public const APP_TYPE_DEVELOPER = 'developer';
+
+    /**
+     * Type of a company app.
+     */
+    public const APP_TYPE_COMPANY = 'company';
+
+    /**
+     * String that should be sent to the API to change the status of a
+     * credential to approved.
      */
     public const STATUS_APPROVE = 'approve';
 
     /**
-     * String that should be sent to the API to change the status of a credential to revoked.
+     * String that should be sent to the API to change the status of a
+     * credential to revoked.
      */
     public const STATUS_REVOKE = 'revoke';
 

@@ -18,42 +18,13 @@
 
 namespace Apigee\Edge\Controller;
 
-use Apigee\Edge\Entity\EntityInterface;
-
 /**
  * Interface EntityCrudOperationsControllerInterface.
  */
-interface EntityCrudOperationsControllerInterface
+interface EntityCrudOperationsControllerInterface extends
+    EntityCreateOperationControllerInterface,
+    EntityDeleteOperationControllerInterface,
+    EntityLoadOperationControllerInterface,
+    EntityUpdateOperationControllerInterface
 {
-    /**
-     * Loads an entity by ID from Edge.
-     *
-     * @param string $entityId
-     *
-     * @return \Apigee\Edge\Entity\EntityInterface
-     */
-    public function load(string $entityId): EntityInterface;
-
-    /**
-     * Creates an entity to Edge.
-     *
-     * @param \Apigee\Edge\Entity\EntityInterface $entity
-     */
-    public function create(EntityInterface $entity): void;
-
-    /**
-     * Updates an entity to Edge.
-     *
-     * @param \Apigee\Edge\Entity\EntityInterface $entity
-     */
-    public function update(EntityInterface $entity): void;
-
-    /**
-     * Removes an entity from Edge.
-     *
-     * @param string $entityId
-     *
-     * @return \Apigee\Edge\Entity\EntityInterface
-     */
-    public function delete(string $entityId): EntityInterface;
 }

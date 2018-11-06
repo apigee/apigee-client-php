@@ -23,6 +23,7 @@ use Apigee\Edge\Entity\Property\AttributesPropertyAwareTrait;
 use Apigee\Edge\Entity\Property\ScopesPropertyAwareTrait;
 use Apigee\Edge\Entity\Property\StatusPropertyAwareTrait;
 use Apigee\Edge\Structure\AttributesProperty;
+use Apigee\Edge\Structure\CredentialProductInterface;
 
 /**
  * Class AppCredential.
@@ -92,11 +93,11 @@ class AppCredential extends Entity implements AppCredentialInterface
      *
      * Included API products in an app credential can not be changed by modifying this property's value.
      *
-     * @param \Apigee\Edge\Structure\CredentialProductInterface[] $apiProducts
+     * @param \Apigee\Edge\Structure\CredentialProductInterface ...$apiProducts
      *
      * @internal
      */
-    public function setApiProducts(array $apiProducts): void
+    public function setApiProducts(CredentialProductInterface ...$apiProducts): void
     {
         $this->apiProducts = $apiProducts;
     }

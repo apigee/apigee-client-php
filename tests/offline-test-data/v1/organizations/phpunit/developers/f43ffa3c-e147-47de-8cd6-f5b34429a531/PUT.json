@@ -1,8 +1,9 @@
 {
     "apps": [],
+    "companies": [],
     "email": "phpunit-edited@example.com",
     "developerId": "f43ffa3c-e147-47de-8cd6-f5b34429a531",
-    "firstName": "(Edited) Php",
+    "firstName": "Php",
     "lastName": "Unit",
     "userName": "phpunit",
     "organizationName": "test",

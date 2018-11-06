@@ -18,34 +18,21 @@
 
 namespace Apigee\Edge\Api\Management\Entity;
 
-use Apigee\Edge\Entity\CommonEntityPropertiesInterface;
-use Apigee\Edge\Entity\EntityInterface;
-use Apigee\Edge\Entity\Property\AppsPropertyInterface;
-use Apigee\Edge\Entity\Property\AttributesPropertyInterface;
 use Apigee\Edge\Entity\Property\CompaniesPropertyInterface;
 use Apigee\Edge\Entity\Property\DeveloperIdPropertyInterface;
 use Apigee\Edge\Entity\Property\EmailPropertyInterface;
 use Apigee\Edge\Entity\Property\OrganizationNamePropertyInterface;
-use Apigee\Edge\Entity\Property\StatusPropertyInterface;
 
 /**
  * Interface DeveloperInterface.
  */
 interface DeveloperInterface extends
-    EntityInterface,
-    AppsPropertyInterface,
-    AttributesPropertyInterface,
-    CommonEntityPropertiesInterface,
+    AppOwnerInterface,
     CompaniesPropertyInterface,
     DeveloperIdPropertyInterface,
     EmailPropertyInterface,
-    OrganizationNamePropertyInterface,
-    StatusPropertyInterface
+    OrganizationNamePropertyInterface
 {
-    public const STATUS_INACTIVE = 'inactive';
-
-    public const STATUS_ACTIVE = 'active';
-
     /**
      * @return string[] Names of apps that this developer owns.
      */

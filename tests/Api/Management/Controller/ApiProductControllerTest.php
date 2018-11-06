@@ -18,133 +18,98 @@
 
 namespace Apigee\Edge\Tests\Api\Management\Controller;
 
-use Apigee\Edge\Api\Management\Controller\ApiProductController;
-use Apigee\Edge\Api\Management\Entity\ApiProduct;
 use Apigee\Edge\ClientInterface;
-use Apigee\Edge\Controller\EntityControllerInterface;
 use Apigee\Edge\Entity\EntityInterface;
-use Apigee\Edge\Structure\AttributesProperty;
-use Apigee\Edge\Tests\Test\Controller\AttributesAwareEntityControllerTestTrait;
-use Apigee\Edge\Tests\Test\Controller\OrganizationAwareEntityControllerValidatorTrait;
-use Apigee\Edge\Tests\Test\Controller\PaginatedEntityListingControllerValidator;
+use Apigee\Edge\Tests\Api\Management\Entity\ApiProductTestEntityProviderTrait;
+use Apigee\Edge\Tests\Test\Controller\DefaultAPIClientAwareTrait;
+use Apigee\Edge\Tests\Test\Controller\EntityControllerTesterInterface;
+use Apigee\Edge\Tests\Test\Controller\EntityCreateOperationControllerTester;
+use Apigee\Edge\Tests\Test\Controller\EntityCreateOperationControllerTraitTest;
+use Apigee\Edge\Tests\Test\Controller\EntityCreateOperationTestControllerTesterInterface;
+use Apigee\Edge\Tests\Test\Controller\EntityDeleteOperationControllerTestTrait;
+use Apigee\Edge\Tests\Test\Controller\EntityLoadOperationControllerTestTrait;
+use Apigee\Edge\Tests\Test\Controller\EntityUpdateOperationControllerTestTrait;
 use Apigee\Edge\Tests\Test\TestClientFactory;
 
 /**
  * Class ApiProductControllerTest.
  *
  * @group controller
+ * @group management
  */
-class ApiProductControllerTest extends PaginatedEntityListingControllerValidator
+class ApiProductControllerTest extends EntityControllerTestBase
 {
+    use ApiProductControllerAwareTestTrait;
+    use ApiProductTestEntityProviderTrait;
+    use DefaultAPIClientAwareTrait;
+    // The order of these trait matters. Check @depends in test methods.
+    use EntityCreateOperationControllerTraitTest;
+    use EntityLoadOperationControllerTestTrait;
+    use EntityUpdateOperationControllerTestTrait;
+    use EntityDeleteOperationControllerTestTrait;
+    use PaginatedEntityListingControllerTestTraitBase;
+    use PaginatedEntityIdListingControllerTestTrait;
+    use PaginatedEntityListingControllerTestTrait;
     use AttributesAwareEntityControllerTestTrait;
-    use OrganizationAwareEntityControllerValidatorTrait;
 
-    /**
-     * @inheritdoc
-     */
-    public static function sampleDataForEntityCreate(): EntityInterface
-    {
-        static $entity;
-        if (null === $entity) {
-            $isMock = TestClientFactory::isMockClient(static::$client);
-            $entity = new ApiProduct([
-                'name' => $isMock ? static::getOfflineEntityId() : 'phpunit_' . static::$random->unique()->userName,
-                'displayName' => $isMock ? 'PHP Unit Test product' : static::$random->unique()->words(static::$random->numberBetween(1, 8), true),
-                'approvalType' => ApiProduct::APPROVAL_TYPE_AUTO,
-                'attributes' => new AttributesProperty(['foo' => 'bar']),
-                'scopes' => ['scope 1', 'scope 2'],
-                'quota' => 10,
-                'quotaInterval' => 1,
-                'quotaTimeUnit' => ApiProduct::QUOTA_INTERVAL_MINUTE,
-            ]);
-        }
-
-        return $entity;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public static function sampleDataForEntityUpdate(): EntityInterface
-    {
-        static $entity;
-        if (null === $entity) {
-            $isMock = TestClientFactory::isMockClient(static::$client);
-            $entity = new ApiProduct([
-                'displayName' => $isMock ? '(Edited) PHP Unit Test product' : static::$random->unique()->words(static::$random->numberBetween(1, 8), true),
-                'approvalType' => ApiProduct::APPROVAL_TYPE_MANUAL,
-                'attributes' => new AttributesProperty(['foo' => 'foo', 'bar' => 'baz']),
-                'quota' => 1000,
-                'quotaInterval' => 12,
-                'quotaTimeUnit' => ApiProduct::QUOTA_INTERVAL_HOUR,
-            ]);
-        }
-
-        return $entity;
-    }
-
-    /**
-     * We have to override this otherwise dependents of this function are being skipped.
-     * Also, "@inheritdoc" is not going to work in case of "@depends" annotations so those must be repeated.
-     *
-     * @inheritdoc
-     */
-    public function testCreate()
-    {
-        return parent::testCreate();
-    }
-
-    /**
-     * @depends testCreate
-     */
     public function testSearchByAttribute(): void
     {
-        $isMock = TestClientFactory::isMockClient(static::$client);
-        /** @var ApiProductController $controller */
-        $controller = $this->getEntityController();
-        /** @var \Apigee\Edge\Api\Management\Entity\ApiProduct $entity */
-        $entity = clone static::sampleDataForEntityCreate();
-        $originalId = $entity->id();
-        $unexpected = $isMock ? 'should_not_appear' : static::$random->unique()->userName;
-        $entity->setName($unexpected);
-        $entity->setAttribute('foo', 'foo');
-        $controller->create($entity);
-        static::$createdEntities[$entity->id()] = $entity;
-        $ids = $controller->searchByAttribute('foo', 'bar');
-        $this->assertContains($originalId, $ids);
-        $this->assertNotContains($unexpected, $ids);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function paginatedTestEntityIdProvider(): array
-    {
-        return [['name']];
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public static function getOfflineEntityId(): string
-    {
-        return 'phpunit_test';
-    }
-
-    /**
-     * @inheritdoc
-     */
-    protected static function getEntityController(ClientInterface $client = null): EntityControllerInterface
-    {
-        static $controller;
-        if (null === $client) {
-            if (null === $controller) {
-                $controller = new ApiProductController(static::getOrganization(static::$client), static::$client);
-            }
-
-            return $controller;
+        /** @var \Apigee\Edge\Api\Management\Controller\ApiProductControllerInterface $controller */
+        $controller = static::entityController();
+        if (TestClientFactory::isOfflineClient(static::defaultAPIClient())) {
+            $expectedEntityId = 'phpunit_test';
+            $unexpectedId = 'should_not_appear';
+        } else {
+            /** @var \Apigee\Edge\Api\Management\Entity\ApiProductInterface $unexpectedEntity */
+            $unexpectedEntity = static::getNewEntity();
+            $unexpectedEntity->setAttribute('foo', 'foo');
+            // Use the same controller as the entity create test uses because
+            // it could be different than what static::entityController();
+            // returns.
+            static::controllerForEntityCreate()->create($unexpectedEntity);
+            $unexpectedId = $unexpectedEntity->id();
+            /** @var \Apigee\Edge\Api\Management\Entity\ApiProductInterface $expectedEntity */
+            $expectedEntity = static::getNewEntity();
+            $expectedEntity->setAttribute('foo', 'bar');
+            static::controllerForEntityCreate()->create($expectedEntity);
+            $expectedEntityId = $expectedEntity->id();
         }
 
-        return new ApiProductController(static::getOrganization($client), $client);
+        $ids = $controller->searchByAttribute('foo', 'bar');
+        $this->assertContains($expectedEntityId, $ids);
+        $this->assertNotContains($unexpectedId, $ids);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    protected static function entityController(ClientInterface $client = null): EntityControllerTesterInterface
+    {
+        return static::apiProductController($client);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    protected static function getNewEntity(): EntityInterface
+    {
+        return static::getNewApiProduct(!TestClientFactory::isOfflineClient(static::defaultAPIClient()));
+    }
+
+    /**
+     * @inheritdoc
+     */
+    protected function entityForUpdateTest(EntityInterface $existing): EntityInterface
+    {
+        /* @var \Apigee\Edge\Api\Management\Entity\ApiProductInterface $existing */
+        return static::getUpdatedApiProduct($existing, !TestClientFactory::isOfflineClient(static::defaultAPIClient()));
+    }
+
+    /**
+     * @inheritdoc
+     */
+    protected static function entityCreateOperationTestController(): EntityCreateOperationTestControllerTesterInterface
+    {
+        return new EntityCreateOperationControllerTester(static::entityController());
     }
 }

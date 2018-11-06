@@ -21,59 +21,83 @@ namespace Apigee\Edge\Tests\Api\Management\Controller;
 use Apigee\Edge\Api\Management\Controller\CompanyMembersController;
 use Apigee\Edge\Api\Management\Controller\CompanyMembersControllerInterface;
 use Apigee\Edge\Api\Management\Structure\CompanyMembership;
-use Apigee\Edge\Exception\ApiException;
-use Apigee\Edge\Tests\Test\Controller\AbstractControllerValidator;
-use Apigee\Edge\Tests\Test\Controller\OrganizationAwareEntityControllerValidatorTrait;
+use Apigee\Edge\ClientInterface;
+use Apigee\Edge\Tests\Api\Management\Entity\CompanyTestEntityProviderTrait;
+use Apigee\Edge\Tests\Api\Management\Entity\DeveloperTestEntityProviderTrait;
+use Apigee\Edge\Tests\Test\Controller\ControllerTestBase;
+use Apigee\Edge\Tests\Test\Controller\DefaultAPIClientAwareTrait;
 use Apigee\Edge\Tests\Test\TestClientFactory;
+use Apigee\Edge\Tests\Test\Utility\EntityStorage;
+use Apigee\Edge\Tests\Test\Utility\MarkOnlineTestSkippedAwareTrait;
 
-class CompanyMembersControllerTest extends AbstractControllerValidator
+/**
+ * Class CompanyMembersControllerTest.
+ *
+ * @group controller
+ * @group management
+ */
+class CompanyMembersControllerTest extends ControllerTestBase
 {
-    use CompanyAwareControllerTestTrait;
-    use DeveloperAwareControllerTestTrait;
-    use OrganizationAwareEntityControllerValidatorTrait;
+    use DefaultAPIClientAwareTrait;
+    use CompanyControllerAwareTestTrait;
+    use DeveloperControllerAwareTestTrait;
+    use CompanyTestEntityProviderTrait;
+    use DeveloperTestEntityProviderTrait;
+    use MarkOnlineTestSkippedAwareTrait;
 
+    protected const TEST_ROLE = 'simple member';
+
+    /** @var \Apigee\Edge\Api\Management\Entity\CompanyInterface */
+    protected static $testCompany;
+
+    /** @var \Apigee\Edge\Api\Management\Entity\DeveloperInterface */
+    protected static $testDeveloper1;
+
+    /** @var \Apigee\Edge\Api\Management\Entity\DeveloperInterface */
+    protected static $testDeveloper2;
+
+    /**
+     * @inheritDoc
+     */
     public static function setUpBeforeClass(): void
     {
-        try {
-            parent::setUpBeforeClass();
-            static::setupCompany();
-            static::setupDeveloper();
-        } catch (ApiException $e) {
-            // Ensure that created test data always gets removed after an API call fails here.
-            // (By default tearDownAfterClass() is not called if (any) exception occurred here.)
-            static::tearDownAfterClass();
-            throw $e;
-        }
+        parent::setUpBeforeClass();
+        static::$testCompany = static::getNewCompany();
+        static::companyController()->create(static::$testCompany);
+        static::$testDeveloper1 = static::getNewDeveloper();
+        static::developerController()->create(static::$testDeveloper1);
+        static::$testDeveloper2 = static::getNewDeveloper();
+        static::developerController()->create(static::$testDeveloper2);
     }
 
+    /**
+     * @inheritDoc
+     */
     public static function tearDownAfterClass(): void
     {
-        static::tearDownDeveloper();
-        static::tearDownCompany();
         parent::tearDownAfterClass();
+        EntityStorage::getInstance()->purgeCreatedEntities();
     }
 
     public function testCreateMembership(): void
     {
-        $role = 'simple member';
-        $members = $this->getController()->setMembers(new CompanyMembership([DeveloperControllerTest::sampleDataForEntityCreate()->getEmail() => $role]));
-        $this->assertTrue($members->isMember(DeveloperControllerTest::sampleDataForEntityCreate()->getEmail()));
-        $this->assertEquals($role, $members->getRole(DeveloperControllerTest::sampleDataForEntityCreate()->getEmail()));
+        $members = $this->getCompanyMembershipController()->setMembers(new CompanyMembership([static::$testDeveloper1->getEmail() => static::TEST_ROLE]));
+        $this->assertTrue($members->isMember(static::$testDeveloper1->getEmail()));
+        $this->assertEquals(static::TEST_ROLE, $members->getRole(static::$testDeveloper1->getEmail()));
     }
 
     /**
      * @depends testCreateMembership
+     *
+     * @group online
      */
     public function testUpdateMembership(): void
     {
-        if (TestClientFactory::isMockClient(static::$client)) {
-            $this->markTestSkipped(static::$onlyOnlineClientSkipMessage);
-        }
-
+        static::markOnlineTestSkipped(__FUNCTION__);
         $role = 'not a simple member';
-        $members = $this->getController()->setMembers(new CompanyMembership([DeveloperControllerTest::sampleDataForEntityCreate()->getEmail() => $role]));
-        $this->assertTrue($members->isMember(DeveloperControllerTest::sampleDataForEntityCreate()->getEmail()));
-        $this->assertEquals($role, $members->getRole(DeveloperControllerTest::sampleDataForEntityCreate()->getEmail()));
+        $members = $this->getCompanyMembershipController()->setMembers(new CompanyMembership([static::$testDeveloper1->getEmail() => $role]));
+        $this->assertTrue($members->isMember(static::$testDeveloper1->getEmail()));
+        $this->assertEquals($role, $members->getRole(static::$testDeveloper1->getEmail()));
     }
 
     /**
@@ -81,37 +105,51 @@ class CompanyMembersControllerTest extends AbstractControllerValidator
      */
     public function testDeleteMembership(): void
     {
-        $this->getController()->removeMember(DeveloperControllerTest::sampleDataForEntityCreate()->getEmail());
-        $members = $this->getController()->getMembers();
-        $this->assertEmpty($members->getMembers());
-    }
-
-    public function testDeleteMembershipWithEmptyMemberList(): void
-    {
-        if (TestClientFactory::isMockClient(static::$client)) {
-            $this->markTestSkipped(static::$onlyOnlineClientSkipMessage);
-        }
-
-        $role = 'simple member';
-        $members = $this->getController()->setMembers(new CompanyMembership([DeveloperControllerTest::sampleDataForEntityCreate()->getEmail() => $role]));
-        $this->assertTrue($members->isMember(DeveloperControllerTest::sampleDataForEntityCreate()->getEmail()));
-        $this->assertEquals($role, $members->getRole(DeveloperControllerTest::sampleDataForEntityCreate()->getEmail()));
-        $members = $this->getController()->setMembers(new CompanyMembership());
+        $this->getCompanyMembershipController()->removeMember(static::$testDeveloper1->getEmail());
+        $members = $this->getCompanyMembershipController()->getMembers();
         $this->assertEmpty($members->getMembers());
     }
 
     /**
-     * Returns a configured StatsController that uses the FileSystemMockClient http client.
-     *
-     * @return \Apigee\Edge\Api\Management\Controller\CompanyMembersControllerInterface
+     * @group online
      */
-    private function getController(): CompanyMembersControllerInterface
+    public function testDeleteMembershipWithEmptyMemberList(): void
     {
-        static $controller;
-        if (!$controller) {
-            $controller = new CompanyMembersController(static::$companyName, static::getOrganization(static::$client), static::$client);
-        }
+        static::markOnlineTestSkipped(__FUNCTION__);
+        $members = $this->getCompanyMembershipController()->setMembers(new CompanyMembership([static::$testDeveloper1->getEmail() => static::TEST_ROLE]));
+        $this->assertTrue($members->isMember(static::$testDeveloper1->getEmail()));
+        $this->assertEquals(static::TEST_ROLE, $members->getRole(static::$testDeveloper1->getEmail()));
+        $members = $this->getCompanyMembershipController()->setMembers(new CompanyMembership());
+        $this->assertEmpty($members->getMembers());
+    }
 
-        return $controller;
+    /**
+     * @depends testDeleteMembershipWithEmptyMemberList
+     *   To make sure company has no members.
+     *
+     * @group online
+     */
+    public function testAddMember(): void
+    {
+        static::markOnlineTestSkipped(__FUNCTION__);
+        $this->getCompanyMembershipController()->setMembers(new CompanyMembership([static::$testDeveloper1->getEmail() => '']));
+        // Add a new member.
+        $this->getCompanyMembershipController()->setMembers(new CompanyMembership([static::$testDeveloper2->getEmail() => '']));
+        $members = $this->getCompanyMembershipController()->getMembers();
+        $this->assertTrue($members->isMember(static::$testDeveloper1->getEmail()));
+        $this->assertTrue($members->isMember(static::$testDeveloper2->getEmail()));
+    }
+
+    /**
+     * @inheritdoc
+     */
+    protected static function defaultAPIClient(): ClientInterface
+    {
+        return TestClientFactory::getClient();
+    }
+
+    protected function getCompanyMembershipController(): CompanyMembersControllerInterface
+    {
+        return new CompanyMembersController(static::$testCompany->id(), static::defaultTestOrganization(static::defaultAPIClient()), static::defaultAPIClient());
     }
 }

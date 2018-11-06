@@ -32,6 +32,7 @@ trait PaginationHelperTrait
     use ClientAwareControllerTrait;
     use BaseEndpointAwareControllerTrait;
     use OrganizationControllerAwareTrait;
+    use OrganizationAwareControllerTrait;
 
     /**
      * @inheritdoc
@@ -39,9 +40,9 @@ trait PaginationHelperTrait
     public function createPager(int $limit = 0, ?string $startKey = null): PagerInterface
     {
         /** @var \Apigee\Edge\Api\Management\Entity\OrganizationInterface $organization */
-        $organization = $this->getOrganizationController()->load($this->organization);
+        $organization = $this->getOrganizationController()->load($this->getOrganisationName());
         if (!$organization->getPropertyValue('features.isCpsEnabled')) {
-            throw new CpsNotEnabledException($this->organization);
+            throw new CpsNotEnabledException($this->getOrganisationName());
         }
 
         // Create an anonymous class here because this class should not exist and be in use
@@ -95,7 +96,7 @@ trait PaginationHelperTrait
     }
 
     /**
-     * Loads entities from Apigee Edge.
+     * Loads paginated list of entities from Apigee Edge.
      *
      * @param \Apigee\Edge\Structure\PagerInterface|null $pager
      *   Pager.

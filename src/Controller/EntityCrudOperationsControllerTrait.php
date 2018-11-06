@@ -18,8 +18,6 @@
 
 namespace Apigee\Edge\Controller;
 
-use Apigee\Edge\Entity\EntityInterface;
-
 /**
  * Trait EntityCrudOperationsControllerTrait.
  *
@@ -32,60 +30,8 @@ trait EntityCrudOperationsControllerTrait
     use EntityClassAwareTrait;
     use EntityEndpointAwareControllerTrait;
     use EntitySerializerAwareTrait;
-
-    /**
-     * @inheritdoc
-     */
-    public function load(string $entityId): EntityInterface
-    {
-        $response = $this->getClient()->get($this->getEntityEndpointUri($entityId));
-
-        return $this->getEntitySerializer()->deserialize(
-            (string) $response->getBody(),
-            $this->getEntityClass(),
-            'json'
-        );
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function create(EntityInterface $entity): void
-    {
-        $response = $this->getClient()->post(
-            $this->getBaseEndpointUri(),
-            $this->getEntitySerializer()->serialize($entity, 'json')
-        );
-        $this->getEntitySerializer()->setPropertiesFromResponse($response, $entity);
-    }
-
-    /**
-     * @inheritdoc
-     *
-     * @psalm-suppress PossiblyNullArgument $entity->id() is always not null here.
-     */
-    public function update(EntityInterface $entity): void
-    {
-        $uri = $this->getEntityEndpointUri($entity->id());
-        // Update an existing entity.
-        $response = $this->getClient()->put(
-            $uri,
-            $this->getEntitySerializer()->serialize($entity, 'json')
-        );
-        $this->getEntitySerializer()->setPropertiesFromResponse($response, $entity);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function delete(string $entityId): EntityInterface
-    {
-        $response = $this->getClient()->delete($this->getEntityEndpointUri($entityId));
-
-        return $this->getEntitySerializer()->deserialize(
-            (string) $response->getBody(),
-            $this->getEntityClass(),
-            'json'
-        );
-    }
+    use EntityCreateOperationControllerTrait;
+    use EntityDeleteOperationControllerTrait;
+    use EntityLoadOperationControllerTrait;
+    use EntityUpdateOperationControllerTrait;
 }

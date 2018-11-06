@@ -19,114 +19,66 @@
 namespace Apigee\Edge\Tests\Api\Management\Controller;
 
 use Apigee\Edge\Api\Management\Controller\EnvironmentController;
-use Apigee\Edge\Api\Management\Entity\Environment;
 use Apigee\Edge\ClientInterface;
-use Apigee\Edge\Controller\EntityControllerInterface;
 use Apigee\Edge\Entity\EntityInterface;
-use Apigee\Edge\Tests\Test\Controller\EntityCrudOperationsControllerValidator;
-use Apigee\Edge\Tests\Test\Controller\NonPaginatedEntityIdListingControllerValidatorTrait;
-use Apigee\Edge\Tests\Test\Controller\OrganizationAwareEntityControllerValidatorTrait;
+use Apigee\Edge\Tests\Test\Controller\DefaultAPIClientAwareTrait;
+use Apigee\Edge\Tests\Test\Controller\DefaultTestOrganizationAwareTrait;
+use Apigee\Edge\Tests\Test\Controller\EntityControllerTester;
+use Apigee\Edge\Tests\Test\Controller\EntityControllerTesterInterface;
+use Apigee\Edge\Tests\Test\Controller\EntityCreateOperationControllerTester;
+use Apigee\Edge\Tests\Test\Controller\EntityCreateOperationTestControllerTesterInterface;
+use Apigee\Edge\Tests\Test\Controller\EntityLoadOperationControllerTestTrait;
 
 /**
  * Class EnvironmentControllerTest.
  *
- * @group controller
+ * CUD operations are only available in on-prem (private cloud) installation
+ * of Apigee Edge so we did not test them at the moment when this test was
+ * written.
  *
- * TODO
- * Finish CRUD tests.
+ * @group controller
+ * @group management
  */
-class EnvironmentControllerTest extends EntityCrudOperationsControllerValidator
+class EnvironmentControllerTest extends EntityControllerTestBase
 {
-    use OrganizationAwareEntityControllerValidatorTrait;
-    use NonPaginatedEntityIdListingControllerValidatorTrait {
-        testGetEntityIds as private traitTestGetEntityIds;
-    }
-
-    private const SKIP_REASON = 'Only available on Apigee Edge on-prem installations. TODO: finish test for this later.';
+    use DefaultAPIClientAwareTrait;
+    use DefaultTestOrganizationAwareTrait;
+    use EntityLoadOperationControllerTestTrait;
+    use NonPaginatedEntityIdListingControllerTestTrait;
 
     /**
-     * @inheritdoc
-     */
-    public static function sampleDataForEntityCreate(): EntityInterface
-    {
-        return new Environment();
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public static function sampleDataForEntityUpdate(): EntityInterface
-    {
-        return new Environment();
-    }
-
-    /**
-     * testCreate() is skipped and we do want this test to run.
+     * Test load depends on this so we had to implement it.
      *
-     * @param string $entityId
-     *
-     * @throws \ReflectionException
-     *
-     * @return string
+     * @return \Apigee\Edge\Entity\EntityInterface
      */
-    public function testLoad(string $entityId = 'test')
+    public function testCreate(): EntityInterface
     {
-        $entity = $this->getEntityController()->load($entityId);
-        // Validate properties that values are either auto generated or we do not know in the current context.
-        $this->assertEntityHasAllPropertiesSet($entity);
-        $this->assertArraySubset(
-            array_filter(static::$objectNormalizer->normalize(static::expectedAfterEntityCreate())),
-            static::$objectNormalizer->normalize($entity)
-        );
+        /** @var \Apigee\Edge\Api\Management\Controller\EnvironmentControllerInterface $controller */
+        $controller = static::entityController();
+        $entity = $controller->load('test');
+        $this->assertNotNull($entity);
 
-        return $entityId;
-    }
-
-    /**
-     * testCreate() is skipped and we do want this test to run.
-     */
-    public function testGetEntityIds(): void
-    {
-        $this->traitTestGetEntityIds();
-    }
-
-    public function testCreate(): void
-    {
-        $this->markTestSkipped(self::SKIP_REASON);
-    }
-
-    public function testUpdate(string $entityId = 'test'): void
-    {
-        $this->markTestSkipped(self::SKIP_REASON);
-    }
-
-    public function testDelete(): void
-    {
-        $this->markTestSkipped(self::SKIP_REASON);
+        return $entity;
     }
 
     /**
      * @inheritdoc
      */
-    public static function getOfflineEntityId(): string
+    protected static function entityController(ClientInterface $client = null): EntityControllerTesterInterface
     {
-        return '';
+        $client = $client ?? static::defaultAPIClient();
+
+        return new EntityControllerTester(new EnvironmentController(static::defaultTestOrganization($client), $client));
     }
 
     /**
      * @inheritdoc
      */
-    protected static function getEntityController(ClientInterface $client = null): EntityControllerInterface
+    protected static function entityCreateOperationTestController(): EntityCreateOperationTestControllerTesterInterface
     {
-        static $controller;
-        if (null === $client) {
-            if (null === $controller) {
-                $controller = new EnvironmentController(static::getOrganization(static::$client), static::$client);
-            }
+        /** @var \Apigee\Edge\Api\Management\Controller\EnvironmentControllerInterface $controller */
+        $controller = static::entityController();
 
-            return $controller;
-        }
-
-        return new EnvironmentController(static::getOrganization($client), $client);
+        return new EntityCreateOperationControllerTester($controller);
     }
 }

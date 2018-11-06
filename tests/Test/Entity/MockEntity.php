@@ -47,7 +47,7 @@ class MockEntity extends Entity
     private $zero = 0;
 
     /** @var float */
-    private $double = 2.2;
+    private $double = 2.0;
 
     /** @var string */
     private $string = 'string';
@@ -63,6 +63,25 @@ class MockEntity extends Entity
 
     /** @var null|\DateTimeImmutable */
     private $date;
+
+    /**
+     * This property does not have setter so it should be ignored by the
+     * entity serializer.
+     *
+     * @var int|null
+     */
+    private $propertyWithoutSetter = 0;
+
+    /**
+     * This property does not have getter or isser so it should be ignored
+     * by the entity serializer.
+     *
+     * @var bool
+     */
+    private $propertyWithoutGetter = false;
+
+    /** @var string[] */
+    private $variableLengthArgs = [];
 
     /**
      * MockEntity constructor.
@@ -260,5 +279,37 @@ class MockEntity extends Entity
     public function setEmptyString(string $emptyString): void
     {
         $this->emptyString = $emptyString;
+    }
+
+    /**
+     * @return int
+     */
+    public function getPropertyWithoutSetter(): ?int
+    {
+        return $this->propertyWithoutSetter;
+    }
+
+    /**
+     * @param bool $propertyWithoutGetter
+     */
+    public function setPropertyWithoutGetter(bool $propertyWithoutGetter): void
+    {
+        $this->propertyWithoutGetter = $propertyWithoutGetter;
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getVariableLengthArgs(): array
+    {
+        return $this->variableLengthArgs;
+    }
+
+    /**
+     * @param string ...$variableLengthArgs
+     */
+    public function setVariableLengthArgs(string ...$variableLengthArgs): void
+    {
+        $this->variableLengthArgs = $variableLengthArgs;
     }
 }

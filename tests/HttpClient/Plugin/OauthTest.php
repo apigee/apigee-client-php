@@ -21,27 +21,25 @@ namespace Apigee\Edge\Tests\HttpClient\Plugin;
 use Apigee\Edge\Client;
 use Apigee\Edge\ClientInterface;
 use Apigee\Edge\HttpClient\Utility\Builder;
+use Apigee\Edge\Tests\Test\HttpClient\MockHttpClient;
 use Apigee\Edge\Tests\Test\HttpClient\Plugin\InMemoryOauthTokenStorage;
 use Apigee\Edge\Tests\Test\HttpClient\Plugin\MockOauth;
 use Apigee\Edge\Tests\Test\HttpClient\Utility\TestJournal;
 use GuzzleHttp\Psr7\Response;
 use Http\Client\Exception\TransferException;
-use Http\Mock\Client as MockClient;
 use PHPUnit\Framework\TestCase;
 
 /**
  * Class OauthTest.
  *
  * @group client
- * @group mock
- * @group offline
  * @small
  */
 class OauthTest extends TestCase
 {
     private const API_ENDPOINT = 'http://api.example.com/v1';
 
-    /** @var \Http\Mock\Client */
+    /** @var \Apigee\Edge\Tests\Test\HttpClient\MockHttpClient */
     protected static $httpClient;
 
     /** @var \Apigee\Edge\HttpClient\Utility\JournalInterface */
@@ -56,10 +54,13 @@ class OauthTest extends TestCase
     public static function setUpBeforeClass(): void
     {
         // Use the Mock HTTP Client for all requests.
-        self::$httpClient = new MockClient();
+        self::$httpClient = new MockHttpClient();
         parent::setUpBeforeClass();
     }
 
+    /**
+     * @inheritdoc
+     */
     protected function setUp(): void
     {
         parent::setUp();

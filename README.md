@@ -134,6 +134,7 @@ Testing of new changes does not require Apigee Edge connection. By default, unit
 tests with a real Apigee Edge instance you have to specify the following environment variables (without brackets):
 
 ```shell
+APIGEE_EDGE_PHP_CLIENT_API_CLIENT=\Apigee\Edge\Tests\Test\FileSystemMockClient
 APIGEE_EDGE_PHP_CLIENT_HTTP_CLIENT=\Http\Adapter\Guzzle6\Client
 APIGEE_EDGE_PHP_CLIENT_BASIC_AUTH_USER=[YOUR-EMAIL-ADDRESS@HOST.COM]
 APIGEE_EDGE_PHP_CLIENT_BASIC_AUTH_PASSWORD=[PASSWORD]

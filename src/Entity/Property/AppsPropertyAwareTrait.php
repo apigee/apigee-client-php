@@ -49,11 +49,11 @@ trait AppsPropertyAwareTrait
      *
      * Apps of a developer can not be changed by modifying this property's value.
      *
-     * @param string[] $apps
+     * @param string ...$apps
      *
      * @internal
      */
-    public function setApps(array $apps): void
+    public function setApps(string ...$apps): void
     {
         $this->apps = $apps;
     }

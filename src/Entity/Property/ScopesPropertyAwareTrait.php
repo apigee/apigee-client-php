@@ -40,7 +40,7 @@ trait ScopesPropertyAwareTrait
     /**
      * @inheritdoc
      */
-    public function setScopes(array $scopes): void
+    public function setScopes(string ...$scopes): void
     {
         $this->scopes = $scopes;
     }

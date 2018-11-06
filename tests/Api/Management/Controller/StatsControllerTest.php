@@ -20,35 +20,26 @@ namespace Apigee\Edge\Tests\Api\Management\Controller;
 
 use Apigee\Edge\Api\Management\Controller\StatsController;
 use Apigee\Edge\Api\Management\Query\StatsQuery;
-use Apigee\Edge\Client;
-use Apigee\Edge\HttpClient\Utility\Builder;
-use Apigee\Edge\Tests\Test\Controller\AbstractControllerValidator;
-use Apigee\Edge\Tests\Test\Controller\EnvironmentAwareEntityControllerValidatorTrait;
-use Apigee\Edge\Tests\Test\Controller\OrganizationAwareEntityControllerValidatorTrait;
-use Apigee\Edge\Tests\Test\HttpClient\FileSystemMockClient;
-use Apigee\Edge\Tests\Test\HttpClient\Plugin\NullAuthentication;
-use Apigee\Edge\Tests\Test\TestClientFactory;
+use Apigee\Edge\ClientInterface;
+use Apigee\Edge\Tests\Test\Controller\ControllerTestBase;
+use Apigee\Edge\Tests\Test\Controller\FileSystemMockAPIClientAwareTrait;
+use Apigee\Edge\Tests\Test\Controller\MockClientAwareTrait;
 use GuzzleHttp\Psr7\Response;
-use Http\Mock\Client as MockClient;
 use League\Period\Period;
 
 /**
  * Class StatsControllerTest.
  *
- * Setting up real analytics data on Edge would take time and it can not be solved in unit tests so we have to use
- * the offline file system client for all tests.
- * Also we only test our custom methods that return "optimized" response because other methods (described by
- * StatsControllerInterface) does not do any transformation on the data, always returns the json decoded response
- * of Apigee Edge.
- *
  * @group controller
- * @group offline
- * @group mock
+ * @group management
+ * @small
  */
-class StatsControllerTest extends AbstractControllerValidator
+class StatsControllerTest extends ControllerTestBase
 {
-    use EnvironmentAwareEntityControllerValidatorTrait;
-    use OrganizationAwareEntityControllerValidatorTrait;
+    use FileSystemMockAPIClientAwareTrait;
+    use MockClientAwareTrait;
+
+    protected const TEST_ENVIRONMENT = 'test';
 
     public function testGetOptimizedMetrics(): void
     {
@@ -109,7 +100,7 @@ class StatsControllerTest extends AbstractControllerValidator
      */
     public function getOptimizedMetricsByDimensions(bool $tsAscending): void
     {
-        // Make our life easier and use the same timezone as Edge.
+        // Make our life easier and use the same timezone as Apigee Edge.
         // StatsQueryNormalizerTest ensures that date conversion works properly.
         date_default_timezone_set('UTC');
         $q = new StatsQuery(['sum(message_count), sum(is_error)'], new Period('2018-02-01 00:00', '2018-02-28 23:59'));
@@ -141,9 +132,10 @@ class StatsControllerTest extends AbstractControllerValidator
     {
         date_default_timezone_set('UTC');
         $q = new StatsQuery([], new Period('2018-02-01 00:00', '2018-02-28 23:59'));
-        $httpClient = new MockClient();
-        $client = new Client(new NullAuthentication(), null, [Client::CONFIG_HTTP_CLIENT_BUILDER => new Builder($httpClient)]);
-        $controller = new StatsController(static::getEnvironment($client), static::getOrganization($client), $client);
+        $client = static::mockApiClient();
+        /** @var \Apigee\Edge\Tests\Test\HttpClient\MockHttpClient $httpClient */
+        $httpClient = $client->getMockHttpClient();
+        $controller = new StatsController(static::TEST_ENVIRONMENT, static::defaultTestOrganization($client), $client);
         foreach (['decade', 'century', 'millennium'] as $tu) {
             $q->setTimeUnit($tu);
             $httpClient->addResponse(new Response(200, ['Content-Type' => 'application/json'], json_encode($this->emptyResponseArray())));
@@ -160,10 +152,11 @@ class StatsControllerTest extends AbstractControllerValidator
         date_default_timezone_set('UTC');
         $q = new StatsQuery([], new Period('2018-02-01 11:11', '2018-02-14 23:23'));
         $q->setTimeUnit('day');
-        $httpClient = new MockClient();
-        $client = new Client(new NullAuthentication(), null, [Client::CONFIG_HTTP_CLIENT_BUILDER => new Builder($httpClient)]);
+        $client = static::mockApiClient();
+        /** @var \Apigee\Edge\Tests\Test\HttpClient\MockHttpClient $httpClient */
+        $httpClient = $client->getMockHttpClient();
         $httpClient->addResponse(new Response(200, ['Content-Type' => 'application/json'], json_encode($this->emptyResponseArray())));
-        $controller = new StatsController(static::getEnvironment($client), static::getOrganization($client), $client);
+        $controller = new StatsController(static::TEST_ENVIRONMENT, static::defaultTestOrganization($client), $client);
         $response = $controller->getOptimisedMetrics($q);
         $this->assertCount(14, $response['TimeUnit']);
         $this->assertCount(14, $response['stats']['data'][0]['values']);
@@ -176,22 +169,30 @@ class StatsControllerTest extends AbstractControllerValidator
         $this->assertCount(13, $response['stats']['data'][0]['values']);
     }
 
-    private function emptyResponseArray(): array
+    protected function emptyResponseArray(): array
     {
         return ['Response' => ['TimeUnit' => [], 'stats' => ['data' => [0 => ['values' => []]]]]];
     }
 
     /**
-     * Returns a configured StatsController that uses the FileSystemMockClient http client.
+     * @inheritDoc
+     */
+    protected static function defaultAPIClient(): ClientInterface
+    {
+        // In this test we always use the Mock API client.
+        return static::fileSystemMockClient();
+    }
+
+    /**
+     * Returns a configured controller with an offline http client.
      *
      * @return \Apigee\Edge\Api\Management\Controller\StatsController
      */
-    private function getController(): StatsController
+    protected function getController(): StatsController
     {
         static $controller;
         if (!$controller) {
-            $client = (new TestClientFactory())->getClient(FileSystemMockClient::class);
-            $controller = new StatsController(static::getEnvironment($client), static::getOrganization($client), $client);
+            $controller = new StatsController(static::TEST_ENVIRONMENT, static::defaultTestOrganization(static::defaultAPIClient()), static::defaultAPIClient());
         }
 
         return $controller;

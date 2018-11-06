@@ -18,26 +18,28 @@
 
 namespace Apigee\Edge\Api\Management\Entity;
 
-use Apigee\Edge\Entity\CommonEntityPropertiesAwareTrait;
-use Apigee\Edge\Entity\Entity;
-use Apigee\Edge\Entity\Property\AppsPropertyAwareTrait;
-use Apigee\Edge\Entity\Property\AttributesPropertyAwareTrait;
 use Apigee\Edge\Entity\Property\DisplayNamePropertyAwareTrait;
 use Apigee\Edge\Entity\Property\NamePropertyAwareTrait;
-use Apigee\Edge\Entity\Property\StatusPropertyAwareTrait;
 use Apigee\Edge\Structure\AttributesProperty;
 
 /**
  * Describes a Company entity.
  */
-class Company extends Entity implements CompanyInterface
+class Company extends AppOwner implements CompanyInterface
 {
-    use AttributesPropertyAwareTrait;
-    use AppsPropertyAwareTrait;
-    use CommonEntityPropertiesAwareTrait;
     use DisplayNamePropertyAwareTrait;
     use NamePropertyAwareTrait;
-    use StatusPropertyAwareTrait;
+
+    /**
+     * It is organization and not organizationName in the API response.
+     *
+     * This is the reason why it does not implement
+     * OrganizationNamePropertyInterface. We also id not created a name
+     * converter just to hide this small inconsistency.
+     *
+     * @var string|null
+     */
+    protected $organization;
 
     /**
      * Company constructor.
@@ -48,5 +50,21 @@ class Company extends Entity implements CompanyInterface
     {
         $this->attributes = new AttributesProperty();
         parent::__construct($values);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function setOrganization(string $organization): void
+    {
+        $this->organization = $organization;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getOrganization(): ?string
+    {
+        return $this->organization;
     }
 }

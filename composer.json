@@ -19,7 +19,7 @@
         "fightbulc/moment": "^1.26",
         "league/period": "^3.4",
         "php-http/cache-plugin": "^1.4",
-        "php-http/client-common": "^1.6",
+        "php-http/client-common": "^1.8.1",
         "php-http/client-implementation": "^1.0",
         "php-http/discovery": "^1.0",
         "php-http/httplug": "^1.0",
@@ -46,13 +46,14 @@
         "phpmetrics/phpmetrics": "^2.3",
         "phpunit/phpunit": "^6.4.0",
         "sebastian/comparator": "^2.1",
+        "symfony/cache": "~3.4|~4.0",
         "vimeo/psalm": "^2.0.0"
     },
     "conflict": {
         "guzzlehttp/guzzle": "<6.1.0",
         "guzzlehttp/psr7": "<1.4.1",
         "phpdocumentor/type-resolver": "<0.2.1",
-        "php-http/client-common": ">1.7"
+        "vimeo/psalm": ">2.0.13"
     },
     "autoload": {
         "psr-4": {
@@ -86,7 +87,7 @@
         },
         "patches": {
             "php-http/client-common": {
-                "Only add path prefix if the path does not contain it already #103": "https://patch-diff.githubusercontent.com/raw/php-http/client-common/pull/103.diff"
+                "Path prefix must be present #113": "https://github.com/php-http/client-common/pull/113.diff"
             }
         }
     }

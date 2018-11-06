@@ -186,15 +186,15 @@ abstract class App extends Entity implements AppInterface
     }
 
     /**
-     * Set credentials from an Edge API response.
+     * Set credentials from an Apigee Edge API response.
      *
      * Credentials, included in app, can not be changed by modifying them on the entity level.
      *
-     * @param \Apigee\Edge\Api\Management\Entity\AppCredentialInterface[] $credentials
+     * @param \Apigee\Edge\Api\Management\Entity\AppCredentialInterface ...$credentials
      *
      * @internal
      */
-    public function setCredentials(array $credentials): void
+    public function setCredentials(AppCredentialInterface ...$credentials): void
     {
         $this->credentials = $credentials;
     }
@@ -202,15 +202,16 @@ abstract class App extends Entity implements AppInterface
     /**
      * Set OAuth scopes from an Edge API response.
      *
-     * Scopes of an app should not be changed on the entity level. You should modify them by using the app credential
+     * Scopes of an app should not be changed on the entity level.
+     * You should modify them by using the app credential
      * controllers.
      *
-     * @param string[] $scopes
+     * @param string ...$scopes
      *
      * @internal
      */
-    public function setScopes(array $scopes): void
+    public function setScopes(string ...$scopes): void
     {
-        $this->privateSetScopes($scopes);
+        $this->privateSetScopes(...$scopes);
     }
 }
