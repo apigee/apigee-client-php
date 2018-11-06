@@ -56,7 +56,7 @@ class SpecstoreTest extends TestCase
         parent::setUpBeforeClass();
     }
 
-    public function testSpecStore(): void
+    public function testSpecstoreLoadHomeFolder(): void
     {
 
 
@@ -92,5 +92,30 @@ class SpecstoreTest extends TestCase
         var_dump($folderController->getPath($folderObj));
         var_dump($folderController->loadByPath("abcd/gitesh/spec1"));
         $this->assertEquals($expected, $data);
+    }
+
+    public function testSpecstoreUploadTestSpecToHomeFolder()
+    {
+
+    }
+
+    public function testSpecstoreDeleteTestSpecToHomeFolder()
+    {
+
+    }
+
+    public function testSpecstoreVerifyCreateFolder()
+    {
+
+    }
+
+    public function testSpecstoreVerifyRemoveFolder()
+    {
+
+    }
+
+    public function testSpecstoreVerifyRecursiveCreateFolder()
+    {
+
     }
 }
