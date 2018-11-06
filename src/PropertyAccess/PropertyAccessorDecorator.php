@@ -55,18 +55,15 @@ final class PropertyAccessorDecorator implements PropertyAccessorInterface
             // Auto-retry, try to pass the value as variable-length arguments to
             // the setter method.
             if (is_object($objectOrArray) && is_array($value)) {
-                if (empty($value)) {
-                    // If an empty array triggered this exception throw it,
-                    // because it is a sign of a real error. Empty arrays from
-                    // API response payloads got excluded.
-                    // @see \Apigee\Edge\Denormalizer\ObjectDenormalizer::denormalize()
-                    throw $exception;
-                }
                 $setter = 'set' . ucfirst((string) $propertyPath);
                 if (method_exists($objectOrArray, $setter)) {
                     try {
-                        // Value must not be an empty array.
-                        $objectOrArray->{$setter}(...$value);
+                        if (empty($value)) {
+                            // Clear the value of the property.
+                            $objectOrArray->{$setter}();
+                        } else {
+                            $objectOrArray->{$setter}(...$value);
+                        }
                     } catch (\TypeError $typeError) {
                         self::processTypeErrorOnSetValue($typeError->getMessage(), $typeError->getTrace(), 0);
 

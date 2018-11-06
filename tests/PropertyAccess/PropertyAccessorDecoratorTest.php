@@ -124,6 +124,9 @@ class PropertyAccessorDecoratorTest extends PropertyAccessorTest
         $this->propertyAccessor->setValue(static::$testObj, 'shouldBeAStringArray', ['foo', 'bar']);
         $this->assertEquals('foo', static::$testObj->getShouldBeAStringArray()[0]);
         $this->assertEquals('bar', static::$testObj->getShouldBeAStringArray()[1]);
+        // Previously set values should be removed.
+        $this->propertyAccessor->setValue(static::$testObj, 'shouldBeAStringArray', []);
+        $this->assertEmpty(static::$testObj->getShouldBeAStringArray());
     }
 
     /**
@@ -154,7 +157,6 @@ class PropertyAccessorDecoratorTest extends PropertyAccessorTest
     public function exceptionsToGetOnSetValue(): array
     {
         return [
-            ['shouldBeAStringArray', [], InvalidArgumentException::class, '/^Expected argument of type "string", "array" given/'],
             ['shouldBeAStringArray', [null], InvalidArgumentException::class, '/^Expected argument of type "string", "NULL" given/'],
         ];
     }

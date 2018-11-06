@@ -168,11 +168,12 @@ class EntitySerializer implements EntitySerializerInterface
                 } catch (\TypeError $error) {
                     // Auto-retry, pass the value as variable-length arguments.
                     if (is_array($value)) {
-                        // Ignore empty variable list just like null values.
+                        // Clear the value of the property.
                         if (empty($value)) {
-                            continue;
+                            $rm->invoke($entity);
+                        } else {
+                            $rm->invoke($entity, ...$value);
                         }
-                        $rm->invoke($entity, ...$value);
                     } else {
                         throw $error;
                     }

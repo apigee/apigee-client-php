@@ -169,6 +169,14 @@ class EntitySerializerTest extends TestCase
         $entityProperty = $roEntity->getProperty('propertyWithoutGetter');
         $entityProperty->setAccessible(true);
         $this->assertEquals($originalProperty->getValue($original), $entityProperty->getValue($entity));
+
+        // Ensure that value of a property that uses variable-length
+        // parameters in its setter can be cleared by passing an empty array.
+        $response = (object) [
+            'variableLengthArgs' => [],
+        ];
+        static::$serializer->setPropertiesFromResponse(new Response('200', ['Content-type' => 'application/json'], stream_for(json_encode($response))), $entity);
+        $this->assertEmpty($entity->getVariableLengthArgs());
     }
 
     /**

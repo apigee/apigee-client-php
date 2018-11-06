@@ -45,8 +45,13 @@ abstract class BaseObject
                 } catch (\TypeError $error) {
                     // Auto-retry, pass the value as variable-length arguments.
                     // Ignore empty variable list.
-                    if (is_array($value) && !empty($value)) {
-                        $rm->invoke($this, ...$value);
+                    if (is_array($value)) {
+                        // Clear the value of the property.
+                        if (empty($value)) {
+                            $rm->invoke($this);
+                        } else {
+                            $rm->invoke($this, ...$value);
+                        }
                     } else {
                         throw $error;
                     }
