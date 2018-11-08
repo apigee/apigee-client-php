@@ -30,7 +30,7 @@ interface EntityInterface
      *
      * @return string
      */
-    public function idProperty(): string;
+    public static function idProperty(): string;
 
     /**
      * Returns the value of the primary id of an entity.
