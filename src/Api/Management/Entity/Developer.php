@@ -58,7 +58,7 @@ class Developer extends AppOwner implements DeveloperInterface
     /**
      * @inheritdoc
      */
-    public function idProperty(): string
+    public static function idProperty(): string
     {
         // The developerId is also a primary key of a developer entity. Other entities are usually
         // referencing to a developer with email address (except developer apps) but we should not use it
