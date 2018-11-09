@@ -1,5 +1,14 @@
 # CHANGELOG
 
+## 2.0.0-alpha6 - 2018-11-09
+* idProperty() on entity objects is a static method from now.
+* Setters on entities now accepts variable lengths arguments instead of an array. This way we can leverage PHP's built-in type check on these methods as well.
+* Developer and company entities extends and implements one new parent class and interface: AppOwner and AppOwnerInterface.
+* Refactored management API tests.
+  * New environment variable: APIGEE_EDGE_PHP_CLIENT_API_CLIENT
+* Bumped minimum required versions from php-client/httplug and php-client/client-common packages.
+* Travis CI: Removed PHP nightly builds from the test matrix, fixed failed tests caused by Composer process timeout.
+
 ## 2.0.0-alpha5 - 2018-10-08
 * Added missing constructor to the Company entity.
 * Added "JSON_PRESERVE_ZERO_FRACTION" to the serializer to ensure float values are always encoded as a float value.
