@@ -31,7 +31,7 @@ abstract class Entity extends BaseEntity implements EntityInterface
     /**
      * @inheritdoc
      */
-    public function idProperty(): string
+    public static function idProperty(): string
     {
         // All Monetization entities have an "id" property (besides name) and
         // even if both are unique and unchangeable we should use the "id".

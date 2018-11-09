@@ -43,7 +43,7 @@ trait PaginatedEntityListingControllerTestTraitBase
         if (!array_key_exists($entityIdPrefix, $entities)) {
             for ($i = 1; $i <= 5; ++$i) {
                 $entity = static::getNewEntity();
-                $setter = 'set' . ucfirst($entity->idProperty());
+                $setter = 'set' . ucfirst($entity::idProperty());
                 // Make sure that all test entities created for this has a very
                 // unique id.
                 $entity->{$setter}($entityIdPrefix . '_' . $entity->id());
