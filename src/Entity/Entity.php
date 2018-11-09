@@ -47,13 +47,13 @@ abstract class Entity extends BaseObject implements EntityInterface
      */
     public function id(): ?string
     {
-        return $this->{$this->idProperty()};
+        return $this->{static::idProperty()};
     }
 
     /**
      * @inheritdoc
      */
-    public function idProperty(): string
+    public static function idProperty(): string
     {
         return self::DEFAULT_ID_FIELD;
     }
