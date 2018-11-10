@@ -16,12 +16,12 @@
  * limitations under the License.
  */
 
-namespace Apigee\Edge\Api\Specstore\Controller;
+namespace Apigee\Edge\Api\Docstore\Controller;
 
-use Apigee\Edge\Api\Specstore\Entity\Collection;
-use Apigee\Edge\Api\Specstore\Entity\Folder;
-use Apigee\Edge\Api\Specstore\Entity\SpecstoreObject;
-use Apigee\Edge\Api\Specstore\Serializer\CollectionSerializer;
+use Apigee\Edge\Api\Docstore\Entity\Collection;
+use Apigee\Edge\Api\Docstore\Entity\DocstoreObject;
+use Apigee\Edge\Api\Docstore\Entity\Folder;
+use Apigee\Edge\Api\Docstore\Serializer\CollectionSerializer;
 use Apigee\Edge\Controller\EntityController;
 
 /**
@@ -31,7 +31,7 @@ use Apigee\Edge\Controller\EntityController;
  */
 class FolderController extends EntityController
 {
-    use SpecstoreEntityControllerTrait;
+    use DocstoreEntityControllerTrait;
 
     /**
      * @param Folder $entity
@@ -55,11 +55,11 @@ class FolderController extends EntityController
     /**
      * Map a folder path for the current specstore object.
      *
-     * @param SpecstoreObject $entity
+     * @param DocstoreObject $entity
      *
      * @return string
      */
-    public function getPath(SpecstoreObject $entity): string
+    public function getPath(DocstoreObject $entity): string
     {
         $parent_folder_id = $entity->getFolder();
         $parent_specstore_folder = $this->load($parent_folder_id);
@@ -73,9 +73,9 @@ class FolderController extends EntityController
     /**
      * Given the path load the specstore object.
      *
-     * @returns null|SpecstoreObject
+     * @returns null|DocstoreObject
      */
-    public function loadByPath(string $path, SpecstoreObject $parent = null)
+    public function loadByPath(string $path, DocstoreObject $parent = null)
     {
         if (null === $parent) {
             $parent = $this->load('/homeFolder');
@@ -116,7 +116,7 @@ class FolderController extends EntityController
      */
     protected function getEntityClass(): string
     {
-        return \Apigee\Edge\Api\Specstore\Entity\Folder::class;
+        return \Apigee\Edge\Api\Docstore\Entity\Folder::class;
     }
 
     protected function getCreateEndpointUri()

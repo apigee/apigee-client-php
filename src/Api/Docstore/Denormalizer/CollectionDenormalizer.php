@@ -16,11 +16,11 @@
  * limitations under the License.
  */
 
-namespace Apigee\Edge\Api\Specstore\Denormalizer;
+namespace Apigee\Edge\Api\Docstore\Denormalizer;
 
-use Apigee\Edge\Api\Specstore\Entity\Collection;
-use Apigee\Edge\Api\Specstore\Entity\Folder;
-use Apigee\Edge\Api\Specstore\Entity\Spec;
+use Apigee\Edge\Api\Docstore\Entity\Collection;
+use Apigee\Edge\Api\Docstore\Entity\Folder;
+use Apigee\Edge\Api\Docstore\Entity\Spec;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 
 /**

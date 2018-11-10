@@ -18,8 +18,8 @@
 
 namespace Apigee\Edge\Tests\Api\Specstore;
 
-use Apigee\Edge\Api\Specstore\Controller\FolderController;
-use Apigee\Edge\Api\Specstore\Controller\SpecController;
+use Apigee\Edge\Api\Docstore\Controller\FolderController;
+use Apigee\Edge\Api\Docstore\Controller\SpecController;
 use Apigee\Edge\Client;
 use Apigee\Edge\HttpClient\Plugin\Authentication\Oauth;
 use Apigee\Edge\Tests\Test\HttpClient\Plugin\InMemoryOauthTokenStorage;
@@ -35,6 +35,7 @@ use PHPUnit\Framework\TestCase;
  */
 class SpecstoreTest extends TestCase
 {
+    use MockClientAwareTrait;
     static $folderController;
     static $specController;
     /**

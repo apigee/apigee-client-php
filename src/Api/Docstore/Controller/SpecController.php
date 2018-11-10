@@ -16,9 +16,9 @@
  * limitations under the License.
  */
 
-namespace Apigee\Edge\Api\Specstore\Controller;
+namespace Apigee\Edge\Api\Docstore\Controller;
 
-use Apigee\Edge\Api\Specstore\Entity\Spec;
+use Apigee\Edge\Api\Docstore\Entity\Spec;
 use Apigee\Edge\Controller\EntityController;
 
 /**
@@ -27,7 +27,7 @@ use Apigee\Edge\Controller\EntityController;
  */
 class SpecController extends EntityController
 {
-    use SpecstoreEntityControllerTrait;
+    use DocstoreEntityControllerTrait;
 
     /**
      * Upload a openAPI file to the backend.
@@ -81,7 +81,7 @@ class SpecController extends EntityController
      */
     protected function getEntityClass(): string
     {
-        return \Apigee\Edge\Api\Specstore\Entity\Spec::class;
+        return \Apigee\Edge\Api\Docstore\Entity\Spec::class;
     }
 
     protected function getCreateEndpointUri()
