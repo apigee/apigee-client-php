@@ -16,42 +16,49 @@
  * limitations under the License.
  */
 
-namespace Apigee\Edge\Api\Specstore\Controller;
+namespace Apigee\Edge\Api\Docstore\Controller;
 
-use Apigee\Edge\Api\Specstore\Entity\SpecstoreObject;
+use Apigee\Edge\Api\Docstore\Entity\DocstoreObject;
 use Psr\Http\Message\UriInterface;
 
 /**
- * Trait SpecstoreEntityControllerTrait rewrites the CRUD operations
+ * Trait DocstoreEntityControllerTrait rewrites the CRUD operations
  * because the specstore APIs do not accept org name in the URL but need a new header
  * parameter (X-Org-Name).
  */
-trait SpecstoreEntityControllerTrait
+trait DocstoreEntityControllerTrait
 {
     /**
      * @inheritdoc
      */
-    public function load(string $entityId): SpecstoreObject
+    public function load(string $entityId): DocstoreObject
     {
         $response = $this->getClient()->get($this->getEntityEndpointUri($entityId), $this->getHeaders());
 
-        return $this->getEntitySerializer()->deserialize(
+        $object = $this->getEntitySerializer()->deserialize(
             (string)$response->getBody(),
             $this->getEntityClass(),
             'json'
         );
+        $object->setEtag($response->getHeader('ETag')[0]);
+        return $object;
     }
 
     /**
      * @inheritdoc
      */
-    public function create(SpecstoreObject $entity): void
+    public function create(DocstoreObject $entity): void
     {
+        if (null == $entity->getFolder()) {
+            $entity->setFolder($this->getHomeFolderId());
+        }
         $response = $this->getClient()->post(
             $this->getCreateEndpointUri(),
             $this->getEntitySerializer()->serialize($entity, 'json'),
             $this->getHeaders());
         $this->getEntitySerializer()->setPropertiesFromResponse($response, $entity);
+        $entity->setEtag($response->getHeader('ETag')[0]);
+
     }
 
     /**
@@ -59,14 +66,21 @@ trait SpecstoreEntityControllerTrait
      *
      * @psalm-suppress PossiblyNullArgument $entity->id() is always not null here.
      */
-    public function update(SpecstoreObject $entity): void
+    public function update(DocstoreObject $entity): void
     {
         $uri = $this->getEntityEndpointUri($entity->id());
+        $update_arr = [];
+        $update_arr['folder'] = $entity->getFolder();
+        $update_arr['name'] = $entity->getName();
+        if ($entity->getDescription() !== null) {
+            $update_arr['description'] = $entity->getDescription();
+        }
+        $update_arr['isTrashed'] = $entity->getIsTrashed();
         // Update an existing entity.
         $response = $this->getClient()->patch(
             $uri,
-            $this->getEntitySerializer()->serialize($entity, 'json'),
-            $this->getHeaders()
+            $this->getEntitySerializer()->serialize($update_arr, 'json'),
+            $this->getHeaders() + ['If-Match' => $entity->getEtag()]
         );
         $this->getEntitySerializer()->setPropertiesFromResponse($response, $entity);
     }
@@ -74,9 +88,9 @@ trait SpecstoreEntityControllerTrait
     /**
      * @inheritdoc
      */
-    public function delete(string $entityId): SpecstoreObject
+    public function delete(string $entityId): DocstoreObject
     {
-        $response = $this->getClient()->delete($this->getEntityEndpointUri($entityId), $this->getHeaders());
+        $response = $this->getClient()->delete($this->getEntityEndpointUri($entityId), null, $this->getHeaders());
 
         return $this->getEntitySerializer()->deserialize(
             (string)$response->getBody(),
@@ -101,4 +115,15 @@ trait SpecstoreEntityControllerTrait
     }
 
     abstract protected function getCreateEndpointUri();
+
+    private function getHomeFolderId()
+    {
+        static $homeFolderId;
+        if (!$homeFolderId) {
+
+            $homeFolder = $this->load("/homeFolder");
+            $homeFolderId = $homeFolder->id();
+        }
+        return $homeFolderId;
+    }
 }

@@ -122,6 +122,20 @@ interface ClientInterface extends HttpClient
     public function put($uri, $body = null, array $headers = []): ResponseInterface;
 
     /**
+     * Sends a PATCH request.
+     *
+     * @param \Psr\Http\Message\UriInterface|string $uri
+     * @param null|\Psr\Http\Message\StreamInterface|resource|string $body
+     * @param array $headers
+     *
+     * @throws \Apigee\Edge\Exception\ApiException
+     * @throws \Http\Client\Exception
+     *
+     * @return \Psr\Http\Message\ResponseInterface
+     */
+    public function patch($uri, $body = null, array $headers = []): ResponseInterface;
+
+    /**
      * Sends a DELETE request.
      *
      * @param \Psr\Http\Message\UriInterface|string $uri

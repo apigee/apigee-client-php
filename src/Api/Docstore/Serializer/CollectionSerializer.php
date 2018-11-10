@@ -16,23 +16,23 @@
  * limitations under the License.
  */
 
-namespace  Apigee\Edge\Api\Specstore\Entity;
+namespace Apigee\Edge\Api\Docstore\Serializer;
 
-/**
- * Collection object in Specstore.
- */
-class Collection extends \Apigee\Edge\Api\Specstore\Entity\SpecstoreObject
+use Apigee\Edge\Api\Docstore\Denormalizer\CollectionDenormalizer;
+use Apigee\Edge\Serializer\EntitySerializer;
+
+class CollectionSerializer extends EntitySerializer
 {
-    protected $kind = 'Collection';
-    protected $contents = [];
-
-    public function getContents(): array
+    /**
+     * CollectionSerializer constructor.
+     *
+     * @param array $normalizers
+     */
+    public function __construct(array $normalizers = [])
     {
-        return $this->contents;
-    }
-
-    public function setContents($contents): void
-    {
-        $this->contents = $contents;
+        $normalizers = array_merge($normalizers, [
+            new CollectionDenormalizer(),
+        ]);
+        parent::__construct($normalizers);
     }
 }

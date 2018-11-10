@@ -16,28 +16,28 @@
  * limitations under the License.
  */
 
-namespace Apigee\Edge\Api\Specstore\Entity;
+namespace Apigee\Edge\Api\Docstore\Entity;
 
 /**
- * Folder object in Specstore.
+ * Spec object from the specstore.
  */
-class Folder extends SpecstoreObject
+class Spec extends DocstoreObject
 {
     /**
-     * URL to fetch the contents of the folders.
+     * url to fetch the spec file.
      *
      * @var
      */
-    protected $contents;
-    protected $kind = 'Folder';
+    protected $content;
+    protected $kind = 'Doc';
 
-    public function getContents()
+    public function getContent()
     {
-        return $this->contents;
+        return $this->content;
     }
 
-    public function setContents($contents_url): void
+    public function setContent($content_url): void
     {
-        $this->contents = $contents_url;
+        $this->content = $content_url;
     }
 }

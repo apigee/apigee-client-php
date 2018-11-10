@@ -228,6 +228,18 @@ class Client implements ClientInterface
     /**
      * @inheritdoc
      */
+    public function patch($uri, $body = null, array $headers = []): ResponseInterface
+    {
+        if (!isset($headers['Content-Type'])) {
+            $headers['Content-Type'] = 'application/json; charset=utf-8';
+        }
+
+        return $this->send('PATCH', $uri, $headers, $body);
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function delete($uri, $body = null, array $headers = []): ResponseInterface
     {
         return $this->send('DELETE', $uri, $headers, $body);

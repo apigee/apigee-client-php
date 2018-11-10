@@ -16,16 +16,16 @@
  * limitations under the License.
  */
 
-namespace Apigee\Edge\Api\Specstore\Entity;
+namespace Apigee\Edge\Api\Docstore\Entity;
 
 use Apigee\Edge\Entity\Entity;
 use Apigee\Edge\Entity\Property\DescriptionPropertyAwareTrait;
 use Apigee\Edge\Entity\Property\NamePropertyAwareTrait;
 
 /**
- * Abstract object to represent the Specstore entities.
+ * Abstract object to represent the Docstore entities.
  */
-abstract class SpecstoreObject extends Entity
+abstract class DocstoreObject extends Entity
 {
     use NamePropertyAwareTrait;
     use DescriptionPropertyAwareTrait;
@@ -37,6 +37,8 @@ abstract class SpecstoreObject extends Entity
     protected $folder;
 
     protected $kind;
+
+    protected $etag;
 
     public function getKind()
     {
@@ -56,13 +58,17 @@ abstract class SpecstoreObject extends Entity
         return 'self';
     }
 
+    public function getSelf()
+    {
+        return $this->self;
+    }
     public function setSelf($self): void
     {
         $this->self = $self;
     }
 
     /**
-     * Get the parent Folder ID for the current Specstore object.
+     * Get the parent Folder ID for the current Docstore object.
      *
      * @return mixed
      */
@@ -72,7 +78,7 @@ abstract class SpecstoreObject extends Entity
     }
 
     /**
-     * Set the parent Folder ID for the current Specstore object.
+     * Set the parent Folder ID for the current Docstore object.
      *
      * @param $folder
      */
@@ -82,7 +88,7 @@ abstract class SpecstoreObject extends Entity
     }
 
     /**
-     * Get the permissions associated with the Specstore object.
+     * Get the permissions associated with the Docstore object.
      *
      * @return mixed
      */
@@ -92,7 +98,7 @@ abstract class SpecstoreObject extends Entity
     }
 
     /**
-     * Set the permissions associated with the Specstore object.
+     * Set the permissions associated with the Docstore object.
      */
     public function setPermissions($permissions): void
     {
@@ -115,5 +121,15 @@ abstract class SpecstoreObject extends Entity
     public function setIsTrashed($isTrashed): void
     {
         $this->isTrashed = $isTrashed;
+    }
+
+    public function getEtag()
+    {
+        return $this->etag;
+    }
+
+    public function setEtag($etag)
+    {
+        $this->etag = $etag;
     }
 }
