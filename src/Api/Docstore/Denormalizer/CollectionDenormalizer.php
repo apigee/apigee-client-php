@@ -19,22 +19,22 @@
 namespace Apigee\Edge\Api\Docstore\Denormalizer;
 
 use Apigee\Edge\Api\Docstore\Entity\Collection;
-use Apigee\Edge\Api\Docstore\Entity\Doc;
 use Apigee\Edge\Api\Docstore\Entity\Folder;
-use Apigee\Edge\Denormalizer\ObjectDenormalizer;
+use Apigee\Edge\Api\Docstore\Entity\Spec;
+use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 
 /**
- * Class CollectionDenormalizer to help process response from the
- * Docstore apis which could be a Folder or a Spec.
+ * Class CredentialProductDenormalizer to help process response from the
+ * specstore apis which could be a Folder or a Spec.
  */
-class CollectionDenormalizer extends ObjectDenormalizer
+class CollectionDenormalizer implements DenormalizerInterface
 {
     /**
      * @inheritdoc
      */
     public function supportsDenormalization($data, $type, $format = null)
     {
-        return ('Collection' == $data->kind) && !empty($data->self);
+        return 'Collection' == $data->kind && !empty($data->self);
     }
 
     /**
@@ -44,7 +44,12 @@ class CollectionDenormalizer extends ObjectDenormalizer
     {
         $collection = [];
         foreach ($data->contents as $obj) {
-            $collection[] = parent::denormalize($obj, 'Doc' == $obj->kind ? Doc::class : Folder::class, $format, $context);
+            if ('Folder' == $obj->kind) {
+                $collection[] = new Folder((array) $obj);
+            }
+            if ('Doc' == $obj->kind) {
+                $collection[] = new Spec((array) $obj);
+            }
         }
 
         return new Collection(['contents' => $collection]);

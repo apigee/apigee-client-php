@@ -16,28 +16,23 @@
  * limitations under the License.
  */
 
-namespace Apigee\Edge\Api\Docstore\Entity;
+namespace Apigee\Edge\Api\Docstore\Serializer;
 
-/**
- * Folder object in Docstore.
- */
-class Folder extends DocstoreObject
+use Apigee\Edge\Api\Docstore\Denormalizer\CollectionDenormalizer;
+use Apigee\Edge\Serializer\EntitySerializer;
+
+class CollectionSerializer extends EntitySerializer
 {
     /**
-     * URL to fetch the contents of the folders.
+     * CollectionSerializer constructor.
      *
-     * @var
+     * @param array $normalizers
      */
-    protected $contents;
-    protected $kind = 'Folder';
-
-    public function getContents()
+    public function __construct(array $normalizers = [])
     {
-        return $this->contents;
-    }
-
-    public function setContents($contents_url): void
-    {
-        $this->contents = $contents_url;
+        $normalizers = array_merge($normalizers, [
+            new CollectionDenormalizer(),
+        ]);
+        parent::__construct($normalizers);
     }
 }
