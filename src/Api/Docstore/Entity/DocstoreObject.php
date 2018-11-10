@@ -53,7 +53,7 @@ abstract class DocstoreObject extends Entity
     /**
      * @inheritdoc
      */
-    public function idProperty(): string
+    public static function idProperty(): string
     {
         return 'self';
     }
