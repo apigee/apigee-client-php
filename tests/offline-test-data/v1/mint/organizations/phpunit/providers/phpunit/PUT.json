@@ -1,0 +1,9 @@
+{
+    "authType": "auth-type",
+    "credential": "credential",
+    "description": "(edited) test payment provider",
+    "endpoint": "http://foo.example.com/api",
+    "id": "phpunit",
+    "merchantCode": "merchant-code",
+    "name": "PHPUnit"
+}

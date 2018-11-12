@@ -1,0 +1,23 @@
+{                "address": [
+                    {
+                        "address1": "address1",
+                        "city": "city1",
+                        "country": "country1",
+                        "id": "id1",
+                        "isPrimary": true,
+                        "state": "state1",
+                        "zip": "zip1"
+                    },
+                    {
+                        "address1": "address2",
+                        "city": "city2",
+                        "country": "country2",
+                        "id": "id2",
+                        "isPrimary": false,
+                        "state": "state2",
+                        "zip": "zip2"
+                    }
+                ],
+    "monetizationPackage": [
+    ]
+}

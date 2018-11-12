@@ -1,0 +1,92 @@
+{
+    "description": "This is a test API package.",
+    "displayName": "PHPUnit",
+    "id": "phpunit",
+    "name": "phpunit",
+    "organization": {
+        "address": [
+            {
+                "address1": "address1",
+                "city": "city1",
+                "country": "country1",
+                "id": "id1",
+                "isPrimary": true,
+                "state": "state1",
+                "zip": "zip1"
+            },
+            {
+                "address1": "address2",
+                "city": "city2",
+                "country": "country2",
+                "id": "id2",
+                "isPrimary": false,
+                "state": "state2",
+                "zip": "zip2"
+            }
+        ],
+        "approveTrusted": false,
+        "approveUntrusted": false,
+        "billingCycle": "CALENDAR_MONTH",
+        "country": "US",
+        "currency": "USD",
+        "description": "phpunit-description",
+        "hasBillingAdjustment": false,
+        "hasBroker": false,
+        "hasSelfBilling": false,
+        "hasSeparateInvoiceForProduct": false,
+        "id": "phpunit",
+        "issueNettingStmt": false,
+        "name": "name",
+        "nettingStmtPerCurrency": false,
+        "regNo": "123456-regno",
+        "selfBillingAsExchOrg": false,
+        "selfBillingForAllDev": false,
+        "separateInvoiceForFees": false,
+        "status": "ACTIVE",
+        "supportedBillingType": "BOTH",
+        "taxEngineExternalId": "APIGEE",
+        "taxModel": "HYBRID",
+        "transactionRelayURL": "http://localhost",
+        "taxRegNo": "12345",
+        "timezone": "Australia/Eucla",
+        "logoUrl": "http://example.com"
+    },
+    "product": [
+        {
+            "displayName": "PHPUnit",
+            "description": "This is a test product.",
+            "id": "phpunit",
+            "name": "phpunit",
+            "organization": {
+                "approveTrusted": false,
+                "approveUntrusted": false,
+                "billingCycle": "CALENDAR_MONTH",
+                "country": "US",
+                "currency": "USD",
+                "description": "phpunit-description",
+                "hasBillingAdjustment": false,
+                "hasBroker": false,
+                "hasSelfBilling": false,
+                "hasSeparateInvoiceForProduct": false,
+                "id": "phpunit",
+                "issueNettingStmt": false,
+                "name": "name",
+                "nettingStmtPerCurrency": false,
+                "regNo": "123456-regno",
+                "selfBillingAsExchOrg": false,
+                "selfBillingForAllDev": false,
+                "separateInvoiceForFees": false,
+                "status": "ACTIVE",
+                "supportedBillingType": "BOTH",
+                "taxEngineExternalId": "APIGEE",
+                "taxModel": "HYBRID",
+                "timezone": "Australia/Eucla",
+                "logoUrl": "http://example.com"
+            },
+            "status": "CREATED",
+            "transactionSuccessCriteria": "txProviderStatus == 'OK'"
+        }
+
+    ],
+    "status": "CREATED"
+}

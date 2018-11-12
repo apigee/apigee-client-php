@@ -1,0 +1,84 @@
+{
+    "developerTnc": [
+        {
+            "action": "ACCEPTED",
+            "auditDate": "2018-08-09 00:01:52",
+            "id": "1a3d7034-de92-44ac-9f44-156033d541d4",
+            "tnc": {
+                "id": "phpunit",
+                "organization": {
+                    "approveTrusted": false,
+                    "approveUntrusted": false,
+                    "billingCycle": "CALENDAR_MONTH",
+                    "country": "US",
+                    "currency": "USD",
+                    "description": "phpunit-description",
+                    "hasBillingAdjustment": false,
+                    "hasBroker": false,
+                    "hasSelfBilling": false,
+                    "hasSeparateInvoiceForProduct": false,
+                    "id": "phpunit",
+                    "issueNettingStmt": false,
+                    "name": "name",
+                    "nettingStmtPerCurrency": false,
+                    "regNo": "123456-regno",
+                    "selfBillingAsExchOrg": false,
+                    "selfBillingForAllDev": false,
+                    "separateInvoiceForFees": false,
+                    "status": "ACTIVE",
+                    "supportedBillingType": "BOTH",
+                    "taxEngineExternalId": "APIGEE",
+                    "taxModel": "HYBRID",
+                    "transactionRelayURL": "http://localhost",
+                    "taxRegNo": "12345",
+                    "timezone": "Australia/Eucla",
+                    "logoUrl": "http://example.com"
+                },
+                "startDate": "2018-01-01 00:00:59",
+                "url": "http://example.com",
+                "tncText": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                "version": "1.0"
+            }
+        }, {
+            "action": "DECLINED",
+            "auditDate": "2018-07-09 00:01:52",
+            "id": "1a3d7034-de92-44ac-9f44-156033d54be",
+            "tnc": {
+                "id": "phpunit",
+                "organization": {
+                    "approveTrusted": false,
+                    "approveUntrusted": false,
+                    "billingCycle": "CALENDAR_MONTH",
+                    "country": "US",
+                    "currency": "USD",
+                    "description": "phpunit-description",
+                    "hasBillingAdjustment": false,
+                    "hasBroker": false,
+                    "hasSelfBilling": false,
+                    "hasSeparateInvoiceForProduct": false,
+                    "id": "phpunit",
+                    "issueNettingStmt": false,
+                    "name": "name",
+                    "nettingStmtPerCurrency": false,
+                    "regNo": "123456-regno",
+                    "selfBillingAsExchOrg": false,
+                    "selfBillingForAllDev": false,
+                    "separateInvoiceForFees": false,
+                    "status": "ACTIVE",
+                    "supportedBillingType": "BOTH",
+                    "taxEngineExternalId": "APIGEE",
+                    "taxModel": "HYBRID",
+                    "transactionRelayURL": "http://localhost",
+                    "taxRegNo": "12345",
+                    "timezone": "Australia/Eucla",
+                    "logoUrl": "http://example.com"
+                },
+                "startDate": "2018-01-01 00:00:59",
+                "url": "http://example.com",
+                "tncText": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                "version": "1.0"
+            }
+        }
+    ],
+    "totalRecords": 1
+}
