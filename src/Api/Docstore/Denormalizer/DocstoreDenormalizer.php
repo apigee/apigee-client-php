@@ -24,8 +24,8 @@ use Apigee\Edge\Api\Docstore\Entity\Folder;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 
 /**
- * Class CredentialProductDenormalizer to help process response from the
- * specstore apis which could be a Folder or a Spec.
+ * Class DocstoreDenormalizer to help process response from the
+ * Docstore apis which could be a Folder or a Spec.
  */
 class DocstoreDenormalizer implements DenormalizerInterface
 {

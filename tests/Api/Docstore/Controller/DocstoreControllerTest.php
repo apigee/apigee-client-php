@@ -24,6 +24,7 @@ use Apigee\Edge\Api\Docstore\Entity\Folder;
 use Apigee\Edge\ClientInterface;
 use Apigee\Edge\HttpClient\Plugin\Authentication\Oauth;
 use Apigee\Edge\Tests\Api\Management\Controller\EntityControllerTestBase;
+use Apigee\Edge\Tests\Test\Controller\DefaultAPIClientAwareTrait;
 use Apigee\Edge\Tests\Test\Controller\EntityControllerTester;
 use Apigee\Edge\Tests\Test\Controller\EntityControllerTesterInterface;
 use Apigee\Edge\Tests\Test\DebuggerClient;
@@ -32,6 +33,7 @@ use Apigee\Edge\Tests\Test\HttpClient\DebuggerHttpClient;
 use Apigee\Edge\Tests\Test\HttpClient\Plugin\InMemoryOauthTokenStorage;
 use Apigee\Edge\Tests\Test\OnlineClientInterface;
 use Apigee\Edge\Tests\Test\TestClientFactory;
+use Apigee\Edge\Tests\Test\Utility\MarkOnlineTestSkippedAwareTrait;
 use Http\Message\Formatter\CurlCommandFormatter;
 use Monolog\Formatter\LineFormatter;
 use Monolog\Handler\StreamHandler;
@@ -40,9 +42,15 @@ use Monolog\Processor\PsrLogMessageProcessor;
 
 /**
  * Class DocstoreControllerTest.
+ *
+ * @group controller
+ * @group management
  */
 class DocstoreControllerTest extends EntityControllerTestBase
 {
+    use MarkOnlineTestSkippedAwareTrait;
+    use DefaultAPIClientAwareTrait;
+
     /**
      * Delete all the generated test data.
      */
@@ -52,6 +60,9 @@ class DocstoreControllerTest extends EntityControllerTestBase
         static::removeTestData();
     }
 
+    /**
+     * Test to create a sample folder and verify it exists.
+     */
     public function testSampleFolderExists(): void
     {
         static::markOnlineTestSkipped(__FUNCTION__);
@@ -72,6 +83,9 @@ class DocstoreControllerTest extends EntityControllerTestBase
         $this->assertArrayHasKey(static::getSampleFolderName(), $folders);
     }
 
+    /**
+     * Test to create a Sample doc and verify it was created.
+     */
     public function testSampleSpecExists(): void
     {
         static::markOnlineTestSkipped(__FUNCTION__);
@@ -92,6 +106,9 @@ class DocstoreControllerTest extends EntityControllerTestBase
         $this->assertArrayHasKey(static::getSampleDocName(), $specs);
     }
 
+    /**
+     * Test create Folder.
+     */
     public function testCreateFolder(): void
     {
         static::markOnlineTestSkipped(__FUNCTION__);
@@ -110,6 +127,9 @@ class DocstoreControllerTest extends EntityControllerTestBase
         $this->assertContains($folderName, $folderNames);
     }
 
+    /**
+     * Test create spec.
+     */
     public function testCreateSpec(): void
     {
         static::markOnlineTestSkipped(__FUNCTION__);
@@ -128,6 +148,9 @@ class DocstoreControllerTest extends EntityControllerTestBase
         $this->assertContains($specName, $specNames);
     }
 
+    /**
+     * Test delete folder.
+     */
     public function testDeleteFolder(): void
     {
         static::markOnlineTestSkipped(__FUNCTION__);
@@ -157,6 +180,9 @@ class DocstoreControllerTest extends EntityControllerTestBase
         $this->assertNotContains($folderName, $folderNames);
     }
 
+    /**
+     * Test delete spec.
+     */
     public function testDeleteSpec(): void
     {
         static::markOnlineTestSkipped(__FUNCTION__);
@@ -186,6 +212,9 @@ class DocstoreControllerTest extends EntityControllerTestBase
         $this->assertNotContains($specName, $specNames);
     }
 
+    /**
+     * Test rename folder.
+     */
     public function testRenameFolder(): void
     {
         static::markOnlineTestSkipped(__FUNCTION__);
@@ -210,6 +239,9 @@ class DocstoreControllerTest extends EntityControllerTestBase
         $this->assertEquals($folderName2, $updated_folder->getName());
     }
 
+    /**
+     * Test rename spec.
+     */
     public function testRenameSpec(): void
     {
         static::markOnlineTestSkipped(__FUNCTION__);
@@ -234,6 +266,9 @@ class DocstoreControllerTest extends EntityControllerTestBase
         $this->assertEquals($specName2, $updated_spec->getName());
     }
 
+    /**
+     * Test Move folder.
+     */
     public function testMoveFolder(): void
     {
         static::markOnlineTestSkipped(__FUNCTION__);
@@ -272,6 +307,9 @@ class DocstoreControllerTest extends EntityControllerTestBase
         static::entityController()->delete($folder1->id());
     }
 
+    /**
+     * Test move spec to a folder.
+     */
     public function testMoveSpecToFolder(): void
     {
         static::markOnlineTestSkipped(__FUNCTION__);
@@ -310,6 +348,9 @@ class DocstoreControllerTest extends EntityControllerTestBase
         static::entityController()->delete($folder->id());
     }
 
+    /**
+     * Test to ensure the correct path is returned for a given Folder.
+     */
     public function testGetFolderPath(): void
     {
         static::markOnlineTestSkipped(__FUNCTION__);
@@ -351,6 +392,9 @@ class DocstoreControllerTest extends EntityControllerTestBase
         static::entityController()->delete($folder1->id());
     }
 
+    /**
+     * Test to ensure the correct path is returned for a given Spec.
+     */
     public function testGetSpecPath(): void
     {
         static::markOnlineTestSkipped(__FUNCTION__);
@@ -390,6 +434,9 @@ class DocstoreControllerTest extends EntityControllerTestBase
         static::entityController()->delete($folder->id());
     }
 
+    /**
+     * Test to ensure the correct folder is loaded from a given path.
+     */
     public function testLoadFolderByPath(): void
     {
         static::markOnlineTestSkipped(__FUNCTION__);
@@ -433,6 +480,9 @@ class DocstoreControllerTest extends EntityControllerTestBase
         static::entityController()->delete($folder1->id());
     }
 
+    /**
+     * Test to ensure the correct spec is loaded from a given path.
+     */
     public function testLoadSpecByPath(): void
     {
         static::markOnlineTestSkipped(__FUNCTION__);
@@ -474,6 +524,9 @@ class DocstoreControllerTest extends EntityControllerTestBase
         static::entityController()->delete($folder->id());
     }
 
+    /**
+     * Test to ensure the contents of the uploaded OAS documents are same.
+     */
     public function testSpecFileContentMatch(): void
     {
         static::markOnlineTestSkipped(__FUNCTION__);
@@ -505,6 +558,11 @@ class DocstoreControllerTest extends EntityControllerTestBase
         }
     }
 
+    /**
+     * @param ClientInterface|null $client
+     *
+     * @return EntityControllerTesterInterface
+     */
     protected static function entityController(ClientInterface $client = null): EntityControllerTesterInterface
     {
         $client = $client ?? static::defaultAPIClient();
@@ -512,6 +570,11 @@ class DocstoreControllerTest extends EntityControllerTestBase
         return new EntityControllerTester(new DocstoreController(static::defaultTestOrganization($client), $client));
     }
 
+    /**
+     * @throws \ReflectionException
+     *
+     * @return ClientInterface
+     */
     protected static function defaultAPIClient(): ClientInterface
     {
         $fqcn = getenv('APIGEE_EDGE_PHP_CLIENT_API_CLIENT') ?: FileSystemMockClient::class;
@@ -524,9 +587,8 @@ class DocstoreControllerTest extends EntityControllerTestBase
 
         if ($clientRC->implementsInterface(OnlineClientInterface::class)) {
             $options = [];
+            //$endpoint =  getenv('APIGEE_EDGE_PHP_CLIENT_ENDPOINT') ?: null;
             $endpoint = 'https://apigee.com';
-            //;
-            // getenv('APIGEE_EDGE_PHP_CLIENT_ENDPOINT') ?: null;
             $username = getenv('APIGEE_EDGE_PHP_CLIENT_BASIC_AUTH_USER') ?: '';
             $password = getenv('APIGEE_EDGE_PHP_CLIENT_BASIC_AUTH_PASSWORD') ?: '';
             $httpClientFqcn = getenv('APIGEE_EDGE_PHP_CLIENT_HTTP_CLIENT');
@@ -553,21 +615,39 @@ class DocstoreControllerTest extends EntityControllerTestBase
         }
     }
 
+    /**
+     * @return string
+     */
     private static function getSampleFolderName()
     {
         return static::generateNamesForTest('SampleFolder');
     }
 
+    /**
+     * @return string
+     */
     private static function getSampleDocName()
     {
         return static::generateNamesForTest('SampleDoc');
     }
 
+    /**
+     * Generate sample name for running tests.
+     *
+     * @param null $name
+     *
+     * @return string
+     */
     private static function generateNamesForTest($name = null)
     {
         return 'PHP-SDK-TEST-FolderControllerTest-' . ($name ?? static::randomGenerator()->number(1, 1000000));
     }
 
+    /**
+     * Cleanup test data.
+     *
+     * @throws \ReflectionException
+     */
     private static function removeTestData(): void
     {
         if (!TestClientFactory::isOfflineClient(static::defaultAPIClient())) {
