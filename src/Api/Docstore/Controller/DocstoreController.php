@@ -28,9 +28,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\UriInterface;
 
 /**
- * Class FolderController allows for CRUD operations for folders.
- *
- * In addition it allows to get the contents of a Folder
+ * Class DocstoreController allows for CRUD operations for Docstore entities (Folder and Doc).
  */
 class DocstoreController extends EntityController
 {
@@ -97,6 +95,10 @@ class DocstoreController extends EntityController
     /**
      * Upload a openAPI file to the backend.
      *
+     * This is what the API supports today.
+     * Uploading a JSON file and setting the content-type to application/x-yaml
+     * This will change in the future
+     *
      * @param Doc $entity
      * @param $content
      *
@@ -121,7 +123,7 @@ class DocstoreController extends EntityController
      *
      * @return string
      */
-    public function getSpecContents(Doc $entity)
+    public function getSpecContents(Doc $entity): string
     {
         $response = $this->getClient()->get($entity->getContent(),
             $this->getHeaders() + ['Accept' => 'application/json, text/plain, */*']);
@@ -175,6 +177,8 @@ class DocstoreController extends EntityController
     }
 
     /**
+     * Return the contents of the Folder.
+     *
      * @param Folder $entity
      *
      * @throws \Http\Client\Exception
@@ -230,6 +234,11 @@ class DocstoreController extends EntityController
         return DocstoreObject::class;
     }
 
+    /**
+     * Return the identifier for the home folder of the org.
+     *
+     * @return null|string
+     */
     private function getHomeFolderId()
     {
         static $homeFolderId;
@@ -241,6 +250,9 @@ class DocstoreController extends EntityController
         return $homeFolderId;
     }
 
+    /**
+     * Parses the DocStore response and generates either a Folder/Doc object.
+     */
     private function parseDocstoreResponse(ResponseInterface $response): DocstoreObject
     {
         $response_body = (string)$response->getBody();
