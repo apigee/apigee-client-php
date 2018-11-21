@@ -43,22 +43,11 @@ class DocstoreController extends EntityController
             $entity->setFolder($this->getHomeFolderId());
         }
         $response = $this->getClient()->post(
-            ($entity instanceof Doc ? 'specs/new' : "folders"),
+            ($entity instanceof Doc ? 'specs/new' : 'folders'),
             $this->getEntitySerializer()->serialize($entity, 'json'),
             $this->getHeaders());
         $this->getEntitySerializer()->setPropertiesFromResponse($response, $entity);
         $entity->setEtag($response->getHeader('ETag')[0]);
-    }
-
-    private function getHomeFolderId()
-    {
-        static $homeFolderId;
-        if (!$homeFolderId) {
-
-            $homeFolder = $this->load("/homeFolder");
-            $homeFolderId = $homeFolder->id();
-        }
-        return $homeFolderId;
     }
 
     /**
@@ -67,49 +56,8 @@ class DocstoreController extends EntityController
     public function load(string $entityId): DocstoreObject
     {
         $response = $this->getClient()->get($this->getEntityEndpointUri($entityId), $this->getHeaders());
+
         return $this->parseDocstoreResponse($response);
-    }
-
-    /**
-     * Docstore entity id start with a "/"
-     *
-     * @inheritdoc
-     */
-    protected function getEntityEndpointUri(string $entityId): UriInterface
-    {
-        return $this->getBaseEndpointUri()->withPath("{$this->getBaseEndpointUri()}{$entityId}");
-    }
-
-    /**
-     * Returns the API endpoint that the controller communicates with.
-     *
-     * In case of an entity that belongs to an organisation it should return organization/[orgName]/[endpoint].
-     *
-     * @return \Psr\Http\Message\UriInterface
-     */
-    protected function getBaseEndpointUri(): UriInterface
-    {
-        return $this->client->getUriFactory()->createUri('');
-    }
-
-    protected function getHeaders()
-    {
-        return ['X-Org-Name' => $this->getOrganisationName()];
-    }
-
-    private function parseDocstoreResponse(ResponseInterface $response): DocstoreObject
-    {
-        $response_body = (string)$response->getBody();
-        $docstore_obj = json_decode($response_body, true);
-        $object = $this->getEntitySerializer()->deserialize(
-            $response_body,
-            ($docstore_obj['kind'] === 'Folder' ? Folder::class : Doc::class),
-            'json'
-        );
-        if (!empty($response->getHeader('ETag'))) {
-            $object->setEtag($response->getHeader('ETag')[0]);
-        }
-        return $object;
     }
 
     /**
@@ -123,7 +71,7 @@ class DocstoreController extends EntityController
         $update_arr = [];
         $update_arr['folder'] = $entity->getFolder();
         $update_arr['name'] = $entity->getName();
-        if ($entity->getDescription() !== null) {
+        if (null !== $entity->getDescription()) {
             $update_arr['description'] = $entity->getDescription();
         }
         $update_arr['isTrashed'] = $entity->getIsTrashed();
@@ -142,6 +90,7 @@ class DocstoreController extends EntityController
     public function delete(string $entityId): DocstoreObject
     {
         $response = $this->getClient()->delete($this->getEntityEndpointUri($entityId), null, $this->getHeaders());
+
         return $this->parseDocstoreResponse($response);
     }
 
@@ -245,6 +194,33 @@ class DocstoreController extends EntityController
     }
 
     /**
+     * Docstore entity id start with a "/".
+     *
+     * @inheritdoc
+     */
+    protected function getEntityEndpointUri(string $entityId): UriInterface
+    {
+        return $this->getBaseEndpointUri()->withPath("{$this->getBaseEndpointUri()}{$entityId}");
+    }
+
+    /**
+     * Returns the API endpoint that the controller communicates with.
+     *
+     * In case of an entity that belongs to an organisation it should return organization/[orgName]/[endpoint].
+     *
+     * @return \Psr\Http\Message\UriInterface
+     */
+    protected function getBaseEndpointUri(): UriInterface
+    {
+        return $this->client->getUriFactory()->createUri('');
+    }
+
+    protected function getHeaders()
+    {
+        return ['X-Org-Name' => $this->getOrganisationName()];
+    }
+
+    /**
      * Returns the fully-qualified class name of the entity that this controller works with.
      *
      * @return string
@@ -254,4 +230,30 @@ class DocstoreController extends EntityController
         return DocstoreObject::class;
     }
 
+    private function getHomeFolderId()
+    {
+        static $homeFolderId;
+        if (!$homeFolderId) {
+            $homeFolder = $this->load('/homeFolder');
+            $homeFolderId = $homeFolder->id();
+        }
+
+        return $homeFolderId;
+    }
+
+    private function parseDocstoreResponse(ResponseInterface $response): DocstoreObject
+    {
+        $response_body = (string)$response->getBody();
+        $docstore_obj = json_decode($response_body, true);
+        $object = $this->getEntitySerializer()->deserialize(
+            $response_body,
+            ('Folder' === $docstore_obj['kind'] ? Folder::class : Doc::class),
+            'json'
+        );
+        if (!empty($response->getHeader('ETag'))) {
+            $object->setEtag($response->getHeader('ETag')[0]);
+        }
+
+        return $object;
+    }
 }
