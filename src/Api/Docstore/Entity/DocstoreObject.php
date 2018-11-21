@@ -62,6 +62,7 @@ abstract class DocstoreObject extends Entity
     {
         return $this->self;
     }
+
     public function setSelf($self): void
     {
         $this->self = $self;
@@ -128,7 +129,7 @@ abstract class DocstoreObject extends Entity
         return $this->etag;
     }
 
-    public function setEtag($etag)
+    public function setEtag($etag): void
     {
         $this->etag = $etag;
     }
