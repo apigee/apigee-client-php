@@ -128,7 +128,7 @@ class DocstoreController extends EntityController
         $response = $this->getClient()->get($entity->getContent(),
             $this->getHeaders() + ['Accept' => 'application/json, text/plain, */*']);
 
-        return (string)$response->getBody();
+        return (string) $response->getBody();
     }
 
     /**
@@ -191,7 +191,7 @@ class DocstoreController extends EntityController
         $collectionSerializer = new DocstoreSerializer();
 
         return $collectionSerializer->deserialize(
-            (string)$response->getBody(),
+            (string) $response->getBody(),
             Collection::class,
             'json'
         );
@@ -255,7 +255,7 @@ class DocstoreController extends EntityController
      */
     private function parseDocstoreResponse(ResponseInterface $response): DocstoreObject
     {
-        $response_body = (string)$response->getBody();
+        $response_body = (string) $response->getBody();
         $docstore_obj = json_decode($response_body, true);
         $object = $this->getEntitySerializer()->deserialize(
             $response_body,
