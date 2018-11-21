@@ -1,7 +1,7 @@
 # Apigee Edge Client Library for PHP
 
 [![Build Status](https://travis-ci.org/apigee/apigee-client-php.svg?branch=2.x)](https://travis-ci.org/apigee/apigee-client-php)
-[![Code Coverage](https://codecov.io/gh/apigee/apigee-client-php/branch/2.x/graph/badge.svg)](https://codecov.io/gh/apigee/apigee-client-php/branch/2.x-dev)
+[![Code Coverage](https://codecov.io/gh/apigee/apigee-client-php/branch/2.x/graph/badge.svg)](https://codecov.io/gh/apigee/apigee-client-php/branch/2.x)
 [![Latest Stable Version](https://poser.pugx.org/apigee/apigee-client-php/v/stable)](https://packagist.org/packages/apigee/apigee-client-php)
 [![Total Downloads](https://poser.pugx.org/apigee/apigee-client-php/downloads)](https://packagist.org/packages/apigee/apigee-client-php)
 [![Latest Unstable Version](https://img.shields.io/badge/unstable-2.0.x--dev-orange.svg?style=flat-square)](https://packagist.org/packages/apigee/apigee-client-php)
@@ -34,6 +34,11 @@ implementation-independent library. You choose the client that best fits your pr
 
 If you need PHP < 7.1 or Monetization API support please install the older [edge-php-sdk version](https://github.com/apigee/edge-php-sdk).
 We are planning to add Monetization API support to this library in the near future.
+
+## Monetization API: Alpha Release
+
+The [Apigee Monetization APIs](https://apidocs.apigee.com/api-reference/content/monetization-apis) have been added to this library but are
+considered to be an alpha.  If you run into any problems, add an issue to our [GitHub issue queue](https://github.com/apigee/apigee-client-php/issues).
 
 ## Installing the client library
 

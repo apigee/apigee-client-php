@@ -26,7 +26,7 @@ namespace Apigee\Edge\Entity\Property;
  */
 trait DescriptionPropertyAwareTrait
 {
-    /** @var string */
+    /** @var string|null */
     protected $description;
 
     /**

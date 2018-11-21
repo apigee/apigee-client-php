@@ -356,6 +356,21 @@ class Client implements ClientInterface
     }
 
     /**
+     * @inheritdoc
+     */
+    protected function getHttpClient(): HttpClient
+    {
+        if ($this->httpClientNeedsBuild) {
+            foreach ($this->getDefaultPlugins() as $plugin) {
+                $this->httpClientBuilder->addPlugin($plugin);
+            }
+            $this->httpClientNeedsBuild = false;
+        }
+
+        return $this->httpClientBuilder->getHttpClient();
+    }
+
+    /**
      * Resolve configuration options.
      *
      * @param array $options
@@ -393,20 +408,5 @@ class Client implements ClientInterface
     private function getBaseUri(): UriInterface
     {
         return $this->uriFactory->createUri($this->getEndpoint());
-    }
-
-    /**
-     * @inheritdoc
-     */
-    private function getHttpClient(): HttpClient
-    {
-        if ($this->httpClientNeedsBuild) {
-            foreach ($this->getDefaultPlugins() as $plugin) {
-                $this->httpClientBuilder->addPlugin($plugin);
-            }
-            $this->httpClientNeedsBuild = false;
-        }
-
-        return $this->httpClientBuilder->getHttpClient();
     }
 }

@@ -1,0 +1,55 @@
+{
+    "developerBalance": [
+        {
+            "approxTaxRate": 0,
+            "currentBalance": 432.92,
+            "currentTotalBalance": 916.77,
+            "currentUsage": 483.85,
+            "id": "4640cad7-0584-4396-9c37-38b8c88e2fb1",
+            "month": "OCTOBER",
+            "previousBalance": 0,
+            "supportedCurrency": {
+                "description" : "United States Dollars",
+                "displayName" : "United States Dollars",
+                "id" : "usd",
+                "minimumTopupAmount" : 10.0000,
+                "name" : "USD",
+                "organization" : {
+                    "approveTrusted": false,
+                    "approveUntrusted": false,
+                    "billingCycle": "CALENDAR_MONTH",
+                    "country": "US",
+                    "currency": "USD",
+                    "description": "phpunit-description",
+                    "hasBillingAdjustment": false,
+                    "hasBroker": false,
+                    "hasSelfBilling": false,
+                    "hasSeparateInvoiceForProduct": false,
+                    "id": "phpunit",
+                    "issueNettingStmt": false,
+                    "name": "name",
+                    "nettingStmtPerCurrency": false,
+                    "regNo": "123456-regno",
+                    "selfBillingAsExchOrg": false,
+                    "selfBillingForAllDev": false,
+                    "separateInvoiceForFees": false,
+                    "status": "ACTIVE",
+                    "supportedBillingType": "BOTH",
+                    "taxEngineExternalId": "APIGEE",
+                    "taxModel": "HYBRID",
+                    "transactionRelayURL": "http://localhost",
+                    "taxRegNo": "12345",
+                    "timezone": "Australia/Eucla",
+                    "logoUrl": "http://example.com"
+                },
+                "status" : "ACTIVE",
+                "virtualCurrency" : false
+            },
+            "tax": 0.0,
+            "topups": 265.83,
+            "usage": 483.85,
+            "year": 2018
+        }
+    ],
+    "totalRecords": 1
+}
