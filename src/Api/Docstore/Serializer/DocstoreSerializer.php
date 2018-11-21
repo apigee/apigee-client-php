@@ -18,10 +18,10 @@
 
 namespace Apigee\Edge\Api\Docstore\Serializer;
 
-use Apigee\Edge\Api\Docstore\Denormalizer\CollectionDenormalizer;
+use Apigee\Edge\Api\Docstore\Denormalizer\DocstoreDenormalizer;
 use Apigee\Edge\Serializer\EntitySerializer;
 
-class CollectionSerializer extends EntitySerializer
+class DocstoreSerializer extends EntitySerializer
 {
     /**
      * CollectionSerializer constructor.
@@ -31,7 +31,7 @@ class CollectionSerializer extends EntitySerializer
     public function __construct(array $normalizers = [])
     {
         $normalizers = array_merge($normalizers, [
-            new CollectionDenormalizer(),
+            new DocstoreDenormalizer(),
         ]);
         parent::__construct($normalizers);
     }

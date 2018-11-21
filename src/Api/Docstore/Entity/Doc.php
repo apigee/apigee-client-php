@@ -21,7 +21,7 @@ namespace Apigee\Edge\Api\Docstore\Entity;
 /**
  * Spec object from the specstore.
  */
-class Spec extends DocstoreObject
+class Doc extends DocstoreObject
 {
     /**
      * url to fetch the spec file.
