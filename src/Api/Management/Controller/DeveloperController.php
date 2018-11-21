@@ -57,12 +57,8 @@ class DeveloperController extends PaginatedEntityController implements Developer
      * @param \Apigee\Edge\Serializer\EntitySerializerInterface|null $entitySerializer
      * @param OrganizationControllerInterface|null $organizationController
      */
-    public function __construct(
-        string $organization,
-        ClientInterface $client,
-        ?EntitySerializerInterface $entitySerializer = null,
-        ?OrganizationControllerInterface $organizationController = null
-    ) {
+    public function __construct(string $organization, ClientInterface $client, ?EntitySerializerInterface $entitySerializer = null, ?OrganizationControllerInterface $organizationController = null)
+    {
         $entitySerializer = $entitySerializer ?? new DeveloperSerializer();
         parent::__construct($organization, $client, $entitySerializer, $organizationController);
     }
