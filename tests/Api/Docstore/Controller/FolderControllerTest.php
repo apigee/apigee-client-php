@@ -18,7 +18,7 @@
 
 namespace Apigee\Edge\Tests\Api\Docstore\Controller;
 
-use Apigee\Edge\Api\Docstore\Controller\FolderController;
+use Apigee\Edge\Api\Docstore\Controller\DocstoreController;
 use Apigee\Edge\Api\Docstore\Entity\Folder;
 use Apigee\Edge\ClientInterface;
 use Apigee\Edge\HttpClient\Plugin\Authentication\Oauth;
@@ -67,7 +67,7 @@ class FolderControllerTest extends EntityControllerTestBase
     {
         $client = $client ?? static::defaultAPIClient();
 
-        return new EntityControllerTester(new FolderController(static::defaultTestOrganization($client), $client));
+        return new EntityControllerTester(new DocstoreController(static::defaultTestOrganization($client), $client));
 
     }
 

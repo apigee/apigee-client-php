@@ -20,251 +20,58 @@ namespace Apigee\Edge\Api\Docstore\Controller;
 
 use Apigee\Edge\Api\Docstore\Entity\Collection;
 use Apigee\Edge\Api\Docstore\Entity\Doc;
-use Apigee\Edge\Api\Docstore\Entity\DocstoreEntity;
-use Apigee\Edge\Api\Docstore\Entity\DocstoreEntityInterface;
+use Apigee\Edge\Api\Docstore\Entity\DocstoreObject;
 use Apigee\Edge\Api\Docstore\Entity\Folder;
 use Apigee\Edge\Api\Docstore\Serializer\DocstoreSerializer;
-use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Controller\EntityController;
-use Apigee\Edge\Entity\EntityInterface;
-use Apigee\Edge\Serializer\EntitySerializerInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\UriInterface;
 
 /**
- * Class DocstoreController allows for CRUD operations for Docstore entities (Folder and Doc).
+ * Class FolderController allows for CRUD operations for folders.
+ *
+ * In addition it allows to get the contents of a Folder
  */
-class DocstoreController extends EntityController implements DocstoreControllerInterface
+class DocstoreController extends EntityController
 {
     /**
-     * DocstoreController constructor.
-     *
-     * @param string $organization
-     * @param ClientInterface $client
-     * @param EntitySerializerInterface|null $entitySerializer
+     * @inheritdoc
      */
-    public function __construct(string $organization, ClientInterface $client, ?EntitySerializerInterface $entitySerializer = null)
+    public function create(DocstoreObject $entity): void
     {
-        $entitySerializer = $entitySerializer ?? new DocstoreSerializer();
-        parent::__construct($organization, $client, $entitySerializer);
+        if (null == $entity->getFolder()) {
+            $entity->setFolder($this->getHomeFolderId());
+        }
+        $response = $this->getClient()->post(
+            ($entity instanceof Doc ? 'specs/new' : "folders"),
+            $this->getEntitySerializer()->serialize($entity, 'json'),
+            $this->getHeaders());
+        $this->getEntitySerializer()->setPropertiesFromResponse($response, $entity);
+        $entity->setEtag($response->getHeader('ETag')[0]);
+    }
+
+    private function getHomeFolderId()
+    {
+        static $homeFolderId;
+        if (!$homeFolderId) {
+
+            $homeFolder = $this->load("/homeFolder");
+            $homeFolderId = $homeFolder->id();
+        }
+        return $homeFolderId;
     }
 
     /**
      * @inheritdoc
      */
-    public function create(EntityInterface $entity): void
-    {
-        if ($entity instanceof Doc) {
-            $this->createDoc($entity);
-        } elseif ($entity instanceof Folder) {
-            $this->createFolder($entity);
-        }
-    }
-
-    /**
-     * @param Folder $entity
-     *
-     * @throws \Http\Client\Exception
-     */
-    public function createFolder(Folder $entity): void
-    {
-        if (null == $entity->getFolder()) {
-            $entity->setFolder($this->getHomeFolderId());
-        }
-        $response = $this->getClient()->post('folders',
-            $this->getEntitySerializer()->serialize($entity, 'json'),
-            $this->getHeaders());
-        $this->parseDocstoreResponse($response, $entity);
-    }
-
-    /**
-     * @param Doc $entity
-     *
-     * @throws \Http\Client\Exception
-     */
-    public function createDoc(Doc $entity): void
-    {
-        if (null == $entity->getFolder()) {
-            $entity->setFolder($this->getHomeFolderId());
-        }
-        $response = $this->getClient()->post('specs/new',
-            $this->getEntitySerializer()->serialize($entity, 'json'),
-            $this->getHeaders());
-        $this->parseDocstoreResponse($response, $entity);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function load(string $entityId): EntityInterface
+    public function load(string $entityId): DocstoreObject
     {
         $response = $this->getClient()->get($this->getEntityEndpointUri($entityId), $this->getHeaders());
-
         return $this->parseDocstoreResponse($response);
     }
 
     /**
-     * @param $entity EntityInterface
-     *
-     * @throws \Http\Client\Exception
-     */
-    public function update(EntityInterface $entity): void
-    {
-        $updateReq = [];
-        $entityId = $entity->id();
-        if ($entity instanceof DocstoreEntityInterface && !empty($entityId)) {
-            $updateReq['folder'] = $entity->getFolder() ?? $this->getHomeFolderId();
-            $updateReq['name'] = $entity->getName();
-            if (null !== $entity->getDescription()) {
-                $updateReq['description'] = $entity->getDescription();
-            }
-            $updateReq['isTrashed'] = $entity->getIsTrashed();
-            // Update an existing entity.
-            $response = $this->getClient()->patch(
-                $this->getEntityEndpointUri($entityId),
-                $this->getEntitySerializer()->serialize($updateReq, 'json'),
-                $this->getHeaders() + ['If-Match' => $entity->getEtag()]
-            );
-            $this->parseDocstoreResponse($response, $entity);
-        }
-    }
-
-    /**
-     * @param string $entityId
-     *
-     * @throws \Http\Client\Exception
-     */
-    public function delete(string $entityId): void
-    {
-        $this->getClient()->delete($this->getEntityEndpointUri($entityId), null, $this->getHeaders());
-    }
-
-    /**
-     * Upload a OpenAPI file to the backend.
-     *
-     * This is what the API supports today.
-     * Uploading a JSON file and setting the content-type to application/x-yaml
-     * This will change in the future
-     *
-     * @param Doc $entity
-     * @param $content
-     *
-     * @throws \Http\Client\Exception
-     */
-    public function uploadJsonSpec(Doc $entity, string $content): void
-    {
-        $contentUrl = $entity->getContent();
-        if (!empty($contentUrl)) {
-            $this->getClient()->put(
-                $contentUrl,
-                $content,
-                $this->getHeaders() + ['Content-Type' => 'application/x-yaml']);
-        }
-    }
-
-    /**
-     * Get the contents of the spec.
-     *
-     * Always returns application/json
-     *
-     * @param Doc $entity
-     *
-     * @throws \Http\Client\Exception
-     *
-     * @return string|null
-     */
-    public function getSpecContentsAsJson(Doc $entity): ?string
-    {
-        $contentUrl = $entity->getContent();
-        if (!empty($contentUrl)) {
-            $response = $this->getClient()->get($contentUrl,
-                $this->getHeaders() + ['Accept' => 'application/json']);
-
-            return (string) $response->getBody();
-        }
-
-        return null;
-    }
-
-    /**
-     * Map a folder path for the current Docstore object.
-     *
-     * @param DocstoreEntityInterface $entity
-     *
-     * @return string
-     */
-    public function getPath(DocstoreEntityInterface $entity): string
-    {
-        $parentFolderId = $entity->getFolder();
-        if (!empty($parentFolderId)) {
-            /* @var $parentDocstoreFolder Folder */
-            $parentDocstoreFolder = $this->load($parentFolderId);
-            if (($parentDocstoreFolder instanceof Folder) && !empty($parentDocstoreFolder->getFolder())) {
-                return $this->getPath($parentDocstoreFolder) . '/' . ($entity->getName() ?: '');
-            }
-        }
-
-        return $entity->getName() ?: '';
-    }
-
-    /**
-     * Given the path load the Docstore object.
-     *
-     * @returns null|DocstoreEntityInterface
-     */
-    public function loadByPath(string $path, DocstoreEntityInterface $parent = null): ?DocstoreEntityInterface
-    {
-        if (null === $parent) {
-            $parent = $this->load('/homeFolder');
-        }
-        $contents = $this->getFolderContents($parent);
-        $pathArr = explode('/', $path);
-        $currentFolder = array_shift($pathArr);
-        $foundObj = null;
-        foreach ($contents as $docstoreObj) {
-            if ($docstoreObj->getName() == $currentFolder) {
-                $foundObj = $docstoreObj;
-                break;
-            }
-        }
-        if (empty($pathArr)) {
-            return $foundObj;
-        } else {
-            return null === $foundObj ? null : $this->loadByPath(implode('/', $pathArr), $foundObj);
-        }
-    }
-
-    /**
-     * Return the contents of the Folder.
-     *
-     * @param Folder $entity
-     *
-     * @throws \Http\Client\Exception
-     *
-     * @return array
-     */
-    public function getFolderContents(Folder $entity): array
-    {
-        $folderContentUrl = $entity->getContents();
-        if (!empty($folderContentUrl)) {
-            $response = $this->getClient()->get($folderContentUrl, $this->getHeaders());
-            $collectionSerializer = new DocstoreSerializer();
-
-            /* @var $collection Collection */
-            $collection = $collectionSerializer->deserialize(
-                (string) $response->getBody(),
-                Collection::class,
-                'json'
-            );
-
-            return $collection->getContents();
-        } else {
-            return [];
-        }
-    }
-
-    /**
-     * Docstore entity id start with a "/".
+     * Docstore entity id start with a "/"
      *
      * @inheritdoc
      */
@@ -285,12 +92,156 @@ class DocstoreController extends EntityController implements DocstoreControllerI
         return $this->client->getUriFactory()->createUri('');
     }
 
-    /**
-     * @return array
-     */
     protected function getHeaders()
     {
         return ['X-Org-Name' => $this->getOrganisationName()];
+    }
+
+    private function parseDocstoreResponse(ResponseInterface $response): DocstoreObject
+    {
+        $response_body = (string)$response->getBody();
+        $docstore_obj = json_decode($response_body, true);
+        $object = $this->getEntitySerializer()->deserialize(
+            $response_body,
+            ($docstore_obj['kind'] === 'Folder' ? Folder::class : Doc::class),
+            'json'
+        );
+        if (!empty($response->getHeader('ETag'))) {
+            $object->setEtag($response->getHeader('ETag')[0]);
+        }
+        return $object;
+    }
+
+    /**
+     * @inheritdoc
+     *
+     * @psalm-suppress PossiblyNullArgument $entity->id() is always not null here.
+     */
+    public function update(DocstoreObject $entity): void
+    {
+        $uri = $this->getEntityEndpointUri($entity->id());
+        $update_arr = [];
+        $update_arr['folder'] = $entity->getFolder();
+        $update_arr['name'] = $entity->getName();
+        if ($entity->getDescription() !== null) {
+            $update_arr['description'] = $entity->getDescription();
+        }
+        $update_arr['isTrashed'] = $entity->getIsTrashed();
+        // Update an existing entity.
+        $response = $this->getClient()->patch(
+            $uri,
+            $this->getEntitySerializer()->serialize($update_arr, 'json'),
+            $this->getHeaders() + ['If-Match' => $entity->getEtag()]
+        );
+        $this->getEntitySerializer()->setPropertiesFromResponse($response, $entity);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function delete(string $entityId): DocstoreObject
+    {
+        $response = $this->getClient()->delete($this->getEntityEndpointUri($entityId), null, $this->getHeaders());
+        return $this->parseDocstoreResponse($response);
+    }
+
+    /**
+     * Upload a openAPI file to the backend.
+     *
+     * @param Doc $entity
+     * @param $content
+     *
+     * @throws \Http\Client\Exception
+     */
+    public function uploadJsonSpec(Doc $entity, $content): void
+    {
+        $this->getClient()->put(
+            $entity->getContent(),
+            $content,
+            $this->getHeaders() + ['Content-Type' => 'application/x-yaml']);
+    }
+
+    /**
+     * Get the contents of the spec.
+     *
+     * Always returns application/json
+     *
+     * @param Doc $entity
+     *
+     * @throws \Http\Client\Exception
+     *
+     * @return string
+     */
+    public function getSpecContents(Doc $entity)
+    {
+        $response = $this->getClient()->get($entity->getContent(),
+            $this->getHeaders() + ['Accept' => 'application/json, text/plain, */*']);
+
+        return (string)$response->getBody();
+    }
+
+    /**
+     * Map a folder path for the current specstore object.
+     *
+     * @param DocstoreObject $entity
+     *
+     * @return string
+     */
+    public function getPath(DocstoreObject $entity): string
+    {
+        $parent_folder_id = $entity->getFolder();
+        $parent_specstore_folder = $this->load($parent_folder_id);
+        if (!empty($parent_specstore_folder->getFolder())) {
+            return $this->getPath($parent_specstore_folder) . '/' . ($entity->getName() ?: '');
+        } else {
+            return $entity->getName() ?: '';
+        }
+    }
+
+    /**
+     * Given the path load the specstore object.
+     *
+     * @returns null|DocstoreObject
+     */
+    public function loadByPath(string $path, DocstoreObject $parent = null)
+    {
+        if (null === $parent) {
+            $parent = $this->load('/homeFolder');
+        }
+        $contents = $this->getFolderContents($parent)->getContents();
+        $path_arr = explode('/', $path);
+        $current_folder = array_shift($path_arr);
+        $found_obj = null;
+        foreach ($contents as $specstoreObject) {
+            if ($specstoreObject->getName() == $current_folder) {
+                $found_obj = $specstoreObject;
+                break;
+            }
+        }
+        if (empty($path_arr)) {
+            return $found_obj;
+        } else {
+            return null === $found_obj ? null : $this->loadByPath(implode('/', $path_arr), $found_obj);
+        }
+    }
+
+    /**
+     * @param Folder $entity
+     *
+     * @throws \Http\Client\Exception
+     *
+     * @return Collection
+     */
+    public function getFolderContents(Folder $entity): Collection
+    {
+        $response = $this->getClient()->get($entity->getContents(), $this->getHeaders());
+        $collectionSerializer = new DocstoreSerializer();
+
+        return $collectionSerializer->deserialize(
+            (string)$response->getBody(),
+            Collection::class,
+            'json'
+        );
     }
 
     /**
@@ -300,37 +251,7 @@ class DocstoreController extends EntityController implements DocstoreControllerI
      */
     protected function getEntityClass(): string
     {
-        return DocstoreEntity::class;
+        return DocstoreObject::class;
     }
 
-    /**
-     * Return the identifier for the home folder of the org.
-     *
-     * @return string
-     */
-    private function getHomeFolderId(): string
-    {
-        static $homeFolderId;
-        if (!$homeFolderId) {
-            $homeFolder = $this->load('/homeFolder');
-            $homeFolderId = $homeFolder->id();
-        }
-
-        return $homeFolderId;
-    }
-
-    /**
-     * Parses the DocStore response and generates either a Folder/Doc object.
-     */
-    private function parseDocstoreResponse(ResponseInterface $response, DocstoreEntityInterface $entity = null): DocstoreEntityInterface
-    {
-        if (null == $entity) {
-            $responseBody = (string) $response->getBody();
-            $docstoreObj = json_decode($responseBody, true);
-            $entity = 'Folder' === $docstoreObj['kind'] ? new Folder() : new Doc();
-        }
-        $this->getEntitySerializer()->setPropertiesFromResponse($response, $entity);
-
-        return $entity;
-    }
 }
