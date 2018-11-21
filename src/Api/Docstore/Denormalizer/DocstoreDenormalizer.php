@@ -48,7 +48,7 @@ class DocstoreDenormalizer implements DenormalizerInterface
                 $collection[] = new Folder((array) $obj);
             }
             if ('Doc' == $obj->kind) {
-                $collection[] = new Doc((array)$obj);
+                $collection[] = new Doc((array) $obj);
             }
         }
 
