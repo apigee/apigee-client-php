@@ -44,7 +44,7 @@ use Monolog\Processor\PsrLogMessageProcessor;
 class DocstoreControllerTest extends EntityControllerTestBase
 {
     /**
-     * Delete all the generated folders.
+     * Delete all the generated test data.
      */
     public static function tearDownAfterClass(): void
     {
