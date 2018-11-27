@@ -158,6 +158,12 @@ folder of your own test data set.
 PS.: Some unit tests cannot be executed when the offline test data set is in use, those are automatically marked as
 skipped.
 
+## Our Backward Compatibility (BC) Promise
+This library follows the [Semantic Versioning](https://semver.org) strategy. It means only major releases (such as 3.0, 4.0 etc.) are allowed to break backward compatibility and we do our best to keep it this way.
+The PHP API Client has to be compatible with the latest versions of the supported Apigee Edge APIs.
+As you can see, almost every class implements at least one interface in this library, therefore, we would like to suggest to rely on interface definitions instead of concrete classes if you build something on the top of this library. Also, prefer encapsulation over inheritance if you extend our classes.
+We will release a new major version from this library if a change in a supported Apigee Edge API cannot be implemented in the PHP API client without changing an interface.
+
 ## Support
 
 This is not an officially supported Google product. Please file issues in our GitHub Issue Queue. We would love to
