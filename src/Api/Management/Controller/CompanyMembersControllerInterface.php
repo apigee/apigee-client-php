@@ -38,19 +38,17 @@ interface CompanyMembersControllerInterface extends CompanyAwareControllerInterf
     /**
      * Set (add/update/remove) members of a company.
      *
-     * Warning! If you pass en empty membership object you remove all developers
+     * WARNING! If you pass en empty membership object you remove all developers
      * from the company.
      *
-     * The return array only contains the changes, it does not contain all
-     * members. Use getMembers() to retrieve it.
-     *
      * @param \Apigee\Edge\Api\Management\Structure\CompanyMembership $members
-     *   Array of developers with their optional roles in the company.
+     *   Membership object with the changes to be applied.
      *
      * @return \Apigee\Edge\Api\Management\Structure\CompanyMembership
-     *   Array of developers with their optional roles in the company.
+     *   Membership object with the applied changes, it does not contain all
+     *   members. Use getMembers() to retrieve them.
      */
-    public function setMembers(CompanyMembership $members): CompanyMembership;
+    public function setMembers(CompanyMembership $members);
 
     /**
      * Removes a developer from a company.
