@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 2.0.0 - 2018-11-27
+* **First stable release!** :tada: :tada: :tada:
+* Added Monetization API support with [alpha stability](https://github.com/apigee/apigee-client-php/blob/3856d585878628eb6c44541cf5529055c8a480b6/README.md#monetization-api-alpha-release). (Management API support is stable.)
+* Added missing organization controller parameter to the Company controller's constructor.
+* Improved documentation of the CompanyMembersControllerInterface's `setMembers()` methods.
+
 ## 2.0.0-alpha6 - 2018-11-09
 * idProperty() on entity objects is a static method from now.
 * Setters on entities now accepts variable lengths arguments instead of an array. This way we can leverage PHP's built-in type check on these methods as well.
