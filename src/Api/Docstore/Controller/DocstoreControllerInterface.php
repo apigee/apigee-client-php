@@ -18,8 +18,9 @@
 
 namespace Apigee\Edge\Api\Docstore\Controller;
 
+use Apigee\Edge\Api\Docstore\Entity\Collection;
 use Apigee\Edge\Api\Docstore\Entity\Doc;
-use Apigee\Edge\Api\Docstore\Entity\DocstoreEntityInterface;
+use Apigee\Edge\Api\Docstore\Entity\DocstoreObject;
 use Apigee\Edge\Api\Docstore\Entity\Folder;
 use Apigee\Edge\Api\Monetization\Controller\EntityCrudOperationsControllerInterface;
 use Apigee\Edge\Controller\EntityControllerInterface;
@@ -32,62 +33,47 @@ interface DocstoreControllerInterface extends
     EntityCrudOperationsControllerInterface
 {
     /**
-     * Create a folder in the Apigee Docstore.
-     *
      * @param Folder $entity
      */
     public function createFolder(Folder $entity): void;
 
     /**
-     * Create a Doc entity in the Apigee DocStore.
-     *
      * @param Doc $entity
      */
-    public function createDoc(Doc $entity): void;
+    public function createSpec(Doc $entity): void;
 
     /**
-     * Attach an OpenAPI spec in JSON format to the Docstore entity.
-     *
      * @param Doc $entity
      * @param string $content
      */
     public function uploadJsonSpec(Doc $entity, string $content): void;
 
     /**
-     * Return the OpenAPI spec in JSON format.
-     * returns null if content url is not set.
-     *
      * @param Doc $entity
-     *
-     * @return string|null
-     */
-    public function getSpecContentsAsJson(Doc $entity): ?string;
-
-    /**
-     * Generate a path for the given Docstore entity.
-     *
-     * @param DocstoreEntityInterface $entity
      *
      * @return string
      */
-    public function getPath(DocstoreEntityInterface $entity): string;
+    public function getSpecContentsAsJson(Doc $entity): string;
 
     /**
-     * Load the Docstore entity from the given path relative to the entity being passed.
+     * @param DocstoreObject $entity
      *
-     * @param string $path
-     * @param DocstoreEntityInterface|null $parent - if null is passed we traverse from the home folder of the given org
-     *
-     * @return null|DocstoreEntityInterface
+     * @return string
      */
-    public function loadByPath(string $path, DocstoreEntityInterface $parent = null): ?DocstoreEntityInterface;
+    public function getPath(DocstoreObject $entity): string;
 
     /**
-     * Get the contents of a given folder.
-     *
      * @param Folder $entity
      *
-     * @return DocstoreEntityInterface[]
+     * @return Collection
      */
-    public function getFolderContents(Folder $entity): array;
+    public function getFolderContents(Folder $entity): Collection;
+
+    /**
+     * @param string $path
+     * @param DocstoreObject|null $parent
+     *
+     * @return mixed
+     */
+    public function loadByPath(string $path, DocstoreObject $parent = null);
 }

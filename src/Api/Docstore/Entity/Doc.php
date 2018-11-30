@@ -36,8 +36,8 @@ class Doc extends DocstoreObject
         return $this->content;
     }
 
-    public function setContent($content_url): void
+    public function setContent($contentUrl): void
     {
-        $this->content = $content_url;
+        $this->content = $contentUrl;
     }
 }
