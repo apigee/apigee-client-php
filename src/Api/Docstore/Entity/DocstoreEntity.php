@@ -25,27 +25,53 @@ use Apigee\Edge\Entity\Property\NamePropertyAwareTrait;
 /**
  * Abstract object to represent the Docstore entities.
  */
-abstract class DocstoreObject extends Entity
+abstract class DocstoreEntity extends Entity implements DocstoreEntityInterface
 {
     use NamePropertyAwareTrait;
     use DescriptionPropertyAwareTrait;
-    use \Apigee\Edge\Entity\CommonEntityPropertiesAwareTrait;
 
+    /**
+     * @var array
+     */
     protected $permissions;
-    protected $isTrashed;
+    /**
+     * @var bool
+     */
+    protected $isTrashed = false;
+    /**
+     * @var string
+     */
     protected $self;
+    /**
+     * @var string
+     */
     protected $folder;
 
+    /**
+     * @var string
+     */
     protected $kind;
 
+    /**
+     * @var string
+     */
     protected $etag;
 
-    public function getKind()
+    protected $created;
+    protected $modified;
+
+    /**
+     * @return string
+     */
+    public function getKind(): string
     {
         return $this->kind;
     }
 
-    public function setKind($kind): void
+    /**
+     * @param string $kind
+     */
+    public function setKind(string $kind): void
     {
         $this->kind = $kind;
     }
@@ -58,11 +84,17 @@ abstract class DocstoreObject extends Entity
         return 'self';
     }
 
-    public function getSelf()
+    /**
+     * @return string|null
+     */
+    public function getSelf(): ?string
     {
         return $this->self;
     }
 
+    /**
+     * @param $self
+     */
     public function setSelf($self): void
     {
         $this->self = $self;
@@ -71,9 +103,9 @@ abstract class DocstoreObject extends Entity
     /**
      * Get the parent Folder ID for the current Docstore object.
      *
-     * @return mixed
+     * @return string|null
      */
-    public function getFolder()
+    public function getFolder(): ?string
     {
         return $this->folder;
     }
@@ -83,7 +115,7 @@ abstract class DocstoreObject extends Entity
      *
      * @param $folder
      */
-    public function setFolder($folder): void
+    public function setFolder(string $folder): void
     {
         $this->folder = $folder;
     }
@@ -91,9 +123,9 @@ abstract class DocstoreObject extends Entity
     /**
      * Get the permissions associated with the Docstore object.
      *
-     * @return mixed
+     * @return array|null
      */
-    public function getPermissions()
+    public function getPermissions(): ?array
     {
         return $this->permissions;
     }
@@ -101,36 +133,78 @@ abstract class DocstoreObject extends Entity
     /**
      * Set the permissions associated with the Docstore object.
      */
-    public function setPermissions($permissions): void
+    public function setPermissions(array $permissions): void
     {
         $this->permissions = $permissions;
     }
 
     /**
-     * Is the specstore object trashed.
+     * Is the Docstore object trashed.
      *
-     * @return mixed
+     * @return bool
      */
-    public function getIsTrashed()
+    public function getIsTrashed(): bool
     {
         return $this->isTrashed;
     }
 
     /**
-     * Set the flag to indicate the specstore object is trashed.
+     * Set the flag to indicate the Docstore object is trashed.
      */
-    public function setIsTrashed($isTrashed): void
+    public function setIsTrashed(bool $isTrashed): void
     {
         $this->isTrashed = $isTrashed;
     }
 
-    public function getEtag()
+    /**
+     * @return string|null
+     */
+    public function getEtag(): ?string
     {
         return $this->etag;
     }
 
-    public function setEtag($etag): void
+    /**
+     * @param $etag
+     */
+    public function setEtag(string $etag): void
     {
         $this->etag = $etag;
+    }
+
+    /**
+     * @return \DateTimeImmutable|null
+     */
+    public function getCreated(): ?\DateTimeImmutable
+    {
+        return $this->created;
+    }
+
+    /**
+     * @param \DateTimeImmutable $date
+     *
+     * @internal
+     */
+    public function setCreated(\DateTimeImmutable $date): void
+    {
+        $this->created = $date;
+    }
+
+    /**
+     * @return \DateTimeImmutable|null
+     */
+    public function getModified(): ?\DateTimeImmutable
+    {
+        return $this->modified;
+    }
+
+    /**
+     * @param \DateTimeImmutable $date
+     *
+     * @internal
+     */
+    public function setModified(\DateTimeImmutable $date): void
+    {
+        $this->modified = $date;
     }
 }

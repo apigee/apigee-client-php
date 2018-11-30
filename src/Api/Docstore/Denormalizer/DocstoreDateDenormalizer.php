@@ -16,41 +16,29 @@
  * limitations under the License.
  */
 
-namespace Apigee\Edge\Api\Docstore\Entity;
+namespace Apigee\Edge\Api\Docstore\Denormalizer;
+
+use Apigee\Edge\Denormalizer\EdgeDateDenormalizer;
 
 /**
- * Doc object from the Docstore.
+ * Class DocstoreDateDenormalizer.
  */
-class Doc extends DocstoreEntity
+class DocstoreDateDenormalizer extends EdgeDateDenormalizer
 {
     /**
-     * url to fetch the spec file.
+     * Docstore uses a different date format then one used by Edge.
      *
-     * @var string
-     */
-    protected $content;
-    /**
-     * @var string
-     */
-    protected $kind = 'Doc';
-
-    /**
-     * Get the url to fetch the OpenAPI spec content.
+     * It uses the ISO-8601 format vs Edge uses epoch time in milliseconds
      *
-     * @return string|null
+     * @param mixed $data
+     * @param string $class
+     * @param null $format
+     * @param array $context
+     *
+     * @return object|null
      */
-    public function getContent(): ?string
+    public function denormalize($data, $class, $format = null, array $context = [])
     {
-        return $this->content;
-    }
-
-    /**
-     * Set the url to fetch the OpenAPI spec content.
-     *
-     * @param $contentUrl
-     */
-    public function setContent($contentUrl): void
-    {
-        $this->content = $contentUrl;
+        return parent::denormalize(strtotime($data) * 1000, $class, $format, $context);
     }
 }
