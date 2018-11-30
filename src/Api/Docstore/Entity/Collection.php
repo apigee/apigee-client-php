@@ -21,16 +21,32 @@ namespace Apigee\Edge\Api\Docstore\Entity;
 /**
  * Collection object in Docstore.
  */
-class Collection extends \Apigee\Edge\Api\Docstore\Entity\DocstoreObject
+class Collection extends DocstoreEntity
 {
+    /**
+     * @var string
+     */
     protected $kind = 'Collection';
+    /**
+     * @var array
+     */
     protected $contents = [];
 
+    /**
+     * Returns the array of DocstoreEntity objects.
+     *
+     * @return DocstoreEntityInterface[]
+     */
     public function getContents(): array
     {
         return $this->contents;
     }
 
+    /**
+     * Set the array of DocStoreEntity Objects on this collection.
+     *
+     * @param $contents DocstoreEntityInterface[]
+     */
     public function setContents($contents): void
     {
         $this->contents = $contents;

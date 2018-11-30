@@ -19,11 +19,13 @@
 namespace Apigee\Edge\Tests\Api\Docstore\Controller;
 
 use Apigee\Edge\Api\Docstore\Controller\DocstoreController;
+use Apigee\Edge\Api\Docstore\Controller\DocstoreControllerInterface;
 use Apigee\Edge\Api\Docstore\Entity\Doc;
 use Apigee\Edge\Api\Docstore\Entity\Folder;
 use Apigee\Edge\ClientInterface;
 use Apigee\Edge\HttpClient\Plugin\Authentication\Oauth;
 use Apigee\Edge\Tests\Api\Management\Controller\EntityControllerTestBase;
+use Apigee\Edge\Tests\Test\Controller\DefaultAPIClientAwareTrait;
 use Apigee\Edge\Tests\Test\Controller\EntityControllerTester;
 use Apigee\Edge\Tests\Test\Controller\EntityControllerTesterInterface;
 use Apigee\Edge\Tests\Test\DebuggerClient;
@@ -32,6 +34,7 @@ use Apigee\Edge\Tests\Test\HttpClient\DebuggerHttpClient;
 use Apigee\Edge\Tests\Test\HttpClient\Plugin\InMemoryOauthTokenStorage;
 use Apigee\Edge\Tests\Test\OnlineClientInterface;
 use Apigee\Edge\Tests\Test\TestClientFactory;
+use Apigee\Edge\Tests\Test\Utility\MarkOnlineTestSkippedAwareTrait;
 use Http\Message\Formatter\CurlCommandFormatter;
 use Monolog\Formatter\LineFormatter;
 use Monolog\Handler\StreamHandler;
@@ -40,11 +43,17 @@ use Monolog\Processor\PsrLogMessageProcessor;
 
 /**
  * Class DocstoreControllerTest.
+ *
+ * @group controller
+ * @group management
  */
 class DocstoreControllerTest extends EntityControllerTestBase
 {
+    use MarkOnlineTestSkippedAwareTrait;
+    use DefaultAPIClientAwareTrait;
+
     /**
-     * Delete all the generated folders.
+     * Delete all the generated test data.
      */
     public static function tearDownAfterClass(): void
     {
@@ -52,16 +61,19 @@ class DocstoreControllerTest extends EntityControllerTestBase
         static::removeTestData();
     }
 
+    /**
+     * Test to create a sample folder and verify it exists.
+     */
     public function testSampleFolderExists(): void
     {
         static::markOnlineTestSkipped(__FUNCTION__);
         $folder = new Folder(['name' => static::getSampleFolderName()]);
-        static::entityController()->create($folder);
+        static::entityController()->createFolder($folder);
 
         $homeFolder = static::entityController()->load('/homeFolder');
         $contentsCollection = static::entityController()->getFolderContents($homeFolder);
         $folders = [];
-        foreach ($contentsCollection->getContents() as $c) {
+        foreach ($contentsCollection as $c) {
             if ($c instanceof Folder) {
                 $folders[$c->getName()] = $c->id();
             }
@@ -72,16 +84,19 @@ class DocstoreControllerTest extends EntityControllerTestBase
         $this->assertArrayHasKey(static::getSampleFolderName(), $folders);
     }
 
+    /**
+     * Test to create a Sample doc and verify it was created.
+     */
     public function testSampleSpecExists(): void
     {
         static::markOnlineTestSkipped(__FUNCTION__);
         $spec = new Doc(['name' => static::getSampleDocName()]);
-        static::entityController()->create($spec);
+        static::entityController()->createDoc($spec);
 
         $homeFolder = static::entityController()->load('/homeFolder');
         $contentsCollection = static::entityController()->getFolderContents($homeFolder);
         $specs = [];
-        foreach ($contentsCollection->getContents() as $c) {
+        foreach ($contentsCollection as $c) {
             if ($c instanceof Doc) {
                 $specs[$c->getName()] = $c->id();
             }
@@ -92,16 +107,19 @@ class DocstoreControllerTest extends EntityControllerTestBase
         $this->assertArrayHasKey(static::getSampleDocName(), $specs);
     }
 
+    /**
+     * Test create Folder.
+     */
     public function testCreateFolder(): void
     {
         static::markOnlineTestSkipped(__FUNCTION__);
         $folderName = static::generateNamesForTest();
         $folder = new Folder(['name' => $folderName]);
-        static::entityController()->create($folder);
+        static::entityController()->createFolder($folder);
         $homeFolder = static::entityController()->load('/homeFolder');
         $contentsCollection = static::entityController()->getFolderContents($homeFolder);
         $folderNames = [];
-        foreach ($contentsCollection->getContents() as $c) {
+        foreach ($contentsCollection as $c) {
             if ($c instanceof Folder) {
                 $folderNames[] = $c->getName();
             }
@@ -110,16 +128,44 @@ class DocstoreControllerTest extends EntityControllerTestBase
         $this->assertContains($folderName, $folderNames);
     }
 
+    /**
+     * Test DocstoreDateDenormalizer.
+     */
+    public function testDateCorrectlyParsed(): void
+    {
+        static::markOnlineTestSkipped(__FUNCTION__);
+        $folderName = static::generateNamesForTest();
+        $folder = new Folder(['name' => $folderName]);
+        static::entityController()->createFolder($folder);
+        $homeFolder = static::entityController()->load('/homeFolder');
+        $contentsCollection = static::entityController()->getFolderContents($homeFolder);
+        /** @var $folders Folder[] */
+        $folders = [];
+        foreach ($contentsCollection as $c) {
+            if ($c instanceof Folder) {
+                $folders[$c->getName()] = $c;
+            }
+        }
+        static::entityController()->delete($folder->id()); //Cleanup the created folder
+        $this->assertArrayHasKey($folderName, $folders);
+        //Test folder was created right today
+        $dateFormat = 'Y-m-d';
+        $this->assertEquals(date($dateFormat), $folders[$folderName]->getCreated()->format($dateFormat));
+    }
+
+    /**
+     * Test create spec.
+     */
     public function testCreateSpec(): void
     {
         static::markOnlineTestSkipped(__FUNCTION__);
         $specName = static::generateNamesForTest();
         $specObj = new Doc(['name' => $specName]);
-        static::entityController()->create($specObj);
+        static::entityController()->createDoc($specObj);
         $homeFolder = static::entityController()->load('/homeFolder');
         $contentsCollection = static::entityController()->getFolderContents($homeFolder);
         $specNames = [];
-        foreach ($contentsCollection->getContents() as $c) {
+        foreach ($contentsCollection as $c) {
             if ($c instanceof Doc) {
                 $specNames[] = $c->getName();
             }
@@ -128,17 +174,20 @@ class DocstoreControllerTest extends EntityControllerTestBase
         $this->assertContains($specName, $specNames);
     }
 
+    /**
+     * Test delete folder.
+     */
     public function testDeleteFolder(): void
     {
         static::markOnlineTestSkipped(__FUNCTION__);
         $folderName = static::generateNamesForTest();
         $folder = new Folder(['name' => $folderName]);
-        static::entityController()->create($folder);
+        static::entityController()->createFolder($folder);
 
         $homeFolder = static::entityController()->load('/homeFolder');
         $contentsCollection = static::entityController()->getFolderContents($homeFolder);
         $folderNames = [];
-        foreach ($contentsCollection->getContents() as $c) {
+        foreach ($contentsCollection as $c) {
             if ($c instanceof Folder) {
                 $folderNames[] = $c->getName();
             }
@@ -149,7 +198,7 @@ class DocstoreControllerTest extends EntityControllerTestBase
         $homeFolder = static::entityController()->load('/homeFolder');
         $contentsCollection = static::entityController()->getFolderContents($homeFolder);
         $folderNames = [];
-        foreach ($contentsCollection->getContents() as $c) {
+        foreach ($contentsCollection as $c) {
             if ($c instanceof Folder) {
                 $folderNames[] = $c->getName();
             }
@@ -157,17 +206,20 @@ class DocstoreControllerTest extends EntityControllerTestBase
         $this->assertNotContains($folderName, $folderNames);
     }
 
+    /**
+     * Test delete spec.
+     */
     public function testDeleteSpec(): void
     {
         static::markOnlineTestSkipped(__FUNCTION__);
         $specName = static::generateNamesForTest();
         $specObj = new Doc(['name' => $specName]);
-        static::entityController()->create($specObj);
+        static::entityController()->createDoc($specObj);
 
         $homeFolder = static::entityController()->load('/homeFolder');
         $contentsCollection = static::entityController()->getFolderContents($homeFolder);
         $specNames = [];
-        foreach ($contentsCollection->getContents() as $c) {
+        foreach ($contentsCollection as $c) {
             if ($c instanceof Doc) {
                 $specNames[] = $c->getName();
             }
@@ -178,7 +230,7 @@ class DocstoreControllerTest extends EntityControllerTestBase
         $homeFolder = static::entityController()->load('/homeFolder');
         $contentsCollection = static::entityController()->getFolderContents($homeFolder);
         $specNames = [];
-        foreach ($contentsCollection->getContents() as $c) {
+        foreach ($contentsCollection as $c) {
             if ($c instanceof Doc) {
                 $specNames[] = $c->getName();
             }
@@ -186,17 +238,20 @@ class DocstoreControllerTest extends EntityControllerTestBase
         $this->assertNotContains($specName, $specNames);
     }
 
+    /**
+     * Test rename folder.
+     */
     public function testRenameFolder(): void
     {
         static::markOnlineTestSkipped(__FUNCTION__);
         $folderName = static::generateNamesForTest();
         $folder = new Folder(['name' => $folderName]);
-        static::entityController()->create($folder);
+        static::entityController()->createFolder($folder);
 
         $homeFolder = static::entityController()->load('/homeFolder');
         $contentsCollection = static::entityController()->getFolderContents($homeFolder);
         $folderNames = [];
-        foreach ($contentsCollection->getContents() as $c) {
+        foreach ($contentsCollection as $c) {
             if ($c instanceof Folder) {
                 $folderNames[] = $c->getName();
             }
@@ -210,17 +265,20 @@ class DocstoreControllerTest extends EntityControllerTestBase
         $this->assertEquals($folderName2, $updatedFolder->getName());
     }
 
+    /**
+     * Test rename spec.
+     */
     public function testRenameSpec(): void
     {
         static::markOnlineTestSkipped(__FUNCTION__);
         $specName = static::generateNamesForTest();
         $specObj = new Doc(['name' => $specName]);
-        static::entityController()->create($specObj);
+        static::entityController()->createDoc($specObj);
 
         $homeFolder = static::entityController()->load('/homeFolder');
         $contentsCollection = static::entityController()->getFolderContents($homeFolder);
         $specNames = [];
-        foreach ($contentsCollection->getContents() as $c) {
+        foreach ($contentsCollection as $c) {
             if ($c instanceof Doc) {
                 $specNames[] = $c->getName();
             }
@@ -234,21 +292,24 @@ class DocstoreControllerTest extends EntityControllerTestBase
         $this->assertEquals($specName2, $updatedSpec->getName());
     }
 
+    /**
+     * Test Move folder.
+     */
     public function testMoveFolder(): void
     {
         static::markOnlineTestSkipped(__FUNCTION__);
         $folderName1 = static::generateNamesForTest();
         $folder1 = new Folder(['name' => $folderName1]);
-        static::entityController()->create($folder1);
+        static::entityController()->createFolder($folder1);
 
         $folderName2 = static::generateNamesForTest();
         $folder2 = new Folder(['name' => $folderName2]);
-        static::entityController()->create($folder2);
+        static::entityController()->createFolder($folder2);
 
         $homeFolder = static::entityController()->load('/homeFolder');
         $contentsCollection = static::entityController()->getFolderContents($homeFolder);
         $folderNames = [];
-        foreach ($contentsCollection->getContents() as $c) {
+        foreach ($contentsCollection as $c) {
             if ($c instanceof Folder) {
                 $folderNames[] = $c->getName();
             }
@@ -261,7 +322,7 @@ class DocstoreControllerTest extends EntityControllerTestBase
 
         $contentsCollection = static::entityController()->getFolderContents($folder1);
         $folderIds = [];
-        foreach ($contentsCollection->getContents() as $c) {
+        foreach ($contentsCollection as $c) {
             if ($c instanceof Folder) {
                 $folderIds[] = $c->id();
             }
@@ -272,21 +333,24 @@ class DocstoreControllerTest extends EntityControllerTestBase
         static::entityController()->delete($folder1->id());
     }
 
+    /**
+     * Test move spec to a folder.
+     */
     public function testMoveSpecToFolder(): void
     {
         static::markOnlineTestSkipped(__FUNCTION__);
         $specName = static::generateNamesForTest();
         $spec = new Doc(['name' => $specName]);
-        static::entityController()->create($spec);
+        static::entityController()->createDoc($spec);
 
         $folderName = static::generateNamesForTest();
         $folder = new Folder(['name' => $folderName]);
-        static::entityController()->create($folder);
+        static::entityController()->createFolder($folder);
 
         $homeFolder = static::entityController()->load('/homeFolder');
         $contentsCollection = static::entityController()->getFolderContents($homeFolder);
         $collection = [];
-        foreach ($contentsCollection->getContents() as $c) {
+        foreach ($contentsCollection as $c) {
             $collection[$c->getName()] = $c->getKind();
         }
         $this->assertArrayHasKey($specName, $collection);
@@ -299,7 +363,7 @@ class DocstoreControllerTest extends EntityControllerTestBase
 
         $contentsCollection = static::entityController()->getFolderContents($folder);
         $specNames = [];
-        foreach ($contentsCollection->getContents() as $c) {
+        foreach ($contentsCollection as $c) {
             if ($c instanceof Doc) {
                 $specNames[] = $c->id();
             }
@@ -310,21 +374,24 @@ class DocstoreControllerTest extends EntityControllerTestBase
         static::entityController()->delete($folder->id());
     }
 
+    /**
+     * Test to ensure the correct path is returned for a given Folder.
+     */
     public function testGetFolderPath(): void
     {
         static::markOnlineTestSkipped(__FUNCTION__);
         $folderName1 = static::generateNamesForTest();
         $folder1 = new Folder(['name' => $folderName1]);
-        static::entityController()->create($folder1);
+        static::entityController()->createFolder($folder1);
 
         $folderName2 = static::generateNamesForTest();
         $folder2 = new Folder(['name' => $folderName2]);
-        static::entityController()->create($folder2);
+        static::entityController()->createFolder($folder2);
 
         $homeFolder = static::entityController()->load('/homeFolder');
         $contentsCollection = static::entityController()->getFolderContents($homeFolder);
         $folderNames = [];
-        foreach ($contentsCollection->getContents() as $c) {
+        foreach ($contentsCollection as $c) {
             if ($c instanceof Folder) {
                 $folderNames[] = $c->getName();
             }
@@ -337,7 +404,7 @@ class DocstoreControllerTest extends EntityControllerTestBase
 
         $contentsCollection = static::entityController()->getFolderContents($folder1);
         $folderIds = [];
-        foreach ($contentsCollection->getContents() as $c) {
+        foreach ($contentsCollection as $c) {
             if ($c instanceof Folder) {
                 $folderIds[] = $c->id();
             }
@@ -351,21 +418,24 @@ class DocstoreControllerTest extends EntityControllerTestBase
         static::entityController()->delete($folder1->id());
     }
 
+    /**
+     * Test to ensure the correct path is returned for a given Spec.
+     */
     public function testGetSpecPath(): void
     {
         static::markOnlineTestSkipped(__FUNCTION__);
         $folderName = static::generateNamesForTest();
         $folder = new Folder(['name' => $folderName]);
-        static::entityController()->create($folder);
+        static::entityController()->createFolder($folder);
 
         $specName = static::generateNamesForTest();
         $spec = new Doc(['name' => $specName]);
-        static::entityController()->create($spec);
+        static::entityController()->createDoc($spec);
 
         $homeFolder = static::entityController()->load('/homeFolder');
         $contentsCollection = static::entityController()->getFolderContents($homeFolder);
         $collection = [];
-        foreach ($contentsCollection->getContents() as $c) {
+        foreach ($contentsCollection as $c) {
             $collection[] = $c->getName();
         }
         $this->assertContains($folderName, $collection);
@@ -376,7 +446,7 @@ class DocstoreControllerTest extends EntityControllerTestBase
 
         $contentsCollection = static::entityController()->getFolderContents($folder);
         $folderIds = [];
-        foreach ($contentsCollection->getContents() as $c) {
+        foreach ($contentsCollection as $c) {
             if ($c instanceof Doc) {
                 $folderIds[] = $c->id();
             }
@@ -390,21 +460,24 @@ class DocstoreControllerTest extends EntityControllerTestBase
         static::entityController()->delete($folder->id());
     }
 
+    /**
+     * Test to ensure the correct folder is loaded from a given path.
+     */
     public function testLoadFolderByPath(): void
     {
         static::markOnlineTestSkipped(__FUNCTION__);
         $folderName1 = static::generateNamesForTest();
         $folder1 = new Folder(['name' => $folderName1]);
-        static::entityController()->create($folder1);
+        static::entityController()->createFolder($folder1);
 
         $folderName2 = static::generateNamesForTest();
         $folder2 = new Folder(['name' => $folderName2]);
-        static::entityController()->create($folder2);
+        static::entityController()->createFolder($folder2);
 
         $homeFolder = static::entityController()->load('/homeFolder');
         $contentsCollection = static::entityController()->getFolderContents($homeFolder);
         $folderNames = [];
-        foreach ($contentsCollection->getContents() as $c) {
+        foreach ($contentsCollection as $c) {
             if ($c instanceof Folder) {
                 $folderNames[] = $c->getName();
             }
@@ -417,7 +490,7 @@ class DocstoreControllerTest extends EntityControllerTestBase
 
         $contentsCollection = static::entityController()->getFolderContents($folder1);
         $folderIds = [];
-        foreach ($contentsCollection->getContents() as $c) {
+        foreach ($contentsCollection as $c) {
             if ($c instanceof Folder) {
                 $folderIds[] = $c->id();
             }
@@ -433,21 +506,24 @@ class DocstoreControllerTest extends EntityControllerTestBase
         static::entityController()->delete($folder1->id());
     }
 
+    /**
+     * Test to ensure the correct spec is loaded from a given path.
+     */
     public function testLoadSpecByPath(): void
     {
         static::markOnlineTestSkipped(__FUNCTION__);
         $folderName = static::generateNamesForTest();
         $folder = new Folder(['name' => $folderName]);
-        static::entityController()->create($folder);
+        static::entityController()->createFolder($folder);
 
         $specName = static::generateNamesForTest();
         $spec = new Doc(['name' => $specName]);
-        static::entityController()->create($spec);
+        static::entityController()->createDoc($spec);
 
         $homeFolder = static::entityController()->load('/homeFolder');
         $contentsCollection = static::entityController()->getFolderContents($homeFolder);
         $collection = [];
-        foreach ($contentsCollection->getContents() as $c) {
+        foreach ($contentsCollection as $c) {
             $collection[] = $c->getName();
         }
         $this->assertContains($folderName, $collection);
@@ -458,7 +534,7 @@ class DocstoreControllerTest extends EntityControllerTestBase
 
         $contentsCollection = static::entityController()->getFolderContents($folder);
         $folderIds = [];
-        foreach ($contentsCollection->getContents() as $c) {
+        foreach ($contentsCollection as $c) {
             if ($c instanceof Doc) {
                 $folderIds[] = $c->id();
             }
@@ -474,19 +550,22 @@ class DocstoreControllerTest extends EntityControllerTestBase
         static::entityController()->delete($folder->id());
     }
 
+    /**
+     * Test to ensure the contents of the uploaded OAS documents are same.
+     */
     public function testSpecFileContentMatch(): void
     {
         static::markOnlineTestSkipped(__FUNCTION__);
         $docName = static::generateNamesForTest();
         $spec = new Doc(['name' => $docName]);
-        static::entityController()->create($spec);
+        static::entityController()->createDoc($spec);
         $fileContents = file_get_contents(__DIR__ . '/../testdata/petstore.swagger.json');
         static::entityController()->uploadJsonSpec($spec, $fileContents);
 
         $homeFolder = static::entityController()->load('/homeFolder');
         $contentsCollection = static::entityController()->getFolderContents($homeFolder);
         $specs = [];
-        foreach ($contentsCollection->getContents() as $c) {
+        foreach ($contentsCollection as $c) {
             if ($c instanceof Doc) {
                 $specs[$c->getName()] = $c;
             }
@@ -500,18 +579,33 @@ class DocstoreControllerTest extends EntityControllerTestBase
         $this->assertEquals($obj1->info->description, $obj2->info->description);
         $this->assertEquals(sizeof($obj1->paths), sizeof($obj2->paths));
 
-        if ($specs[static::getSampleDocName()]) {
+        if ($specs[$docName]) {
             static::entityController()->delete($specs[$docName]->id());
         }
     }
 
+    /**
+     * @param ClientInterface|null $client
+     *
+     * @return EntityControllerTesterInterface
+     */
     protected static function entityController(ClientInterface $client = null): EntityControllerTesterInterface
     {
-        $client = $client ?? static::defaultAPIClient();
+        static $controller;
+        if (!$controller) {
+            $client = $client ?? static::defaultAPIClient();
 
-        return new EntityControllerTester(new DocstoreController(static::defaultTestOrganization($client), $client));
+            $controller = new EntityControllerTester(new DocstoreController(static::defaultTestOrganization($client), $client));
+        }
+
+        return $controller;
     }
 
+    /**
+     * @throws \ReflectionException
+     *
+     * @return ClientInterface
+     */
     protected static function defaultAPIClient(): ClientInterface
     {
         $fqcn = getenv('APIGEE_EDGE_PHP_CLIENT_API_CLIENT') ?: FileSystemMockClient::class;
@@ -524,9 +618,8 @@ class DocstoreControllerTest extends EntityControllerTestBase
 
         if ($clientRC->implementsInterface(OnlineClientInterface::class)) {
             $options = [];
+            //$endpoint =  getenv('APIGEE_EDGE_PHP_CLIENT_ENDPOINT') ?: null;
             $endpoint = 'https://apigee.com';
-            //;
-            // getenv('APIGEE_EDGE_PHP_CLIENT_ENDPOINT') ?: null;
             $username = getenv('APIGEE_EDGE_PHP_CLIENT_BASIC_AUTH_USER') ?: '';
             $password = getenv('APIGEE_EDGE_PHP_CLIENT_BASIC_AUTH_PASSWORD') ?: '';
             $httpClientFqcn = getenv('APIGEE_EDGE_PHP_CLIENT_HTTP_CLIENT');
@@ -553,30 +646,53 @@ class DocstoreControllerTest extends EntityControllerTestBase
         }
     }
 
+    /**
+     * @return string
+     */
     private static function getSampleFolderName()
     {
         return static::generateNamesForTest('SampleFolder');
     }
 
+    /**
+     * @return string
+     */
     private static function getSampleDocName()
     {
         return static::generateNamesForTest('SampleDoc');
     }
 
+    /**
+     * Generate sample name for running tests.
+     *
+     * @param null $name
+     *
+     * @return string
+     */
     private static function generateNamesForTest($name = null)
     {
         return 'PHP-SDK-TEST-FolderControllerTest-' . ($name ?? static::randomGenerator()->number(1, 1000000));
     }
 
-    private static function removeTestData(): void
+    /**
+     * Cleanup test data.
+     *
+     * @throws \ReflectionException
+     */
+    private static function removeTestData($folderId = '/homeFolder'): void
     {
         if (!TestClientFactory::isOfflineClient(static::defaultAPIClient())) {
-            $homeFolder = static::entityController()->load('/homeFolder');
-            $contentsCollection = static::entityController()->getFolderContents($homeFolder);
+            /* @var $controller DocstoreControllerInterface */
+            $controller = static::entityController();
+            $homeFolder = $controller->load($folderId);
+            $contentsCollection = $controller->getFolderContents($homeFolder);
             $testDataPrefix = static::generateNamesForTest('');
-            foreach ($contentsCollection->getContents() as $c) {
+            foreach ($contentsCollection as $c) {
                 if (0 === strpos($c->getName(), $testDataPrefix)) {
-                    static::entityController()->delete($c->id());
+                    if ($c instanceof Folder && !empty($controller->getFolderContents($c))) {
+                        static::removeTestData($c->id());
+                    }
+                    $controller->delete($c->id());
                 }
             }
         }

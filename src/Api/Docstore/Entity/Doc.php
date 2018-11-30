@@ -19,23 +19,36 @@
 namespace Apigee\Edge\Api\Docstore\Entity;
 
 /**
- * Spec object from the specstore.
+ * Doc object from the Docstore.
  */
-class Doc extends DocstoreObject
+class Doc extends DocstoreEntity
 {
     /**
      * url to fetch the spec file.
      *
-     * @var
+     * @var string
      */
     protected $content;
+    /**
+     * @var string
+     */
     protected $kind = 'Doc';
 
-    public function getContent()
+    /**
+     * Get the url to fetch the OpenAPI spec content.
+     *
+     * @return string|null
+     */
+    public function getContent(): ?string
     {
         return $this->content;
     }
 
+    /**
+     * Set the url to fetch the OpenAPI spec content.
+     *
+     * @param $contentUrl
+     */
     public function setContent($contentUrl): void
     {
         $this->content = $contentUrl;
