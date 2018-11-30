@@ -21,21 +21,34 @@ namespace Apigee\Edge\Api\Docstore\Entity;
 /**
  * Folder object in Docstore.
  */
-class Folder extends DocstoreObject
+class Folder extends DocstoreEntity
 {
     /**
      * URL to fetch the contents of the folders.
      *
-     * @var
+     * @var string
      */
     protected $contents;
+    /**
+     * @var string
+     */
     protected $kind = 'Folder';
 
-    public function getContents()
+    /**
+     * Get the url to fetch the contents of this folder.
+     *
+     * @return string|null
+     */
+    public function getContents(): ?string
     {
         return $this->contents;
     }
 
+    /**
+     * Set the url to fetch the contents of this folder.
+     *
+     * @param $contentsUrl
+     */
     public function setContents($contentsUrl): void
     {
         $this->contents = $contentsUrl;

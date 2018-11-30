@@ -20,10 +20,10 @@ namespace Apigee\Edge\Api\Docstore\Controller;
 
 use Apigee\Edge\Api\Docstore\Entity\Collection;
 use Apigee\Edge\Api\Docstore\Entity\Doc;
-use Apigee\Edge\Api\Docstore\Entity\DocstoreObject;
+use Apigee\Edge\Api\Docstore\Entity\DocstoreEntity;
+use Apigee\Edge\Api\Docstore\Entity\DocstoreEntityInterface;
 use Apigee\Edge\Api\Docstore\Entity\Folder;
 use Apigee\Edge\Api\Docstore\Serializer\DocstoreSerializer;
-use Apigee\Edge\Api\Monetization\Entity\Entity;
 use Apigee\Edge\Controller\EntityController;
 use Apigee\Edge\Entity\EntityInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -40,7 +40,7 @@ class DocstoreController extends EntityController implements DocstoreControllerI
     public function create(EntityInterface $entity): void
     {
         if ($entity instanceof Doc) {
-            $this->createSpec($entity);
+            $this->createDoc($entity);
         } elseif ($entity instanceof Folder) {
             $this->createFolder($entity);
         }
@@ -68,7 +68,7 @@ class DocstoreController extends EntityController implements DocstoreControllerI
      *
      * @throws \Http\Client\Exception
      */
-    public function createSpec(Doc $entity): void
+    public function createDoc(Doc $entity): void
     {
         if (null == $entity->getFolder()) {
             $entity->setFolder($this->getHomeFolderId());
@@ -91,7 +91,7 @@ class DocstoreController extends EntityController implements DocstoreControllerI
     }
 
     /**
-     * @param DocstoreObject $entity
+     * @param DocstoreEntityInterface $entity
      *
      * @throws \Http\Client\Exception
      */
@@ -165,11 +165,11 @@ class DocstoreController extends EntityController implements DocstoreControllerI
     /**
      * Map a folder path for the current Docstore object.
      *
-     * @param DocstoreObject $entity
+     * @param DocstoreEntityInterface $entity
      *
      * @return string
      */
-    public function getPath(DocstoreObject $entity): string
+    public function getPath(DocstoreEntityInterface $entity): string
     {
         $parentFolderId = $entity->getFolder();
         $parentDocstoreFolder = $this->load($parentFolderId);
@@ -183,14 +183,14 @@ class DocstoreController extends EntityController implements DocstoreControllerI
     /**
      * Given the path load the Docstore object.
      *
-     * @returns null|DocstoreObject
+     * @returns null|DocstoreEntityInterface
      */
-    public function loadByPath(string $path, DocstoreObject $parent = null)
+    public function loadByPath(string $path, DocstoreEntityInterface $parent = null): DocstoreEntityInterface
     {
         if (null === $parent) {
             $parent = $this->load('/homeFolder');
         }
-        $contents = $this->getFolderContents($parent)->getContents();
+        $contents = $this->getFolderContents($parent);
         $pathArr = explode('/', $path);
         $currentFolder = array_shift($pathArr);
         $foundObj = null;
@@ -214,18 +214,21 @@ class DocstoreController extends EntityController implements DocstoreControllerI
      *
      * @throws \Http\Client\Exception
      *
-     * @return Collection
+     * @return array
      */
-    public function getFolderContents(Folder $entity): Collection
+    public function getFolderContents(Folder $entity): array
     {
         $response = $this->getClient()->get($entity->getContents(), $this->getHeaders());
         $collectionSerializer = new DocstoreSerializer();
 
-        return $collectionSerializer->deserialize(
+        /* @var $collection Collection */
+        $collection = $collectionSerializer->deserialize(
             (string) $response->getBody(),
             Collection::class,
             'json'
         );
+
+        return $collection->getContents();
     }
 
     /**
@@ -265,7 +268,7 @@ class DocstoreController extends EntityController implements DocstoreControllerI
      */
     protected function getEntityClass(): string
     {
-        return DocstoreObject::class;
+        return DocstoreEntity::class;
     }
 
     /**
@@ -287,18 +290,20 @@ class DocstoreController extends EntityController implements DocstoreControllerI
     /**
      * Parses the DocStore response and generates either a Folder/Doc object.
      */
-    private function parseDocstoreResponse(ResponseInterface $response): DocstoreObject
+    private function parseDocstoreResponse(ResponseInterface $response): DocstoreEntityInterface
     {
         $responseBody = (string) $response->getBody();
+        //var_dump($responseBody);
         $docstoreObj = json_decode($responseBody, true);
+        if (!empty($response->getHeader('ETag'))) {
+            $docstoreObj['etag'] = $response->getHeader('ETag')[0];
+        }
+        /* @var $object \DocstoreEntityInterface */
         $object = $this->getEntitySerializer()->deserialize(
-            $responseBody,
+            json_encode($docstoreObj),
             ('Folder' === $docstoreObj['kind'] ? Folder::class : Doc::class),
             'json'
         );
-        if (!empty($response->getHeader('ETag'))) {
-            $object->setEtag($response->getHeader('ETag')[0]);
-        }
 
         return $object;
     }
