@@ -36,8 +36,8 @@ class Folder extends DocstoreObject
         return $this->contents;
     }
 
-    public function setContents($contents_url): void
+    public function setContents($contentsUrl): void
     {
-        $this->contents = $contents_url;
+        $this->contents = $contentsUrl;
     }
 }

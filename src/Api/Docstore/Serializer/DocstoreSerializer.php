@@ -24,7 +24,7 @@ use Apigee\Edge\Serializer\EntitySerializer;
 class DocstoreSerializer extends EntitySerializer
 {
     /**
-     * CollectionSerializer constructor.
+     * DocstoreSerializer constructor.
      *
      * @param array $normalizers
      */
