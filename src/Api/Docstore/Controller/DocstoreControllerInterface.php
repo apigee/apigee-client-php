@@ -19,7 +19,6 @@
 namespace Apigee\Edge\Api\Docstore\Controller;
 
 use Apigee\Edge\Api\Docstore\Entity\Doc;
-use Apigee\Edge\Api\Docstore\Entity\DocstoreEntity;
 use Apigee\Edge\Api\Docstore\Entity\DocstoreEntityInterface;
 use Apigee\Edge\Api\Docstore\Entity\Folder;
 use Apigee\Edge\Api\Monetization\Controller\EntityCrudOperationsControllerInterface;
@@ -56,12 +55,13 @@ interface DocstoreControllerInterface extends
 
     /**
      * Return the OpenAPI spec in JSON format.
+     * returns null if content url is not set.
      *
      * @param Doc $entity
      *
-     * @return string
+     * @return string|null
      */
-    public function getSpecContentsAsJson(Doc $entity): string;
+    public function getSpecContentsAsJson(Doc $entity): ?string;
 
     /**
      * Generate a path for the given Docstore entity.
@@ -76,11 +76,11 @@ interface DocstoreControllerInterface extends
      * Load the Docstore entity from the given path relative to the entity being passed.
      *
      * @param string $path
-     * @param DocstoreEntity|null $parent - if null is passed we traverse from the home folder of the given org
+     * @param DocstoreEntityInterface|null $parent - if null is passed we traverse from the home folder of the given org
      *
-     * @return DocstoreEntity
+     * @return null|DocstoreEntityInterface
      */
-    public function loadByPath(string $path, DocstoreEntityInterface $parent = null): DocstoreEntityInterface;
+    public function loadByPath(string $path, DocstoreEntityInterface $parent = null): ?DocstoreEntityInterface;
 
     /**
      * Get the contents of a given folder.

@@ -44,7 +44,7 @@ class CollectionDenormalizer extends ObjectDenormalizer
     {
         $collection = [];
         foreach ($data->contents as $obj) {
-            $collection[] = parent::denormalize($obj, 'Doc' == $obj->kind ? Doc::class : Folder::class, $format);
+            $collection[] = parent::denormalize($obj, 'Doc' == $obj->kind ? Doc::class : Folder::class, $format, $context);
         }
 
         return new Collection(['contents' => $collection]);

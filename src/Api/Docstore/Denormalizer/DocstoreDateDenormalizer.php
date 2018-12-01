@@ -29,13 +29,6 @@ class DocstoreDateDenormalizer extends EdgeDateDenormalizer
      * Docstore uses a different date format then one used by Edge.
      *
      * It uses the ISO-8601 format vs Edge uses epoch time in milliseconds
-     *
-     * @param mixed $data
-     * @param string $class
-     * @param null $format
-     * @param array $context
-     *
-     * @return object|null
      */
     public function denormalize($data, $class, $format = null, array $context = [])
     {

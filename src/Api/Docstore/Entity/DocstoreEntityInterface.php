@@ -18,10 +18,14 @@
 
 namespace Apigee\Edge\Api\Docstore\Entity;
 
+use Apigee\Edge\Entity\EntityInterface;
+use Apigee\Edge\Entity\Property\DescriptionPropertyInterface;
+use Apigee\Edge\Entity\Property\NamePropertyInterface;
+
 /**
  * Interface DocstoreEntityInterface.
  */
-interface DocstoreEntityInterface
+interface DocstoreEntityInterface extends EntityInterface, NamePropertyInterface, DescriptionPropertyInterface
 {
     /**
      * @return string
