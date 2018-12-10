@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-namespace Apigee\Edge\Api\Monetization\NameConverter;
+namespace Apigee\Edge\NameConverter;
 
 use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
 

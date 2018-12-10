@@ -71,12 +71,12 @@ interface DocstoreEntityInterface
     /**
      * @return bool
      */
-    public function getIsTrashed(): bool;
+    public function isTrashed(): bool;
 
     /**
      * @param bool $isTrashed
      */
-    public function setIsTrashed(bool $isTrashed): void;
+    public function setTrashed(bool $trashed): void;
 
     /**
      * @return string|null

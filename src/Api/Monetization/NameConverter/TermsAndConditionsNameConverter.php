@@ -18,6 +18,7 @@
 
 namespace Apigee\Edge\Api\Monetization\NameConverter;
 
+use Apigee\Edge\NameConverter\NameConverterBase;
 use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
 
 class TermsAndConditionsNameConverter extends NameConverterBase implements NameConverterInterface

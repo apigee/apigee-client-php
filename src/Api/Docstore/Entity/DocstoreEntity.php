@@ -37,7 +37,7 @@ abstract class DocstoreEntity extends Entity implements DocstoreEntityInterface
     /**
      * @var bool
      */
-    protected $isTrashed = false;
+    protected $trashed = false;
     /**
      * @var string
      */
@@ -143,17 +143,17 @@ abstract class DocstoreEntity extends Entity implements DocstoreEntityInterface
      *
      * @return bool
      */
-    public function getIsTrashed(): bool
+    public function isTrashed(): bool
     {
-        return $this->isTrashed;
+        return $this->trashed;
     }
 
     /**
      * Set the flag to indicate the Docstore object is trashed.
      */
-    public function setIsTrashed(bool $isTrashed): void
+    public function setTrashed(bool $trashed): void
     {
-        $this->isTrashed = $isTrashed;
+        $this->trashed = $trashed;
     }
 
     /**

@@ -18,6 +18,7 @@
 
 namespace Apigee\Edge\Api\Monetization\NameConverter;
 
+use Apigee\Edge\NameConverter\NameConverterBase;
 use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
 
 class OrganizationProfileNameConverter extends NameConverterBase implements NameConverterInterface

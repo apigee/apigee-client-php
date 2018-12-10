@@ -16,29 +16,20 @@
  * limitations under the License.
  */
 
-namespace Apigee\Edge\Api\Monetization\NameConverter;
+namespace Apigee\Edge\Api\Docstore\NameConverter;
 
 use Apigee\Edge\NameConverter\NameConverterBase;
 use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
 
-/**
- * Converts "developer" to "company" on those accepted rate plans that
- * belongs to a company. This is only used in the
- * CompanyAcceptedRatePlanController.
- *
- * @see \Apigee\Edge\Api\Monetization\Entity\CompanyAcceptedRatePlan
- */
-class CompanyAcceptedRatePlanNameConverter extends NameConverterBase implements NameConverterInterface
+class DocstoreNameConverter extends NameConverterBase implements NameConverterInterface
 {
     /**
      * @inheritdoc
      */
     protected function getExternalToLocalMapping(): array
     {
-        $mapping = [
-            'developer' => 'company',
+        return [
+            'isTrashed' => 'trashed',
         ];
-
-        return $mapping;
     }
 }

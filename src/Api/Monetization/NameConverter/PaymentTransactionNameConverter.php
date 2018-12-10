@@ -18,6 +18,7 @@
 
 namespace Apigee\Edge\Api\Monetization\NameConverter;
 
+use Apigee\Edge\NameConverter\NameConverterBase;
 use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
 
 class PaymentTransactionNameConverter extends NameConverterBase implements NameConverterInterface

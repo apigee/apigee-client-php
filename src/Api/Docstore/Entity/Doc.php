@@ -24,7 +24,7 @@ namespace Apigee\Edge\Api\Docstore\Entity;
 class Doc extends DocstoreEntity
 {
     /**
-     * url to fetch the spec file.
+     * Url to fetch the spec file.
      *
      * @var string
      */

@@ -20,7 +20,12 @@ namespace Apigee\Edge\Api\Docstore\Serializer;
 
 use Apigee\Edge\Api\Docstore\Denormalizer\CollectionDenormalizer;
 use Apigee\Edge\Api\Docstore\Denormalizer\DocstoreDateDenormalizer;
+use Apigee\Edge\Api\Docstore\Denormalizer\DocstoreDenormalizer;
+use Apigee\Edge\Api\Docstore\Entity\DocstoreEntityInterface;
+use Apigee\Edge\Api\Docstore\Normalizer\DocstoreNormalizer;
+use Apigee\Edge\Entity\EntityInterface;
 use Apigee\Edge\Serializer\EntitySerializer;
+use Psr\Http\Message\ResponseInterface;
 
 class DocstoreSerializer extends EntitySerializer
 {
@@ -33,9 +38,24 @@ class DocstoreSerializer extends EntitySerializer
     {
         $normalizers = array_merge($normalizers, [
             new CollectionDenormalizer(),
+            new DocstoreNormalizer(),
+            new DocstoreDenormalizer(),
             new DocstoreDateDenormalizer(),
         ]);
 
         parent::__construct($normalizers);
+    }
+
+    public function denormalize($data, $class, $format = null, array $context = [])
+    {
+        return parent::denormalize($data, $class, $format, $context);
+    }
+
+    public function setPropertiesFromResponse(ResponseInterface $response, EntityInterface $entity): void
+    {
+        parent::setPropertiesFromResponse($response, $entity);
+        if (($entity instanceof DocstoreEntityInterface) && !empty($response->getHeader('ETag'))) {
+            $entity->setEtag($response->getHeader('ETag')[0]);
+        }
     }
 }

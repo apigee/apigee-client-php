@@ -45,7 +45,7 @@ use Monolog\Processor\PsrLogMessageProcessor;
  * Class DocstoreControllerTest.
  *
  * @group controller
- * @group management
+ * @group docstore
  */
 class DocstoreControllerTest extends EntityControllerTestBase
 {
@@ -105,6 +105,73 @@ class DocstoreControllerTest extends EntityControllerTestBase
             static::entityController()->delete($specs[static::getSampleDocName()]);
         }
         $this->assertArrayHasKey(static::getSampleDocName(), $specs);
+    }
+
+    /**
+     * Test trashed flag on Folders.
+     */
+    public function testFolderIsTrashedFlag(): void
+    {
+        static::markOnlineTestSkipped(__FUNCTION__);
+        $folderName = static::generateNamesForTest();
+
+        $folder = new Folder(['name' => $folderName, 'trashed' => true]);
+
+        $this->assertTrue($folder->isTrashed());
+
+        //Create will reset the trashed flag to false
+        static::entityController()->createFolder($folder);
+
+        $homeFolder = static::entityController()->load('/homeFolder');
+        $contentsCollection = static::entityController()->getFolderContents($homeFolder);
+        $folders = [];
+        foreach ($contentsCollection as $c) {
+            if ($c instanceof Folder) {
+                $folders[$c->getName()] = $c;
+            }
+        }
+        $this->assertArrayHasKey($folderName, $folders);
+
+        $folder = $folders[$folderName];
+
+        $this->assertFalse($folder->isTrashed());
+
+        if ($folders[$folderName]) {
+            static::entityController()->delete($folders[$folderName]->id());
+        }
+    }
+
+    /**
+     * Test trashed flag on Doc objects.
+     */
+    public function testSpecIsTrashedFlag(): void
+    {
+        static::markOnlineTestSkipped(__FUNCTION__);
+        $specName = static::generateNamesForTest();
+        $spec = new Doc(['name' => $specName, 'trashed' => true]);
+
+        $this->assertTrue($spec->isTrashed());
+
+        //Create will reset the trashed flag to false
+        static::entityController()->createDoc($spec);
+
+        $homeFolder = static::entityController()->load('/homeFolder');
+        $contentsCollection = static::entityController()->getFolderContents($homeFolder);
+        $specs = [];
+        foreach ($contentsCollection as $c) {
+            if ($c instanceof Doc) {
+                $specs[$c->getName()] = $c;
+            }
+        }
+        $this->assertArrayHasKey($specName, $specs);
+
+        $spec = $specs[$specName];
+
+        $this->assertFalse($spec->isTrashed());
+
+        if ($specs[$specName]) {
+            static::entityController()->delete($specs[$specName]->id());
+        }
     }
 
     /**
@@ -261,6 +328,7 @@ class DocstoreControllerTest extends EntityControllerTestBase
         $folder->setName($folderName2);
         static::entityController()->update($folder);
         $updatedFolder = static::entityController()->load($folder->id());
+        $this->assertEquals($updatedFolder->id(), $folder->id());
         static::entityController()->delete($updatedFolder->id());
         $this->assertEquals($folderName2, $updatedFolder->getName());
     }
@@ -671,7 +739,7 @@ class DocstoreControllerTest extends EntityControllerTestBase
      */
     private static function generateNamesForTest($name = null)
     {
-        return 'PHP-SDK-TEST-FolderControllerTest-' . ($name ?? static::randomGenerator()->number(1, 1000000));
+        return 'PHP-SDK-TEST-DocstoreControllerTest-' . ($name ?? static::randomGenerator()->number(1, 1000000));
     }
 
     /**
