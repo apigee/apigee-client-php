@@ -30,12 +30,10 @@ class DocstoreDateDenormalizer extends EdgeDateDenormalizer
      *
      * It uses the ISO-8601 format vs Edge uses epoch time in milliseconds
      *
-     * @param mixed $data
-     * @param string $class
-     * @param null $format
-     * @param array $context
+     * @return null|object
      *
-     * @return object|null
+     * @psalm-suppress ImplementedReturnTypeMismatch - We have to return null,
+     * even if it not officially supported by the overridden class.
      */
     public function denormalize($data, $class, $format = null, array $context = [])
     {

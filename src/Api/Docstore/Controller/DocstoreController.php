@@ -104,7 +104,7 @@ class DocstoreController extends EntityController implements DocstoreControllerI
     }
 
     /**
-     * @param $entity EntityInterface
+     * @param $entity DocstoreEntityInterface
      *
      * @throws \Http\Client\Exception
      */

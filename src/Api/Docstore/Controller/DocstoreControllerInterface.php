@@ -61,7 +61,7 @@ interface DocstoreControllerInterface extends
      *
      * @return string
      */
-    public function getSpecContentsAsJson(Doc $entity): string;
+    public function getSpecContentsAsJson(Doc $entity): ?string;
 
     /**
      * Generate a path for the given Docstore entity.
@@ -80,7 +80,7 @@ interface DocstoreControllerInterface extends
      *
      * @return DocstoreEntity
      */
-    public function loadByPath(string $path, DocstoreEntityInterface $parent = null): DocstoreEntityInterface;
+    public function loadByPath(string $path, DocstoreEntityInterface $parent = null): ?DocstoreEntityInterface;
 
     /**
      * Get the contents of a given folder.
