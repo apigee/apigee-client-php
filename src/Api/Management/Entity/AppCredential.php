@@ -52,7 +52,7 @@ class AppCredential extends Entity implements AppCredentialInterface
      * never expires. So if this value is null then it either means that this is a new entity (check whether consumerKey
      * or consumerSecret are also null) or this credential never expires.
      *
-     * @var null|\DateTimeImmutable
+     * @var \DateTimeImmutable|null
      */
     protected $expiresAt;
 
@@ -159,7 +159,7 @@ class AppCredential extends Entity implements AppCredentialInterface
      *
      * Expiration date can not be changed by modifying this property's value.
      *
-     * @param null|\DateTimeImmutable $date
+     * @param \DateTimeImmutable|null $date
      *
      * @internal
      */

@@ -26,7 +26,7 @@ namespace Apigee\Edge\Api\Monetization\Entity\Property;
 trait EndDatePropertyAwareTrait
 {
     /**
-     * @var null|\DateTimeImmutable
+     * @var \DateTimeImmutable|null
      */
     protected $endDate;
 

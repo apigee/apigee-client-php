@@ -30,7 +30,7 @@ class ApiResponseException extends ApiRequestException
     /** @var \Psr\Http\Message\ResponseInterface */
     private $response;
 
-    /** @var null|string */
+    /** @var string|null */
     private $edgeErrorCode;
 
     /**
@@ -84,7 +84,7 @@ class ApiResponseException extends ApiRequestException
     }
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getEdgeErrorCode(): ?string
     {

@@ -39,7 +39,7 @@ interface FreemiumPropertiesInterface
     public function setFreemiumDuration(int $freemiumDuration): void;
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getFreemiumDurationType(): ?string;
 

@@ -28,7 +28,7 @@ trait PaymentDueDaysPropertyAwareTrait
     /**
      * Apigee Edge returns this value as a string.
      *
-     * @var null|string
+     * @var string|null
      */
     protected $paymentDueDays;
 

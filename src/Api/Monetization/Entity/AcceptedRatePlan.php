@@ -26,28 +26,28 @@ abstract class AcceptedRatePlan extends Entity implements AcceptedRatePlanInterf
     use EndDatePropertyAwareTrait;
     use StartDatePropertyAwareTrait;
 
-    /** @var null|\DateTimeImmutable */
+    /** @var \DateTimeImmutable|null */
     protected $created;
 
-    /** @var null|int */
+    /** @var int|null */
     protected $quotaTarget;
 
     /** @var \Apigee\Edge\Api\Monetization\Entity\RatePlanInterface */
     protected $ratePlan;
 
-    /** @var null|\DateTimeImmutable */
+    /** @var \DateTimeImmutable|null */
     protected $updated;
 
-    /** @var null|\DateTimeImmutable */
+    /** @var \DateTimeImmutable|null */
     protected $renewalDate;
 
-    /** @var null|\DateTimeImmutable */
+    /** @var \DateTimeImmutable|null */
     protected $nextCycleStartDate;
 
-    /** @var null|\DateTimeImmutable */
+    /** @var \DateTimeImmutable|null */
     protected $nextRecurringFeeDate;
 
-    /** @var null|\DateTimeImmutable */
+    /** @var \DateTimeImmutable|null */
     protected $prevRecurringFeeDate;
 
     /**

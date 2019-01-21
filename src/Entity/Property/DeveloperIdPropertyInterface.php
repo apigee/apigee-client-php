@@ -24,7 +24,7 @@ namespace Apigee\Edge\Entity\Property;
 interface DeveloperIdPropertyInterface
 {
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getDeveloperId(): ?string;
 }

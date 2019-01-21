@@ -26,7 +26,7 @@ interface EndDatePropertyInterface
     public function getEndDate(): ?\DateTimeImmutable;
 
     /**
-     * @param null|\DateTimeImmutable $endDate
+     * @param \DateTimeImmutable|null $endDate
      */
     public function setEndDate(?\DateTimeImmutable $endDate): void;
 }

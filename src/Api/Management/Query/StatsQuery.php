@@ -35,31 +35,31 @@ class StatsQuery implements StatsQueryInterface
     /** @var \League\Period\Period */
     private $timeRange;
 
-    /** @var null|string */
+    /** @var string|null */
     private $filter;
 
-    /** @var null|string */
+    /** @var string|null */
     private $timeUnit;
 
-    /** @var null|string */
+    /** @var string|null */
     private $sortBy;
 
-    /** @var null|string */
+    /** @var string|null */
     private $sort;
 
-    /** @var null|int */
+    /** @var int|null */
     private $topK;
 
-    /** @var null|int */
+    /** @var int|null */
     private $limit;
 
-    /** @var null|int */
+    /** @var int|null */
     private $offset;
 
-    /** @var null|bool */
+    /** @var bool|null */
     private $realtime;
 
-    /** @var null|int */
+    /** @var int|null */
     private $accuracy;
 
     /** @var bool */

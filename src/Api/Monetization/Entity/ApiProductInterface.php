@@ -31,12 +31,12 @@ interface ApiProductInterface extends
     NamePropertyInterface
 {
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getTransactionSuccessCriteria(): ?string;
 
     /**
-     * @param null|string $transactionSuccessCriteria
+     * @param string|null $transactionSuccessCriteria
      */
     public function setTransactionSuccessCriteria(?string $transactionSuccessCriteria): void;
 }

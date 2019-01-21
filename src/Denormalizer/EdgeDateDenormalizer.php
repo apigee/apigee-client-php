@@ -46,7 +46,7 @@ class EdgeDateDenormalizer implements DenormalizerInterface
     /**
      * @inheritdoc
      *
-     * @return null|object
+     * @return object|null
      *
      * @psalm-suppress ImplementedReturnTypeMismatch - We have to return null,
      * even if it not officially supported by the overridden class.

@@ -30,7 +30,7 @@ class ApiProduct extends OrganizationAwareEntity implements ApiProductInterface
     use NamePropertyAwareTrait;
     use StatusPropertyAwareTrait;
 
-    /** @var null|string */
+    /** @var string|null */
     protected $transactionSuccessCriteria;
 
     /**

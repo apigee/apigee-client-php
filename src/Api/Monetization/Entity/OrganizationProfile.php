@@ -35,43 +35,43 @@ class OrganizationProfile extends Entity implements OrganizationProfileInterface
     use SelfBillingPropertyAwareTrait;
     use StatusPropertyAwareTrait;
 
-    /** @var null|bool */
+    /** @var bool|null */
     protected $approveTrusted;
 
-    /** @var null|bool */
+    /** @var bool|null */
     protected $approveUntrusted;
 
-    /** @var null|string */
+    /** @var string|null */
     protected $billingCycle;
 
-    /** @var null|string */
+    /** @var string|null */
     protected $country;
 
-    /** @var null|string */
+    /** @var string|null */
     protected $currencyCode;
 
-    /** @var null|bool */
+    /** @var bool|null */
     protected $billingAdjustment;
 
-    /** @var null|bool */
+    /** @var bool|null */
     protected $separateInvoiceForProduct;
 
-    /** @var null|bool */
+    /** @var bool|null */
     protected $issueNettingStmt;
 
-    /** @var null|string */
+    /** @var string|null */
     protected $logoUrl;
 
-    /** @var null|bool */
+    /** @var bool|null */
     protected $netPaymentAdviceNote;
 
-    /** @var null|bool */
+    /** @var bool|null */
     protected $nettingStmtPerCurrency;
 
-    /** @var null|string */
+    /** @var string|null */
     protected $regNo;
 
-    /** @var null|bool */
+    /** @var bool|null */
     protected $selfBillingAsExchOrg;
 
     /** @var bool */
@@ -83,19 +83,19 @@ class OrganizationProfile extends Entity implements OrganizationProfileInterface
     /** @var string */
     protected $supportedBillingType;
 
-    /** @var null|string */
+    /** @var string|null */
     protected $taxEngineExternalId;
 
-    /** @var null|string */
+    /** @var string|null */
     protected $taxModel;
 
-    /** @var null|string */
+    /** @var string|null */
     protected $taxNexus;
 
-    /** @var null|string */
+    /** @var string|null */
     protected $taxRegNo;
 
-    /** @var null|string */
+    /** @var string|null */
     protected $transactionRelayURL;
 
     /** @var \DateTimeZone */
@@ -422,7 +422,7 @@ class OrganizationProfile extends Entity implements OrganizationProfileInterface
     }
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getTaxEngineExternalId(): ?string
     {
@@ -430,7 +430,7 @@ class OrganizationProfile extends Entity implements OrganizationProfileInterface
     }
 
     /**
-     * @param null|string $taxEngineExternalId
+     * @param string|null $taxEngineExternalId
      */
     public function setTaxEngineExternalId(?string $taxEngineExternalId): void
     {

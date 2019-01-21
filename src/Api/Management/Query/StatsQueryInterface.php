@@ -54,36 +54,36 @@ interface StatsQueryInterface
     public function setTimeRange(Period $timeRange): StatsQueryInterface;
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getTimeUnit(): ?string;
 
     /**
-     * @param null|string $timeUnit
+     * @param string|null $timeUnit
      *
      * @return StatsQueryInterface
      */
     public function setTimeUnit(?string $timeUnit): StatsQueryInterface;
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getSortBy(): ?string;
 
     /**
-     * @param null|string $sortBy
+     * @param string|null $sortBy
      *
      * @return StatsQueryInterface
      */
     public function setSortBy(?string $sortBy): StatsQueryInterface;
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getSort(): ?string;
 
     /**
-     * @param null|string $sort
+     * @param string|null $sort
      *
      * @return StatsQueryInterface
      */
@@ -162,12 +162,12 @@ interface StatsQueryInterface
     public function setTsAscending(bool $tsAscending): StatsQueryInterface;
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getFilter(): ?string;
 
     /**
-     * @param null|string $filter
+     * @param string|null $filter
      *
      * @return StatsQuery
      *

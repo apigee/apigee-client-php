@@ -23,7 +23,7 @@ interface EmailPropertyInterface
     /**
      * Returns the email address.
      *
-     * @return null|string
+     * @return string|null
      */
     public function getEmail(): ?string;
 

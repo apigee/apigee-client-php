@@ -61,7 +61,7 @@ class MockEntity extends Entity
     /** @var \Apigee\Edge\Structure\CredentialProduct */
     private $credentialProduct;
 
-    /** @var null|\DateTimeImmutable */
+    /** @var \DateTimeImmutable|null */
     private $date;
 
     /**

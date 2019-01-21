@@ -41,7 +41,7 @@ interface AttributesPropertyInterface
     /**
      * @param string $attribute
      *
-     * @return null|string
+     * @return string|null
      */
     public function getAttributeValue(string $attribute): ?string;
 

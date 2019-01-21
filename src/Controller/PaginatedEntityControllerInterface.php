@@ -35,7 +35,7 @@ interface PaginatedEntityControllerInterface
      *   Number of items to return. Default is 0 which means load as much as
      *   supported. (Different endpoints have different limits, ex.:
      *   1000 for API products, 100 for Company apps.)
-     * @param null|string $startKey
+     * @param string|null $startKey
      *   First item in the list, if it is not set then Apigee Edge decides the
      *   first item.
      *

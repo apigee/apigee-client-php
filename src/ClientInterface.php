@@ -97,7 +97,7 @@ interface ClientInterface extends HttpClient
      * Sends a POST request.
      *
      * @param \Psr\Http\Message\UriInterface|string $uri
-     * @param null|\Psr\Http\Message\StreamInterface|resource|string $body
+     * @param \Psr\Http\Message\StreamInterface|resource|string|null $body
      * @param array $headers
      *
      * @throws \Apigee\Edge\Exception\ApiException
@@ -111,7 +111,7 @@ interface ClientInterface extends HttpClient
      * Sends a PUT request.
      *
      * @param \Psr\Http\Message\UriInterface|string $uri
-     * @param null|\Psr\Http\Message\StreamInterface|resource|string $body
+     * @param \Psr\Http\Message\StreamInterface|resource|string|null $body
      * @param array $headers
      *
      * @throws \Apigee\Edge\Exception\ApiException
@@ -125,7 +125,7 @@ interface ClientInterface extends HttpClient
      * Sends a DELETE request.
      *
      * @param \Psr\Http\Message\UriInterface|string $uri
-     * @param null|\Psr\Http\Message\StreamInterface|resource|string $body
+     * @param \Psr\Http\Message\StreamInterface|resource|string|null $body
      * @param array $headers
      *
      * @throws \Apigee\Edge\Exception\ApiException

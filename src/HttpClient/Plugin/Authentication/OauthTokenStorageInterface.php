@@ -28,14 +28,14 @@ interface OauthTokenStorageInterface
     /**
      * Returns the access token.
      *
-     * @return null|string
+     * @return string|null
      */
     public function getAccessToken(): ?string;
 
     /**
      * Returns the token type.
      *
-     * @return null|string
+     * @return string|null
      */
     public function getTokenType(): ?string;
 
@@ -65,7 +65,7 @@ interface OauthTokenStorageInterface
     /**
      * Returns the refresh token.
      *
-     * @return null|string
+     * @return string|null
      */
     public function getRefreshToken(): ?string;
 

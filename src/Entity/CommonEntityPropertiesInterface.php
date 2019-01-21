@@ -31,28 +31,28 @@ interface CommonEntityPropertiesInterface
     /**
      * Returns creation date of entity.
      *
-     * @return null|\DateTimeImmutable
+     * @return \DateTimeImmutable|null
      */
     public function getCreatedAt(): ?\DateTimeImmutable;
 
     /**
      * Returns the email address of the user/developer who created the entity.
      *
-     * @return null|string Email address.
+     * @return string|null Email address.
      */
     public function getCreatedBy(): ?string;
 
     /**
      * Returns last modification date of entity.
      *
-     * @return null|\DateTimeImmutable
+     * @return \DateTimeImmutable|null
      */
     public function getLastModifiedAt(): ?\DateTimeImmutable;
 
     /**
      * Returns the email address of the user/developer who modified the entity the last time.
      *
-     * @return null|string Email address.
+     * @return string|null Email address.
      */
     public function getLastModifiedBy(): ?string;
 }

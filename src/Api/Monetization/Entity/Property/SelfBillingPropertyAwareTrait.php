@@ -23,7 +23,7 @@ trait SelfBillingPropertyAwareTrait
     /**
      * Value of "hasSelfBilling" from the API response.
      *
-     * @var null|bool
+     * @var bool|null
      */
     protected $selfBilling;
 

@@ -28,10 +28,10 @@ use Apigee\Edge\Normalizer\PropertiesPropertyNormalizer;
 use Apigee\Edge\Serializer\EntitySerializer;
 use Apigee\Edge\Tests\Test\Entity\MockEntity;
 use GuzzleHttp\Psr7\Response;
+use function GuzzleHttp\Psr7\stream_for;
 use PHPUnit\Framework\TestCase;
 use SebastianBergmann\Comparator\ComparisonFailure;
 use SebastianBergmann\Comparator\Factory as ComparisonFactory;
-use function GuzzleHttp\Psr7\stream_for;
 
 /**
  * Class EntityTransformationTest.

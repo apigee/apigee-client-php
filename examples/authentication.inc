@@ -96,13 +96,13 @@ class EnvironmentCredentialProvider implements CredentialProvider
  */
 class ClientFactory
 {
-    /** @var null|string */
+    /** @var string|null */
     private $endpoint;
 
     /** @var \CredentialProvider */
     private $credential;
 
-    /** @var null|\Apigee\Edge\ClientInterface */
+    /** @var \Apigee\Edge\ClientInterface|null */
     private $client;
 
     /**
@@ -110,7 +110,7 @@ class ClientFactory
      *
      * @param \CredentialProvider $credential
      *   Apigee Edge credentials.
-     * @param null|string $endpoint
+     * @param string|null $endpoint
      *   Apigee Edge endpoint, if null it falls back to the url of Apigee Edge cloud.
      */
     public function __construct(CredentialProvider $credential, ?string $endpoint = null)

@@ -31,7 +31,7 @@ interface PagerInterface
     public function getStartKey(): ?string;
 
     /**
-     * @param null|string $startKey
+     * @param string|null $startKey
      *   The primary key of the entity that the list will start or null if list
      *   should start with the first item selected by Apigee Edge.
      *

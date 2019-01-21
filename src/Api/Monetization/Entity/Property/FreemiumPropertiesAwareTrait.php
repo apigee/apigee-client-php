@@ -25,13 +25,13 @@ namespace Apigee\Edge\Api\Monetization\Entity\Property;
  */
 trait FreemiumPropertiesAwareTrait
 {
-    /** @var null|int */
+    /** @var int|null */
     protected $freemiumDuration;
 
-    /** @var null|string */
+    /** @var string|null */
     protected $freemiumDurationType;
 
-    /** @var null|int */
+    /** @var int|null */
     protected $freemiumUnit;
 
     /**

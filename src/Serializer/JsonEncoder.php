@@ -34,6 +34,11 @@ final class JsonEncoder extends BaseJsonEncoder
      * The encoder implementation is intentionally not swappable.
      *
      * @param \Apigee\Edge\Serializer\JsonDecode|null $decodingImpl
+     *
+     * @psalm-suppress InvalidArgument
+     * Required since symfony/serializer >= 4.2.0
+     *
+     * @see https://github.com/symfony/symfony/pull/28709
      */
     public function __construct(JsonDecode $decodingImpl = null)
     {

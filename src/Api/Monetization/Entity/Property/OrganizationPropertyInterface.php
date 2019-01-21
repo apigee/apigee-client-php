@@ -25,7 +25,7 @@ interface OrganizationPropertyInterface
     /**
      * Returns the organization that this entity belongs.
      *
-     * @return null|\Apigee\Edge\Api\Monetization\Entity\OrganizationProfileInterface
+     * @return \Apigee\Edge\Api\Monetization\Entity\OrganizationProfileInterface|null
      */
     public function getOrganization(): ?OrganizationProfileInterface;
 }

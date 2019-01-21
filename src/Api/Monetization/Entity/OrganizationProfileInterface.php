@@ -73,7 +73,7 @@ interface OrganizationProfileInterface extends EntityInterface,
     public function setApproveUntrusted(bool $approveUntrusted): void;
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getBillingCycle(): ?string;
 
@@ -83,7 +83,7 @@ interface OrganizationProfileInterface extends EntityInterface,
     public function setBillingCycle(string $billingCycle): void;
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getCountry(): ?string;
 
@@ -93,7 +93,7 @@ interface OrganizationProfileInterface extends EntityInterface,
     public function setCountry(string $country): void;
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getCurrencyCode(): ?string;
 
@@ -133,7 +133,7 @@ interface OrganizationProfileInterface extends EntityInterface,
     public function setIssueNettingStmt(bool $issueNettingStmt): void;
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getLogoUrl(): ?string;
 
@@ -153,7 +153,7 @@ interface OrganizationProfileInterface extends EntityInterface,
     public function setNetPaymentAdviceNote(bool $netPaymentAdviceNote): void;
 
     /**
-     * @return null|bool
+     * @return bool|null
      */
     public function getNettingStmtPerCurrency(): ?bool;
 
@@ -163,12 +163,12 @@ interface OrganizationProfileInterface extends EntityInterface,
     public function setNettingStmtPerCurrency(bool $nettingStmtPerCurrency): void;
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getRegNo(): ?string;
 
     /**
-     * @param null|string $regNo
+     * @param string|null $regNo
      */
     public function setRegNo(?string $regNo): void;
 
@@ -213,7 +213,7 @@ interface OrganizationProfileInterface extends EntityInterface,
     public function setSupportedBillingType(string $supportedBillingType): void;
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getTaxModel(): ?string;
 
@@ -223,7 +223,7 @@ interface OrganizationProfileInterface extends EntityInterface,
     public function setTaxModel(string $taxModel): void;
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getTaxNexus(): ?string;
 
@@ -233,7 +233,7 @@ interface OrganizationProfileInterface extends EntityInterface,
     public function setTaxNexus(string $taxNexus): void;
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getTaxRegNo(): ?string;
 
@@ -243,7 +243,7 @@ interface OrganizationProfileInterface extends EntityInterface,
     public function setTaxRegNo(string $taxRegNo): void;
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getTransactionRelayURL(): ?string;
 
@@ -308,12 +308,12 @@ interface OrganizationProfileInterface extends EntityInterface,
     public function isSelfBillingAsExchOrg(): bool;
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getTaxEngineExternalId(): ?string;
 
     /**
-     * @param null|string $taxEngineExternalId
+     * @param string|null $taxEngineExternalId
      */
     public function setTaxEngineExternalId(?string $taxEngineExternalId): void;
 }

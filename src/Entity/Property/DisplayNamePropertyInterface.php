@@ -24,7 +24,7 @@ namespace Apigee\Edge\Entity\Property;
 interface DisplayNamePropertyInterface
 {
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getDisplayName(): ?string;
 

@@ -47,19 +47,19 @@ abstract class RatePlan extends OrganizationAwareEntity implements RatePlanInter
     /** @var bool */
     protected $advance = false;
 
-    /** @var null|int */
+    /** @var int|null */
     protected $contractDuration;
 
-    /** @var null|string */
+    /** @var string|null */
     protected $contractDurationType;
 
-    /** @var null|float */
+    /** @var float|null */
     protected $earlyTerminationFee;
 
-    /** @var null|int */
+    /** @var int|null */
     protected $frequencyDuration;
 
-    /** @var null|string */
+    /** @var string|null */
     protected $frequencyDurationType;
 
     /**
@@ -76,7 +76,7 @@ abstract class RatePlan extends OrganizationAwareEntity implements RatePlanInter
      *
      * It can be null when a new rate plan is created.
      *
-     * @var null|\Apigee\Edge\Api\Monetization\Entity\ApiPackage
+     * @var \Apigee\Edge\Api\Monetization\Entity\ApiPackage|null
      */
     protected $package;
 
@@ -89,10 +89,10 @@ abstract class RatePlan extends OrganizationAwareEntity implements RatePlanInter
     /** @var \Apigee\Edge\Api\Monetization\Structure\RatePlanDetail[] */
     protected $ratePlanDetails = [];
 
-    /** @var null|float */
+    /** @var float|null */
     protected $recurringFee;
 
-    /** @var null|int */
+    /** @var int|null */
     protected $recurringStartUnit;
 
     /** @var string */
