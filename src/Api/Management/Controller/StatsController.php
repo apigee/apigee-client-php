@@ -53,6 +53,11 @@ class StatsController extends AbstractController implements StatsControllerInter
      *   Name of the organization that the entities belongs to.
      * @param \Apigee\Edge\ClientInterface $client
      *   Apigee Edge API client.
+     *
+     * @psalm-suppress InvalidArgument
+     * Required since symfony/serializer >= 4.2.0
+     *
+     * @see https://github.com/symfony/symfony/pull/28709
      */
     public function __construct(string $environment, string $organization, ClientInterface $client)
     {
