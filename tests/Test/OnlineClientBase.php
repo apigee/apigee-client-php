@@ -41,7 +41,7 @@ abstract class OnlineClientBase extends Client implements OnlineClientInterface
             Client::CONFIG_USER_AGENT_PREFIX => static::USER_AGENT_PREFIX,
             Client::CONFIG_RETRY_PLUGIN_CONFIG => [
                 'retries' => 5,
-                'decider' => function (RequestInterface $request, Exception $e) {
+                'exception_decider' => function (RequestInterface $request, Exception $e) {
                     // Only retry API calls that failed with this specific error.
                     if ($e instanceof ApiResponseException && 'messaging.adaptors.http.flow.ApplicationNotFound' === $e->getEdgeErrorCode()) {
                         return true;
@@ -49,7 +49,7 @@ abstract class OnlineClientBase extends Client implements OnlineClientInterface
 
                     return false;
                 },
-                'delay' => function (RequestInterface $request, Exception $e, $retries): int {
+                'exception_delay' => function (RequestInterface $request, Exception $e, $retries): int {
                     return $retries * 15000000;
                 },
             ],

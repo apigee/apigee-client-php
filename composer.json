@@ -19,7 +19,7 @@
         "fightbulc/moment": "^1.26",
         "league/period": "^3.4",
         "php-http/cache-plugin": "^1.4",
-        "php-http/client-common": "^1.8.1",
+        "php-http/client-common": "^1.9",
         "php-http/client-implementation": "^1.0",
         "php-http/discovery": "^1.0",
         "php-http/httplug": "^1.1",
