@@ -37,7 +37,7 @@ class SupportedCurrency extends OrganizationAwareEntity implements SupportedCurr
     /** @var float|null */
     protected $creditLimit;
 
-    /** @var null|float */
+    /** @var float|null */
     protected $minimumTopUpAmount;
 
     /**

@@ -38,17 +38,17 @@ class EntityNormalizer extends ObjectNormalizer
     public const MINT_ENTITY_REFERENCE_PROPERTY_VALUES = 'mint_entity_reference_values';
 
     /**
-     * @var null|\Symfony\Component\Serializer\NameConverter\NameConverterInterface
+     * @var \Symfony\Component\Serializer\NameConverter\NameConverterInterface|null
      */
     protected $nameConverter;
 
     /**
      * EntityNormalizer constructor.
      *
-     * @param null|\Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface $classMetadataFactory
-     * @param null|\Symfony\Component\Serializer\NameConverter\NameConverterInterface $nameConverter
-     * @param null|\Symfony\Component\PropertyAccess\PropertyAccessorInterface $propertyAccessor
-     * @param null|\Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface $propertyTypeExtractor
+     * @param \Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface|null $classMetadataFactory
+     * @param \Symfony\Component\Serializer\NameConverter\NameConverterInterface|null $nameConverter
+     * @param \Symfony\Component\PropertyAccess\PropertyAccessorInterface|null $propertyAccessor
+     * @param \Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface|null $propertyTypeExtractor
      */
     public function __construct(?ClassMetadataFactoryInterface $classMetadataFactory = null, ?NameConverterInterface $nameConverter = null, ?PropertyAccessorInterface $propertyAccessor = null, ?PropertyTypeExtractorInterface $propertyTypeExtractor = null)
     {

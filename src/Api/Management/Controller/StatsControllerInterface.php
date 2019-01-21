@@ -39,7 +39,7 @@ interface StatsControllerInterface
      *
      * @param StatsQueryInterface $query
      *   Stats query object.
-     * @param null|string $optimized
+     * @param string|null $optimized
      *   Return an optimized JSON response or not. Optimization happens on Apigee Edge. Possible values: NULL or js.
      *
      * @return array
@@ -56,7 +56,7 @@ interface StatsControllerInterface
      *   Array of dimensions.
      * @param StatsQueryInterface $query
      *   Stats query object.
-     * @param null|string $optimized
+     * @param string|null $optimized
      *   Return an optimized JSON response or not. Optimization happens on Apigee Edge. Possible values: NULL or js.
      *
      * @return array

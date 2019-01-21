@@ -81,19 +81,19 @@ final class RatePlanDetail extends BaseObject implements
 
     public const TYPE_USAGE_TARGET = 'USAGE_TARGET';
 
-    /** @var null|bool */
+    /** @var bool|null */
     private $aggregateFreemiumCounters;
 
-    /** @var null|bool */
+    /** @var bool|null */
     private $aggregateStandardCounters;
 
     /** @var bool */
     private $aggregateTransactions;
 
-    /** @var null|int */
+    /** @var int|null */
     private $duration;
 
-    /** @var null|string */
+    /** @var string|null */
     private $durationType;
 
     /** @var string */
@@ -105,10 +105,10 @@ final class RatePlanDetail extends BaseObject implements
     /** @var string */
     private $ratingParameter;
 
-    /** @var null|string */
+    /** @var string|null */
     private $ratingParameterUnit;
 
-    /** @var null|string */
+    /** @var string|null */
     private $revenueType;
 
     /** @var string */
@@ -163,7 +163,7 @@ final class RatePlanDetail extends BaseObject implements
     }
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getDurationType(): ?string
     {
@@ -227,7 +227,7 @@ final class RatePlanDetail extends BaseObject implements
     }
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getRatingParameterUnit(): ?string
     {
@@ -243,7 +243,7 @@ final class RatePlanDetail extends BaseObject implements
     }
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getRevenueType(): ?string
     {

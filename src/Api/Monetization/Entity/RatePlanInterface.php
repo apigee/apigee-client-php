@@ -78,7 +78,7 @@ interface RatePlanInterface extends
     public function setContractDuration(int $contractDuration): void;
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getContractDurationType(): ?string;
 
@@ -108,7 +108,7 @@ interface RatePlanInterface extends
     public function setFrequencyDuration(int $frequencyDuration): void;
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getFrequencyDurationType(): ?string;
 

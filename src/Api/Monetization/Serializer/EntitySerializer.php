@@ -34,6 +34,7 @@ class EntitySerializer extends BaseEntitySerializer
      *
      * @psalm-suppress InvalidArgument
      * Required since symfony/serializer >= 4.2.0
+     *
      * @see https://github.com/symfony/symfony/pull/28709
      */
     public function __construct($normalizers = [])

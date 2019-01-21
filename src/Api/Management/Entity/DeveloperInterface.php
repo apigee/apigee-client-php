@@ -58,12 +58,12 @@ interface DeveloperInterface extends
     public function hasCompany(string $companyName): bool;
 
     /**
-     * @return null|string UUID of the developer entity.
+     * @return string|null UUID of the developer entity.
      */
     public function getDeveloperId(): ?string;
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getUserName(): ?string;
 
@@ -73,7 +73,7 @@ interface DeveloperInterface extends
     public function setUserName(string $userName): void;
 
     /**
-     * @return null|string Email address of developer.
+     * @return string|null Email address of developer.
      */
     public function getEmail(): ?string;
 
@@ -83,7 +83,7 @@ interface DeveloperInterface extends
     public function setEmail(string $email): void;
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getFirstName(): ?string;
 
@@ -93,7 +93,7 @@ interface DeveloperInterface extends
     public function setFirstName(string $firstName): void;
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getLastName(): ?string;
 

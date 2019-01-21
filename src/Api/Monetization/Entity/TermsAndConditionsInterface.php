@@ -27,12 +27,12 @@ interface TermsAndConditionsInterface extends
     StartDatePropertyInterface
 {
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getUrl(): ?string;
 
     /**
-     * @param null|string $url
+     * @param string|null $url
      */
     public function setUrl(?string $url): void;
 

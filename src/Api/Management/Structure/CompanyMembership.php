@@ -62,7 +62,7 @@ final class CompanyMembership extends BaseObject
      *
      * @param string $email
      *   Developer email address.
-     * @param null|string $role
+     * @param string|null $role
      *   Developer role.
      *
      * @return array
@@ -112,7 +112,7 @@ final class CompanyMembership extends BaseObject
      * @param string $email
      *   Developer email address.
      *
-     * @return null|string
+     * @return string|null
      *   Developer role if set, NULL otherwise.
      */
     public function getRole(string $email): ?string

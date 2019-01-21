@@ -28,7 +28,7 @@ trait IdPropertyAwareTrait
     /**
      * It can be null only when a new entity is being created.
      *
-     * @var null|string
+     * @var string|null
      */
     protected $id;
 

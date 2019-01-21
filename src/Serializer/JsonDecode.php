@@ -40,6 +40,7 @@ final class JsonDecode extends BaseJsonDecode
      *
      * @psalm-suppress InvalidArgument
      * Required since symfony/serializer >= 4.2.0
+     *
      * @see https://github.com/symfony/symfony/pull/28709
      */
     public function __construct(bool $associative = false, int $depth = 512)

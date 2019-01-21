@@ -35,7 +35,7 @@ interface EntityInterface
     /**
      * Returns the value of the primary id of an entity.
      *
-     * @return null|string
+     * @return string|null
      */
     public function id(): ?string;
 }

@@ -34,7 +34,7 @@ interface CompanyInterface extends AppOwnerInterface,
     public function setOrganization(string $organization): void;
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getOrganization(): ?string;
 }

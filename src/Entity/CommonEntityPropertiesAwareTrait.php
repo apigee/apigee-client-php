@@ -31,26 +31,26 @@ namespace Apigee\Edge\Entity;
 trait CommonEntityPropertiesAwareTrait
 {
     /**
-     * @var null|\DateTimeImmutable
+     * @var \DateTimeImmutable|null
      */
     protected $createdAt;
 
     /**
      * Email address of the organization user who created the entity.
      *
-     * @var null|string
+     * @var string|null
      */
     protected $createdBy;
 
     /**
-     * @var null|\DateTimeImmutable
+     * @var \DateTimeImmutable|null
      */
     protected $lastModifiedAt;
 
     /**
      * Email address of the organization user who modified the entity last time.
      *
-     * @var null|string
+     * @var string|null
      */
     protected $lastModifiedBy;
 

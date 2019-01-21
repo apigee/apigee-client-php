@@ -38,7 +38,7 @@ interface PropertiesPropertyInterface
     /**
      * @param string $property
      *
-     * @return null|string
+     * @return string|null
      */
     public function getPropertyValue(string $property): ?string;
 

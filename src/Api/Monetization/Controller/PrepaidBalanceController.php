@@ -53,7 +53,7 @@ abstract class PrepaidBalanceController extends OrganizationAwareEntityControlle
      * @param string $organization
      * @param \Apigee\Edge\ClientInterface $client
      * @param \Apigee\Edge\Serializer\EntitySerializerInterface|null $balanceSerializer
-     * @param null|string $prepaidBalanceClass
+     * @param string|null $prepaidBalanceClass
      * @param \Apigee\Edge\Serializer\EntitySerializerInterface|null $prepaidBalanceSerializer
      */
     public function __construct(string $organization, ClientInterface $client, ?EntitySerializerInterface $balanceSerializer = null, ?string $prepaidBalanceClass = null, ?EntitySerializerInterface $prepaidBalanceSerializer = null)
@@ -195,7 +195,7 @@ abstract class PrepaidBalanceController extends OrganizationAwareEntityControlle
      * Helper function which returns prepaid balances..
      *
      * @param \DateTimeImmutable $billingMonth
-     * @param null|string $currencyCode
+     * @param string|null $currencyCode
      *
      * @return \Apigee\Edge\Api\Monetization\Entity\PrepaidBalanceInterface[]
      *

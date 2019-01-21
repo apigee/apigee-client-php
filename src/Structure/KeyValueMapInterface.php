@@ -35,7 +35,7 @@ interface KeyValueMapInterface extends \IteratorAggregate
      *
      * @param string $key
      *
-     * @return null|string
+     * @return string|null
      */
     public function getValue(string $key): ?string;
 

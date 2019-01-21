@@ -25,7 +25,7 @@ namespace Apigee\Edge\Api\Monetization\Entity\Property;
  */
 trait BrokerPropertyAwareTrait
 {
-    /** @var null|bool */
+    /** @var bool|null */
     protected $broker;
 
     /**

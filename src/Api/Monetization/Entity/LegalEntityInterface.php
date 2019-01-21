@@ -62,17 +62,17 @@ interface LegalEntityInterface extends OrganizationAwareEntityInterface,
     public function getType(): string;
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getLegalName(): ?string;
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getPhone(): ?string;
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getRegistrationId(): ?string;
 
@@ -87,7 +87,7 @@ interface LegalEntityInterface extends OrganizationAwareEntityInterface,
     public function getApproxTaxRate(): ?float;
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getTaxExemptAuthNo(): ?string;
 }

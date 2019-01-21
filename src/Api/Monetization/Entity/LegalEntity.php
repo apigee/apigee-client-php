@@ -59,22 +59,22 @@ abstract class LegalEntity extends OrganizationAwareEntity implements LegalEntit
     /** @var string */
     protected $type;
 
-    /** @var null|string */
+    /** @var string|null */
     protected $legalName;
 
-    /** @var null|string */
+    /** @var string|null */
     protected $phone;
 
-    /** @var null|string */
+    /** @var string|null */
     protected $registrationId;
 
-    /** @var null|DeveloperCategory */
+    /** @var DeveloperCategory|null */
     protected $developerCategory;
 
-    /** @var null|float */
+    /** @var float|null */
     protected $approxTaxRate;
 
-    /** @var null|string */
+    /** @var string|null */
     protected $taxExemptAuthNo;
 
     /**

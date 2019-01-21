@@ -58,7 +58,7 @@ class PaymentTransaction extends BaseObject implements
      *
      * TODO Can this be null?
      *
-     * @var null|\DateTimeImmutable
+     * @var \DateTimeImmutable|null
      */
     protected $endDate;
 

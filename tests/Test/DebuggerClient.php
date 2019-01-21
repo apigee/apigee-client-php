@@ -27,7 +27,7 @@ class DebuggerClient extends OnlineClientBase implements OnlineClientInterface
      * DebuggerClient constructor.
      *
      * @param \Http\Message\Authentication $authentication
-     * @param null|string $endpoint
+     * @param string|null $endpoint
      * @param array $options
      */
     public function __construct(Authentication $authentication, ?string $endpoint = null, array $options = [])

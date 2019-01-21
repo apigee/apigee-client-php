@@ -40,7 +40,7 @@ class TermsAndConditions extends OrganizationAwareEntity implements TermsAndCond
     protected $version;
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getUrl(): ?string
     {
@@ -48,7 +48,7 @@ class TermsAndConditions extends OrganizationAwareEntity implements TermsAndCond
     }
 
     /**
-     * @param null|string $url
+     * @param string|null $url
      */
     public function setUrl(?string $url): void
     {

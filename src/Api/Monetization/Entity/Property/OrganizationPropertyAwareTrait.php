@@ -30,7 +30,7 @@ trait OrganizationPropertyAwareTrait
     /**
      * It can be null when a new entity is created.
      *
-     * @var null|\Apigee\Edge\Api\Monetization\Entity\OrganizationProfile
+     * @var \Apigee\Edge\Api\Monetization\Entity\OrganizationProfile|null
      */
     protected $organization;
 

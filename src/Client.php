@@ -102,7 +102,7 @@ class Client implements ClientInterface
      */
     private $errorFormatter;
 
-    /** @var null|array */
+    /** @var array|null */
     private $retryPluginConfig;
 
     /**

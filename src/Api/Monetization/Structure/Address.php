@@ -22,29 +22,29 @@ use Apigee\Edge\Structure\BaseObject;
 
 final class Address extends BaseObject
 {
-    /** @var null|string */
+    /** @var string|null */
     private $id;
 
     /** @var bool */
     private $primary;
 
-    /** @var null|string */
+    /** @var string|null */
     private $address1;
 
-    /** @var null|string */
+    /** @var string|null */
     private $city;
 
-    /** @var null|string */
+    /** @var string|null */
     private $state;
 
-    /** @var null|string */
+    /** @var string|null */
     private $country;
 
-    /** @var null|string */
+    /** @var string|null */
     private $zip;
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getId(): ?string
     {
@@ -52,7 +52,7 @@ final class Address extends BaseObject
     }
 
     /**
-     * @param null|string $id
+     * @param string|null $id
      */
     public function setId(?string $id): void
     {
@@ -76,7 +76,7 @@ final class Address extends BaseObject
     }
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getAddress1(): ?string
     {
@@ -84,7 +84,7 @@ final class Address extends BaseObject
     }
 
     /**
-     * @param null|string $address1
+     * @param string|null $address1
      */
     public function setAddress1(?string $address1): void
     {
@@ -92,7 +92,7 @@ final class Address extends BaseObject
     }
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getCity(): ?string
     {
@@ -100,7 +100,7 @@ final class Address extends BaseObject
     }
 
     /**
-     * @param null|string $city
+     * @param string|null $city
      */
     public function setCity(?string $city): void
     {
@@ -108,7 +108,7 @@ final class Address extends BaseObject
     }
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getState(): ?string
     {
@@ -116,7 +116,7 @@ final class Address extends BaseObject
     }
 
     /**
-     * @param null|string $state
+     * @param string|null $state
      */
     public function setState(?string $state): void
     {
@@ -124,7 +124,7 @@ final class Address extends BaseObject
     }
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getCountry(): ?string
     {
@@ -132,7 +132,7 @@ final class Address extends BaseObject
     }
 
     /**
-     * @param null|string $country
+     * @param string|null $country
      */
     public function setCountry(?string $country): void
     {
@@ -140,7 +140,7 @@ final class Address extends BaseObject
     }
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getZip(): ?string
     {
@@ -148,7 +148,7 @@ final class Address extends BaseObject
     }
 
     /**
-     * @param null|string $zip
+     * @param string|null $zip
      */
     public function setZip(?string $zip): void
     {

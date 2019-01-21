@@ -28,7 +28,7 @@ trait OrganizationNamePropertyAwareTrait
     /**
      * Name of the organization that this entity belongs to.
      *
-     * @var null|string
+     * @var string|null
      */
     protected $organizationName;
 
