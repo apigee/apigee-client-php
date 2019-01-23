@@ -18,6 +18,7 @@
 
 namespace Apigee\Edge\Api\Monetization\Controller;
 
+use Apigee\Edge\Api\Monetization\Entity\AcceptedRatePlanInterface;
 use Apigee\Edge\Api\Monetization\Entity\DeveloperAcceptedRatePlan;
 use Apigee\Edge\Api\Monetization\Normalizer\EntityNormalizer;
 use Apigee\Edge\ClientInterface;
@@ -86,5 +87,20 @@ class DeveloperAcceptedRatePlanController extends AcceptedRatePlanController
         // For this API endpoint:
         // https://apidocs.apigee.com/monetize/apis/get/organizations/%7Borg_name%7D/developers/%7Bdeveloper_id%7D/developer-accepted-rateplans
         return $this->client->getUriFactory()->createUri("/mint/organizations/{$this->organization}/developers/{$this->developer}/developer-accepted-rateplans");
+    }
+
+    /**
+     * @inheritdoc
+     *
+     * @psalm-suppress UndefinedMethod - getDeveloper() exists on the annotated
+     * interface.
+     */
+    protected function alterRequestPayload(array &$payload, AcceptedRatePlanInterface $acceptedRatePlan): void
+    {
+        /* @var \Apigee\Edge\Api\Monetization\Entity\DeveloperAcceptedRatePlanInterface $acceptedRatePlan */
+        // We should prefer developer email addresses over developer ids
+        // (UUIDs) when we are communicating with the Monetization API.
+        // @see https://github.com/apigee/apigee-client-php/issues/36
+        $payload['developer']['id'] = $acceptedRatePlan->getDeveloper()->getEmail();
     }
 }
