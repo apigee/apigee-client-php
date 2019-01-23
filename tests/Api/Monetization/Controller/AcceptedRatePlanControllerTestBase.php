@@ -18,7 +18,7 @@
 
 namespace Apigee\Edge\Tests\Api\Monetization\Controller;
 
-use Apigee\Edge\Api\Monetization\Controller\RatePlanController;
+use Apigee\Edge\Api\Monetization\Entity\RatePlanInterface;
 use Apigee\Edge\Tests\Api\Monetization\EntitySerializer\AcceptedRatePlanSerializerValidator;
 use Apigee\Edge\Tests\Test\Controller\MockClientAwareTrait;
 use Apigee\Edge\Tests\Test\EntitySerializer\EntitySerializerValidatorInterface;
@@ -61,12 +61,10 @@ abstract class AcceptedRatePlanControllerTestBase extends EntityControllerTestBa
     public function testAcceptRatePlan(): void
     {
         $httpClient = static::mockApiClient()->getMockHttpClient();
-        /** @var \Apigee\Edge\Api\Monetization\Controller\RatePlanControllerInterface $ratePlanController */
-        $ratePlanController = new RatePlanController('phpunit', static::defaultTestOrganization(static::defaultAPIClient()), static::defaultAPIClient());
         /** @var \Apigee\Edge\Api\Monetization\Controller\AcceptedRatePlanControllerInterface $acceptedController */
         $acceptedController = static::entityController(static::mockApiClient());
         /** @var \Apigee\Edge\Api\Monetization\Entity\RatePlanInterface $ratePlan */
-        $ratePlan = $ratePlanController->load('standard-rev');
+        $ratePlan = $this->getRatePlanToAccept();
         $startDate = new \DateTimeImmutable('now');
         $response = $this->getAcceptRatePlanResponse();
         $httpClient->addResponse($response);
@@ -144,6 +142,11 @@ abstract class AcceptedRatePlanControllerTestBase extends EntityControllerTestBa
      * @return \Psr\Http\Message\ResponseInterface
      */
     abstract protected function getAcceptRatePlanResponse(): ResponseInterface;
+
+    /**
+     * @return \Apigee\Edge\Api\Monetization\Entity\RatePlanInterface
+     */
+    abstract protected function getRatePlanToAccept(): RatePlanInterface;
 
     /**
      * @inheritdoc

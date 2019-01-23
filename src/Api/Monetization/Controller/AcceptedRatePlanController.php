@@ -121,6 +121,7 @@ abstract class AcceptedRatePlanController extends OrganizationAwareEntityControl
         if (null !== $waveTerminationCharge) {
             $tmp['waveTerminationCharge'] = $waveTerminationCharge ? 'true' : 'false';
         }
+        $this->alterRequestPayload($tmp, $acceptedRatePlan);
         $payload = json_encode($tmp);
         // Update an existing entity.
         $response = $this->client->put($this->getEntityEndpointUri($acceptedRatePlan->id()), $payload);
@@ -146,6 +147,16 @@ abstract class AcceptedRatePlanController extends OrganizationAwareEntityControl
      * @return \Psr\Http\Message\UriInterface
      */
     abstract protected function getAcceptedRatePlansEndpoint(): UriInterface;
+
+    /**
+     * Allows to alter payload before it gets sent to the API.
+     *
+     * @param array $payload
+     *   API request payload.
+     */
+    protected function alterRequestPayload(array &$payload, AcceptedRatePlanInterface $acceptedRatePlan): void
+    {
+    }
 
     /**
      * Helper function for listing accepted rate plans.
