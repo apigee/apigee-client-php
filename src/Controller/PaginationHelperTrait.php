@@ -396,7 +396,7 @@ trait PaginationHelperTrait
         // instead of that because it does not require to construct an
         // API response object.
         if (false === $offset) {
-            throw new RuntimeException("CPS simulation error: {$pager->getStartKey()} does not exist.");
+            throw new RuntimeException(sprintf('CPS simulation error: "%s" does not exist.', $start_key));
         }
         // The default pagination limit (aka. "count") on CPS supported
         // listing endpoints varies. When this script was written it was
