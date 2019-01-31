@@ -27,6 +27,7 @@ use Throwable;
  * feature is not enabled on the organization on Apigee Edge.
  *
  * @see https://docs.apigee.com/api-services/content/api-reference-getting-started#cps
+ * @deprecated Since 2.0.1, https://github.com/apigee/apigee-client-php/pull/43/files
  */
 class CpsNotEnabledException extends \RuntimeException
 {
