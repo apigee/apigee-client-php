@@ -94,6 +94,8 @@ class PaginationHelperTraitTest extends TestCase
      */
     public function testWithoutCpsNotice(): void
     {
+        // Make sure CPS notice suppressing is disabled.
+        putenv('APIGEE_EDGE_PHP_CLIENT_SUPPRESS_CPS_SIMULATION_NOTICE=0');
         /** @var \Apigee\Edge\Tests\Test\HttpClient\MockHttpClient $httpClient */
         $httpClient = static::mockApiClient()->getMockHttpClient();
         $httpClient->addResponse(new Response(200, ['Content-Type' => 'application/json'], $this->getOrgLoadResponsePayload(false)));
@@ -102,6 +104,7 @@ class PaginationHelperTraitTest extends TestCase
 
     public function testWithoutCpsNoticeSuppress(): void
     {
+        // Make sure CPS notice suppressing is enabled.
         putenv('APIGEE_EDGE_PHP_CLIENT_SUPPRESS_CPS_SIMULATION_NOTICE=1');
         $httpClient = static::mockApiClient()->getMockHttpClient();
         $httpClient->addResponse(new Response(200, ['Content-Type' => 'application/json'], $this->getOrgLoadResponsePayload(false)));
