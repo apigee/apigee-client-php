@@ -55,47 +55,91 @@ class PaginationHelperTraitTest extends TestCase
         static::$testController = new PaginationHelperTraitTestClass();
     }
 
-    /**
-     * @expectedException \Apigee\Edge\Exception\CpsNotEnabledException
-     */
-    public function testNonCpsEnabledOrg(): void
-    {
-        /** @var \Apigee\Edge\Tests\Test\HttpClient\MockHttpClient $httpClient */
-        $httpClient = static::mockApiClient()->getMockHttpClient();
-        $httpClient->addResponse(new Response(200, ['Content-Type' => 'application/json'], $this->getOrgLoadResponsePayload(false)));
-        static::$testController->createPager();
-    }
-
     public function testListEntitiesWithoutPagerWithEmptyResponse(): void
     {
         /** @var \Apigee\Edge\Tests\Test\HttpClient\MockHttpClient $httpClient */
         $httpClient = static::mockApiClient()->getMockHttpClient();
-        $httpClient->addResponse(new Response(200, ['Content-Type' => 'application/json'], $this->getOrgLoadResponsePayload()));
-        $httpClient->addResponse(new Response(200, ['Content-Type' => 'application/json'], json_encode([[]])));
-        $this->assertEmpty(static::$testController->getEntities());
+        foreach ([true, false] as $cpsEnabled) {
+            $httpClient->addResponse(new Response(200, ['Content-Type' => 'application/json'], $this->getOrgLoadResponsePayload($cpsEnabled)));
+            $httpClient->addResponse(new Response(200, ['Content-Type' => 'application/json'], json_encode([[]])));
+            $this->assertEmpty(static::$testController->getEntities(), $cpsEnabled ? 'CPS supported' : 'CPS not supported');
+        }
     }
 
     public function testListEntityIdsWithoutPagerWithEmptyResponse(): void
     {
         /** @var \Apigee\Edge\Tests\Test\HttpClient\MockHttpClient $httpClient */
         $httpClient = static::mockApiClient()->getMockHttpClient();
-        $httpClient->addResponse(new Response(200, ['Content-Type' => 'application/json'], $this->getOrgLoadResponsePayload()));
-        $httpClient->addResponse(new Response(200, ['Content-Type' => 'application/json'], json_encode([])));
-        $this->assertEmpty(static::$testController->getEntityIds());
+        foreach ([true, false] as $cpsEnabled) {
+            $httpClient->addResponse(new Response(200, ['Content-Type' => 'application/json'], $this->getOrgLoadResponsePayload($cpsEnabled)));
+            $httpClient->addResponse(new Response(200, ['Content-Type' => 'application/json'], json_encode([])));
+            $this->assertEmpty(static::$testController->getEntityIds(), $cpsEnabled ? 'CPS supported' : 'CPS not supported');
+        }
     }
 
     public function testListEntityIdsWithoutPagerWithMoreResults(): void
     {
         /** @var \Apigee\Edge\Tests\Test\HttpClient\MockHttpClient $httpClient */
         $httpClient = static::mockApiClient()->getMockHttpClient();
-        $orgLoadResponsePayload = $this->getOrgLoadResponsePayload();
-        $httpClient->addResponse(new Response(200, ['Content-Type' => 'application/json'], $orgLoadResponsePayload));
+        $httpClient->addResponse(new Response(200, ['Content-Type' => 'application/json'], $this->getOrgLoadResponsePayload()));
         $httpClient->addResponse(new Response(200, ['Content-Type' => 'application/json'], json_encode(['first', 'second'])));
-        $httpClient->addResponse(new Response(200, ['Content-Type' => 'application/json'], $orgLoadResponsePayload));
         $httpClient->addResponse(new Response(200, ['Content-Type' => 'application/json'], json_encode(['second', 'third'])));
-        $httpClient->addResponse(new Response(200, ['Content-Type' => 'application/json'], $orgLoadResponsePayload));
         $httpClient->addResponse(new Response(200, ['Content-Type' => 'application/json'], json_encode([])));
-        $this->assertCount(3, static::$testController->getEntityIds());
+        $this->assertCount(3, static::$testController->getEntityIds(), 'CPS enabled');
+    }
+
+    /**
+     * @expectedException \PHPUnit\Framework\Error\Notice
+     * @expectedExceptionMessage Apigee Edge PHP Client: Simulating CPS pagination on an organization that does not have CPS support. https://docs.apigee.com/api-platform/reference/cps
+     */
+    public function testWithoutCpsNotice(): void
+    {
+        // Make sure CPS notice suppressing is disabled.
+        putenv('APIGEE_EDGE_PHP_CLIENT_SUPPRESS_CPS_SIMULATION_NOTICE=0');
+        /** @var \Apigee\Edge\Tests\Test\HttpClient\MockHttpClient $httpClient */
+        $httpClient = static::mockApiClient()->getMockHttpClient();
+        $httpClient->addResponse(new Response(200, ['Content-Type' => 'application/json'], $this->getOrgLoadResponsePayload(false)));
+        static::$testController->getEntityIds(static::$testController->createPager());
+    }
+
+    public function testWithoutCpsNoticeSuppress(): void
+    {
+        // Make sure CPS notice suppressing is enabled.
+        putenv('APIGEE_EDGE_PHP_CLIENT_SUPPRESS_CPS_SIMULATION_NOTICE=1');
+        $httpClient = static::mockApiClient()->getMockHttpClient();
+        $httpClient->addResponse(new Response(200, ['Content-Type' => 'application/json'], $this->getOrgLoadResponsePayload(false)));
+        $httpClient->addResponse(new Response(200, ['Content-Type' => 'application/json'], json_encode(['first', 'second'])));
+        $this->assertCount(2, static::$testController->getEntityIds(static::$testController->createPager()));
+    }
+
+    /**
+     * @expectedException \Apigee\Edge\Exception\RuntimeException
+     * @expectedExceptionMessage CPS simulation error: "foo" does not exist.
+     */
+    public function testListEntityIdsWithoutCpsWithInvalidStartKey(): void
+    {
+        $this->iniSet('error_reporting', 'E_ALL & ~E_NOTICE');
+        /** @var \Apigee\Edge\Tests\Test\HttpClient\MockHttpClient $httpClient */
+        $httpClient = static::mockApiClient()->getMockHttpClient();
+        $httpClient->addResponse(new Response(200, ['Content-Type' => 'application/json'], $this->getOrgLoadResponsePayload(false)));
+        $httpClient->addResponse(new Response(200, ['Content-Type' => 'application/json'], json_encode(['first', 'second'])));
+        static::$testController->getEntityIds(static::$testController->createPager(0, 'foo'));
+    }
+
+    public function testListEntityIdsWithoutCps(): void
+    {
+        putenv('APIGEE_EDGE_PHP_CLIENT_SUPPRESS_CPS_SIMULATION_NOTICE=1');
+        /** @var \Apigee\Edge\Tests\Test\HttpClient\MockHttpClient $httpClient */
+        $httpClient = static::mockApiClient()->getMockHttpClient();
+        $httpClient->addResponse(new Response(200, ['Content-Type' => 'application/json'], $this->getOrgLoadResponsePayload(false)));
+        $httpClient->addResponse(new Response(200, ['Content-Type' => 'application/json'], json_encode(['first', 'second'])));
+        $this->assertCount(2, static::$testController->getEntityIds());
+        $httpClient->addResponse(new Response(200, ['Content-Type' => 'application/json'], $this->getOrgLoadResponsePayload(false)));
+        $httpClient->addResponse(new Response(200, ['Content-Type' => 'application/json'], json_encode(['first', 'second', 'third', 'fourth'])));
+        $result = static::$testController->getEntityIds(static::$testController->createPager(2, 'third'));
+        $this->assertCount(2, $result);
+        $this->assertContains('third', $result);
+        $this->assertContains('fourth', $result);
     }
 
     protected function getOrgLoadResponsePayload(bool $cpsEnabled = true): string
