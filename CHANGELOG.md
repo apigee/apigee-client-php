@@ -1,5 +1,14 @@
 # CHANGELOG
 
+## 2.0.1 - 2019-02-06
+#### Management API
+* **Fixed Edge for Private Cloud support.** Core Persistent Services (CPS) is not available in Private Cloud installations and because of that earlier versions of this library threw a CpsNotEnabledException exception when someone tried to construct an API request by adding pagination.
+You can find more information about this in the [related pull request](https://github.com/apigee/apigee-client-php/pull/43) and in the ["Edge for Private Cloud" section of the README.md](README.md#edge-for-private-cloud).
+#### Monetization API
+* [#36](https://github.com/apigee/apigee-client-php/issues/36): Send developer email address instead of developer UUID to the [Accept rate plan](https://apidocs.apigee.com/monetize/apis/post/organizations/%7Borg_name%7D/developers/%7Bdeveloper_or_company_id%7D/developer-rateplans) endpoint.
+#### Other
+* Updated minimum required version to [php-http/client-common >= 1.9](https://github.com/php-http/client-common/blob/master/CHANGELOG.md#190---2019-01-03).
+
 ## 2.0.0 - 2018-11-27
 * **First stable release!** :tada: :tada: :tada:
 * Added Monetization API support with [alpha stability](https://github.com/apigee/apigee-client-php/blob/3856d585878628eb6c44541cf5529055c8a480b6/README.md#monetization-api-alpha-release). (Management API support is stable.)
