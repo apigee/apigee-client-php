@@ -33,7 +33,7 @@ trait KeepOriginalStartDatePropertyAwareTrait
      */
     public function isKeepOriginalStartDate(): bool
     {
-        return $this->keepOriginalStartDate;
+        return ($this->keepOriginalStartDate == true);
     }
 
     /**
