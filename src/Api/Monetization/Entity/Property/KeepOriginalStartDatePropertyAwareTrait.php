@@ -25,7 +25,11 @@ namespace Apigee\Edge\Api\Monetization\Entity\Property;
  */
 trait KeepOriginalStartDatePropertyAwareTrait
 {
-    /** @var bool */
+    /**
+     * @var bool|null
+     *
+     * @see https://github.com/apigee/apigee-client-php/issues/47
+     */
     protected $keepOriginalStartDate;
 
     /**
@@ -33,7 +37,7 @@ trait KeepOriginalStartDatePropertyAwareTrait
      */
     public function isKeepOriginalStartDate(): bool
     {
-        return $this->keepOriginalStartDate;
+        return (bool) $this->keepOriginalStartDate;
     }
 
     /**
