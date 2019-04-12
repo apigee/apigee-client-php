@@ -44,6 +44,8 @@ trait CompanyPropertyAwareTrait
 
     /**
      * @inheritdoc
+     *
+     * @internal
      */
     public function setCompany(CompanyInterface $company): void
     {

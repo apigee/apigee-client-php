@@ -18,11 +18,8 @@
 
 namespace Apigee\Edge\Api\Monetization\Entity;
 
-interface DeveloperAcceptedRatePlanInterface extends AcceptedRatePlanInterface
+use Apigee\Edge\Api\Monetization\Entity\Property\DeveloperPropertyInterface;
+
+interface DeveloperAcceptedRatePlanInterface extends AcceptedRatePlanInterface, DeveloperPropertyInterface
 {
-    /**
-     * @return \Apigee\Edge\Api\Monetization\Entity\DeveloperInterface|null
-     *   It can be null only when a new rate plan gets accepted.
-     */
-    public function getDeveloper(): ?DeveloperInterface;
 }

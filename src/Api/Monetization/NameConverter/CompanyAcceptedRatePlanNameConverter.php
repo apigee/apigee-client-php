@@ -34,10 +34,8 @@ class CompanyAcceptedRatePlanNameConverter extends NameConverterBase implements 
      */
     protected function getExternalToLocalMapping(): array
     {
-        $mapping = [
-            'developer' => 'company',
-        ];
-
-        return $mapping;
+        return [
+                'developer' => 'company',
+            ];
     }
 }
