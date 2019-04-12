@@ -29,7 +29,7 @@ use PHPUnit\Framework\Assert;
  *
  * @see \Apigee\Edge\Controller\EntityCreateOperationControllerInterface
  */
-trait EntityCreateOperationControllerTraitTest
+trait EntityCreateOperationControllerTestTrait
 {
     use EntityControllerAwareTestTrait;
     use EntitySerializerAwareTestTrait;
