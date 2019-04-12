@@ -1,0 +1,73 @@
+{
+    "description": "test report definition provider",
+    "developer": null,
+    "id": "phpunit",
+    "lastModified": "2019-04-08 09:50:17",
+    "mintCriteria": {
+        "billingMonth": "JANUARY",
+        "billingYear": 2019,
+        "devCriteria": [
+            {
+                "id": "developer@example.com",
+                "orgId": "phpunit"
+            }
+        ],
+        "groupBy": [
+            "PACKAGE",
+            "PRODUCT",
+            "DEVELOPER"
+        ],
+        "monetizationPackageIds": [
+            "phpunit"
+        ],
+        "ratePlanLevels": [
+            "STANDARD",
+            "DEVELOPER"
+        ],
+        "showRevSharePct": false,
+        "showSummary": false,
+        "showTxDetail": false,
+        "showTxType": false,
+        "transactionTypes": [
+            "PURCHASE",
+            "REFUND",
+            "CREDIT",
+            "BALANCE",
+            "SETUPFEES",
+            "TERMINATIONFEES",
+            "RECURRINGFEES",
+            "TRUEUP",
+            "PROVIDER_AUDIT"
+        ]
+    },
+    "name": "PHPUnit",
+    "organization" : {
+        "approveTrusted": false,
+        "approveUntrusted": false,
+        "billingCycle": "CALENDAR_MONTH",
+        "country": "US",
+        "currency": "USD",
+        "description": "phpunit-description",
+        "hasBillingAdjustment": false,
+        "hasBroker": false,
+        "hasSelfBilling": false,
+        "hasSeparateInvoiceForProduct": false,
+        "id": "phpunit",
+        "issueNettingStmt": false,
+        "name": "name",
+        "nettingStmtPerCurrency": false,
+        "regNo": "123456-regno",
+        "selfBillingAsExchOrg": false,
+        "selfBillingForAllDev": false,
+        "separateInvoiceForFees": false,
+        "status": "ACTIVE",
+        "supportedBillingType": "BOTH",
+        "taxEngineExternalId": "APIGEE",
+        "taxModel": "HYBRID",
+        "transactionRelayURL": "http://localhost",
+        "taxRegNo": "12345",
+        "timezone": "Australia/Eucla",
+        "logoUrl": "http://example.com"
+    },
+    "type": "BILLING"
+}
