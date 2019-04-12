@@ -31,6 +31,10 @@ trait PaginatedListingHelperTrait
         parse_str($uri->getQuery(), $query_params);
         $query_params['all'] = 'true';
 
+        // This makes easier testing and also creates a query parameter list
+        // that is easy to read.
+        ksort($query_params);
+
         return $this->listEntities($uri->withQuery(http_build_query($query_params)));
     }
 
@@ -46,6 +50,10 @@ trait PaginatedListingHelperTrait
         if (null !== $limit) {
             $query_params['size'] = $limit;
         }
+
+        // This makes easier testing and also creates a query parameter list
+        // that is easy to read.
+        ksort($query_params);
 
         return $this->listEntities($uri->withQuery(http_build_query($query_params)));
     }
