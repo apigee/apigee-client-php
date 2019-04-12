@@ -23,6 +23,8 @@ namespace Apigee\Edge\Structure;
  */
 abstract class BaseObject
 {
+    use ObjectCopyHelperTrait;
+
     /**
      * BaseObject constructor.
      *
@@ -56,44 +58,6 @@ abstract class BaseObject
                         throw $error;
                     }
                 }
-            }
-        }
-    }
-
-    /**
-     * Deep clone for objects.
-     *
-     * Inspired by https://github.com/kore/DataObject/blob/master/src/Kore/DataObject/DataObject.php
-     */
-    public function __clone()
-    {
-        $ro = new \ReflectionObject($this);
-        foreach ($ro->getProperties() as $property) {
-            $property->setAccessible(true);
-            $value = $property->getValue($this);
-            if (is_object($value)) {
-                $property->setValue($this, clone $value);
-            }
-            if (is_array($value)) {
-                $this->cloneArray($value);
-                $property->setValue($this, $value);
-            }
-        }
-    }
-
-    /**
-     * Deep clone for arrays.
-     *
-     * @param array $array
-     */
-    private function cloneArray(array &$array): void
-    {
-        foreach ($array as $key => $value) {
-            if (is_object($value)) {
-                $array[$key] = clone $value;
-            }
-            if (is_array($value)) {
-                $this->cloneArray($array[$key]);
             }
         }
     }
