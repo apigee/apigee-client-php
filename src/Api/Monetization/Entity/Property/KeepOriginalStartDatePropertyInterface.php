@@ -23,7 +23,7 @@ interface KeepOriginalStartDatePropertyInterface
     /**
      * @return bool
      */
-    public function isKeepOriginalStartDate(): bool;
+    public function isKeepOriginalStartDate(): ?bool;
 
     /**
      * @param bool $keepOriginalStartDate

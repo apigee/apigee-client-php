@@ -31,7 +31,7 @@ trait KeepOriginalStartDatePropertyAwareTrait
     /**
      * @inheritdoc
      */
-    public function isKeepOriginalStartDate(): bool
+    public function isKeepOriginalStartDate(): ?bool
     {
         return $this->keepOriginalStartDate;
     }
