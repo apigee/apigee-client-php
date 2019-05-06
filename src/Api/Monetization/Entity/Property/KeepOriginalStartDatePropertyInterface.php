@@ -29,4 +29,11 @@ interface KeepOriginalStartDatePropertyInterface
      * @param bool $keepOriginalStartDate
      */
     public function setKeepOriginalStartDate(bool $keepOriginalStartDate): void;
+
+    /**
+     * Returns the original value returned by the API.
+     *
+     * @return bool|null
+     */
+    public function getKeepOriginalStartDate(): ?bool;
 }
