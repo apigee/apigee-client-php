@@ -25,7 +25,7 @@ use Apigee\Edge\Tests\Api\Monetization\Entity\PaymentProviderEntityProviderTrait
 use Apigee\Edge\Tests\Test\Controller\EntityControllerTester;
 use Apigee\Edge\Tests\Test\Controller\EntityControllerTesterInterface;
 use Apigee\Edge\Tests\Test\Controller\EntityCreateOperationControllerTester;
-use Apigee\Edge\Tests\Test\Controller\EntityCreateOperationControllerTraitTest;
+use Apigee\Edge\Tests\Test\Controller\EntityCreateOperationControllerTestTrait;
 use Apigee\Edge\Tests\Test\Controller\EntityCreateOperationTestControllerTesterInterface;
 use Apigee\Edge\Tests\Test\Controller\EntityUpdateOperationControllerTestTrait;
 use Apigee\Edge\Tests\Test\TestClientFactory;
@@ -40,7 +40,7 @@ class PaymentProviderControllerTest extends EntityControllerTestBase
 {
     use PaymentProviderEntityProviderTrait;
     // The order of these trait matters. Check @depends in test methods.
-    use EntityCreateOperationControllerTraitTest;
+    use EntityCreateOperationControllerTestTrait;
     use EntityLoadOperationControllerTestTrait;
     use EntityUpdateOperationControllerTestTrait;
     use EntityDeleteOperationControllerTestTrait;

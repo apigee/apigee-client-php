@@ -24,7 +24,7 @@ use Apigee\Edge\Tests\Api\Management\Entity\ApiProductTestEntityProviderTrait;
 use Apigee\Edge\Tests\Test\Controller\DefaultAPIClientAwareTrait;
 use Apigee\Edge\Tests\Test\Controller\EntityControllerTesterInterface;
 use Apigee\Edge\Tests\Test\Controller\EntityCreateOperationControllerTester;
-use Apigee\Edge\Tests\Test\Controller\EntityCreateOperationControllerTraitTest;
+use Apigee\Edge\Tests\Test\Controller\EntityCreateOperationControllerTestTrait;
 use Apigee\Edge\Tests\Test\Controller\EntityCreateOperationTestControllerTesterInterface;
 use Apigee\Edge\Tests\Test\Controller\EntityDeleteOperationControllerTestTrait;
 use Apigee\Edge\Tests\Test\Controller\EntityLoadOperationControllerTestTrait;
@@ -43,7 +43,7 @@ class ApiProductControllerTest extends EntityControllerTestBase
     use ApiProductTestEntityProviderTrait;
     use DefaultAPIClientAwareTrait;
     // The order of these trait matters. Check @depends in test methods.
-    use EntityCreateOperationControllerTraitTest;
+    use EntityCreateOperationControllerTestTrait;
     use EntityLoadOperationControllerTestTrait;
     use EntityUpdateOperationControllerTestTrait;
     use EntityDeleteOperationControllerTestTrait;

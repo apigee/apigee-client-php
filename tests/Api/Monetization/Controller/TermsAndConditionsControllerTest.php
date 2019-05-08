@@ -26,7 +26,7 @@ use Apigee\Edge\Tests\Api\Monetization\Entity\TermsAndConditionsEntityProviderTr
 use Apigee\Edge\Tests\Test\Controller\EntityControllerTester;
 use Apigee\Edge\Tests\Test\Controller\EntityControllerTesterInterface;
 use Apigee\Edge\Tests\Test\Controller\EntityCreateOperationControllerTester;
-use Apigee\Edge\Tests\Test\Controller\EntityCreateOperationControllerTraitTest;
+use Apigee\Edge\Tests\Test\Controller\EntityCreateOperationControllerTestTrait;
 use Apigee\Edge\Tests\Test\Controller\EntityCreateOperationTestControllerTesterInterface;
 use Apigee\Edge\Tests\Test\Controller\EntityUpdateOperationControllerTestTrait;
 use Apigee\Edge\Tests\Test\Controller\MockClientAwareTrait;
@@ -44,7 +44,7 @@ class TermsAndConditionsControllerTest extends EntityControllerTestBase
     use TermsAndConditionsEntityProviderTrait;
     use MockClientAwareTrait;
     // The order of these trait matters. Check @depends in test methods.
-    use EntityCreateOperationControllerTraitTest;
+    use EntityCreateOperationControllerTestTrait;
     use EntityLoadOperationControllerTestTrait;
     use EntityUpdateOperationControllerTestTrait;
     use EntityDeleteOperationControllerTestTrait;
@@ -60,7 +60,7 @@ class TermsAndConditionsControllerTest extends EntityControllerTestBase
         $controller->getEntities();
         $this->assertEquals('all=true', static::mockApiClient()->getJournal()->getLastRequest()->getUri()->getQuery());
         $controller->getEntities(true);
-        $this->assertEquals('current=true&all=true', static::mockApiClient()->getJournal()->getLastRequest()->getUri()->getQuery());
+        $this->assertEquals('all=true&current=true', static::mockApiClient()->getJournal()->getLastRequest()->getUri()->getQuery());
         $controller->getPaginatedEntityList();
         $this->assertEquals('page=1', static::mockApiClient()->getJournal()->getLastRequest()->getUri()->getQuery());
         $controller->getPaginatedEntityList(1, 2, true);
@@ -70,7 +70,7 @@ class TermsAndConditionsControllerTest extends EntityControllerTestBase
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     protected static function entityController(ClientInterface $client = null): EntityControllerTesterInterface
     {
@@ -80,7 +80,7 @@ class TermsAndConditionsControllerTest extends EntityControllerTestBase
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     protected static function entityCreateOperationTestController(): EntityCreateOperationTestControllerTesterInterface
     {
@@ -88,7 +88,7 @@ class TermsAndConditionsControllerTest extends EntityControllerTestBase
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     protected static function getNewEntity(): EntityInterface
     {
@@ -96,7 +96,7 @@ class TermsAndConditionsControllerTest extends EntityControllerTestBase
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     protected function entityForUpdateTest(EntityInterface $existing): EntityInterface
     {
@@ -104,7 +104,7 @@ class TermsAndConditionsControllerTest extends EntityControllerTestBase
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     protected function getTestEntityForTimezoneConversion(): MintEntityInterface
     {

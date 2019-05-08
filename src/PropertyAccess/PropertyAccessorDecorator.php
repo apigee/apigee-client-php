@@ -55,24 +55,32 @@ final class PropertyAccessorDecorator implements PropertyAccessorInterface
             // Auto-retry, try to pass the value as variable-length arguments to
             // the setter method.
             if (is_object($objectOrArray) && is_array($value)) {
-                $setter = 'set' . ucfirst((string) $propertyPath);
-                if (method_exists($objectOrArray, $setter)) {
-                    try {
-                        if (empty($value)) {
-                            // Clear the value of the property.
-                            $objectOrArray->{$setter}();
-                        } else {
-                            $objectOrArray->{$setter}(...$value);
-                        }
-                    } catch (\TypeError $typeError) {
-                        self::processTypeErrorOnSetValue($typeError->getMessage(), $typeError->getTrace(), 0);
-
-                        // Rethrow the exception if it could not be transformed
-                        // to an invalid argument exception.
-                        throw $typeError;
+                $setter = null;
+                // Support setPropertyName() and propertyName() setters.
+                foreach (['set' . ucfirst((string) $propertyPath), (string) $propertyPath] as $methodName) {
+                    if (method_exists($objectOrArray, $methodName)) {
+                        $setter = $methodName;
+                        break;
                     }
-                } else {
+                }
+
+                if (null === $setter) {
                     throw new AccessException("Setter method not found for {$propertyPath} property.", 0, $exception);
+                }
+
+                try {
+                    if (empty($value)) {
+                        // Clear the value of the property.
+                        $objectOrArray->{$setter}();
+                    } else {
+                        $objectOrArray->{$setter}(...$value);
+                    }
+                } catch (\TypeError $typeError) {
+                    self::processTypeErrorOnSetValue($typeError->getMessage(), $typeError->getTrace(), 0);
+
+                    // Rethrow the exception if it could not be transformed
+                    // to an invalid argument exception.
+                    throw $typeError;
                 }
             } else {
                 throw $exception;

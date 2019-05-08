@@ -18,10 +18,8 @@
 
 namespace Apigee\Edge\Api\Monetization\Entity;
 
-interface DeveloperInterface extends LegalEntityInterface
+use Apigee\Edge\Api\Monetization\Entity\Property\CompanyPropertyInterface;
+
+interface DeveloperInterface extends LegalEntityInterface, CompanyPropertyInterface
 {
-    /**
-     * @return \Apigee\Edge\Api\Monetization\Entity\Company|null
-     */
-    public function getCompany(): ?Company;
 }

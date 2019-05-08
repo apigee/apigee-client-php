@@ -1,0 +1,118 @@
+{
+    "description": "test report definition provider",
+    "developer": {
+        "approxTaxRate": 123.4567,
+        "billingType": "PREPAID",
+        "broker": false,
+        "developerCategory":         {
+            "description": "Test developer category.",
+            "id": "312004df-fc1e-4bc3-8ae0-f7a9652c1ac2",
+            "name": "PHPUnit"
+        },
+        "email": "phpunit@example.com",
+        "id": "f67ea7a0-0839-4057-84fc-40a1a38a44e1",
+        "isCompany": false,
+        "name": "PHPUnit",
+        "organization": {
+            "approveTrusted": false,
+            "approveUntrusted": false,
+            "billingCycle": "CALENDAR_MONTH",
+            "country": "US",
+            "currency": "USD",
+            "description": "phpunit-description",
+            "hasBillingAdjustment": false,
+            "hasBroker": false,
+            "hasSelfBilling": false,
+            "hasSeparateInvoiceForProduct": false,
+            "id": "phpunit",
+            "issueNettingStmt": false,
+            "name": "name",
+            "nettingStmtPerCurrency": false,
+            "regNo": "123456-regno",
+            "selfBillingAsExchOrg": false,
+            "selfBillingForAllDev": false,
+            "separateInvoiceForFees": false,
+            "status": "ACTIVE",
+            "supportedBillingType": "BOTH",
+            "taxEngineExternalId": "APIGEE",
+            "taxModel": "HYBRID",
+            "transactionRelayURL": "http://localhost",
+            "taxRegNo": "12345",
+            "timezone": "Australia/Eucla",
+            "logoUrl": "http://example.com"
+        },
+        "status": "ACTIVE",
+        "type": "UNTRUSTED",
+        "taxExemptAuthNo": "taxExemptAuthNo"
+    },
+    "id": "phpunit",
+    "lastModified": "2019-04-08 09:50:17",
+    "mintCriteria": {
+        "billingMonth": "JANUARY",
+        "billingYear": 2019,
+        "currencyOption": "LOCAL",
+        "devCriteria": [
+            {
+                "id": "developer@example.com",
+                "orgId": "phpunit"
+            }
+        ],
+        "groupBy": [
+            "PACKAGE",
+            "PRODUCT",
+            "DEVELOPER"
+        ],
+        "monetizationPackageIds": [
+            "phpunit"
+        ],
+        "ratePlanLevels": [
+            "STANDARD",
+            "DEVELOPER"
+        ],
+        "showRevSharePct": false,
+        "showSummary": false,
+        "showTxDetail": false,
+        "showTxType": false,
+        "transactionTypes": [
+            "PURCHASE",
+            "REFUND",
+            "CREDIT",
+            "BALANCE",
+            "SETUPFEES",
+            "TERMINATIONFEES",
+            "RECURRINGFEES",
+            "TRUEUP",
+            "PROVIDER_AUDIT"
+        ]
+    },
+    "name": "PHPUnit",
+    "organization" : {
+        "approveTrusted": false,
+        "approveUntrusted": false,
+        "billingCycle": "CALENDAR_MONTH",
+        "country": "US",
+        "currency": "USD",
+        "description": "phpunit-description",
+        "hasBillingAdjustment": false,
+        "hasBroker": false,
+        "hasSelfBilling": false,
+        "hasSeparateInvoiceForProduct": false,
+        "id": "phpunit",
+        "issueNettingStmt": false,
+        "name": "name",
+        "nettingStmtPerCurrency": false,
+        "regNo": "123456-regno",
+        "selfBillingAsExchOrg": false,
+        "selfBillingForAllDev": false,
+        "separateInvoiceForFees": false,
+        "status": "ACTIVE",
+        "supportedBillingType": "BOTH",
+        "taxEngineExternalId": "APIGEE",
+        "taxModel": "HYBRID",
+        "transactionRelayURL": "http://localhost",
+        "taxRegNo": "12345",
+        "timezone": "Australia/Eucla",
+        "logoUrl": "http://example.com"
+    },
+    "type": "BILLING"
+}

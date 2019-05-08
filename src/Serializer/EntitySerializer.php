@@ -185,9 +185,9 @@ class EntitySerializer implements EntitySerializerInterface
     /**
      * @inheritdoc
      */
-    public function decode($data, $format, array $context = []): void
+    public function decode($data, $format, array $context = [])
     {
-        $this->serializer->decode($data, $format, $context = []);
+        return $this->serializer->decode($data, $format, $context);
     }
 
     /**

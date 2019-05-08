@@ -48,6 +48,9 @@ class PropertyAccessorDecoratorTest extends PropertyAccessorTest
             /** @var string */
             private $shouldBeAString;
 
+            /** @var string */
+            private $queryBuilderParam;
+
             public function __construct()
             {
                 // Fake invalid value.
@@ -84,6 +87,22 @@ class PropertyAccessorDecoratorTest extends PropertyAccessorTest
             public function setShouldBeAString(string $shouldBeAString): void
             {
                 $this->shouldBeAString = $shouldBeAString;
+            }
+
+            /**
+             * @return string
+             */
+            public function getQueryBuilderParam(): string
+            {
+                return $this->queryBuilderParam;
+            }
+
+            /**
+             * @param string $queryBuilderParam
+             */
+            public function queryBuilderParam(string $queryBuilderParam): void
+            {
+                $this->queryBuilderParam = $queryBuilderParam;
             }
         };
     }
@@ -144,6 +163,12 @@ class PropertyAccessorDecoratorTest extends PropertyAccessorTest
                 $this->fail('An exception should have been thrown.');
             }
         }
+    }
+
+    public function testSetValueOnQueryBuilderParameter(): void
+    {
+        $this->propertyAccessor->setValue(static::$testObj, 'queryBuilderParam', 'foo');
+        $this->assertEquals('foo', static::$testObj->getQueryBuilderParam());
     }
 
     public function exceptionsToGetOnGetValue(): array

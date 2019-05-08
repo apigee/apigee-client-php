@@ -35,9 +35,9 @@ class Developer extends LegalEntity implements DeveloperInterface
     protected $company;
 
     /**
-     * @return \Apigee\Edge\Api\Monetization\Entity\Company|null
+     * @inheritdoc
      */
-    public function getCompany(): ?Company
+    public function getCompany(): ?CompanyInterface
     {
         return $this->company;
     }

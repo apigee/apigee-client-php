@@ -18,11 +18,8 @@
 
 namespace Apigee\Edge\Api\Monetization\Entity;
 
-interface CompanyAcceptedRatePlanInterface extends AcceptedRatePlanInterface
+use Apigee\Edge\Api\Monetization\Entity\Property\CompanyPropertyInterface;
+
+interface CompanyAcceptedRatePlanInterface extends AcceptedRatePlanInterface, CompanyPropertyInterface
 {
-    /**
-     * @return \Apigee\Edge\Api\Monetization\Entity\CompanyInterface|null
-     *   It can be null only when a new rate plan gets accepted.
-     */
-    public function getCompany(): ?CompanyInterface;
 }
