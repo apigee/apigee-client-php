@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 2.0.2 - 2019-05-09
+#### Monetization API
+* Added support for [Reports API](https://docs.apigee.com/api-platform/monetization/create-reports). [#51](https://github.com/apigee/apigee-client-php/pull/51)
+* Fixed: Keep original start date property can be null [#49](https://github.com/apigee/apigee-client-php/pull/49)
+
 ## 2.0.1 - 2019-02-06
 #### Management API
 * **Fixed Edge for Private Cloud support.** Core Persistent Services (CPS) is not available in Private Cloud installations and because of that earlier versions of this library threw a CpsNotEnabledException exception when someone tried to construct an API request by adding pagination.
