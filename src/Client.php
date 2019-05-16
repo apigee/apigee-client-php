@@ -20,14 +20,15 @@ namespace Apigee\Edge;
 
 use Apigee\Edge\Exception\ApiResponseException;
 use Apigee\Edge\Exception\OauthAuthenticationException;
+use Apigee\Edge\HttpClient\Plugin\AddPathPlugin;
 use Apigee\Edge\HttpClient\Plugin\Authentication\Oauth;
 use Apigee\Edge\HttpClient\Plugin\ResponseHandlerPlugin;
 use Apigee\Edge\HttpClient\Plugin\RetryOauthAuthenticationPlugin;
 use Apigee\Edge\HttpClient\Utility\Builder;
 use Apigee\Edge\HttpClient\Utility\Journal;
 use Apigee\Edge\HttpClient\Utility\JournalInterface;
+use Http\Client\Common\Plugin\AddHostPlugin;
 use Http\Client\Common\Plugin\AuthenticationPlugin;
-use Http\Client\Common\Plugin\BaseUriPlugin;
 use Http\Client\Common\Plugin\HeaderDefaultsPlugin;
 use Http\Client\Common\Plugin\HistoryPlugin;
 use Http\Client\Common\Plugin\RetryPlugin;
@@ -296,7 +297,8 @@ class Client implements ClientInterface
     {
         // Alters requests, adds base path and authentication.
         $firstPlugins = [
-            new BaseUriPlugin($this->getBaseUri(), ['replace' => true]),
+            new AddHostPlugin($this->getBaseUri(), ['replace' => true]),
+            new AddPathPlugin($this->getBaseUri()),
             new HeaderDefaultsPlugin($this->getDefaultHeaders()),
         ];
 
