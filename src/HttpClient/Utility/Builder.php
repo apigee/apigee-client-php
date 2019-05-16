@@ -23,8 +23,6 @@ use Http\Client\Common\Plugin\HeaderAppendPlugin;
 use Http\Client\Common\PluginClient;
 use Http\Client\HttpClient;
 use Http\Discovery\HttpClientDiscovery;
-use Http\Discovery\MessageFactoryDiscovery;
-use Http\Discovery\StreamFactoryDiscovery;
 use Http\Message\RequestFactory;
 use Http\Message\StreamFactory;
 
@@ -40,12 +38,6 @@ class Builder implements BuilderInterface
 
     /** @var PluginClient */
     private $pluginClient;
-
-    /** @var StreamFactory */
-    private $streamFactory;
-
-    /** @var RequestFactory */
-    private $requestFactory;
 
     /** @var array */
     private $headers = [];
@@ -73,8 +65,13 @@ class Builder implements BuilderInterface
         StreamFactory $streamFactory = null
     ) {
         $this->httpClient = $httpClient ?: HttpClientDiscovery::find();
-        $this->requestFactory = $requestFactory ?: MessageFactoryDiscovery::find();
-        $this->streamFactory = $streamFactory ?: StreamFactoryDiscovery::find();
+        if (null !== $requestFactory) {
+            @trigger_error('The $requestFactory parameter is deprecated since version 2.0.3 and will be removed in 3.0.0. Omit the second parameter.', E_USER_DEPRECATED);
+        }
+
+        if (null !== $streamFactory) {
+            @trigger_error('The $streamFactory parameter is deprecated since version 2.0.3 and will be removed in 3.0.0. Omit the second parameter.', E_USER_DEPRECATED);
+        }
     }
 
     /**
