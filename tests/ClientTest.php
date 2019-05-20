@@ -73,12 +73,14 @@ class ClientTest extends TestCase
      */
     public function testEndpointShouldBeOverridden(Client $client): void
     {
-        $customEndpoint = 'http://example.com';
+        // The Apigee API endpoint URI always contains the API version in path.
+        // @see \Apigee\Edge\HttpClient\Plugin\AddPathPlugin::__construct()
+        $customEndpoint = 'http://example.com/version_1';
         $builder = new Builder(self::$httpClient);
         $client = new Client(new NullAuthentication(), $customEndpoint, [Client::CONFIG_HTTP_CLIENT_BUILDER => $builder]);
-        $client->get('/');
+        $client->get('');
         $sent_request = self::$httpClient->getLastRequest();
-        $this->assertEquals($customEndpoint, "{$sent_request->getUri()->getScheme()}://{$sent_request->getUri()->getHost()}");
+        $this->assertEquals($client->getUriFactory()->createUri($customEndpoint)->getHost(), $sent_request->getUri()->getHost());
     }
 
     public function testUserAgentShouldBeOverridden(): void
