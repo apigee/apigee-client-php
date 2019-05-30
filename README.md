@@ -167,6 +167,7 @@ We will release a new major version from this library if a change in a supported
 
 ## Support
 
-This is not an officially supported Google product. Please file issues in our GitHub Issue Queue. We would love to
-accept contributions to this project, please see the [contribution guidelines for this project](CONTRIBUTING.md) for
-more details.
+This project, which integrates Drupal 8 with Apigee Edge, is supported by Google. Use our [project's issue queue](https://github.com/apigee/apigee-client-php/issues) to report any questions, issues, or feedback. 
+
+## Contributions 
+We would love to accept contributions to this project, please see the [contribution guidelines for this project](CONTRIBUTING.md) for more details.
