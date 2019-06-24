@@ -33,6 +33,9 @@ abstract class RatePlanRate extends BaseObject implements IdPropertyInterface
     /** @var int */
     private $startUnit;
 
+    /** @var int */
+    private $endUnit;
+
     /**
      * @return int
      */
@@ -47,5 +50,21 @@ abstract class RatePlanRate extends BaseObject implements IdPropertyInterface
     public function setStartUnit(int $startUnit): void
     {
         $this->startUnit = $startUnit;
+    }
+
+    /**
+     * @return int
+     */
+    public function getEndUnit(): ?int
+    {
+        return $this->endUnit;
+    }
+
+    /**
+     * @param int $endUnit
+     */
+    public function setEndUnit(int $endUnit): void
+    {
+        $this->endUnit = $endUnit;
     }
 }
