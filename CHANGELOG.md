@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## [2.0.3](https://github.com/apigee/apigee-client-php/milestone/1?closed=1) - June 24 2019
+#### Management API
+* [#54](https://github.com/apigee/apigee-client-php/pull/54) Add forked AddPathPlugin and removed required patch 
+#### Monetization API
+* [#58](https://github.com/apigee/apigee-client-php/pull/58) Added the end unit property to `RatePlanRate`
+
 ## 2.0.2 - 2019-05-09
 #### Monetization API
 * Added support for [Reports API](https://docs.apigee.com/api-platform/monetization/create-reports). [#51](https://github.com/apigee/apigee-client-php/pull/51)
