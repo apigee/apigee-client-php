@@ -61,7 +61,7 @@ class DeveloperRatePlanDenormalizer extends RatePlanDenormalizer
         }
 
         if (parent::supportsDenormalization($data, $type, $format)) {
-            return RatePlanInterface::TYPE_DEVELOPER == $data->type && !$data->developer->isCompany;
+            return RatePlanInterface::TYPE_DEVELOPER == $data->type && empty($data->developer->isCompany);
         }
 
         return false;
