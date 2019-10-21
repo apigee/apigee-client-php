@@ -17,9 +17,7 @@
                 }
             ],
             "createdAt": 648345600000,
-            "createdBy": "phpunit@example.com",
-            "lastModifiedAt": 648345600000,
-            "lastModifiedBy": "phpunit@example.com"
+            "lastModifiedAt": 648345600000
         },
         {
             "apps": [],
@@ -38,9 +36,7 @@
                 }
             ],
             "createdAt": 648345600000,
-            "createdBy": "phpunit@example.com",
-            "lastModifiedAt": 648345600000,
-            "lastModifiedBy": "phpunit@example.com"
+            "lastModifiedAt": 648345600000
         },
         {
             "apps": [],
@@ -59,9 +55,7 @@
                 }
             ],
             "createdAt": 648345600000,
-            "createdBy": "phpunit@example.com",
-            "lastModifiedAt": 648345600000,
-            "lastModifiedBy": "phpunit@example.com"
+            "lastModifiedAt": 648345600000
         },
         {
             "apps": [],
@@ -80,9 +74,7 @@
                 }
             ],
             "createdAt": 648345600000,
-            "createdBy": "phpunit@example.com",
-            "lastModifiedAt": 648345600000,
-            "lastModifiedBy": "phpunit@example.com"
+            "lastModifiedAt": 648345600000
         },
         {
             "apps": [],
@@ -101,9 +93,7 @@
                 }
             ],
             "createdAt": 648345600000,
-            "createdBy": "phpunit@example.com",
-            "lastModifiedAt": 648345600000,
-            "lastModifiedBy": "phpunit@example.com"
+            "lastModifiedAt": 648345600000
         }
     ]
 }

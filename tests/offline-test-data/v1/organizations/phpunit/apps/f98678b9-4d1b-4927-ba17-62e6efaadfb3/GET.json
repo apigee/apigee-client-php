@@ -16,7 +16,6 @@
     ],
     "callbackUrl": "http://example.com",
     "createdAt": 648345600000,
-    "createdBy": "phpunit@example.com",
     "credentials": [
         {
             "apiProducts": [],
@@ -31,7 +30,6 @@
     ],
     "developerId": "f43ffa3c-e147-47de-8cd6-f5b34429a531",
     "lastModifiedAt": 648345600000,
-    "lastModifiedBy": "phpunit@example.com",
     "name": "phpunit_test_app",
     "scopes": [],
     "status": "approved"

@@ -23,7 +23,6 @@
             ],
             "callbackUrl": "http://foo.example.com",
             "createdAt": 648345600000,
-            "createdBy": "phpunit@example.com",
             "credentials": [
                 {
                     "apiProducts": [],
@@ -37,7 +36,6 @@
             ],
             "companyName": "phpunit",
             "lastModifiedAt": 648345600000,
-            "lastModifiedBy": "phpunit@example.com",
             "name": "phpunit_test_app",
             "scopes": [],
             "status": "approved"
@@ -61,7 +59,6 @@
             ],
             "callbackUrl": "http://example.com",
             "createdAt": 648345600000,
-            "createdBy": "phpunit@example.com",
             "credentials": [
                 {
                     "apiProducts": [],
@@ -75,7 +72,6 @@
             ],
             "companyName": "phpunit",
             "lastModifiedAt": 648345600000,
-            "lastModifiedBy": "phpunit@example.com",
             "name": "1phpunit_test_app",
             "scopes": [],
             "status": "approved"
@@ -103,7 +99,6 @@
             ],
             "callbackUrl": "http://example.com",
             "createdAt": 648345600000,
-            "createdBy": "phpunit@example.com",
             "credentials": [
                 {
                     "apiProducts": [],
@@ -117,7 +112,6 @@
             ],
             "companyName": "phpunit",
             "lastModifiedAt": 648345600000,
-            "lastModifiedBy": "phpunit@example.com",
             "name": "2phpunit_test_app",
             "scopes": [],
             "status": "approved"
@@ -141,7 +135,6 @@
             ],
             "callbackUrl": "http://example.com",
             "createdAt": 648345600000,
-            "createdBy": "phpunit@example.com",
             "credentials": [
                 {
                     "apiProducts": [],
@@ -155,7 +148,6 @@
             ],
             "companyName": "phpunit",
             "lastModifiedAt": 648345600000,
-            "lastModifiedBy": "phpunit@example.com",
             "name": "3phpunit_test_app",
             "scopes": [],
             "status": "approved"
@@ -183,7 +175,6 @@
             ],
             "callbackUrl": "http://example.com",
             "createdAt": 648345600000,
-            "createdBy": "phpunit@example.com",
             "credentials": [
                 {
                     "apiProducts": [],
@@ -197,7 +188,6 @@
             ],
             "companyName": "phpunit",
             "lastModifiedAt": 648345600000,
-            "lastModifiedBy": "phpunit@example.com",
             "name": "4phpunit_test_app",
             "scopes": [],
             "status": "approved"

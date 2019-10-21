@@ -156,8 +156,6 @@ class PaginationHelperTraitTest extends TestCase
         $org = [
             'createdAt' => time() * 1000,
             'lastModifiedAt' => time() * 1000,
-            'createdBy' => 'phpunit@example.com',
-            'lastModifiedBy' => 'phpunit@example.com',
             'displayName' => 'phpunit',
             'name' => 'phpunit',
             'environments' => [],
