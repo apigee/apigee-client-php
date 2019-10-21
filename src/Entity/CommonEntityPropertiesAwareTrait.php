@@ -38,6 +38,8 @@ trait CommonEntityPropertiesAwareTrait
     /**
      * Email address of the organization user who created the entity.
      *
+     * @deprecated Not used in Hybrid orgs.
+     *
      * @var string|null
      */
     protected $createdBy;
@@ -49,6 +51,8 @@ trait CommonEntityPropertiesAwareTrait
 
     /**
      * Email address of the organization user who modified the entity last time.
+     *
+     * @deprecated Not used in Hybrid orgs.
      *
      * @var string|null
      */
@@ -87,6 +91,8 @@ trait CommonEntityPropertiesAwareTrait
      *
      * @param string $email
      *   User/developer mail.
+     *
+     * @deprecated Not used in Hybrid orgs.
      *
      * @internal
      */
@@ -130,6 +136,8 @@ trait CommonEntityPropertiesAwareTrait
      *   User/developer mail.
      *
      * @internal
+     *
+     * @deprecated Not used in Hybrid orgs.
      */
     public function setLastModifiedBy(string $email): void
     {

@@ -38,6 +38,8 @@ interface CommonEntityPropertiesInterface
     /**
      * Returns the email address of the user/developer who created the entity.
      *
+     * @deprecated Not used in Hybrid orgs.
+     *
      * @return string|null Email address.
      */
     public function getCreatedBy(): ?string;
@@ -51,6 +53,8 @@ interface CommonEntityPropertiesInterface
 
     /**
      * Returns the email address of the user/developer who modified the entity the last time.
+     *
+     * @deprecated Not used in Hybrid orgs.
      *
      * @return string|null Email address.
      */
