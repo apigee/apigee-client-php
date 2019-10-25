@@ -40,6 +40,8 @@ interface CommonEntityPropertiesInterface
      *
      * @deprecated Not used in Hybrid orgs.
      *
+     * @see https://github.com/apigee/apigee-client-php/issues/65
+     *
      * @return string|null Email address.
      */
     public function getCreatedBy(): ?string;
@@ -55,6 +57,8 @@ interface CommonEntityPropertiesInterface
      * Returns the email address of the user/developer who modified the entity the last time.
      *
      * @deprecated Not used in Hybrid orgs.
+     *
+     * @see https://github.com/apigee/apigee-client-php/issues/65
      *
      * @return string|null Email address.
      */
