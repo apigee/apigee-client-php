@@ -49,10 +49,30 @@ class OrganizationControllerTest extends ControllerTestBase
         $this->assertEquals(['prod', 'test'], $entity->getEnvironments());
         $this->assertTrue($entity->hasProperty('self.service.virtual.host.enabled'));
         $this->assertEquals('true', $entity->getPropertyValue('features.isCpsEnabled'));
+        $this->assertEmpty($entity->getPropertyValue('features.hybrid.enabled'));
         $this->assertEquals('trial', $entity->getType());
         $this->assertEquals(new \DateTimeImmutable('@648345600'), $entity->getCreatedAt());
         $this->assertEquals(new \DateTimeImmutable('@648345600'), $entity->getLastModifiedAt());
         $this->assertEquals('phpunit@example.com', $entity->getCreatedBy());
         $this->assertEquals('phpunit@example.com', $entity->getLastModifiedBy());
+        $this->assertFalse($entity->isHybrid());
+    }
+
+    /**
+     * Tests loading a Hybrid Organization.
+     */
+    public function testLoadHybrid(): void
+    {
+        $controller = new OrganizationController(static::fileSystemMockClient());
+        /** @var \Apigee\Edge\Api\Management\Entity\OrganizationInterface $entity */
+        $entity = $controller->load('hybridorg');
+        $this->assertEquals('Hybrid Org', $entity->getDisplayName());
+        $this->assertEquals(['prod', 'test'], $entity->getEnvironments());
+        $this->assertTrue($entity->hasProperty('features.hybrid.enabled'));
+        $this->assertEquals('true', $entity->getPropertyValue('features.hybrid.enabled'));
+        $this->assertEmpty($entity->getPropertyValue('features.isCpsEnabled'));
+        $this->assertEquals(new \DateTimeImmutable('@1565122730'), $entity->getCreatedAt());
+        $this->assertEquals(new \DateTimeImmutable('@1568828772'), $entity->getLastModifiedAt());
+        $this->assertTrue($entity->isHybrid());
     }
 }

@@ -1,0 +1,23 @@
+{
+    "name": "hybridorg",
+    "displayName": "Hybrid Org",
+    "createdAt": "1565122730000",
+    "lastModifiedAt": "1568828772000",
+    "environments": [
+        "prod",
+        "test"
+    ],
+    "properties": {
+        "property": [
+            {
+                "name": "features.hybrid.enabled",
+                "value": "true"
+            },
+            {
+                "name": "features.mart.server.endpoint",
+                "value": "https://test.example.com"
+            }
+        ]
+    },
+    "analyticsRegion": "us-west1"
+}

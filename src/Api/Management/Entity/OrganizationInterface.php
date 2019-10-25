@@ -54,4 +54,11 @@ interface OrganizationInterface extends
      * @return array
      */
     public function getTypes(): array;
+
+    /**
+     * Returns TRUE if the organization is a Hybrid org.
+     *
+     * @return bool
+     */
+    public function isHybrid(): bool;
 }

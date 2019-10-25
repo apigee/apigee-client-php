@@ -84,4 +84,14 @@ class Organization extends Entity implements OrganizationInterface
     {
         return self::TYPES;
     }
+
+    /**
+     * @inheritdoc
+     */
+    public function isHybrid(): bool
+    {
+        $isHybrid = $this->getPropertyValue('features.hybrid.enabled');
+
+        return (bool) $isHybrid;
+    }
 }
