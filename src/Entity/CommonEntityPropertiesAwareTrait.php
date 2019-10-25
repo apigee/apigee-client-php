@@ -39,7 +39,6 @@ trait CommonEntityPropertiesAwareTrait
      * Email address of the organization user who created the entity.
      *
      * @deprecated Not used in Hybrid orgs.
-     *
      * @see https://github.com/apigee/apigee-client-php/issues/65
      *
      * @var string|null
@@ -55,7 +54,6 @@ trait CommonEntityPropertiesAwareTrait
      * Email address of the organization user who modified the entity last time.
      *
      * @deprecated Not used in Hybrid orgs.
-     *
      * @see https://github.com/apigee/apigee-client-php/issues/65
      *
      * @var string|null
@@ -97,7 +95,6 @@ trait CommonEntityPropertiesAwareTrait
      *   User/developer mail.
      *
      * @deprecated Not used in Hybrid orgs.
-     *
      * @see https://github.com/apigee/apigee-client-php/issues/65
      *
      * @internal
@@ -144,7 +141,6 @@ trait CommonEntityPropertiesAwareTrait
      * @internal
      *
      * @deprecated Not used in Hybrid orgs.
-     *
      * @see https://github.com/apigee/apigee-client-php/issues/65
      */
     public function setLastModifiedBy(string $email): void
