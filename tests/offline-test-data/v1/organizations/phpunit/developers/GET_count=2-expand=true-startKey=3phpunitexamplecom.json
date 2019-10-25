@@ -17,7 +17,9 @@
                 }
             ],
             "createdAt": 648345600000,
-            "lastModifiedAt": 648345600000
+            "createdBy": "phpunit@example.com",
+            "lastModifiedAt": 648345600000,
+            "lastModifiedBy": "phpunit@example.com"
         },
         {
             "apps": [],
@@ -36,7 +38,9 @@
                 }
             ],
             "createdAt": 648345600000,
-            "lastModifiedAt": 648345600000
+            "createdBy": "phpunit@example.com",
+            "lastModifiedAt": 648345600000,
+            "lastModifiedBy": "phpunit@example.com"
         }
     ]
 }

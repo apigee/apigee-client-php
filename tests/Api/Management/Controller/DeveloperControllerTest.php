@@ -98,6 +98,8 @@ class DeveloperControllerTest extends EntityControllerTestBase
         $developer = (object) [
             'createdAt' => time() * 1000,
             'lastModifiedAt' => time() * 1000,
+            'createdBy' => 'phpunit@example.com',
+            'lastModifiedBy' => 'phpunit@example.com',
             'name' => 'phpunit',
             'firstName' => 'phpunit',
             'lastName' => 'phpunit',

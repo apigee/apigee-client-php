@@ -52,5 +52,7 @@ class OrganizationControllerTest extends ControllerTestBase
         $this->assertEquals('trial', $entity->getType());
         $this->assertEquals(new \DateTimeImmutable('@648345600'), $entity->getCreatedAt());
         $this->assertEquals(new \DateTimeImmutable('@648345600'), $entity->getLastModifiedAt());
+        $this->assertEquals('phpunit@example.com', $entity->getCreatedBy());
+        $this->assertEquals('phpunit@example.com', $entity->getLastModifiedBy());
     }
 }
