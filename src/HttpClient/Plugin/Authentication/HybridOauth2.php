@@ -34,7 +34,6 @@ use Psr\Http\Message\RequestInterface;
  */
 class HybridOauth2 implements Authentication
 {
-
     /**
      * Authorization server for Apigee Hybrid authentication.
      *
@@ -167,10 +166,9 @@ class HybridOauth2 implements Authentication
 
         try {
             $response = $this->authClient()->post('', http_build_query($body), ['Content-Type' => 'application/x-www-form-urlencoded']);
-            $decoded_response = json_decode((string) $response->getBody(), TRUE);
+            $decoded_response = json_decode((string) $response->getBody(), true);
             $this->tokenStorage->saveToken($decoded_response);
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             throw new HybridOauth2AuthenticationException($e->getMessage(), $e->getCode(), $e);
         }
     }
