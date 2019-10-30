@@ -118,17 +118,18 @@ class ApiResponseException extends ApiRequestException
                 } else {
                     if (array_key_exists('code', $array)) {
                         $error['code'] = $array['code'];
-                    }
-                    elseif (isset($array['error']['code'])) {
+                    } elseif (isset($array['error']['code'])) {
                         $error['code'] = $array['error']['code'];
                     }
                     if (array_key_exists('message', $array)) {
                         // It could happen that the returned message by
                         // Apigee Edge is also an array.
                         $error['message'] = is_array($array['message']) ? json_encode($array['message']) : $array['message'];
-                    }
-                    elseif (isset($array['error']['message'])) {
+                    } elseif (isset($array['error']['message'])) {
                         $error['message'] = $array['error']['message'];
+                        if (!empty($array['error']['status'])) {
+                            $error['message'] = $array['error']['status'] . ': ' . $error['message'];
+                        }
                     }
                 }
             }
