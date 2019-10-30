@@ -190,7 +190,7 @@ ol+LjqszLKpNmRhBvWcve/wbsMRWjdIk9ISmX5hCxQjpDobR52o=
 -----END RSA PRIVATE KEY-----';
 
         return new Client(
-            new MockHybridOauth2($email, $privateKey, $this->token_storage, static::$httpClient, $this->journal),
+            new MockHybridOauth2($email, $private_key, $this->token_storage, static::$httpClient, $this->journal),
             self::API_ENDPOINT,
             $options
         );

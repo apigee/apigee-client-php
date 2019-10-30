@@ -23,16 +23,13 @@ use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Exception\HybridOauth2AuthenticationException;
 use Firebase\JWT\JWT;
 use Http\Client\Exception;
-use Http\Message\Authentication;
-use Http\Message\Authentication\Bearer;
-use Psr\Http\Message\RequestInterface;
 
 /**
  * HybridOauth2 authentication plugin for authenticating to Hybrid Cloud API.
  *
  * @see https://developers.google.com/identity/protocols/OAuth2ServiceAccount
  */
-class HybridOauth2 implements Authentication
+class HybridOauth2 extends AbstractOauth
 {
     /**
      * Authorization server for Apigee Hybrid authentication.
@@ -72,16 +69,6 @@ class HybridOauth2 implements Authentication
     protected $privateKey;
 
     /**
-     * @var \Apigee\Edge\HttpClient\Plugin\Authentication\OauthTokenStorageInterface
-     */
-    protected $tokenStorage;
-
-    /**
-     * @var string
-     */
-    protected $authServer;
-
-    /**
      * Hybrid Oauth2 constructor.
      *
      * @param string $email
@@ -97,44 +84,11 @@ class HybridOauth2 implements Authentication
     {
         $this->email = $email;
         $this->privateKey = $privateKey;
-        $this->tokenStorage = $token_storage;
-        $this->authServer = $authServer ?: self::DEFAULT_AUTHORIZATION_SERVER;
+        parent::__construct($token_storage, $authServer ?: self::DEFAULT_AUTHORIZATION_SERVER);
     }
 
     /**
      * @inheritdoc
-     */
-    public function authenticate(RequestInterface $request)
-    {
-        // Get a new access token if token has expired.
-        if ($this->tokenStorage->hasExpired()) {
-            $this->getBearerToken();
-        }
-
-        $accessToken = $this->tokenStorage->getAccessToken();
-
-        if (!empty($accessToken)) {
-            $bearAuth = new Bearer($accessToken);
-            $request = $bearAuth->authenticate($request);
-        }
-
-        return $request;
-    }
-
-    /**
-     * Returns the token storage.
-     *
-     * @return \Apigee\Edge\HttpClient\Plugin\Authentication\OauthTokenStorageInterface
-     */
-    public function getTokenStorage(): OauthTokenStorageInterface
-    {
-        return $this->tokenStorage;
-    }
-
-    /**
-     * Returns a pre-configured client for authorization API calls.
-     *
-     * @return \Apigee\Edge\ClientInterface
      */
     protected function authClient(): ClientInterface
     {
@@ -142,11 +96,11 @@ class HybridOauth2 implements Authentication
     }
 
     /**
-     * Retrieves bearer token and saves it to the token storage.
+     * @inheritdoc
      *
      * @psalm-suppress InvalidCatch - Exception by interface can be caught in PHP >= 7.1.
      */
-    private function getBearerToken(): void
+    protected function getAccessToken(): void
     {
         $now = time();
         $token = [
