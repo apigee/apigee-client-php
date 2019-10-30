@@ -69,7 +69,7 @@ class HybridOauth2 implements Authentication
      *
      * @var string
      */
-    protected $private_key;
+    protected $privateKey;
 
     /**
      * @var \Apigee\Edge\HttpClient\Plugin\Authentication\OauthTokenStorageInterface
@@ -79,26 +79,26 @@ class HybridOauth2 implements Authentication
     /**
      * @var string
      */
-    protected $auth_server;
+    protected $authServer;
 
     /**
      * Hybrid Oauth2 constructor.
      *
      * @param string $email
      *   The service account email.
-     * @param string $private_key
+     * @param string $privateKey
      *   The service account private key.
      * @param \Apigee\Edge\HttpClient\Plugin\Authentication\OauthTokenStorageInterface $token_storage
      *   Storage where access token gets saved.
-     * @param string|null $auth_server
+     * @param string|null $authServer
      *   Authentication server.
      */
-    public function __construct(string $email, string $private_key, OauthTokenStorageInterface $token_storage, ?string $auth_server = null)
+    public function __construct(string $email, string $privateKey, OauthTokenStorageInterface $token_storage, ?string $authServer = null)
     {
         $this->email = $email;
-        $this->private_key = $private_key;
+        $this->privateKey = $privateKey;
         $this->tokenStorage = $token_storage;
-        $this->auth_server = $auth_server ?: self::DEFAULT_AUTHORIZATION_SERVER;
+        $this->authServer = $authServer ?: self::DEFAULT_AUTHORIZATION_SERVER;
     }
 
     /**
@@ -138,7 +138,7 @@ class HybridOauth2 implements Authentication
      */
     protected function authClient(): ClientInterface
     {
-        return new Client(new NullAuthentication(), $this->auth_server);
+        return new Client(new NullAuthentication(), $this->authServer);
     }
 
     /**
@@ -151,14 +151,14 @@ class HybridOauth2 implements Authentication
         $now = time();
         $token = [
             'iss' => $this->email,
-            'aud' => $this->auth_server,
+            'aud' => $this->authServer,
             'scope' => self::TOKEN_SCOPES,
             'iat' => $now,
             // Have the token expire in the maximum allowed time of an hour.
             'exp' => $now + (60 * 60),
         ];
 
-        $jwt = JWT::encode($token, $this->private_key, 'RS256');
+        $jwt = JWT::encode($token, $this->privateKey, 'RS256');
         $body = [
             'grant_type' => self::GRANT_TYPE,
             'assertion' => $jwt,

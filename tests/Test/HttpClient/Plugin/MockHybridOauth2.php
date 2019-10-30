@@ -45,13 +45,13 @@ class MockHybridOauth2 extends HybridOauth2
 
     public function __construct(
         string $email,
-        string $private_key,
+        string $privateKey,
         \Apigee\Edge\HttpClient\Plugin\Authentication\OauthTokenStorageInterface $token_storage,
         HttpClient $httpClient = null,
         JournalInterface $journal = null,
-        ?string $auth_server = null
+        ?string $authServer = null
     ) {
-        parent::__construct($email, $private_key, $token_storage, $auth_server);
+        parent::__construct($email, $privateKey, $token_storage, $authServer);
         $this->journal = $journal ?: new TestJournal();
         $this->httpClient = $httpClient ?: new MockHttpClient();
     }
