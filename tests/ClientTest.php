@@ -20,8 +20,8 @@ namespace Apigee\Edge\Tests;
 
 use Apigee\Edge\Client;
 use Apigee\Edge\Exception\ClientErrorException;
+use Apigee\Edge\HttpClient\Plugin\Authentication\NullAuthentication;
 use Apigee\Edge\HttpClient\Utility\Builder;
-use Apigee\Edge\Tests\Test\HttpClient\Plugin\NullAuthentication;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 use Http\Client\Common\Plugin\HeaderAppendPlugin;

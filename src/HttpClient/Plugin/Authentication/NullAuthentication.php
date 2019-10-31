@@ -22,10 +22,13 @@ use Http\Message\Authentication;
 use Psr\Http\Message\RequestInterface;
 
 /**
- * Null authentication for tests.
+ * Null authentication.
  */
 class NullAuthentication implements Authentication
 {
+    /**
+     * @inheritdoc
+     */
     public function authenticate(RequestInterface $request)
     {
         return $request;
