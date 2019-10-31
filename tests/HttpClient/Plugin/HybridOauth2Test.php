@@ -75,7 +75,16 @@ class HybridOauth2Test extends TestCase
 
     /**
      * @expectedException \Apigee\Edge\Exception\HybridOauth2AuthenticationException
-     * @expectedException \Apigee\Edge\Exception\OauthAccessTokenAuthenticationException
+     */
+    public function testIncorrectCredentials(): void
+    {
+        // Auth server respond with 401 for the provided credentials.
+        static::$httpClient->addResponse(new Response(401));
+        $this->client->get('');
+    }
+
+    /**
+     * @expectedException \Apigee\Edge\Exception\HybridOauth2AuthenticationException
      */
     public function testAuthServerError(): void
     {
@@ -86,62 +95,73 @@ class HybridOauth2Test extends TestCase
 
     public function testOauthReAuthenticationAfterExpiredAccessToken(): void
     {
+        // Part 1: Add all of the responses to the mock client.
         $body = [
             'access_token' => 'access_token',
             'expires_in' => 60,
             'token_type' => 'Bearer',
         ];
-        // Auth server returns a new access token.
+        // Response A: Auth server returns a new access token.
         static::$httpClient->addResponse(new Response(200, ['Content-Type' => 'application/json'], json_encode((object) $body)));
 
-        // Successful response to an authorised API call from API server.
+        // Response B: Successful response to an authorised API call from API server.
         static::$httpClient->addResponse(new Response(200));
 
-        // Another successful response to an authorised API call from API server.
+        // Response C: Another successful response to an authorised API call from API server.
         static::$httpClient->addResponse(new Response(200));
+
+        // Response D: API server answers with authentication error. (Mimic expired token.)
+        static::$httpClient->addResponse(new Response(401));
 
         $body = [
             'access_token' => 'access_token',
             'expires_in' => 60,
             'token_type' => 'Bearer',
         ];
-        // Auth server returns a new access token.
+        // Response E: Auth server returns a new access token.
         static::$httpClient->addResponse(new Response(200, ['Content-Type' => 'application/json'], json_encode((object) $body)));
 
-        // Successful response to an authorised API call from API server.
+        // Response F: Successful response to an authorised API call from API server.
         static::$httpClient->addResponse(new Response(200));
 
-        $this->client->get('');
+        // Part 2: Make calls to the API.
+
+        // Calling the API - should use the responses A and B.
         $this->client->get('');
 
-        // Mark token as expired so the following API call requests a new token.
-        $this->tokenStorage->markExpired();
+        // Calling the API - should use the response C.
         $this->client->get('');
+
+        // Calling the API, but now it returns response D (401, an expired token).
+        // It should then request a new token (response E) and then call the API (response F).
+        $this->client->get('');
+
+        // Part 3: Inspect the requests made above.
 
         /** @var \Psr\Http\Message\RequestInterface[] $requests */
         $requests = $this->journal->getRequests();
 
-        // Check initial request for a token.
+        // Check that first call to the API makes a request for a token first.
         $request = array_shift($requests);
         $this->assertEquals(MockHybridOauth2::AUTH_SERVER, (string) $request->getUri());
         $this->assertEmpty($request->getHeaderLine('Authorization'));
 
-        // Check that API call includes the bearer token authorization header.
+        // Check that first API call includes the bearer token authorization header.
         $request = array_shift($requests);
         $this->assertEquals(self::API_ENDPOINT, (string) $request->getUri());
         $this->assertEquals('Bearer access_token', $request->getHeaderLine('Authorization'));
 
-        // Check that following API call did not need to request a new token.
+        // Check that second API call did not need to request a new token, as it was already stored.
         $request = array_shift($requests);
         $this->assertEquals(self::API_ENDPOINT, (string) $request->getUri());
         $this->assertEquals('Bearer access_token', $request->getHeaderLine('Authorization'));
 
-        // Token was marked as expired. This request should be for a new token.
+        // Third call to the API - this one returned the 401 response, so it should be for a new token.
         $request = array_shift($requests);
         $this->assertEquals(MockHybridOauth2::AUTH_SERVER, (string) $request->getUri());
         $this->assertEmpty($request->getHeaderLine('Authorization'));
 
-        // Check that API call includes the bearer token authorization header.
+        // Check the third API call concludes by making a request to the API endpoint with the bearer token header.
         $request = array_shift($requests);
         $this->assertEquals(self::API_ENDPOINT, (string) $request->getUri());
         $this->assertEquals('Bearer access_token', $request->getHeaderLine('Authorization'));

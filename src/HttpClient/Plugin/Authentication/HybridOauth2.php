@@ -21,6 +21,7 @@ namespace Apigee\Edge\HttpClient\Plugin\Authentication;
 use Apigee\Edge\Client;
 use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Exception\HybridOauth2AuthenticationException;
+use Apigee\Edge\Exception\OauthRefreshTokenExpiredException;
 use Firebase\JWT\JWT;
 use Http\Client\Exception;
 
@@ -122,6 +123,11 @@ class HybridOauth2 extends AbstractOauth
             $response = $this->authClient()->post('', http_build_query($body), ['Content-Type' => 'application/x-www-form-urlencoded']);
             $decodedResponse = json_decode((string) $response->getBody(), true);
             $this->tokenStorage->saveToken($decodedResponse);
+        } catch (OauthRefreshTokenExpiredException $e) {
+            // Clear data in token storage because refresh token has expired.
+            $this->tokenStorage->removeToken();
+            // Try to automatically get a new access token.
+            $this->getAccessToken();
         } catch (Exception $e) {
             throw new HybridOauth2AuthenticationException($e->getMessage(), $e->getCode(), $e);
         }

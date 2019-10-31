@@ -21,7 +21,7 @@ namespace Apigee\Edge;
 use Apigee\Edge\Exception\ApiResponseException;
 use Apigee\Edge\Exception\OauthAuthenticationException;
 use Apigee\Edge\HttpClient\Plugin\AddPathPlugin;
-use Apigee\Edge\HttpClient\Plugin\Authentication\Oauth;
+use Apigee\Edge\HttpClient\Plugin\Authentication\AbstractOauth;
 use Apigee\Edge\HttpClient\Plugin\ResponseHandlerPlugin;
 use Apigee\Edge\HttpClient\Plugin\RetryOauthAuthenticationPlugin;
 use Apigee\Edge\HttpClient\Utility\Builder;
@@ -333,7 +333,7 @@ class Client implements ClientInterface
             $middlePlugins[] = new RetryPlugin($this->retryPluginConfig);
         }
 
-        if ($this->authentication instanceof Oauth) {
+        if ($this->authentication instanceof AbstractOauth) {
             $middlePlugins[] = new RetryOauthAuthenticationPlugin($this->authentication);
         }
 
