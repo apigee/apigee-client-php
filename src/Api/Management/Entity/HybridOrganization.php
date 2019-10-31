@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright 2018 Google LLC
+ * Copyright 2019 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,22 +16,11 @@
  * limitations under the License.
  */
 
-namespace Apigee\Edge\Api\Management\Serializer;
+namespace Apigee\Edge\Api\Management\Entity;
 
-use Apigee\Edge\Api\Management\Denormalizer\OrganizationDenormalizer;
-
-class OrganizationSerializer extends PropertiesPropertyAwareEntitySerializer
+/**
+ * Class HybridOrganization.
+ */
+class HybridOrganization extends Organization implements HybridOrganizationInterface
 {
-    /**
-     * OrganizationSerializer constructor.
-     *
-     * @param array $normalizers
-     */
-    public function __construct($normalizers = [])
-    {
-        $normalizers = array_merge($normalizers, [
-            new OrganizationDenormalizer(),
-        ]);
-        parent::__construct($normalizers);
-    }
 }

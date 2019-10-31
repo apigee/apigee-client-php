@@ -18,7 +18,7 @@
 
 namespace Apigee\Edge\Api\Management\Controller;
 
-use Apigee\Edge\Api\Management\Entity\Organization;
+use Apigee\Edge\Api\Management\Entity\OrganizationInterface;
 use Apigee\Edge\Api\Management\Serializer\OrganizationSerializer;
 use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Controller\AbstractEntityController;
@@ -64,6 +64,8 @@ class OrganizationController extends AbstractEntityController implements Organiz
      */
     protected function getEntityClass(): string
     {
-        return Organization::class;
+        // It could be either a organization - or a hybrid organization. The OrganizationDenormalizer can automatically
+        // decide which one should be used.
+        return OrganizationInterface::class;
     }
 }
