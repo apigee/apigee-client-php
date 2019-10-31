@@ -22,6 +22,7 @@ use Apigee\Edge\Client;
 use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Exception\HybridOauth2AuthenticationException;
 use Apigee\Edge\Exception\OauthRefreshTokenExpiredException;
+use DomainException;
 use Firebase\JWT\JWT;
 use Http\Client\Exception;
 
@@ -113,7 +114,13 @@ class HybridOauth2 extends AbstractOauth
             'exp' => $now + (60 * 60),
         ];
 
-        $jwt = JWT::encode($token, $this->privateKey, 'RS256');
+        try {
+            $jwt = JWT::encode($token, $this->privateKey, 'RS256');
+        }
+        catch (DomainException $e) {
+            throw new HybridOauth2AuthenticationException($e->getMessage(), $e->getCode(), $e);
+        }
+
         $body = [
             'grant_type' => self::GRANT_TYPE,
             'assertion' => $jwt,
