@@ -49,14 +49,14 @@ abstract class AbstractOauth implements Authentication
     /**
      * Constructor.
      *
-     * @param \Apigee\Edge\HttpClient\Plugin\Authentication\OauthTokenStorageInterface $token_storage
+     * @param \Apigee\Edge\HttpClient\Plugin\Authentication\OauthTokenStorageInterface $tokenStorage
      *   Storage where access token gets saved.
      * @param string $authServer
      *   Authentication server.
      */
-    public function __construct(OauthTokenStorageInterface $token_storage, string $authServer)
+    public function __construct(OauthTokenStorageInterface $tokenStorage, string $authServer)
     {
-        $this->tokenStorage = $token_storage;
+        $this->tokenStorage = $tokenStorage;
         $this->authServer = $authServer;
     }
 

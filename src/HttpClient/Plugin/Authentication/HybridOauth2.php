@@ -75,16 +75,16 @@ class HybridOauth2 extends AbstractOauth
      *   The service account email.
      * @param string $privateKey
      *   The service account private key.
-     * @param \Apigee\Edge\HttpClient\Plugin\Authentication\OauthTokenStorageInterface $token_storage
+     * @param \Apigee\Edge\HttpClient\Plugin\Authentication\OauthTokenStorageInterface $tokenStorage
      *   Storage where access token gets saved.
      * @param string|null $authServer
      *   Authentication server.
      */
-    public function __construct(string $email, string $privateKey, OauthTokenStorageInterface $token_storage, ?string $authServer = null)
+    public function __construct(string $email, string $privateKey, OauthTokenStorageInterface $tokenStorage, ?string $authServer = null)
     {
         $this->email = $email;
         $this->privateKey = $privateKey;
-        parent::__construct($token_storage, $authServer ?: self::DEFAULT_AUTHORIZATION_SERVER);
+        parent::__construct($tokenStorage, $authServer ?: self::DEFAULT_AUTHORIZATION_SERVER);
     }
 
     /**
@@ -120,8 +120,8 @@ class HybridOauth2 extends AbstractOauth
 
         try {
             $response = $this->authClient()->post('', http_build_query($body), ['Content-Type' => 'application/x-www-form-urlencoded']);
-            $decoded_response = json_decode((string) $response->getBody(), true);
-            $this->tokenStorage->saveToken($decoded_response);
+            $decodedResponse = json_decode((string) $response->getBody(), true);
+            $this->tokenStorage->saveToken($decodedResponse);
         } catch (Exception $e) {
             throw new HybridOauth2AuthenticationException($e->getMessage(), $e->getCode(), $e);
         }

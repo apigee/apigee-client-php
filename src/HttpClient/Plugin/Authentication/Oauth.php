@@ -75,28 +75,28 @@ class Oauth extends AbstractOauth
      *   Apigee Edge username (email).
      * @param string $password
      *   Apigee Edge password.
-     * @param \Apigee\Edge\HttpClient\Plugin\Authentication\OauthTokenStorageInterface $token_storage
+     * @param \Apigee\Edge\HttpClient\Plugin\Authentication\OauthTokenStorageInterface $tokenStorage
      *   Storage where access token gets saved.
-     * @param string|null $mfa_token
+     * @param string|null $mfaToken
      *   One-time multi-factor authentication code.
-     * @param string|null $client_id
+     * @param string|null $clientId
      *   Client id.
-     * @param string|null $client_secret
+     * @param string|null $clientSecret
      *   Client secret.
      * @param string|null $scope
      *   Oauth scope.
      * @param string|null $authServer
      *   Authentication server.
      */
-    public function __construct(string $username, string $password, OauthTokenStorageInterface $token_storage, ?string $mfa_token = null, ?string $client_id = null, ?string $client_secret = null, ?string $scope = null, ?string $authServer = null)
+    public function __construct(string $username, string $password, OauthTokenStorageInterface $tokenStorage, ?string $mfaToken = null, ?string $clientId = null, ?string $clientSecret = null, ?string $scope = null, ?string $authServer = null)
     {
         $this->username = $username;
         $this->password = $password;
-        $this->mfaToken = $mfa_token;
-        $this->clientId = $client_id ?: self::DEFAULT_CLIENT_ID;
-        $this->clientSecret = $client_secret ?: self::DEFAULT_CLIENT_SECRET;
+        $this->mfaToken = $mfaToken;
+        $this->clientId = $clientId ?: self::DEFAULT_CLIENT_ID;
+        $this->clientSecret = $clientSecret ?: self::DEFAULT_CLIENT_SECRET;
         $this->scope = $scope;
-        parent::__construct($token_storage, $authServer ?: self::DEFAULT_AUTHORIZATION_SERVER);
+        parent::__construct($tokenStorage, $authServer ?: self::DEFAULT_AUTHORIZATION_SERVER);
     }
 
     /**

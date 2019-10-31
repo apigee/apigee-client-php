@@ -21,6 +21,7 @@ namespace Apigee\Edge\Tests\Test\HttpClient\Plugin;
 use Apigee\Edge\Client;
 use Apigee\Edge\ClientInterface;
 use Apigee\Edge\HttpClient\Plugin\Authentication\Oauth;
+use Apigee\Edge\HttpClient\Plugin\Authentication\OauthTokenStorageInterface;
 use Apigee\Edge\HttpClient\Utility\Builder;
 use Apigee\Edge\HttpClient\Utility\JournalInterface;
 use Apigee\Edge\Tests\Test\HttpClient\MockHttpClient;
@@ -46,16 +47,16 @@ class MockOauth extends Oauth
     public function __construct(
         string $username,
         string $password,
-        \Apigee\Edge\HttpClient\Plugin\Authentication\OauthTokenStorageInterface $token_storage,
+        OauthTokenStorageInterface $tokenStorage,
         HttpClient $httpClient = null,
         JournalInterface $journal = null,
         ?string $mfaToken = null,
-        ?string $client_id = null,
-        ?string $client_secret = null,
+        ?string $clientId = null,
+        ?string $clientSecret = null,
         ?string $scope = null,
         ?string $authServer = null
     ) {
-        parent::__construct($username, $password, $token_storage, $mfaToken, $client_id, $client_secret, $scope, $authServer);
+        parent::__construct($username, $password, $tokenStorage, $mfaToken, $clientId, $clientSecret, $scope, $authServer);
         $this->journal = $journal ?: new TestJournal();
         $this->httpClient = $httpClient ?: new MockHttpClient();
     }

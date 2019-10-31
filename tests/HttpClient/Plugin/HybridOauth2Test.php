@@ -49,7 +49,7 @@ class HybridOauth2Test extends TestCase
     private $client;
 
     /** @var \Apigee\Edge\HttpClient\Plugin\Authentication\OauthTokenStorageInterface */
-    private $token_storage;
+    private $tokenStorage;
 
     /**
      * @inheritdoc
@@ -68,7 +68,7 @@ class HybridOauth2Test extends TestCase
     {
         parent::setUp();
 
-        $this->token_storage = new InMemoryOauthTokenStorage();
+        $this->tokenStorage = new InMemoryOauthTokenStorage();
         $this->journal = new TestJournal();
         $this->client = $this->buildClient();
     }
@@ -115,7 +115,7 @@ class HybridOauth2Test extends TestCase
         $this->client->get('');
 
         // Mark token as expired so the following API call requests a new token.
-        $this->token_storage->markExpired();
+        $this->tokenStorage->markExpired();
         $this->client->get('');
 
         /** @var \Psr\Http\Message\RequestInterface[] $requests */
@@ -161,7 +161,7 @@ class HybridOauth2Test extends TestCase
         $options = array_merge([Client::CONFIG_HTTP_CLIENT_BUILDER => new Builder(static::$httpClient), Client::CONFIG_JOURNAL => $this->journal], $options);
         $email = 'test@example.com';
         // Fake private key.
-        $private_key = '-----BEGIN RSA PRIVATE KEY-----
+        $privateKey = '-----BEGIN RSA PRIVATE KEY-----
 MIIEogIBAAKCAQEAopybn3R6gbx/iKdpy8XG4ZBCCM+1J33/qg0j0zSUTztJtaJn
 OE5CjyiKZPW2r8vNFzqEh77WxbaiZFOfJxGrOlOgAFLMBRX+4nZaxpUphycpL8bs
 UZWTbf7NPDIKWC8KUWegdtNU9rLMnyLc/UFmosgZ/ejNLiLKjW7eod8PoGdJHPBW
@@ -190,7 +190,7 @@ ol+LjqszLKpNmRhBvWcve/wbsMRWjdIk9ISmX5hCxQjpDobR52o=
 -----END RSA PRIVATE KEY-----';
 
         return new Client(
-            new MockHybridOauth2($email, $private_key, $this->token_storage, static::$httpClient, $this->journal),
+            new MockHybridOauth2($email, $privateKey, $this->tokenStorage, static::$httpClient, $this->journal),
             self::API_ENDPOINT,
             $options
         );

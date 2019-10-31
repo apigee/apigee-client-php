@@ -22,6 +22,7 @@ use Apigee\Edge\Client;
 use Apigee\Edge\ClientInterface;
 use Apigee\Edge\HttpClient\Plugin\Authentication\HybridOauth2;
 use Apigee\Edge\HttpClient\Plugin\Authentication\NullAuthentication;
+use Apigee\Edge\HttpClient\Plugin\Authentication\OauthTokenStorageInterface;
 use Apigee\Edge\HttpClient\Utility\Builder;
 use Apigee\Edge\HttpClient\Utility\JournalInterface;
 use Apigee\Edge\Tests\Test\HttpClient\MockHttpClient;
@@ -46,12 +47,12 @@ class MockHybridOauth2 extends HybridOauth2
     public function __construct(
         string $email,
         string $privateKey,
-        \Apigee\Edge\HttpClient\Plugin\Authentication\OauthTokenStorageInterface $token_storage,
+        OauthTokenStorageInterface $tokenStorage,
         HttpClient $httpClient = null,
         JournalInterface $journal = null,
         ?string $authServer = null
     ) {
-        parent::__construct($email, $privateKey, $token_storage, $authServer);
+        parent::__construct($email, $privateKey, $tokenStorage, $authServer);
         $this->journal = $journal ?: new TestJournal();
         $this->httpClient = $httpClient ?: new MockHttpClient();
     }
