@@ -19,7 +19,7 @@
 namespace Apigee\Edge\Tests\Test;
 
 use Apigee\Edge\Client;
-use Apigee\Edge\Tests\Test\HttpClient\Plugin\NullAuthentication;
+use Apigee\Edge\HttpClient\Plugin\Authentication\NullAuthentication;
 
 abstract class OfflineClientBase extends Client implements OfflineClientInterface
 {

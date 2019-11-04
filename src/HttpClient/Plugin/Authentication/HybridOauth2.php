@@ -116,8 +116,7 @@ class HybridOauth2 extends AbstractOauth
 
         try {
             $jwt = JWT::encode($token, $this->privateKey, 'RS256');
-        }
-        catch (DomainException $e) {
+        } catch (DomainException $e) {
             throw new HybridOauth2AuthenticationException($e->getMessage(), $e->getCode(), $e);
         }
 

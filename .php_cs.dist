@@ -30,7 +30,6 @@ return PhpCsFixer\Config::create()
         'array_syntax' => ['syntax' => 'short'],
         'class_definition' => ['singleLine' => false, 'singleItemSingleLine' => true],
         'concat_space' => ['spacing' => 'one'],
-        // 'header_comment' => ['header' => $header],
         'general_phpdoc_annotation_remove' => ['author'],
         'ordered_class_elements' => true,
         'ordered_imports' => true,

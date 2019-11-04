@@ -91,6 +91,16 @@ abstract class AbstractOauth implements Authentication
     }
 
     /**
+     * Gets the authentication server.
+     *
+     * @return string
+     */
+    protected function getAuthServer(): string
+    {
+        return $this->authServer;
+    }
+
+    /**
      * Returns a pre-configured client for authorization API calls.
      *
      * @return \Apigee\Edge\ClientInterface
