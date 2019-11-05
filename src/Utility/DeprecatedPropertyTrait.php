@@ -34,10 +34,12 @@ namespace Apigee\Edge\Utility;
 trait DeprecatedPropertyTrait
 {
     /**
-     * Allows access deprecated/removed properties.
+     * Allows access to deprecated/removed properties.
      */
     public function __get($name)
     {
+        $removedBeforeVersion = '3.0.0';
+
         if (!isset($this->deprecatedProperties)) {
             throw new \LogicException('The deprecatedProperties property must be defined to use this trait.');
         }
@@ -45,11 +47,16 @@ trait DeprecatedPropertyTrait
         if (isset($this->deprecatedProperties[$name])) {
             $replacement = $this->deprecatedProperties[$name];
             $className = static::class;
-            @trigger_error("The property $name is deprecated in $className and will be removed before 3.0.0.", E_USER_DEPRECATED);
 
-            if (empty($replacement)) {
-                throw new \LogicException("The property $name is deprecated in $className and no replacement has been defined.");
+            if (empty($replacement) || !property_exists($className, $replacement)) {
+                // The property has no replacement (it does not exist anymore) or has an invalid/missing replacement.
+                $message = "The property $name is deprecated in $className and no replacement has been defined.";
+                @trigger_error($message, E_USER_DEPRECATED);
+                throw new \LogicException($message);
             }
+
+            // If the property does have a replacement.
+            @trigger_error("The property $name is deprecated in $className and will be removed before $removedBeforeVersion", E_USER_DEPRECATED);
 
             return $this->{$replacement};
         }
