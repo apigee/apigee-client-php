@@ -19,27 +19,27 @@
 namespace Apigee\Edge\Tests\Utility;
 
 use Apigee\Edge\Api\Management\Entity\OrganizationInterface;
-use Apigee\Edge\Utility\OrganisationFeatures;
+use Apigee\Edge\Utility\OrganizationFeatures;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class OrganisationFeaturesTest.
+ * Class OrganizationFeaturesTest.
  *
  * @small
  */
-class OrganisationFeaturesTest extends TestCase
+class OrganizationFeaturesTest extends TestCase
 {
     /**
      * @dataProvider featurePropertyValueProvider
      */
-    public function testOrganisationFeatures(?string $propertyValue, bool $expectedResult): void
+    public function testOrganizationFeatures(?string $propertyValue, bool $expectedResult): void
     {
-        /** @var \Apigee\Edge\Api\Management\Entity\OrganizationInterface $organisation */
-        $organisation = $this->getMockBuilder(OrganizationInterface::class)->getMock();
-        $organisation->method('getPropertyValue')->willReturn($propertyValue);
-        $this->assertEquals($expectedResult, OrganisationFeatures::isCpsEnabled($organisation));
-        $this->assertEquals($expectedResult, OrganisationFeatures::isHybridEnabled($organisation));
-        $this->assertEquals($expectedResult, OrganisationFeatures::isMonetizationEnabled($organisation));
+        /** @var \Apigee\Edge\Api\Management\Entity\OrganizationInterface $organization */
+        $organization = $this->getMockBuilder(OrganizationInterface::class)->getMock();
+        $organization->method('getPropertyValue')->willReturn($propertyValue);
+        $this->assertEquals($expectedResult, OrganizationFeatures::isCpsEnabled($organization));
+        $this->assertEquals($expectedResult, OrganizationFeatures::isHybridEnabled($organization));
+        $this->assertEquals($expectedResult, OrganizationFeatures::isMonetizationEnabled($organization));
     }
 
     public function featurePropertyValueProvider(): array

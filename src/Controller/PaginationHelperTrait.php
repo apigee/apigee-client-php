@@ -20,7 +20,7 @@ namespace Apigee\Edge\Controller;
 
 use Apigee\Edge\Exception\RuntimeException;
 use Apigee\Edge\Structure\PagerInterface;
-use Apigee\Edge\Utility\OrganisationFeatures;
+use Apigee\Edge\Utility\OrganizationFeatures;
 use Psr\Http\Message\ResponseInterface;
 
 /**
@@ -108,7 +108,7 @@ trait PaginationHelperTrait
         /** @var \Apigee\Edge\Api\Management\Entity\OrganizationInterface $organization */
         $organization = $this->getOrganizationController()->load($this->getOrganisationName());
 
-        if (OrganisationFeatures::isCpsEnabled($organization)) {
+        if (OrganizationFeatures::isCpsEnabled($organization)) {
             return $this->listEntitiesWithCps($pager, $query_params, $key_provider);
         } else {
             $this->triggerCpsSimulationNotice($pager);
@@ -133,7 +133,7 @@ trait PaginationHelperTrait
         /** @var \Apigee\Edge\Api\Management\Entity\OrganizationInterface $organization */
         $organization = $this->getOrganizationController()->load($this->getOrganisationName());
 
-        if (OrganisationFeatures::isCpsEnabled($organization)) {
+        if (OrganizationFeatures::isCpsEnabled($organization)) {
             return $this->listEntityIdsWithCps($pager, $query_params);
         } else {
             $this->triggerCpsSimulationNotice($pager);

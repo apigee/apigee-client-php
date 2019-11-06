@@ -20,10 +20,10 @@ namespace Apigee\Edge\Utility;
 
 use Apigee\Edge\Api\Management\Entity\OrganizationInterface;
 
-final class OrganisationFeatures
+final class OrganizationFeatures
 {
     /**
-     * Checks whether CPS feature is enabled on an organisation.
+     * Checks whether CPS feature is enabled on an organization.
      *
      * @param \Apigee\Edge\Api\Management\Entity\OrganizationInterface $org
      *
@@ -35,7 +35,7 @@ final class OrganisationFeatures
     }
 
     /**
-     * Checks whether hybrid feature is enabled on an organisation.
+     * Checks whether hybrid feature is enabled on an organization.
      *
      * @param \Apigee\Edge\Api\Management\Entity\OrganizationInterface $org
      *
@@ -47,7 +47,7 @@ final class OrganisationFeatures
     }
 
     /**
-     * Checks whether monetization feature is enabled on an organisation.
+     * Checks whether monetization feature is enabled on an organization.
      *
      * @param \Apigee\Edge\Api\Management\Entity\OrganizationInterface $org
      *
@@ -59,12 +59,12 @@ final class OrganisationFeatures
     }
 
     /**
-     * Checks whether a feature is enabled on an organisation.
+     * Checks whether a feature is enabled on an organization.
      *
      * @param string $feature
      *   Name of a "feature' property.
      * @param \Apigee\Edge\Api\Management\Entity\OrganizationInterface $org
-     *   The organisation to be checked.
+     *   The organization to be checked.
      *
      * @return bool
      *   TRUE if the value of the property is "true", false otherwise.
