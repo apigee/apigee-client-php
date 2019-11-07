@@ -18,6 +18,7 @@
 
 namespace Apigee\Edge\Controller;
 
+use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Exception\RuntimeException;
 use Apigee\Edge\Structure\PagerInterface;
 use Apigee\Edge\Utility\OrganizationFeatures;
@@ -145,7 +146,7 @@ trait PaginationHelperTrait
     /**
      * @inheritdoc
      */
-    abstract protected function responseToArray(ResponseInterface $response): array;
+    abstract protected function responseToArray(ResponseInterface $response, bool $expandCompatibility = false): array;
 
     /**
      * @inheritdoc
@@ -260,11 +261,16 @@ trait PaginationHelperTrait
      *   CPS limit object with configured startKey and limit.
      * @param array $query_params
      *   Query parameters for the API call.
+     * @param bool $expandCompatability
+     *   If the API response requires backwards compatibility with the way Edge
+     *   formats it's responses.
+     *
+     * @see \Apigee\Edge\Utility\ResponseToArrayHelper::responseToArray()
      *
      * @return array
      *   API response parsed as an array.
      */
-    private function getResultsInRange(PagerInterface $pager, array $query_params): array
+    private function getResultsInRange(PagerInterface $pager, array $query_params, bool $expandCompatibility = false): array
     {
         $query_params['startKey'] = $pager->getStartKey();
         // Do not add 0 unnecessarily to the query parameters.
@@ -274,7 +280,7 @@ trait PaginationHelperTrait
         $uri = $this->getBaseEndpointUri()->withQuery(http_build_query($query_params));
         $response = $this->getClient()->get($uri);
 
-        return $this->responseToArray($response);
+        return $this->responseToArray($response, $expandCompatibility);
     }
 
     /**
@@ -312,16 +318,17 @@ trait PaginationHelperTrait
         $query_params = [
                 'expand' => 'false',
             ] + $query_params;
+        $expandCompatibility = (ClientInterface::HYBRID_ENDPOINT == $this->getClient()->getEndpoint());
         if ($pager) {
-            return $this->getResultsInRange($pager, $query_params);
+            return $this->getResultsInRange($pager, $query_params, $expandCompatibility);
         } else {
-            $ids = $this->getResultsInRange($this->createPager(), $query_params);
+            $ids = $this->getResultsInRange($this->createPager(), $query_params, $expandCompatibility);
             if (empty($ids)) {
                 return [];
             }
             $lastId = end($ids);
             do {
-                $tmp = $this->getResultsInRange($this->createPager(0, $lastId), $query_params);
+                $tmp = $this->getResultsInRange($this->createPager(0, $lastId), $query_params, $expandCompatibility);
                 // Remove the first item from the list because it is the same
                 // as the current last item of $ids.
                 // Apigee Edge response always starts with the requested entity
@@ -359,8 +366,9 @@ trait PaginationHelperTrait
 
         $uri = $this->getBaseEndpointUri()->withQuery(http_build_query($query_params));
         $response = $this->getClient()->get($uri);
+        $expandCompatibility = (ClientInterface::HYBRID_ENDPOINT == $this->getClient()->getEndpoint());
 
-        $ids = $this->responseToArray($response);
+        $ids = $this->responseToArray($response, $expandCompatibility);
 
         // Re-key the array from 0 if CPS had to be simulated.
         return $pager ? array_values($this->simulateCpsPagination($pager, $ids)) : $ids;

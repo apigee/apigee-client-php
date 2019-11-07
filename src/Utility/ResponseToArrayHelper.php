@@ -34,18 +34,36 @@ trait ResponseToArrayHelper
      * The SDK only works with JSON responses, but let's be prepared for the unexpected.
      *
      * @param \Psr\Http\Message\ResponseInterface $response
+     * @param bool $expandCompatability
+     *   If the API response requires backwards compatibility with the way Edge
+     *   formats it's responses.
+     *
+     * @see For reference on $expandCompatability, see the structure of
+     *   expand=false query parameter on the Hybrid documentation:
+     *   https://docs.apigee.com/hybrid/beta2/reference/apis/unsupported-apis
      *
      * @throws \RuntimeException If response can not be decoded, because the input format is unknown.
      * @throws \Apigee\Edge\Exception\InvalidJsonException If there was an error with decoding a JSON response.
      *
      * @return array
      */
-    protected function responseToArray(ResponseInterface $response): array
+    protected function responseToArray(ResponseInterface $response, bool $expandCompatibility = false): array
     {
         if ($response->getHeaderLine('Content-Type') &&
             0 === strpos($response->getHeaderLine('Content-Type'), 'application/json')) {
             try {
-                return (array) $this->jsonDecoder()->decode((string) $response->getBody(), 'json');
+                $decoded = (array) $this->jsonDecoder()->decode((string) $response->getBody(), 'json');
+
+                if ($expandCompatibility) {
+                    $root = reset($decoded);
+                    $decoded = [];
+                    foreach ($root as $item) {
+                        $item = (array) $item;
+                        $decoded[] = reset($item);
+                    }
+                }
+
+                return $decoded;
             } catch (\UnexpectedValueException $e) {
                 throw new InvalidJsonException(
                     $e->getMessage(),

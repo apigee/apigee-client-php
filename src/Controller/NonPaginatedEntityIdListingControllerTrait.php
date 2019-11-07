@@ -18,6 +18,7 @@
 
 namespace Apigee\Edge\Controller;
 
+use Apigee\Edge\ClientInterface;
 use Psr\Http\Message\ResponseInterface;
 
 /**
@@ -40,8 +41,9 @@ trait NonPaginatedEntityIdListingControllerTrait
         ];
         $uri = $this->getBaseEndpointUri()->withQuery(http_build_query($query_params));
         $response = $this->getClient()->get($uri);
+        $expandCompatibility = (ClientInterface::HYBRID_ENDPOINT == $this->getClient()->getEndpoint());
 
-        return $this->responseToArray($response);
+        return $this->responseToArray($response, $expandCompatibility);
     }
 
     /**
