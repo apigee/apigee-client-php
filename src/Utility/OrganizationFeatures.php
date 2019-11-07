@@ -35,6 +35,18 @@ final class OrganizationFeatures
     }
 
     /**
+     * Checks whether pagination is enabled on an organization.
+     *
+     * @param \Apigee\Edge\Api\Management\Entity\OrganizationInterface $org
+     *
+     * @return bool
+     */
+    public static function isPaginationEnabled(OrganizationInterface $org): bool
+    {
+        return static::isCpsEnabled($org) || static::isHybridEnabled($org);
+    }
+
+    /**
      * Checks whether hybrid feature is enabled on an organization.
      *
      * @param \Apigee\Edge\Api\Management\Entity\OrganizationInterface $org

@@ -30,6 +30,8 @@ use PHPUnit\Framework\TestCase;
 class OrganizationFeaturesTest extends TestCase
 {
     /**
+     * Tests simple properties on the organization.
+     *
      * @dataProvider featurePropertyValueProvider
      */
     public function testOrganizationFeatures(?string $propertyValue, bool $expectedResult): void
@@ -40,6 +42,34 @@ class OrganizationFeaturesTest extends TestCase
         $this->assertEquals($expectedResult, OrganizationFeatures::isCpsEnabled($organization));
         $this->assertEquals($expectedResult, OrganizationFeatures::isHybridEnabled($organization));
         $this->assertEquals($expectedResult, OrganizationFeatures::isMonetizationEnabled($organization));
+    }
+
+    /**
+     * Test if an organization has pagination enabled.
+     */
+    public function testPaginationEnabled(): void
+    {
+        /** @var \Apigee\Edge\Api\Management\Entity\OrganizationInterface $organization */
+        $organization = $this->getMockBuilder(OrganizationInterface::class)->getMock();
+        $organization->method('getPropertyValue')->will($this->returnValueMap([
+            ['features.isCpsEnabled', null],
+            ['features.hybrid.enabled', 'true'],
+        ]));
+        $this->assertTrue(OrganizationFeatures::isPaginationEnabled($organization));
+
+        $organization = $this->getMockBuilder(OrganizationInterface::class)->getMock();
+        $organization->method('getPropertyValue')->will($this->returnValueMap([
+            ['features.isCpsEnabled', 'true'],
+            ['features.hybrid.enabled', null],
+        ]));
+        $this->assertTrue(OrganizationFeatures::isPaginationEnabled($organization));
+
+        $organization = $this->getMockBuilder(OrganizationInterface::class)->getMock();
+        $organization->method('getPropertyValue')->will($this->returnValueMap([
+            ['features.isCpsEnabled', 'false'],
+            ['features.hybrid.enabled', null],
+        ]));
+        $this->assertFalse(OrganizationFeatures::isPaginationEnabled($organization));
     }
 
     public function featurePropertyValueProvider(): array

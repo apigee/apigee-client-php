@@ -108,7 +108,7 @@ trait PaginationHelperTrait
         /** @var \Apigee\Edge\Api\Management\Entity\OrganizationInterface $organization */
         $organization = $this->getOrganizationController()->load($this->getOrganisationName());
 
-        if (OrganizationFeatures::isCpsEnabled($organization)) {
+        if (OrganizationFeatures::isPaginationEnabled($organization)) {
             return $this->listEntitiesWithCps($pager, $query_params, $key_provider);
         } else {
             $this->triggerCpsSimulationNotice($pager);
