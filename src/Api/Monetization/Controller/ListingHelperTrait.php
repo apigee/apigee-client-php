@@ -49,7 +49,7 @@ trait ListingHelperTrait
         return reset($responseArray);
     }
 
-    abstract protected function responseToArray(ResponseInterface $response): array;
+    abstract protected function responseToArray(ResponseInterface $response, bool $expandCompatibility = false): array;
 
     abstract protected function responseArrayToArrayOfEntities(array $responseArray, string $keyGetter = 'id'): array;
 }
