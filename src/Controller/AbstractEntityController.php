@@ -58,7 +58,8 @@ abstract class AbstractEntityController extends AbstractController
      */
     protected function getEntityEndpointUri(string $entityId): UriInterface
     {
-        return $this->getBaseEndpointUri()->withPath("{$this->getBaseEndpointUri()}/{$entityId}");
+        $encoded = urlencode($entityId);
+        return $this->getBaseEndpointUri()->withPath("{$this->getBaseEndpointUri()}/{$encoded}");
     }
 
     /**
