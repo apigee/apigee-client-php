@@ -48,6 +48,6 @@ class DeveloperReportDefinitionControllerTest extends ReportDefinitionController
      */
     protected function expectedFilteredReportDefinitionUrl(): string
     {
-        return sprintf('/v1/mint/organizations/%s/developers/%s/report-definitions', static::defaultTestOrganization(static::mockApiClient()), static::TEST_DEVELOPER_ID);
+        return sprintf('/v1/mint/organizations/%s/developers/%s/report-definitions', static::defaultTestOrganization(static::mockApiClient()), rawurlencode(static::TEST_DEVELOPER_ID));
     }
 }

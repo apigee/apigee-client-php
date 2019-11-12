@@ -77,6 +77,7 @@ class ApiProductController extends OrganizationAwareEntityController implements 
      */
     private function getEligibleProducts(string $type, string $entityId): array
     {
+        $entityId = rawurlencode($entityId);
         $products = [];
         foreach ($this->getRawList($this->client->getUriFactory()->createUri("/mint/organizations/{$this->organization}/{$type}/{$entityId}/eligible-products")) as $item) {
             /** @var \Apigee\Edge\Api\Monetization\Entity\ApiProductInterface $product */
