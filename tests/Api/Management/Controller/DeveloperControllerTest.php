@@ -22,7 +22,9 @@ use Apigee\Edge\Api\Management\Entity\Developer;
 use Apigee\Edge\Api\Management\Entity\DeveloperInterface;
 use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Entity\EntityInterface;
+use Apigee\Edge\Structure\AttributesProperty;
 use Apigee\Edge\Tests\Api\Management\Entity\DeveloperTestEntityProviderTrait;
+use Apigee\Edge\Tests\Api\Management\Entity\ParameterUrlEncodingTestTrait;
 use Apigee\Edge\Tests\Test\Controller\DefaultAPIClientAwareTrait;
 use Apigee\Edge\Tests\Test\Controller\EntityControllerTesterInterface;
 use Apigee\Edge\Tests\Test\Controller\EntityCreateOperationControllerTester;
@@ -49,6 +51,7 @@ class DeveloperControllerTest extends EntityControllerTestBase
     use DefaultAPIClientAwareTrait;
     use MarkOnlineTestSkippedAwareTrait;
     use MockClientAwareTrait;
+    use ParameterUrlEncodingTestTrait;
     // The order of these trait matters. Check @depends in test methods.
     use EntityCreateOperationControllerTestTrait;
     use EntityLoadOperationControllerTestTrait;
@@ -120,6 +123,21 @@ class DeveloperControllerTest extends EntityControllerTestBase
         // Empty response should trigger an exception.
         $httpClient->addResponse(new Response(200, ['Content-Type' => 'application/json'], json_encode(['developer' => []])));
         $controller->getDeveloperByApp('app1');
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected static function getEntityToTestUrlEncoding(): EntityInterface
+    {
+        // Use a developer email that makes use of URL encoding to test that CRUD works with encoding.
+        return new Developer([
+            'email' => 'php+unit+test@example.com',
+            'firstName' => static::randomGenerator()->displayName(),
+            'lastName' => static::randomGenerator()->displayName(),
+            'userName' => static::randomGenerator()->machineName(),
+            'attributes' => new AttributesProperty([static::randomGenerator()->machineName() => static::randomGenerator()->machineName()]),
+        ]);
     }
 
     /**

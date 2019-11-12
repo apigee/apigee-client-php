@@ -18,9 +18,13 @@
 
 namespace Apigee\Edge\Tests\Api\Management\Controller;
 
+use Apigee\Edge\Api\Management\Entity\ApiProduct;
+use Apigee\Edge\Api\Management\Entity\ApiProductInterface;
 use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Entity\EntityInterface;
+use Apigee\Edge\Structure\AttributesProperty;
 use Apigee\Edge\Tests\Api\Management\Entity\ApiProductTestEntityProviderTrait;
+use Apigee\Edge\Tests\Api\Management\Entity\ParameterUrlEncodingTestTrait;
 use Apigee\Edge\Tests\Test\Controller\DefaultAPIClientAwareTrait;
 use Apigee\Edge\Tests\Test\Controller\EntityControllerTesterInterface;
 use Apigee\Edge\Tests\Test\Controller\EntityCreateOperationControllerTester;
@@ -42,6 +46,7 @@ class ApiProductControllerTest extends EntityControllerTestBase
     use ApiProductControllerAwareTestTrait;
     use ApiProductTestEntityProviderTrait;
     use DefaultAPIClientAwareTrait;
+    use ParameterUrlEncodingTestTrait;
     // The order of these trait matters. Check @depends in test methods.
     use EntityCreateOperationControllerTestTrait;
     use EntityLoadOperationControllerTestTrait;
@@ -111,5 +116,23 @@ class ApiProductControllerTest extends EntityControllerTestBase
     protected static function entityCreateOperationTestController(): EntityCreateOperationTestControllerTesterInterface
     {
         return new EntityCreateOperationControllerTester(static::entityController());
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected static function getEntityToTestUrlEncoding(): EntityInterface
+    {
+        // Use a name that makes use of URL encoding to test that CRUD works with encoding (a space in this case).
+        return new ApiProduct([
+            'name' => static::randomGenerator()->machineName() . ' ' . static::randomGenerator()->machineName(),
+            'displayName' => static::randomGenerator()->displayName(),
+            'approvalType' => ApiProductInterface::APPROVAL_TYPE_AUTO,
+            'attributes' => new AttributesProperty(['foo' => 'bar']),
+            'scopes' => ['scope 1', 'scope 2'],
+            'quota' => static::randomGenerator()->number(),
+            'quotaInterval' => static::randomGenerator()->number(),
+            'quotaTimeUnit' => ApiProductInterface::QUOTA_INTERVAL_MINUTE,
+        ]);
     }
 }
