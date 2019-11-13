@@ -41,7 +41,7 @@ final class OrganizationFeatures
      *
      * @return bool
      */
-    public static function isPaginationEnabled(OrganizationInterface $org): bool
+    public static function isPaginationAvailable(OrganizationInterface $org): bool
     {
         return static::isCpsEnabled($org) || static::isHybridEnabled($org);
     }
