@@ -55,12 +55,7 @@ trait ResponseToArrayHelper
                 $decoded = (array) $this->jsonDecoder()->decode((string) $response->getBody(), 'json');
 
                 if ($expandCompatibility) {
-                    $root = reset($decoded);
-                    $decoded = [];
-                    foreach ($root as $item) {
-                        $item = (array) $item;
-                        $decoded[] = reset($item);
-                    }
+                    $decoded = $this->normalizeExpandFalseForHybrid($decoded);
                 }
 
                 return $decoded;
@@ -77,5 +72,29 @@ trait ResponseToArrayHelper
             $this->getClient()->getJournal()->getLastRequest(),
             sprintf('Unable to parse response with %s type. Response body: %s', $response->getHeaderLine('Content-Type') ?: 'unknown', (string) $response->getBody())
         );
+    }
+
+    /**
+     * Helper method to normalize a Hybrid response.
+     *
+     * @see ResponseToArrayHelper::responseToArray()
+     *
+     * @param array $responseArray
+     *   The decoded response array.
+     *
+     * @return array
+     *   The response array normalized.
+     */
+    protected function normalizeExpandFalseForHybrid(array $responseArray): array
+    {
+        // Ignore entity type key from response, ex.: apiProduct.
+        $responseArray = reset($responseArray);
+
+        // Return an array with the value of the first property of each item.
+        return array_map(function ($item) {
+            $item = (array) $item;
+
+            return reset($item);
+        }, $responseArray);
     }
 }

@@ -41,7 +41,7 @@ trait NonPaginatedEntityIdListingControllerTrait
         ];
         $uri = $this->getBaseEndpointUri()->withQuery(http_build_query($query_params));
         $response = $this->getClient()->get($uri);
-        $expandCompatibility = (ClientInterface::HYBRID_ENDPOINT == $this->getClient()->getEndpoint());
+        $expandCompatibility = (ClientInterface::HYBRID_ENDPOINT === $this->getClient()->getEndpoint());
 
         return $this->responseToArray($response, $expandCompatibility);
     }

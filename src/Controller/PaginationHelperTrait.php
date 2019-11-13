@@ -318,7 +318,7 @@ trait PaginationHelperTrait
         $query_params = [
                 'expand' => 'false',
             ] + $query_params;
-        $expandCompatibility = (ClientInterface::HYBRID_ENDPOINT == $this->getClient()->getEndpoint());
+        $expandCompatibility = (ClientInterface::HYBRID_ENDPOINT === $this->getClient()->getEndpoint());
         if ($pager) {
             return $this->getResultsInRange($pager, $query_params, $expandCompatibility);
         } else {
@@ -366,7 +366,7 @@ trait PaginationHelperTrait
 
         $uri = $this->getBaseEndpointUri()->withQuery(http_build_query($query_params));
         $response = $this->getClient()->get($uri);
-        $expandCompatibility = (ClientInterface::HYBRID_ENDPOINT == $this->getClient()->getEndpoint());
+        $expandCompatibility = (ClientInterface::HYBRID_ENDPOINT === $this->getClient()->getEndpoint());
 
         $ids = $this->responseToArray($response, $expandCompatibility);
 
