@@ -22,26 +22,24 @@ use Apigee\Edge\Api\Management\Entity\DeveloperInterface;
 use Apigee\Edge\Entity\EntityInterface;
 use Apigee\Edge\Tests\Test\Controller\EntityCreateOperationTestControllerTesterInterface;
 use Apigee\Edge\Tests\Test\Controller\EntityLoadOperationControllerTesterInterface;
+use Apigee\Edge\Tests\Test\Utility\MarkOnlineTestSkippedAwareTrait;
 
 trait ParameterUrlEncodingTestTrait
 {
+    use MarkOnlineTestSkippedAwareTrait;
+
     /**
      * Use an entity with an ID that makes use of URL encoding to test that CRUD works with encoding.
      */
     public function testUrlEncoding(): void
     {
+        static::markOnlineTestSkipped(__FUNCTION__);
+
         $entity = static::getEntityToTestUrlEncoding();
         $original = clone $entity;
         static::controllerForEntityCreate()->create($entity);
         $this->validateCreatedEntity($entity, $original);
 
-        if ($entity instanceof DeveloperInterface) {
-            var_dump($entity->getEmail());
-            var_dump($original->getEmail());
-        } else {
-            var_dump($entity->id());
-            var_dump($original->id());
-        }
         // Test the entity can be retrieved.
         $id = ($entity instanceof DeveloperInterface) ? $entity->getEmail() : $entity->id();
         $loaded = static::controllerForEntityLoad()->load($id);
