@@ -130,8 +130,9 @@ trait AttributesAwareEntityControllerTrait
      */
     protected function getEntityAttributeUri(string $entityId, string $name): UriInterface
     {
+        $encoded = rawurlencode($name);
         $uri = $this->getEntityAttributesUri($entityId)->withPath(
-            $this->getEntityAttributesUri($entityId) . '/' . $name
+            $this->getEntityAttributesUri($entityId) . '/' . $encoded
         );
 
         return $uri;

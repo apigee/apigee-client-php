@@ -54,6 +54,7 @@ class ApiPackageController extends OrganizationAwareEntityController implements 
      */
     public function deleteProduct(string $apiPackageId, string $productId): void
     {
+        $productId = rawurlencode($productId);
         $this->getClient()->delete(
             $this->getBaseEndpointUri()->withPath("{$this->getBaseEndpointUri()}/{$apiPackageId}/products/{$productId}")
         );
@@ -64,6 +65,7 @@ class ApiPackageController extends OrganizationAwareEntityController implements 
      */
     public function addProduct(string $apiPackageId, string $productId): void
     {
+        $productId = rawurlencode($productId);
         $this->getClient()->post(
             $this->getBaseEndpointUri()->withPath(
                 "{$this->getBaseEndpointUri()}/{$apiPackageId}/products/{$productId}"
@@ -116,6 +118,8 @@ class ApiPackageController extends OrganizationAwareEntityController implements 
 
     private function getAvailableApiPackages(string $type, string $id, bool $active = false, bool $allAvailable = true): array
     {
+        $id = rawurlencode($id);
+
         return $this->listEntities($this->client->getUriFactory()->createUri("/mint/organizations/{$this->organization}/{$type}/{$id}/monetization-packages")->withQuery(http_build_query([
             'current' => $active ? 'true' : 'false',
             'allAvailable' => $allAvailable ? 'true' : 'false',

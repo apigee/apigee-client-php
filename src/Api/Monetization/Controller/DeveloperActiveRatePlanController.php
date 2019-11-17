@@ -50,7 +50,9 @@ class DeveloperActiveRatePlanController extends ActiveRatePlanController
      */
     protected function getBaseEndpointUri(): UriInterface
     {
-        return $this->client->getUriFactory()->createUri("/mint/organizations/{$this->organization}/developers/{$this->developerId}/developer-rateplans");
+        $developerId = rawurlencode($this->developerId);
+
+        return $this->client->getUriFactory()->createUri("/mint/organizations/{$this->organization}/developers/{$developerId}/developer-rateplans");
     }
 
     /**
@@ -58,6 +60,9 @@ class DeveloperActiveRatePlanController extends ActiveRatePlanController
      */
     protected function getActiveRatePlanForApiProductEndpoint(string $apiProductName): UriInterface
     {
-        return $this->client->getUriFactory()->createUri("/mint/organizations/{$this->organization}/developers/{$this->developerId}/products/{$apiProductName}/rate-plan-by-developer-product");
+        $developerId = rawurlencode($this->developerId);
+        $apiProductName = rawurlencode($apiProductName);
+
+        return $this->client->getUriFactory()->createUri("/mint/organizations/{$this->organization}/developers/{$developerId}/products/{$apiProductName}/rate-plan-by-developer-product");
     }
 }
