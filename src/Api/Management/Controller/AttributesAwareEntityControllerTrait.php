@@ -140,5 +140,5 @@ trait AttributesAwareEntityControllerTrait
     /**
      * @inheritdoc
      */
-    abstract protected function responseToArray(ResponseInterface $response): array;
+    abstract protected function responseToArray(ResponseInterface $response, bool $expandCompatibility = false): array;
 }

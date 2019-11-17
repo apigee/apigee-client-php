@@ -34,18 +34,31 @@ trait ResponseToArrayHelper
      * The SDK only works with JSON responses, but let's be prepared for the unexpected.
      *
      * @param \Psr\Http\Message\ResponseInterface $response
+     * @param bool $expandCompatability
+     *   If the API response requires backwards compatibility with the way Edge
+     *   formats it's responses.
+     *
+     * @see For reference on $expandCompatability, see the structure of
+     *   expand=false query parameter on the Hybrid documentation:
+     *   https://docs.apigee.com/hybrid/beta2/reference/apis/unsupported-apis
      *
      * @throws \RuntimeException If response can not be decoded, because the input format is unknown.
      * @throws \Apigee\Edge\Exception\InvalidJsonException If there was an error with decoding a JSON response.
      *
      * @return array
      */
-    protected function responseToArray(ResponseInterface $response): array
+    protected function responseToArray(ResponseInterface $response, bool $expandCompatibility = false): array
     {
         if ($response->getHeaderLine('Content-Type') &&
             0 === strpos($response->getHeaderLine('Content-Type'), 'application/json')) {
             try {
-                return (array) $this->jsonDecoder()->decode((string) $response->getBody(), 'json');
+                $decoded = (array) $this->jsonDecoder()->decode((string) $response->getBody(), 'json');
+
+                if ($expandCompatibility) {
+                    $decoded = $this->normalizeExpandFalseForHybrid($decoded);
+                }
+
+                return $decoded;
             } catch (\UnexpectedValueException $e) {
                 throw new InvalidJsonException(
                     $e->getMessage(),
@@ -59,5 +72,29 @@ trait ResponseToArrayHelper
             $this->getClient()->getJournal()->getLastRequest(),
             sprintf('Unable to parse response with %s type. Response body: %s', $response->getHeaderLine('Content-Type') ?: 'unknown', (string) $response->getBody())
         );
+    }
+
+    /**
+     * Helper method to normalize a Hybrid response.
+     *
+     * @see ResponseToArrayHelper::responseToArray()
+     *
+     * @param array $responseArray
+     *   The decoded response array.
+     *
+     * @return array
+     *   The response array normalized.
+     */
+    protected function normalizeExpandFalseForHybrid(array $responseArray): array
+    {
+        // Ignore entity type key from response, ex.: apiProduct.
+        $responseArray = reset($responseArray);
+
+        // Return an array with the value of the first property of each item.
+        return array_map(function ($item) {
+            $item = (array) $item;
+
+            return reset($item);
+        }, $responseArray);
     }
 }
