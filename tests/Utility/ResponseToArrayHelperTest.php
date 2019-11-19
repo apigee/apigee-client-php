@@ -68,7 +68,8 @@ class ResponseToArrayHelperTest extends TestCase
      * @return array
      *   The array of values to run tests on.
      */
-    public function expandCompatibilityDataProvider() {
+    public function expandCompatibilityDataProvider()
+    {
         return [
             // Test a response.
             ['["helloworld","weather"]', '{"proxies":[{"name":"helloworld"},{"name":"weather"}]}'],
@@ -76,5 +77,4 @@ class ResponseToArrayHelperTest extends TestCase
             ['[]', '{}'],
         ];
     }
-
 }
