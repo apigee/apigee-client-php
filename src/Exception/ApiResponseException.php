@@ -118,7 +118,11 @@ class ApiResponseException extends ApiRequestException
                 } else {
                     if (array_key_exists('code', $array)) {
                         $error['code'] = $array['code'];
+                    } elseif (isset($array['error']['details'][0]['violations'][0]['type'])) {
+                        // Hybrid returns the Edge error code here.
+                        $error['code'] = $array['error']['details'][0]['violations'][0]['type'];
                     } elseif (isset($array['error']['code'])) {
+                        // Fallback for Hybrid if the above is not set.
                         $error['code'] = $array['error']['code'];
                     }
                     if (array_key_exists('message', $array)) {
