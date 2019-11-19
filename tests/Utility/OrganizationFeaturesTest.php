@@ -30,6 +30,8 @@ use PHPUnit\Framework\TestCase;
 class OrganizationFeaturesTest extends TestCase
 {
     /**
+     * Tests simple properties on the organization.
+     *
      * @dataProvider featurePropertyValueProvider
      */
     public function testOrganizationFeatures(?string $propertyValue, bool $expectedResult): void
@@ -42,12 +44,49 @@ class OrganizationFeaturesTest extends TestCase
         $this->assertEquals($expectedResult, OrganizationFeatures::isMonetizationEnabled($organization));
     }
 
+    /**
+     * Data provider for testOrganizationFeatures().
+     *
+     * @return array
+     */
     public function featurePropertyValueProvider(): array
     {
         return [
             [null, false],
             ['true', true],
             ['false', false],
+        ];
+    }
+
+    /**
+     * Test if an organization has pagination available.
+     *
+     * @dataProvider paginationAvailableValueProvider
+     */
+    public function testPaginationAvailable($isCpsEnabled, $isHybridEnabled, $expected, $message): void
+    {
+        /** @var \Apigee\Edge\Api\Management\Entity\OrganizationInterface $organization */
+        $organization = $this->getMockBuilder(OrganizationInterface::class)->getMock();
+        $organization->method('getPropertyValue')->will($this->returnValueMap([
+            ['features.isCpsEnabled', $isCpsEnabled],
+            ['features.hybrid.enabled', $isHybridEnabled],
+        ]));
+        $this->assertEquals($expected, OrganizationFeatures::isPaginationAvailable($organization), $message);
+    }
+
+    /**
+     * Data provider for testPaginationAvailable().
+     *
+     * The format for each data set is: [$isCpsEnabled, $isHybridEnabled, $expected, $message]
+     *
+     * @return array
+     */
+    public function paginationAvailableValueProvider(): array
+    {
+        return [
+            [null, 'true', true, 'Hybrid orgs should have pagination.'],
+            ['true', null, true, 'CPS enabled orgs should have pagination.'],
+            ['false', null, false, 'Non-Hybrid org without CPS should not have pagination.'],
         ];
     }
 }
