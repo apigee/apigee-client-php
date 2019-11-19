@@ -87,6 +87,11 @@ trait ResponseToArrayHelper
      */
     protected function normalizeExpandFalseForHybrid(array $responseArray): array
     {
+        // If empty, no further processing is needed.
+        if (empty($responseArray)) {
+            return $responseArray;
+        }
+
         // Ignore entity type key from response, ex.: apiProduct.
         $responseArray = reset($responseArray);
 

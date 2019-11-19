@@ -42,21 +42,53 @@ class ResponseToArrayHelperTest extends TestCase
 
     /**
      * Tests the expand parameter compatibility.
+     *
+     * @dataProvider expandCompatibilityDataProvider
      */
-    public function testExpandCompatibility(): void
+    public function testExpandCompatibility($edgeResponse, $hybridResponse): void
     {
         /** @var \Psr\Http\Message\ResponseInterface $response1 */
         $response1 = $this->getMockBuilder(ResponseInterface::class)->getMock();
         $response1->method('getHeaderLine')->willReturn('application/json');
-        $response1->method('getBody')->willReturn('["helloworld","weather"]');
+        $response1->method('getBody')->willReturn($edgeResponse);
         $decodedEdgeStyle = $this->responseToArrayHelper->convertResponseToArray($response1, false);
 
         /** @var \Psr\Http\Message\ResponseInterface $response2 */
         $response2 = $this->getMockBuilder(ResponseInterface::class)->getMock();
         $response2->method('getHeaderLine')->willReturn('application/json');
-        $response2->method('getBody')->willReturn('{"proxies":[{"name":"helloworld"},{"name":"weather"}]}');
+        $response2->method('getBody')->willReturn($hybridResponse);
         $decodedWithCompatibility = $this->responseToArrayHelper->convertResponseToArray($response2, true);
 
         $this->assertEquals($decodedEdgeStyle, $decodedWithCompatibility);
+    }
+
+    /**
+     * DataProvider for testExpandCompatibility.
+     *
+     * @return array
+     *   The array of values to run tests on.
+     */
+    public function expandCompatibilityDataProvider()
+    {
+        $edgeStyleNonEmpty = [
+            'helloworld',
+            'weather',
+        ];
+        $hybridStyleNonEmpty = (object) [
+            'proxies' => [
+                (object) [
+                    'name' => 'helloworld',
+                ],
+                (object) [
+                    'name' => 'weather',
+                ],
+            ],
+        ];
+        return [
+            // Test a response.
+            [json_encode($edgeStyleNonEmpty), json_encode($hybridStyleNonEmpty)],
+            // Test an empty response.
+            ['[]', '{}'],
+        ];
     }
 }
