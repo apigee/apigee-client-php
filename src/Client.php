@@ -208,7 +208,7 @@ class Client implements ClientInterface
     public function post($uri, $body = null, array $headers = []): ResponseInterface
     {
         if (!isset($headers['Content-Type'])) {
-            $headers['Content-Type'] = 'application/json; charset=utf-8';
+            $headers['Content-Type'] = 'application/json';
         }
 
         return $this->send('POST', $uri, $headers, $body);
@@ -220,7 +220,7 @@ class Client implements ClientInterface
     public function put($uri, $body = null, array $headers = []): ResponseInterface
     {
         if (!isset($headers['Content-Type'])) {
-            $headers['Content-Type'] = 'application/json; charset=utf-8';
+            $headers['Content-Type'] = 'application/json';
         }
 
         return $this->send('PUT', $uri, $headers, $body);
