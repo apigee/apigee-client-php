@@ -70,9 +70,23 @@ class ResponseToArrayHelperTest extends TestCase
      */
     public function expandCompatibilityDataProvider()
     {
+        $edgeStyleNonEmpty = [
+            'helloworld',
+            'weather',
+        ];
+        $hybridStyleNonEmpty = (object) [
+            'proxies' => [
+                (object) [
+                    'name' => 'helloworld',
+                ],
+                (object) [
+                    'name' => 'weather',
+                ],
+            ],
+        ];
         return [
             // Test a response.
-            ['["helloworld","weather"]', '{"proxies":[{"name":"helloworld"},{"name":"weather"}]}'],
+            [json_encode($edgeStyleNonEmpty), json_encode($hybridStyleNonEmpty)],
             // Test an empty response.
             ['[]', '{}'],
         ];
