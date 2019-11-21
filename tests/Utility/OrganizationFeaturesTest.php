@@ -46,6 +46,8 @@ class OrganizationFeaturesTest extends TestCase
 
     /**
      * Data provider for testOrganizationFeatures().
+     *
+     * @return array
      */
     public function featurePropertyValueProvider(): array
     {
@@ -76,6 +78,8 @@ class OrganizationFeaturesTest extends TestCase
      * Data provider for testPaginationAvailable().
      *
      * The format for each data set is: [$isCpsEnabled, $isHybridEnabled, $expected, $message]
+     *
+     * @return array
      */
     public function paginationAvailableValueProvider(): array
     {
@@ -101,6 +105,8 @@ class OrganizationFeaturesTest extends TestCase
 
     /**
      * Data provider for testCompaniesAvailable().
+     *
+     * @return array
      */
     public function companiesAvailableValueProvider(): array
     {
