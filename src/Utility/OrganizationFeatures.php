@@ -24,10 +24,6 @@ final class OrganizationFeatures
 {
     /**
      * Checks whether CPS feature is enabled on an organization.
-     *
-     * @param \Apigee\Edge\Api\Management\Entity\OrganizationInterface $org
-     *
-     * @return bool
      */
     public static function isCpsEnabled(OrganizationInterface $org): bool
     {
@@ -36,10 +32,6 @@ final class OrganizationFeatures
 
     /**
      * Checks whether pagination is enabled on an organization.
-     *
-     * @param \Apigee\Edge\Api\Management\Entity\OrganizationInterface $org
-     *
-     * @return bool
      */
     public static function isPaginationAvailable(OrganizationInterface $org): bool
     {
@@ -47,11 +39,15 @@ final class OrganizationFeatures
     }
 
     /**
+     * Checks whether companies features/resources are supported for an organization.
+     */
+    public static function isCompaniesFeatureAvailable(OrganizationInterface $org): bool
+    {
+        return !static::isHybridEnabled($org);
+    }
+
+    /**
      * Checks whether hybrid feature is enabled on an organization.
-     *
-     * @param \Apigee\Edge\Api\Management\Entity\OrganizationInterface $org
-     *
-     * @return bool
      */
     public static function isHybridEnabled(OrganizationInterface $org): bool
     {
@@ -60,10 +56,6 @@ final class OrganizationFeatures
 
     /**
      * Checks whether monetization feature is enabled on an organization.
-     *
-     * @param \Apigee\Edge\Api\Management\Entity\OrganizationInterface $org
-     *
-     * @return bool
      */
     public static function isMonetizationEnabled(OrganizationInterface $org): bool
     {

@@ -46,8 +46,6 @@ class OrganizationFeaturesTest extends TestCase
 
     /**
      * Data provider for testOrganizationFeatures().
-     *
-     * @return array
      */
     public function featurePropertyValueProvider(): array
     {
@@ -78,8 +76,6 @@ class OrganizationFeaturesTest extends TestCase
      * Data provider for testPaginationAvailable().
      *
      * The format for each data set is: [$isCpsEnabled, $isHybridEnabled, $expected, $message]
-     *
-     * @return array
      */
     public function paginationAvailableValueProvider(): array
     {
@@ -87,6 +83,31 @@ class OrganizationFeaturesTest extends TestCase
             [null, 'true', true, 'Hybrid orgs should have pagination.'],
             ['true', null, true, 'CPS enabled orgs should have pagination.'],
             ['false', null, false, 'Non-Hybrid org without CPS should not have pagination.'],
+        ];
+    }
+
+    /**
+     * Test if an organization has companies features available.
+     *
+     * @dataProvider companiesAvailableValueProvider
+     */
+    public function testCompaniesAvailable($isHybridEnabled, $expected, $message): void
+    {
+        /** @var \Apigee\Edge\Api\Management\Entity\OrganizationInterface $organization */
+        $organization = $this->getMockBuilder(OrganizationInterface::class)->getMock();
+        $organization->method('getPropertyValue')->willReturn($isHybridEnabled);
+        $this->assertEquals($expected, OrganizationFeatures::isCompaniesFeatureAvailable($organization), $message);
+    }
+
+    /**
+     * Data provider for testCompaniesAvailable().
+     */
+    public function companiesAvailableValueProvider(): array
+    {
+        // Format: ['features.hybrid.enabled', $isCompaniesFeatureAvailable]
+        return [
+            [null, true, 'Non-hybrid organizations should have companies feature available.'],
+            ['true', false, 'Hybrid organizations should not have companies feature available.'],
         ];
     }
 }
