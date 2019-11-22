@@ -89,4 +89,31 @@ class OrganizationFeaturesTest extends TestCase
             ['false', null, false, 'Non-Hybrid org without CPS should not have pagination.'],
         ];
     }
+
+    /**
+     * Test if an organization has companies features available.
+     *
+     * @dataProvider companiesAvailableValueProvider
+     */
+    public function testCompaniesAvailable($isHybridEnabled, $expected, $message): void
+    {
+        /** @var \Apigee\Edge\Api\Management\Entity\OrganizationInterface $organization */
+        $organization = $this->getMockBuilder(OrganizationInterface::class)->getMock();
+        $organization->method('getPropertyValue')->willReturn($isHybridEnabled);
+        $this->assertEquals($expected, OrganizationFeatures::isCompaniesFeatureAvailable($organization), $message);
+    }
+
+    /**
+     * Data provider for testCompaniesAvailable().
+     *
+     * @return array
+     */
+    public function companiesAvailableValueProvider(): array
+    {
+        // Format: ['features.hybrid.enabled', $isCompaniesFeatureAvailable]
+        return [
+            [null, true, 'Non-hybrid organizations should have companies feature available.'],
+            ['true', false, 'Hybrid organizations should not have companies feature available.'],
+        ];
+    }
 }
