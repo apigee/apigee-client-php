@@ -25,7 +25,6 @@ namespace Apigee\Edge\Entity;
  * Common properties are usually auto-generated and this is the reason why those properties's setters are marked as
  * internal.
  *
- *
  * @see CommonEntityPropertiesInterface
  */
 trait CommonEntityPropertiesAwareTrait

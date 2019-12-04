@@ -21,7 +21,6 @@ namespace Apigee\Edge\Entity\Property;
 /**
  * Trait DeveloperIdPropertyAwareTrait.
  *
- *
  * @see \Apigee\Edge\Entity\Property\DeveloperIdPropertyInterface
  */
 trait DeveloperIdPropertyAwareTrait
