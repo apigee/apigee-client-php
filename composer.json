@@ -65,7 +65,10 @@
     "config": {
         "optimize-autoloader": true,
         "update-with-dependencies": true,
-        "preferred-install": "dist",
+        "preferred-install": {
+            "symfony/property-access": "source",
+            "*": "dist"
+        },
         "sort-packages": true
     },
     "minimum-stability": "dev",
