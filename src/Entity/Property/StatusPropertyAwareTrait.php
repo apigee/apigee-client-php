@@ -21,7 +21,6 @@ namespace Apigee\Edge\Entity\Property;
 /**
  * Trait StatusPropertyAwareTrait.
  *
- *
  * @see StatusPropertyInterface
  */
 trait StatusPropertyAwareTrait
