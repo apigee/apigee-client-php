@@ -77,7 +77,7 @@
         "analyze": "psalm --config=psalm.xml.dist --show-info=false --stats",
         "metrics": "phpmetrics .",
         "metrics-html": "phpmetrics . --report-html=report",
-        "check-style": "php-cs-fixer fix --config=./.php_cs.dist --dry-run",
+        "check-style": "php-cs-fixer fix --config=./.php_cs.dist --verbose --dry-run",
         "fix-style": "php-cs-fixer fix --config=./.php_cs.dist"
     },
     "extra": {
