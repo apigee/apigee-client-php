@@ -84,6 +84,7 @@ class ResponseToArrayHelperTest extends TestCase
                 ],
             ],
         ];
+
         return [
             // Test a response.
             [json_encode($edgeStyleNonEmpty), json_encode($hybridStyleNonEmpty)],
