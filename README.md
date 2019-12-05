@@ -48,7 +48,7 @@ suppress _all_ E_NOTICE level errors with changing its value to `E_ALL | ~E_NOTI
 
 ## Edge for Hybrid Cloud: Alpha Release
 
-Support for [Apigee hybrid API](https://docs.apigee.com/hybrid/reference-overview) have been added to this library but is
+Support for [Apigee hybrid API](https://docs.apigee.com/hybrid/reference-overview) has been added to this library but is
 considered to be an alpha.  If you run into any problems, add an issue to our [GitHub issue queue](https://github.com/apigee/apigee-client-php/issues).
 
 ## Installing the client library

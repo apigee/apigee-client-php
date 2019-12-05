@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## [2.0.4](https://github.com/apigee/apigee-client-php/milestone/2?closed=1) - December 4 2019
+## [2.0.4](https://github.com/apigee/apigee-client-php/milestone/2?closed=1) - December 5 2019
 * Updated php-cs-fixer version and code analysis tools rules/validations.
 #### Apigee Hybrid Management API
 * Alpha support for Apigee hybrid Management API.
@@ -11,7 +11,7 @@ all entities.
 * [#82](https://github.com/apigee/apigee-client-php/pull/82),
  [#299-apigee-edge-drupal](https://github.com/apigee/apigee-client-php/pull/93) Introduced an organization features
  utility class (`OrganizationFeatures`) with methods `isCpsEnabled()`, `isPaginationAvailable()`,
- `isCompaniesFeatureAvailable(), `isHybridEnabled()`, `isMonetizationEnabled(), and `isFeatureEnabled()`.
+ `isCompaniesFeatureAvailable()`, `isHybridEnabled()`, `isMonetizationEnabled()`, and `isFeatureEnabled()`.
 #### Monetization API
 * [#61](https://github.com/apigee/apigee-client-php/pull/61) Fix PHP notices produced when the developer is not set.
 
