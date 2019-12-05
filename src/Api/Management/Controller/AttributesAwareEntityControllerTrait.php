@@ -130,8 +130,9 @@ trait AttributesAwareEntityControllerTrait
      */
     protected function getEntityAttributeUri(string $entityId, string $name): UriInterface
     {
+        $encoded = rawurlencode($name);
         $uri = $this->getEntityAttributesUri($entityId)->withPath(
-            $this->getEntityAttributesUri($entityId) . '/' . $name
+            $this->getEntityAttributesUri($entityId) . '/' . $encoded
         );
 
         return $uri;
@@ -140,5 +141,5 @@ trait AttributesAwareEntityControllerTrait
     /**
      * @inheritdoc
      */
-    abstract protected function responseToArray(ResponseInterface $response): array;
+    abstract protected function responseToArray(ResponseInterface $response, bool $expandCompatibility = false): array;
 }

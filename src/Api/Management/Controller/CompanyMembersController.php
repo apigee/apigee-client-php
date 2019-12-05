@@ -81,7 +81,8 @@ class CompanyMembersController extends AbstractController implements CompanyMemb
      */
     public function removeMember(string $email): void
     {
-        $this->client->delete($this->getBaseEndpointUri()->withPath("{$this->getBaseEndpointUri()->getPath()}/{$email}"));
+        $encoded = rawurlencode($email);
+        $this->client->delete($this->getBaseEndpointUri()->withPath("{$this->getBaseEndpointUri()->getPath()}/{$encoded}"));
     }
 
     /**

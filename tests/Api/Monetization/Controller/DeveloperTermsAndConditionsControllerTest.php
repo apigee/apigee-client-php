@@ -49,6 +49,6 @@ class DeveloperTermsAndConditionsControllerTest extends LegalEntityTermsAndCondi
      */
     protected function expectedAcceptDeclineEndpoint(): string
     {
-        return sprintf('/v1/mint/organizations/phpunit/developers/%s/tncs/phpunit/developer-tncs', static::$testDeveloperId);
+        return sprintf('/v1/mint/organizations/phpunit/developers/%s/tncs/phpunit/developer-tncs', rawurlencode(static::$testDeveloperId));
     }
 }

@@ -19,7 +19,7 @@
 namespace Apigee\Edge\HttpClient\Plugin;
 
 use Apigee\Edge\Exception\OauthAccessTokenAuthenticationException;
-use Apigee\Edge\HttpClient\Plugin\Authentication\Oauth;
+use Apigee\Edge\HttpClient\Plugin\Authentication\AbstractOauth;
 use Http\Client\Common\Plugin;
 use Http\Client\Exception;
 use Psr\Http\Message\RequestInterface;
@@ -31,16 +31,16 @@ use Psr\Http\Message\ResponseInterface;
 class RetryOauthAuthenticationPlugin implements Plugin
 {
     /**
-     * @var \Apigee\Edge\HttpClient\Plugin\Authentication\Oauth
+     * @var \Apigee\Edge\HttpClient\Plugin\Authentication\AbstractOauth
      */
     private $auth;
 
     /**
      * RetryOauthAuthenticationPlugin constructor.
      *
-     * @param \Apigee\Edge\HttpClient\Plugin\Authentication\Oauth $auth
+     * @param \Apigee\Edge\HttpClient\Plugin\Authentication\AbstractOauth $auth
      */
-    public function __construct(Oauth $auth)
+    public function __construct(AbstractOauth $auth)
     {
         $this->auth = $auth;
     }
@@ -48,7 +48,7 @@ class RetryOauthAuthenticationPlugin implements Plugin
     /**
      * @inheritdoc
      *
-     * @see Oauth::getAccessToken()
+     * @see AbstractOauth::getAccessToken()
      *
      * @psalm-suppress InvalidThrow - Exception with interface can be thrown.
      */

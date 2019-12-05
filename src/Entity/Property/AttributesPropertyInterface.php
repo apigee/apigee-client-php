@@ -23,7 +23,6 @@ use Apigee\Edge\Structure\AttributesProperty;
 /**
  * Class AttributesAttributeInterface.
  *
- *
  * @see AttributesPropertyAwareTrait
  */
 interface AttributesPropertyInterface

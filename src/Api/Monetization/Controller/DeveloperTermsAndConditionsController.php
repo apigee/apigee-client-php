@@ -48,7 +48,9 @@ class DeveloperTermsAndConditionsController extends LegalEntityTermsAndCondition
      */
     protected function getBaseEndpointUri(): UriInterface
     {
-        return $this->client->getUriFactory()->createUri("/mint/organizations/{$this->organization}/developers/{$this->developerId}/developer-tncs");
+        $developerId = rawurlencode($this->developerId);
+
+        return $this->client->getUriFactory()->createUri("/mint/organizations/{$this->organization}/developers/{$developerId}/developer-tncs");
     }
 
     /**
@@ -56,6 +58,8 @@ class DeveloperTermsAndConditionsController extends LegalEntityTermsAndCondition
      */
     protected function getAcceptTermsAndConditionsEndpoint(string $tncId): UriInterface
     {
-        return $this->client->getUriFactory()->createUri("/mint/organizations/{$this->organization}/developers/{$this->developerId}/tncs/{$tncId}/developer-tncs");
+        $developerId = rawurlencode($this->developerId);
+
+        return $this->client->getUriFactory()->createUri("/mint/organizations/{$this->organization}/developers/{$developerId}/tncs/{$tncId}/developer-tncs");
     }
 }

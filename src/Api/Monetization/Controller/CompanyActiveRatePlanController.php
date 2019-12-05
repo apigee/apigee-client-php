@@ -58,6 +58,8 @@ class CompanyActiveRatePlanController extends ActiveRatePlanController
      */
     protected function getActiveRatePlanForApiProductEndpoint(string $apiProductName): UriInterface
     {
+        $apiProductName = rawurlencode($apiProductName);
+
         return $this->client->getUriFactory()->createUri("/mint/organizations/{$this->organization}/companies/{$this->companyName}/products/{$apiProductName}/rate-plan-by-developer-product");
     }
 }

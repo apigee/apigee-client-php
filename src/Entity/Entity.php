@@ -18,7 +18,6 @@
 
 namespace Apigee\Edge\Entity;
 
-use Apigee\Edge\Api\Management\Entity\Organization;
 use Apigee\Edge\Structure\BaseObject;
 
 /**
@@ -32,7 +31,7 @@ use Apigee\Edge\Structure\BaseObject;
  *   (Public setters and getters are required by symfony/serializer implementations, ex.: ObjectNormalizer,
  *   EntityNormalizer, etc.)
  * - An entity should not have other properties than what Edge returns for a related API call, but it could have
- *   additional helper methods that make developers life easier. @see Organization::isCpsEnabled()
+ *   additional helper methods that make developers life easier.
  * - Entity properties with object or array types must be initialized.
  */
 abstract class Entity extends BaseObject implements EntityInterface

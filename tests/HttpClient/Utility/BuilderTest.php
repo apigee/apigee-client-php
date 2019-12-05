@@ -28,7 +28,6 @@ use PHPUnit\Framework\TestCase;
 /**
  * Class BuilderTest.
  *
- *
  * @group client
  * @group mock
  * @group offline

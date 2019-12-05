@@ -132,6 +132,7 @@ class EntitySerializer implements EntitySerializerInterface
         // Parse Edge response to a temporary entity (with the same type as $entity).
         // This is a crucial step because Edge response must be transformed before we would be able use it with some
         // of our setters (ex.: attributes).
+        /** @var object $tmp */
         $tmp = $this->deserialize(
             (string) $response->getBody(),
             get_class($entity),

@@ -23,17 +23,14 @@ use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Exception\OauthAuthenticationException;
 use Apigee\Edge\Exception\OauthRefreshTokenExpiredException;
 use Http\Client\Exception;
-use Http\Message\Authentication;
 use Http\Message\Authentication\BasicAuth;
-use Http\Message\Authentication\Bearer;
-use Psr\Http\Message\RequestInterface;
 
 /**
  * Oauth authentication plugin for authenticating to Apigee Edge with Oauth (SAML).
  *
  * @see https://apidocs.apigee.com/api-reference/content/using-oauth2-security-apigee-edge-management-api
  */
-class Oauth implements Authentication
+class Oauth extends AbstractOauth
 {
     public const DEFAULT_AUTHORIZATION_SERVER = 'https://login.apigee.com/oauth/token';
 
@@ -52,19 +49,9 @@ class Oauth implements Authentication
     protected $password;
 
     /**
-     * @var \Apigee\Edge\HttpClient\Plugin\Authentication\OauthTokenStorageInterface
-     */
-    protected $tokenStorage;
-
-    /**
      * @var string|null
      */
     protected $mfaToken;
-
-    /**
-     * @var string
-     */
-    protected $auth_server;
 
     /**
      * @var string
@@ -88,77 +75,44 @@ class Oauth implements Authentication
      *   Apigee Edge username (email).
      * @param string $password
      *   Apigee Edge password.
-     * @param \Apigee\Edge\HttpClient\Plugin\Authentication\OauthTokenStorageInterface $token_storage
+     * @param \Apigee\Edge\HttpClient\Plugin\Authentication\OauthTokenStorageInterface $tokenStorage
      *   Storage where access token gets saved.
-     * @param string|null $mfa_token
+     * @param string|null $mfaToken
      *   One-time multi-factor authentication code.
-     * @param string|null $client_id
+     * @param string|null $clientId
      *   Client id.
-     * @param string|null $client_secret
+     * @param string|null $clientSecret
      *   Client secret.
      * @param string|null $scope
      *   Oauth scope.
-     * @param string|null $auth_server
+     * @param string|null $authServer
      *   Authentication server.
      */
-    public function __construct(string $username, string $password, OauthTokenStorageInterface $token_storage, ?string $mfa_token = null, ?string $client_id = null, ?string $client_secret = null, ?string $scope = null, ?string $auth_server = null)
+    public function __construct(string $username, string $password, OauthTokenStorageInterface $tokenStorage, ?string $mfaToken = null, ?string $clientId = null, ?string $clientSecret = null, ?string $scope = null, ?string $authServer = null)
     {
         $this->username = $username;
         $this->password = $password;
-        $this->tokenStorage = $token_storage;
-        $this->mfaToken = $mfa_token;
-        $this->auth_server = $auth_server ?: self::DEFAULT_AUTHORIZATION_SERVER;
-        $this->clientId = $client_id ?: self::DEFAULT_CLIENT_ID;
-        $this->clientSecret = $client_secret ?: self::DEFAULT_CLIENT_SECRET;
+        $this->mfaToken = $mfaToken;
+        $this->clientId = $clientId ?: self::DEFAULT_CLIENT_ID;
+        $this->clientSecret = $clientSecret ?: self::DEFAULT_CLIENT_SECRET;
         $this->scope = $scope;
+        parent::__construct($tokenStorage, $authServer ?: self::DEFAULT_AUTHORIZATION_SERVER);
     }
 
     /**
      * @inheritdoc
      */
-    public function authenticate(RequestInterface $request)
-    {
-        // Get a new access token if token has expired.
-        if ($this->tokenStorage->hasExpired()) {
-            $this->getAccessToken();
-        }
-
-        $accessToken = $this->tokenStorage->getAccessToken();
-
-        if (!empty($accessToken)) {
-            $bearAuth = new Bearer($accessToken);
-            $request = $bearAuth->authenticate($request);
-        }
-
-        return $request;
-    }
-
-    /**
-     * Returns the token storage.
-     *
-     * @return \Apigee\Edge\HttpClient\Plugin\Authentication\OauthTokenStorageInterface
-     */
-    public function getTokenStorage(): OauthTokenStorageInterface
-    {
-        return $this->tokenStorage;
-    }
-
-    /**
-     * Returns a pre-configured client for authorization API calls.
-     *
-     * @return \Apigee\Edge\ClientInterface
-     */
     protected function authClient(): ClientInterface
     {
-        return new Client(new BasicAuth($this->clientId, $this->clientSecret), $this->auth_server);
+        return new Client(new BasicAuth($this->clientId, $this->clientSecret), $this->authServer);
     }
 
     /**
-     * Retrieves access token and saves it to the token storage.
+     * @inheritdoc
      *
      * @psalm-suppress InvalidCatch - Exception by interface can be caught in PHP >= 7.1.
      */
-    private function getAccessToken(): void
+    protected function getAccessToken(): void
     {
         if ($this->tokenStorage->getRefreshToken()) {
             $body = [
