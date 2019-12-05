@@ -1,8 +1,23 @@
 # CHANGELOG
 
+## [2.0.4](https://github.com/apigee/apigee-client-php/milestone/2?closed=1) - December 5 2019
+* Updated php-cs-fixer version and code analysis tools rules/validations.
+#### Apigee Hybrid Management API
+* Alpha support for Apigee hybrid Management API.
+* Support for OAuth 2.0 for server to server applications using email and a private key.
+#### Management API
+* [#65](https://github.com/apigee/apigee-client-php/pull/74) Deprecated `createdBy` and `lastModifiedBy` properties in
+all entities.
+* [#82](https://github.com/apigee/apigee-client-php/pull/82),
+ [#299-apigee-edge-drupal](https://github.com/apigee/apigee-client-php/pull/93) Introduced an organization features
+ utility class (`OrganizationFeatures`) with methods `isCpsEnabled()`, `isPaginationAvailable()`,
+ `isCompaniesFeatureAvailable()`, `isHybridEnabled()`, `isMonetizationEnabled()`, and `isFeatureEnabled()`.
+#### Monetization API
+* [#61](https://github.com/apigee/apigee-client-php/pull/61) Fix PHP notices produced when the developer is not set.
+
 ## [2.0.3](https://github.com/apigee/apigee-client-php/milestone/1?closed=1) - June 24 2019
 #### Management API
-* [#54](https://github.com/apigee/apigee-client-php/pull/54) Add forked AddPathPlugin and removed required patch 
+* [#54](https://github.com/apigee/apigee-client-php/pull/54) Add forked AddPathPlugin and removed required patch
 #### Monetization API
 * [#58](https://github.com/apigee/apigee-client-php/pull/58) Added the end unit property to `RatePlanRate`
 
