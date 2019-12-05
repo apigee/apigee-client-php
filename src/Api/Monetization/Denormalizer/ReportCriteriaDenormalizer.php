@@ -57,6 +57,8 @@ class ReportCriteriaDenormalizer extends ObjectDenormalizer
 
     /**
      * @inheritDoc
+     *
+     * @psalm-suppress PossiblyInvalidArgument We are sure of the return type of denormalize().
      */
     public function denormalize($data, $class, $format = null, array $context = [])
     {

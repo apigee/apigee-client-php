@@ -42,5 +42,9 @@ return PhpCsFixer\Config::create()
         // Disabled because fluent setters return type in an interface can not be self.
         'self_accessor' => false,
         'void_return' => true,
+        // Disabled because we want to keep all param and return tags.
+        'no_superfluous_phpdoc_tags' => false,
+        // Disabled because multiple lines allow code clarity.
+        'single_line_throw' => false,
     ])
     ->setFinder($finder);

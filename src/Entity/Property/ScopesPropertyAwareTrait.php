@@ -21,7 +21,6 @@ namespace Apigee\Edge\Entity\Property;
 /**
  * Trait ScopesPropertyAwareTrait.
  *
- *
  * @see \Apigee\Edge\Entity\Property\ScopesPropertyInterface
  */
 trait ScopesPropertyAwareTrait

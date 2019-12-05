@@ -23,7 +23,6 @@ namespace Apigee\Edge\Entity;
  *
  * Accessor methods for common Apigee Edge entities.
  *
- *
  * @see CommonEntityPropertiesAwareTrait
  */
 interface CommonEntityPropertiesInterface
