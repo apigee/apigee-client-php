@@ -1,6 +1,7 @@
 # CHANGELOG
 
 ## [2.0.4](https://github.com/apigee/apigee-client-php/milestone/2?closed=1) - December 4 2019
+* Updated php-cs-fixer version and code analysis tools rules/validations.
 #### Apigee Hybrid Management API
 * Alpha support for Apigee hybrid Management API.
 * Support for OAuth 2.0 for server to server applications using email and a private key.
