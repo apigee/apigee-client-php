@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright 2018 Google LLC
+ * Copyright 2019 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,23 +16,11 @@
  * limitations under the License.
  */
 
-namespace Apigee\Edge\Tests\Test;
+namespace Apigee\Edge\Exception;
 
-use Apigee\Edge\Client;
-use Apigee\Edge\HttpClient\Plugin\Authentication\NullAuthentication;
-
-abstract class OfflineClientBase extends Client implements OfflineClientInterface
+/**
+ * For HybridOauth2Authentication authentication issues.
+ */
+class HybridOauth2AuthenticationException extends ApiException
 {
-    /**
-     * MockClient constructor.
-     *
-     * @param array $options
-     */
-    public function __construct(array $options = [])
-    {
-        $options += [
-            Client::CONFIG_USER_AGENT_PREFIX => static::USER_AGENT_PREFIX,
-        ];
-        parent::__construct(new NullAuthentication(), null, $options);
-    }
 }

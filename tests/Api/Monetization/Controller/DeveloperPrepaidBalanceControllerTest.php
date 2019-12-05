@@ -49,7 +49,7 @@ class DeveloperPrepaidBalanceControllerTest extends PrepaidBalanceControllerTest
      */
     protected static function validateRecurringPath(string $actual): void
     {
-        $developerId = self::$developerId;
+        $developerId = rawurlencode(self::$developerId);
         Assert::assertEquals("/v1/mint/organizations/phpunit/developers/{$developerId}/developer-balances/recurring-setup", $actual);
     }
 }

@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright 2018 Google LLC
+ * Copyright 2019 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,19 +20,19 @@ namespace Apigee\Edge\Tests\Test\HttpClient\Plugin;
 
 use Apigee\Edge\Client;
 use Apigee\Edge\ClientInterface;
-use Apigee\Edge\HttpClient\Plugin\Authentication\Oauth;
+use Apigee\Edge\HttpClient\Plugin\Authentication\HybridOauth2;
+use Apigee\Edge\HttpClient\Plugin\Authentication\NullAuthentication;
 use Apigee\Edge\HttpClient\Plugin\Authentication\OauthTokenStorageInterface;
 use Apigee\Edge\HttpClient\Utility\Builder;
 use Apigee\Edge\HttpClient\Utility\JournalInterface;
 use Apigee\Edge\Tests\Test\HttpClient\MockHttpClient;
 use Apigee\Edge\Tests\Test\HttpClient\Utility\TestJournal;
 use Http\Client\HttpClient;
-use Http\Message\Authentication\BasicAuth;
 
 /**
- * OAuth authentication plugin that uses mock API client for authorisation.
+ * MockHybridOauth2 authentication plugin that uses mock API client for authorisation.
  */
-class MockOauth extends Oauth
+class MockHybridOauth2 extends HybridOauth2
 {
     public const AUTH_SERVER = 'http://example.com/oauth/token';
     /**
@@ -45,25 +45,21 @@ class MockOauth extends Oauth
     private $httpClient;
 
     public function __construct(
-        string $username,
-        string $password,
+        string $email,
+        string $privateKey,
         OauthTokenStorageInterface $tokenStorage,
         HttpClient $httpClient = null,
         JournalInterface $journal = null,
-        ?string $mfaToken = null,
-        ?string $clientId = null,
-        ?string $clientSecret = null,
-        ?string $scope = null,
         ?string $authServer = null
     ) {
-        parent::__construct($username, $password, $tokenStorage, $mfaToken, $clientId, $clientSecret, $scope, $authServer);
+        parent::__construct($email, $privateKey, $tokenStorage, $authServer);
         $this->journal = $journal ?: new TestJournal();
         $this->httpClient = $httpClient ?: new MockHttpClient();
     }
 
     protected function authClient(): ClientInterface
     {
-        return new Client(new BasicAuth('mockuser', 'mocksecret'), self::AUTH_SERVER, [
+        return new Client(new NullAuthentication(), self::AUTH_SERVER, [
             Client::CONFIG_HTTP_CLIENT_BUILDER => new Builder($this->httpClient),
             Client::CONFIG_JOURNAL => $this->journal,
         ]);

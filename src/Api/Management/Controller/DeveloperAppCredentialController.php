@@ -58,7 +58,10 @@ class DeveloperAppCredentialController extends AppCredentialController implement
      */
     protected function getBaseEndpointUri(): UriInterface
     {
-        return $this->client->getUriFactory()->createUri("/organizations/{$this->organization}/developers/{$this->developerId}/apps/{$this->appName}");
+        $developerId = rawurlencode($this->developerId);
+        $appName = rawurlencode($this->appName);
+
+        return $this->client->getUriFactory()->createUri("/organizations/{$this->organization}/developers/{$developerId}/apps/{$appName}");
     }
 
     /**

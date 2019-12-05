@@ -18,11 +18,13 @@
 
 namespace Apigee\Edge\Tests\Api\Management\Controller;
 
+use Apigee\Edge\Api\Management\Entity\DeveloperApp;
 use Apigee\Edge\Api\Management\Entity\DeveloperInterface;
 use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Entity\EntityInterface;
 use Apigee\Edge\Tests\Api\Management\Entity\DeveloperAppTestEntityProviderTrait;
 use Apigee\Edge\Tests\Api\Management\Entity\DeveloperTestEntityProviderTrait;
+use Apigee\Edge\Tests\Api\Management\Entity\ParameterUrlEncodingTestTrait;
 use Apigee\Edge\Tests\Test\Controller\EntityControllerTesterInterface;
 use Apigee\Edge\Tests\Test\Controller\EntityCreateOperationControllerTester;
 use Apigee\Edge\Tests\Test\Controller\EntityCreateOperationTestControllerTesterInterface;
@@ -40,6 +42,7 @@ class DeveloperAppControllerTest extends AppControllerTestBase
     use DeveloperAppTestEntityProviderTrait;
     use DeveloperControllerAwareTestTrait;
     use DeveloperTestEntityProviderTrait;
+    use ParameterUrlEncodingTestTrait;
 
     /** @var \Apigee\Edge\Api\Management\Entity\DeveloperInterface */
     protected static $testDeveloper;
@@ -101,5 +104,21 @@ class DeveloperAppControllerTest extends AppControllerTestBase
     protected function reloadAppOwner()
     {
         return static::developerController()->load(static::$testDeveloper->id());
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected static function getEntityToTestUrlEncoding(): EntityInterface
+    {
+        // Use a name that makes use of URL encoding to test that CRUD works with encoding (a space in this case).
+        $entity = new DeveloperApp([
+            'name' => static::randomGenerator()->machineName() . ' ' . static::randomGenerator()->machineName(),
+            'apiProducts' => [static::$testApiProduct->id()],
+            'callbackUrl' => 'http://example.com',
+        ]);
+        $entity->setDisplayName(static::randomGenerator()->displayName());
+
+        return $entity;
     }
 }

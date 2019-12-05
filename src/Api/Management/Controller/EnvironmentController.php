@@ -52,6 +52,21 @@ class EnvironmentController extends EntityController implements EnvironmentContr
     }
 
     /**
+     * Override the getEntityIds() method, for Hybrid compatibility.
+     *
+     * Environments are not entities, so Hybrid does not support the "expand=false" query parameter.
+     *
+     * @inheritdoc
+     */
+    public function getEntityIds(): array
+    {
+        $uri = $this->getBaseEndpointUri();
+        $response = $this->getClient()->get($uri);
+
+        return $this->responseToArray($response);
+    }
+
+    /**
      * @inheritdoc
      */
     protected function getBaseEndpointUri(): UriInterface

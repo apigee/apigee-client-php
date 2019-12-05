@@ -50,7 +50,9 @@ class DeveloperPrepaidBalanceController extends PrepaidBalanceController impleme
      */
     protected function getBaseEndpointUri(): UriInterface
     {
-        return $this->client->getUriFactory()->createUri("/mint/organizations/{$this->organization}/developers/{$this->developerId}/developer-balances");
+        $developerId = rawurlencode($this->developerId);
+
+        return $this->client->getUriFactory()->createUri("/mint/organizations/{$this->organization}/developers/{$developerId}/developer-balances");
     }
 
     /**
@@ -58,6 +60,8 @@ class DeveloperPrepaidBalanceController extends PrepaidBalanceController impleme
      */
     protected function getPrepaidBalanceEndpoint(): UriInterface
     {
-        return $this->client->getUriFactory()->createUri("/mint/organizations/{$this->organization}/developers/{$this->developerId}/prepaid-developer-balance");
+        $developerId = rawurlencode($this->developerId);
+
+        return $this->client->getUriFactory()->createUri("/mint/organizations/{$this->organization}/developers/{$developerId}/prepaid-developer-balance");
     }
 }

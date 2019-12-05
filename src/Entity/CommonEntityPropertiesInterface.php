@@ -37,6 +37,9 @@ interface CommonEntityPropertiesInterface
     /**
      * Returns the email address of the user/developer who created the entity.
      *
+     * @deprecated in 2.0.4, will be removed before 3.0.0. Unsupported in Hybrid.
+     * @see https://github.com/apigee/apigee-client-php/issues/65
+     *
      * @return string|null Email address.
      */
     public function getCreatedBy(): ?string;
@@ -50,6 +53,9 @@ interface CommonEntityPropertiesInterface
 
     /**
      * Returns the email address of the user/developer who modified the entity the last time.
+     *
+     * @deprecated in 2.0.4, will be removed before 3.0.0. Unsupported in Hybrid.
+     * @see https://github.com/apigee/apigee-client-php/issues/65
      *
      * @return string|null Email address.
      */

@@ -57,7 +57,9 @@ class CompanyAppCredentialController extends AppCredentialController implements 
      */
     protected function getBaseEndpointUri(): UriInterface
     {
-        return $this->client->getUriFactory()->createUri("/organizations/{$this->organization}/companies/{$this->companyName}/apps/{$this->appName}");
+        $appName = rawurlencode($this->appName);
+
+        return $this->client->getUriFactory()->createUri("/organizations/{$this->organization}/companies/{$this->companyName}/apps/{$appName}");
     }
 
     /**

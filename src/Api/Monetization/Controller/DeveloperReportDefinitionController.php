@@ -50,7 +50,9 @@ class DeveloperReportDefinitionController extends LegalEntityReportDefinitionCon
      */
     protected function getBaseEndpointUri(): UriInterface
     {
-        return $this->client->getUriFactory()->createUri("/mint/organizations/{$this->organization}/developers/{$this->developerId}/report-definitions");
+        $developerId = rawurlencode($this->developerId);
+
+        return $this->client->getUriFactory()->createUri("/mint/organizations/{$this->organization}/developers/{$developerId}/report-definitions");
     }
 
     /**

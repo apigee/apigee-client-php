@@ -16,16 +16,19 @@
  * limitations under the License.
  */
 
-namespace Apigee\Edge\Tests\Test\HttpClient\Plugin;
+namespace Apigee\Edge\HttpClient\Plugin\Authentication;
 
 use Http\Message\Authentication;
 use Psr\Http\Message\RequestInterface;
 
 /**
- * Null authentication for tests.
+ * Null authentication.
  */
 class NullAuthentication implements Authentication
 {
+    /**
+     * @inheritdoc
+     */
     public function authenticate(RequestInterface $request)
     {
         return $request;
