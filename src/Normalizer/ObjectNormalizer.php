@@ -92,6 +92,7 @@ class ObjectNormalizer implements NormalizerInterface, SerializerAwareInterface
      *
      * @psalm-suppress InvalidReturnType stdClass is also an object.
      * @psalm-suppress PossiblyInvalidArgument First argument of array_filter is always an array.
+     * @psalm-suppress PossiblyNullArgument First argument of array_filter is always an array.
      */
     public function normalize($object, $format = null, array $context = [])
     {

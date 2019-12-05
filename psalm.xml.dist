@@ -19,6 +19,9 @@
         <LessSpecificReturnStatement errorLevel="info" />
         <!-- Disable errors caused by using class typehinting on variables and interfaces on setter's param types. -->
         <TypeCoercion errorLevel="info" />
+        <!-- Disable errors caused by interfaces declaring a generic object/array return type and implementations using specific classes. -->
+        <InvalidReturnType errorLevel="info" />
+        <InvalidReturnStatement errorLevel="info" />
 
         <!-- level 3 issues - slightly lazy code writing, but provably low false-negatives -->
         <DeprecatedMethod errorLevel="info" />
