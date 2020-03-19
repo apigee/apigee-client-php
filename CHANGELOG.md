@@ -2,8 +2,9 @@
 
 ## [2.0.4](https://github.com/apigee/apigee-client-php/milestone/2?closed=1) - December 5 2019
 * Updated php-cs-fixer version and code analysis tools rules/validations.
+* GA support for Apigee hybrid Management API.
 #### Apigee Hybrid Management API
-* Alpha support for Apigee hybrid Management API.
+* Alpha support for Apigee hybrid API.
 * Support for OAuth 2.0 for server to server applications using email and a private key.
 #### Management API
 * [#65](https://github.com/apigee/apigee-client-php/pull/74) Deprecated `createdBy` and `lastModifiedBy` properties in
