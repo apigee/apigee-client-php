@@ -31,7 +31,7 @@ final class RevenueReportCriteria extends AbstractCriteria
     /**
      * @var \DateTimeImmutable|null
      */
-    private $endDate;
+    private $toDate;
 
     /**
      * Array of developer attributes to be displayed in the report.
@@ -59,12 +59,12 @@ final class RevenueReportCriteria extends AbstractCriteria
      * RevenueReportCriteria constructor.
      *
      * @param \DateTimeImmutable $fromDate
-     * @param \DateTimeImmutable|null $endDate
+     * @param \DateTimeImmutable|null $toDate
      */
-    public function __construct(\DateTimeImmutable $fromDate, ?\DateTimeImmutable $endDate = null)
+    public function __construct(\DateTimeImmutable $fromDate, ?\DateTimeImmutable $toDate = null)
     {
         $this->fromDate = $fromDate;
-        $this->endDate = $endDate;
+        $this->toDate = $toDate;
     }
 
     /**
@@ -78,9 +78,9 @@ final class RevenueReportCriteria extends AbstractCriteria
     /**
      * @return \DateTimeImmutable|null
      */
-    public function getEndDate(): ?\DateTimeImmutable
+    public function getToDate(): ?\DateTimeImmutable
     {
-        return $this->endDate;
+        return $this->toDate;
     }
 
     /**
