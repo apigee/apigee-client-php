@@ -1,8 +1,12 @@
 # CHANGELOG
 
+## [2.0.5](https://github.com/apigee/apigee-client-php/milestone/3?closed=1) - May 26 2020
+* GA support for Apigee hybrid Management API.
+* Remove Alpha note about Monetization in README.
+* [#101](https://github.com/apigee/apigee-client-php/pull/101) Use toDate instead of endDate for revenue report criteria.
+
 ## [2.0.4](https://github.com/apigee/apigee-client-php/milestone/2?closed=1) - December 5 2019
 * Updated php-cs-fixer version and code analysis tools rules/validations.
-* GA support for Apigee hybrid Management API.
 #### Apigee Hybrid Management API
 * Alpha support for Apigee hybrid API.
 * Support for OAuth 2.0 for server to server applications using email and a private key.
