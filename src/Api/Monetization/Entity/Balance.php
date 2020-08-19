@@ -52,6 +52,27 @@ class Balance extends Entity implements BalanceInterface
     protected $transaction;
 
     /**
+     * The provider ID.
+     *
+     * @var string
+     */
+    protected $providerId;
+
+    /**
+     * The recurring amount.
+     *
+     * @var float
+     */
+    protected $recurringAmount;
+
+    /**
+     * The replenish amount.
+     *
+     * @var float
+     */
+    protected $replenishAmount;
+
+    /**
      * @inheritdoc
      */
     public function getAmount(): float
@@ -139,5 +160,59 @@ class Balance extends Entity implements BalanceInterface
     public function setTransaction(PaymentTransaction $transaction): void
     {
         $this->transaction = $transaction;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getProviderId(): string
+    {
+        return $this->providerId;
+    }
+
+    /**
+     * @param string $providerId
+     *
+     * @internal
+     */
+    public function setProviderId(string $providerId): void
+    {
+        $this->providerId = $providerId;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getRecurringAmount(): float
+    {
+        return $this->recurringAmount;
+    }
+
+    /**
+     * @param float $recurringAmount
+     *
+     * @internal
+     */
+    public function setRecurringAmount(float $recurringAmount): void
+    {
+        $this->recurringAmount = $recurringAmount;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getReplenishAmount(): float
+    {
+        return $this->replenishAmount;
+    }
+
+    /**
+     * @param float $replenishAmount
+     *
+     * @internal
+     */
+    public function setReplenishAmount(float $replenishAmount): void
+    {
+        $this->replenishAmount = $replenishAmount;
     }
 }

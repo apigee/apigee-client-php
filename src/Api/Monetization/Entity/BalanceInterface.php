@@ -52,4 +52,19 @@ interface BalanceInterface extends EntityInterface, CurrencyPropertyInterface
      * @return \Apigee\Edge\Api\Monetization\Structure\PaymentTransaction|null
      */
     public function getTransaction(): ?PaymentTransaction;
+
+    /**
+     * @return string
+     */
+    public function getProviderId(): string;
+
+    /**
+     * @return float
+     */
+    public function getRecurringAmount(): float;
+
+    /**
+     * @return float
+     */
+    public function getReplenishAmount(): float;
 }
