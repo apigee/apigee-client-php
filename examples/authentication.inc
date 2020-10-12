@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-/**
+/*
  * Provides a client factory that can build a API client. It reads necessary credentials from environment variables.
  *
  * Requires the following environment variables to be set on your system:

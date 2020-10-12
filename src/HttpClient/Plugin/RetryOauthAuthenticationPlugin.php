@@ -22,6 +22,7 @@ use Apigee\Edge\Exception\OauthAccessTokenAuthenticationException;
 use Apigee\Edge\HttpClient\Plugin\Authentication\AbstractOauth;
 use Http\Client\Common\Plugin;
 use Http\Client\Exception;
+use Http\Promise\Promise;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
@@ -52,7 +53,7 @@ class RetryOauthAuthenticationPlugin implements Plugin
      *
      * @psalm-suppress InvalidThrow - Exception with interface can be thrown.
      */
-    public function handleRequest(RequestInterface $request, callable $next, callable $first)
+    public function handleRequest(RequestInterface $request, callable $next, callable $first): Promise
     {
         return $next($request)->then(function (ResponseInterface $response) {
             return $response;

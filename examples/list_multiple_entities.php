@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-/**
+/*
  * This example demonstrates how you can list entities (developers, api products, developer apps, etc.) from a type.
  */
 use Apigee\Edge\Api\Management\Controller\ApiProductController;

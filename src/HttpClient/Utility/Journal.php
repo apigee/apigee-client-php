@@ -18,7 +18,7 @@
 
 namespace Apigee\Edge\HttpClient\Utility;
 
-use Http\Client\Exception;
+use Psr\Http\Client\ClientExceptionInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
@@ -66,9 +66,9 @@ final class Journal implements JournalInterface
      * Record a failed call.
      *
      * @param \Psr\Http\Message\RequestInterface $request Request use to make the call
-     * @param \Http\Client\Exception $exception Exception returned by the call
+     * @param \Psr\Http\Client\ClientExceptionInterface $exception Exception returned by the call
      */
-    public function addFailure(RequestInterface $request, Exception $exception): void
+    public function addFailure(RequestInterface $request, ClientExceptionInterface $exception): void
     {
         $this->lastRequest = $request;
         $this->lastException = $exception;
