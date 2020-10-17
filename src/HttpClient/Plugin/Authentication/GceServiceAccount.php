@@ -89,6 +89,11 @@ class GceServiceAccount extends AbstractOauth
         }
     }
 
+    /**
+     * Return the Auth Header required by GCE Access token endpoint.
+     *
+     * @return Header
+     */
     protected function getAuthHeader() {
         return new Header("Metadata-Flavor", "Google");
     }
