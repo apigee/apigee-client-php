@@ -32,8 +32,7 @@ use Http\Message\Authentication\Header;
  */
 class GceServiceAccount extends AbstractOauth
 {
-
-    public const DEFAULT_GCE_AUTH_SERVER = "http://metadata.google.internal/computeMetadata/v1/instance/service-accounts/default/token";
+    public const DEFAULT_GCE_AUTH_SERVER = 'http://metadata.google.internal/computeMetadata/v1/instance/service-accounts/default/token';
 
     /**
      * GceServiceAccountAuthentication constructor.
@@ -41,33 +40,9 @@ class GceServiceAccount extends AbstractOauth
      * @param \Apigee\Edge\HttpClient\Plugin\Authentication\OauthTokenStorageInterface $tokenStorage
      *   Storage where access token gets saved.
      */
-    public function __construct(OauthTokenStorageInterface $tokenStorage) {
-        parent::__construct($tokenStorage, static::DEFAULT_GCE_AUTH_SERVER);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    protected function authClient(): ClientInterface
+    public function __construct(OauthTokenStorageInterface $tokenStorage)
     {
-        return new Client($this->getAuthHeader(), $this->getAuthServer());
-    }
-
-
-    /**
-     * @inheritdoc
-     *
-     * @psalm-suppress InvalidCatch - Exception by interface can be caught in PHP >= 7.1.
-     */
-    protected function getAccessToken(): void {
-        try {
-            $response = $this->authClient()->get("");
-            $decoded_token = json_decode((string) $response->getBody(), TRUE);
-            $this->tokenStorage->saveToken($decoded_token);
-        }
-        catch (Exception $e) {
-            throw new HybridOauth2AuthenticationException($e->getMessage(), $e->getCode(), $e);
-        }
+        parent::__construct($tokenStorage, static::DEFAULT_GCE_AUTH_SERVER);
     }
 
     /**
@@ -78,14 +53,39 @@ class GceServiceAccount extends AbstractOauth
      * @return bool
      *   If GCE Service Account authentication is available.
      */
-    public function isAvailable(): bool {
-        return TRUE;
+    public function isAvailable(): bool
+    {
+        return true;
         try {
-            $this->authClient()->get("");
-            return TRUE;
+            $this->authClient()->get('');
+
+            return true;
+        } catch (Exception $e) {
+            return false;
         }
-        catch (Exception $e) {
-            return FALSE;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    protected function authClient(): ClientInterface
+    {
+        return new Client($this->getAuthHeader(), $this->getAuthServer());
+    }
+
+    /**
+     * @inheritdoc
+     *
+     * @psalm-suppress InvalidCatch - Exception by interface can be caught in PHP >= 7.1.
+     */
+    protected function getAccessToken(): void
+    {
+        try {
+            $response = $this->authClient()->get('');
+            $decoded_token = json_decode((string) $response->getBody(), true);
+            $this->tokenStorage->saveToken($decoded_token);
+        } catch (Exception $e) {
+            throw new HybridOauth2AuthenticationException($e->getMessage(), $e->getCode(), $e);
         }
     }
 
@@ -94,7 +94,8 @@ class GceServiceAccount extends AbstractOauth
      *
      * @return Header
      */
-    protected function getAuthHeader() {
-        return new Header("Metadata-Flavor", "Google");
+    protected function getAuthHeader()
+    {
+        return new Header('Metadata-Flavor', 'Google');
     }
 }
