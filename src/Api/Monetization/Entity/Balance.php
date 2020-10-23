@@ -75,7 +75,7 @@ class Balance extends Entity implements BalanceInterface
     /**
      * @inheritdoc
      */
-    public function getAmount(): float
+    public function getAmount(): ?float
     {
         return $this->amount;
     }
@@ -165,7 +165,7 @@ class Balance extends Entity implements BalanceInterface
     /**
      * {@inheritdoc}
      */
-    public function getProviderId(): string
+    public function getProviderId(): ?string
     {
         return $this->providerId;
     }
@@ -183,7 +183,7 @@ class Balance extends Entity implements BalanceInterface
     /**
      * {@inheritdoc}
      */
-    public function getRecurringAmount(): float
+    public function getRecurringAmount(): ?float
     {
         return $this->recurringAmount;
     }
@@ -201,7 +201,7 @@ class Balance extends Entity implements BalanceInterface
     /**
      * {@inheritdoc}
      */
-    public function getReplenishAmount(): float
+    public function getReplenishAmount(): ?float
     {
         return $this->replenishAmount;
     }

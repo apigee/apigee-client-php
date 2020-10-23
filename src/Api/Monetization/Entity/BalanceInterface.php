@@ -29,9 +29,9 @@ use Apigee\Edge\Api\Monetization\Structure\PaymentTransaction;
 interface BalanceInterface extends EntityInterface, CurrencyPropertyInterface
 {
     /**
-     * @return float
+     * @return float|null
      */
-    public function getAmount(): float;
+    public function getAmount(): ?float;
 
     /**
      * @return bool
@@ -54,17 +54,17 @@ interface BalanceInterface extends EntityInterface, CurrencyPropertyInterface
     public function getTransaction(): ?PaymentTransaction;
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getProviderId(): string;
+    public function getProviderId(): ?string;
 
     /**
-     * @return float
+     * @return float|null
      */
-    public function getRecurringAmount(): float;
+    public function getRecurringAmount(): ?float;
 
     /**
-     * @return float
+     * @return float|null
      */
-    public function getReplenishAmount(): float;
+    public function getReplenishAmount(): ?float;
 }
