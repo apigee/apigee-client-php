@@ -71,7 +71,7 @@ class GceServiceAccount extends AbstractOauth
      */
     protected function authClient(): ClientInterface
     {
-        return new Client(new Header('Metadata-Flavor', 'Google'), $this->getAuthServer());
+        return new Client($this->getAuthHeader(), $this->getAuthServer());
     }
 
     /**
@@ -88,5 +88,15 @@ class GceServiceAccount extends AbstractOauth
         } catch (Exception $e) {
             throw new HybridOauth2AuthenticationException($e->getMessage(), $e->getCode(), $e);
         }
+    }
+
+    /**
+     * Return the Auth Header required by GCE Access token endpoint.
+     *
+     * @return \Http\Message\Authentication\Header
+     */
+    protected function getAuthHeader(): Header
+    {
+        return new Header('Metadata-Flavor', 'Google');
     }
 }
