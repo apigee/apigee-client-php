@@ -34,6 +34,8 @@ install:
   # Disable xDebug (but do not remove its configuration, because we need that for code coverage calculation).
   # Clear the default 6 minutes max execution time limit otherwise test suite fails in case of online tests.
   - echo -en "max_execution_time = 0\nxdebug.default_enable = 0" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
+  - composer self-update --rollback
+  - composer global require hirak/prestissimo:^0.3.7
   - travis_retry composer update $COMPOSER_OPTIONS $DEPENDENCIES
   # Fix PHPUnit tests on PHP >= 7.2 by upgrading Guzzle to >= 6.3.0.
   # https://github.com/guzzle/guzzle/issues/1973
