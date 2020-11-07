@@ -52,6 +52,8 @@ class GceServiceAccount extends AbstractOauth
      *
      * @return bool
      *   If GCE Service Account authentication is available.
+     *
+     * @psalm-suppress InvalidCatch - Exception by interface can be caught in PHP >= 7.1.
      */
     public function isAvailable(): bool
     {
