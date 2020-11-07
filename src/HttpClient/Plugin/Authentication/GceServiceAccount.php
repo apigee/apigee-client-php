@@ -57,6 +57,7 @@ class GceServiceAccount extends AbstractOauth
     {
         try {
             $this->authClient()->get('');
+
             return true;
         } catch (Exception $e) {
             return false;
