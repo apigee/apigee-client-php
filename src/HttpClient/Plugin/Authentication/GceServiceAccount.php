@@ -55,10 +55,8 @@ class GceServiceAccount extends AbstractOauth
      */
     public function isAvailable(): bool
     {
-        return true;
         try {
             $this->authClient()->get('');
-
             return true;
         } catch (Exception $e) {
             return false;
@@ -92,9 +90,9 @@ class GceServiceAccount extends AbstractOauth
     /**
      * Return the Auth Header required by GCE Access token endpoint.
      *
-     * @return Header
+     * @return \Http\Message\Authentication\Header
      */
-    protected function getAuthHeader()
+    protected function getAuthHeader(): Header
     {
         return new Header('Metadata-Flavor', 'Google');
     }
