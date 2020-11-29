@@ -34,6 +34,7 @@ use Psr\Http\Message\UriInterface;
  * @see https://github.com/php-http/client-common/blob/2.0.0/src/Plugin/AddPathPlugin.php
  * @see https://github.com/php-http/client-common/issues/171
  * @see https://github.com/php-http/client-common/issues/141
+ * @deprecated in 2.0.6, will be removed before 3.0.0. No longer needed.
  */
 final class AddPathPlugin implements Plugin
 {
@@ -52,6 +53,7 @@ final class AddPathPlugin implements Plugin
      */
     public function __construct(UriInterface $uri)
     {
+        @trigger_error(sprintf('The %s class is deprecated since version 2.0.6 and will be removed in 3.0.0. Use %s instead.', get_class($this), Plugin\AddPathPlugin::class), E_USER_DEPRECATED);
         if ('' === $uri->getPath()) {
             throw new InvalidArgumentException('URI path cannot be empty');
         }

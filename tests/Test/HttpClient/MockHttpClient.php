@@ -74,7 +74,7 @@ class MockHttpClient implements MockHttpClientInterface
      *
      * @see HttpClient::sendRequest
      */
-    public function sendRequest(RequestInterface $request)
+    public function sendRequest(RequestInterface $request): ResponseInterface
     {
         try {
             return $this->decorated->sendRequest($request);

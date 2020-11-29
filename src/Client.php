@@ -20,7 +20,6 @@ namespace Apigee\Edge;
 
 use Apigee\Edge\Exception\ApiResponseException;
 use Apigee\Edge\Exception\OauthAuthenticationException;
-use Apigee\Edge\HttpClient\Plugin\AddPathPlugin;
 use Apigee\Edge\HttpClient\Plugin\Authentication\AbstractOauth;
 use Apigee\Edge\HttpClient\Plugin\ResponseHandlerPlugin;
 use Apigee\Edge\HttpClient\Plugin\RetryOauthAuthenticationPlugin;
@@ -28,6 +27,7 @@ use Apigee\Edge\HttpClient\Utility\Builder;
 use Apigee\Edge\HttpClient\Utility\Journal;
 use Apigee\Edge\HttpClient\Utility\JournalInterface;
 use Http\Client\Common\Plugin\AddHostPlugin;
+use Http\Client\Common\Plugin\AddPathPlugin;
 use Http\Client\Common\Plugin\AuthenticationPlugin;
 use Http\Client\Common\Plugin\HeaderDefaultsPlugin;
 use Http\Client\Common\Plugin\HistoryPlugin;
