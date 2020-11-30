@@ -23,6 +23,7 @@ use Http\Client\Common\HttpAsyncClientEmulator;
 use Http\Client\HttpClient;
 use League\Flysystem\AdapterInterface;
 use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * Loads the content of an HTTP response from the file system if available.
@@ -49,7 +50,7 @@ class FileSystemHttpMockClient implements MockHttpClientInterface
      *
      * @see HttpClient::sendRequest
      */
-    public function sendRequest(RequestInterface $request)
+    public function sendRequest(RequestInterface $request): ResponseInterface
     {
         try {
             return $this->fileSystemResponseFactory->createResponseForRequest($request, 200, null, ['Content-Type' => 'application/json']);

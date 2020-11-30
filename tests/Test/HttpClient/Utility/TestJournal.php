@@ -19,7 +19,7 @@
 namespace Apigee\Edge\Tests\Test\HttpClient\Utility;
 
 use Apigee\Edge\HttpClient\Utility\JournalInterface;
-use Http\Client\Exception;
+use Psr\Http\Client\ClientExceptionInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
@@ -46,7 +46,7 @@ final class TestJournal implements JournalInterface
     /**
      * @inheritdoc
      */
-    public function addFailure(RequestInterface $request, Exception $exception): void
+    public function addFailure(RequestInterface $request, ClientExceptionInterface $exception): void
     {
         $this->requests[] = $request;
         $this->exceptions[] = $exception;

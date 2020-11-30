@@ -19,14 +19,16 @@
 namespace Apigee\Edge\Tests\PropertyAccess;
 
 use Apigee\Edge\Exception\UnexpectedValueException;
-use Apigee\Edge\Exception\UninitializedPropertyException;
 use Apigee\Edge\PropertyAccess\PropertyAccessorDecorator;
+use Symfony\Component\PropertyAccess\Exception\AccessException;
 use Symfony\Component\PropertyAccess\Exception\InvalidArgumentException;
 use Symfony\Component\PropertyAccess\PropertyAccessor;
 use Symfony\Component\PropertyAccess\Tests\PropertyAccessorTest;
 
 class PropertyAccessorDecoratorTest extends PropertyAccessorTest
 {
+    use PhpUnitBcBridgeTrait;
+
     /**
      * @var \Apigee\Edge\PropertyAccess\PropertyAccessorDecorator
      */
@@ -123,13 +125,15 @@ class PropertyAccessorDecoratorTest extends PropertyAccessorTest
     /**
      * @dataProvider exceptionsToGetOnGetValue
      */
-    public function testGetValueWithInvalidReturns(string $property, string $expectedException, string $expectedExceptionMessageRegexp): void
+    public function testGetValueWithInvalidReturns(string $property, string $expectedException, string $expectedExceptionMessageRegexp = null): void
     {
         try {
             $this->propertyAccessor->getValue(static::$testObj, $property);
         } catch (\Exception $exception) {
             $this->assertInstanceOf($expectedException, $exception);
-            $this->assertRegExp($expectedExceptionMessageRegexp, $exception->getMessage());
+            if (null !== $expectedExceptionMessageRegexp) {
+                $this->assertRegExp($expectedExceptionMessageRegexp, $exception->getMessage());
+            }
         } finally {
             if (!isset($exception)) {
                 $this->fail('An exception should have been thrown.');
@@ -174,7 +178,10 @@ class PropertyAccessorDecoratorTest extends PropertyAccessorTest
     public function exceptionsToGetOnGetValue(): array
     {
         return [
-            ['shouldBeAStringArray', UninitializedPropertyException::class, '/^Property "shouldBeAStringArray" has not been initialized on instance of class@anonymous.* class. Expected type: "array".$/'],
+            // It seems the upstream issue has been fixed, throwing an
+            // unexpected value exception for this case is no longer needed.
+            // https://github.com/symfony/property-access/commit/e1a6c91c0007e45bc1beba929c76548ca9fe8a85
+            ['shouldBeAStringArray', AccessException::class],
             ['shouldBeAString', UnexpectedValueException::class, '/Invalid value returned for shouldBeAString property on instance of class@anonymous.* class. Expected type "string", got "stdClass".$/'],
         ];
     }

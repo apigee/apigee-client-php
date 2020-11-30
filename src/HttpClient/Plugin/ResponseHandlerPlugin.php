@@ -27,9 +27,11 @@ use Apigee\Edge\Exception\ServerErrorException;
 use Http\Client\Common\Plugin;
 use Http\Client\Exception;
 use Http\Client\Exception\HttpException;
+use Http\Client\Exception\NetworkException;
 use Http\Client\Exception\RequestException;
 use Http\Message\Formatter;
 use Http\Message\Formatter\FullHttpMessageFormatter;
+use Http\Promise\Promise;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
@@ -57,7 +59,7 @@ final class ResponseHandlerPlugin implements Plugin
      * @psalm-suppress UndefinedMethod - $e->getResponse() is not undefined.
      * @psalm-suppress InvalidArgument - $e is not an invalid argument.
      */
-    public function handleRequest(RequestInterface $request, callable $next, callable $first)
+    public function handleRequest(RequestInterface $request, callable $next, callable $first): Promise
     {
         return $next($request)->then(function (ResponseInterface $response) use ($request) {
             return $this->decodeResponse($response, $request);
@@ -65,9 +67,9 @@ final class ResponseHandlerPlugin implements Plugin
             if ($e instanceof ApiException) {
                 throw $e;
             }
-            if ($e instanceof HttpException || in_array(HttpException::class, class_parents($e))) {
+            if (is_a($e, HttpException::class)) {
                 $this->decodeResponse($e->getResponse(), $request);
-            } elseif ($e instanceof RequestException || in_array(RequestException::class, class_parents($e))) {
+            } elseif (is_a($e, RequestException::class) || is_a($e, NetworkException::class)) {
                 throw new ApiRequestException($request, $e->getMessage(), $e->getCode(), $e);
             }
 

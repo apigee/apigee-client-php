@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## [2.0.6]
+* Dropped support of HTTPlug 1.x libraries (HTTPlug, Client Common and Guzzle 6 adapter).
+
 ## [2.0.5](https://github.com/apigee/apigee-client-php/milestone/3?closed=1) - May 26 2020
 * GA support for Apigee hybrid Management API.
 * Remove Alpha note about Monetization in README.
