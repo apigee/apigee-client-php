@@ -77,13 +77,13 @@ class StatsController extends AbstractController implements StatsControllerInter
      */
     public function getMetrics(StatsQueryInterface $query, ?string $optimized = 'js'): array
     {
-        $query_params = [
-                '_optimized' => $optimized,
-            ] + $this->normalizer->normalize($query);
+        $isHybrid = ClientInterface::HYBRID_ENDPOINT === $this->getClient()->getEndpoint();
+        $extra_params = $isHybrid ? [] : ['_optimized' => $optimized];
+        $query_params = $extra_params + $this->normalizer->normalize($query);
         $uri = $this->getBaseEndpointUri()->withQuery(http_build_query($query_params));
-        $response = $this->responseToArray($this->client->get($uri));
+        $response = $this->responseToArray($this->client->get($uri), $isHybrid);
 
-        return $response['Response'];
+        return $response['Response'] ?? [];
     }
 
     /**
@@ -138,15 +138,15 @@ class StatsController extends AbstractController implements StatsControllerInter
      */
     public function getMetricsByDimensions(array $dimensions, StatsQueryInterface $query, ?string $optimized = 'js'): array
     {
-        $query_params = [
-                '_optimized' => $optimized,
-            ] + $this->normalizer->normalize($query);
+        $isHybrid = ClientInterface::HYBRID_ENDPOINT === $this->getClient()->getEndpoint();
+        $extra_params = $isHybrid ? [] : ['_optimized' => $optimized];
+        $query_params = $extra_params + $this->normalizer->normalize($query);
         $path = $this->getBaseEndpointUri()->getPath() . implode(',', $dimensions);
         $uri = $this->getBaseEndpointUri()->withPath($path)
             ->withQuery(http_build_query($query_params));
-        $response = $this->responseToArray($this->client->get($uri));
+        $response = $this->responseToArray($this->client->get($uri), $isHybrid);
 
-        return $response['Response'];
+        return $response['Response'] ?? [];
     }
 
     /**
