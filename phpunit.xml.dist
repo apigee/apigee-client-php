@@ -23,18 +23,6 @@
          bootstrap="./vendor/autoload.php"
          printerClass="LimeDeck\Testing\Printer"
          verbose="true">
-    <php>
-        <!--  Apigee Edge credentials - uncomment and change these lines to change to an online test.  -->
-        <!--
-        <env name="APIGEE_EDGE_PHP_CLIENT_API_CLIENT" value="\Apigee\Edge\Tests\Test\Client"/>
-        <env name="APIGEE_EDGE_PHP_CLIENT_HTTP_CLIENT" value="\Http\Adapter\Guzzle6\Client"/>
-        <env name="APIGEE_EDGE_PHP_CLIENT_ORGANIZATION" value="myorg"/>
-        <env name="APIGEE_EDGE_PHP_CLIENT_BASIC_AUTH_USER" value="myuser@example.com"/>
-        <env name="APIGEE_EDGE_PHP_CLIENT_BASIC_AUTH_PASSWORD" value="secret"/>
-        <env name="APIGEE_EDGE_PHP_CLIENT_ENVIRONMENT" value="prod"/>
-        <env name="APIGEE_EDGE_ENDPOINT" value="https://api.enterprise.apigee.com/v1"/>
-        -->
-    </php>
     <testsuites>
         <testsuite name="All Apigee Edge PHP API Client Tests">
             <directory>tests/</directory>
