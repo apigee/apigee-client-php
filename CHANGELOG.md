@@ -54,7 +54,7 @@ You can find more information about this in the [related pull request](https://g
 * Setters on entities now accepts variable lengths arguments instead of an array. This way we can leverage PHP's built-in type check on these methods as well.
 * Developer and company entities extends and implements one new parent class and interface: AppOwner and AppOwnerInterface.
 * Refactored management API tests.
-  * New environment variable: APIGEE_EDGE_PHP_CLIENT_API_CLIENT
+* New environment variable: APIGEE_EDGE_PHP_CLIENT_API_CLIENT
 * Bumped minimum required versions from php-client/httplug and php-client/client-common packages.
 * Travis CI: Removed PHP nightly builds from the test matrix, fixed failed tests caused by Composer process timeout.
 
