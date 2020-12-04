@@ -1,7 +1,9 @@
 # CHANGELOG
 
-## [2.0.6]
+## [2.0.6](https://github.com/apigee/apigee-client-php/milestone/5?closed=1)
 * Dropped support of HTTPlug 1.x libraries (HTTPlug, Client Common and Guzzle 6 adapter).
+* Added support for GCE Service Account Authentication.
+* Added support to phpdocumentor/reflection-docblock:^5.0.
 
 ## [2.0.5](https://github.com/apigee/apigee-client-php/milestone/3?closed=1) - May 26 2020
 * GA support for Apigee hybrid Management API.
