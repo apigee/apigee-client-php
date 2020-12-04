@@ -138,7 +138,7 @@ Testing of new changes does not require Apigee Edge connection. By default, unit
 tests with a real Apigee Edge instance you have to specify the following environment variables (without brackets):
 
 ```shell
-APIGEE_EDGE_PHP_CLIENT_API_CLIENT=\Apigee\Edge\Tests\Test\FileSystemMockClient
+APIGEE_EDGE_PHP_CLIENT_API_CLIENT=\Apigee\Edge\Tests\Test\Client
 APIGEE_EDGE_PHP_CLIENT_HTTP_CLIENT=\Http\Adapter\Guzzle6\Client
 APIGEE_EDGE_PHP_CLIENT_BASIC_AUTH_USER=[YOUR-EMAIL-ADDRESS@HOST.COM]
 APIGEE_EDGE_PHP_CLIENT_BASIC_AUTH_PASSWORD=[PASSWORD]
@@ -149,8 +149,7 @@ APIGEE_EDGE_PHP_CLIENT_SUPPRESS_CPS_SIMULATION_NOTICE=1
 ```
 
 There are multiple ways to set these environment variables, but probably the easiest is creating a copy from the
-phpunit.xml.dist file as phpunit.xml and add these variables one-by-one inside the [<php> element](https://phpunit.de/manual/current/en/appendixes.configuration.html#appendixes.configuration.php-ini-constants-variables)
-with an <env> element.
+phpunit.xml.dist file as phpunit.xml and uncomment the `env` elements inside the [<php> element](https://phpunit.de/manual/current/en/appendixes.configuration.html#appendixes.configuration.php-ini-constants-variables).
 
 It is also possible to create and use your own data set. If you would like to use your own offline test data set then
 you just need to define the `APIGEE_EDGE_PHP_CLIENT_OFFLINE_TEST_DATA_FOLDER` environment variable set its value to the parent
