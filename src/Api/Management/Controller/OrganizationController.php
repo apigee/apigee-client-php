@@ -22,10 +22,10 @@ use Apigee\Edge\Api\Management\Entity\Organization;
 use Apigee\Edge\Api\Management\Serializer\OrganizationSerializer;
 use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Controller\AbstractEntityController;
+use Apigee\Edge\Controller\BaseEndpointAwareControllerTrait;
+use Apigee\Edge\Controller\ClientAwareControllerTrait;
 use Apigee\Edge\Controller\EntityCrudOperationsControllerTrait;
 use Apigee\Edge\Controller\EntityListingControllerTrait;
-use Apigee\Edge\Controller\NonPaginatedEntityIdListingControllerTrait;
-use Apigee\Edge\Controller\NonPaginatedEntityListingControllerTrait;
 use Apigee\Edge\Serializer\EntitySerializerInterface;
 use Psr\Http\Message\UriInterface;
 
@@ -34,10 +34,10 @@ use Psr\Http\Message\UriInterface;
  */
 class OrganizationController extends AbstractEntityController implements OrganizationControllerInterface
 {
+    use BaseEndpointAwareControllerTrait;
+    use ClientAwareControllerTrait;
     use EntityCrudOperationsControllerTrait;
     use EntityListingControllerTrait;
-    use NonPaginatedEntityListingControllerTrait;
-    use NonPaginatedEntityIdListingControllerTrait;
 
     /**
      * OrganizationController constructor.
@@ -49,6 +49,28 @@ class OrganizationController extends AbstractEntityController implements Organiz
     {
         $entitySerializer = $entitySerializer ?? new OrganizationSerializer();
         parent::__construct($client, $entitySerializer);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getEntities(): array
+    {
+        $uri = $this->getBaseEndpointUri();
+        $response = $this->getClient()->get($uri);
+        $responseArray = $this->responseToArray($response);
+        // Ignore entity type key from response, ex.: organizations.
+        $responseArray = reset($responseArray);
+        if (ClientInterface::HYBRID_ENDPOINT == $this->client->getEndpoint()) {
+            $entities = [];
+            foreach ($responseArray as $item) {
+                $entities[$item->organization] = $this->load($item->organization);
+            }
+
+            return $entities;
+        }
+
+        return $this->responseArrayToArrayOfEntities($responseArray);
     }
 
     /**
