@@ -81,15 +81,28 @@ abstract class AppCredentialController extends EntityController implements AppCr
         array $scopes = [],
         string $keyExpiresIn = '-1'
     ): AppCredentialInterface {
+        @trigger_error('The $appAttributes parameter is deprecated in version 2.0.7 and is removed from 3.0.0.', E_USER_DEPRECATED);
+        @trigger_error('The $callbackUrl parameter is deprecated in version 2.0.7 and is removed from 3.0.0.', E_USER_DEPRECATED);
+        $payload_as_array = [
+            'apiProducts' => $apiProducts,
+            'keyExpiresIn' => $keyExpiresIn,
+            'scopes' => $scopes,
+        ];
+        // It is highly unlikely that a downstream developer would like to
+        // remove attributes or callback urls from a parent app by passing
+        // empty values here. If empty argument values were passed then it
+        // probably happened by accident or it was a necessary workaround just
+        // to be able set key expiry.
+        $attributes_as_array = $this->entitySerializer->normalize($appAttributes);
+        if (!empty($attributes_as_array)) {
+            $payload_as_array['attributes'] = $attributes_as_array;
+        }
+        if (!empty(trim($callbackUrl))) {
+            $payload_as_array['callbackUrl'] = $callbackUrl;
+        }
         $response = $this->client->post(
             $this->getBaseEndpointUri(),
-            (string) json_encode((object) [
-                'apiProducts' => $apiProducts,
-                'attributes' => $this->entitySerializer->normalize($appAttributes),
-                'callbackUrl' => $callbackUrl,
-                'keyExpiresIn' => $keyExpiresIn,
-                'scopes' => $scopes,
-            ])
+            (string) json_encode((object) $payload_as_array)
         );
         // It returns a complete developer app entity, but we only returns the newly created credential for the
         // sake of consistency.
