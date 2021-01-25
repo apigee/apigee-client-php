@@ -44,6 +44,12 @@ class StatsController extends AbstractController implements StatsControllerInter
     /** @var string */
     protected $organization;
 
+    /** @var string */
+    private $optimized_js;
+
+    /** @var string */
+    private $is_hybrid;
+
     /**
      * StatsController constructor.
      *
@@ -68,6 +74,8 @@ class StatsController extends AbstractController implements StatsControllerInter
         // Return responses as an associative array instead of in Apigee Edge's mixed object-array structure to
         // make developer's life easier.
         $this->jsonDecoder = new JsonDecode(true);
+        $this->optimized_js = false;
+        $this->is_hybrid = false;
     }
 
     /**
@@ -77,13 +85,23 @@ class StatsController extends AbstractController implements StatsControllerInter
      */
     public function getMetrics(StatsQueryInterface $query, ?string $optimized = 'js'): array
     {
-        $query_params = [
+        if ($optimized === 'js' && !$this->is_hybrid) {
+            $query_params = [
                 '_optimized' => $optimized,
             ] + $this->normalizer->normalize($query);
+        }
+        else {
+            $query_params = $this->normalizer->normalize($query);
+            $this->optimized_js = true;
+        }
         $uri = $this->getBaseEndpointUri()->withQuery(http_build_query($query_params));
         $response = $this->responseToArray($this->client->get($uri));
+        
+        if ($this->is_hybrid) {
+            $response['Response']['TimeUnit'] = array_map('intval', $response['Response']['TimeUnit']);
+        }
 
-        return $response['Response'];
+        return $response['Response'] ?? [];
     }
 
     /**
@@ -108,6 +126,7 @@ class StatsController extends AbstractController implements StatsControllerInter
      */
     public function getOptimisedMetrics(StatsQueryInterface $query): array
     {
+        $this->is_hybrid = ClientInterface::HYBRID_ENDPOINT === $this->getClient()->getEndpoint();
         $response = $this->getMetrics($query, 'js');
         // If no analytics data returned for a given criteria just return.
         if (empty($response['stats'])) {
@@ -138,15 +157,28 @@ class StatsController extends AbstractController implements StatsControllerInter
      */
     public function getMetricsByDimensions(array $dimensions, StatsQueryInterface $query, ?string $optimized = 'js'): array
     {
-        $query_params = [
+        $this->is_hybrid = ClientInterface::HYBRID_ENDPOINT === $this->getClient()->getEndpoint();
+        
+        if ($optimized === 'js' && !$this->is_hybrid) {
+            $query_params = [
                 '_optimized' => $optimized,
             ] + $this->normalizer->normalize($query);
+        }
+        else {
+            $query_params = $this->normalizer->normalize($query);
+            $this->optimized_js = true;
+        }
+
         $path = $this->getBaseEndpointUri()->getPath() . implode(',', $dimensions);
         $uri = $this->getBaseEndpointUri()->withPath($path)
             ->withQuery(http_build_query($query_params));
         $response = $this->responseToArray($this->client->get($uri));
 
-        return $response['Response'];
+        if ($this->is_hybrid) {
+            $response['Response']['TimeUnit'] = array_map('intval', $response['Response']['TimeUnit']);
+        }
+
+        return $response['Response'] ?? [];
     }
 
     /**
@@ -211,8 +243,13 @@ class StatsController extends AbstractController implements StatsControllerInter
      */
     protected function getBaseEndpointUri(): UriInterface
     {
-        // Slash in the end is always required.
-        return $this->client->getUriFactory()->createUri("/organizations/{$this->organization}/environments/$this->environment/stats/");
+        if ($this->is_hybrid && $this->optimized_js) {
+            return $this->client->getUriFactory()->createUri("/organizations/{$this->organization}/environments/$this->environment/optimizedStats/");
+        }
+        else {
+            // Slash in the end is always required.
+            return $this->client->getUriFactory()->createUri("/organizations/{$this->organization}/environments/$this->environment/stats/");
+        }
     }
 
     /**
