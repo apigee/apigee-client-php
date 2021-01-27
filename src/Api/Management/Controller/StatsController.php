@@ -85,18 +85,18 @@ class StatsController extends AbstractController implements StatsControllerInter
      */
     public function getMetrics(StatsQueryInterface $query, ?string $optimized = 'js'): array
     {
-        if ($optimized === 'js' && !$this->is_hybrid) {
+        $this->is_hybrid = ClientInterface::HYBRID_ENDPOINT === $this->getClient()->getEndpoint();
+        if ('js' === $optimized && !$this->is_hybrid) {
             $query_params = [
                 '_optimized' => $optimized,
             ] + $this->normalizer->normalize($query);
-        }
-        else {
+        } else {
             $query_params = $this->normalizer->normalize($query);
             $this->optimized_js = true;
         }
         $uri = $this->getBaseEndpointUri()->withQuery(http_build_query($query_params));
         $response = $this->responseToArray($this->client->get($uri));
-        
+
         if ($this->is_hybrid) {
             $response['Response']['TimeUnit'] = array_map('intval', $response['Response']['TimeUnit']);
         }
@@ -158,13 +158,12 @@ class StatsController extends AbstractController implements StatsControllerInter
     public function getMetricsByDimensions(array $dimensions, StatsQueryInterface $query, ?string $optimized = 'js'): array
     {
         $this->is_hybrid = ClientInterface::HYBRID_ENDPOINT === $this->getClient()->getEndpoint();
-        
-        if ($optimized === 'js' && !$this->is_hybrid) {
+
+        if ('js' === $optimized && !$this->is_hybrid) {
             $query_params = [
                 '_optimized' => $optimized,
             ] + $this->normalizer->normalize($query);
-        }
-        else {
+        } else {
             $query_params = $this->normalizer->normalize($query);
             $this->optimized_js = true;
         }
@@ -245,8 +244,7 @@ class StatsController extends AbstractController implements StatsControllerInter
     {
         if ($this->is_hybrid && $this->optimized_js) {
             return $this->client->getUriFactory()->createUri("/organizations/{$this->organization}/environments/$this->environment/optimizedStats/");
-        }
-        else {
+        } else {
             // Slash in the end is always required.
             return $this->client->getUriFactory()->createUri("/organizations/{$this->organization}/environments/$this->environment/stats/");
         }
