@@ -44,10 +44,10 @@ class StatsController extends AbstractController implements StatsControllerInter
     /** @var string */
     protected $organization;
 
-    /** @var string */
+    /** @var bool */
     private $optimized_js;
 
-    /** @var string */
+    /** @var bool */
     private $is_hybrid;
 
     /**
