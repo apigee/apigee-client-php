@@ -58,7 +58,7 @@ trait AttributesAwareEntityControllerTrait
             $this->getEntityAttributeUri($entityId, $name)
         ));
 
-        return $responseArray['value'];
+        return $responseArray['value'] ?? '';
     }
 
     /**
