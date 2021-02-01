@@ -79,7 +79,7 @@ class StatsController extends AbstractController implements StatsControllerInter
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      *
      * @psalm-suppress InvalidOperand - $this->normalizer->normalize() always returns an array.
      */
@@ -151,7 +151,7 @@ class StatsController extends AbstractController implements StatsControllerInter
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      *
      * @psalm-suppress InvalidOperand - $this->normalizer->normalize() always returns an array.
      */
@@ -230,7 +230,7 @@ class StatsController extends AbstractController implements StatsControllerInter
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getOrganisationName(): string
     {
@@ -238,7 +238,7 @@ class StatsController extends AbstractController implements StatsControllerInter
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getBaseEndpointUri(): UriInterface
     {
