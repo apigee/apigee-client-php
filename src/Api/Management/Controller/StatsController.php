@@ -86,6 +86,7 @@ class StatsController extends AbstractController implements StatsControllerInter
     public function getMetrics(StatsQueryInterface $query, ?string $optimized = 'js'): array
     {
         $this->is_hybrid = ClientInterface::HYBRID_ENDPOINT === $this->getClient()->getEndpoint();
+        $query_params = [];
         if ('js' === $optimized && !$this->is_hybrid) {
             $query_params = [
                 '_optimized' => $optimized,
@@ -158,7 +159,7 @@ class StatsController extends AbstractController implements StatsControllerInter
     public function getMetricsByDimensions(array $dimensions, StatsQueryInterface $query, ?string $optimized = 'js'): array
     {
         $this->is_hybrid = ClientInterface::HYBRID_ENDPOINT === $this->getClient()->getEndpoint();
-
+        $query_params = [];
         if ('js' === $optimized && !$this->is_hybrid) {
             $query_params = [
                 '_optimized' => $optimized,
