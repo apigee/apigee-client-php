@@ -1,0 +1,52 @@
+name: PHP Composer
+
+on:
+  push:
+    branches: [ 2.x ]
+  pull_request:
+    branches: [ 2.x ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    
+    strategy: 
+      fail-fast: false
+      matrix: 
+        php-versions: ['7.1','7.2','7.3', '7.4','8.0']
+        phpunit-versions: ['latest']
+      
+    steps:
+    - uses: actions/checkout@v2
+    - uses: shivammathur/setup-php@v2
+      with:
+        php-version: ${{ matrix.php-versions }} #'7.2'
+        tools: composer:v1
+        extensions: mbstring, intl
+        #ini-values: pcov.directory=api #optional, see above for usage.
+        coverage: pcov
+     
+    - name: Validate composer.json and composer.lock
+      run: composer validate
+
+    - name: Cache Composer packages
+      id: composer-cache
+      uses: actions/cache@v2
+      with:
+        path: vendor
+        key: ${{ runner.os }}-php-${{ hashFiles('**/composer.json') }}
+        restore-keys: |
+          ${{ runner.os }}-php-
+
+    - name: Install dependencies
+      if: steps.composer-cache.outputs.cache-hit != 'true'
+      run: composer install --prefer-dist --no-progress --no-suggest
+    - name: cache update
+      run: composer update --no-suggest --no-interaction
+      
+
+    - name: Run show
+      run: composer show     
+    - name: Run analyze
+      run: composer test
