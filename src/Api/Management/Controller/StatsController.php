@@ -77,14 +77,14 @@ class StatsController extends AbstractController implements StatsControllerInter
      */
     public function getMetrics(StatsQueryInterface $query, ?string $optimized = 'js'): array
     {
-        $query_params = [];
+        $query_params = $this->normalizer->normalize($query);
+
         if ('js' === $optimized && !$this->isHybrid()) {
-            $query_params = [
+            $query_params += [
                 '_optimized' => $optimized,
-            ] + $this->normalizer->normalize($query);
-        } else {
-            $query_params = $this->normalizer->normalize($query);
+            ];
         }
+
         $uri = $this->getBaseEndpointUri()->withQuery(http_build_query($query_params));
         $response = $this->responseToArray($this->client->get($uri));
 
@@ -147,13 +147,11 @@ class StatsController extends AbstractController implements StatsControllerInter
      */
     public function getMetricsByDimensions(array $dimensions, StatsQueryInterface $query, ?string $optimized = 'js'): array
     {
-        $query_params = [];
+        $query_params = $this->normalizer->normalize($query);
         if ('js' === $optimized && !$this->isHybrid()) {
-            $query_params = [
+            $query_params += [
                 '_optimized' => $optimized,
-            ] + $this->normalizer->normalize($query);
-        } else {
-            $query_params = $this->normalizer->normalize($query);
+            ];
         }
 
         $path = $this->getBaseEndpointUri()->getPath() . implode(',', $dimensions);
