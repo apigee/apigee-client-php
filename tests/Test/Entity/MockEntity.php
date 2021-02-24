@@ -125,7 +125,7 @@ class MockEntity extends Entity
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static function idProperty(): string
     {
@@ -133,7 +133,7 @@ class MockEntity extends Entity
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function id(): ?string
     {
