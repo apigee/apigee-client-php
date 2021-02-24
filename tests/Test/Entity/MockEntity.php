@@ -34,6 +34,14 @@ class MockEntity extends Entity
     use AttributesPropertyAwareTrait;
     use PropertiesPropertyAwareTrait;
 
+    /**
+     * This property does not have getter or isser so it should be ignored
+     * by the entity serializer.
+     *
+     * @var bool
+     */
+    public $propertyWithoutGetter = false;
+
     /** @var null */
     private $nullable;
 
@@ -71,14 +79,6 @@ class MockEntity extends Entity
      * @var int|null
      */
     private $propertyWithoutSetter = 0;
-
-    /**
-     * This property does not have getter or isser so it should be ignored
-     * by the entity serializer.
-     *
-     * @var bool
-     */
-    private $propertyWithoutGetter = false;
 
     /** @var string[] */
     private $variableLengthArgs = [];
