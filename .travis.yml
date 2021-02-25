@@ -6,7 +6,8 @@ addons:
       - git
 
 php:
-  - 7.3
+  - 7.1
+  - 7.2
 
 jobs:
   fast_finish: true
@@ -32,11 +33,12 @@ install:
   # Disable xDebug (but do not remove its configuration, because we need that for code coverage calculation).
   # Clear the default 6 minutes max execution time limit otherwise test suite fails in case of online tests.
   - echo -en "max_execution_time = 0\nxdebug.default_enable = 0" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
-  - composer self-update --1
+  - composer self-update --rollback
+  - composer global require hirak/prestissimo:^0.3.7
   - travis_retry composer update $COMPOSER_OPTIONS $DEPENDENCIES
   # Fix PHPUnit tests on PHP >= 7.2 by upgrading Guzzle to >= 6.3.0.
   # https://github.com/guzzle/guzzle/issues/1973
-  - composer require guzzlehttp/guzzle:^6.3.0 --update-with-dependencies $DEPENDENCIES
+  - if [[ $(phpenv version-name) = "7.2" ]] && [[ "$DEPENDENCIES" = "--prefer-lowest" ]]; then composer require guzzlehttp/guzzle:^6.3.0 --update-with-dependencies $DEPENDENCIES; fi
   - composer show
 
 # We run tests even if the code style analyses fails just to be able get a complete picture about what needs to be
@@ -49,8 +51,8 @@ script:
   - composer check-style -- --using-cache=no "${EXTRA_ARGS[@]}"
   - composer analyze
   # Only calculate metrics data for this specific build.
-  - if [[ $(phpenv version-name) = "7.3" ]] && [[ "$DEPENDENCIES" = "--prefer-lowest" ]]; then composer test -- --coverage-clover=clover.xml; else composer test; fi
-  - if [[ $(phpenv version-name) = "7.3" ]] && [[ "$DEPENDENCIES" = "--prefer-lowest" ]]; then composer metrics; fi
+  - if [[ $(phpenv version-name) = "7.1" ]] && [[ "$DEPENDENCIES" = "--prefer-lowest" ]]; then composer test -- --coverage-clover=clover.xml; else composer test; fi
+  - if [[ $(phpenv version-name) = "7.1" ]] && [[ "$DEPENDENCIES" = "--prefer-lowest" ]]; then composer metrics; fi
 
 after_success:
-  - if [[ $(phpenv version-name) = "7.3" ]] && [[ "$DEPENDENCIES" = "--prefer-lowest" ]]; then bash <(curl -s https://codecov.io/bash) -f ./clover.xml; fi
+  - if [[ $(phpenv version-name) = "7.1" ]] && [[ "$DEPENDENCIES" = "--prefer-lowest" ]]; then bash <(curl -s https://codecov.io/bash) -f ./clover.xml; fi
