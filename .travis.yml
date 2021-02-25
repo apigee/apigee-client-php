@@ -36,7 +36,9 @@ install:
   # Clear the default 6 minutes max execution time limit otherwise test suite fails in case of online tests.
   - echo -en "max_execution_time = 0\nxdebug.default_enable = 0" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
   - composer self-update --rollback
-  - composer global require hirak/prestissimo:^0.3.7
+  - if [[ $(phpenv version-name) = "7.1" ]] || [[ $(phpenv version-name) = "7.2" ]]; then composer global require hirak/prestissimo:^0.3.7; fi
+  - if [[ $(phpenv version-name) = "7.3" ]] || [[ $(phpenv version-name) = "7.4" ]]; then composer global require hirak/prestissimo; fi
+
   - travis_retry composer update $COMPOSER_OPTIONS $DEPENDENCIES
   # Fix PHPUnit tests on PHP >= 7.2 by upgrading Guzzle to >= 6.3.0.
   # https://github.com/guzzle/guzzle/issues/1973
