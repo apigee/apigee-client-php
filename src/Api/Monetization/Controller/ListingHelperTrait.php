@@ -45,8 +45,13 @@ trait ListingHelperTrait
         $response = $this->getClient()->get($uri);
         $responseArray = $this->responseToArray($response);
 
-        // Ignore entity type key from response, ex.: product.
-        return reset($responseArray);
+        /**
+         * ApigeeX can return empty array,
+         * reset blank array gives boolean
+         */
+        $responseArray = (!empty($responseArray)) ? (reset($responseArray)) : $responseArray;
+
+        return $responseArray;
     }
 
     abstract protected function responseToArray(ResponseInterface $response, bool $expandCompatibility = false): array;
