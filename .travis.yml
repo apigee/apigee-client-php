@@ -6,10 +6,9 @@ addons:
       - git
 
 php:
-  # - 7.1
-  # - 7.2
-  # - 7.3
-  - 7.4
+  - 7.1
+  - 7.2
+  - 7.3
 
 jobs:
   fast_finish: true

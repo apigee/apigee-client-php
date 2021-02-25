@@ -9,9 +9,6 @@
 >
     <projectFiles>
         <directory name="src" />
-        <ignoreFiles>
-            <directory name="vendor/vimeo/psalm/src/Psalm/Codebase" />
-        </ignoreFiles>
     </projectFiles>
 
     <issueHandlers>
