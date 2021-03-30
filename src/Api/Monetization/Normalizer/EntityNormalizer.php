@@ -71,7 +71,12 @@ class EntityNormalizer extends ObjectNormalizer
             foreach ($entityReferenceProperties as $entityProperty => $normalizedProperty) {
                 // Ensure we do not send the complete referenced entity object
                 // only the referenced entity id.
-                if (isset($normalized[$normalizedProperty]->id)) {
+                 if (isset($normalized[$normalizedProperty]->apiProduct)) {
+
+                    $normalized = [
+                       'apiproduct' => $normalized[$normalizedProperty]->apiProduct,
+                    ];
+                }else if (isset($normalized[$normalizedProperty]->id)) {
                     $normalized[$normalizedProperty] = [
                         'id' => $normalized[$normalizedProperty]->id,
                     ];
