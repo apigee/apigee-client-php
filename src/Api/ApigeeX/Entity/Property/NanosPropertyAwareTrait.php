@@ -25,15 +25,16 @@ namespace Apigee\Edge\Api\ApigeeX\Entity\Property;
  */
 trait NanosPropertyAwareTrait
 {
-    /** @var int|null */
+    /** @var float|null */
     protected $nanos;
 
     /**
      * @inheritdoc
      */
-    public function getNanos(): ?int
+    public function getNanos(): ?float
     {
-        return $this->nanos;
+        $nanos = $this->nanos ?? 0;
+        return ($nanos * pow(10, -9));
     }
 
     /**

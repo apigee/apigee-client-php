@@ -47,7 +47,7 @@ trait ListingHelperTrait
 
         /**
          * ApigeeX can return empty array,
-         * reset blank array gives boolean
+         * reset blank array gives boolean.
          */
         $responseArray = (!empty($responseArray)) ? (reset($responseArray)) : $responseArray;
 

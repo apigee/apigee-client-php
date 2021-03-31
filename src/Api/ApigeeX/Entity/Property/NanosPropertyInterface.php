@@ -24,9 +24,9 @@ namespace Apigee\Edge\Api\Monetization\Entity\Property;
 interface NanosPropertyInterface
 {
     /**
-     * @return int
+     * @return float
      */
-    public function getNanos(): ?int;
+    public function getNanos(): ?float;
 
     /**
      * @param int $nanos
