@@ -98,22 +98,6 @@ abstract class RatePlan extends Entity implements RatePlanInterface
     /**
      * @inheritdoc
      */
-    public function isPublished(): bool
-    {
-        return $this->published;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function setPublished(bool $published): void
-    {
-        $this->published = $published;
-    }
-
-    /**
-     * @inheritdoc
-     */
     public function getRatePlanXFee(): array
     {
         return $this->ratePlanXFee;

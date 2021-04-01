@@ -66,16 +66,6 @@ interface RatePlanInterface extends
     public function setPackage(ApiProductInterface $package): void;
 
     /**
-     * @return bool
-     */
-    public function isPublished(): bool;
-
-    /**
-     * @param bool $published
-     */
-    public function setPublished(bool $published): void;
-
-    /**
      * @return \Apigee\Edge\Api\ApigeeX\Structure\RatePlanXFee[]
      */
     public function getRatePlanXFee(): array;
