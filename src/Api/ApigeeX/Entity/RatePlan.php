@@ -98,7 +98,7 @@ abstract class RatePlan extends Entity implements RatePlanInterface
     /**
      * @inheritdoc
      */
-    public function getRatePlanXFee(): array
+    public function getRatePlanxFee(): array
     {
         return $this->ratePlanXFee;
     }
@@ -106,7 +106,7 @@ abstract class RatePlan extends Entity implements RatePlanInterface
     /**
      * @inheritdoc
      */
-    public function setRatePlanXFee(RatePlanXFee ...$ratePlanXFee): void
+    public function setRatePlanxFee(RatePlanXFee ...$ratePlanXFee): void
     {
         $this->ratePlanXFee = $ratePlanXFee;
     }

@@ -68,12 +68,12 @@ interface RatePlanInterface extends
     /**
      * @return \Apigee\Edge\Api\ApigeeX\Structure\RatePlanXFee[]
      */
-    public function getRatePlanXFee(): array;
+    public function getRatePlanxFee(): array;
 
     /**
      * @param \Apigee\Edge\Api\ApigeeX\Structure\RatePlanXFee ...$ratePlanXFee
      */
-    public function setRatePlanXFee(RatePlanXFee ...$ratePlanXFee): void;
+    public function setRatePlanxFee(RatePlanXFee ...$ratePlanXFee): void;
 
     /**
      * @return \Apigee\Edge\Api\ApigeeX\Structure\FixedRecurringFee[]
