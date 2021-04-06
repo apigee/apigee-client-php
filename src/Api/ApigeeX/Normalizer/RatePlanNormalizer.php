@@ -20,13 +20,13 @@ namespace Apigee\Edge\Api\ApigeeX\Normalizer;
 
 use Apigee\Edge\Api\ApigeeX\Entity\RatePlanInterface;
 use Apigee\Edge\Api\ApigeeX\NameConverter\RatePlanNameConverter;
+use Apigee\Edge\Api\Monetization\Normalizer\EntityNormalizer;
 use Apigee\Edge\Api\Monetization\Utility\TimezoneFixerHelperTrait;
 use Apigee\Edge\Exception\UninitializedPropertyException;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 use Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface;
 use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface;
 use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
-use Apigee\Edge\Api\Monetization\Normalizer\EntityNormalizer;
 
 abstract class RatePlanNormalizer extends EntityNormalizer
 {
@@ -47,7 +47,7 @@ abstract class RatePlanNormalizer extends EntityNormalizer
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      *
      * @psalm-suppress InvalidReturnType Returning an object here is required
      * for creating a valid Apigee Edge request.
@@ -74,7 +74,7 @@ abstract class RatePlanNormalizer extends EntityNormalizer
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function supportsNormalization($data, $format = null)
     {

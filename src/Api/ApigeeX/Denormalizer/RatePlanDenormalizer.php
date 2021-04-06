@@ -49,7 +49,7 @@ abstract class RatePlanDenormalizer extends ObjectDenormalizer
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      *
      * @psalm-suppress PossiblyNullReference - Organization should not be null
      * here.
@@ -58,11 +58,12 @@ abstract class RatePlanDenormalizer extends ObjectDenormalizer
     {
         /** @var \Apigee\Edge\Api\ApigeeX\Entity\RatePlanInterface $entity */
         $entity = parent::denormalize($data, $class, $format, $context);
+
         return $entity;
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function supportsDenormalization($data, $type, $format = null)
     {

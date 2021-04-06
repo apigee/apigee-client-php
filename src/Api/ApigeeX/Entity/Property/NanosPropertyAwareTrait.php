@@ -29,16 +29,17 @@ trait NanosPropertyAwareTrait
     protected $nanos;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getNanos(): ?float
     {
         $nanos = $this->nanos ?? 0;
-        return ($nanos * pow(10, -9));
+
+        return $nanos * pow(10, -9);
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setNanos(int $nanos): void
     {

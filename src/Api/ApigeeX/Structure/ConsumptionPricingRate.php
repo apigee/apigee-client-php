@@ -28,7 +28,6 @@ use Apigee\Edge\Structure\BaseObject;
  */
 final class ConsumptionPricingRate extends BaseObject
 {
-
     /**
      * Value of "end" from the API response.
      *

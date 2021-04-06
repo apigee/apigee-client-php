@@ -18,28 +18,28 @@
 
 namespace Apigee\Edge\Api\ApigeeX\Entity;
 
-use Apigee\Edge\Api\Monetization\Entity\Entity;
+use Apigee\Edge\Api\ApigeeX\Entity\Property\ApiProductPropertyAwareTrait;
 use Apigee\Edge\Api\ApigeeX\Entity\Property\BillingPeriodPropertyAwareTrait;
-use Apigee\Edge\Api\ApigeeX\Entity\Property\PaymentFundingModelPropertyAwareTrait;
-use Apigee\Edge\Api\ApigeeX\Entity\Property\CurrencyCodePropertyAwareTrait;
-use Apigee\Edge\Api\ApigeeX\Entity\Property\FixedFeeFrequencyPropertyAwareTrait;
 use Apigee\Edge\Api\ApigeeX\Entity\Property\ConsumptionPricingTypePropertyAwareTrait;
+use Apigee\Edge\Api\ApigeeX\Entity\Property\CurrencyCodePropertyAwareTrait;
+use Apigee\Edge\Api\ApigeeX\Entity\Property\EndTimePropertyAwareTrait;
+use Apigee\Edge\Api\ApigeeX\Entity\Property\FixedFeeFrequencyPropertyAwareTrait;
+use Apigee\Edge\Api\ApigeeX\Entity\Property\PaymentFundingModelPropertyAwareTrait;
 use Apigee\Edge\Api\ApigeeX\Entity\Property\RevenueShareTypePropertyAwareTrait;
 use Apigee\Edge\Api\ApigeeX\Entity\Property\StartTimePropertyAwareTrait;
-use Apigee\Edge\Api\ApigeeX\Entity\Property\EndTimePropertyAwareTrait;
-use Apigee\Edge\Api\ApigeeX\Entity\Property\ApiProductPropertyAwareTrait;
+use Apigee\Edge\Api\ApigeeX\Structure\ConsumptionPricingRate;
+use Apigee\Edge\Api\ApigeeX\Structure\FixedRecurringFee;
+use Apigee\Edge\Api\ApigeeX\Structure\RatePlanXFee;
+use Apigee\Edge\Api\ApigeeX\Structure\RevenueShareRates;
+use Apigee\Edge\Api\Monetization\Entity\Entity;
 use Apigee\Edge\Entity\Property\DescriptionPropertyAwareTrait;
 use Apigee\Edge\Entity\Property\DisplayNamePropertyAwareTrait;
 use Apigee\Edge\Entity\Property\NamePropertyAwareTrait;
-use Apigee\Edge\Api\ApigeeX\Structure\RatePlanXFee;
-use Apigee\Edge\Api\ApigeeX\Structure\FixedRecurringFee;
-use Apigee\Edge\Api\ApigeeX\Structure\RevenueShareRates;
-use Apigee\Edge\Api\ApigeeX\Structure\ConsumptionPricingRate;
 
 /**
  * Parent class for standard, developer- and developer specific rate plans.
  *
- * @see https://docs.apigee.com/api-platform/monetization/create-rate-plans#creatingrateplansusingtheapi-configurationsettingsforrateplans
+ * TODO: Add documenation link
  */
 abstract class RatePlan extends Entity implements RatePlanInterface
 {
@@ -57,7 +57,6 @@ abstract class RatePlan extends Entity implements RatePlanInterface
     use NamePropertyAwareTrait;
 
     /**
-     *
      * It can be null when a new rate plan is created.
      *
      * @var \Apigee\Edge\Api\ApigeeX\Entity\ApiProduct|null
@@ -80,7 +79,7 @@ abstract class RatePlan extends Entity implements RatePlanInterface
     protected $revenueShareRates = [];
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getPackage(): ?ApiProductInterface
     {
@@ -88,7 +87,7 @@ abstract class RatePlan extends Entity implements RatePlanInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setPackage(ApiProductInterface $package): void
     {
@@ -96,7 +95,7 @@ abstract class RatePlan extends Entity implements RatePlanInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getRatePlanxFee(): array
     {
@@ -104,7 +103,7 @@ abstract class RatePlan extends Entity implements RatePlanInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setRatePlanxFee(RatePlanXFee ...$ratePlanXFee): void
     {
@@ -112,7 +111,7 @@ abstract class RatePlan extends Entity implements RatePlanInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getFixedRecurringFee(): array
     {
@@ -120,7 +119,7 @@ abstract class RatePlan extends Entity implements RatePlanInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setFixedRecurringFee(FixedRecurringFee ...$fixedRecurringFee): void
     {
@@ -128,7 +127,7 @@ abstract class RatePlan extends Entity implements RatePlanInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getConsumptionPricingRates(): array
     {
@@ -136,7 +135,7 @@ abstract class RatePlan extends Entity implements RatePlanInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setConsumptionPricingRates(ConsumptionPricingRate ...$consumptionPricingRates): void
     {
@@ -144,7 +143,7 @@ abstract class RatePlan extends Entity implements RatePlanInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getRevenueShareRates(): array
     {
@@ -152,7 +151,7 @@ abstract class RatePlan extends Entity implements RatePlanInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setRevenueShareRates(RevenueShareRates ...$revenueShareRates): void
     {

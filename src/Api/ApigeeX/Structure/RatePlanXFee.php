@@ -19,14 +19,14 @@
 namespace Apigee\Edge\Api\ApigeeX\Structure;
 
 use Apigee\Edge\Api\ApigeeX\Entity\Property\CurrencyCodePropertyAwareTrait;
-use Apigee\Edge\Api\ApigeeX\Entity\Property\UnitsPropertyAwareTrait;
 use Apigee\Edge\Api\ApigeeX\Entity\Property\NanosPropertyAwareTrait;
+use Apigee\Edge\Api\ApigeeX\Entity\Property\UnitsPropertyAwareTrait;
 use Apigee\Edge\Structure\BaseObject;
 
 /**
  * Class RatePlanXFee.
  *
- * @see https://docs.apigee.com/api-platform/monetization/create-rate-plans#setupFee
+ * TODO: Add documenation link
  */
 final class RatePlanXFee extends BaseObject
 {

@@ -29,7 +29,7 @@ trait BillingPeriodPropertyAwareTrait
     protected $billingPeriod;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getBillingPeriod(): ?string
     {
@@ -37,7 +37,7 @@ trait BillingPeriodPropertyAwareTrait
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setBillingPeriod(string $billingPeriod): void
     {

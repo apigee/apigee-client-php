@@ -18,21 +18,21 @@
 
 namespace Apigee\Edge\Api\ApigeeX\Controller;
 
+use Apigee\Edge\Api\ApigeeX\Controller\DeveloperAcceptedRatePlanController;
+use Apigee\Edge\Api\ApigeeX\Controller\PaginatedListingHelperTrait;
+use Apigee\Edge\Api\ApigeeX\Controller\RatePlanController;
 use Apigee\Edge\Api\ApigeeX\Entity\ApiProduct;
 use Apigee\Edge\Api\ApigeeX\Entity\RatePlanInterface;
 use Apigee\Edge\Api\ApigeeX\Serializer\ApiProductSerializer;
+use Apigee\Edge\Api\Monetization\Controller\EntityCreateOperationControllerTrait;
+use Apigee\Edge\Api\Monetization\Controller\EntityDeleteOperationControllerTrait;
 use Apigee\Edge\Api\Monetization\Controller\OrganizationAwareEntityController;
+use Apigee\Edge\Api\Monetization\Controller\PaginatedEntityListingControllerAwareTrait;
 use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Controller\EntityListingControllerTrait;
 use Apigee\Edge\Controller\EntityLoadOperationControllerTrait;
 use Apigee\Edge\Serializer\EntitySerializerInterface;
 use Psr\Http\Message\UriInterface;
-use Apigee\Edge\Api\Monetization\Controller\EntityCreateOperationControllerTrait;
-use Apigee\Edge\Api\Monetization\Controller\EntityDeleteOperationControllerTrait;
-use Apigee\Edge\Api\Monetization\Controller\PaginatedEntityListingControllerAwareTrait;
-use Apigee\Edge\Api\ApigeeX\Controller\PaginatedListingHelperTrait;
-use Apigee\Edge\Api\ApigeeX\Controller\RatePlanController;
-use Apigee\Edge\Api\ApigeeX\Controller\DeveloperAcceptedRatePlanController;
 
 class ApiProductController extends OrganizationAwareEntityController implements ApiProductControllerInterface
 {
@@ -57,7 +57,7 @@ class ApiProductController extends OrganizationAwareEntityController implements 
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getAvailableApixProductsByDeveloper(string $developerId, bool $active = false, bool $allAvailable = true): array
     {
@@ -65,7 +65,7 @@ class ApiProductController extends OrganizationAwareEntityController implements 
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getAvailableApixProductsByCompany(string $company, bool $active = false, bool $allAvailable = true): array
     {
@@ -73,7 +73,7 @@ class ApiProductController extends OrganizationAwareEntityController implements 
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getEligibleProductsByDeveloper(string $entityId): array
     {
@@ -81,7 +81,7 @@ class ApiProductController extends OrganizationAwareEntityController implements 
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getEntityClass(): string
     {
@@ -89,7 +89,7 @@ class ApiProductController extends OrganizationAwareEntityController implements 
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getBaseEndpointUri(): UriInterface
     {
@@ -130,38 +130,37 @@ class ApiProductController extends OrganizationAwareEntityController implements 
             /** @var \Apigee\Edge\Api\ApigeeX\Controller\DeveloperAcceptedRatePlanController $dev_accepted_rateplan */
             $dev_accepted_rateplan = new DeveloperAcceptedRatePlanController($entityId, $this->organization, $this->client);
             $subscriptions = $dev_accepted_rateplan->getAllAcceptedRatePlans();
-            
+
             foreach ($subscriptions as $subscription) {
-                if(NULL === $subscription->getendTime()) {
+                if (null === $subscription->getendTime()) {
                     $subscribed_product_ids[$subscription->getapiproduct()] = $subscription->getapiproduct();
                 }
             }
         }
 
-        $current_ms = substr(microtime(TRUE)*1000, 0);
+        $current_ms = substr(microtime(true) * 1000, 0);
 
-        foreach ($this->getAvailablexApiProducts($type, $entityId, TRUE) as $item) {
+        foreach ($this->getAvailablexApiProducts($type, $entityId, true) as $item) {
             // Create a new rate plan controller.
             /** @var \Apigee\Edge\Api\ApigeeX\Controller\RatePlanController $rateplan */
-            $rateplan = new RatePlanController( $item->id(), $this->organization, $this->client);
+            $rateplan = new RatePlanController($item->id(), $this->organization, $this->client);
 
             if (empty($rateplan->getEntities())) {
                 // Free products - No rateplan.
                 $products[$item->id()] = $item;
-            }
-            elseif (in_array($item->id(), $subscribed_product_ids)) {
+            } elseif (in_array($item->id(), $subscribed_product_ids)) {
                 // Subscribed products.
                 $products[$item->id()] = $item;
-            }
-            else {
+            } else {
                 foreach ($rateplan->getEntities() as $plan) {
-                    if(NULL !== $plan->getendTime() && $plan->getendTime() < $current_ms) { 
+                    if (null !== $plan->getendTime() && $plan->getendTime() < $current_ms) {
                         //Free product - No active rateplan
                         $products[$item->id()] = $item;
                     }
                 }
             }
         }
+
         return $products;
     }
 }

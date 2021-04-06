@@ -18,15 +18,15 @@
 
 namespace Apigee\Edge\Api\ApigeeX\Entity;
 
+use Apigee\Edge\Api\ApigeeX\Entity\Property\ApiProductPropertyInterface;
+use Apigee\Edge\Api\ApigeeX\Structure\ConsumptionPricingRate;
+use Apigee\Edge\Api\ApigeeX\Structure\FixedRecurringFee;
+use Apigee\Edge\Api\ApigeeX\Structure\RatePlanXFee;
+use Apigee\Edge\Api\ApigeeX\Structure\RevenueShareRates;
 use Apigee\Edge\Api\Monetization\Entity\EntityInterface;
 use Apigee\Edge\Entity\Property\DescriptionPropertyInterface;
 use Apigee\Edge\Entity\Property\DisplayNamePropertyInterface;
 use Apigee\Edge\Entity\Property\NamePropertyInterface;
-use Apigee\Edge\Api\ApigeeX\Entity\Property\ApiProductPropertyInterface;
-use Apigee\Edge\Api\ApigeeX\Structure\RatePlanXFee;
-use Apigee\Edge\Api\ApigeeX\Structure\FixedRecurringFee;
-use Apigee\Edge\Api\ApigeeX\Structure\ConsumptionPricingRate;
-use Apigee\Edge\Api\ApigeeX\Structure\RevenueShareRates;
 
 interface RatePlanInterface extends
     EntityInterface,

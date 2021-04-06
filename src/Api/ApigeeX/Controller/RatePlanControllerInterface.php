@@ -19,8 +19,8 @@
 namespace Apigee\Edge\Api\ApigeeX\Controller;
 
 use Apigee\Edge\Api\ApigeeX\Entity\RatePlanRevisionInterface;
-use Apigee\Edge\Controller\EntityControllerInterface;
 use Apigee\Edge\Api\Monetization\Controller\EntityCrudOperationsControllerInterface;
+use Apigee\Edge\Controller\EntityControllerInterface;
 
 /***
  * Interface RatePlanControllerInterface.

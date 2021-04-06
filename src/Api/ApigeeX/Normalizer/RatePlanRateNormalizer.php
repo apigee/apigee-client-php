@@ -25,7 +25,7 @@ use Apigee\Edge\Normalizer\ObjectNormalizer;
 class RatePlanRateNormalizer extends ObjectNormalizer
 {
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      *
      * @psalm-suppress InvalidReturnType Returning an object here is required
      * for creating a valid Apigee Edge request.
@@ -44,7 +44,7 @@ class RatePlanRateNormalizer extends ObjectNormalizer
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function supportsNormalization($data, $format = null)
     {

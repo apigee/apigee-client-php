@@ -18,13 +18,13 @@
 
 namespace Apigee\Edge\Api\ApigeeX\Normalizer;
 
+use Apigee\Edge\Api\Monetization\Normalizer\CompanyRatePlanNormalizer;
+use Apigee\Edge\Api\Monetization\Normalizer\DeveloperCategoryRatePlanNormalizer;
+use Apigee\Edge\Api\Monetization\Normalizer\DeveloperRatePlanNormalizer;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\SerializerAwareInterface;
 use Symfony\Component\Serializer\SerializerAwareTrait;
 use Symfony\Component\Serializer\SerializerInterface;
-use Apigee\Edge\Api\Monetization\Normalizer\DeveloperRatePlanNormalizer;
-use Apigee\Edge\Api\Monetization\Normalizer\CompanyRatePlanNormalizer;
-use Apigee\Edge\Api\Monetization\Normalizer\DeveloperCategoryRatePlanNormalizer;
 
 class RatePlanNormalizerFactory implements NormalizerInterface, SerializerAwareInterface
 {
@@ -51,7 +51,7 @@ class RatePlanNormalizerFactory implements NormalizerInterface, SerializerAwareI
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      *
      * @psalm-suppress InvalidNullableReturnType - There are going to be at
      * least one normalizer always that can normalize data here.
@@ -68,7 +68,7 @@ class RatePlanNormalizerFactory implements NormalizerInterface, SerializerAwareI
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function supportsNormalization($data, $format = null)
     {
@@ -82,7 +82,7 @@ class RatePlanNormalizerFactory implements NormalizerInterface, SerializerAwareI
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function setSerializer(SerializerInterface $serializer): void
     {

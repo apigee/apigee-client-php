@@ -31,7 +31,7 @@ trait StartTimePropertyAwareTrait
     protected $startTime;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getStartTime(): ?string
     {
@@ -39,7 +39,7 @@ trait StartTimePropertyAwareTrait
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setStartTime(?string $startTime): void
     {

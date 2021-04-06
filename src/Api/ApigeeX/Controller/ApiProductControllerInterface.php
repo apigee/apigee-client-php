@@ -19,11 +19,11 @@
 namespace Apigee\Edge\Api\ApigeeX\Controller;
 
 use Apigee\Edge\Api\ApigeeX\Entity\RatePlanInterface;
+use Apigee\Edge\Api\Monetization\Controller\EntityDeleteOperationControllerInterface;
+use Apigee\Edge\Api\Monetization\Controller\PaginatedEntityListingControllerInterface;
 use Apigee\Edge\Controller\EntityControllerInterface;
 use Apigee\Edge\Controller\EntityCreateOperationControllerInterface;
 use Apigee\Edge\Controller\EntityLoadOperationControllerInterface;
-use Apigee\Edge\Api\Monetization\Controller\EntityDeleteOperationControllerInterface;
-use Apigee\Edge\Api\Monetization\Controller\PaginatedEntityListingControllerInterface;
 
 /**
  * Interface ApiProductControllerInterface.
@@ -31,9 +31,7 @@ use Apigee\Edge\Api\Monetization\Controller\PaginatedEntityListingControllerInte
  * Api XProduct can not be updated this is reason why this does not extend
  * the EntityCrudOperationsControllerInterface.
  *
- * @see https://apidocs.apigee.com/monetize/apis/
- * @see https://docs.apigee.com/monetization/content/create-api-packages#getpackapi
- * @see https://docs.apigee.com/api-platform/monetization/create-api-packages#createpackage
+ * TODO: Add documenation link
  */
 interface ApiProductControllerInterface extends
     EntityControllerInterface,
@@ -42,7 +40,6 @@ interface ApiProductControllerInterface extends
     EntityLoadOperationControllerInterface,
     PaginatedEntityListingControllerInterface
 {
-
     /**
      * Gets all available API xproducts for a developer.
      *
@@ -56,7 +53,7 @@ interface ApiProductControllerInterface extends
      *
      * @return \Apigee\Edge\Api\ApigeeX\Entity\ApiProductInterface[]
      *
-     * @see https://apidocs.apigee.com/monetize/apis/get/organizations/%7Borg_name%7D/developers/%7Bdeveloper_id%7D/apiproducts
+     * TODO: Add documenation link
      */
     public function getAvailableApixProductsByDeveloper(string $developerId, bool $active = false, bool $allAvailable = true): array;
 
@@ -73,7 +70,7 @@ interface ApiProductControllerInterface extends
      *
      * @return \Apigee\Edge\Api\ApigeeX\Entity\ApiProductInterface[]
      *
-     * @see https://apidocs.apigee.com/monetize/apis/get/organizations/%7Borg_name%7D/companies/%7Bdeveloper_id%7D/apiproducts
+     * TODO: Add documenation link
      */
     public function getAvailableApixProductsByCompany(string $company, bool $active = false, bool $allAvailable = true): array;
 
@@ -85,8 +82,6 @@ interface ApiProductControllerInterface extends
      *
      * @return \Apigee\Edge\Api\ApigeeX\Entity\ApiProductInterface[]
      *   List of eligible API products.
-     *
      */
     public function getEligibleProductsByDeveloper(string $entityId): array;
-
 }

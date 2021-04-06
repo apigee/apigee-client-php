@@ -20,11 +20,11 @@ namespace Apigee\Edge\Api\ApigeeX\Normalizer;
 
 use Apigee\Edge\Api\ApigeeX\Entity\ApiProductInterface;
 use Apigee\Edge\Api\Monetization\NameConverter\ApiPackageNameConverter;
+use Apigee\Edge\Api\Monetization\Normalizer\EntityNormalizer;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 use Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface;
 use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface;
 use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
-use Apigee\Edge\Api\Monetization\Normalizer\EntityNormalizer;
 
 class ApiProductNormalizer extends EntityNormalizer
 {
@@ -43,7 +43,7 @@ class ApiProductNormalizer extends EntityNormalizer
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      *
      * @psalm-suppress InvalidReturnType Returning an object here is required
      * for creating a valid Apigee Edge request.
@@ -62,7 +62,7 @@ class ApiProductNormalizer extends EntityNormalizer
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function supportsNormalization($data, $format = null)
     {

@@ -29,7 +29,7 @@ trait FixedFeeFrequencyPropertyAwareTrait
     protected $fixedFeeFrequency;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getFixedFeeFrequency(): ?int
     {
@@ -37,7 +37,7 @@ trait FixedFeeFrequencyPropertyAwareTrait
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setFixedFeeFrequency(int $fixedFeeFrequency): void
     {

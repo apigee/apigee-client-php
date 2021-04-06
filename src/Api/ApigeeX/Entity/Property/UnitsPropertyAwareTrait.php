@@ -29,7 +29,7 @@ trait UnitsPropertyAwareTrait
     protected $units;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getUnits(): ?string
     {
@@ -37,7 +37,7 @@ trait UnitsPropertyAwareTrait
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setUnits(string $units): void
     {

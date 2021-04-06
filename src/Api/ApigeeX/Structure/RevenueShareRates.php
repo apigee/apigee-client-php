@@ -23,11 +23,10 @@ use Apigee\Edge\Structure\BaseObject;
 /**
  * Class RevenueShareRates.
  *
- * @see https://docs.apigee.com/api-platform/monetization/create-rate-plans#revenueShareRates
+ * TODO: Add documenation link
  */
 final class RevenueShareRates extends BaseObject
 {
-
     /**
      * Value of "end" from the API response.
      *

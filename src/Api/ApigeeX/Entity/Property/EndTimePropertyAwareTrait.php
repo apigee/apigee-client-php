@@ -31,7 +31,7 @@ trait EndTimePropertyAwareTrait
     protected $endTime;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getEndTime(): ?string
     {
@@ -39,7 +39,7 @@ trait EndTimePropertyAwareTrait
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setEndTime(?string $endTime): void
     {

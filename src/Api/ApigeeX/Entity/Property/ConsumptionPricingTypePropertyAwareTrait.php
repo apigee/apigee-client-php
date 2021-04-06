@@ -29,7 +29,7 @@ trait ConsumptionPricingTypePropertyAwareTrait
     protected $consumptionPricingType;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getConsumptionPricingType(): ?string
     {
@@ -37,7 +37,7 @@ trait ConsumptionPricingTypePropertyAwareTrait
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setConsumptionPricingType(string $consumptionPricingType): void
     {

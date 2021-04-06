@@ -29,7 +29,7 @@ trait PaymentFundingModelPropertyAwareTrait
     protected $paymentFundingModel;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getPaymentFundingModel(): ?string
     {
@@ -37,7 +37,7 @@ trait PaymentFundingModelPropertyAwareTrait
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setPaymentFundingModel(string $paymentFundingModel): void
     {

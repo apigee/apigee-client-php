@@ -18,13 +18,13 @@
 
 namespace Apigee\Edge\Api\ApigeeX\Denormalizer;
 
+use Apigee\Edge\Api\Monetization\Denormalizer\CompanyRatePlanDenormalizer;
+use Apigee\Edge\Api\Monetization\Denormalizer\DeveloperCategoryRatePlanDenormalizer;
+use Apigee\Edge\Api\Monetization\Denormalizer\DeveloperRatePlanDenormalizer;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\SerializerAwareInterface;
 use Symfony\Component\Serializer\SerializerAwareTrait;
 use Symfony\Component\Serializer\SerializerInterface;
-use Apigee\Edge\Api\Monetization\Denormalizer\DeveloperRatePlanDenormalizer;
-use Apigee\Edge\Api\Monetization\Denormalizer\CompanyRatePlanDenormalizer;
-use Apigee\Edge\Api\Monetization\Denormalizer\DeveloperCategoryRatePlanDenormalizer;
 
 class RatePlanDenormalizerFactory implements DenormalizerInterface, SerializerAwareInterface
 {
@@ -51,7 +51,7 @@ class RatePlanDenormalizerFactory implements DenormalizerInterface, SerializerAw
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      *
      * @psalm-suppress InvalidNullableReturnType - There are going to be at
      * least one denormalizer always that can denormalize data here.
@@ -68,7 +68,7 @@ class RatePlanDenormalizerFactory implements DenormalizerInterface, SerializerAw
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function supportsDenormalization($data, $type, $format = null)
     {
@@ -82,7 +82,7 @@ class RatePlanDenormalizerFactory implements DenormalizerInterface, SerializerAw
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function setSerializer(SerializerInterface $serializer): void
     {

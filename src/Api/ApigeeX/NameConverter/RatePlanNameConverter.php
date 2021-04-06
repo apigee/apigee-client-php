@@ -18,8 +18,8 @@
 
 namespace Apigee\Edge\Api\ApigeeX\NameConverter;
 
-use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
 use Apigee\Edge\Api\Monetization\NameConverter\NameConverterBase;
+use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
 
 /**
  * Maps rate plan properties from the API response to their destination properties.
@@ -29,7 +29,7 @@ use Apigee\Edge\Api\Monetization\NameConverter\NameConverterBase;
 class RatePlanNameConverter extends NameConverterBase implements NameConverterInterface
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getExternalToLocalMapping(): array
     {

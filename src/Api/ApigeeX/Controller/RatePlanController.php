@@ -20,15 +20,15 @@ namespace Apigee\Edge\Api\ApigeeX\Controller;
 
 use Apigee\Edge\Api\ApigeeX\Entity\RatePlanInterface;
 use Apigee\Edge\Api\ApigeeX\Entity\RatePlanRevisionInterface;
-use Apigee\Edge\Api\Monetization\Normalizer\EntityNormalizer;
 use Apigee\Edge\Api\ApigeeX\Serializer\RatePlanSerializer;
+use Apigee\Edge\Api\Monetization\Controller\EntityCrudOperationsControllerTrait;
+use Apigee\Edge\Api\Monetization\Controller\OrganizationAwareEntityController;
+use Apigee\Edge\Api\Monetization\Normalizer\EntityNormalizer;
 use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Controller\EntityListingControllerTrait;
 use Apigee\Edge\Entity\EntityInterface;
 use Apigee\Edge\Serializer\EntitySerializerInterface;
 use Psr\Http\Message\UriInterface;
-use Apigee\Edge\Api\Monetization\Controller\OrganizationAwareEntityController;
-use Apigee\Edge\Api\Monetization\Controller\EntityCrudOperationsControllerTrait;
 
 class RatePlanController extends OrganizationAwareEntityController implements RatePlanControllerInterface
 {
@@ -58,7 +58,7 @@ class RatePlanController extends OrganizationAwareEntityController implements Ra
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getEntities(?bool $showCurrentOnly = null, ?bool $showPrivate = null, ?bool $showStandardOnly = null): array
     {
@@ -75,14 +75,14 @@ class RatePlanController extends OrganizationAwareEntityController implements Ra
 
         //XProduct is not monetized and we skip it.
         if (empty($responseArray)) {
-            return array();
+            return [];
         }
 
         return $this->responseArrayToArrayOfEntities($responseArray);
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      *
      * Use RatePlanRevisionBuilder that makes it easier way to create
      * new rate plan revisions.
@@ -97,7 +97,7 @@ class RatePlanController extends OrganizationAwareEntityController implements Ra
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getBaseEndpointUri(): UriInterface
     {
@@ -105,7 +105,7 @@ class RatePlanController extends OrganizationAwareEntityController implements Ra
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getEntityClass(): string
     {
@@ -113,7 +113,7 @@ class RatePlanController extends OrganizationAwareEntityController implements Ra
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function buildEntityCreatePayload(EntityInterface $entity, array $context = []): string
     {

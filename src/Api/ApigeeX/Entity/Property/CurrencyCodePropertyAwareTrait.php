@@ -29,7 +29,7 @@ trait CurrencyCodePropertyAwareTrait
     protected $currencyCode;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getCurrencyCode(): ?string
     {
@@ -37,7 +37,7 @@ trait CurrencyCodePropertyAwareTrait
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setCurrencyCode(string $currencyCode): void
     {

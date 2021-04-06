@@ -29,7 +29,7 @@ trait RevenueShareTypePropertyAwareTrait
     protected $revenueShareType;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getRevenueShareType(): ?string
     {
@@ -37,7 +37,7 @@ trait RevenueShareTypePropertyAwareTrait
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setRevenueShareType(string $revenueShareType): void
     {
