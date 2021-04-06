@@ -18,7 +18,6 @@
 
 namespace Apigee\Edge\Api\ApigeeX\Entity;
 
-use Apigee\Edge\Api\ApigeeX\Entity\Property\ApiProductPropertyInterface;
 use Apigee\Edge\Api\ApigeeX\Entity\Property\EndTimePropertyInterface;
 use Apigee\Edge\Api\ApigeeX\Entity\Property\StartTimePropertyInterface;
 use Apigee\Edge\Api\Monetization\Entity\EntityInterface;

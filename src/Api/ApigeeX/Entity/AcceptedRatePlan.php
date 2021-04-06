@@ -21,7 +21,6 @@ namespace Apigee\Edge\Api\ApigeeX\Entity;
 use Apigee\Edge\Api\ApigeeX\Entity\Property\ApiProductPropertyAwareTrait;
 use Apigee\Edge\Api\ApigeeX\Entity\Property\EndTimePropertyAwareTrait;
 use Apigee\Edge\Api\ApigeeX\Entity\Property\StartTimePropertyAwareTrait;
-use Apigee\Edge\Api\ApigeeX\Entity\RatePlanInterface;
 use Apigee\Edge\Api\Monetization\Entity\Entity;
 use Apigee\Edge\Entity\Property\NamePropertyAwareTrait;
 
@@ -38,7 +37,7 @@ abstract class AcceptedRatePlan extends Entity implements AcceptedRatePlanInterf
     /** @var string */
     protected $lastModifiedAt;
 
-     /** @var \Apigee\Edge\Api\ApigeeX\Entity\RatePlanInterface */
+    /** @var \Apigee\Edge\Api\ApigeeX\Entity\RatePlanInterface */
     protected $ratePlan;
 
     /**

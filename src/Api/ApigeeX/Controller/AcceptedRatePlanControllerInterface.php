@@ -22,7 +22,6 @@ use Apigee\Edge\Api\ApigeeX\Entity\AcceptedRatePlanInterface;
 use Apigee\Edge\Api\ApigeeX\Entity\RatePlanInterface;
 use Apigee\Edge\Controller\EntityControllerInterface;
 use Apigee\Edge\Controller\EntityLoadOperationControllerInterface;
-use DateTimeImmutable;
 
 /**
  * Interface AcceptedRatePlanControllerInterface.
