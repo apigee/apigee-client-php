@@ -28,5 +28,5 @@ interface EndTimePropertyInterface
     /**
      * @param string $endTime
      */
-    public function setEndTime(string $endTime) : void;
+    public function setEndTime(string $endTime): void;
 }

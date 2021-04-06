@@ -53,7 +53,6 @@ class DeveloperAcceptedRatePlanController extends AcceptedRatePlanController
      */
     protected function getBaseEndpointUri(): UriInterface
     {
-
         $developerId = rawurlencode($this->developer);
 
         return $this->client->getUriFactory()->createUri("/organizations/{$this->organization}/developers/{$developerId}/subscriptions");

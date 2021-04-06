@@ -27,7 +27,6 @@ use Apigee\Edge\Entity\Property\NamePropertyAwareTrait;
 
 abstract class AcceptedRatePlan extends Entity implements AcceptedRatePlanInterface
 {
-
     use EndTimePropertyAwareTrait;
     use StartTimePropertyAwareTrait;
     use ApiProductPropertyAwareTrait;
