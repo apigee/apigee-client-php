@@ -18,13 +18,12 @@
 
 namespace Apigee\Edge\Api\ApigeeX\Structure;
 
-use Apigee\Edge\Api\ApigeeX\Structure\Fee;
 use Apigee\Edge\Structure\BaseObject;
 
 /**
  * Class ConsumptionPricingRate.
  *
- * @see https://docs.apigee.com/api-platform/monetization/create-rate-plans#ConsumptionPricingRate
+ * TO: Add documentation link
  */
 final class ConsumptionPricingRate extends BaseObject
 {

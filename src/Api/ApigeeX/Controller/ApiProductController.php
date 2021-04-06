@@ -18,11 +18,7 @@
 
 namespace Apigee\Edge\Api\ApigeeX\Controller;
 
-use Apigee\Edge\Api\ApigeeX\Controller\DeveloperAcceptedRatePlanController;
-use Apigee\Edge\Api\ApigeeX\Controller\PaginatedListingHelperTrait;
-use Apigee\Edge\Api\ApigeeX\Controller\RatePlanController;
 use Apigee\Edge\Api\ApigeeX\Entity\ApiProduct;
-use Apigee\Edge\Api\ApigeeX\Entity\RatePlanInterface;
 use Apigee\Edge\Api\ApigeeX\Serializer\ApiProductSerializer;
 use Apigee\Edge\Api\Monetization\Controller\EntityCreateOperationControllerTrait;
 use Apigee\Edge\Api\Monetization\Controller\EntityDeleteOperationControllerTrait;

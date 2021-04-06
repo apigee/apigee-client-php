@@ -18,7 +18,6 @@
 
 namespace Apigee\Edge\Api\ApigeeX\Controller;
 
-use Apigee\Edge\Api\ApigeeX\Entity\RatePlanInterface;
 use Apigee\Edge\Api\Monetization\Controller\EntityDeleteOperationControllerInterface;
 use Apigee\Edge\Api\Monetization\Controller\PaginatedEntityListingControllerInterface;
 use Apigee\Edge\Controller\EntityControllerInterface;

@@ -64,7 +64,7 @@ class RatePlanController extends OrganizationAwareEntityController implements Ra
     {
         $query_params = [
             'expand' => 'true',
-            'state'  => 'PUBLISHED',
+            'state' => 'PUBLISHED',
         ];
 
         $uri = $this->getBaseEndpointUri()->withQuery(http_build_query($query_params));
