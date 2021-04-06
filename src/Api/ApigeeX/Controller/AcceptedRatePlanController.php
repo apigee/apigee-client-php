@@ -18,9 +18,11 @@
 
 namespace Apigee\Edge\Api\ApigeeX\Controller;
 
+use Apigee\Edge\Api\ApigeeX\Controller\PaginatedListingHelperTrait;
 use Apigee\Edge\Api\ApigeeX\Entity\AcceptedRatePlanInterface;
 use Apigee\Edge\Api\ApigeeX\Entity\RatePlanInterface;
 use Apigee\Edge\Api\ApigeeX\Serializer\AcceptedRatePlanSerializer;
+use Apigee\Edge\Api\Monetization\Controller\OrganizationAwareEntityController;
 use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Controller\EntityListingControllerTrait;
 use Apigee\Edge\Controller\EntityLoadOperationControllerTrait;
@@ -28,8 +30,6 @@ use Apigee\Edge\Serializer\EntitySerializerInterface;
 use DateTimeImmutable;
 use Psr\Http\Message\UriInterface;
 use ReflectionClass;
-use Apigee\Edge\Api\Monetization\Controller\OrganizationAwareEntityController;
-use Apigee\Edge\Api\ApigeeX\Controller\PaginatedListingHelperTrait;
 
 abstract class AcceptedRatePlanController extends OrganizationAwareEntityController implements AcceptedRatePlanControllerInterface
 {
@@ -51,7 +51,7 @@ abstract class AcceptedRatePlanController extends OrganizationAwareEntityControl
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getAllAcceptedRatePlans(): array
     {
@@ -59,7 +59,7 @@ abstract class AcceptedRatePlanController extends OrganizationAwareEntityControl
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getPaginatedAcceptedRatePlanList(int $limit = null, int $page = 1): array
     {
@@ -75,7 +75,7 @@ abstract class AcceptedRatePlanController extends OrganizationAwareEntityControl
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function acceptRatePlan(RatePlanInterface $ratePlan): AcceptedRatePlanInterface
     {
@@ -95,11 +95,12 @@ abstract class AcceptedRatePlanController extends OrganizationAwareEntityControl
 
         $response = $this->client->post($this->getBaseEndpointUri(), $payload);
         $this->getEntitySerializer()->setPropertiesFromResponse($response, $acceptedRatePlan);
+
         return $acceptedRatePlan;
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      *
      * @psalm-suppress PossiblyNullArgument - id is not null in this context.
      */
@@ -166,7 +167,7 @@ abstract class AcceptedRatePlanController extends OrganizationAwareEntityControl
 
             $entities[$tmp->id()] = $tmp;
         }
+
         return $entities;
     }
-
 }

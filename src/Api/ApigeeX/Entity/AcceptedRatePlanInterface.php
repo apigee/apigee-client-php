@@ -18,11 +18,11 @@
 
 namespace Apigee\Edge\Api\ApigeeX\Entity;
 
+use Apigee\Edge\Api\ApigeeX\Entity\Property\ApiProductPropertyInterface;
 use Apigee\Edge\Api\ApigeeX\Entity\Property\EndTimePropertyInterface;
 use Apigee\Edge\Api\ApigeeX\Entity\Property\StartTimePropertyInterface;
-use Apigee\Edge\Api\ApigeeX\Entity\Property\ApiProductPropertyInterface;
-use Apigee\Edge\Entity\Property\NamePropertyInterface;
 use Apigee\Edge\Api\Monetization\Entity\EntityInterface;
+use Apigee\Edge\Entity\Property\NamePropertyInterface;
 
 interface AcceptedRatePlanInterface extends
     EntityInterface,
@@ -30,7 +30,6 @@ interface AcceptedRatePlanInterface extends
     StartTimePropertyInterface,
     NamePropertyInterface
 {
-
     /**
      * @return string
      */
@@ -40,5 +39,4 @@ interface AcceptedRatePlanInterface extends
      * @return string
      */
     public function getCreatedAt(): ?string;
-
 }

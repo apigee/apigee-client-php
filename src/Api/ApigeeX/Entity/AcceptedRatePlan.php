@@ -18,12 +18,12 @@
 
 namespace Apigee\Edge\Api\ApigeeX\Entity;
 
+use Apigee\Edge\Api\ApigeeX\Entity\Property\ApiProductPropertyAwareTrait;
 use Apigee\Edge\Api\ApigeeX\Entity\Property\EndTimePropertyAwareTrait;
 use Apigee\Edge\Api\ApigeeX\Entity\Property\StartTimePropertyAwareTrait;
-use Apigee\Edge\Api\ApigeeX\Entity\Property\ApiProductPropertyAwareTrait;
-use Apigee\Edge\Entity\Property\NamePropertyAwareTrait;
-use Apigee\Edge\Api\Monetization\Entity\Entity;
 use Apigee\Edge\Api\ApigeeX\Entity\RatePlanInterface;
+use Apigee\Edge\Api\Monetization\Entity\Entity;
+use Apigee\Edge\Entity\Property\NamePropertyAwareTrait;
 
 abstract class AcceptedRatePlan extends Entity implements AcceptedRatePlanInterface
 {
@@ -33,7 +33,7 @@ abstract class AcceptedRatePlan extends Entity implements AcceptedRatePlanInterf
     use ApiProductPropertyAwareTrait;
     use NamePropertyAwareTrait;
 
-    /** @var string*/
+    /** @var string */
     protected $createdAt;
 
     /** @var string */
@@ -42,10 +42,8 @@ abstract class AcceptedRatePlan extends Entity implements AcceptedRatePlanInterf
      /** @var \Apigee\Edge\Api\ApigeeX\Entity\RatePlanInterface */
     protected $ratePlan;
 
-
-
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getLastModifiedAt(): ?string
     {
@@ -63,7 +61,7 @@ abstract class AcceptedRatePlan extends Entity implements AcceptedRatePlanInterf
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getCreatedAt(): ?string
     {
@@ -80,9 +78,8 @@ abstract class AcceptedRatePlan extends Entity implements AcceptedRatePlanInterf
         $this->createdAt = $createdAt;
     }
 
-
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getRatePlan(): ?RatePlanInterface
     {
@@ -90,7 +87,7 @@ abstract class AcceptedRatePlan extends Entity implements AcceptedRatePlanInterf
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setRatePlan(?RatePlanInterface $ratePlan): void
     {

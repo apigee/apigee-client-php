@@ -27,14 +27,12 @@ use DateTimeImmutable;
 /**
  * Interface AcceptedRatePlanControllerInterface.
  *
- * @see https://apidocs.apigee.com/monetize/apis/
- * @see https://docs.apigee.com/api-platform/monetization/subscribe-published-rate-plan-using-api
- * @see https://docs.apigee.com/api-platform/monetization/view-rate-plans#viewingrateplansusingtheapi-viewingallacceptedrateplansforadeveloperusingtheapi
+ * TODO: Add reference documentation link
  */
-interface AcceptedRatePlanControllerInterface extends EntityControllerInterface,
+interface AcceptedRatePlanControllerInterface extends
+    EntityControllerInterface,
     EntityLoadOperationControllerInterface
 {
-
     /**
      * Gets all accepted rate plans.
      *

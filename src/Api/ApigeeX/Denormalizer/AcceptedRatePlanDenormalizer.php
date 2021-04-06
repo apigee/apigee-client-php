@@ -27,7 +27,7 @@ abstract class AcceptedRatePlanDenormalizer extends ObjectDenormalizer
     use TimezoneFixerHelperTrait;
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      *
      * @psalm-suppress PossiblyNullReference - getPackage() can only return
      * null when a rate plan is created. It does not return null here.
@@ -36,11 +36,12 @@ abstract class AcceptedRatePlanDenormalizer extends ObjectDenormalizer
     {
         /** @var \Apigee\Edge\Api\ApigeeX\Entity\AcceptedRatePlanInterface $denormalized */
         $denormalized = parent::denormalize($data, $class, $format, $context);
+
         return $denormalized;
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function supportsDenormalization($data, $type, $format = null)
     {

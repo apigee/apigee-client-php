@@ -27,7 +27,7 @@ trait ApiProductPropertyAwareTrait
     protected $apiproduct;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getApiProduct(): ?string
     {
@@ -35,7 +35,7 @@ trait ApiProductPropertyAwareTrait
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setApiProduct(string $apiproduct): void
     {

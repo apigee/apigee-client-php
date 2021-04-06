@@ -49,7 +49,7 @@ class DeveloperAcceptedRatePlanController extends AcceptedRatePlanController
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getBaseEndpointUri(): UriInterface
     {
@@ -60,7 +60,7 @@ class DeveloperAcceptedRatePlanController extends AcceptedRatePlanController
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getEntityClass(): string
     {
@@ -68,7 +68,7 @@ class DeveloperAcceptedRatePlanController extends AcceptedRatePlanController
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function buildContextForEntityTransformerInCreate(): array
     {
@@ -79,16 +79,17 @@ class DeveloperAcceptedRatePlanController extends AcceptedRatePlanController
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getAcceptedRatePlansEndpoint(): UriInterface
     {
         $developerId = rawurlencode($this->developer);
+
         return $this->client->getUriFactory()->createUri("/organizations/{$this->organization}/developers/{$developerId}/subscriptions");
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      *
      * @psalm-suppress UndefinedMethod - getDeveloper() exists on the annotated
      * interface.

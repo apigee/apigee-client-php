@@ -57,7 +57,7 @@ class EntityNormalizer extends ObjectNormalizer
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      *
      * @psalm-suppress InvalidReturnType stdClass is also an object.
      */
@@ -71,12 +71,11 @@ class EntityNormalizer extends ObjectNormalizer
             foreach ($entityReferenceProperties as $entityProperty => $normalizedProperty) {
                 // Ensure we do not send the complete referenced entity object
                 // only the referenced entity id.
-                 if (isset($normalized[$normalizedProperty]->apiProduct)) {
-
+                if (isset($normalized[$normalizedProperty]->apiProduct)) {
                     $normalized = [
                        'apiproduct' => $normalized[$normalizedProperty]->apiProduct,
                     ];
-                }else if (isset($normalized[$normalizedProperty]->id)) {
+                } elseif (isset($normalized[$normalizedProperty]->id)) {
                     $normalized[$normalizedProperty] = [
                         'id' => $normalized[$normalizedProperty]->id,
                     ];
