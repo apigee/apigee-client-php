@@ -44,7 +44,7 @@ final class ConsumptionPricingRate extends BaseObject
     private $start;
 
     /**
-     * @var \Apigee\Edge\Api\ApigeeX\Structure\Fee[]
+     * @var \Apigee\Edge\Api\ApigeeX\Structure\Fee
      */
     private $fee = [];
 
@@ -81,7 +81,7 @@ final class ConsumptionPricingRate extends BaseObject
     }
 
     /**
-     * @return \Apigee\Edge\Api\Monetization\Structure\Fee[]|null
+     * @return \Apigee\Edge\Api\ApigeeX\Structure\Fee|null
      */
     public function getFee(): ?Fee
     {

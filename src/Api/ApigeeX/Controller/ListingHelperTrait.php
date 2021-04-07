@@ -44,7 +44,7 @@ trait ListingHelperTrait
     {
         $response = $this->getClient()->get($uri);
         $responseArray = $this->responseToArray($response);
-      
+
         //ApigeeX can return empty array.
         if (empty($responseArray)) {
             return $responseArray;
