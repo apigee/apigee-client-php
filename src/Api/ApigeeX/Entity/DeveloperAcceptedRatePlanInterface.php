@@ -16,33 +16,10 @@
  * limitations under the License.
  */
 
-namespace Apigee\Edge\Api\ApigeeX\Entity\Property;
+namespace Apigee\Edge\Api\ApigeeX\Entity;
 
-/**
- * Trait StartTimePropertyAwareTrait.
- *
- * @see \Apigee\Edge\Api\ApigeeX\Entity\Property\StartTimePropertyInterface
- */
-trait StartTimePropertyAwareTrait
+use Apigee\Edge\Api\Monetization\Entity\Property\DeveloperPropertyInterface;
+
+interface DeveloperAcceptedRatePlanInterface extends AcceptedRatePlanInterface, DeveloperPropertyInterface
 {
-    /**
-     * @var string|null
-     */
-    protected $startTime;
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getStartTime(): ?string
-    {
-        return $this->startTime;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setStartTime(string $startTime): void
-    {
-        $this->startTime = $startTime;
-    }
 }
