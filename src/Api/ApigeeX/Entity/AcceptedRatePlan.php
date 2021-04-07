@@ -31,13 +31,13 @@ abstract class AcceptedRatePlan extends Entity implements AcceptedRatePlanInterf
     use ApiProductPropertyAwareTrait;
     use NamePropertyAwareTrait;
 
-    /** @var string */
+    /** @var string|null */
     protected $createdAt;
 
-    /** @var string */
+    /** @var string|null */
     protected $lastModifiedAt;
 
-    /** @var \Apigee\Edge\Api\ApigeeX\Entity\RatePlanInterface */
+    /** @var \Apigee\Edge\Api\ApigeeX\Entity\RatePlanInterface|null */
     protected $ratePlan;
 
     /**
