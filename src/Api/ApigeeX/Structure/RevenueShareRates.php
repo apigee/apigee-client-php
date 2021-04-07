@@ -39,7 +39,7 @@ final class RevenueShareRates extends BaseObject
     /**
      * Value of "start" from the API response,.
      *
-     * @var string
+     * @var string|null
      */
     private $start;
 
@@ -51,7 +51,7 @@ final class RevenueShareRates extends BaseObject
     private $sharePercentage;
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getEnd(): ?string
     {
@@ -67,7 +67,7 @@ final class RevenueShareRates extends BaseObject
     }
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getStart(): ?string
     {
@@ -83,7 +83,7 @@ final class RevenueShareRates extends BaseObject
     }
 
     /**
-     * @return float
+     * @return float|null
      */
     public function getSharePercentage(): ?float
     {
