@@ -21,7 +21,7 @@ namespace Apigee\Edge\Api\ApigeeX\Entity\Property;
 interface EndTimePropertyInterface
 {
     /**
-     * @return string
+     * @return string|null
      */
     public function getEndTime();
 

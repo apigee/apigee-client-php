@@ -26,7 +26,7 @@ namespace Apigee\Edge\Api\ApigeeX\Entity\Property;
 trait StartTimePropertyAwareTrait
 {
     /**
-     * @var string
+     * @var string|null
      */
     protected $startTime;
 
@@ -41,7 +41,7 @@ trait StartTimePropertyAwareTrait
     /**
      * {@inheritdoc}
      */
-    public function setStartTime(?string $startTime): void
+    public function setStartTime(string $startTime): void
     {
         $this->startTime = $startTime;
     }

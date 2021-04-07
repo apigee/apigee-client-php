@@ -26,7 +26,7 @@ namespace Apigee\Edge\Api\ApigeeX\Entity\Property;
 trait EndTimePropertyAwareTrait
 {
     /**
-     * @var string
+     * @var string|null
      */
     protected $endTime;
 
@@ -41,7 +41,7 @@ trait EndTimePropertyAwareTrait
     /**
      * {@inheritdoc}
      */
-    public function setEndTime(?string $endTime): void
+    public function setEndTime(string $endTime): void
     {
         $this->endTime = $endTime;
     }
