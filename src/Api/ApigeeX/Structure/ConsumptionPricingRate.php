@@ -44,9 +44,9 @@ final class ConsumptionPricingRate extends BaseObject
     private $start;
 
     /**
-     * @var \Apigee\Edge\Api\ApigeeX\Structure\Fee
+     * @var \Apigee\Edge\Api\ApigeeX\Structure\Fee|null
      */
-    private $fee = [];
+    private $fee = null;
 
     /**
      * @return string|null
