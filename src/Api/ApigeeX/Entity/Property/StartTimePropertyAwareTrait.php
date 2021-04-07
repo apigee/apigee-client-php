@@ -26,7 +26,7 @@ namespace Apigee\Edge\Api\ApigeeX\Entity\Property;
 trait StartTimePropertyAwareTrait
 {
     /**
-     * @var string
+     * @var string|null
      */
     protected $startTime;
 

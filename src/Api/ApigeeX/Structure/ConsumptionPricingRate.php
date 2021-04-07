@@ -81,7 +81,7 @@ final class ConsumptionPricingRate extends BaseObject
     }
 
     /**
-     * @param \Apigee\Edge\Api\ApigeeX\Structure\Fee ...$fee
+     * @return \Apigee\Edge\Api\Monetization\Structure\Fee[]
      */
     public function getFee(): ?Fee
     {

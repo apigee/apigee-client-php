@@ -69,7 +69,7 @@ abstract class RatePlan extends Entity implements RatePlanInterface
     /** @var \Apigee\Edge\Api\ApigeeX\Structure\RatePlanXFee[] */
     protected $ratePlanXFee = [];
 
-    /** @var \Apigee\Edge\Api\Monetization\ApigeeX\Structure\FixedRecurringFee[] */
+    /** @var \Apigee\Edge\Api\ApigeeX\Structure\FixedRecurringFee[] */
     protected $fixedRecurringFee = [];
 
     /** @var \Apigee\Edge\Api\ApigeeX\Structure\ConsumptionPricingRate[] */

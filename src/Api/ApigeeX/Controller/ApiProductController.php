@@ -65,7 +65,7 @@ class ApiProductController extends OrganizationAwareEntityController implements 
      */
     public function getAvailableApixProductsByCompany(string $company, bool $active = false, bool $allAvailable = true): array
     {
-        return $this->getAvailableApiPackages('companies', $company, $active, $allAvailable);
+        return $this->getAvailablexApiProducts('companies', $company, $active, $allAvailable);
     }
 
     /**

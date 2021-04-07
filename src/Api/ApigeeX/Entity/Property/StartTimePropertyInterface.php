@@ -21,7 +21,7 @@ namespace Apigee\Edge\Api\ApigeeX\Entity\Property;
 interface StartTimePropertyInterface
 {
     /**
-     * @return string
+     * @return string|null
      */
     public function getStartTime();
 
