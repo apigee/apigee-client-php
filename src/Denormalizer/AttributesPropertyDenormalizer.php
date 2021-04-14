@@ -26,7 +26,7 @@ use Apigee\Edge\Structure\AttributesProperty;
 class AttributesPropertyDenormalizer extends KeyValueMapDenormalizer
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function supportsDenormalization($data, $type, $format = null)
     {
@@ -46,7 +46,7 @@ class AttributesPropertyDenormalizer extends KeyValueMapDenormalizer
      *     (from the EntityNormalizer for example)
      *   - Internal representation of attributes: ['foo' => 'bar', 'bar' => 'baz']
      *
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function denormalize($data, $class, $format = null, array $context = [])
     {
