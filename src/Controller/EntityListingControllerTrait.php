@@ -44,6 +44,10 @@ trait EntityListingControllerTrait
         $entities = [];
 
         foreach ($responseArray as $item) {
+            //Adding id for ApigeeX.
+            if (!isset($item->id)) {
+                $item->id = $item->name ?? null;
+            }
             /** @var \Apigee\Edge\Entity\EntityInterface $tmp */
             $tmp = $this->getEntitySerializer()->denormalize($item, $this->getEntityClass());
             $entities[$tmp->{$keyGetter}()] = $tmp;
