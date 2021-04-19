@@ -44,7 +44,7 @@ interface ClientInterface extends HttpClient
      */
     public const HYBRID_ENDPOINT = 'https://apigee.googleapis.com/v1';
 
-    public const VERSION = '2.0.6';
+    public const VERSION = '2.0.7';
 
     /**
      * Allows access to the last request, response and exception.
