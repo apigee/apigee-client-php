@@ -2,7 +2,7 @@
 
 ## [2.0.7](https://github.com/apigee/apigee-client-php/milestone/6?closed=1)
 * Added support for Apigee X connections (New Feature)
-As an API provider, you need an easy-to-use and flexible way to monetize your APIs so that you can generate revenue for the use of your APIs. Using Apigee monetization, you can add a monetization rate plan to an API product that charges developers or pays them through revenue sharing for the use of your APIs. For more information, see [Overview of Apigee monetization](https://cloud.google.com/apigee/docs/api-platform/monetization/overview).
+API providers can now connect their Drupal 8/9 developer portals to Apigee X organizations.  API providers using Apigee X with Monetization enabled can now leverage monetization features in their Drupal developer portals.  For more information, see [Overview of Apigee monetization](https://cloud.google.com/apigee/docs/api-platform/monetization/overview) and the [Apigee Monetization Drupal module documentation](https://www.drupal.org/docs/contributed-modules/apigee-monetization).
 
 * [#105](https://github.com/apigee/apigee-client-php/pull/123) Unable to retrieve analytics data on developer app analytics page for hybrid orgs.
 * [#108](https://github.com/apigee/apigee-client-php/pull/125) Notice in recent message logs if description is empty after creating app in Apigee hybrid.
