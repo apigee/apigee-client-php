@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## [2.0.7](https://github.com/apigee/apigee-client-php/milestone/6?closed=1)
+* Added support for Apigee X monetization.
+* [#105](https://github.com/apigee/apigee-client-php/pull/123) Error on Developer App Analytics page for Hybrid Org.
+* [#108](https://github.com/apigee/apigee-client-php/pull/125) Notice in recent message logs if description is empty after creating app in Apigee hybrid.
+
 ## [2.0.6](https://github.com/apigee/apigee-client-php/milestone/5?closed=1)
 * Dropped support of HTTPlug 1.x libraries (HTTPlug, Client Common and Guzzle 6 adapter).
 * Added support for GCE Service Account Authentication.
