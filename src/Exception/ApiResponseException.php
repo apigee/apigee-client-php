@@ -112,6 +112,7 @@ class ApiResponseException extends ApiRequestException
         if ($contentTypeHeader && false !== strpos($contentTypeHeader, 'application/json')) {
             $array = json_decode((string) $response->getBody(), true);
             $array = is_array($array) ? $array : (array) $array;
+
             if (JSON_ERROR_NONE === json_last_error()) {
                 if (array_key_exists('fault', $array)) {
                     $error['message'] = $array['fault']['faultstring'] ?? null;
