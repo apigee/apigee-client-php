@@ -27,5 +27,5 @@ interface ProductPropertyInterface
      *
      * @return \Apigee\Edge\Api\Monetization\Entity\ApiProduct
      */
-    public function getproduct(): ?ApiProduct;
+    public function getProduct(): ?ApiProduct;
 }
