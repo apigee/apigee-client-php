@@ -95,7 +95,8 @@ class DeveloperAcceptedRatePlanController extends AcceptedRatePlanController
      */
     protected function alterRequestPayload(array &$payload, AcceptedRatePlanInterface $acceptedRatePlan): void
     {
-        /* @var \Apigee\Edge\Api\Monetization\Entity\XDeveloperAcceptedRatePlanInterface $acceptedRatePlan */
+        /* @var \Apigee\Edge\Api\ApigeeX\Entity\DeveloperAcceptedRatePlanInterface $acceptedRatePlan */
+
         // We should prefer developer email addresses over developer ids
         // (UUIDs) when we are communicating with the Monetization API.
         // @see https://github.com/apigee/apigee-client-php/issues/36
