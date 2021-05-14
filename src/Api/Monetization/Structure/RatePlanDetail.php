@@ -28,6 +28,8 @@ use Apigee\Edge\Api\Monetization\Entity\Property\OrganizationPropertyAwareTrait;
 use Apigee\Edge\Api\Monetization\Entity\Property\OrganizationPropertyInterface;
 use Apigee\Edge\Api\Monetization\Entity\Property\PaymentDueDaysPropertyAwareTrait;
 use Apigee\Edge\Api\Monetization\Entity\Property\PaymentDueDaysPropertyInterface;
+use Apigee\Edge\Api\Monetization\Entity\Property\ProductPropertyAwareTrait;
+use Apigee\Edge\Api\Monetization\Entity\Property\ProductPropertyInterface;
 use Apigee\Edge\Structure\BaseObject;
 
 /**
@@ -41,13 +43,15 @@ final class RatePlanDetail extends BaseObject implements
     IdPropertyInterface,
     NestedObjectReferenceInterface,
     OrganizationPropertyInterface,
-    PaymentDueDaysPropertyInterface
+    PaymentDueDaysPropertyInterface,
+    ProductPropertyInterface
 {
     use CurrencyPropertyAwareTrait;
     use IdPropertyAwareTrait;
     use FreemiumPropertiesAwareTrait;
     use OrganizationPropertyAwareTrait;
     use PaymentDueDaysPropertyAwareTrait;
+    use ProductPropertyAwareTrait;
 
     public const DURATION_DAY = 'DAY';
 
