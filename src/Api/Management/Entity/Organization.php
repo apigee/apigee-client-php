@@ -24,6 +24,8 @@ use Apigee\Edge\Entity\Property\DisplayNamePropertyAwareTrait;
 use Apigee\Edge\Entity\Property\EnvironmentsPropertyAwareTrait;
 use Apigee\Edge\Entity\Property\NamePropertyAwareTrait;
 use Apigee\Edge\Entity\Property\PropertiesPropertyAwareTrait;
+use Apigee\Edge\Entity\Property\RuntimeTypeAwareTrait;
+use Apigee\Edge\Structure\AddonsConfig;
 use Apigee\Edge\Structure\PropertiesProperty;
 
 /**
@@ -35,6 +37,7 @@ class Organization extends Entity implements OrganizationInterface
     use CommonEntityPropertiesAwareTrait;
     use EnvironmentsPropertyAwareTrait;
     use NamePropertyAwareTrait;
+    use RuntimeTypeAwareTrait;
     use PropertiesPropertyAwareTrait;
 
     protected const TYPES = [
@@ -44,6 +47,11 @@ class Organization extends Entity implements OrganizationInterface
 
     /** @var string */
     protected $type;
+
+    /**
+     * @var \Apigee\Edge\Structure\AddonsConfig|null
+     */
+    protected $addonsConfig = null;
 
     /**
      * Organization constructor.
@@ -59,7 +67,7 @@ class Organization extends Entity implements OrganizationInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getType(): ?string
     {
@@ -67,7 +75,7 @@ class Organization extends Entity implements OrganizationInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setType(string $type): void
     {
@@ -78,10 +86,26 @@ class Organization extends Entity implements OrganizationInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getTypes(): array
     {
         return self::TYPES;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getAddonsConfig(): ?AddonsConfig
+    {
+        return $this->addonsConfig;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setAddonsConfig(AddonsConfig $addonsConfig): void
+    {
+        $this->addonsConfig = $addonsConfig;
     }
 }
