@@ -16,20 +16,16 @@
  * limitations under the License.
  */
 
-namespace Apigee\Edge\Api\ApigeeX\Entity\Property;
+namespace Apigee\Edge\Api\Monetization\Entity\Property;
 
-/**
- * Interface CurrencyCodePropertyInterface.
- */
-interface CurrencyCodePropertyInterface
+use Apigee\Edge\Api\Monetization\Entity\ApiProduct;
+
+interface ProductPropertyInterface
 {
     /**
-     * @return string
+     * Returns the apiproduct information included in rateplan detials.
+     *
+     * @return \Apigee\Edge\Api\Monetization\Entity\ApiProduct
      */
-    public function getCurrencyCode(): ?string;
-
-    /**
-     * @param string $currencyCode
-     */
-    public function setCurrencyCode(string $currencyCode): void;
+    public function getProduct(): ?ApiProduct;
 }

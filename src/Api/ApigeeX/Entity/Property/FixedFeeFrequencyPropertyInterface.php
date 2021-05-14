@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-namespace Apigee\Edge\Api\Monetization\Entity\Property;
+namespace Apigee\Edge\Api\ApigeeX\Entity\Property;
 
 /**
  * Interface FixedFeeFrequencyPropertyInterface.
