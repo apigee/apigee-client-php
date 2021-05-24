@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## [2.0.8](https://github.com/apigee/apigee-client-php/milestone/7?closed=1)
+* Fixed bug that was throwing error on returning string response (ApiResponseException)
+* (Monetization) Added addition fields to Rateplan entity.
+* (Monetization) Added runtimeType and monetizationConfig property to check monetization status for Apigee X org.
+
 ## [2.0.7](https://github.com/apigee/apigee-client-php/milestone/6?closed=1)
 * Added support for Apigee X connections (New Feature)
 API providers can now connect their Drupal 8/9 developer portals to Apigee X organizations.  API providers using Apigee X with Monetization enabled can now leverage monetization features in their Drupal developer portals.  For more information, see [Overview of Apigee monetization](https://cloud.google.com/apigee/docs/api-platform/monetization/overview) and the [Apigee Monetization Drupal module documentation](https://www.drupal.org/docs/contributed-modules/apigee-monetization).
