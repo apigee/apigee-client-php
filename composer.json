@@ -43,8 +43,13 @@
         "php-http/guzzle6-adapter": "^2.0",
         "php-http/mock-client": "^1.1.0",
         "phpmetrics/phpmetrics": "^2.3",
+<<<<<<< HEAD
         "phpunit/phpunit": "^6.4.0 || ^7 || ^9",
         "sebastian/comparator": "^2.1 || ^4",
+=======
+        "phpunit/phpunit": "^6.4.0 || ^7 || ^9.3",
+        "sebastian/comparator": "^2.1",
+>>>>>>> 8909f75ebc468d9d0dcf2b278d5f857b386f8459
         "symfony/cache": "~3.4 || ~4.0",
         "vimeo/psalm": "^2.0.0 || ^3"
     },
@@ -52,6 +57,10 @@
         "guzzlehttp/guzzle": "<6.1.0",
         "guzzlehttp/psr7": "<1.4.1",
         "phpdocumentor/type-resolver": "<0.2.1",
+<<<<<<< HEAD
+=======
+
+>>>>>>> 8909f75ebc468d9d0dcf2b278d5f857b386f8459
         "symfony/polyfill-mbstring": ">1.20.0"
     },
     "autoload": {
