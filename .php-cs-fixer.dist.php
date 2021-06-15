@@ -17,7 +17,7 @@ return PhpCsFixer\Config::create()
         '@PSR2' => true,
         '@Symfony' => true,
         'array_syntax' => ['syntax' => 'short'],
-        'class_definition' => ['singleLine' => false, 'singleItemSingleLine' => true],
+        'class_definition' => ['single_line' => false, 'single_item_single_line' => true],
         'concat_space' => ['spacing' => 'one'],
         'general_phpdoc_annotation_remove' => ['author'],
         'ordered_class_elements' => true,
