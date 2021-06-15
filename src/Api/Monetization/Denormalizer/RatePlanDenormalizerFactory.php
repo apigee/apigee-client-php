@@ -79,7 +79,7 @@ class RatePlanDenormalizerFactory implements DenormalizerInterface, SerializerAw
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function setSerializer(SerializerInterface $serializer): void
     {
