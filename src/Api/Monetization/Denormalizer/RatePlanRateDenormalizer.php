@@ -31,7 +31,7 @@ class RatePlanRateDenormalizer extends ObjectDenormalizer
     protected $rateCardClass = RatePlanRateRateCard::class;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function denormalize($data, $type, $format = null, array $context = [])
     {
@@ -46,7 +46,7 @@ class RatePlanRateDenormalizer extends ObjectDenormalizer
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function supportsDenormalization($data, $type, $format = null)
     {

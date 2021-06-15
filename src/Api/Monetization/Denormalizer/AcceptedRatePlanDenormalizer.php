@@ -27,7 +27,7 @@ abstract class AcceptedRatePlanDenormalizer extends ObjectDenormalizer
     use TimezoneFixerHelperTrait;
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      *
      * @psalm-suppress PossiblyNullReference - getPackage() can only return
      * null when a rate plan is created. It does not return null here.
@@ -43,7 +43,7 @@ abstract class AcceptedRatePlanDenormalizer extends ObjectDenormalizer
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function supportsDenormalization($data, $type, $format = null)
     {

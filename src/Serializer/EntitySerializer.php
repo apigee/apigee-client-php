@@ -69,7 +69,7 @@ class EntitySerializer implements EntitySerializerInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function denormalize($data, $type, $format = null, array $context = [])
     {
@@ -77,7 +77,7 @@ class EntitySerializer implements EntitySerializerInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function supportsDenormalization($data, $type, $format = null)
     {
@@ -85,7 +85,7 @@ class EntitySerializer implements EntitySerializerInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function normalize($object, $format = null, array $context = [])
     {
@@ -93,7 +93,7 @@ class EntitySerializer implements EntitySerializerInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function supportsNormalization($data, $format = null)
     {
@@ -101,7 +101,7 @@ class EntitySerializer implements EntitySerializerInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function serialize($data, $format, array $context = [])
     {
@@ -113,7 +113,7 @@ class EntitySerializer implements EntitySerializerInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function deserialize($data, $type, $format, array $context = [])
     {
@@ -125,7 +125,7 @@ class EntitySerializer implements EntitySerializerInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setPropertiesFromResponse(ResponseInterface $response, EntityInterface $entity): void
     {
@@ -184,7 +184,7 @@ class EntitySerializer implements EntitySerializerInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function decode($data, $format, array $context = [])
     {
@@ -192,7 +192,7 @@ class EntitySerializer implements EntitySerializerInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function supportsDecoding($format)
     {
@@ -200,7 +200,7 @@ class EntitySerializer implements EntitySerializerInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function encode($data, $format, array $context = [])
     {
@@ -208,7 +208,7 @@ class EntitySerializer implements EntitySerializerInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function supportsEncoding($format)
     {

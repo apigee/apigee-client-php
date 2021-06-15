@@ -27,7 +27,7 @@ use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 class CompanyMembershipDenormalizer implements DenormalizerInterface
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function denormalize($data, $type, $format = null, array $context = [])
     {
@@ -42,7 +42,7 @@ class CompanyMembershipDenormalizer implements DenormalizerInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function supportsDenormalization($data, $type, $format = null)
     {

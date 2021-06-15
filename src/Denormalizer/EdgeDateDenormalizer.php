@@ -44,7 +44,7 @@ class EdgeDateDenormalizer implements DenormalizerInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      *
      * @return object|null
      *
@@ -64,7 +64,7 @@ class EdgeDateDenormalizer implements DenormalizerInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function supportsDenormalization($data, $type, $format = null)
     {

@@ -45,7 +45,7 @@ class ReportDefinitionSerializer extends EntitySerializer
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public static function getEntityTypeSpecificDefaultNormalizers(): array
     {
@@ -67,7 +67,7 @@ class ReportDefinitionSerializer extends EntitySerializer
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function deserialize($data, $type, $format, array $context = [])
     {
@@ -82,7 +82,7 @@ class ReportDefinitionSerializer extends EntitySerializer
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function denormalize($data, $type, $format = null, array $context = [])
     {
