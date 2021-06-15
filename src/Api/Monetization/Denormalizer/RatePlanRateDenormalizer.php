@@ -33,7 +33,7 @@ class RatePlanRateDenormalizer extends ObjectDenormalizer
     /**
      * @inheritdoc
      */
-    public function denormalize($data, $class, $format = null, array $context = [])
+    public function denormalize($data, $type, $format = null, array $context = [])
     {
         $denormalized = (array) $data;
         if (RatePlanRate::TYPE_REVSHARE === $data->type) {

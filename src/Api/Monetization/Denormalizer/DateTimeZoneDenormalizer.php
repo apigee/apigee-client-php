@@ -27,7 +27,7 @@ class DateTimeZoneDenormalizer implements DenormalizerInterface
     /**
      * @inheritdoc
      */
-    public function denormalize($data, $class, $format = null, array $context = [])
+    public function denormalize($data, $type, $format = null, array $context = [])
     {
         try {
             return new DateTimeZone($data);

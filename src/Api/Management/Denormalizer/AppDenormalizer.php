@@ -46,7 +46,7 @@ class AppDenormalizer extends ObjectDenormalizer
     /**
      * @inheritdoc
      */
-    public function denormalize($data, $class, $format = null, array $context = [])
+    public function denormalize($data, $type, $format = null, array $context = [])
     {
         if (isset($data->developerId)) {
             return parent::denormalize($data, $this->developerAppClass, $format, $context);

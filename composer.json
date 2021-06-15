@@ -45,8 +45,6 @@
         "phpmetrics/phpmetrics": "^2.3",
         "phpunit/phpunit": "^6.4.0 || ^7 || ^9",
         "sebastian/comparator": "^2.1 || ^4",
-        "phpunit/phpunit": "^6.4.0 || ^7 || ^9.3",
-        "sebastian/comparator": "^2.1",
         "symfony/cache": "~3.4 || ~4.0",
         "vimeo/psalm": "^2.0.0 || ^3"
     },

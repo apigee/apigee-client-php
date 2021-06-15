@@ -64,7 +64,7 @@ class LegalEntityDenormalizer extends ObjectDenormalizer
     /**
      * @inheritdoc
      */
-    public function denormalize($data, $class, $format = null, array $context = [])
+    public function denormalize($data, $type, $format = null, array $context = [])
     {
         if ($data->isCompany) {
             return parent::denormalize($data, $this->companyClass, $format, $context);
