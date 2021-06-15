@@ -62,7 +62,7 @@ class LegalEntityDenormalizer extends ObjectDenormalizer
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function denormalize($data, $type, $format = null, array $context = [])
     {
@@ -74,7 +74,7 @@ class LegalEntityDenormalizer extends ObjectDenormalizer
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function supportsDenormalization($data, $type, $format = null)
     {

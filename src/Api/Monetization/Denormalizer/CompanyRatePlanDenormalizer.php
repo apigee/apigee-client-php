@@ -54,7 +54,7 @@ class CompanyRatePlanDenormalizer extends RatePlanDenormalizer
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function denormalize($data, $type, $format = null, array $context = [])
     {
@@ -66,7 +66,7 @@ class CompanyRatePlanDenormalizer extends RatePlanDenormalizer
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function supportsDenormalization($data, $type, $format = null)
     {
