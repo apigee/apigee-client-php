@@ -33,7 +33,7 @@ trait EntityLoadOperationControllerTestTrait
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function testLoad($created = null): EntityInterface
     {

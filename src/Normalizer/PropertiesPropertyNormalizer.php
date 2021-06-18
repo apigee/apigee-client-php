@@ -28,7 +28,7 @@ class PropertiesPropertyNormalizer extends KeyValueMapNormalizer
     /**
      * Transforms JSON representation of properties property to compatible with what Edge accepts.
      *
-     * @inheritdoc
+     * {@inheritdoc}
      *
      * @psalm-suppress InvalidReturnType Returning an object here is required
      * for creating a valid Apigee Edge request.
@@ -43,7 +43,7 @@ class PropertiesPropertyNormalizer extends KeyValueMapNormalizer
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function supportsNormalization($data, $format = null)
     {

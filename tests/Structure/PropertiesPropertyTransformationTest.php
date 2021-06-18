@@ -44,7 +44,7 @@ class PropertiesPropertyTransformationTest extends TestCase
     protected static $denormalizer;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static function setUpBeforeClass(): void
     {

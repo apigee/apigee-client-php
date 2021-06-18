@@ -41,7 +41,7 @@ class FileSystemMockClient extends OfflineClientBase implements OfflineClientInt
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getMockHttpClient(): MockHttpClientInterface
     {

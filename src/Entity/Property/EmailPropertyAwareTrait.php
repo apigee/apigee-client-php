@@ -24,7 +24,7 @@ trait EmailPropertyAwareTrait
     protected $email;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getEmail(): ?string
     {
@@ -32,7 +32,7 @@ trait EmailPropertyAwareTrait
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setEmail(string $email): void
     {

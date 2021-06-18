@@ -31,7 +31,7 @@ trait DeveloperPropertyAwareTrait
     protected $developer;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getDeveloper(): ?DeveloperInterface
     {
@@ -39,7 +39,7 @@ trait DeveloperPropertyAwareTrait
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setDeveloper(DeveloperInterface $developer): void
     {

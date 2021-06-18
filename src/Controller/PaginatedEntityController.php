@@ -54,7 +54,7 @@ abstract class PaginatedEntityController extends EntityController implements Pag
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     protected function getOrganizationController(): OrganizationControllerInterface
     {

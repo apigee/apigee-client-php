@@ -39,7 +39,7 @@ class BuilderTest extends TestCase
     protected static $httpClient;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static function setUpBeforeClass(): void
     {

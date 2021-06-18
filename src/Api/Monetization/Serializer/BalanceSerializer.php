@@ -24,7 +24,7 @@ use Apigee\Edge\Api\Monetization\Normalizer\BalanceNormalizer;
 class BalanceSerializer extends EntitySerializer
 {
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public static function getEntityTypeSpecificDefaultNormalizers(): array
     {

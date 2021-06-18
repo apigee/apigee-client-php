@@ -33,7 +33,7 @@ trait OrganizationNamePropertyAwareTrait
     protected $organizationName;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getOrganizationName(): ?string
     {
@@ -41,7 +41,7 @@ trait OrganizationNamePropertyAwareTrait
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      *
      * @internal
      */

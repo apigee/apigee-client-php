@@ -26,7 +26,7 @@ trait FilteredReportDefinitionsTrait
     use PaginatedListingHelperTrait;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getFilteredEntities(int $limit = null, int $page = 1, string $sort = null): array
     {

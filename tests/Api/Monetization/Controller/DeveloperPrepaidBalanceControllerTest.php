@@ -35,7 +35,7 @@ class DeveloperPrepaidBalanceControllerTest extends PrepaidBalanceControllerTest
     protected static $developerId = 'phpunit@example.com';
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected static function entityController(ClientInterface $client = null): EntityControllerTesterInterface
     {
@@ -45,7 +45,7 @@ class DeveloperPrepaidBalanceControllerTest extends PrepaidBalanceControllerTest
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected static function validateRecurringPath(string $actual): void
     {

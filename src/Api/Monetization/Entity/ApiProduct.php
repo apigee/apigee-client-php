@@ -34,7 +34,7 @@ class ApiProduct extends OrganizationAwareEntity implements ApiProductInterface
     protected $transactionSuccessCriteria;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getTransactionSuccessCriteria(): ?string
     {
@@ -42,7 +42,7 @@ class ApiProduct extends OrganizationAwareEntity implements ApiProductInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setTransactionSuccessCriteria(?string $transactionSuccessCriteria): void
     {

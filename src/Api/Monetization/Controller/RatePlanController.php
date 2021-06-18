@@ -56,7 +56,7 @@ class RatePlanController extends OrganizationAwareEntityController implements Ra
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getEntities(?bool $showCurrentOnly = null, ?bool $showPrivate = null, ?bool $showStandardOnly = null): array
     {
@@ -84,7 +84,7 @@ class RatePlanController extends OrganizationAwareEntityController implements Ra
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      *
      * Use RatePlanRevisionBuilder that makes it easier way to create
      * new rate plan revisions.
@@ -99,7 +99,7 @@ class RatePlanController extends OrganizationAwareEntityController implements Ra
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getBaseEndpointUri(): UriInterface
     {
@@ -107,7 +107,7 @@ class RatePlanController extends OrganizationAwareEntityController implements Ra
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getEntityClass(): string
     {
@@ -115,7 +115,7 @@ class RatePlanController extends OrganizationAwareEntityController implements Ra
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     protected function buildEntityCreatePayload(EntityInterface $entity, array $context = []): string
     {

@@ -29,7 +29,7 @@ use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
 class LegalEntityNameConvert extends NameConverterBase implements NameConverterInterface
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getExternalToLocalMapping(): array
     {

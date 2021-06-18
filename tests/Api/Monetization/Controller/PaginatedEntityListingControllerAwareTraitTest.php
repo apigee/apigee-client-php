@@ -71,7 +71,7 @@ class PaginatedEntityListingControllerAwareTraitClass
     protected $client;
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function __construct(ClientInterface $client)
     {
@@ -79,7 +79,7 @@ class PaginatedEntityListingControllerAwareTraitClass
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getBaseEndpointUri(): UriInterface
     {
@@ -87,7 +87,7 @@ class PaginatedEntityListingControllerAwareTraitClass
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getClient(): ClientInterface
     {
@@ -95,7 +95,7 @@ class PaginatedEntityListingControllerAwareTraitClass
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getEntityClass(): string
     {
@@ -103,7 +103,7 @@ class PaginatedEntityListingControllerAwareTraitClass
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getEntitySerializer(): EntitySerializerInterface
     {
@@ -111,7 +111,7 @@ class PaginatedEntityListingControllerAwareTraitClass
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function jsonDecoder(): JsonDecode
     {

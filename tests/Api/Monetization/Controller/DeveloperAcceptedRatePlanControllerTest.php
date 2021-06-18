@@ -39,7 +39,7 @@ class DeveloperAcceptedRatePlanControllerTest extends AcceptedRatePlanController
     protected static $testDeveloperId = 'phpunit@example.com';
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected static function entityController(ClientInterface $client = null): EntityControllerTesterInterface
     {
@@ -49,7 +49,7 @@ class DeveloperAcceptedRatePlanControllerTest extends AcceptedRatePlanController
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getAcceptRatePlanResponse(): ResponseInterface
     {
@@ -59,7 +59,7 @@ class DeveloperAcceptedRatePlanControllerTest extends AcceptedRatePlanController
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getRatePlanToAccept(): RatePlanInterface
     {

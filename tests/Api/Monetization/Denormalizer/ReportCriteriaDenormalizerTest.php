@@ -35,7 +35,7 @@ class ReportCriteriaDenormalizerTest extends TestCase
     protected static $denormalizer;
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public static function setUpBeforeClass(): void
     {

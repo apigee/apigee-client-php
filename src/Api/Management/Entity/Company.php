@@ -53,7 +53,7 @@ class Company extends AppOwner implements CompanyInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setOrganization(string $organization): void
     {
@@ -61,7 +61,7 @@ class Company extends AppOwner implements CompanyInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getOrganization(): ?string
     {

@@ -56,7 +56,7 @@ class Developer extends AppOwner implements DeveloperInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static function idProperty(): string
     {
@@ -68,7 +68,7 @@ class Developer extends AppOwner implements DeveloperInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getCompanies(): array
     {
@@ -91,7 +91,7 @@ class Developer extends AppOwner implements DeveloperInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function hasCompany(string $companyName): bool
     {
@@ -99,7 +99,7 @@ class Developer extends AppOwner implements DeveloperInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getUserName(): ?string
     {
@@ -107,7 +107,7 @@ class Developer extends AppOwner implements DeveloperInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setUserName(string $userName): void
     {
@@ -115,7 +115,7 @@ class Developer extends AppOwner implements DeveloperInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getFirstName(): ?string
     {
@@ -123,7 +123,7 @@ class Developer extends AppOwner implements DeveloperInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setFirstName(string $firstName): void
     {
@@ -131,7 +131,7 @@ class Developer extends AppOwner implements DeveloperInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getLastName(): ?string
     {
@@ -139,7 +139,7 @@ class Developer extends AppOwner implements DeveloperInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setLastName(string $lastName): void
     {

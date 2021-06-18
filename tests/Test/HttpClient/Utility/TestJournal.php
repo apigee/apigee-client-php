@@ -35,7 +35,7 @@ final class TestJournal implements JournalInterface
     private $exceptions = [];
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function addSuccess(RequestInterface $request, ResponseInterface $response): void
     {
@@ -44,7 +44,7 @@ final class TestJournal implements JournalInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function addFailure(RequestInterface $request, ClientExceptionInterface $exception): void
     {
@@ -77,7 +77,7 @@ final class TestJournal implements JournalInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getLastRequest()
     {
@@ -85,7 +85,7 @@ final class TestJournal implements JournalInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getLastResponse()
     {
@@ -93,7 +93,7 @@ final class TestJournal implements JournalInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getLastException()
     {

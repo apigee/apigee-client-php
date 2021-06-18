@@ -49,7 +49,7 @@ abstract class LegalEntityController extends OrganizationAwareEntityController i
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getEntityClass(): string
     {

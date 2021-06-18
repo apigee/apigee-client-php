@@ -32,7 +32,7 @@ abstract class EntityControllerTestBase extends ControllerTestBase
     use EntitySerializerValidatorAwareTrait;
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public static function tearDownAfterClass(): void
     {
@@ -43,7 +43,7 @@ abstract class EntityControllerTestBase extends ControllerTestBase
     abstract protected static function entityController(ClientInterface $client = null): EntityControllerTesterInterface;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function entitySerializer(): EntitySerializerInterface
     {
@@ -66,7 +66,7 @@ abstract class EntityControllerTestBase extends ControllerTestBase
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function entitySerializerValidator(): EntitySerializerValidatorInterface
     {

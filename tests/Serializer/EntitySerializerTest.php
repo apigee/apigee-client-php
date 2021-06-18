@@ -52,7 +52,7 @@ class EntitySerializerTest extends TestCase
     protected static $serializer;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static function setUpBeforeClass(): void
     {

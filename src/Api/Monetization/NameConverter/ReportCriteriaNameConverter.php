@@ -21,7 +21,7 @@ namespace Apigee\Edge\Api\Monetization\NameConverter;
 class ReportCriteriaNameConverter extends NameConverterBase
 {
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     protected function getExternalToLocalMapping(): array
     {

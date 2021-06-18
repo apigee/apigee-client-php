@@ -31,7 +31,7 @@ trait EndDatePropertyAwareTrait
     protected $endDate;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getEndDate(): ?\DateTimeImmutable
     {
@@ -39,7 +39,7 @@ trait EndDatePropertyAwareTrait
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setEndDate(?\DateTimeImmutable $endDate): void
     {

@@ -35,7 +35,7 @@ class Developer extends LegalEntity implements DeveloperInterface
     protected $company;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getCompany(): ?CompanyInterface
     {

@@ -24,7 +24,7 @@ class DeveloperCategoryRatePlan extends RatePlan implements DeveloperCategoryRat
     protected $developerCategory;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getDeveloperCategory(): DeveloperCategoryInterface
     {
@@ -32,7 +32,7 @@ class DeveloperCategoryRatePlan extends RatePlan implements DeveloperCategoryRat
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setDeveloperCategory(DeveloperCategoryInterface $developerCategory): void
     {

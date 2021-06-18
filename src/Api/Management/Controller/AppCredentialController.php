@@ -54,7 +54,7 @@ abstract class AppCredentialController extends EntityController implements AppCr
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function create(string $consumerKey, string $consumerSecret): AppCredentialInterface
     {
@@ -72,7 +72,7 @@ abstract class AppCredentialController extends EntityController implements AppCr
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function generate(
         array $apiProducts,
@@ -103,7 +103,7 @@ abstract class AppCredentialController extends EntityController implements AppCr
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function addProducts(string $consumerKey, array $apiProducts): AppCredentialInterface
     {
@@ -120,7 +120,7 @@ abstract class AppCredentialController extends EntityController implements AppCr
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setApiProductStatus(string $consumerKey, string $apiProduct, string $status): void
     {
@@ -132,7 +132,7 @@ abstract class AppCredentialController extends EntityController implements AppCr
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function deleteApiProduct(string $consumerKey, string $apiProduct): AppCredentialInterface
     {
@@ -148,7 +148,7 @@ abstract class AppCredentialController extends EntityController implements AppCr
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function overrideScopes(string $consumerKey, array $scopes): AppCredentialInterface
     {
@@ -165,7 +165,7 @@ abstract class AppCredentialController extends EntityController implements AppCr
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function load(string $entityId): AppCredentialInterface
     {
@@ -179,7 +179,7 @@ abstract class AppCredentialController extends EntityController implements AppCr
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function delete(string $entityId): AppCredentialInterface
     {
@@ -193,7 +193,7 @@ abstract class AppCredentialController extends EntityController implements AppCr
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getEntityClass(): string
     {

@@ -24,7 +24,7 @@ use Apigee\Edge\Entity\EntityInterface;
 final class EntityLoadOperationControllerTester extends EntityControllerTesterBase implements EntityLoadOperationControllerTesterInterface
 {
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function load(string $entityId): EntityInterface
     {
@@ -32,7 +32,7 @@ final class EntityLoadOperationControllerTester extends EntityControllerTesterBa
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     protected function validateController($controller): void
     {

@@ -53,7 +53,7 @@ class MockHttpClient implements MockHttpClientInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function __call($name, $arguments)
     {

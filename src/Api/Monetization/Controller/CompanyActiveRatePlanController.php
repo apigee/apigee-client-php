@@ -46,7 +46,7 @@ class CompanyActiveRatePlanController extends ActiveRatePlanController
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getBaseEndpointUri(): UriInterface
     {
@@ -54,7 +54,7 @@ class CompanyActiveRatePlanController extends ActiveRatePlanController
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     protected function getActiveRatePlanForApiProductEndpoint(string $apiProductName): UriInterface
     {

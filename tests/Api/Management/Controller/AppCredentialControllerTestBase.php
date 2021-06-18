@@ -53,7 +53,7 @@ abstract class AppCredentialControllerTestBase extends EntityControllerTestBase
     protected static $testApp;
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public static function setUpBeforeClass(): void
     {

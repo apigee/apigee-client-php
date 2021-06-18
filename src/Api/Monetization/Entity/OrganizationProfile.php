@@ -102,7 +102,7 @@ class OrganizationProfile extends Entity implements OrganizationProfileInterface
     protected $timezone;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getApproveTrusted(): ?bool
     {
@@ -110,7 +110,7 @@ class OrganizationProfile extends Entity implements OrganizationProfileInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function isApproveTrusted(): bool
     {
@@ -118,7 +118,7 @@ class OrganizationProfile extends Entity implements OrganizationProfileInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setApproveTrusted(bool $approveTrusted): void
     {
@@ -126,7 +126,7 @@ class OrganizationProfile extends Entity implements OrganizationProfileInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getApproveUntrusted(): ?bool
     {
@@ -142,7 +142,7 @@ class OrganizationProfile extends Entity implements OrganizationProfileInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setApproveUntrusted(bool $approveUntrusted): void
     {
@@ -150,7 +150,7 @@ class OrganizationProfile extends Entity implements OrganizationProfileInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getBillingCycle(): ?string
     {
@@ -158,7 +158,7 @@ class OrganizationProfile extends Entity implements OrganizationProfileInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setBillingCycle(string $billingCycle): void
     {
@@ -166,7 +166,7 @@ class OrganizationProfile extends Entity implements OrganizationProfileInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getCountry(): ?string
     {
@@ -174,7 +174,7 @@ class OrganizationProfile extends Entity implements OrganizationProfileInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setCountry(string $country): void
     {
@@ -182,7 +182,7 @@ class OrganizationProfile extends Entity implements OrganizationProfileInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getCurrencyCode(): ?string
     {
@@ -190,7 +190,7 @@ class OrganizationProfile extends Entity implements OrganizationProfileInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setCurrencyCode(string $currencyCode): void
     {
@@ -198,7 +198,7 @@ class OrganizationProfile extends Entity implements OrganizationProfileInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getBillingAdjustment(): ?bool
     {
@@ -206,7 +206,7 @@ class OrganizationProfile extends Entity implements OrganizationProfileInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function hasBillingAdjustment(): bool
     {
@@ -214,7 +214,7 @@ class OrganizationProfile extends Entity implements OrganizationProfileInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setBillingAdjustment(bool $billingAdjustment): void
     {
@@ -222,7 +222,7 @@ class OrganizationProfile extends Entity implements OrganizationProfileInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getSeparateInvoiceForProduct(): ?bool
     {
@@ -230,7 +230,7 @@ class OrganizationProfile extends Entity implements OrganizationProfileInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function hasSeparateInvoiceForProduct(): bool
     {
@@ -238,7 +238,7 @@ class OrganizationProfile extends Entity implements OrganizationProfileInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setSeparateInvoiceForProduct(bool $separateInvoiceForProduct): void
     {
@@ -246,7 +246,7 @@ class OrganizationProfile extends Entity implements OrganizationProfileInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getIssueNettingStmt(): ?bool
     {
@@ -254,7 +254,7 @@ class OrganizationProfile extends Entity implements OrganizationProfileInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function hasIssueNettingStmt(): bool
     {
@@ -262,7 +262,7 @@ class OrganizationProfile extends Entity implements OrganizationProfileInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setIssueNettingStmt(bool $issueNettingStmt): void
     {
@@ -270,7 +270,7 @@ class OrganizationProfile extends Entity implements OrganizationProfileInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getLogoUrl(): ?string
     {
@@ -278,7 +278,7 @@ class OrganizationProfile extends Entity implements OrganizationProfileInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setLogoUrl(string $logoUrl): void
     {
@@ -286,7 +286,7 @@ class OrganizationProfile extends Entity implements OrganizationProfileInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getNetPaymentAdviceNote(): ?bool
     {
@@ -294,7 +294,7 @@ class OrganizationProfile extends Entity implements OrganizationProfileInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function hasNetPaymentAdviceNote(): bool
     {
@@ -302,7 +302,7 @@ class OrganizationProfile extends Entity implements OrganizationProfileInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setNetPaymentAdviceNote(bool $netPaymentAdviceNote): void
     {
@@ -310,7 +310,7 @@ class OrganizationProfile extends Entity implements OrganizationProfileInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getNettingStmtPerCurrency(): ?bool
     {
@@ -318,7 +318,7 @@ class OrganizationProfile extends Entity implements OrganizationProfileInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function hasNettingStmtPerCurrency(): bool
     {
@@ -326,7 +326,7 @@ class OrganizationProfile extends Entity implements OrganizationProfileInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setNettingStmtPerCurrency(bool $nettingStmtPerCurrency): void
     {
@@ -334,7 +334,7 @@ class OrganizationProfile extends Entity implements OrganizationProfileInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getRegNo(): ?string
     {
@@ -342,7 +342,7 @@ class OrganizationProfile extends Entity implements OrganizationProfileInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setRegNo(?string $regNo): void
     {
@@ -350,7 +350,7 @@ class OrganizationProfile extends Entity implements OrganizationProfileInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getSelfBillingAsExchOrg(): ?bool
     {
@@ -358,7 +358,7 @@ class OrganizationProfile extends Entity implements OrganizationProfileInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function isSelfBillingAsExchOrg(): bool
     {
@@ -366,7 +366,7 @@ class OrganizationProfile extends Entity implements OrganizationProfileInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setSelfBillingAsExchOrg(bool $selfBillingAsExchOrg): void
     {
@@ -374,7 +374,7 @@ class OrganizationProfile extends Entity implements OrganizationProfileInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function isSelfBillingForAllDev(): bool
     {
@@ -382,7 +382,7 @@ class OrganizationProfile extends Entity implements OrganizationProfileInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setSelfBillingForAllDev(bool $selfBillingForAllDev): void
     {
@@ -390,7 +390,7 @@ class OrganizationProfile extends Entity implements OrganizationProfileInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function isSeparateInvoiceForFees(): bool
     {
@@ -398,7 +398,7 @@ class OrganizationProfile extends Entity implements OrganizationProfileInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setSeparateInvoiceForFees(bool $separateInvoiceForFees): void
     {
@@ -406,7 +406,7 @@ class OrganizationProfile extends Entity implements OrganizationProfileInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getSupportedBillingType(): string
     {
@@ -414,7 +414,7 @@ class OrganizationProfile extends Entity implements OrganizationProfileInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setSupportedBillingType(string $supportedBillingType): void
     {
@@ -438,7 +438,7 @@ class OrganizationProfile extends Entity implements OrganizationProfileInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getTaxModel(): ?string
     {
@@ -446,7 +446,7 @@ class OrganizationProfile extends Entity implements OrganizationProfileInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setTaxModel(string $taxModel): void
     {
@@ -454,7 +454,7 @@ class OrganizationProfile extends Entity implements OrganizationProfileInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getTaxNexus(): ?string
     {
@@ -462,7 +462,7 @@ class OrganizationProfile extends Entity implements OrganizationProfileInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setTaxNexus(string $taxNexus): void
     {
@@ -470,7 +470,7 @@ class OrganizationProfile extends Entity implements OrganizationProfileInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getTaxRegNo(): ?string
     {
@@ -478,7 +478,7 @@ class OrganizationProfile extends Entity implements OrganizationProfileInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setTaxRegNo(string $taxRegNo): void
     {
@@ -486,7 +486,7 @@ class OrganizationProfile extends Entity implements OrganizationProfileInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getTransactionRelayURL(): ?string
     {
@@ -494,7 +494,7 @@ class OrganizationProfile extends Entity implements OrganizationProfileInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setTransactionRelayURL(string $transactionRelayURL): void
     {
@@ -502,7 +502,7 @@ class OrganizationProfile extends Entity implements OrganizationProfileInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getTimezone(): DateTimeZone
     {
@@ -510,7 +510,7 @@ class OrganizationProfile extends Entity implements OrganizationProfileInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setTimezone(DateTimeZone $timezone): void
     {
@@ -518,7 +518,7 @@ class OrganizationProfile extends Entity implements OrganizationProfileInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getStatus(): string
     {
@@ -528,7 +528,7 @@ class OrganizationProfile extends Entity implements OrganizationProfileInterface
     /**
      * @param string $status
      *
-     * @internal
+     * {@internal}
      */
     public function setStatus(string $status): void
     {

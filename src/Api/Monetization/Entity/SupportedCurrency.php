@@ -41,7 +41,7 @@ class SupportedCurrency extends OrganizationAwareEntity implements SupportedCurr
     protected $minimumTopUpAmount;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getCreditLimit(): ?float
     {
@@ -49,7 +49,7 @@ class SupportedCurrency extends OrganizationAwareEntity implements SupportedCurr
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setCreditLimit(float $creditLimit): void
     {
@@ -57,7 +57,7 @@ class SupportedCurrency extends OrganizationAwareEntity implements SupportedCurr
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setStatus(string $status): void
     {
@@ -67,7 +67,7 @@ class SupportedCurrency extends OrganizationAwareEntity implements SupportedCurr
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getMinimumTopUpAmount(): ?float
     {
@@ -75,7 +75,7 @@ class SupportedCurrency extends OrganizationAwareEntity implements SupportedCurr
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setMinimumTopUpAmount(float $minimumTopUpAmount): void
     {

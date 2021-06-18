@@ -31,7 +31,7 @@ trait EntityCreateOperationControllerTrait
     use EntitySerializerAwareTrait;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function create(EntityInterface $entity): void
     {

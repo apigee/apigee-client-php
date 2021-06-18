@@ -47,7 +47,7 @@ class RetryOauthAuthenticationPlugin implements Plugin
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      *
      * @see AbstractOauth::getAccessToken()
      *

@@ -48,7 +48,7 @@ class CompanyAcceptedRatePlanController extends AcceptedRatePlanController
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getBaseEndpointUri(): UriInterface
     {
@@ -60,7 +60,7 @@ class CompanyAcceptedRatePlanController extends AcceptedRatePlanController
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getEntityClass(): string
     {
@@ -68,7 +68,7 @@ class CompanyAcceptedRatePlanController extends AcceptedRatePlanController
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function buildContextForEntityTransformerInCreate(): array
     {
@@ -79,7 +79,7 @@ class CompanyAcceptedRatePlanController extends AcceptedRatePlanController
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getAcceptedRatePlansEndpoint(): UriInterface
     {

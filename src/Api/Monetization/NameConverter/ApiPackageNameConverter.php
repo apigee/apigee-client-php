@@ -32,7 +32,7 @@ use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
 class ApiPackageNameConverter extends NameConverterBase implements NameConverterInterface
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getExternalToLocalMapping(): array
     {

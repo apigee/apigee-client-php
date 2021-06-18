@@ -51,7 +51,7 @@ final class JsonDecode extends BaseJsonDecode
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function decode($data, $format, array $context = [])
     {

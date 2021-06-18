@@ -31,7 +31,7 @@ trait ApiProductsPropertyAwareTrait
     protected $apiProducts = [];
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getApiProducts(): array
     {

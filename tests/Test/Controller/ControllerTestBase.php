@@ -33,7 +33,7 @@ abstract class ControllerTestBase extends TestCase
     use MarkOnlineTestSkippedAwareTrait;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static function markOnlineTestSkipped(string $testName, ClientInterface $client = null): void
     {
@@ -44,7 +44,7 @@ abstract class ControllerTestBase extends TestCase
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     protected static function defaultTestOrganization(ClientInterface $client): string
     {
@@ -52,7 +52,7 @@ abstract class ControllerTestBase extends TestCase
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected static function defaultAPIClient(): ClientInterface
     {

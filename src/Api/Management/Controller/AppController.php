@@ -59,7 +59,7 @@ class AppController extends PaginatedEntityController implements AppControllerIn
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function loadApp(string $appId): AppInterface
     {
@@ -74,7 +74,7 @@ class AppController extends PaginatedEntityController implements AppControllerIn
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function listAppIds(PagerInterface $pager = null): array
     {
@@ -82,7 +82,7 @@ class AppController extends PaginatedEntityController implements AppControllerIn
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function listApps(bool $includeCredentials = true, PagerInterface $pager = null): array
     {
@@ -94,7 +94,7 @@ class AppController extends PaginatedEntityController implements AppControllerIn
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function listAppIdsByStatus(string $status, PagerInterface $pager = null): array
     {
@@ -106,7 +106,7 @@ class AppController extends PaginatedEntityController implements AppControllerIn
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function listAppsByStatus(
         string $status,
@@ -122,7 +122,7 @@ class AppController extends PaginatedEntityController implements AppControllerIn
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function listAppIdsByType(string $appType, PagerInterface $pager = null): array
     {
@@ -134,7 +134,7 @@ class AppController extends PaginatedEntityController implements AppControllerIn
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function listAppIdsByFamily(string $appFamily, PagerInterface $pager = null): array
     {
@@ -146,7 +146,7 @@ class AppController extends PaginatedEntityController implements AppControllerIn
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getBaseEndpointUri(): UriInterface
     {
@@ -154,7 +154,7 @@ class AppController extends PaginatedEntityController implements AppControllerIn
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getEntityClass(): string
     {
@@ -164,7 +164,7 @@ class AppController extends PaginatedEntityController implements AppControllerIn
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function listEntities(
         PagerInterface $pager = null,
