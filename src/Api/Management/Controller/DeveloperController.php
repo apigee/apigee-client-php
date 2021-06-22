@@ -100,6 +100,8 @@ class DeveloperController extends PaginatedEntityController implements Developer
      *
      * We are enforcing email addresses over developer ids (UUIDs) when we are updating user profile.
      *
+     * @psalm-suppress UndefinedMethod
+     *
      *  @see https://github.com/apigee/apigee-client-php/issues/153
      */
     public function update(EntityInterface $entity): void
