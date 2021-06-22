@@ -25,7 +25,7 @@ class PrepaidBalance extends Entity implements PrepaidBalanceInterface
     /** @var string|null */
     protected $lastCreditTime;
 
-    /** @var \Apigee\Edge\Api\ApigeeX\Entity\Balance|null */
+    /** @var \Apigee\Edge\Api\ApigeeX\Entity\Balance */
     protected $balance;
 
     /**
