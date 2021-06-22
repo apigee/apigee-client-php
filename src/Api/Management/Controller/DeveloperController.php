@@ -98,7 +98,7 @@ class DeveloperController extends PaginatedEntityController implements Developer
     /**
      * {@inheritdoc}
      *
-     * We are enforcing email addresses over developer ids (UUIDs) when we are updating user profile.
+     * We are enforcing email addresses over developer-ids (UUIDs) when we are updating user profile.
      *
      * @psalm-suppress UndefinedMethod
      *
