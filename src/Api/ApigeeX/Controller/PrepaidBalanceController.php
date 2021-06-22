@@ -102,7 +102,6 @@ abstract class PrepaidBalanceController extends OrganizationAwareEntityControlle
      */
     protected function getEntityClass(): string
     {
-
         return PrepaidBalance::class;
     }
 
@@ -124,7 +123,6 @@ abstract class PrepaidBalanceController extends OrganizationAwareEntityControlle
      */
     private function listPrepaidBalances(?string $currencyCode = null): array
     {
-
         $balances = [];
         foreach ($this->getRawList($this->getPrepaidBalanceEndpoint()) as $item) {
             /** @var \Apigee\Edge\Api\ApigeeX\Entity\PrepaidBalanceInterface $balance */

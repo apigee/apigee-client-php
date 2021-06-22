@@ -58,7 +58,6 @@ abstract class BillingTypeController extends EntityController implements Billing
      */
     public function updateBillingType($billingtype): BillingTypeInterface
     {
-
         $response = $this->client->put(
             $this->getBaseEndpointUri(),
             (string) json_encode((object) [
