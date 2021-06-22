@@ -30,6 +30,7 @@ use Apigee\Edge\Controller\PaginatedEntityIdListingControllerTrait;
 use Apigee\Edge\Controller\PaginatedEntityListingControllerTrait;
 use Apigee\Edge\Controller\PaginationHelperTrait;
 use Apigee\Edge\Controller\StatusAwareEntityControllerTrait;
+use Apigee\Edge\Entity\EntityInterface;
 use Apigee\Edge\Serializer\EntitySerializerInterface;
 use Apigee\Edge\Structure\PagerInterface;
 use Psr\Http\Message\UriInterface;
@@ -64,7 +65,7 @@ class DeveloperController extends PaginatedEntityController implements Developer
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getDeveloperByApp(string $appName): DeveloperInterface
     {
@@ -83,7 +84,7 @@ class DeveloperController extends PaginatedEntityController implements Developer
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getEntities(
         PagerInterface $pager = null,
@@ -95,7 +96,24 @@ class DeveloperController extends PaginatedEntityController implements Developer
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
+     *
+     * We are enforcing email addresses over developer ids (UUIDs) when we are updating user profile.
+     *
+     *  @see https://github.com/apigee/apigee-edge-drupal/issues/594
+     */
+    public function update(EntityInterface $entity): void
+    {
+        $uri = $this->getEntityEndpointUri($entity->originalEmail());
+        $response = $this->getClient()->put(
+            $uri,
+            $this->getEntitySerializer()->serialize($entity, 'json')
+        );
+        $this->getEntitySerializer()->setPropertiesFromResponse($response, $entity);
+    }
+
+    /**
+     * {@inheritdoc}
      */
     protected function getBaseEndpointUri(): UriInterface
     {
@@ -104,7 +122,7 @@ class DeveloperController extends PaginatedEntityController implements Developer
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getEntityClass(): string
     {

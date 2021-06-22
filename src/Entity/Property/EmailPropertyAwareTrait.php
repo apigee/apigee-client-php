@@ -24,7 +24,14 @@ trait EmailPropertyAwareTrait
     protected $email;
 
     /**
-     * @inheritdoc
+    * The original email address of the developer.
+    *
+    * @var string|null
+    */
+    protected $originalEmail;
+
+    /**
+     * {@inheritdoc}
      */
     public function getEmail(): ?string
     {
@@ -32,10 +39,21 @@ trait EmailPropertyAwareTrait
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setEmail(string $email): void
     {
         $this->email = $email;
+        if (null === $this->originalEmail) {
+            $this->originalEmail = $email;
+        }
+    }
+
+    /**
+     * The original email address of the developer used when updating user email address.
+     */
+    public function originalEmail(): ?string
+    {
+        return $this->originalEmail;
     }
 }
