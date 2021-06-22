@@ -26,6 +26,4 @@ interface BillingTypeInterface extends EntityInterface
      * @return string
      */
     public function getBillingType(): ?string;
-
-
 }

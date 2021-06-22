@@ -23,18 +23,18 @@ use Apigee\Edge\Api\ApigeeX\Entity\DeveloperBillingType;
 class DeveloperBillingTypeDenormalizer extends BillingTypeDenormalizer
 {
     /**
-     * Fully qualified class name of the developer accepted rate plan entity.
+     * Fully qualified class name of the developer billing type.
      *
      * @var string
      */
-    protected $developerAcceptedRatePlanClass = DeveloperBillingType::class;
+    protected $developerBillinTypeClass = DeveloperBillingType::class;
 
     /**
      * {@inheritdoc}
      */
     public function denormalize($data, $class, $format = null, array $context = [])
     {
-        return parent::denormalize($data, $this->developerAcceptedRatePlanClass, $format, $context);
+        return parent::denormalize($data, $this->developerBillinTypeClass, $format, $context);
     }
 
     /**

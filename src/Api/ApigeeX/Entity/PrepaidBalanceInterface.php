@@ -18,11 +18,7 @@
 
 namespace Apigee\Edge\Api\ApigeeX\Entity;
 
-use Apigee\Edge\Api\ApigeeX\Entity\Property\CurrencyCodePropertyInterface;
-use Apigee\Edge\Api\ApigeeX\Entity\Property\UnitsPropertyInterface;
 use Apigee\Edge\Api\Monetization\Entity\EntityInterface;
-
-use Apigee\Edge\Api\ApigeeX\Entity\Balance;
 
 /**
  * Interface PrepaidBalanceInterface.
@@ -33,7 +29,12 @@ use Apigee\Edge\Api\ApigeeX\Entity\Balance;
 interface PrepaidBalanceInterface extends EntityInterface
 {
     /**
-     * @return int
+     * @return Apigee\Edge\Api\ApigeeX\Entity\Balance
      */
     public function getBalance(): Balance;
+
+    /**
+     * @return string
+     */
+    public function getlastCreditTime(): ?string;
 }

@@ -18,12 +18,9 @@
 
 namespace Apigee\Edge\Api\ApigeeX\Entity;
 
-//use Apigee\Edge\Api\Monetization\Entity\Property\DeveloperPropertyAwareTrait;
-
 /**
- * Represents an accepted rate plan by a developer.
+ * Represents billing type of a developer.
  */
 class DeveloperBillingType extends BillingType implements DeveloperBillingTypeInterface
 {
-    //use DeveloperPropertyAwareTrait;
 }

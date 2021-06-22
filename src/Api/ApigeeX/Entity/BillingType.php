@@ -22,7 +22,6 @@ use Apigee\Edge\Api\Monetization\Entity\Entity;
 
 abstract class BillingType extends Entity implements BillingTypeInterface
 {
-
     /** @var string|null */
     protected $billingType;
 
@@ -43,5 +42,4 @@ abstract class BillingType extends Entity implements BillingTypeInterface
     {
         $this->billingType = $billingType;
     }
-
 }

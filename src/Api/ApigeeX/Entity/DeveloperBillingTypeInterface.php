@@ -18,8 +18,6 @@
 
 namespace Apigee\Edge\Api\ApigeeX\Entity;
 
-//use Apigee\Edge\Api\Monetization\Entity\Property\DeveloperPropertyInterface;
-
-interface DeveloperBillingTypeInterface extends BillingTypeInterface//, DeveloperPropertyInterface
+interface DeveloperBillingTypeInterface extends BillingTypeInterface
 {
 }

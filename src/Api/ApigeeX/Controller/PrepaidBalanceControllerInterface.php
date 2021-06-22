@@ -18,27 +18,25 @@
 
 namespace Apigee\Edge\Api\ApigeeX\Controller;
 
-use Apigee\Edge\Api\Monetization\Controller\PaginatedEntityListingControllerInterface;
 use Apigee\Edge\Api\ApigeeX\Entity\PrepaidBalanceInterface;
+use Apigee\Edge\Api\Monetization\Controller\PaginatedEntityListingControllerInterface;
 use Apigee\Edge\Controller\EntityControllerInterface;
 
 interface PrepaidBalanceControllerInterface extends EntityControllerInterface, PaginatedEntityListingControllerInterface
 {
-
     /**
-     * @param float $amount
+     * @param int $amount
+     * @param float $amountnano
      * @param string $currencyCode
      *
-     * @return \Apigee\Edge\Api\Monetization\Entity\PrepaidBalanceInterface
+     * @return \Apigee\Edge\Api\ApigeeX\Entity\PrepaidBalanceInterface
      */
     public function topUpBalance($amount, $amountnano, string $currencyCode): PrepaidBalanceInterface;
 
     /**
      * Gets prepaid balances.
      *
-     * @param \DateTimeImmutable $billingMonth
-     *
-     * @return \Apigee\Edge\Api\Monetization\Entity\PrepaidBalanceInterface[]
+     * @return \Apigee\Edge\Api\ApigeeX\Entity\PrepaidBalanceInterface[]
      */
     public function getPrepaidBalance(): array;
 }

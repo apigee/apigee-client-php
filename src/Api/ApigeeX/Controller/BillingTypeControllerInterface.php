@@ -31,7 +31,6 @@ interface BillingTypeControllerInterface extends
     EntityControllerInterface,
     EntityLoadOperationControllerInterface
 {
-
     /**
      * Gets the billingtype.
      *

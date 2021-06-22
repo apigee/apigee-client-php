@@ -25,7 +25,7 @@ use Psr\Http\Message\UriInterface;
 class DeveloperPrepaidBalanceController extends PrepaidBalanceController implements DeveloperPrepaidBalanceControllerInterface
 {
     /**
-     * UUID or email address of a developer.
+     * Email address of a developer.
      *
      * @var string
      */

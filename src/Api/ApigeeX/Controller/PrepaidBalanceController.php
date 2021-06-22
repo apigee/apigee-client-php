@@ -102,18 +102,12 @@ abstract class PrepaidBalanceController extends OrganizationAwareEntityControlle
      */
     protected function getEntityClass(): string
     {
-        // Majority of API endpoints in this controller returns a Balance
-        // and not a PrepaidBalance object so this is the reason why we are
-        // using it as a default.
+
         return PrepaidBalance::class;
     }
 
     /**
      * Returns the URI of the prepaid balances endpoint.
-     *
-     * We have to introduce this because it is not regular that an entity
-     * has more than one listing endpoint so getBaseEntityEndpoint() was
-     * enough until this time.
      *
      * @return \Psr\Http\Message\UriInterface
      */
@@ -122,7 +116,6 @@ abstract class PrepaidBalanceController extends OrganizationAwareEntityControlle
     /**
      * Helper function which returns prepaid balances..
      *
-     * @param \DateTimeImmutable $billingMonth
      * @param string|null $currencyCode
      *
      * @return \Apigee\Edge\Api\ApigeeX\Entity\PrepaidBalanceInterface[]
@@ -134,13 +127,9 @@ abstract class PrepaidBalanceController extends OrganizationAwareEntityControlle
 
         $balances = [];
         foreach ($this->getRawList($this->getPrepaidBalanceEndpoint()) as $item) {
-            // Added ID as name since in ApigeeX name field gives the id
-            $item->balance->id = (!isset($item->balance->id)) ? $item->balance->currencyCode : '';
-
             /** @var \Apigee\Edge\Api\ApigeeX\Entity\PrepaidBalanceInterface $balance */
             $balance = $this->prepaidBalanceSerializer->denormalize($item, $this->prepaidBalanceClass);
-
-            $balances[$balance->balance->getCurrencyCode()] = $balance;
+            $balances[$balance->getBalance()->getCurrencyCode()] = $balance;
         }
 
         return $balances;

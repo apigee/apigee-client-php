@@ -23,7 +23,6 @@ use Apigee\Edge\Denormalizer\ObjectDenormalizer;
 
 abstract class BillingTypeDenormalizer extends ObjectDenormalizer
 {
-
     /**
      * {@inheritdoc}
      */

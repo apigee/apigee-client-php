@@ -18,11 +18,15 @@
 
 namespace Apigee\Edge\Api\ApigeeX\Entity;
 
-use Apigee\Edge\Api\ApigeeX\Entity\Balance;
 use Apigee\Edge\Api\Monetization\Entity\Entity;
 
 class PrepaidBalance extends Entity implements PrepaidBalanceInterface
 {
+    /** @var string|null */
+    protected $lastCreditTime;
+
+    /** @var \Apigee\Edge\Api\ApigeeX\Entity\Balance|null */
+    protected $balance;
 
     /**
      * {@inheritdoc}
@@ -33,7 +37,7 @@ class PrepaidBalance extends Entity implements PrepaidBalanceInterface
     }
 
     /**
-     * @param Balance $balance
+     * @param \Apigee\Edge\Api\ApigeeX\Entity\Balance $balance
      */
     public function setBalance(Balance $balance): void
     {
@@ -43,7 +47,7 @@ class PrepaidBalance extends Entity implements PrepaidBalanceInterface
     /**
      * {@inheritdoc}
      */
-    public function getlastCreditTime(): string
+    public function getlastCreditTime(): ?string
     {
         return $this->lastCreditTime;
     }
@@ -55,5 +59,4 @@ class PrepaidBalance extends Entity implements PrepaidBalanceInterface
     {
         $this->lastCreditTime = $lastCreditTime;
     }
-
 }
