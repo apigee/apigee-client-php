@@ -98,20 +98,22 @@ class DeveloperController extends PaginatedEntityController implements Developer
     /**
      * {@inheritdoc}
      *
-     * We are enforcing email addresses over developer-ids (UUIDs) when we are updating user profile.
+     * We are enforcing email addresses over developer ids (UUIDs) when we are updating user profile.
      *
-     * @psalm-suppress UndefinedMethod
+     * @psalm-suppress PossiblyNullArgument $entity->originalEmail() is not null here.
      *
      *  @see https://github.com/apigee/apigee-client-php/issues/153
      */
     public function update(EntityInterface $entity): void
     {
-        $uri = $this->getEntityEndpointUri($entity->originalEmail());
+        /** @var \Apigee\Edge\Api\Management\Entity\Developer $entity */
+        $developer_entity = $entity;
+        $uri = $this->getEntityEndpointUri($developer_entity->originalEmail());
         $response = $this->getClient()->put(
             $uri,
-            $this->getEntitySerializer()->serialize($entity, 'json')
+            $this->getEntitySerializer()->serialize($developer_entity, 'json')
         );
-        $this->getEntitySerializer()->setPropertiesFromResponse($response, $entity);
+        $this->getEntitySerializer()->setPropertiesFromResponse($response, $developer_entity);
     }
 
     /**
