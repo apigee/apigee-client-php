@@ -63,9 +63,6 @@ abstract class RatePlan extends Entity implements RatePlanInterface
      */
     protected $package;
 
-    /** @var bool */
-    protected $published = false;
-
     /** @var \Apigee\Edge\Api\ApigeeX\Structure\RatePlanXFee[] */
     protected $ratePlanXFee = [];
 

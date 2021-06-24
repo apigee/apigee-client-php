@@ -24,6 +24,8 @@ use Apigee\Edge\Entity\Property\DisplayNamePropertyInterface;
 use Apigee\Edge\Entity\Property\EnvironmentsPropertyInterface;
 use Apigee\Edge\Entity\Property\NamePropertyInterface;
 use Apigee\Edge\Entity\Property\PropertiesPropertyInterface;
+use Apigee\Edge\Entity\Property\RuntimeTypeInterface;
+use Apigee\Edge\Structure\AddonsConfig;
 
 /**
  * Interface OrganizationInterface.
@@ -34,7 +36,8 @@ interface OrganizationInterface extends
     DisplayNamePropertyInterface,
     EnvironmentsPropertyInterface,
     NamePropertyInterface,
-    PropertiesPropertyInterface
+    PropertiesPropertyInterface,
+    RuntimeTypeInterface
 {
     /**
      * @return string|null
@@ -54,4 +57,14 @@ interface OrganizationInterface extends
      * @return array
      */
     public function getTypes(): array;
+
+    /**
+     * @return \Apigee\Edge\Structure\AddonsConfig|null
+     */
+    public function getAddonsConfig(): ?AddonsConfig;
+
+    /**
+     * @param \Apigee\Edge\Structure\AddonsConfig $addonsConfig
+     */
+    public function setAddonsConfig(AddonsConfig $addonsConfig): void;
 }
