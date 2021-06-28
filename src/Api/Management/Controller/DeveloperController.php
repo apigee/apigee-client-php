@@ -102,7 +102,7 @@ class DeveloperController extends PaginatedEntityController implements Developer
      *
      * @psalm-suppress PossiblyNullArgument $entity->originalEmail() is not null here.
      *
-     *  @see https://github.com/apigee/apigee-client-php/issues/153
+     * @see https://github.com/apigee/apigee-client-php/issues/153
      */
     public function update(EntityInterface $entity): void
     {

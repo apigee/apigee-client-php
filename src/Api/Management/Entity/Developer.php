@@ -49,7 +49,7 @@ class Developer extends AppOwner implements DeveloperInterface
     *
     * @var string|null
     */
-    protected $originalEmail;
+    private $originalEmail;
 
     /**
      * Developer constructor.
