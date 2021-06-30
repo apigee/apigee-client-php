@@ -26,7 +26,7 @@ use Apigee\Edge\Structure\PropertiesProperty;
 class PropertiesPropertyDenormalizer extends KeyValueMapDenormalizer
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function supportsDenormalization($data, $type, $format = null)
     {
@@ -39,7 +39,7 @@ class PropertiesPropertyDenormalizer extends KeyValueMapDenormalizer
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function denormalize($data, $class, $format = null, array $context = [])
     {

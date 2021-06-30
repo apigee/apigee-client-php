@@ -89,7 +89,7 @@ class HybridOauth2 extends AbstractOauth
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function authClient(): ClientInterface
     {
@@ -97,7 +97,7 @@ class HybridOauth2 extends AbstractOauth
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      *
      * @psalm-suppress InvalidCatch - Exception by interface can be caught in PHP >= 7.1.
      */

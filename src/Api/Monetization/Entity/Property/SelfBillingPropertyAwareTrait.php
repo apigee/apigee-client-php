@@ -28,7 +28,7 @@ trait SelfBillingPropertyAwareTrait
     protected $selfBilling;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getSelfBilling(): ?bool
     {
@@ -36,7 +36,7 @@ trait SelfBillingPropertyAwareTrait
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function isSelfBilling(): bool
     {
@@ -44,7 +44,7 @@ trait SelfBillingPropertyAwareTrait
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setSelfBilling(bool $selfBilling): void
     {

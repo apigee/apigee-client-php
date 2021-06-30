@@ -31,7 +31,7 @@ trait NonPaginatedEntityListingControllerTrait
     use ClientAwareControllerTrait;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getEntities(): array
     {
@@ -48,12 +48,12 @@ trait NonPaginatedEntityListingControllerTrait
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     abstract protected function responseToArray(ResponseInterface $response, bool $expandCompatibility = false): array;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     abstract protected function responseArrayToArrayOfEntities(array $responseArray, string $keyGetter = 'id'): array;
 }

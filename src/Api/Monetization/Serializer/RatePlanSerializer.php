@@ -26,7 +26,7 @@ use Apigee\Edge\Api\Monetization\Normalizer\RatePlanRateNormalizer;
 class RatePlanSerializer extends EntitySerializer
 {
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public static function getEntityTypeSpecificDefaultNormalizers(): array
     {

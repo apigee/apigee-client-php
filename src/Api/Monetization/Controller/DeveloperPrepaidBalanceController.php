@@ -46,7 +46,7 @@ class DeveloperPrepaidBalanceController extends PrepaidBalanceController impleme
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getBaseEndpointUri(): UriInterface
     {
@@ -56,7 +56,7 @@ class DeveloperPrepaidBalanceController extends PrepaidBalanceController impleme
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getPrepaidBalanceEndpoint(): UriInterface
     {

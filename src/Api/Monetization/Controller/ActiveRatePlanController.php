@@ -48,7 +48,7 @@ abstract class ActiveRatePlanController extends OrganizationAwareEntityControlle
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getActiveRatePlanByApiProduct(string $apiProductName, ?bool $showPrivate = null): RatePlanInterface
     {
@@ -80,7 +80,7 @@ abstract class ActiveRatePlanController extends OrganizationAwareEntityControlle
     abstract protected function getActiveRatePlanForApiProductEndpoint(string $apiProductName): UriInterface;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getEntityClass(): string
     {

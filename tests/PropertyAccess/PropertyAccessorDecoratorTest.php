@@ -38,7 +38,7 @@ class PropertyAccessorDecoratorTest extends PropertyAccessorTest
     private static $testObj;
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public static function setUpBeforeClass(): void
     {

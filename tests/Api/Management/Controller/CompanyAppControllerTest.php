@@ -45,7 +45,7 @@ class CompanyAppControllerTest extends AppControllerTestBase
     protected static $testCompany;
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public static function setUpBeforeClass(): void
     {
@@ -55,7 +55,7 @@ class CompanyAppControllerTest extends AppControllerTestBase
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected static function entityController(ClientInterface $client = null): EntityControllerTesterInterface
     {
@@ -63,7 +63,7 @@ class CompanyAppControllerTest extends AppControllerTestBase
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected static function getNewEntity(): EntityInterface
     {
@@ -71,7 +71,7 @@ class CompanyAppControllerTest extends AppControllerTestBase
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function entityForUpdateTest(EntityInterface $existing): EntityInterface
     {
@@ -80,7 +80,7 @@ class CompanyAppControllerTest extends AppControllerTestBase
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected static function entityCreateOperationTestController(): EntityCreateOperationTestControllerTesterInterface
     {
@@ -88,7 +88,7 @@ class CompanyAppControllerTest extends AppControllerTestBase
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected static function companyAppControllerCompanyAppOwner(): CompanyInterface
     {
@@ -96,7 +96,7 @@ class CompanyAppControllerTest extends AppControllerTestBase
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function reloadAppOwner()
     {

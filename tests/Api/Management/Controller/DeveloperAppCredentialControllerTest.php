@@ -45,7 +45,7 @@ class DeveloperAppCredentialControllerTest extends AppCredentialControllerTestBa
     use DeveloperAppTestEntityProviderTrait;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected static function entityController(ClientInterface $client = null): EntityControllerTesterInterface
     {

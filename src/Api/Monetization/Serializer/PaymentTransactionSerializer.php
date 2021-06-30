@@ -26,7 +26,7 @@ use Apigee\Edge\Api\Monetization\Normalizer\DeveloperPaymentTransactionNormalize
 class PaymentTransactionSerializer extends EntitySerializer
 {
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public static function getEntityTypeSpecificDefaultNormalizers(): array
     {

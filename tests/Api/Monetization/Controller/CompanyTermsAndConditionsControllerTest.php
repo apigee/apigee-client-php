@@ -32,12 +32,12 @@ use Apigee\Edge\Tests\Test\Controller\EntityControllerTesterInterface;
 class CompanyTermsAndConditionsControllerTest extends LegalEntityTermsAndConditionsControllerTestBase
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected static $testCompanyName = 'phpunit';
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected static function entityController(ClientInterface $client = null): EntityControllerTesterInterface
     {
@@ -47,7 +47,7 @@ class CompanyTermsAndConditionsControllerTest extends LegalEntityTermsAndConditi
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function expectedAcceptDeclineEndpoint(): string
     {

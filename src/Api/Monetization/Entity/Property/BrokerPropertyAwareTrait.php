@@ -29,7 +29,7 @@ trait BrokerPropertyAwareTrait
     protected $broker;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function isBroker(): bool
     {
@@ -45,7 +45,7 @@ trait BrokerPropertyAwareTrait
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setBroker(bool $broker): void
     {

@@ -57,7 +57,7 @@ class CompanyMembersController extends AbstractController implements CompanyMemb
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getMembers(): CompanyMembership
     {
@@ -67,7 +67,7 @@ class CompanyMembersController extends AbstractController implements CompanyMemb
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setMembers(CompanyMembership $members): CompanyMembership
     {
@@ -77,7 +77,7 @@ class CompanyMembersController extends AbstractController implements CompanyMemb
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function removeMember(string $email): void
     {
@@ -86,7 +86,7 @@ class CompanyMembersController extends AbstractController implements CompanyMemb
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getOrganisationName(): string
     {
@@ -94,7 +94,7 @@ class CompanyMembersController extends AbstractController implements CompanyMemb
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getBaseEndpointUri(): UriInterface
     {

@@ -29,7 +29,7 @@ trait VirtualCurrencyPropertyAwareTrait
     protected $virtualCurrency;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function isVirtualCurrency(): bool
     {
@@ -37,7 +37,7 @@ trait VirtualCurrencyPropertyAwareTrait
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setVirtualCurrency(bool $virtualCurrency): void
     {

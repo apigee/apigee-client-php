@@ -61,7 +61,7 @@ class ApiProductController extends PaginatedEntityController implements ApiProdu
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function searchByAttribute(string $attributeName, string $attributeValue): array
     {
@@ -76,7 +76,7 @@ class ApiProductController extends PaginatedEntityController implements ApiProdu
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getBaseEndpointUri(): UriInterface
     {
@@ -84,7 +84,7 @@ class ApiProductController extends PaginatedEntityController implements ApiProdu
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getEntityClass(): string
     {

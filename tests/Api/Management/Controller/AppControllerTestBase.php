@@ -54,7 +54,7 @@ abstract class AppControllerTestBase extends EntityControllerTestBase
     protected static $testApiProduct;
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public static function setUpBeforeClass(): void
     {
@@ -86,7 +86,7 @@ abstract class AppControllerTestBase extends EntityControllerTestBase
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected static function entityCreateOperationTestController(): EntityCreateOperationTestControllerTesterInterface
     {
@@ -101,7 +101,7 @@ abstract class AppControllerTestBase extends EntityControllerTestBase
     abstract protected function reloadAppOwner();
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function alterArraysBeforeCompareSentAndReceivedPayloadsInCreate(array &$sentEntityAsArray, array $responseEntityAsArray): void
     {
@@ -110,7 +110,7 @@ abstract class AppControllerTestBase extends EntityControllerTestBase
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function alterObjectsBeforeCompareResponseAndCreatedEntity(\stdClass &$responseObject, EntityInterface $created): void
     {
@@ -119,7 +119,7 @@ abstract class AppControllerTestBase extends EntityControllerTestBase
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function alterArraysBeforeCompareSentAndReceivedPayloadsInUpdate(array &$sentEntityAsArray, array $responseEntityAsArray): void
     {
@@ -128,7 +128,7 @@ abstract class AppControllerTestBase extends EntityControllerTestBase
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function alterObjectsBeforeCompareResponseAndUpdateEntity(\stdClass &$responseObject, EntityInterface $created): void
     {
@@ -136,7 +136,7 @@ abstract class AppControllerTestBase extends EntityControllerTestBase
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     protected function entitySerializerValidator(): EntitySerializerValidatorInterface
     {

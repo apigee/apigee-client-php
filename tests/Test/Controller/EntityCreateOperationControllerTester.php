@@ -39,7 +39,7 @@ final class EntityCreateOperationControllerTester extends EntityControllerTester
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     protected function validateController($controller): void
     {

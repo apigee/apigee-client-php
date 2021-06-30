@@ -64,7 +64,7 @@ class DeveloperController extends PaginatedEntityController implements Developer
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getDeveloperByApp(string $appName): DeveloperInterface
     {
@@ -83,7 +83,7 @@ class DeveloperController extends PaginatedEntityController implements Developer
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getEntities(
         PagerInterface $pager = null,
@@ -95,7 +95,7 @@ class DeveloperController extends PaginatedEntityController implements Developer
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getBaseEndpointUri(): UriInterface
     {
@@ -104,7 +104,7 @@ class DeveloperController extends PaginatedEntityController implements Developer
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getEntityClass(): string
     {

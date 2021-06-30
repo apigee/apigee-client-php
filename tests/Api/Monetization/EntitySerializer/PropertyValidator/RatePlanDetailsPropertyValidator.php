@@ -42,7 +42,7 @@ class RatePlanDetailsPropertyValidator implements PropertyValidatorInterface, \A
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function validate(\stdClass $input, \stdClass $output, EntityInterface $entity): void
     {
@@ -72,7 +72,7 @@ class RatePlanDetailsPropertyValidator implements PropertyValidatorInterface, \A
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static function validatedProperty(): string
     {
@@ -80,7 +80,7 @@ class RatePlanDetailsPropertyValidator implements PropertyValidatorInterface, \A
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function setEntitySerializer(\Apigee\Edge\Serializer\EntitySerializerInterface $entitySerializer): void
     {

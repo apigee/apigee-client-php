@@ -45,7 +45,7 @@ final class PropertyAccessorDecorator implements PropertyAccessorInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setValue(&$objectOrArray, $propertyPath, $value): void
     {
@@ -89,7 +89,7 @@ final class PropertyAccessorDecorator implements PropertyAccessorInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getValue($objectOrArray, $propertyPath)
     {
@@ -110,7 +110,7 @@ final class PropertyAccessorDecorator implements PropertyAccessorInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function isWritable($objectOrArray, $propertyPath)
     {
@@ -118,7 +118,7 @@ final class PropertyAccessorDecorator implements PropertyAccessorInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function isReadable($objectOrArray, $propertyPath)
     {

@@ -46,7 +46,7 @@ class FileSystemHttpMockClient implements MockHttpClientInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      *
      * @see HttpClient::sendRequest
      */

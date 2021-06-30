@@ -41,7 +41,7 @@ class OrganizationProfileControllerTest extends EntityControllerTestBase
     use EntityUpdateOperationControllerTestTrait;
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function testLoad($created = null): EntityInterface
     {
@@ -51,7 +51,7 @@ class OrganizationProfileControllerTest extends EntityControllerTestBase
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected static function entityController(ClientInterface $client = null): EntityControllerTesterInterface
     {
@@ -61,7 +61,7 @@ class OrganizationProfileControllerTest extends EntityControllerTestBase
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function entityForUpdateTest(EntityInterface $existing): EntityInterface
     {

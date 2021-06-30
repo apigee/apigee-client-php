@@ -29,7 +29,7 @@ trait DescriptionPropertyAwareTrait
     protected $description;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getDescription(): ?string
     {
@@ -37,7 +37,7 @@ trait DescriptionPropertyAwareTrait
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setDescription(string $description): void
     {

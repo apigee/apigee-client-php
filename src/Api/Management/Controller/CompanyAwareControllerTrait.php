@@ -33,7 +33,7 @@ trait CompanyAwareControllerTrait
     protected $companyName;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     final public function getCompanyName(): string
     {

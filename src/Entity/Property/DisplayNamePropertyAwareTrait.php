@@ -27,7 +27,7 @@ trait DisplayNamePropertyAwareTrait
     protected $displayName;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getDisplayName(): ?string
     {
@@ -35,7 +35,7 @@ trait DisplayNamePropertyAwareTrait
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setDisplayName(string $displayName): void
     {

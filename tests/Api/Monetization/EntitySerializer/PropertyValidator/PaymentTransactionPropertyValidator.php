@@ -49,7 +49,7 @@ class PaymentTransactionPropertyValidator implements \Apigee\Edge\Tests\Test\Ent
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function validate(\stdClass $input, \stdClass $output, EntityInterface $entity): void
     {
@@ -98,7 +98,7 @@ class PaymentTransactionPropertyValidator implements \Apigee\Edge\Tests\Test\Ent
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static function validatedProperty(): string
     {
@@ -106,7 +106,7 @@ class PaymentTransactionPropertyValidator implements \Apigee\Edge\Tests\Test\Ent
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function setEntitySerializer(\Apigee\Edge\Serializer\EntitySerializerInterface $entitySerializer): void
     {

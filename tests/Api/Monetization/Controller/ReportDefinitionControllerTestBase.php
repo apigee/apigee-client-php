@@ -95,7 +95,7 @@ abstract class ReportDefinitionControllerTestBase extends EntityControllerTestBa
     abstract protected function expectedFilteredReportDefinitionUrl(): string;
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     protected function getEntitySerializer(): EntitySerializerInterface
     {
@@ -108,7 +108,7 @@ abstract class ReportDefinitionControllerTestBase extends EntityControllerTestBa
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     protected function entitySerializerValidator(): EntitySerializerValidatorInterface
     {
@@ -121,7 +121,7 @@ abstract class ReportDefinitionControllerTestBase extends EntityControllerTestBa
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     protected static function entityCreateOperationTestController(): EntityCreateOperationTestControllerTesterInterface
     {
@@ -129,7 +129,7 @@ abstract class ReportDefinitionControllerTestBase extends EntityControllerTestBa
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     protected static function getNewEntity(): EntityInterface
     {
@@ -137,7 +137,7 @@ abstract class ReportDefinitionControllerTestBase extends EntityControllerTestBa
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     protected function entityForUpdateTest(EntityInterface $existing): EntityInterface
     {

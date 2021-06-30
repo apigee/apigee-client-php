@@ -31,7 +31,7 @@ trait EntityListingControllerAwareTrait
     use BaseEndpointAwareControllerTrait;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getEntities(): array
     {

@@ -21,7 +21,7 @@ namespace Apigee\Edge\Api\Monetization\NameConverter;
 class CompanyPaymentTransactionNameConverter extends PaymentTransactionNameConverter
 {
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     protected function getExternalToLocalMapping(): array
     {

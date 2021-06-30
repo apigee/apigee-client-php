@@ -36,7 +36,7 @@ trait AttributesAwareEntityControllerTrait
     use EntitySerializerAwareTrait;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getAttributes(string $entityId): AttributesProperty
     {
@@ -50,7 +50,7 @@ trait AttributesAwareEntityControllerTrait
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getAttribute(string $entityId, string $name): string
     {
@@ -62,7 +62,7 @@ trait AttributesAwareEntityControllerTrait
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function updateAttributes(string $entityId, AttributesProperty $attributes): AttributesProperty
     {
@@ -83,7 +83,7 @@ trait AttributesAwareEntityControllerTrait
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function updateAttribute(string $entityId, string $name, string $value): string
     {
@@ -97,7 +97,7 @@ trait AttributesAwareEntityControllerTrait
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function deleteAttribute(string $entityId, string $name): void
     {
@@ -139,7 +139,7 @@ trait AttributesAwareEntityControllerTrait
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     abstract protected function responseToArray(ResponseInterface $response, bool $expandCompatibility = false): array;
 }

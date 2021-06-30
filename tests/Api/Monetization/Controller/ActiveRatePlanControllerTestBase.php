@@ -59,7 +59,7 @@ abstract class ActiveRatePlanControllerTestBase extends EntityControllerTestBase
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     protected function entitySerializerValidator(): EntitySerializerValidatorInterface
     {

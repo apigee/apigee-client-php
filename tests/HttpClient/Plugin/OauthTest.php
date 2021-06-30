@@ -49,7 +49,7 @@ class OauthTest extends TestCase
     private $client;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static function setUpBeforeClass(): void
     {
@@ -59,7 +59,7 @@ class OauthTest extends TestCase
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function setUp(): void
     {

@@ -149,7 +149,7 @@ abstract class AcceptedRatePlanControllerTestBase extends EntityControllerTestBa
     abstract protected function getRatePlanToAccept(): RatePlanInterface;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function entitySerializerValidator(): EntitySerializerValidatorInterface
     {

@@ -29,7 +29,7 @@ trait StatusPropertyAwareTrait
     protected $status;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getStatus(): ?string
     {

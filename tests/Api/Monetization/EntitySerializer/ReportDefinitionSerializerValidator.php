@@ -23,7 +23,7 @@ use Apigee\Edge\Entity\EntityInterface;
 class ReportDefinitionSerializerValidator extends OrganizationAwareEntitySerializerValidator
 {
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function validate(\stdClass $input, EntityInterface $entity): void
     {

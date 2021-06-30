@@ -73,7 +73,7 @@ class AppCredential extends Entity implements AppCredentialInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static function idProperty(): string
     {
@@ -81,7 +81,7 @@ class AppCredential extends Entity implements AppCredentialInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getApiProducts(): array
     {
@@ -125,7 +125,7 @@ class AppCredential extends Entity implements AppCredentialInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getConsumerSecret(): string
     {
@@ -147,7 +147,7 @@ class AppCredential extends Entity implements AppCredentialInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getExpiresAt(): ?\DateTimeImmutable
     {
@@ -169,7 +169,7 @@ class AppCredential extends Entity implements AppCredentialInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getIssuedAt(): ?\DateTimeImmutable
     {

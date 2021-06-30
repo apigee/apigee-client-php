@@ -88,7 +88,7 @@ class ObjectDenormalizer implements DenormalizerInterface, SerializerAwareInterf
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function denormalize($data, $class, $format = null, array $context = [])
     {
@@ -112,7 +112,7 @@ class ObjectDenormalizer implements DenormalizerInterface, SerializerAwareInterf
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function supportsDenormalization($data, $type, $format = null)
     {
@@ -127,7 +127,7 @@ class ObjectDenormalizer implements DenormalizerInterface, SerializerAwareInterf
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setSerializer(SerializerInterface $serializer): void
     {

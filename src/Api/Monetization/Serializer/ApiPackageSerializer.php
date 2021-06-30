@@ -24,7 +24,7 @@ use Apigee\Edge\Api\Monetization\Normalizer\ApiPackageNormalizer;
 class ApiPackageSerializer extends EntitySerializer
 {
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public static function getEntityTypeSpecificDefaultNormalizers(): array
     {

@@ -31,7 +31,7 @@ class DeveloperController extends LegalEntityController implements DeveloperCont
     use PaginatedListingHelperTrait;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getBaseEndpointUri(): UriInterface
     {
