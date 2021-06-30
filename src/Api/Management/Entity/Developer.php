@@ -168,6 +168,8 @@ class Developer extends AppOwner implements DeveloperInterface
      * The original email address of the developer used when updating user email address.
      *
      * @see Apigee\Edge\Api\Management\Controller\DeveloperController
+     *
+     * @internal 'get'is not prefixed to this method to prevent added to the request payload.
      */
     public function originalEmail(): ?string
     {
