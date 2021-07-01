@@ -36,7 +36,8 @@ install:
   # Disable xDebug (but do not remove its configuration, because we need that for code coverage calculation).
   # Clear the default 6 minutes max execution time limit otherwise test suite fails in case of online tests.
   - echo -en "max_execution_time = 0\nxdebug.default_enable = 0" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
-  - composer self-update --1
+  - if [[ $(phpenv version-name) = "7.1" ]] || [[ $(phpenv version-name) = "7.2" ]] || [[ $(phpenv version-name) = "7.3" ]]; then composer self-update --1; fi
+
   - if [[ $(phpenv version-name) = "7.1" ]] || [[ $(phpenv version-name) = "7.2" ]]; then composer global require hirak/prestissimo:^0.3.7; fi
 
   - travis_retry composer update $COMPOSER_OPTIONS $DEPENDENCIES
