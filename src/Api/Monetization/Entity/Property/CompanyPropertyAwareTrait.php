@@ -35,7 +35,7 @@ trait CompanyPropertyAwareTrait
     protected $company;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getCompany(): ?CompanyInterface
     {
@@ -43,7 +43,7 @@ trait CompanyPropertyAwareTrait
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      *
      * @internal
      */

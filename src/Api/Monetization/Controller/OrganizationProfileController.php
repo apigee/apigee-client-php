@@ -46,7 +46,7 @@ class OrganizationProfileController extends EntityController implements Organiza
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function load(): OrganizationProfileInterface
     {
@@ -60,7 +60,7 @@ class OrganizationProfileController extends EntityController implements Organiza
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getEntityClass(): string
     {
@@ -68,7 +68,7 @@ class OrganizationProfileController extends EntityController implements Organiza
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getBaseEndpointUri(): UriInterface
     {

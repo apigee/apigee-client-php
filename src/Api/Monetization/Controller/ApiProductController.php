@@ -31,7 +31,7 @@ class ApiProductController extends OrganizationAwareEntityController implements 
     use PaginatedListingHelperTrait;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getEligibleProductsByDeveloper(string $entityId): array
     {
@@ -39,7 +39,7 @@ class ApiProductController extends OrganizationAwareEntityController implements 
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getEligibleProductsByCompany(string $entityId): array
     {
@@ -47,7 +47,7 @@ class ApiProductController extends OrganizationAwareEntityController implements 
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getEntityClass(): string
     {
@@ -55,7 +55,7 @@ class ApiProductController extends OrganizationAwareEntityController implements 
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getBaseEndpointUri(): UriInterface
     {

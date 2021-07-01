@@ -108,7 +108,7 @@ class DebuggerHttpClient implements HttpClient, HttpAsyncClient
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function sendAsyncRequest(RequestInterface $request)
     {
@@ -116,7 +116,7 @@ class DebuggerHttpClient implements HttpClient, HttpAsyncClient
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function sendRequest(RequestInterface $request)
     {

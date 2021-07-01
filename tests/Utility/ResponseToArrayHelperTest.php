@@ -32,7 +32,7 @@ class ResponseToArrayHelperTest extends TestCase
     private $responseToArrayHelper;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function setUp(): void
     {

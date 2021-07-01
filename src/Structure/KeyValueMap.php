@@ -39,7 +39,7 @@ abstract class KeyValueMap extends BaseObject implements KeyValueMapInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function values(): array
     {
@@ -47,7 +47,7 @@ abstract class KeyValueMap extends BaseObject implements KeyValueMapInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getValue(string $key): ?string
     {
@@ -59,7 +59,7 @@ abstract class KeyValueMap extends BaseObject implements KeyValueMapInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function add(string $key, $value): void
     {
@@ -67,7 +67,7 @@ abstract class KeyValueMap extends BaseObject implements KeyValueMapInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function set(array $values): void
     {
@@ -75,7 +75,7 @@ abstract class KeyValueMap extends BaseObject implements KeyValueMapInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function delete(string $key): void
     {
@@ -83,7 +83,7 @@ abstract class KeyValueMap extends BaseObject implements KeyValueMapInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function has(string $key): bool
     {
@@ -91,7 +91,7 @@ abstract class KeyValueMap extends BaseObject implements KeyValueMapInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getIterator(): \Traversable
     {

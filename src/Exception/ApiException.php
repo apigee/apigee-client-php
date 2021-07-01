@@ -26,7 +26,7 @@ use Http\Client\Exception;
 class ApiException extends RuntimeException implements Exception
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function __toString()
     {

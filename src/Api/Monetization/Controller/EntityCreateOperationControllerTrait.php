@@ -41,7 +41,7 @@ trait EntityCreateOperationControllerTrait
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     protected function buildEntityCreatePayload(EntityInterface $entity, array $context = []): string
     {

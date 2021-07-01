@@ -66,7 +66,7 @@ class PrepaidBalance extends Entity implements PrepaidBalanceInterface
     protected $year;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getApproxTaxRate(): int
     {
@@ -82,7 +82,7 @@ class PrepaidBalance extends Entity implements PrepaidBalanceInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getCurrentBalance(): float
     {
@@ -98,7 +98,7 @@ class PrepaidBalance extends Entity implements PrepaidBalanceInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getCurrentTotalBalance(): float
     {
@@ -114,7 +114,7 @@ class PrepaidBalance extends Entity implements PrepaidBalanceInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getCurrentUsage(): float
     {
@@ -130,7 +130,7 @@ class PrepaidBalance extends Entity implements PrepaidBalanceInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getMonth(): string
     {
@@ -146,7 +146,7 @@ class PrepaidBalance extends Entity implements PrepaidBalanceInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getPreviousBalance(): float
     {
@@ -162,7 +162,7 @@ class PrepaidBalance extends Entity implements PrepaidBalanceInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getTax(): float
     {
@@ -178,7 +178,7 @@ class PrepaidBalance extends Entity implements PrepaidBalanceInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getTopUps(): float
     {
@@ -194,7 +194,7 @@ class PrepaidBalance extends Entity implements PrepaidBalanceInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getUsage(): float
     {
@@ -210,7 +210,7 @@ class PrepaidBalance extends Entity implements PrepaidBalanceInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getYear(): int
     {

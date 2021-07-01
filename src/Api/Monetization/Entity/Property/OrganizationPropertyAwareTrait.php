@@ -35,7 +35,7 @@ trait OrganizationPropertyAwareTrait
     protected $organization;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getOrganization(): ?OrganizationProfileInterface
     {
@@ -43,7 +43,7 @@ trait OrganizationPropertyAwareTrait
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      *
      * @internal You do not need to set the organization on the entity, the
      * controller will do that for you.

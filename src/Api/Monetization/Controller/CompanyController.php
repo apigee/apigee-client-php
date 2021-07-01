@@ -29,7 +29,7 @@ use Psr\Http\Message\UriInterface;
 class CompanyController extends LegalEntityController implements CompanyControllerInterface
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getBaseEndpointUri(): UriInterface
     {

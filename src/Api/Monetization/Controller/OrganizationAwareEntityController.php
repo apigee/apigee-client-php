@@ -25,7 +25,7 @@ use Apigee\Edge\Serializer\EntitySerializerInterface;
 abstract class OrganizationAwareEntityController extends EntityController
 {
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function __construct(string $organization, ClientInterface $client, ?EntitySerializerInterface $entitySerializer = null)
     {

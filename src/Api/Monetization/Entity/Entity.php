@@ -29,7 +29,7 @@ abstract class Entity extends BaseEntity implements EntityInterface
     use IdPropertyAwareTrait;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static function idProperty(): string
     {

@@ -58,7 +58,7 @@ abstract class AbstractController
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     protected function getClient(): ClientInterface
     {
@@ -66,7 +66,7 @@ abstract class AbstractController
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function jsonDecoder(): JsonDecode
     {

@@ -46,7 +46,7 @@ class TermsAndConditionsDenormalizer extends ObjectDenormalizer
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      *
      * @psalm-suppress PossiblyNullReference - Organization should not be null
      * here.
@@ -62,7 +62,7 @@ class TermsAndConditionsDenormalizer extends ObjectDenormalizer
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function supportsDenormalization($data, $type, $format = null)
     {

@@ -60,7 +60,7 @@ class EntitySerializerValidator implements EntitySerializerValidatorInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function validate(\stdClass $input, EntityInterface $entity): void
     {

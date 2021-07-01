@@ -21,7 +21,7 @@ namespace Apigee\Edge\Tests\Api\Monetization\EntitySerializer\PropertyValidator;
 class SupportedCurrencyEntityReferencePropertyValidator extends CurrencyEntityReferencePropertyValidator
 {
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public static function validatedProperty(): string
     {

@@ -126,7 +126,7 @@ class DeveloperControllerTest extends EntityControllerTestBase
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     protected static function getEntityToTestUrlEncoding(): EntityInterface
     {
@@ -141,7 +141,7 @@ class DeveloperControllerTest extends EntityControllerTestBase
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     protected function entityIdShouldBeUsedInPagination(EntityInterface $entity): string
     {
@@ -150,7 +150,7 @@ class DeveloperControllerTest extends EntityControllerTestBase
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected static function entityController(ClientInterface $client = null): EntityControllerTesterInterface
     {
@@ -158,7 +158,7 @@ class DeveloperControllerTest extends EntityControllerTestBase
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected static function getNewEntity(): EntityInterface
     {
@@ -166,7 +166,7 @@ class DeveloperControllerTest extends EntityControllerTestBase
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function entityForUpdateTest(EntityInterface $existing): EntityInterface
     {
@@ -175,7 +175,7 @@ class DeveloperControllerTest extends EntityControllerTestBase
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected static function entityCreateOperationTestController(): EntityCreateOperationTestControllerTesterInterface
     {

@@ -139,7 +139,7 @@ abstract class PrepaidBalanceControllerTestBase extends EntityControllerTestBase
     abstract protected static function validateRecurringPath(string $actual): void;
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     protected function entitySerializerValidator(): EntitySerializerValidatorInterface
     {

@@ -37,7 +37,7 @@ abstract class EntityControllerTestBase extends BaseEntityControllerTesterBase
     protected static $originalTimezone;
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public static function setUpBeforeClass(): void
     {
@@ -47,7 +47,7 @@ abstract class EntityControllerTestBase extends BaseEntityControllerTesterBase
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public static function tearDownAfterClass(): void
     {
@@ -55,7 +55,7 @@ abstract class EntityControllerTestBase extends BaseEntityControllerTesterBase
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     protected static function defaultAPIClient(): ClientInterface
     {
@@ -65,7 +65,7 @@ abstract class EntityControllerTestBase extends BaseEntityControllerTesterBase
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     protected function entitySerializerValidator(): EntitySerializerValidatorInterface
     {
@@ -78,7 +78,7 @@ abstract class EntityControllerTestBase extends BaseEntityControllerTesterBase
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     protected static function organizationProfileController(): OrganizationProfileControllerInterface
     {

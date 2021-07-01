@@ -31,7 +31,7 @@ trait StartDatePropertyAwareTrait
     protected $startDate;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getStartDate(): \DateTimeImmutable
     {
@@ -39,7 +39,7 @@ trait StartDatePropertyAwareTrait
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setStartDate(\DateTimeImmutable $startDate): void
     {

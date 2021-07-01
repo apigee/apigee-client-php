@@ -32,7 +32,7 @@ abstract class LegalEntityControllerTestBase extends EntityControllerTestBase
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function testLoad($created = null): EntityInterface
     {
@@ -40,7 +40,7 @@ abstract class LegalEntityControllerTestBase extends EntityControllerTestBase
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     protected function entitySerializerValidator(): EntitySerializerValidatorInterface
     {

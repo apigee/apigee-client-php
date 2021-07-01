@@ -39,7 +39,7 @@ class PaymentProvider extends Entity implements PaymentProviderInterface
     protected $merchantCode;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getAuthType(): string
     {
@@ -47,7 +47,7 @@ class PaymentProvider extends Entity implements PaymentProviderInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setAuthType(string $authType): void
     {
@@ -55,7 +55,7 @@ class PaymentProvider extends Entity implements PaymentProviderInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getCredential(): string
     {
@@ -63,7 +63,7 @@ class PaymentProvider extends Entity implements PaymentProviderInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setCredential(string $credential): void
     {
@@ -71,7 +71,7 @@ class PaymentProvider extends Entity implements PaymentProviderInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getEndpoint(): string
     {
@@ -79,7 +79,7 @@ class PaymentProvider extends Entity implements PaymentProviderInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setEndpoint(string $endpoint): void
     {
@@ -87,7 +87,7 @@ class PaymentProvider extends Entity implements PaymentProviderInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getMerchantCode(): string
     {
@@ -95,7 +95,7 @@ class PaymentProvider extends Entity implements PaymentProviderInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setMerchantCode(string $merchantCode): void
     {

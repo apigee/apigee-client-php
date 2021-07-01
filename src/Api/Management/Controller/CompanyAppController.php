@@ -58,7 +58,7 @@ class CompanyAppController extends AppByOwnerController implements CompanyAppCon
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getBaseEndpointUri(): UriInterface
     {
@@ -66,7 +66,7 @@ class CompanyAppController extends AppByOwnerController implements CompanyAppCon
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getEntityClass(): string
     {
@@ -74,7 +74,7 @@ class CompanyAppController extends AppByOwnerController implements CompanyAppCon
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getOrganizationController(): OrganizationControllerInterface
     {

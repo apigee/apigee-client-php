@@ -51,7 +51,7 @@ class RatePlanControllerTest extends EntityControllerTestBase
     use TimezoneConversionTestTrait;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function testLoad(): void
     {
@@ -144,7 +144,7 @@ class RatePlanControllerTest extends EntityControllerTestBase
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function entitySerializerValidator(): EntitySerializerValidatorInterface
     {
@@ -157,7 +157,7 @@ class RatePlanControllerTest extends EntityControllerTestBase
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected static function entityController(ClientInterface $client = null): EntityControllerTesterInterface
     {

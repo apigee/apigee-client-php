@@ -41,7 +41,7 @@ class CurrencyEntityReferencePropertyValidator implements \Apigee\Edge\Tests\Tes
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function validate(\stdClass $input, \stdClass $output, EntityInterface $entity): void
     {
@@ -65,7 +65,7 @@ class CurrencyEntityReferencePropertyValidator implements \Apigee\Edge\Tests\Tes
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static function validatedProperty(): string
     {
@@ -73,7 +73,7 @@ class CurrencyEntityReferencePropertyValidator implements \Apigee\Edge\Tests\Tes
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function setEntitySerializer(\Apigee\Edge\Serializer\EntitySerializerInterface $entitySerializer): void
     {

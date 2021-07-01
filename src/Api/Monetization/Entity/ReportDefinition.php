@@ -38,7 +38,7 @@ class ReportDefinition extends Entity implements ReportDefinitionInterface
     protected $lastModified;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getCriteria(): AbstractCriteria
     {
@@ -46,7 +46,7 @@ class ReportDefinition extends Entity implements ReportDefinitionInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setCriteria(AbstractCriteria $criteria): void
     {
@@ -54,7 +54,7 @@ class ReportDefinition extends Entity implements ReportDefinitionInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getLastModified(): ?\DateTimeImmutable
     {
@@ -62,7 +62,7 @@ class ReportDefinition extends Entity implements ReportDefinitionInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      *
      * @internal
      */

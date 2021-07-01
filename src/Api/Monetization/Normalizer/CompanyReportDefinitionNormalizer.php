@@ -42,7 +42,7 @@ class CompanyReportDefinitionNormalizer extends LegalEntityReportDefinitionNorma
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function supportsNormalization($data, $format = null)
     {

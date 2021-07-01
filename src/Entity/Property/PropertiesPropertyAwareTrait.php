@@ -29,7 +29,7 @@ trait PropertiesPropertyAwareTrait
     protected $properties;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getProperties(): PropertiesProperty
     {
@@ -37,7 +37,7 @@ trait PropertiesPropertyAwareTrait
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setProperties(PropertiesProperty $properties): void
     {
@@ -45,7 +45,7 @@ trait PropertiesPropertyAwareTrait
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getPropertyValue(string $property): ?string
     {
@@ -53,7 +53,7 @@ trait PropertiesPropertyAwareTrait
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function addProperty(string $name, string $value): void
     {
@@ -61,7 +61,7 @@ trait PropertiesPropertyAwareTrait
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function hasProperty(string $name): bool
     {
@@ -69,7 +69,7 @@ trait PropertiesPropertyAwareTrait
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function deleteProperty(string $name): void
     {

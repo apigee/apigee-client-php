@@ -67,7 +67,7 @@ interface CredentialProvider
 class EnvironmentCredentialProvider implements CredentialProvider
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getOrganization(): string
     {
@@ -75,7 +75,7 @@ class EnvironmentCredentialProvider implements CredentialProvider
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getUsername(): string
     {
@@ -83,7 +83,7 @@ class EnvironmentCredentialProvider implements CredentialProvider
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getPassword(): string
     {

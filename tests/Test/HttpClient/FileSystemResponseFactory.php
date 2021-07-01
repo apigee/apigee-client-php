@@ -66,7 +66,7 @@ class FileSystemResponseFactory implements ResponseFactory
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function createResponse(
         $statusCode = 200,

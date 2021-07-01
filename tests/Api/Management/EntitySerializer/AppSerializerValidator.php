@@ -24,7 +24,7 @@ use PHPUnit\Framework\Assert;
 class AppSerializerValidator extends EntitySerializerValidator
 {
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function validate(\stdClass $input, EntityInterface $entity): void
     {

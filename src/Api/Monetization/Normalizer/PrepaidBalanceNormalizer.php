@@ -42,7 +42,7 @@ class PrepaidBalanceNormalizer extends EntityNormalizer
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function supportsNormalization($data, $format = null)
     {

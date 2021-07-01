@@ -27,7 +27,7 @@ use Psr\Http\Message\RequestInterface;
 class NullAuthentication implements Authentication
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function authenticate(RequestInterface $request)
     {

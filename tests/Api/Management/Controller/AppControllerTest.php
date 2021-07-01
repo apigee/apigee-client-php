@@ -70,7 +70,7 @@ class AppControllerTest extends EntityControllerTestBase
     protected static $testCompanyApp;
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public static function setUpBeforeClass(): void
     {
@@ -154,7 +154,7 @@ class AppControllerTest extends EntityControllerTestBase
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected static function companyAppControllerCompanyAppOwner(): CompanyInterface
     {
@@ -162,7 +162,7 @@ class AppControllerTest extends EntityControllerTestBase
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected static function developerAppControllerDeveloperAppOwner(): DeveloperInterface
     {
@@ -170,7 +170,7 @@ class AppControllerTest extends EntityControllerTestBase
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      *
      * @return \Apigee\Edge\Tests\Test\Controller\EntityControllerTesterInterface|\Apigee\Edge\Api\Management\Controller\AppControllerInterface
      */

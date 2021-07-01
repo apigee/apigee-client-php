@@ -31,7 +31,7 @@ trait EntityDeleteOperationControllerTrait
     use EntitySerializerAwareTrait;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function delete(string $entityId): EntityInterface
     {

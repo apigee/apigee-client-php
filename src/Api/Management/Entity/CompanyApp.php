@@ -27,7 +27,7 @@ class CompanyApp extends App implements CompanyAppInterface
     protected $companyName;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getCompanyName(): ?string
     {
