@@ -25,5 +25,10 @@ interface BillingTypeInterface extends EntityInterface
     /**
      * @return string
      */
-    public function getBillingType(): ?string;
+    public function getbillingType(): ?string;
+
+    /**
+     * @param string|null $billingType
+     */
+    public function setbillingType(?string $billingType): void;
 }

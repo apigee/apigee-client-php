@@ -48,7 +48,7 @@ abstract class BillingTypeController extends EntityController implements Billing
     /**
      * {@inheritdoc}
      */
-    public function getAllBillingDetails(): array
+    public function getAllBillingDetails(): BillingTypeInterface
     {
         return $this->getDeveloperBillingType();
     }
@@ -77,9 +77,9 @@ abstract class BillingTypeController extends EntityController implements Billing
      *
      * @return \Apigee\Edge\Api\ApigeeX\Entity\BillingTypeInterface[]
      */
-    private function getDeveloperBillingType(): array
+    private function getDeveloperBillingType(): BillingTypeInterface
     {
-        $entities = [];
+
         $item = $this->getRawSingleList($this->getBaseEndpointUri());
 
         /** @var \Apigee\Edge\Entity\EntityInterface $tmp */
@@ -89,8 +89,6 @@ abstract class BillingTypeController extends EntityController implements Billing
             'json'
         );
 
-        $entities['billingType'] = $tmp;
-
-        return $entities;
+        return $tmp;
     }
 }

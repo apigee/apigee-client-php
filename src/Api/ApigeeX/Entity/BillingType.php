@@ -34,7 +34,7 @@ abstract class BillingType extends Entity implements BillingTypeInterface
     }
 
     /**
-     * @param string $createdAt
+     * @param string|null $billingType
      *
      * @internal
      */

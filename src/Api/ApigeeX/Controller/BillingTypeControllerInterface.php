@@ -36,7 +36,7 @@ interface BillingTypeControllerInterface extends
      *
      * @return \Apigee\Edge\Api\ApigeeX\Entity\BillingTypeInterface[]
      */
-    public function getAllBillingDetails(): array;
+    public function getAllBillingDetails(): BillingTypeInterface;
 
     /**
      * Update the billing type of the developer.
