@@ -28,7 +28,7 @@ trait EnvironmentsPropertyAwareTrait
 
     /**
      * {@inheritdoc}
-     * 
+     *
      * @return string[]
      */
     public function getEnvironments(): array
