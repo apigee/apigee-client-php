@@ -80,7 +80,7 @@ class StatsQuery implements StatsQueryInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getFilter(): ?string
     {
@@ -88,7 +88,7 @@ class StatsQuery implements StatsQueryInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setFilter(?string $filter): StatsQueryInterface
     {
@@ -98,7 +98,7 @@ class StatsQuery implements StatsQueryInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getMetrics(): array
     {
@@ -106,7 +106,7 @@ class StatsQuery implements StatsQueryInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setMetrics(array $metrics): StatsQueryInterface
     {
@@ -116,7 +116,7 @@ class StatsQuery implements StatsQueryInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getTimeRange(): Period
     {
@@ -124,7 +124,7 @@ class StatsQuery implements StatsQueryInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setTimeRange(Period $timeRange): StatsQueryInterface
     {
@@ -134,7 +134,7 @@ class StatsQuery implements StatsQueryInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getTimeUnit(): ?string
     {
@@ -142,7 +142,7 @@ class StatsQuery implements StatsQueryInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setTimeUnit(?string $timeUnit): StatsQueryInterface
     {
@@ -152,7 +152,7 @@ class StatsQuery implements StatsQueryInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getSortBy(): ?string
     {
@@ -160,7 +160,7 @@ class StatsQuery implements StatsQueryInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setSortBy(?string $sortBy): StatsQueryInterface
     {
@@ -170,7 +170,7 @@ class StatsQuery implements StatsQueryInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getSort(): ?string
     {
@@ -178,7 +178,7 @@ class StatsQuery implements StatsQueryInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setSort(?string $sort): StatsQueryInterface
     {
@@ -188,7 +188,7 @@ class StatsQuery implements StatsQueryInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getTopK(): ?int
     {
@@ -196,7 +196,7 @@ class StatsQuery implements StatsQueryInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setTopK(?int $topK): StatsQueryInterface
     {
@@ -206,7 +206,7 @@ class StatsQuery implements StatsQueryInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getLimit(): ?int
     {
@@ -214,7 +214,7 @@ class StatsQuery implements StatsQueryInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setLimit(?int $limit): StatsQueryInterface
     {
@@ -224,7 +224,7 @@ class StatsQuery implements StatsQueryInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getOffset(): ?int
     {
@@ -232,7 +232,7 @@ class StatsQuery implements StatsQueryInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setOffset(?int $offset): StatsQueryInterface
     {
@@ -242,7 +242,7 @@ class StatsQuery implements StatsQueryInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getRealtime(): ?bool
     {
@@ -250,7 +250,7 @@ class StatsQuery implements StatsQueryInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setRealtime(?bool $realtime): StatsQueryInterface
     {
@@ -260,7 +260,7 @@ class StatsQuery implements StatsQueryInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getAccuracy(): ?int
     {
@@ -268,7 +268,7 @@ class StatsQuery implements StatsQueryInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setAccuracy(?int $accuracy): StatsQueryInterface
     {
@@ -278,7 +278,7 @@ class StatsQuery implements StatsQueryInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getTsAscending(): bool
     {
@@ -286,7 +286,7 @@ class StatsQuery implements StatsQueryInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setTsAscending(bool $tsAscending): StatsQueryInterface
     {

@@ -24,7 +24,7 @@ use Apigee\Edge\Api\Monetization\Normalizer\AddressNormalizer;
 class AddressSerializer extends EntitySerializer
 {
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public static function getEntityTypeSpecificDefaultNormalizers(): array
     {

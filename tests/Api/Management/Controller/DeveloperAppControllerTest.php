@@ -48,7 +48,7 @@ class DeveloperAppControllerTest extends AppControllerTestBase
     protected static $testDeveloper;
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public static function setUpBeforeClass(): void
     {
@@ -58,7 +58,7 @@ class DeveloperAppControllerTest extends AppControllerTestBase
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected static function entityController(ClientInterface $client = null): EntityControllerTesterInterface
     {
@@ -66,7 +66,7 @@ class DeveloperAppControllerTest extends AppControllerTestBase
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected static function getNewEntity(): EntityInterface
     {
@@ -74,7 +74,7 @@ class DeveloperAppControllerTest extends AppControllerTestBase
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function entityForUpdateTest(EntityInterface $existing): EntityInterface
     {
@@ -83,7 +83,7 @@ class DeveloperAppControllerTest extends AppControllerTestBase
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected static function entityCreateOperationTestController(): EntityCreateOperationTestControllerTesterInterface
     {
@@ -91,7 +91,7 @@ class DeveloperAppControllerTest extends AppControllerTestBase
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected static function developerAppControllerDeveloperAppOwner(): DeveloperInterface
     {
@@ -99,7 +99,7 @@ class DeveloperAppControllerTest extends AppControllerTestBase
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function reloadAppOwner()
     {
@@ -107,7 +107,7 @@ class DeveloperAppControllerTest extends AppControllerTestBase
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     protected static function getEntityToTestUrlEncoding(): EntityInterface
     {

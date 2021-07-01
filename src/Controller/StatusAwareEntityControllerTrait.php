@@ -29,7 +29,7 @@ trait StatusAwareEntityControllerTrait
     use EntityEndpointAwareControllerTrait;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setStatus(string $entityId, string $status): void
     {

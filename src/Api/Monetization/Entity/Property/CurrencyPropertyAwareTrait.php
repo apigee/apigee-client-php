@@ -31,7 +31,7 @@ trait CurrencyPropertyAwareTrait
     protected $currency;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getCurrency(): SupportedCurrencyInterface
     {
@@ -39,7 +39,7 @@ trait CurrencyPropertyAwareTrait
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setCurrency(SupportedCurrencyInterface $currency): void
     {

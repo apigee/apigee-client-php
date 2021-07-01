@@ -41,7 +41,7 @@ class MockClient extends OfflineClientBase implements OfflineClientInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getMockHttpClient(): MockHttpClientInterface
     {

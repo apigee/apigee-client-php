@@ -33,7 +33,7 @@ trait KeepOriginalStartDatePropertyAwareTrait
     protected $keepOriginalStartDate;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function isKeepOriginalStartDate(): bool
     {
@@ -41,7 +41,7 @@ trait KeepOriginalStartDatePropertyAwareTrait
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setKeepOriginalStartDate(bool $keepOriginalStartDate): void
     {
@@ -49,7 +49,7 @@ trait KeepOriginalStartDatePropertyAwareTrait
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getKeepOriginalStartDate(): ?bool
     {

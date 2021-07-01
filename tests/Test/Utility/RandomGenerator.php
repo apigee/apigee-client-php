@@ -37,7 +37,7 @@ class RandomGenerator implements RandomGeneratorInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function displayName(): string
     {
@@ -45,7 +45,7 @@ class RandomGenerator implements RandomGeneratorInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function machineName(): string
     {
@@ -53,7 +53,7 @@ class RandomGenerator implements RandomGeneratorInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function number(int $min = 1, int $max = 1000): string
     {
@@ -61,7 +61,7 @@ class RandomGenerator implements RandomGeneratorInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function string(): string
     {
@@ -69,7 +69,7 @@ class RandomGenerator implements RandomGeneratorInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function text(int $mintLength = 1, int $maxLength = 10): string
     {
@@ -77,7 +77,7 @@ class RandomGenerator implements RandomGeneratorInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function email(): string
     {
@@ -85,7 +85,7 @@ class RandomGenerator implements RandomGeneratorInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function url(): string
     {

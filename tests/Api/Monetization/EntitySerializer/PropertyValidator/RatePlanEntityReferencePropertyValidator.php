@@ -42,7 +42,7 @@ class RatePlanEntityReferencePropertyValidator implements RemoveIfPropertyValidP
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function validate(\stdClass $input, \stdClass $output, EntityInterface $entity): void
     {
@@ -58,7 +58,7 @@ class RatePlanEntityReferencePropertyValidator implements RemoveIfPropertyValidP
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static function validatedProperty(): string
     {
@@ -66,7 +66,7 @@ class RatePlanEntityReferencePropertyValidator implements RemoveIfPropertyValidP
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function setEntitySerializer(\Apigee\Edge\Serializer\EntitySerializerInterface $entitySerializer): void
     {

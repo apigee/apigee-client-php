@@ -89,7 +89,7 @@ abstract class LegalEntity extends OrganizationAwareEntity implements LegalEntit
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getBillingType(): string
     {
@@ -107,7 +107,7 @@ abstract class LegalEntity extends OrganizationAwareEntity implements LegalEntit
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getType(): string
     {
@@ -125,7 +125,7 @@ abstract class LegalEntity extends OrganizationAwareEntity implements LegalEntit
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getLegalName(): ?string
     {
@@ -143,7 +143,7 @@ abstract class LegalEntity extends OrganizationAwareEntity implements LegalEntit
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getPhone(): ?string
     {
@@ -161,7 +161,7 @@ abstract class LegalEntity extends OrganizationAwareEntity implements LegalEntit
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getRegistrationId(): ?string
     {
@@ -179,7 +179,7 @@ abstract class LegalEntity extends OrganizationAwareEntity implements LegalEntit
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getDeveloperCategory(): ?DeveloperCategory
     {
@@ -197,7 +197,7 @@ abstract class LegalEntity extends OrganizationAwareEntity implements LegalEntit
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getApproxTaxRate(): ?float
     {
@@ -215,7 +215,7 @@ abstract class LegalEntity extends OrganizationAwareEntity implements LegalEntit
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getTaxExemptAuthNo(): ?string
     {

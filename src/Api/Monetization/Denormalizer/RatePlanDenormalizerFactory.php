@@ -48,7 +48,7 @@ class RatePlanDenormalizerFactory implements DenormalizerInterface, SerializerAw
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      *
      * @psalm-suppress InvalidNullableReturnType - There are going to be at
      * least one denormalizer always that can denormalize data here.
@@ -65,7 +65,7 @@ class RatePlanDenormalizerFactory implements DenormalizerInterface, SerializerAw
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function supportsDenormalization($data, $type, $format = null)
     {
@@ -79,7 +79,7 @@ class RatePlanDenormalizerFactory implements DenormalizerInterface, SerializerAw
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function setSerializer(SerializerInterface $serializer): void
     {

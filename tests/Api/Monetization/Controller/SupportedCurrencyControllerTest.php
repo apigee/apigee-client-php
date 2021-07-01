@@ -46,7 +46,7 @@ class SupportedCurrencyControllerTest extends EntityControllerTestBase
     use EntityDeleteOperationControllerTestTrait;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected static function entityController(ClientInterface $client = null): EntityControllerTesterInterface
     {
@@ -56,7 +56,7 @@ class SupportedCurrencyControllerTest extends EntityControllerTestBase
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected static function entityCreateOperationTestController(): EntityCreateOperationTestControllerTesterInterface
     {
@@ -64,7 +64,7 @@ class SupportedCurrencyControllerTest extends EntityControllerTestBase
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected static function getNewEntity(): EntityInterface
     {
@@ -72,7 +72,7 @@ class SupportedCurrencyControllerTest extends EntityControllerTestBase
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function entityForUpdateTest(EntityInterface $existing): EntityInterface
     {

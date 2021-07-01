@@ -23,7 +23,7 @@ use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
 class OrganizationProfileNameConverter extends NameConverterBase implements NameConverterInterface
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getExternalToLocalMapping(): array
     {

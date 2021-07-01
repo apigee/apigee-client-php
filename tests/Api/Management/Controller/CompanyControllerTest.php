@@ -76,7 +76,7 @@ class CompanyControllerTest extends EntityControllerTestBase
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected static function entityController(ClientInterface $client = null): EntityControllerTesterInterface
     {
@@ -84,7 +84,7 @@ class CompanyControllerTest extends EntityControllerTestBase
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected static function getNewEntity(): EntityInterface
     {
@@ -92,7 +92,7 @@ class CompanyControllerTest extends EntityControllerTestBase
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function entityForUpdateTest(EntityInterface $existing): EntityInterface
     {
@@ -101,7 +101,7 @@ class CompanyControllerTest extends EntityControllerTestBase
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected static function entityCreateOperationTestController(): EntityCreateOperationTestControllerTesterInterface
     {

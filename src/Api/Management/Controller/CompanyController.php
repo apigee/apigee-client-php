@@ -59,7 +59,7 @@ class CompanyController extends PaginatedEntityController implements CompanyCont
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getBaseEndpointUri(): UriInterface
     {
@@ -67,7 +67,7 @@ class CompanyController extends PaginatedEntityController implements CompanyCont
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getEntityClass(): string
     {

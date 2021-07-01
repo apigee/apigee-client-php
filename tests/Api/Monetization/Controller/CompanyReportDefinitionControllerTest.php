@@ -34,7 +34,7 @@ class CompanyReportDefinitionControllerTest extends ReportDefinitionControllerTe
     protected const TEST_COMPANY_NAME = 'phpunit';
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     protected static function entityController(ClientInterface $client = null): EntityControllerTesterInterface
     {
@@ -44,7 +44,7 @@ class CompanyReportDefinitionControllerTest extends ReportDefinitionControllerTe
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     protected function expectedFilteredReportDefinitionUrl(): string
     {

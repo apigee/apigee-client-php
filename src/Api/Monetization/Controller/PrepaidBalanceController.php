@@ -68,7 +68,7 @@ abstract class PrepaidBalanceController extends OrganizationAwareEntityControlle
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function topUpBalance(float $amount, string $currencyCode): BalanceInterface
     {
@@ -88,7 +88,7 @@ abstract class PrepaidBalanceController extends OrganizationAwareEntityControlle
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getByCurrency(string $currencyCode): ?BalanceInterface
     {
@@ -152,7 +152,7 @@ abstract class PrepaidBalanceController extends OrganizationAwareEntityControlle
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getPrepaidBalance(\DateTimeImmutable $billingMonth): array
     {
@@ -160,7 +160,7 @@ abstract class PrepaidBalanceController extends OrganizationAwareEntityControlle
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getPrepaidBalanceByCurrency(string $currencyCode, \DateTimeImmutable $billingMonth): ?PrepaidBalanceInterface
     {
@@ -170,7 +170,7 @@ abstract class PrepaidBalanceController extends OrganizationAwareEntityControlle
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getEntityClass(): string
     {

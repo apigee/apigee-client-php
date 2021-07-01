@@ -42,7 +42,7 @@ class CompanyPaymentTransactionNormalizer extends PaymentTransactionNormalizer
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      *
      * @psalm-suppress InvalidReturnType Returning an object here is required
      * for creating a valid Apigee Edge request.
@@ -57,7 +57,7 @@ class CompanyPaymentTransactionNormalizer extends PaymentTransactionNormalizer
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function supportsNormalization($data, $format = null)
     {

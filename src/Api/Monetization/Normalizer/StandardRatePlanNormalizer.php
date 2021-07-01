@@ -24,7 +24,7 @@ use Apigee\Edge\Api\Monetization\Entity\StandardRatePlanInterface;
 class StandardRatePlanNormalizer extends RatePlanNormalizer
 {
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      *
      * @psalm-suppress InvalidReturnType Returning an object here is required
      * for creating a valid Apigee Edge request.
@@ -39,7 +39,7 @@ class StandardRatePlanNormalizer extends RatePlanNormalizer
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function supportsNormalization($data, $format = null)
     {

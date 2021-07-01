@@ -34,7 +34,7 @@ use Apigee\Edge\Tests\Test\EntitySerializer\EntitySerializerValidatorInterface;
 class DeveloperControllerTest extends LegalEntityControllerTestBase
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function entitySerializerValidator(): EntitySerializerValidatorInterface
     {
@@ -54,7 +54,7 @@ class DeveloperControllerTest extends LegalEntityControllerTestBase
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getTestEntityId(): string
     {

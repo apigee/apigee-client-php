@@ -30,7 +30,7 @@ class PaymentProviderController extends OrganizationAwareEntityController implem
     use ListingHelperTrait;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getBaseEndpointUri(): UriInterface
     {
@@ -38,7 +38,7 @@ class PaymentProviderController extends OrganizationAwareEntityController implem
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getEntityClass(): string
     {

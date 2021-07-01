@@ -42,7 +42,7 @@ abstract class Entity extends BaseObject implements EntityInterface
     private const DEFAULT_ID_FIELD = 'name';
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function id(): ?string
     {
@@ -50,7 +50,7 @@ abstract class Entity extends BaseObject implements EntityInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static function idProperty(): string
     {

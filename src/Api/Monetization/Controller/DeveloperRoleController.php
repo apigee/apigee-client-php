@@ -30,7 +30,7 @@ class DeveloperRoleController extends OrganizationAwareEntityController implemen
     use PaginatedListingHelperTrait;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getBaseEndpointUri(): UriInterface
     {
@@ -38,7 +38,7 @@ class DeveloperRoleController extends OrganizationAwareEntityController implemen
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getEntityClass(): string
     {

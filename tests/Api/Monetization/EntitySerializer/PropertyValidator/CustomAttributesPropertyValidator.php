@@ -29,7 +29,7 @@ class CustomAttributesPropertyValidator implements PropertyValidatorInterface, \
     use SerializerAwarePropertyValidatorTrait;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function validate(\stdClass $input, \stdClass $output, EntityInterface $entity): void
     {
@@ -65,7 +65,7 @@ class CustomAttributesPropertyValidator implements PropertyValidatorInterface, \
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static function validatedProperty(): string
     {

@@ -56,7 +56,7 @@ class EnvironmentController extends EntityController implements EnvironmentContr
      *
      * Environments are not entities, so Hybrid does not support the "expand=false" query parameter.
      *
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getEntityIds(): array
     {
@@ -67,7 +67,7 @@ class EnvironmentController extends EntityController implements EnvironmentContr
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getBaseEndpointUri(): UriInterface
     {
@@ -75,7 +75,7 @@ class EnvironmentController extends EntityController implements EnvironmentContr
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getEntityClass(): string
     {

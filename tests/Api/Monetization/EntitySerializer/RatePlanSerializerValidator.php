@@ -53,7 +53,7 @@ class RatePlanSerializerValidator extends OrganizationAwareEntitySerializerValid
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function validate(\stdClass $input, EntityInterface $entity): void
     {

@@ -25,7 +25,7 @@ use Apigee\Edge\Tests\Test\Utility\EntityStorage;
 final class EntityUpdateOperationControllerTester extends EntityControllerTesterBase implements EntityUpdateOperationControllerTesterInterface
 {
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function update(EntityInterface $entity): void
     {
@@ -37,7 +37,7 @@ final class EntityUpdateOperationControllerTester extends EntityControllerTester
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     protected function validateController($controller): void
     {

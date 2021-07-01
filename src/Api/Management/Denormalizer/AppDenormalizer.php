@@ -44,7 +44,7 @@ class AppDenormalizer extends ObjectDenormalizer
     protected $companyAppClass = CompanyApp::class;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function denormalize($data, $class, $format = null, array $context = [])
     {
@@ -59,7 +59,7 @@ class AppDenormalizer extends ObjectDenormalizer
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function supportsDenormalization($data, $type, $format = null)
     {

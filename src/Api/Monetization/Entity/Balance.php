@@ -52,7 +52,7 @@ class Balance extends Entity implements BalanceInterface
     protected $transaction;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getAmount(): float
     {
@@ -70,7 +70,7 @@ class Balance extends Entity implements BalanceInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function isChargePerUsage(): bool
     {
@@ -88,7 +88,7 @@ class Balance extends Entity implements BalanceInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function isRecurring(): bool
     {
@@ -106,7 +106,7 @@ class Balance extends Entity implements BalanceInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getUsage(): float
     {
@@ -124,7 +124,7 @@ class Balance extends Entity implements BalanceInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getTransaction(): ?PaymentTransaction
     {

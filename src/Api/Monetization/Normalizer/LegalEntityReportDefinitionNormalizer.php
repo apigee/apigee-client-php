@@ -21,7 +21,7 @@ namespace Apigee\Edge\Api\Monetization\Normalizer;
 abstract class LegalEntityReportDefinitionNormalizer extends ReportDefinitionNormalizer
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      *
      * @psalm-suppress InvalidReturnType Returning an object here is required
      * for creating a valid Apigee Edge request.

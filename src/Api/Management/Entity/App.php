@@ -70,7 +70,7 @@ abstract class App extends Entity implements AppInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static function idProperty(): string
     {
@@ -126,7 +126,7 @@ abstract class App extends Entity implements AppInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getAppFamily(): string
     {
@@ -134,7 +134,7 @@ abstract class App extends Entity implements AppInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setAppFamily(string $appFamily): void
     {
@@ -142,7 +142,7 @@ abstract class App extends Entity implements AppInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getAppId(): ?string
     {
@@ -164,7 +164,7 @@ abstract class App extends Entity implements AppInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getCallbackUrl(): ?string
     {
@@ -172,7 +172,7 @@ abstract class App extends Entity implements AppInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setCallbackUrl(string $callbackUrl): void
     {
@@ -180,7 +180,7 @@ abstract class App extends Entity implements AppInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getCredentials(): array
     {

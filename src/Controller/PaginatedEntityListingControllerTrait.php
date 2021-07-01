@@ -28,7 +28,7 @@ use Apigee\Edge\Structure\PagerInterface;
 trait PaginatedEntityListingControllerTrait
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getEntities(PagerInterface $pager = null, string $key_provider = 'id'): array
     {
@@ -36,7 +36,7 @@ trait PaginatedEntityListingControllerTrait
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     abstract protected function listEntities(PagerInterface $pager = null, array $query_params = [], string $key_provider = 'id'): array;
 }

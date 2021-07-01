@@ -27,7 +27,7 @@ namespace Apigee\Edge\Api\Monetization\NameConverter;
 class CompanyReportDefinitionNameConverter extends ReportDefinitionNameConverter
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getExternalToLocalMapping(): array
     {

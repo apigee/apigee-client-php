@@ -32,7 +32,7 @@ use Apigee\Edge\Tests\Test\Controller\EntityControllerTesterInterface;
 class ReportDefinitionControllerTest extends ReportDefinitionControllerTestBase
 {
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     protected function expectedFilteredReportDefinitionUrl(): string
     {
@@ -42,7 +42,7 @@ class ReportDefinitionControllerTest extends ReportDefinitionControllerTestBase
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     protected static function entityController(ClientInterface $client = null): EntityControllerTesterInterface
     {

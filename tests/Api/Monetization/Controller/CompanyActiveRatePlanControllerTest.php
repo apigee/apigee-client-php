@@ -32,7 +32,7 @@ use Apigee\Edge\Tests\Test\Controller\EntityControllerTesterInterface;
 class CompanyActiveRatePlanControllerTest extends ActiveRatePlanControllerTestBase
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected static function entityController(ClientInterface $client = null): EntityControllerTesterInterface
     {

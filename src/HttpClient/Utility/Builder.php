@@ -75,7 +75,7 @@ class Builder implements BuilderInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getHttpClient(): HttpClient
     {
@@ -88,7 +88,7 @@ class Builder implements BuilderInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setHeaders(array $headers): void
     {
@@ -98,7 +98,7 @@ class Builder implements BuilderInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function clearHeaders(): void
     {
@@ -107,7 +107,7 @@ class Builder implements BuilderInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setHeaderValue(string $header, string $value): void
     {
@@ -122,7 +122,7 @@ class Builder implements BuilderInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function removeHeader(string $header): void
     {
@@ -134,7 +134,7 @@ class Builder implements BuilderInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function addPlugin(Plugin $plugin): void
     {
@@ -143,7 +143,7 @@ class Builder implements BuilderInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function removePlugin(string $fqcn): void
     {
@@ -156,7 +156,7 @@ class Builder implements BuilderInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function clearPlugins(): void
     {

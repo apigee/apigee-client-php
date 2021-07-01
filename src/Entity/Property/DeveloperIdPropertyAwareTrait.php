@@ -29,7 +29,7 @@ trait DeveloperIdPropertyAwareTrait
     protected $developerId;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getDeveloperId(): ?string
     {

@@ -33,7 +33,7 @@ trait IdPropertyAwareTrait
     protected $id;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getId(): ?string
     {
@@ -41,7 +41,7 @@ trait IdPropertyAwareTrait
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      *
      * @internal
      */

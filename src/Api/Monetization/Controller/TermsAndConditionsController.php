@@ -45,7 +45,7 @@ class TermsAndConditionsController extends OrganizationAwareEntityController imp
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getEntities(bool $currentOnly = null): array
     {
@@ -58,7 +58,7 @@ class TermsAndConditionsController extends OrganizationAwareEntityController imp
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getPaginatedEntityList(int $limit = null, int $page = 1, bool $currentOnly = null): array
     {
@@ -71,7 +71,7 @@ class TermsAndConditionsController extends OrganizationAwareEntityController imp
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getBaseEndpointUri(): UriInterface
     {
@@ -79,7 +79,7 @@ class TermsAndConditionsController extends OrganizationAwareEntityController imp
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getEntityClass(): string
     {

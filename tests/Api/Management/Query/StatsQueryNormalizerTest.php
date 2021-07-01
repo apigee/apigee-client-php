@@ -37,7 +37,7 @@ class StatsQueryNormalizerTest extends TestCase
     private static $normalizer;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static function setUpBeforeClass(): void
     {
