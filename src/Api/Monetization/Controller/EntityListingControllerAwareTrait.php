@@ -32,6 +32,8 @@ trait EntityListingControllerAwareTrait
 
     /**
      * {@inheritdoc}
+     *
+     * @return \Apigee\Edge\Entity\EntityInterface[]
      */
     public function getEntities(): array
     {
