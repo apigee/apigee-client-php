@@ -45,6 +45,13 @@ class Developer extends AppOwner implements DeveloperInterface
     protected $companies = [];
 
     /**
+    * The original email address of the developer.
+    *
+    * @var string|null
+    */
+    private $originalEmail;
+
+    /**
      * Developer constructor.
      *
      * @param array $values
@@ -56,7 +63,7 @@ class Developer extends AppOwner implements DeveloperInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static function idProperty(): string
     {
@@ -68,7 +75,7 @@ class Developer extends AppOwner implements DeveloperInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getCompanies(): array
     {
@@ -91,7 +98,7 @@ class Developer extends AppOwner implements DeveloperInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function hasCompany(string $companyName): bool
     {
@@ -99,7 +106,7 @@ class Developer extends AppOwner implements DeveloperInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getUserName(): ?string
     {
@@ -107,7 +114,7 @@ class Developer extends AppOwner implements DeveloperInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setUserName(string $userName): void
     {
@@ -115,7 +122,7 @@ class Developer extends AppOwner implements DeveloperInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getFirstName(): ?string
     {
@@ -123,7 +130,7 @@ class Developer extends AppOwner implements DeveloperInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setFirstName(string $firstName): void
     {
@@ -131,7 +138,7 @@ class Developer extends AppOwner implements DeveloperInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getLastName(): ?string
     {
@@ -139,10 +146,33 @@ class Developer extends AppOwner implements DeveloperInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setLastName(string $lastName): void
     {
         $this->lastName = $lastName;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setEmail(string $email): void
+    {
+        $this->email = $email;
+        if (null === $this->originalEmail) {
+            $this->originalEmail = $email;
+        }
+    }
+
+    /**
+     * The original email address of the developer used when updating user email address.
+     *
+     * @see Apigee\Edge\Api\Management\Controller\DeveloperController
+     *
+     * @internal 'get'is not prefixed to this method to prevent added to the request payload.
+     */
+    public function originalEmail(): ?string
+    {
+        return $this->originalEmail;
     }
 }
