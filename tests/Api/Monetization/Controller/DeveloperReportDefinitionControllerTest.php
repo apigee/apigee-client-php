@@ -34,7 +34,7 @@ class DeveloperReportDefinitionControllerTest extends ReportDefinitionController
     protected const TEST_DEVELOPER_ID = 'phpunit@example.com';
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     protected static function entityController(ClientInterface $client = null): EntityControllerTesterInterface
     {
@@ -44,7 +44,7 @@ class DeveloperReportDefinitionControllerTest extends ReportDefinitionController
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     protected function expectedFilteredReportDefinitionUrl(): string
     {

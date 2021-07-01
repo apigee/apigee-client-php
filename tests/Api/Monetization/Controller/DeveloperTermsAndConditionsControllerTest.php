@@ -35,7 +35,7 @@ class DeveloperTermsAndConditionsControllerTest extends LegalEntityTermsAndCondi
     protected static $testDeveloperId = 'phpunit@example.com';
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected static function entityController(ClientInterface $client = null): EntityControllerTesterInterface
     {
@@ -45,7 +45,7 @@ class DeveloperTermsAndConditionsControllerTest extends LegalEntityTermsAndCondi
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function expectedAcceptDeclineEndpoint(): string
     {

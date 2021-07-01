@@ -30,7 +30,7 @@ trait PreviousRatePlanRevisionPropertyAwareTrait
     protected $previousRatePlanRevision;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getPreviousRatePlanRevision(): RatePlanInterface
     {

@@ -24,7 +24,7 @@ use Apigee\Edge\Api\Monetization\Normalizer\OrganizationProfileNormalizer;
 class OrganizationProfileSerializer extends EntitySerializer
 {
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public static function getEntityTypeSpecificDefaultNormalizers(): array
     {

@@ -28,7 +28,7 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 class AppNormalizer extends ObjectNormalizer implements NormalizerInterface
 {
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function supportsNormalization($data, $format = null)
     {
@@ -36,7 +36,7 @@ class AppNormalizer extends ObjectNormalizer implements NormalizerInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      *
      * @psalm-suppress InvalidReturnType Returning an object here is required
      * for creating a valid Apigee Edge request.

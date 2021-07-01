@@ -25,7 +25,7 @@ use Apigee\Edge\Tests\Test\Utility\EntityStorage;
 final class EntityDeleteOperationControllerTester extends EntityControllerTesterBase implements EntityDeleteOperationControllerTesterInterface
 {
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function delete(string $entityId): EntityInterface
     {
@@ -39,7 +39,7 @@ final class EntityDeleteOperationControllerTester extends EntityControllerTester
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     protected function validateController($controller): void
     {

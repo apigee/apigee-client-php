@@ -175,7 +175,7 @@ class StatsControllerTest extends ControllerTestBase
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     protected static function defaultAPIClient(): ClientInterface
     {

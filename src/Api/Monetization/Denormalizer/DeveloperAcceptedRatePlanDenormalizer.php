@@ -30,7 +30,7 @@ class DeveloperAcceptedRatePlanDenormalizer extends AcceptedRatePlanDenormalizer
     protected $developerAcceptedRatePlanClass = DeveloperAcceptedRatePlan::class;
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function denormalize($data, $class, $format = null, array $context = [])
     {
@@ -38,7 +38,7 @@ class DeveloperAcceptedRatePlanDenormalizer extends AcceptedRatePlanDenormalizer
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function supportsDenormalization($data, $type, $format = null)
     {

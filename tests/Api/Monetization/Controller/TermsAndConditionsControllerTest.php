@@ -70,7 +70,7 @@ class TermsAndConditionsControllerTest extends EntityControllerTestBase
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     protected static function entityController(ClientInterface $client = null): EntityControllerTesterInterface
     {
@@ -80,7 +80,7 @@ class TermsAndConditionsControllerTest extends EntityControllerTestBase
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     protected static function entityCreateOperationTestController(): EntityCreateOperationTestControllerTesterInterface
     {
@@ -88,7 +88,7 @@ class TermsAndConditionsControllerTest extends EntityControllerTestBase
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     protected static function getNewEntity(): EntityInterface
     {
@@ -96,7 +96,7 @@ class TermsAndConditionsControllerTest extends EntityControllerTestBase
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     protected function entityForUpdateTest(EntityInterface $existing): EntityInterface
     {
@@ -104,7 +104,7 @@ class TermsAndConditionsControllerTest extends EntityControllerTestBase
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     protected function getTestEntityForTimezoneConversion(): MintEntityInterface
     {

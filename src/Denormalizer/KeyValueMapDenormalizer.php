@@ -27,7 +27,7 @@ use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 class KeyValueMapDenormalizer implements DenormalizerInterface
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function denormalize($data, $class, $format = null, array $context = [])
     {
@@ -35,7 +35,7 @@ class KeyValueMapDenormalizer implements DenormalizerInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function supportsDenormalization($data, $type, $format = null)
     {

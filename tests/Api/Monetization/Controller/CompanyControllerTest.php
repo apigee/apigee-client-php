@@ -32,7 +32,7 @@ use Apigee\Edge\Tests\Test\Controller\EntityControllerTesterInterface;
 class CompanyControllerTest extends LegalEntityControllerTestBase
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected static function entityController(ClientInterface $client = null): EntityControllerTesterInterface
     {

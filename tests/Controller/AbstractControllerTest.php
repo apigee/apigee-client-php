@@ -47,7 +47,7 @@ class AbstractControllerTest extends TestCase
         $client = static::mockApiClient();
         static::$stub = new class($client) extends AbstractEntityController {
             /**
-             * @inheritdoc
+             * {@inheritdoc}
              */
             protected function getBaseEndpointUri(): UriInterface
             {
@@ -67,7 +67,7 @@ class AbstractControllerTest extends TestCase
             }
 
             /**
-             * @inheritdoc
+             * {@inheritdoc}
              */
             protected function getEntityClass(): string
             {

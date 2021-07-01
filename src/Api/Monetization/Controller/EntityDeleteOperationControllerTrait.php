@@ -32,7 +32,7 @@ trait EntityDeleteOperationControllerTrait
     use EntityEndpointAwareControllerTrait;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function delete(string $entityId): void
     {

@@ -52,7 +52,7 @@ class HybridOauth2Test extends TestCase
     private $tokenStorage;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static function setUpBeforeClass(): void
     {
@@ -62,7 +62,7 @@ class HybridOauth2Test extends TestCase
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function setUp(): void
     {

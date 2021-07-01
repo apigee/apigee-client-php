@@ -59,7 +59,7 @@ class DeveloperAppController extends AppByOwnerController implements DeveloperAp
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getBaseEndpointUri(): UriInterface
     {
@@ -69,7 +69,7 @@ class DeveloperAppController extends AppByOwnerController implements DeveloperAp
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getEntityClass(): string
     {
@@ -77,7 +77,7 @@ class DeveloperAppController extends AppByOwnerController implements DeveloperAp
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getOrganizationController(): OrganizationControllerInterface
     {

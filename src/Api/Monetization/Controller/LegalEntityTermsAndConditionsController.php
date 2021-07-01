@@ -50,7 +50,7 @@ abstract class LegalEntityTermsAndConditionsController extends OrganizationAware
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getTermsAndConditionsHistory(): array
     {
@@ -58,7 +58,7 @@ abstract class LegalEntityTermsAndConditionsController extends OrganizationAware
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function acceptTermsAndConditionsById(string $tncId): LegalEntityTermsAndConditionsHistoryItem
     {
@@ -79,7 +79,7 @@ abstract class LegalEntityTermsAndConditionsController extends OrganizationAware
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function declineTermsAndConditionsById(string $tncId): LegalEntityTermsAndConditionsHistoryItem
     {
@@ -110,7 +110,7 @@ abstract class LegalEntityTermsAndConditionsController extends OrganizationAware
     abstract protected function getAcceptTermsAndConditionsEndpoint(string $tncId): UriInterface;
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     protected function responseArrayToArrayOfEntities(array $responseArray, string $keyGetter = 'getId'): array
     {
@@ -121,7 +121,7 @@ abstract class LegalEntityTermsAndConditionsController extends OrganizationAware
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getEntityClass(): string
     {

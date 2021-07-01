@@ -28,7 +28,7 @@ use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 class CredentialProductDenormalizer implements DenormalizerInterface
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function supportsDenormalization($data, $type, $format = null)
     {
@@ -41,7 +41,7 @@ class CredentialProductDenormalizer implements DenormalizerInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function denormalize($data, $class, $format = null, array $context = [])
     {

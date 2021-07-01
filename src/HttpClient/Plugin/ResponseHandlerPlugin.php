@@ -54,7 +54,7 @@ final class ResponseHandlerPlugin implements Plugin
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      *
      * @psalm-suppress UndefinedMethod - $e->getResponse() is not undefined.
      * @psalm-suppress InvalidArgument - $e is not an invalid argument.

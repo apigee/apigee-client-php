@@ -35,7 +35,7 @@ trait FreemiumPropertiesAwareTrait
     protected $freemiumUnit;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getFreemiumDuration(): ?int
     {
@@ -43,7 +43,7 @@ trait FreemiumPropertiesAwareTrait
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setFreemiumDuration(int $freemiumDuration): void
     {
@@ -51,7 +51,7 @@ trait FreemiumPropertiesAwareTrait
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getFreemiumDurationType(): ?string
     {
@@ -59,7 +59,7 @@ trait FreemiumPropertiesAwareTrait
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setFreemiumDurationType(string $freemiumDurationType): void
     {
@@ -67,7 +67,7 @@ trait FreemiumPropertiesAwareTrait
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getFreemiumUnit(): ?int
     {
@@ -75,7 +75,7 @@ trait FreemiumPropertiesAwareTrait
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setFreemiumUnit(int $freemiumUnit): void
     {

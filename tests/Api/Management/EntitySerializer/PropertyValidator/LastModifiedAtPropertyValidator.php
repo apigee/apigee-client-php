@@ -30,7 +30,7 @@ class LastModifiedAtPropertyValidator implements RemoveIfPropertyValidPropertyVa
     use SerializerAwarePropertyValidatorTrait;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function validate(\stdClass $input, \stdClass $output, EntityInterface $entity): void
     {
@@ -43,7 +43,7 @@ class LastModifiedAtPropertyValidator implements RemoveIfPropertyValidPropertyVa
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static function validatedProperty(): string
     {

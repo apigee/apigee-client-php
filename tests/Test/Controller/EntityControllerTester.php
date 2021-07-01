@@ -26,7 +26,7 @@ use Apigee\Edge\Tests\Test\Utility\EntityStorage;
 final class EntityControllerTester extends EntityControllerTesterBase implements EntityControllerTesterInterface
 {
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function __call($name, $arguments)
     {
@@ -44,7 +44,7 @@ final class EntityControllerTester extends EntityControllerTesterBase implements
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     protected function validateController($controller): void
     {

@@ -35,7 +35,7 @@ class CompanyPrepaidBalanceControllerTest extends PrepaidBalanceControllerTestBa
     protected static $companyName = 'phpunit';
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected static function entityController(ClientInterface $client = null): EntityControllerTesterInterface
     {
@@ -45,7 +45,7 @@ class CompanyPrepaidBalanceControllerTest extends PrepaidBalanceControllerTestBa
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected static function validateRecurringPath(string $actual): void
     {

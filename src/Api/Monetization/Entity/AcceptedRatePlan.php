@@ -51,7 +51,7 @@ abstract class AcceptedRatePlan extends Entity implements AcceptedRatePlanInterf
     protected $prevRecurringFeeDate;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getUpdated(): ?\DateTimeImmutable
     {
@@ -69,7 +69,7 @@ abstract class AcceptedRatePlan extends Entity implements AcceptedRatePlanInterf
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getCreated(): ?\DateTimeImmutable
     {
@@ -87,7 +87,7 @@ abstract class AcceptedRatePlan extends Entity implements AcceptedRatePlanInterf
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getQuotaTarget(): ?int
     {
@@ -95,7 +95,7 @@ abstract class AcceptedRatePlan extends Entity implements AcceptedRatePlanInterf
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setQuotaTarget(int $quotaTarget): void
     {
@@ -103,7 +103,7 @@ abstract class AcceptedRatePlan extends Entity implements AcceptedRatePlanInterf
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getRatePlan(): RatePlanInterface
     {
@@ -111,7 +111,7 @@ abstract class AcceptedRatePlan extends Entity implements AcceptedRatePlanInterf
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setRatePlan(RatePlanInterface $ratePlan): void
     {
@@ -119,7 +119,7 @@ abstract class AcceptedRatePlan extends Entity implements AcceptedRatePlanInterf
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getRenewalDate(): ?\DateTimeImmutable
     {
@@ -137,7 +137,7 @@ abstract class AcceptedRatePlan extends Entity implements AcceptedRatePlanInterf
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getNextCycleStartDate(): ?\DateTimeImmutable
     {
@@ -155,7 +155,7 @@ abstract class AcceptedRatePlan extends Entity implements AcceptedRatePlanInterf
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getNextRecurringFeeDate(): ?\DateTimeImmutable
     {
@@ -173,7 +173,7 @@ abstract class AcceptedRatePlan extends Entity implements AcceptedRatePlanInterf
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getPrevRecurringFeeDate(): ?\DateTimeImmutable
     {

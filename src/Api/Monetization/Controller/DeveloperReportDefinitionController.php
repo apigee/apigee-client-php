@@ -46,7 +46,7 @@ class DeveloperReportDefinitionController extends LegalEntityReportDefinitionCon
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getBaseEndpointUri(): UriInterface
     {
@@ -56,7 +56,7 @@ class DeveloperReportDefinitionController extends LegalEntityReportDefinitionCon
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getEntityClass(): string
     {

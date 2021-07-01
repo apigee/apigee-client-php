@@ -57,7 +57,7 @@ class CompanyMembersControllerTest extends ControllerTestBase
     protected static $testDeveloper2;
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public static function setUpBeforeClass(): void
     {
@@ -71,7 +71,7 @@ class CompanyMembersControllerTest extends ControllerTestBase
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public static function tearDownAfterClass(): void
     {
@@ -141,7 +141,7 @@ class CompanyMembersControllerTest extends ControllerTestBase
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected static function defaultAPIClient(): ClientInterface
     {

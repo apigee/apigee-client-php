@@ -33,7 +33,7 @@ class ApiProductsPropertyValidator implements RemoveIfPropertyValidPropertyValid
     use PropertyValidatorsAwareValidatorTrait;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function validate(\stdClass $input, \stdClass $output, EntityInterface $entity): void
     {
@@ -59,7 +59,7 @@ class ApiProductsPropertyValidator implements RemoveIfPropertyValidPropertyValid
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public static function validatedProperty(): string
     {

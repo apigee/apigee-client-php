@@ -49,7 +49,7 @@ class CompanyReportDefinitionDenormalizer extends ReportDefinitionDenormalizer
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function denormalize($data, $class, $format = null, array $context = [])
     {
@@ -57,7 +57,7 @@ class CompanyReportDefinitionDenormalizer extends ReportDefinitionDenormalizer
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function supportsDenormalization($data, $type, $format = null)
     {

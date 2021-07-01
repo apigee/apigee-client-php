@@ -58,7 +58,7 @@ class ApiRequestException extends ApiException
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function __toString()
     {

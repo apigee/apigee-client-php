@@ -42,7 +42,7 @@ abstract class AbstractOauth implements Authentication
     protected $authServer;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected $deprecatedProperties = ['auth_server' => 'authServer'];
 
@@ -61,7 +61,7 @@ abstract class AbstractOauth implements Authentication
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function authenticate(RequestInterface $request)
     {

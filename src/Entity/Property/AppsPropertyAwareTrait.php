@@ -29,7 +29,7 @@ trait AppsPropertyAwareTrait
     protected $apps = [];
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getApps(): array
     {
@@ -37,7 +37,7 @@ trait AppsPropertyAwareTrait
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function hasApp(string $appName): bool
     {

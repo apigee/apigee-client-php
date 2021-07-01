@@ -25,7 +25,7 @@ use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 class DateTimeZoneDenormalizer implements DenormalizerInterface
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function denormalize($data, $class, $format = null, array $context = [])
     {
@@ -37,7 +37,7 @@ class DateTimeZoneDenormalizer implements DenormalizerInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function supportsDenormalization($data, $type, $format = null)
     {

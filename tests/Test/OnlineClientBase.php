@@ -59,7 +59,7 @@ abstract class OnlineClientBase extends Client implements OnlineClientInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     protected function configureOptions(OptionsResolver $resolver): void
     {

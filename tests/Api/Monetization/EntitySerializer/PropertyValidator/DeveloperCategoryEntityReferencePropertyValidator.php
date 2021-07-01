@@ -29,7 +29,7 @@ class DeveloperCategoryEntityReferencePropertyValidator implements \Apigee\Edge\
     use SerializerAwarePropertyValidatorTrait;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function validate(\stdClass $input, \stdClass $output, EntityInterface $entity): void
     {
@@ -45,7 +45,7 @@ class DeveloperCategoryEntityReferencePropertyValidator implements \Apigee\Edge\
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static function validatedProperty(): string
     {

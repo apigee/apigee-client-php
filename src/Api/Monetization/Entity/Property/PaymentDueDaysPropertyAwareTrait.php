@@ -33,7 +33,7 @@ trait PaymentDueDaysPropertyAwareTrait
     protected $paymentDueDays;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getPaymentDueDays(): ?string
     {
@@ -41,7 +41,7 @@ trait PaymentDueDaysPropertyAwareTrait
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setPaymentDueDays(string $paymentDueDays): void
     {

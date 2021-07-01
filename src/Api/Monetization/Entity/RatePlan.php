@@ -102,7 +102,7 @@ abstract class RatePlan extends OrganizationAwareEntity implements RatePlanInter
     protected $setUpFee = 0.0;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function isAdvance(): bool
     {
@@ -110,7 +110,7 @@ abstract class RatePlan extends OrganizationAwareEntity implements RatePlanInter
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setAdvance(bool $advance): void
     {
@@ -118,7 +118,7 @@ abstract class RatePlan extends OrganizationAwareEntity implements RatePlanInter
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getContractDuration(): ?int
     {
@@ -126,7 +126,7 @@ abstract class RatePlan extends OrganizationAwareEntity implements RatePlanInter
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setContractDuration(int $contractDuration): void
     {
@@ -134,7 +134,7 @@ abstract class RatePlan extends OrganizationAwareEntity implements RatePlanInter
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getContractDurationType(): ?string
     {
@@ -142,7 +142,7 @@ abstract class RatePlan extends OrganizationAwareEntity implements RatePlanInter
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setContractDurationType(string $contractDurationType): void
     {
@@ -150,7 +150,7 @@ abstract class RatePlan extends OrganizationAwareEntity implements RatePlanInter
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getEarlyTerminationFee(): ?float
     {
@@ -158,7 +158,7 @@ abstract class RatePlan extends OrganizationAwareEntity implements RatePlanInter
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setEarlyTerminationFee(float $earlyTerminationFee): void
     {
@@ -166,7 +166,7 @@ abstract class RatePlan extends OrganizationAwareEntity implements RatePlanInter
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getFrequencyDuration(): ?int
     {
@@ -174,7 +174,7 @@ abstract class RatePlan extends OrganizationAwareEntity implements RatePlanInter
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setFrequencyDuration(int $frequencyDuration): void
     {
@@ -182,7 +182,7 @@ abstract class RatePlan extends OrganizationAwareEntity implements RatePlanInter
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getFrequencyDurationType(): ?string
     {
@@ -190,7 +190,7 @@ abstract class RatePlan extends OrganizationAwareEntity implements RatePlanInter
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setFrequencyDurationType(string $frequencyDurationType): void
     {
@@ -198,7 +198,7 @@ abstract class RatePlan extends OrganizationAwareEntity implements RatePlanInter
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function isPrivate(): bool
     {
@@ -206,7 +206,7 @@ abstract class RatePlan extends OrganizationAwareEntity implements RatePlanInter
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setPrivate(bool $private): void
     {
@@ -214,7 +214,7 @@ abstract class RatePlan extends OrganizationAwareEntity implements RatePlanInter
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getPackage(): ?ApiPackageInterface
     {
@@ -222,7 +222,7 @@ abstract class RatePlan extends OrganizationAwareEntity implements RatePlanInter
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setPackage(ApiPackageInterface $package): void
     {
@@ -230,7 +230,7 @@ abstract class RatePlan extends OrganizationAwareEntity implements RatePlanInter
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function isProrate(): bool
     {
@@ -238,7 +238,7 @@ abstract class RatePlan extends OrganizationAwareEntity implements RatePlanInter
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setProrate(bool $prorate): void
     {
@@ -246,7 +246,7 @@ abstract class RatePlan extends OrganizationAwareEntity implements RatePlanInter
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function isPublished(): bool
     {
@@ -254,7 +254,7 @@ abstract class RatePlan extends OrganizationAwareEntity implements RatePlanInter
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setPublished(bool $published): void
     {
@@ -262,7 +262,7 @@ abstract class RatePlan extends OrganizationAwareEntity implements RatePlanInter
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getRatePlanDetails(): array
     {
@@ -270,7 +270,7 @@ abstract class RatePlan extends OrganizationAwareEntity implements RatePlanInter
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setRatePlanDetails(RatePlanDetail ...$ratePlanDetails): void
     {
@@ -278,7 +278,7 @@ abstract class RatePlan extends OrganizationAwareEntity implements RatePlanInter
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getRecurringFee(): ?float
     {
@@ -286,7 +286,7 @@ abstract class RatePlan extends OrganizationAwareEntity implements RatePlanInter
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setRecurringFee(float $recurringFee): void
     {
@@ -294,7 +294,7 @@ abstract class RatePlan extends OrganizationAwareEntity implements RatePlanInter
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getRecurringStartUnit(): ?int
     {
@@ -302,7 +302,7 @@ abstract class RatePlan extends OrganizationAwareEntity implements RatePlanInter
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setRecurringStartUnit(int $recurringStartUnit): void
     {
@@ -310,7 +310,7 @@ abstract class RatePlan extends OrganizationAwareEntity implements RatePlanInter
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getRecurringType(): string
     {
@@ -318,7 +318,7 @@ abstract class RatePlan extends OrganizationAwareEntity implements RatePlanInter
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setRecurringType(string $recurringType): void
     {
@@ -326,7 +326,7 @@ abstract class RatePlan extends OrganizationAwareEntity implements RatePlanInter
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getSetUpFee(): float
     {
@@ -334,7 +334,7 @@ abstract class RatePlan extends OrganizationAwareEntity implements RatePlanInter
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setSetUpFee(float $setUpFee): void
     {

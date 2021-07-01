@@ -65,7 +65,7 @@ abstract class LegalEntityReportDefinitionController extends OrganizationAwareEn
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function generateReport(AbstractCriteria $criteria): string
     {
@@ -73,7 +73,7 @@ abstract class LegalEntityReportDefinitionController extends OrganizationAwareEn
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function delete(string $entityId): void
     {
@@ -81,7 +81,7 @@ abstract class LegalEntityReportDefinitionController extends OrganizationAwareEn
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function load(string $entityId): EntityInterface
     {
@@ -89,7 +89,7 @@ abstract class LegalEntityReportDefinitionController extends OrganizationAwareEn
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function update(EntityInterface $entity): void
     {
