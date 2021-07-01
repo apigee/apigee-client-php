@@ -36,7 +36,7 @@ trait PaginatedEntityIdListingControllerTrait
     }
 
     /**
-     *{ @inheritdoc}
+     * {@inheritdoc}
      */
     abstract protected function listEntityIds(PagerInterface $pager = null, array $query_params = []): array;
 }

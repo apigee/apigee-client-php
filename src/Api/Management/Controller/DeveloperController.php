@@ -30,6 +30,7 @@ use Apigee\Edge\Controller\PaginatedEntityIdListingControllerTrait;
 use Apigee\Edge\Controller\PaginatedEntityListingControllerTrait;
 use Apigee\Edge\Controller\PaginationHelperTrait;
 use Apigee\Edge\Controller\StatusAwareEntityControllerTrait;
+use Apigee\Edge\Entity\EntityInterface;
 use Apigee\Edge\Serializer\EntitySerializerInterface;
 use Apigee\Edge\Structure\PagerInterface;
 use Psr\Http\Message\UriInterface;
@@ -92,6 +93,27 @@ class DeveloperController extends PaginatedEntityController implements Developer
         // The getEntityIds() returns email addresses so we should use email
         // addresses as keys in the array as well.
         return $this->traitGetEntities($pager, 'getEmail');
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * We are enforcing email addresses over developer-ids (UUIDs) when we are updating user profile.
+     *
+     * @psalm-suppress PossiblyNullArgument $entity->originalEmail() is not null here.
+     *
+     * @see https://github.com/apigee/apigee-client-php/issues/153
+     */
+    public function update(EntityInterface $entity): void
+    {
+        /** @var \Apigee\Edge\Api\Management\Entity\Developer $entity */
+        $developer_entity = $entity;
+        $uri = $this->getEntityEndpointUri($developer_entity->originalEmail());
+        $response = $this->getClient()->put(
+            $uri,
+            $this->getEntitySerializer()->serialize($developer_entity, 'json')
+        );
+        $this->getEntitySerializer()->setPropertiesFromResponse($response, $developer_entity);
     }
 
     /**

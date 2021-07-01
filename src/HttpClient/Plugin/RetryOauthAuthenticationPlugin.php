@@ -57,7 +57,7 @@ class RetryOauthAuthenticationPlugin implements Plugin
     {
         return $next($request)->then(function (ResponseInterface $response) {
             return $response;
-        }, function (Exception $exception) use ($request, $next, $first) {
+        }, function (Exception $exception) use ($request, $first) {
             if ($exception instanceof OauthAccessTokenAuthenticationException) {
                 // Mark access token as expired and with that ensure that the authentication plugin gets a new
                 // access token.
