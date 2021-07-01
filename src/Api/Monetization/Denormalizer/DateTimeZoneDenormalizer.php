@@ -32,7 +32,7 @@ class DateTimeZoneDenormalizer implements DenormalizerInterface
         try {
             return new DateTimeZone($data);
         } catch (\Exception $e) {
-            throw new UnexpectedValueException(sprintf('"%s" is not a valid timezone.', $data), $e->getCode(), $e);
+            throw new UnexpectedValueException(sprintf('"%s" is not a valid timezone.', $data), (int) $e->getCode(), $e);
         }
     }
 
