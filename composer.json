@@ -34,19 +34,19 @@
         "symfony/serializer": "^3.4 || ^4.0"
     },
     "require-dev": {
-        "friendsofphp/php-cs-fixer": "^2.16 | ^3",
+        "friendsofphp/php-cs-fixer": "^2.16 || ^3",
         "fzaninotto/faker": "^1.7",
         "guzzlehttp/psr7": "^1.0",
         "league/flysystem": "^1.0",
-        "limedeck/phpunit-detailed-printer": "^3.2 | ^6",
+        "limedeck/phpunit-detailed-printer": "^6",
         "monolog/monolog": "^1.23",
         "php-http/guzzle6-adapter": "^2.0",
         "php-http/mock-client": "^1.1.0",
         "phpmetrics/phpmetrics": "^2.3",
-        "phpunit/phpunit": "^6.4.0 || ^7 || ^9",
-        "sebastian/comparator": "^2.1 || ^4",
+        "phpunit/phpunit": "^6.4.0 || ^9",
+        "sebastian/comparator": "^2 || ^4",
         "symfony/cache": "~3.4 || ~4.0",
-        "vimeo/psalm": "^2.0.0 || ^3"
+        "vimeo/psalm": "^3"
     },
     "conflict": {
         "guzzlehttp/guzzle": "<6.1.0",
