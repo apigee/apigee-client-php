@@ -46,7 +46,7 @@
         "phpunit/phpunit": "^6.4.0 || ^9",
         "sebastian/comparator": "^2 || ^4",
         "symfony/cache": "~3.4 || ~4.0",
-        "vimeo/psalm": "^3"
+        "vimeo/psalm": "^2.0.0 || ^3"
     },
     "conflict": {
         "guzzlehttp/guzzle": "<6.1.0",
