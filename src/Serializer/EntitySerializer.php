@@ -71,9 +71,9 @@ class EntitySerializer implements EntitySerializerInterface
     /**
      * {@inheritdoc}
      */
-    public function denormalize($data, $class, $format = null, array $context = [])
+    public function denormalize($data, $type, $format = null, array $context = [])
     {
-        return $this->serializer->denormalize($data, $class, $format, $context);
+        return $this->serializer->denormalize($data, $type, $format, $context);
     }
 
     /**

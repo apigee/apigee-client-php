@@ -528,7 +528,7 @@ class OrganizationProfile extends Entity implements OrganizationProfileInterface
     /**
      * @param string $status
      *
-     * @internal
+     * {@internal}
      */
     public function setStatus(string $status): void
     {

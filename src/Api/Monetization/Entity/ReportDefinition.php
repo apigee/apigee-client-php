@@ -64,7 +64,7 @@ class ReportDefinition extends Entity implements ReportDefinitionInterface
     /**
      * {@inheritdoc}
      *
-     * @internal
+     * {@internal}
      */
     public function setLastModified(\DateTimeImmutable $lastModified): void
     {

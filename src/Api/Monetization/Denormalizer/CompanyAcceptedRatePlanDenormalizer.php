@@ -51,7 +51,7 @@ class CompanyAcceptedRatePlanDenormalizer extends AcceptedRatePlanDenormalizer
     /**
      * {@inheritdoc}
      */
-    public function denormalize($data, $class, $format = null, array $context = [])
+    public function denormalize($data, $type, $format = null, array $context = [])
     {
         return parent::denormalize($data, $this->companyAcceptedRatePlanClass, $format, $context);
     }

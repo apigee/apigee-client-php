@@ -32,10 +32,10 @@ abstract class AcceptedRatePlanDenormalizer extends ObjectDenormalizer
      * @psalm-suppress PossiblyNullReference - getPackage() can only return
      * null when a rate plan is created. It does not return null here.
      */
-    public function denormalize($data, $class, $format = null, array $context = [])
+    public function denormalize($data, $type, $format = null, array $context = [])
     {
         /** @var \Apigee\Edge\Api\Monetization\Entity\AcceptedRatePlanInterface $denormalized */
-        $denormalized = parent::denormalize($data, $class, $format, $context);
+        $denormalized = parent::denormalize($data, $type, $format, $context);
 
         $this->fixTimeZoneOnDenormalization($data, $denormalized, $denormalized->getRatePlan()->getPackage()->getOrganization()->getTimezone());
 

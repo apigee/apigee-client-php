@@ -99,7 +99,7 @@ abstract class LegalEntity extends OrganizationAwareEntity implements LegalEntit
     /**
      * @param string $billingType
      *
-     * @internal
+     * {@internal}
      */
     public function setBillingType(string $billingType): void
     {
@@ -117,7 +117,7 @@ abstract class LegalEntity extends OrganizationAwareEntity implements LegalEntit
     /**
      * @param string $type
      *
-     * @internal
+     * {@internal}
      */
     public function setType(string $type): void
     {
@@ -135,7 +135,7 @@ abstract class LegalEntity extends OrganizationAwareEntity implements LegalEntit
     /**
      * @param string $legalName
      *
-     * @internal
+     * {@internal}
      */
     public function setLegalName(string $legalName): void
     {
@@ -171,7 +171,7 @@ abstract class LegalEntity extends OrganizationAwareEntity implements LegalEntit
     /**
      * @param string $registrationId
      *
-     * @internal
+     * {@internal}
      */
     public function setRegistrationId(string $registrationId): void
     {
@@ -189,7 +189,7 @@ abstract class LegalEntity extends OrganizationAwareEntity implements LegalEntit
     /**
      * @param \Apigee\Edge\Api\Monetization\Entity\DeveloperCategory $developerCategory
      *
-     * @internal
+     * {@internal}
      */
     public function setDeveloperCategory(DeveloperCategory $developerCategory): void
     {
@@ -207,7 +207,7 @@ abstract class LegalEntity extends OrganizationAwareEntity implements LegalEntit
     /**
      * @param float $approxTaxRate
      *
-     * @internal
+     * {@internal}
      */
     public function setApproxTaxRate(float $approxTaxRate): void
     {
@@ -225,7 +225,7 @@ abstract class LegalEntity extends OrganizationAwareEntity implements LegalEntit
     /**
      * @param string $taxExemptAuthNo
      *
-     * @internal
+     * {@internal}
      */
     public function setTaxExemptAuthNo(string $taxExemptAuthNo): void
     {

@@ -27,12 +27,12 @@ class DateTimeZoneDenormalizer implements DenormalizerInterface
     /**
      * {@inheritdoc}
      */
-    public function denormalize($data, $class, $format = null, array $context = [])
+    public function denormalize($data, $type, $format = null, array $context = [])
     {
         try {
             return new DateTimeZone($data);
         } catch (\Exception $e) {
-            throw new UnexpectedValueException(sprintf('"%s" is not a valid timezone.', $data), $e->getCode(), $e);
+            throw new UnexpectedValueException(sprintf('"%s" is not a valid timezone.', $data), (int) $e->getCode(), $e);
         }
     }
 

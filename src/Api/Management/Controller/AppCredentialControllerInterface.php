@@ -104,10 +104,11 @@ interface AppCredentialControllerInterface extends
      *
      * @see https://docs.apigee.com/management/apis/post/organizations/%7Borg_name%7D/developers/%7Bdeveloper_email_or_id%7D/apps/%7Bapp_name%7D/keys/%7Bconsumer_key%7D-0
      *
-     * @param string $consumerKey
+     * @param string $entityId
+     *   The consumer key
      * @param string $status
      */
-    public function setStatus(string $consumerKey, string $status): void;
+    public function setStatus(string $entityId, string $status): void;
 
     /**
      * Approve or revoke API product for an API key.
