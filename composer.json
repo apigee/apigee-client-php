@@ -34,11 +34,11 @@
         "symfony/serializer": "^3.4 || ^4.0"
     },
     "require-dev": {
-        "friendsofphp/php-cs-fixer": "^2.16",
+        "friendsofphp/php-cs-fixer": "^2.16 | ^3",
         "fzaninotto/faker": "^1.7",
         "guzzlehttp/psr7": "^1.0",
         "league/flysystem": "^1.0",
-        "limedeck/phpunit-detailed-printer": "^3.2",
+        "limedeck/phpunit-detailed-printer": "^3.2 | ^6",
         "monolog/monolog": "^1.23",
         "php-http/guzzle6-adapter": "^2.0",
         "php-http/mock-client": "^1.1.0",
