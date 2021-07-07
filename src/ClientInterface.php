@@ -34,6 +34,7 @@ interface ClientInterface extends HttpClient
      * Default endpoint for Apigee Edge Public Cloud.
      *
      * @var string
+     *
      * @deprecated in 2.0.9, will be removed in 3.0.0. No longer needed.
      * https://github.com/apigee/apigee-client-php/issues/112
      */
@@ -50,6 +51,7 @@ interface ClientInterface extends HttpClient
      * Default endpoint for Apigee Edge Hybrid Cloud.
      *
      * @var string
+     *
      * @deprecated in 2.0.9, will be removed in 3.0.0. No longer needed.
      * https://github.com/apigee/apigee-client-php/issues/112
      */
