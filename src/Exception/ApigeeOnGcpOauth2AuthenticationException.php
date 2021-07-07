@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright 2019 Google LLC
+ * Copyright 2021 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,10 +19,8 @@
 namespace Apigee\Edge\Exception;
 
 /**
- * For HybridOauth2Authentication authentication issues.
- * @deprecated in 2.0.9, will be removed in 3.0.0.
- * https://github.com/apigee/apigee-client-php/issues/112
+ * For ApigeeOnGcpOauth2Authentication authentication issues.
  */
-class HybridOauth2AuthenticationException extends ApiException
+class ApigeeOnGcpOauth2AuthenticationException extends ApiException
 {
 }

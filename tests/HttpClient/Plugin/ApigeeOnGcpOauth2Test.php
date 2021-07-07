@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright 2019 Google LLC
+ * Copyright 2021 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,21 +23,19 @@ use Apigee\Edge\ClientInterface;
 use Apigee\Edge\HttpClient\Utility\Builder;
 use Apigee\Edge\Tests\Test\HttpClient\MockHttpClient;
 use Apigee\Edge\Tests\Test\HttpClient\Plugin\InMemoryOauthTokenStorage;
-use Apigee\Edge\Tests\Test\HttpClient\Plugin\MockHybridOauth2;
+use Apigee\Edge\Tests\Test\HttpClient\Plugin\MockApigeeOnGcpOauth2;
 use Apigee\Edge\Tests\Test\HttpClient\Utility\TestJournal;
 use GuzzleHttp\Psr7\Response;
 use Http\Client\Exception\TransferException;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class HybridOauth2Test.
+ * Class ApigeeOnGcpOauth2Test.
  *
  * @group client
  * @small
- * @deprecated in 2.0.9, will be removed in 3.0.0.
- * https://github.com/apigee/apigee-client-php/issues/112
  */
-class HybridOauth2Test extends TestCase
+class ApigeeOnGcpOauth2Test extends TestCase
 {
     private const API_ENDPOINT = 'http://api.example.com/v1';
 
@@ -76,7 +74,7 @@ class HybridOauth2Test extends TestCase
     }
 
     /**
-     * @expectedException \Apigee\Edge\Exception\HybridOauth2AuthenticationException
+     * @expectedException \Apigee\Edge\Exception\ApigeeOnGcpOauth2AuthenticationException
      */
     public function testIncorrectCredentials(): void
     {
@@ -86,7 +84,7 @@ class HybridOauth2Test extends TestCase
     }
 
     /**
-     * @expectedException \Apigee\Edge\Exception\HybridOauth2AuthenticationException
+     * @expectedException \Apigee\Edge\Exception\ApigeeOnGcpOauth2AuthenticationException
      */
     public function testAuthServerError(): void
     {
@@ -145,7 +143,7 @@ class HybridOauth2Test extends TestCase
 
         // Check that first call to the API makes a request for a token first.
         $request = array_shift($requests);
-        $this->assertEquals(MockHybridOauth2::AUTH_SERVER, (string) $request->getUri());
+        $this->assertEquals(MockApigeeOnGcpOauth2::AUTH_SERVER, (string) $request->getUri());
         $this->assertEmpty($request->getHeaderLine('Authorization'));
 
         // Check that first API call includes the bearer token authorization header.
@@ -160,7 +158,7 @@ class HybridOauth2Test extends TestCase
 
         // Third call to the API - this one returned the 401 response, so it should be for a new token.
         $request = array_shift($requests);
-        $this->assertEquals(MockHybridOauth2::AUTH_SERVER, (string) $request->getUri());
+        $this->assertEquals(MockApigeeOnGcpOauth2::AUTH_SERVER, (string) $request->getUri());
         $this->assertEmpty($request->getHeaderLine('Authorization'));
 
         // Check the third API call concludes by making a request to the API endpoint with the bearer token header.
@@ -212,7 +210,7 @@ ol+LjqszLKpNmRhBvWcve/wbsMRWjdIk9ISmX5hCxQjpDobR52o=
 -----END RSA PRIVATE KEY-----';
 
         return new Client(
-            new MockHybridOauth2($email, $privateKey, $this->tokenStorage, static::$httpClient, $this->journal),
+            new MockApigeeOnGcpOauth2($email, $privateKey, $this->tokenStorage, static::$httpClient, $this->journal),
             self::API_ENDPOINT,
             $options
         );
