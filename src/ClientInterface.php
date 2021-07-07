@@ -34,17 +34,35 @@ interface ClientInterface extends HttpClient
      * Default endpoint for Apigee Edge Public Cloud.
      *
      * @var string
+     * @deprecated in 2.0.9, will be removed in 3.0.0. No longer needed.
+     * https://github.com/apigee/apigee-client-php/issues/112
      */
     public const DEFAULT_ENDPOINT = 'https://api.enterprise.apigee.com/v1';
+
+    /**
+     * Default endpoint for Apigee Edge Public Cloud.
+     *
+     * @var string
+     */
+    public const EDGE_ENDPOINT = 'https://api.enterprise.apigee.com/v1';
 
     /**
      * Default endpoint for Apigee Edge Hybrid Cloud.
      *
      * @var string
+     * @deprecated in 2.0.9, will be removed in 3.0.0. No longer needed.
+     * https://github.com/apigee/apigee-client-php/issues/112
      */
     public const HYBRID_ENDPOINT = 'https://apigee.googleapis.com/v1';
 
-    public const VERSION = '2.0.8';
+    /**
+     * Default endpoint for Apigee Management API on GCP.
+     *
+     * @var string
+     */
+    public const APIGEE_ON_GCP_ENDPOINT = 'https://apigee.googleapis.com/v1';
+
+    public const VERSION = '2.0.9';
 
     /**
      * Allows access to the last request, response and exception.
