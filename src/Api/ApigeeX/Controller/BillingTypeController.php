@@ -33,7 +33,7 @@ abstract class BillingTypeController extends EntityController implements Billing
     use PaginatedListingHelperTrait;
 
     /**
-     * BillingTypeController constructor.
+     * BillingTypeController constructor .
      *
      * @param string $organization
      * @param \Apigee\Edge\ClientInterface $client
