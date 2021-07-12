@@ -43,6 +43,7 @@ trait ListingHelperTrait
     protected function getRawList(UriInterface $uri): array
     {
         $response = $this->getClient()->get($uri);
+
         $responseArray = $this->responseToArray($response);
 
         //ApigeeX can return empty array.
@@ -52,6 +53,37 @@ trait ListingHelperTrait
 
         // Ignore entity type key from response, ex.: product.
         return reset($responseArray);
+    }
+
+    /**
+     * Returns a raw API response as an array when there is single value in api response.
+     *
+     * @param \Psr\Http\Message\UriInterface $uri
+     *   URI of the endpoint where the request should be sent.
+     *
+     * @return array
+     *   API response as an array.
+     */
+    protected function getRawSingleList(UriInterface $uri): array
+    {
+        $response = $this->getClient()->get($uri);
+        $responseArray = $this->responseToArray($response);
+
+        return $responseArray;
+    }
+
+    /**
+     * Returns an array of supported currency.
+     *
+     * @param $array $currencyArray
+     *   Supported currency array
+     *
+     * @return array
+     *   Values as an array.
+     */
+    protected function getdefaultCurrency($currencyArray): array
+    {
+        return $this->responseArrayToArrayOfEntities($currencyArray);
     }
 
     abstract protected function responseToArray(ResponseInterface $response, bool $expandCompatibility = false): array;
