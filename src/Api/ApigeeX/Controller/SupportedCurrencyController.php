@@ -34,7 +34,7 @@ class SupportedCurrencyController extends OrganizationAwareEntityController impl
     use PaginatedListingHelperTrait;
 
     /**
-     * SupportedCurrencyController constructor.
+     * SupportedCurrencyController constructor .
      *
      * @param string $organization
      * @param \Apigee\Edge\ClientInterface $client
