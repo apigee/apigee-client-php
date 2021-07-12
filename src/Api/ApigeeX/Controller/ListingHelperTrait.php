@@ -75,7 +75,7 @@ trait ListingHelperTrait
     /**
      * Returns an array of supported currency.
      *
-     * @param $array $currencyArray
+     * @param array $currencyArray
      *   Supported currency array
      *
      * @return array
