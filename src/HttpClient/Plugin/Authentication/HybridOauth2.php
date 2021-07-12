@@ -116,7 +116,7 @@ class HybridOauth2 extends AbstractOauth
         try {
             $jwt = JWT::encode($token, $this->privateKey, 'RS256');
         } catch (DomainException $e) {
-            throw new HybridOauth2AuthenticationException($e->getMessage(), $e->getCode(), $e);
+            throw new HybridOauth2AuthenticationException($e->getMessage(), (int) $e->getCode(), $e);
         }
 
         $body = [
@@ -129,7 +129,7 @@ class HybridOauth2 extends AbstractOauth
             $decodedResponse = json_decode((string) $response->getBody(), true);
             $this->tokenStorage->saveToken($decodedResponse);
         } catch (Exception $e) {
-            throw new HybridOauth2AuthenticationException($e->getMessage(), $e->getCode(), $e);
+            throw new HybridOauth2AuthenticationException($e->getMessage(), (int) $e->getCode(), $e);
         }
     }
 }
