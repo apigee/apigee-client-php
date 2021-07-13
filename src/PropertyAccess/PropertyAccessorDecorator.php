@@ -178,7 +178,7 @@ final class PropertyAccessorDecorator implements PropertyAccessorInterface
      *
      * @see \Symfony\Component\PropertyAccess\PropertyAccessor::throwInvalidArgumentException()
      */
-    private static function processTypeErrorOnSetValue($message, $trace, $i, $previous = null)
+    private static function processTypeErrorOnSetValue($message, $trace, $i, $previous = null): void
     {
         if (!isset($trace[$i]['file']) || __FILE__ !== $trace[$i]['file']) {
             return;
