@@ -35,6 +35,9 @@ install:
   - echo -en "max_execution_time = 0\nxdebug.default_enable = 0" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
 
   - travis_retry composer update $COMPOSER_OPTIONS $DEPENDENCIES
+
+  - if [[ $(phpenv version-name) = "7.3" ]]; then composer require symfony/polyfill-mbstring:1.19.0 --update-with-dependencies $DEPENDENCIES; fi
+
   # Fix PHPUnit tests on PHP >= 7.2 by upgrading Guzzle to >= 6.3.0.
   # https://github.com/guzzle/guzzle/issues/1973
   - if [[ $(phpenv version-name) = "7.3" ]] && [[ "$DEPENDENCIES" = "--prefer-lowest" ]]; then composer require guzzlehttp/guzzle:^6.3.0 --update-with-dependencies $DEPENDENCIES; fi

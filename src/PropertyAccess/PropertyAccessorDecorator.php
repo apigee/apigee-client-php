@@ -177,6 +177,8 @@ final class PropertyAccessorDecorator implements PropertyAccessorInterface
      * @param $previous
      *
      * @see \Symfony\Component\PropertyAccess\PropertyAccessor::throwInvalidArgumentException()
+     *
+     * @psalm-suppress PossiblyFalseOperand
      */
     private static function processTypeErrorOnSetValue($message, $trace, $i, $previous = null): void
     {
