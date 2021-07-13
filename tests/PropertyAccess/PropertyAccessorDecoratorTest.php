@@ -189,7 +189,7 @@ class PropertyAccessorDecoratorTest extends PropertyAccessorTest
     public function exceptionsToGetOnSetValue(): array
     {
         return [
-            ['shouldBeAStringArray', [null], InvalidArgumentException::class, '/^Expected argument of type "string", "NULL" given/'],
+            ['shouldBeAStringArray', [null], InvalidArgumentException::class, '/^Expected argument of type "string", "null" given/'],
         ];
     }
 }

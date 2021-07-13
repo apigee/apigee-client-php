@@ -76,7 +76,7 @@ final class PropertyAccessorDecorator implements PropertyAccessorInterface
                         $objectOrArray->{$setter}(...$value);
                     }
                 } catch (\TypeError $typeError) {
-                    self::processTypeErrorOnSetValue($typeError->getMessage(), $typeError->getTrace(), 0);
+                    self::processTypeErrorOnSetValue($typeError->getMessage(), $typeError->getTrace(), 0, $typeError);
 
                     // Rethrow the exception if it could not be transformed
                     // to an invalid argument exception.
@@ -174,24 +174,34 @@ final class PropertyAccessorDecorator implements PropertyAccessorInterface
      * @param $message
      * @param $trace
      * @param $i
+     * @param $previous
      *
      * @see \Symfony\Component\PropertyAccess\PropertyAccessor::throwInvalidArgumentException()
      */
-    private static function processTypeErrorOnSetValue($message, $trace, $i): void
+    private static function processTypeErrorOnSetValue($message, $trace, $i, $previous = null)
     {
-        if (0 !== strpos($message, 'Argument ')) {
+        if (!isset($trace[$i]['file']) || __FILE__ !== $trace[$i]['file']) {
             return;
         }
 
-        if (isset($trace[$i]['file']) && __FILE__ === $trace[$i]['file'] && array_key_exists(0, $trace[$i]['args'])) {
-            $pos = strpos($message, $delim = 'must be of the type ') ?: (strpos($message, $delim = 'must be an instance of ') ?: strpos($message, $delim = 'must implement interface '));
-            if (false !== $pos) {
-                $pos += \strlen($delim);
-                $type = $trace[$i]['args'][0];
-                $type = \is_object($type) ? \get_class($type) : \gettype($type);
-
-                throw new InvalidArgumentException(sprintf('Expected argument of type "%s", "%s" given.', substr($message, $pos, (int) strpos($message, ',', $pos) - $pos), $type));
+        if (\PHP_VERSION_ID < 80000) {
+            if (0 !== strpos($message, 'Argument ')) {
+                return;
             }
+
+            $pos = strpos($message, $delim = 'must be of the type ') ?: (strpos($message, $delim = 'must be an instance of ') ?: strpos($message, $delim = 'must implement interface '));
+            $pos += \strlen($delim);
+            $j = strpos($message, ',', $pos);
+            $type = substr($message, 2 + $j, strpos($message, ' given', $j) - $j - 2);
+            $message = substr($message, $pos, $j - $pos);
+
+            throw new InvalidArgumentException(sprintf('Expected argument of type "%s", "%s" given.', $message, 'NULL' === $type ? 'null' : $type), 0, $previous);
+        }
+
+        if (preg_match('/^\S+::\S+\(\): Argument #\d+ \(\$\S+\) must be of type (\S+), (\S+) given/', $message, $matches)) {
+            list(, $expectedType, $actualType) = $matches;
+
+            throw new InvalidArgumentException(sprintf('Expected argument of type "%s", "%s" given.', $expectedType, 'NULL' === $actualType ? 'null' : $actualType), 0, $previous);
         }
     }
 }
