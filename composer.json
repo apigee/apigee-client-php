@@ -31,7 +31,7 @@
         "symfony/options-resolver": "^3.4 || ^4.0",
         "symfony/property-access": "^3.4.41 || ^4.4.9",
         "symfony/property-info": "^3.4 || ^4.0",
-        "symfony/serializer": "^3.4 || ^4.0"
+        "symfony/serializer": "^4.4"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.19",
@@ -46,7 +46,7 @@
         "phpunit/phpunit": "^7",
         "sebastian/comparator": "^3",
         "symfony/cache": "~3.4 || ~4.0",
-        "vimeo/psalm": "^3.0.0"
+        "vimeo/psalm": "^3.18.2"
     },
     "conflict": {
         "guzzlehttp/guzzle": "<6.1.0",
