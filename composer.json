@@ -44,7 +44,7 @@
         "php-http/mock-client": "^1.1.0",
         "phpmetrics/phpmetrics": "^2.3",
         "phpunit/phpunit": "^8.2.3",
-        "sebastian/comparator": "^4",
+        "sebastian/comparator": "^3.0.3",
         "symfony/cache": "~3.4 || ~4.0",
         "vimeo/psalm": "^3.18.2"
     },
