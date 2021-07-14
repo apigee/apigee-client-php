@@ -27,6 +27,8 @@ trait FilteredReportDefinitionsTrait
 
     /**
      * {@inheritdoc}
+     *
+     * @return \Apigee\Edge\Api\Monetization\Entity\ReportDefinitionInterface[]
      */
     public function getFilteredEntities(int $limit = null, int $page = 1, string $sort = null): array
     {

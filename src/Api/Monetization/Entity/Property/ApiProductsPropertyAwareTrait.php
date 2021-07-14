@@ -32,6 +32,8 @@ trait ApiProductsPropertyAwareTrait
 
     /**
      * {@inheritdoc}
+     *
+     * @return \Apigee\Edge\Api\Monetization\Entity\ApiProductInterface[]
      */
     public function getApiProducts(): array
     {

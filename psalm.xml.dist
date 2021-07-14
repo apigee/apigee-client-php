@@ -3,6 +3,8 @@
     name="Apigee Edge PHP API client default configuration"
     totallyTyped="false"
     useDocblockTypes="true"
+    memoizeMethodCallResults="true"
+    allowStringToStandInForClass="true"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns="https://getpsalm.org/schema/config"
     xsi:schemaLocation="https://getpsalm.org/schema/config file:///var/www/html/vendor/vimeo/psalm/config.xsd"

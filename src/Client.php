@@ -169,7 +169,7 @@ class Client implements ClientInterface
     /**
      * {@inheritdoc}
      */
-    public function getUserAgent(): string
+    public function getUserAgent(): ?string
     {
         if (null !== $this->userAgentPrefix) {
             return sprintf("{$this->userAgentPrefix} ({$this->getClientVersion()})");

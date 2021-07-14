@@ -43,7 +43,7 @@ class CredentialProductDenormalizer implements DenormalizerInterface
     /**
      * {@inheritdoc}
      */
-    public function denormalize($data, $class, $format = null, array $context = [])
+    public function denormalize($data, $type, $format = null, array $context = [])
     {
         return new CredentialProduct($data->apiproduct, $data->status);
     }

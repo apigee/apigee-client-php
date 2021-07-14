@@ -47,7 +47,7 @@ class TestClientFactory
     {
     }
 
-    private function __wakeup(): void
+    public function __wakeup(): void
     {
     }
 

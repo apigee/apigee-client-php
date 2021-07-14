@@ -134,7 +134,7 @@ class ApiProductController extends OrganizationAwareEntityController implements 
             }
         }
 
-        $current_ms = substr(microtime(true) * 1000, 0);
+        $current_ms = substr((string) (microtime(true) * 1000), 0);
 
         foreach ($this->getAvailablexApiProducts($type, $entityId, true) as $item) {
             // Create a new rate plan controller.

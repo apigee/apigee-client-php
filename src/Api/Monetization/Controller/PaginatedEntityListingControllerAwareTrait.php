@@ -31,6 +31,8 @@ trait PaginatedEntityListingControllerAwareTrait
 
     /**
      * {@inheritdoc}
+     *
+     * @return \Apigee\Edge\Entity\EntityInterface[]
      */
     public function getEntities(): array
     {
@@ -39,6 +41,8 @@ trait PaginatedEntityListingControllerAwareTrait
 
     /**
      * {@inheritdoc}
+     *
+     * @return \Apigee\Edge\Entity\EntityInterface[]
      */
     public function getPaginatedEntityList(int $limit = null, int $page = 1): array
     {
