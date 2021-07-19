@@ -116,25 +116,28 @@ class Oauth extends AbstractOauth
     {
         if ($this->tokenStorage->getRefreshToken()) {
             $body = [
-                'grant_type' => 'refresh_token',
-                'refresh_token' => $this->tokenStorage->getRefreshToken(),
+                'grant_type=refresh_token',
+                "refresh_token={$this->tokenStorage->getRefreshToken()}",
             ];
         } else {
             $body = [
-                'grant_type' => 'password',
-                'username' => $this->username,
-                'password' => $this->password,
+                'grant_type=password',
+                "username={$this->username}",
+                "password={$this->password}",
             ];
             if (!empty($this->mfaToken)) {
-                $body['mfa_token'] = $this->mfaToken;
+                $body[] = "mfa_token={$this->mfaToken}";
             }
             if (!empty($this->scope)) {
-                $body['scope'] = $this->scope;
+                $body[] = "scope={$this->scope}";
             }
         }
 
         try {
-            $response = $this->authClient()->post('', http_build_query($body), ['Content-Type' => 'application/x-www-form-urlencoded']);
+            // html_build_query() would encode special characters in values which could lead to a malformed payload.
+            // This solution here is similar to what common PSR-7 implementations provides in an extra function
+            // (like \GuzzleHttp\Psr7\build_query()) besides a PSR-7 implementation.
+            $response = $this->authClient()->post('', implode('&', $body), ['Content-Type' => 'application/x-www-form-urlencoded']);
             $this->tokenStorage->saveToken(json_decode((string) $response->getBody(), true));
         } catch (OauthRefreshTokenExpiredException $e) {
             // Clear data in token storage because refresh token has expired.
