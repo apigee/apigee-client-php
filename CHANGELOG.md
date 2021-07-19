@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## [2.0.9](https://github.com/apigee/apigee-client-php/milestone/8?closed=1)
+* [#150] Fixed bug that prevented purchase of rate plan for PHP 7.3 ApigeeX org.
+* [#153] Fix for failing user profile update for ApigeeX org.
+* [#157] Fix phpdoc_tag_type and lambda_not_used_import error.
+* [#112] Changed ClientInterface constant names and HybridOauth2 class to fit new Apigee naming.
+
 ## [2.0.8](https://github.com/apigee/apigee-client-php/milestone/7?closed=1)
 * Fixed bug that was throwing error on returning string response (ApiResponseException)
 * (Monetization) Added addition fields to Rateplan entity.
