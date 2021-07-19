@@ -63,10 +63,13 @@ interface AppCredentialControllerInterface extends
      * @param string[] $apiProducts
      *   API Product names.
      * @param \Apigee\Edge\Structure\AttributesProperty $appAttributes
-     *   Current attributes of the app. "In this API call, be sure to include any existing app attributes.
-     *   If you don't, the existing attributes are deleted."
+     *   (deprecated) Current attributes of the app. "In this API call, be sure to include any existing app attributes.
+     *   If you don't, the existing attributes are deleted.
+     *   The $appAttributes parameter is deprecated in 2.0.7 and is removed from 3.0.0.
      * @param string $callbackUrl
-     *   Current callback url of the app. (If you don't include it then the existing callback url gets deleted.)
+     *   (deprecated) Current callback url of the app.
+     *   If you don't include it then the existing callback url gets deleted.
+     *   The $callbackUrl parameter is deprecated in 2.0.7 and is removed from 3.0.0.
      * @param string[] $scopes
      *   List of OAuth scopes (from API products).
      * @param string $keyExpiresIn
