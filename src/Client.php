@@ -138,7 +138,7 @@ class Client implements ClientInterface
         array $options = []
     ) {
         $this->authentication = $authentication;
-        $this->endpoint = $endpoint ?: self::DEFAULT_ENDPOINT;
+        $this->endpoint = $endpoint ?: self::EDGE_ENDPOINT;
         $this->resolveConfiguration($options);
     }
 
