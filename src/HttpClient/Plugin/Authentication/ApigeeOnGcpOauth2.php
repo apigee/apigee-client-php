@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright 2019 Google LLC
+ * Copyright 2021 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,22 +20,20 @@ namespace Apigee\Edge\HttpClient\Plugin\Authentication;
 
 use Apigee\Edge\Client;
 use Apigee\Edge\ClientInterface;
-use Apigee\Edge\Exception\HybridOauth2AuthenticationException;
+use Apigee\Edge\Exception\ApigeeOnGcpOauth2AuthenticationException;
 use DomainException;
 use Firebase\JWT\JWT;
 use Http\Client\Exception;
 
 /**
- * HybridOauth2 authentication plugin for authenticating to Hybrid Cloud API.
+ * ApigeeOnGcpOauth2 authentication plugin for authenticating to GCP API.
  *
  * @see https://developers.google.com/identity/protocols/OAuth2ServiceAccount
- * @deprecated in 2.0.9, will be removed in 3.0.0.
- * https://github.com/apigee/apigee-client-php/issues/112
  */
-class HybridOauth2 extends AbstractOauth
+class ApigeeOnGcpOauth2 extends AbstractOauth
 {
     /**
-     * Authorization server for Apigee Hybrid authentication.
+     * Authorization server for Apigee on GCP authentication.
      *
      * @var string
      */
@@ -118,7 +116,7 @@ class HybridOauth2 extends AbstractOauth
         try {
             $jwt = JWT::encode($token, $this->privateKey, 'RS256');
         } catch (DomainException $e) {
-            throw new HybridOauth2AuthenticationException($e->getMessage(), (int) $e->getCode(), $e);
+            throw new ApigeeOnGcpOauth2AuthenticationException($e->getMessage(), $e->getCode(), $e);
         }
 
         $body = [
@@ -131,7 +129,7 @@ class HybridOauth2 extends AbstractOauth
             $decodedResponse = json_decode((string) $response->getBody(), true);
             $this->tokenStorage->saveToken($decodedResponse);
         } catch (Exception $e) {
-            throw new HybridOauth2AuthenticationException($e->getMessage(), (int) $e->getCode(), $e);
+            throw new ApigeeOnGcpOauth2AuthenticationException($e->getMessage(), $e->getCode(), $e);
         }
     }
 }
