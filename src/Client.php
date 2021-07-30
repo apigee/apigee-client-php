@@ -172,9 +172,15 @@ class Client implements ClientInterface
     public function getUserAgent(): string
     {
         if (null !== $this->userAgentPrefix) {
+            $userAgent = explode('~', $this->userAgentPrefix);
+            if (count($userAgent) > 1) {
+                if ("" === $userAgent[1]) {
+                    return sprintf("{$userAgent[0]} ({$this->getClientVersion()}; {$userAgent[2]}; {$this->getPHPVersion()})");
+                }
+                return sprintf("{$userAgent[1]} ({$userAgent[0]}; {$this->getClientVersion()}; {$userAgent[2]}; {$this->getPHPVersion()})");
+            }
             return sprintf("{$this->userAgentPrefix} ({$this->getClientVersion()})");
         }
-
         return $this->getClientVersion();
     }
 
@@ -183,7 +189,15 @@ class Client implements ClientInterface
      */
     public function getClientVersion(): string
     {
-        return sprintf('Apigee Edge PHP Client %s', self::VERSION);
+        return sprintf('Apigee Edge PHP Client/%s', self::VERSION);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getPHPVersion(): string
+    {
+        return sprintf('PHP/%s', phpversion());
     }
 
     /**
