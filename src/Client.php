@@ -174,13 +174,16 @@ class Client implements ClientInterface
         if (null !== $this->userAgentPrefix) {
             $userAgent = explode('~', $this->userAgentPrefix);
             if (count($userAgent) > 1) {
-                if ("" === $userAgent[1]) {
+                if ('' === $userAgent[1]) {
                     return sprintf("{$userAgent[0]} ({$this->getClientVersion()}; {$userAgent[2]}; {$this->getPHPVersion()})");
                 }
+
                 return sprintf("{$userAgent[1]} ({$userAgent[0]}; {$this->getClientVersion()}; {$userAgent[2]}; {$this->getPHPVersion()})");
             }
+
             return sprintf("{$this->userAgentPrefix} ({$this->getClientVersion()})");
         }
+
         return $this->getClientVersion();
     }
 
