@@ -19,6 +19,7 @@
 namespace Apigee\Edge\Api\ApigeeX\Entity;
 
 use Apigee\Edge\Api\ApigeeX\Entity\Property\ApiProductPropertyInterface;
+use Apigee\Edge\Api\ApigeeX\Entity\Property\EndTimePropertyInterface;
 use Apigee\Edge\Api\ApigeeX\Structure\ConsumptionPricingRate;
 use Apigee\Edge\Api\ApigeeX\Structure\FixedRecurringFee;
 use Apigee\Edge\Api\ApigeeX\Structure\RatePlanXFee;
@@ -33,6 +34,7 @@ interface RatePlanInterface extends
     DescriptionPropertyInterface,
     DisplayNamePropertyInterface,
     ApiProductPropertyInterface,
+    EndTimePropertyInterface,
     NamePropertyInterface
 {
     public const FREQUENCY_DURATION_DAY = 'DAY';

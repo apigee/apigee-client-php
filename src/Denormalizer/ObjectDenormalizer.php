@@ -90,7 +90,7 @@ class ObjectDenormalizer implements DenormalizerInterface, SerializerAwareInterf
     /**
      * {@inheritdoc}
      */
-    public function denormalize($data, $class, $format = null, array $context = [])
+    public function denormalize($data, $type, $format = null, array $context = [])
     {
         // The original input should not be altered.
         if (is_object($data)) {
@@ -108,7 +108,7 @@ class ObjectDenormalizer implements DenormalizerInterface, SerializerAwareInterf
             }
         }
 
-        return $this->objectNormalizer->denormalize($cleanData, $class, $this->format, $context);
+        return $this->objectNormalizer->denormalize($cleanData, $type, $this->format, $context);
     }
 
     /**

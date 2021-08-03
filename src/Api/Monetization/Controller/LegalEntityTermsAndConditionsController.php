@@ -33,7 +33,7 @@ abstract class LegalEntityTermsAndConditionsController extends OrganizationAware
 {
     use EntityListingControllerTrait;
     use ListingHelperTrait {
-        responseArrayToArrayOfEntities as private traitResponseArrayToArrayOfEntities;
+        EntityListingControllerTrait::responseArrayToArrayOfEntities as private traitResponseArrayToArrayOfEntities;
     }
 
     /**

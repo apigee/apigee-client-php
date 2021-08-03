@@ -41,7 +41,7 @@ class PropertiesPropertyDenormalizer extends KeyValueMapDenormalizer
     /**
      * {@inheritdoc}
      */
-    public function denormalize($data, $class, $format = null, array $context = [])
+    public function denormalize($data, $type, $format = null, array $context = [])
     {
         if (is_object($data) && property_exists($data, 'property') && is_array($data->property)) {
             $flatten = [];
@@ -51,6 +51,6 @@ class PropertiesPropertyDenormalizer extends KeyValueMapDenormalizer
             $data = $flatten;
         }
 
-        return parent::denormalize($data, $class, $format, $context);
+        return parent::denormalize($data, $type, $format, $context);
     }
 }

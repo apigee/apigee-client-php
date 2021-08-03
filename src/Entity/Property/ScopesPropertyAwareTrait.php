@@ -30,6 +30,8 @@ trait ScopesPropertyAwareTrait
 
     /**
      * {@inheritdoc}
+     *
+     * @return string[]
      */
     public function getScopes(): array
     {

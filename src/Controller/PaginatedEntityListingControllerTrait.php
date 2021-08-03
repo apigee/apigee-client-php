@@ -29,6 +29,8 @@ trait PaginatedEntityListingControllerTrait
 {
     /**
      * {@inheritdoc}
+     *
+     * @return \Apigee\Edge\Entity\EntityInterface[]
      */
     public function getEntities(PagerInterface $pager = null, string $key_provider = 'id'): array
     {

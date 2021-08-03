@@ -48,7 +48,7 @@ class AttributesPropertyDenormalizer extends KeyValueMapDenormalizer
      *
      * {@inheritdoc}
      */
-    public function denormalize($data, $class, $format = null, array $context = [])
+    public function denormalize($data, $type, $format = null, array $context = [])
     {
         $flatten = [];
         foreach ($data as $key => $item) {
@@ -61,6 +61,6 @@ class AttributesPropertyDenormalizer extends KeyValueMapDenormalizer
         }
         $data = $flatten;
 
-        return parent::denormalize($data, $class, $format, $context);
+        return parent::denormalize($data, $type, $format, $context);
     }
 }

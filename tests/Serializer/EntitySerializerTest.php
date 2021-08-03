@@ -181,7 +181,7 @@ class EntitySerializerTest extends TestCase
 
     /**
      * @expectedException \Symfony\Component\Serializer\Exception\NotNormalizableValueException
-     * @expectedExceptionMessage Expected argument of type "string", "stdClass" given.
+     * @expectedExceptionMessage Expected argument of type "string", "object" given.
      */
     public function testSetPropertiesFromResponseWithInvalidValue(): void
     {
