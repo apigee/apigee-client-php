@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## [2.0.10](https://github.com/apigee/apigee-client-php/milestone/9?closed=1)
+* [#165] Added support for PHP 7.4
+
 ## [2.0.9](https://github.com/apigee/apigee-client-php/milestone/8?closed=1)
 * [#150] Fixed bug that prevented purchase of rate plan for PHP 7.3 ApigeeX org.
 * [#153] Fix for failing user profile update for ApigeeX org.
