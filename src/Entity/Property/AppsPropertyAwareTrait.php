@@ -30,6 +30,8 @@ trait AppsPropertyAwareTrait
 
     /**
      * {@inheritdoc}
+     *
+     * @return string[] Names of apps that this developer owns.
      */
     public function getApps(): array
     {

@@ -143,7 +143,7 @@ class Oauth extends AbstractOauth
             // id and secret.
             $this->getAccessToken();
         } catch (Exception $e) {
-            throw new OauthAuthenticationException($e->getMessage(), $e->getCode(), $e);
+            throw new OauthAuthenticationException($e->getMessage(), (int) $e->getCode(), $e);
         }
     }
 }
