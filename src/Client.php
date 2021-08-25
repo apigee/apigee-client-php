@@ -171,11 +171,12 @@ class Client implements ClientInterface
      */
     public function getUserAgent(): string
     {
+        $user_agent = $this->getClientVersion() . '; PHP/' . PHP_VERSION;
         if (null !== $this->userAgentPrefix) {
-            return $this->userAgentPrefix . ' (' . $this->getClientVersion() . '; PHP/' . PHP_VERSION . ')';
+            return $this->userAgentPrefix . ' (' . $user_agent . ')';
         }
 
-        return $this->getClientVersion() . '; PHP/' . PHP_VERSION;
+        return $user_agent;
     }
 
     /**
