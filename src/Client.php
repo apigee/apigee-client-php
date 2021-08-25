@@ -172,20 +172,10 @@ class Client implements ClientInterface
     public function getUserAgent(): string
     {
         if (null !== $this->userAgentPrefix) {
-            // Checks if userAgent has multiple values in string.
-            $userAgent = explode('~', $this->userAgentPrefix);
-            if (count($userAgent) > 1) {
-                if ('' === $userAgent[1]) {
-                    return "{$userAgent[0]} ({$this->getClientVersion()}; {$userAgent[2]}; PHP/" . phpversion() . ")";
-                }
-
-                return "{$userAgent[1]} ({$userAgent[0]}; {$this->getClientVersion()}; {$userAgent[2]}; PHP/" . phpversion() . ")";
-            }
-
-            return "{$this->userAgentPrefix} ({$this->getClientVersion()})";
+            return $this->userAgentPrefix . ' (' . $this->getClientVersion() . '; PHP/' . PHP_VERSION . ')';
         }
 
-        return $this->getClientVersion();
+        return $this->getClientVersion() . '; PHP/' . PHP_VERSION;
     }
 
     /**
