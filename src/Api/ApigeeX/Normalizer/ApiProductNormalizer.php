@@ -51,13 +51,6 @@ class ApiProductNormalizer extends EntityNormalizer
     public function normalize($object, $format = null, array $context = [])
     {
         $normalized = (array) parent::normalize($object, $format, $context);
-
-        // Do not send redundant API product information to Apigee Edge, the
-        // id of a referenced API product is enough.
-        foreach ($normalized['product'] as $id => $data) {
-            $normalized['product'][$id] = (object) ['id' => $data->id];
-        }
-
         return (object) $normalized;
     }
 
