@@ -69,16 +69,17 @@ abstract class PrepaidBalanceController extends OrganizationAwareEntityControlle
     /**
      * {@inheritdoc}
      */
-    public function topUpBalance($amount, $amountnano, string $currencyCode): PrepaidBalanceInterface
+    public function topUpBalance($amount, $amountnano, string $currencyCode, string $transaction_id): PrepaidBalanceInterface
     {
         $response = $this->client->post(
             $this->getBaseEndpointUri(),
             (string) json_encode((object) [
                 'transactionAmount' => [
-                'currencyCode' => $currencyCode,
-                'units' => $amount,
-                'nanos' => $amountnano,
+                  'currencyCode' => $currencyCode,
+                  'units' => $amount,
+                  'nanos' => $amountnano,
                 ],
+                'transactionId' => $transaction_id,
             ])
         );
 
