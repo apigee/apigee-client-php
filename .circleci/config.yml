@@ -35,7 +35,7 @@ jobs:
           command: php composer.phar install
       - run:
           name: Add vendor directory
-          command: php composer.phar update
+          command: php composer.phar update --no-suggest --no-interaction
       - run:
           name: Run CS tests
           command: vendor/bin/phpcs
