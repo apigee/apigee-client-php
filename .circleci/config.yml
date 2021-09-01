@@ -19,10 +19,7 @@ jobs:
       - run: composer update $COMPOSER_OPTIONS
       - run: composer require guzzlehttp/guzzle:^6.3.0 --update-with-dependencies $DEPENDENCIES
       - run: composer show
-          
-      - run: IFS=$'\n'; CHANGED_FILES=($(git diff --name-only --diff-filter=ACMRTUXB --"${COMMIT_RANGE}")); unset IFS
-      - run: EXTRA_ARGS=('--path-mode=intersection' '--' "${CHANGED_FILES[@]}")
-      - run: composer check-style -- --using-cache=no "${EXTRA_ARGS[@]}"
+
       - run: composer analyze
       - run: composer test
       - run: composer metrics
