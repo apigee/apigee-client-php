@@ -35,9 +35,10 @@ jobs:
           command: php composer.phar install
       - run:
           name: Add vendor directory
-          command: php composer.phar update --no-suggest --no-interaction
+          command: php composer.phar update --no-suggest --no-interaction --prefer-lowest
       - run:
           name: Run CS tests
+          working_directory: /var/www/html
           command: vendor/bin/phpcs
       - run:
           name: Run Unit tests
