@@ -51,6 +51,7 @@ class ApiProductNormalizer extends EntityNormalizer
     public function normalize($object, $format = null, array $context = [])
     {
         $normalized = (array) parent::normalize($object, $format, $context);
+
         return (object) $normalized;
     }
 
