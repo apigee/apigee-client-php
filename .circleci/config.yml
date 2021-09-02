@@ -24,7 +24,7 @@ jobs:
       - run: EXTRA_ARGS=('--path-mode=intersection' '--' "${CHANGED_FILES[@]}")
       - run: composer check-style -- --using-cache=no "${EXTRA_ARGS[@]}"
       - run: composer analyze
-      - run: composer test
+      - run: composer test -- --coverage-clover=clover.xml
       - run: composer metrics
       - run: bash <(curl -s https://codecov.io/bash) -f ./clover.xml
 
