@@ -29,10 +29,9 @@ jobs:
       - run: bash <(curl -s https://codecov.io/bash) -f ./clover.xml
 
       - checkout
-      - run: php -d memory_limit=-1
       - run:
           name: "Run tests"
-          command: phpdbg -qrr vendor/bin/phpunit --coverage-html build/coverage-report
+          command: php -d memory_limit=-1 phpdbg -qrr vendor/bin/phpunit --coverage-html build/coverage-report
       - store_artifacts:
           path:  build/coverage-report
 
