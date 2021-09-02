@@ -68,7 +68,7 @@ final class EntityStorage
     public function addEntity(EntityInterface $entity, $controller): void
     {
         if (!is_object($controller)) {
-            throw  new \InvalidArgumentException('Controller must be an object.');
+            throw new \InvalidArgumentException('Controller must be an object.');
         }
         $controllerId = $this->getControllerId($controller);
         if (!array_key_exists($controllerId, self::$controllers)) {
@@ -84,7 +84,7 @@ final class EntityStorage
     public function removeEntity(string $entityId, $controller): void
     {
         if (!is_object($controller)) {
-            throw  new \InvalidArgumentException('Controller must be an object.');
+            throw new \InvalidArgumentException('Controller must be an object.');
         }
         $controllerId = $this->getControllerId($controller);
         unset(self::$createdEntities[$controllerId][$entityId]);
@@ -102,7 +102,7 @@ final class EntityStorage
     public function getCreatedEntitiesByStorage($controller): array
     {
         if (!is_object($controller)) {
-            throw  new \InvalidArgumentException('Controller must be an object.');
+            throw new \InvalidArgumentException('Controller must be an object.');
         }
 
         return self::$createdEntities[$this->getControllerId($controller)]['entity'] ?? [];
@@ -154,7 +154,7 @@ final class EntityStorage
     private function resetStorageByController($controller): void
     {
         if (!is_object($controller)) {
-            throw  new \InvalidArgumentException('Controller must be an object.');
+            throw new \InvalidArgumentException('Controller must be an object.');
         }
         $controllerId = $this->getControllerId($controller);
         unset(self::$createdEntities[$controllerId]);
@@ -169,7 +169,7 @@ final class EntityStorage
     private function getControllerId($controller): string
     {
         if (!is_object($controller)) {
-            throw  new \InvalidArgumentException('Controller must be an object.');
+            throw new \InvalidArgumentException('Controller must be an object.');
         }
 
         $ro = new \ReflectionObject($controller);
