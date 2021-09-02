@@ -4,6 +4,30 @@
 #
 version: 2.1
 jobs:
+  php73:
+    docker:
+      - image: cimg/php:7.3-node
+    steps:
+      - checkout
+      - run: COMPOSER_OPTIONS="--no-suggest --no-interaction"
+      - run: COMPOSER_PROCESS_TIMEOUT=0
+      - run: DEPENDENCIES=" "
+      - run: composer update $COMPOSER_OPTIONS
+      - run: composer require guzzlehttp/guzzle:^6.3.0 --update-with-dependencies $DEPENDENCIES
+      - run: composer show
+
+      - run: IFS=$'\n'; CHANGED_FILES=($(git diff --name-only --diff-filter=ACMRTUXB --"${COMMIT_RANGE}")); unset IFS
+      - run: EXTRA_ARGS=('--path-mode=intersection' '--' "${CHANGED_FILES[@]}")
+      - run: composer check-style -- --using-cache=no "${EXTRA_ARGS[@]}"
+      - run: composer analyze
+      - run: composer test -- --coverage-clover=clover.xml
+      - run: composer metrics
+      - run: bash <(curl -s https://codecov.io/bash) -f ./clover.xml
+      - run:
+          name: "Run tests"
+          command: phpdbg -d memory_limit=-1 -qrr vendor/bin/phpunit --coverage-html build/coverage-report
+      - store_artifacts:
+          path:  build/coverage-report
   php74:
     docker:
       - image: cimg/php:7.4-node
@@ -33,3 +57,4 @@ workflows:
   test_and_lint:
     jobs:
       - php74
+      - php73
