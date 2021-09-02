@@ -26,14 +26,23 @@ jobs:
       - run: composer analyze
       - run: composer test -- --coverage-clover=clover.xml
       - run: composer metrics
-      - run: bash <(curl -s https://codecov.io/bash) -f ./clover.xml
-
-      - checkout
-      - run:
-          name: "Run tests"
-          command: phpdbg -d memory_limit=-1 -qrr vendor/bin/phpunit --coverage-html build/coverage-report
+      - run: 
+          command: sudo php -d memory_limit=-1 ./vendor/bin/phpunit --coverage-clover tests/coverage/clover.xml
+          environment: 
+            XDEBUG_MODE: coverage
+      - run: ./vendor/bin/php-coveralls -v
+      
+      - store_test_results:
+          path: tests/coverage
       - store_artifacts:
-          path:  build/coverage-report
+          path: tests/coverage
+
+      #- checkout
+      #- run:
+         #name: "Run tests"
+         # command: phpdbg -d memory_limit=-1 -qrr vendor/bin/phpunit --coverage-html build/coverage-report
+      #- store_artifacts:
+          #path:  build/coverage-report
 
 
 workflows:
