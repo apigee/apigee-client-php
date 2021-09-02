@@ -4,13 +4,13 @@
 #
 version: 2.1
 executors:
-  my-custom-executor:
+  test_and_lint:
     docker:
       - image: cimg/php:7.4-node
       - image: cimg/php:7.3-node
 jobs:
   php74:
-    executor: my-custom-executor
+    executor: test_and_lint
     steps:
       - checkout
       - run: COMPOSER_OPTIONS="--no-suggest --no-interaction"
@@ -30,12 +30,10 @@ jobs:
       - run:
           name: "Run tests"
           command: phpdbg -d memory_limit=-1 -qrr vendor/bin/phpunit --coverage-html build/coverage-report
-      - store_test_results:
-          path: build/coverage-report
       - store_artifacts:
           path:  build/coverage-report
 
 workflows:
-  my-custom-workflow:
+  test_and_lint:
     jobs:
       - php74
