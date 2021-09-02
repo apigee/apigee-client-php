@@ -3,14 +3,10 @@
 # Check https://circleci.com/docs/2.0/language-php/ for more details
 #
 version: 2.1
-executors:
-  test_and_lint:
-    docker:
-      - image: cimg/php:7.4-node
-      - image: cimg/php:7.3-node
 jobs:
   php74:
-    executor: test_and_lint
+    docker:
+      - image: cimg/php:7.4-node
     steps:
       - checkout
       - run: COMPOSER_OPTIONS="--no-suggest --no-interaction"
