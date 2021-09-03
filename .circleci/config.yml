@@ -6,7 +6,7 @@ version: 2.1
 jobs:
   php73:
     docker:
-      - image: cimg/php:7.3-node
+      - image: cimg/php:7.3.17-node
     steps:
       - checkout
       - run: COMPOSER_OPTIONS="--no-suggest --no-interaction"
