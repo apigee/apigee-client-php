@@ -11,7 +11,7 @@ jobs:
       - checkout
       - run: COMPOSER_OPTIONS="--no-suggest --no-interaction"
       - run: COMPOSER_PROCESS_TIMEOUT=0
-      - run: DEPENDENCIES=" "
+      - run: DEPENDENCIES="--prefer-lowest"
       - run: composer update $COMPOSER_OPTIONS
       - run: composer require guzzlehttp/guzzle:^6.3.0 --update-with-dependencies $DEPENDENCIES
       - run: composer show
