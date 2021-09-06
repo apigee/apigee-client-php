@@ -15,7 +15,7 @@ jobs:
       - run: COMPOSER_PROCESS_TIMEOUT=0
       - run: DEPENDENCIES=" "
       - run: composer update $COMPOSER_OPTIONS
-      - run: composer require symfony/polyfill-mbstring:1.19.0 --update-with-dependencies $DEPENDENCIES; fi
+      - run: composer require symfony/polyfill-mbstring:1.19.0 --update-with-dependencies;
       - run: composer require guzzlehttp/guzzle:^6.3.0 --update-with-dependencies $DEPENDENCIES
       - run: composer show
 
