@@ -72,20 +72,6 @@ trait ListingHelperTrait
         return $responseArray;
     }
 
-    /**
-     * Returns an array of supported currency.
-     *
-     * @param array $currencyArray
-     *   Supported currency array
-     *
-     * @return array
-     *   Values as an array.
-     */
-    protected function getdefaultCurrency($currencyArray): array
-    {
-        return $this->responseArrayToArrayOfEntities($currencyArray);
-    }
-
     abstract protected function responseToArray(ResponseInterface $response, bool $expandCompatibility = false): array;
 
     abstract protected function responseArrayToArrayOfEntities(array $responseArray, string $keyGetter = 'id'): array;

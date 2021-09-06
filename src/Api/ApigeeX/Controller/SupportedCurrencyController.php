@@ -18,33 +18,14 @@
 
 namespace Apigee\Edge\Api\ApigeeX\Controller;
 
-use Apigee\Edge\Api\Monetization\Controller\OrganizationAwareEntityController;
-use Apigee\Edge\Api\Monetization\Controller\PaginatedEntityListingControllerAwareTrait;
+use Apigee\Edge\Api\Monetization\Controller\EntityController;
 use Apigee\Edge\Api\Monetization\Entity\SupportedCurrency;
-use Apigee\Edge\Api\Monetization\Serializer\SupportedCurrencySerializer;
-use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Controller\EntityListingControllerTrait;
-use Apigee\Edge\Serializer\EntitySerializerInterface;
 use Psr\Http\Message\UriInterface;
 
-class SupportedCurrencyController extends OrganizationAwareEntityController implements SupportedCurrencyControllerInterface
+class SupportedCurrencyController extends EntityController implements SupportedCurrencyControllerInterface
 {
     use EntityListingControllerTrait;
-    use PaginatedEntityListingControllerAwareTrait;
-    use PaginatedListingHelperTrait;
-
-    /**
-     * SupportedCurrencyController constructor .
-     *
-     * @param string $organization
-     * @param \Apigee\Edge\ClientInterface $client
-     * @param \Apigee\Edge\Serializer\EntitySerializerInterface|null $entitySerializer
-     */
-    public function __construct(string $organization, ClientInterface $client, ?EntitySerializerInterface $entitySerializer = null)
-    {
-        $entitySerializer = $entitySerializer ?? new SupportedCurrencySerializer();
-        parent::__construct($organization, $client, $entitySerializer);
-    }
 
     /**
      * {@inheritdoc}
@@ -55,14 +36,14 @@ class SupportedCurrencyController extends OrganizationAwareEntityController impl
                             "description": "United States Dollars",
                             "displayName": "United States Dollars",
                             "id": "usd",
-                            "minimumTopupAmount": 1,
+                            "minimumTopupAmount": 1.00,
                             "name": "USD",
                             "status": "ACTIVE",
                             "organization" : {"currency" : "USD"}
                         }]';
         $currencyarray = json_decode($currencyjson);
 
-        return $this->getdefaultCurrency($currencyarray);
+        return $this->responseArrayToArrayOfEntities($currencyarray);
     }
 
     /**
@@ -70,7 +51,8 @@ class SupportedCurrencyController extends OrganizationAwareEntityController impl
      */
     protected function getBaseEndpointUri(): UriInterface
     {
-        return 'null';
+        // ApigeeX does not provide api for supported currency , hence adding static value.
+        return $this->client->getUriFactory()->createUri('');
     }
 
     /**
