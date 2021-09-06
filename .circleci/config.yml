@@ -25,16 +25,8 @@ jobs:
       - run: composer analyze
       - run: composer test -- --coverage-clover=clover.xml
       - run: composer metrics
-      - run: docker run cmd.cat/phpdbg phpdbg
       - run: bash <(curl -s https://codecov.io/bash) -f ./clover.xml
-      - run:
-          name: "Run tests"
-          command: phpdbg -d memory_limit=-1 -qrr vendor/bin/phpunit --coverage-html build/coverage-report
-      - store_artifacts:
-          path:  build/coverage-report
-      - codecov/upload:
-          file: './coverage/clover.xml'
-          token: 7c28a9eb-e84a-4625-9c47-6599d9f49956
+
   php74:
     docker:
       - image: cimg/php:7.4-node
