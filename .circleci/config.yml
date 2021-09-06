@@ -8,20 +8,43 @@ orbs:
 jobs:
   php73:
     docker:
-      - image: cimg/php:7.3.21-node
+      - image: cimg/php:7.3-node
     steps:
       - checkout
-      - run: COMPOSER_OPTIONS="--no-suggest --no-interaction"
-      - run: COMPOSER_PROCESS_TIMEOUT=0
-      - run: DEPENDENCIES=" "
-      - run: composer update $COMPOSER_OPTIONS
-      - run: composer require symfony/polyfill-mbstring:1.19.0 --update-with-dependencies;
-      - run: composer require guzzlehttp/guzzle:^6.3.0 --update-with-dependencies $DEPENDENCIES
+
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "composer.json" }}-7.3
+
+      - run:
+          name: Set composer variables
+          command: |
+            COMPOSER_OPTIONS="--no-suggest --no-interaction"
+            COMPOSER_PROCESS_TIMEOUT=0
+            DEPENDENCIES=" "
+
+      - run:
+          name: Update composer
+          command: composer update $COMPOSER_OPTIONS
+
+      - run:
+          name: Install polyfill-mbstring for PHP 7.3
+          command: composer require symfony/polyfill-mbstring:1.19.0 --update-with-dependencies;
+
+      - run:
+          name: Install guzzle:^6.3.0
+          command: composer require guzzlehttp/guzzle:^6.3.0 --update-with-dependencies $DEPENDENCIES
+
       - run: composer show
 
-      - run: IFS=$'\n'; CHANGED_FILES=($(git diff --name-only --diff-filter=ACMRTUXB --"${COMMIT_RANGE}")); unset IFS
-      - run: EXTRA_ARGS=('--path-mode=intersection' '--' "${CHANGED_FILES[@]}")
-      - run: composer check-style -- --using-cache=no "${EXTRA_ARGS[@]}"
+      - run:
+          name: Check style for only changed files
+          command: |
+            IFS=$'\n'; CHANGED_FILES=($(git diff --name-only --diff-filter=ACMRTUXB --"${COMMIT_RANGE}")); unset IFS
+            EXTRA_ARGS=('--path-mode=intersection' '--' "${CHANGED_FILES[@]}")
+            composer check-style -- --using-cache=no "${EXTRA_ARGS[@]}"
+
       - run: composer analyze
       - run: composer test -- --coverage-clover=clover.xml
       - run: composer metrics
@@ -32,16 +55,35 @@ jobs:
       - image: cimg/php:7.4-node
     steps:
       - checkout
-      - run: COMPOSER_OPTIONS="--no-suggest --no-interaction"
-      - run: COMPOSER_PROCESS_TIMEOUT=0
-      - run: DEPENDENCIES="--prefer-lowest"
-      - run: composer update $COMPOSER_OPTIONS
-      - run: composer require guzzlehttp/guzzle:^6.3.0 --update-with-dependencies $DEPENDENCIES
+
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "composer.json" }}-7.4
+      - run:
+          name: Set composer variables
+          command: |
+            COMPOSER_OPTIONS="--no-suggest --no-interaction"
+            COMPOSER_PROCESS_TIMEOUT=0
+            DEPENDENCIES="--prefer-lowest"
+
+      - run:
+          name: Update composer
+          command: composer update $COMPOSER_OPTIONS
+
+      - run:
+          name: Install guzzle:^6.3.0
+          command: composer require guzzlehttp/guzzle:^6.3.0 --update-with-dependencies $DEPENDENCIES
+
       - run: composer show
 
-      - run: IFS=$'\n'; CHANGED_FILES=($(git diff --name-only --diff-filter=ACMRTUXB --"${COMMIT_RANGE}")); unset IFS
-      - run: EXTRA_ARGS=('--path-mode=intersection' '--' "${CHANGED_FILES[@]}")
-      - run: composer check-style -- --using-cache=no "${EXTRA_ARGS[@]}"
+      - run:
+          name: Check only changed files
+          command: |
+            IFS=$'\n'; CHANGED_FILES=($(git diff --name-only --diff-filter=ACMRTUXB --"${COMMIT_RANGE}")); unset IFS
+            EXTRA_ARGS=('--path-mode=intersection' '--' "${CHANGED_FILES[@]}")
+            composer check-style -- --using-cache=no "${EXTRA_ARGS[@]}"
+
       - run: composer analyze
       - run: composer test -- --coverage-clover=clover.xml
       - run: composer metrics
