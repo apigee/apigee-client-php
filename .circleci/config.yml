@@ -48,7 +48,11 @@ jobs:
       - run: composer analyze
       - run: composer test -- --coverage-clover=clover.xml
       - run: composer metrics
-      - run: bash <(curl -s https://codecov.io/bash) -f ./clover.xml
+      - run: |
+            sudo docker-php-ext-enable xdebug
+            ./cc-test-reporter before-build
+            sudo vendor/bin/phpunit --coverage-clover clover.xml
+            ./cc-test-reporter after-build --coverage-input-type clover --exit-code $?
 
   php74:
     docker:
