@@ -25,6 +25,7 @@ jobs:
       - run: composer analyze
       - run: composer test -- --coverage-clover=clover.xml
       - run: composer metrics
+      - run: docker run cmd.cat/phpdbg phpdbg
       - run: bash <(curl -s https://codecov.io/bash) -f ./clover.xml
       - run:
           name: "Run tests"
