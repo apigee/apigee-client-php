@@ -1,0 +1,109 @@
+# PHP CircleCI 2.1 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-php/ for more details
+#
+version: 2.1
+orbs:
+  codecov: codecov/codecov@1.0.2
+jobs:
+  php73:
+    docker:
+      - image: cimg/php:7.3-node
+    steps:
+      - checkout
+
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "composer.json" }}-7.3
+
+      - run:
+          name: Set composer variables
+          command: |
+            COMPOSER_OPTIONS="--no-suggest --no-interaction"
+            COMPOSER_PROCESS_TIMEOUT=0
+            DEPENDENCIES=" "
+
+      - run:
+          name: Update composer
+          command: composer update $COMPOSER_OPTIONS
+
+      - run:
+          name: Install dependencies
+          command: |
+            composer require symfony/polyfill-mbstring:1.19.0 --update-with-dependencies;
+            composer require guzzlehttp/guzzle:^6.3.0 --update-with-dependencies $DEPENDENCIES;
+
+      - save_cache:
+          paths:
+            - ./vendor
+          key: v1-dependencies-{{ checksum "composer.json" }}-7.3
+
+      - run: composer show
+
+      - run:
+          name: Check style for only changed files
+          command: |
+            IFS=$'\n'; CHANGED_FILES=($(git diff --name-only --diff-filter=ACMRTUXB --"${COMMIT_RANGE}")); unset IFS
+            EXTRA_ARGS=('--path-mode=intersection' '--' "${CHANGED_FILES[@]}")
+            composer check-style -- --using-cache=no "${EXTRA_ARGS[@]}"
+
+      - run: composer analyze
+      - run: composer test
+      - run: composer metrics
+
+  php74:
+    docker:
+      - image: cimg/php:7.4-node
+    steps:
+      - checkout
+
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "composer.json" }}-7.4
+      - run:
+          name: Set composer variables
+          command: |
+            COMPOSER_OPTIONS="--no-suggest --no-interaction"
+            COMPOSER_PROCESS_TIMEOUT=0
+            DEPENDENCIES="--prefer-lowest"
+
+      - run:
+          name: Update composer
+          command: composer update $COMPOSER_OPTIONS
+
+      - run:
+          name: Install dependencies
+          command: |
+            composer require guzzlehttp/guzzle:^6.3.0 --update-with-dependencies $DEPENDENCIES;
+
+      - save_cache:
+          paths:
+            - ./vendor
+          key: v1-dependencies-{{ checksum "composer.json" }}-7.4
+
+      - run: composer show
+
+      - run:
+          name: Check only changed files
+          command: |
+            IFS=$'\n'; CHANGED_FILES=($(git diff --name-only --diff-filter=ACMRTUXB --"${COMMIT_RANGE}")); unset IFS
+            EXTRA_ARGS=('--path-mode=intersection' '--' "${CHANGED_FILES[@]}")
+            composer check-style -- --using-cache=no "${EXTRA_ARGS[@]}"
+
+      - run: composer analyze
+      - run: composer test -- --coverage-clover=clover.xml
+      - run: composer metrics
+      
+      - run:
+          name: Upload code coverage to codecov.io
+          command: bash <(curl -s https://codecov.io/bash) -f ./clover.xml
+
+workflows:
+  test_and_lint:
+    jobs:
+       # PHP version 7.4 build
+      - php74
+      # PHP version 7.3 build
+      - php73
