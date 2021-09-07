@@ -83,15 +83,6 @@ jobs:
             EXTRA_ARGS=('--path-mode=intersection' '--' "${CHANGED_FILES[@]}")
             composer check-style -- --using-cache=no "${EXTRA_ARGS[@]}"
 
-      - run:
-          name: Installing Xdebug
-          command: |
-            sudo add-apt-repository ppa:ondrej/php
-            sudo apt-get update
-            sudo apt-get install php7.4-xdebug
-            sudo cp /usr/local/etc/php/php.ini-development /usr/local/etc/php/php.ini
-            echo 'xdebug.mode=coverage' >> /usr/local/etc/php/php.ini
-
       - run: composer analyze
       - run: composer test -- --coverage-clover=clover.xml
       - run: composer metrics
