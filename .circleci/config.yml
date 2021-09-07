@@ -1,4 +1,4 @@
-# PHP CircleCI 2.0 configuration file
+# PHP CircleCI 2.1 configuration file
 #
 # Check https://circleci.com/docs/2.0/language-php/ for more details
 #
@@ -46,7 +46,7 @@ jobs:
             composer check-style -- --using-cache=no "${EXTRA_ARGS[@]}"
 
       - run: composer analyze
-      - run: composer test -- --coverage-clover=clover.xml
+      - run: composer test
       - run: composer metrics
 
   php74:
@@ -83,6 +83,10 @@ jobs:
             EXTRA_ARGS=('--path-mode=intersection' '--' "${CHANGED_FILES[@]}")
             composer check-style -- --using-cache=no "${EXTRA_ARGS[@]}"
 
+      - run:
+          name: Installing Xdebug
+          command: sudo apt install php-xdebug
+
       - run: composer analyze
       - run: composer test -- --coverage-clover=clover.xml
       - run: composer metrics
@@ -91,5 +95,7 @@ jobs:
 workflows:
   test_and_lint:
     jobs:
+       # PHP version 7.4 build
       - php74
+      # PHP version 7.3 build
       - php73
