@@ -95,7 +95,7 @@ jobs:
       - run: composer analyze
       - run: composer test -- --coverage-clover=clover.xml
       - run: composer metrics
-
+      
       - run:
           name: Upload code coverage to codecov.io
           command: bash <(curl -s https://codecov.io/bash) -f ./clover.xml
