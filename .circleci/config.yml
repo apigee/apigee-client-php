@@ -29,12 +29,15 @@ jobs:
           command: composer update $COMPOSER_OPTIONS
 
       - run:
-          name: Install polyfill-mbstring for PHP 7.3
-          command: composer require symfony/polyfill-mbstring:1.19.0 --update-with-dependencies;
+          name: Install dependencies
+          command: |
+            composer require symfony/polyfill-mbstring:1.19.0 --update-with-dependencies;
+            composer require guzzlehttp/guzzle:^6.3.0 --update-with-dependencies $DEPENDENCIES;
 
-      - run:
-          name: Install guzzle:^6.3.0
-          command: composer require guzzlehttp/guzzle:^6.3.0 --update-with-dependencies $DEPENDENCIES
+      - save_cache:
+          paths:
+            - ./vendor
+          key: v1-dependencies-{{ checksum "composer.json" }}-7.3
 
       - run: composer show
 
@@ -71,8 +74,14 @@ jobs:
           command: composer update $COMPOSER_OPTIONS
 
       - run:
-          name: Install guzzle:^6.3.0
-          command: composer require guzzlehttp/guzzle:^6.3.0 --update-with-dependencies $DEPENDENCIES
+          name: Install dependencies
+          command: |
+            composer require guzzlehttp/guzzle:^6.3.0 --update-with-dependencies $DEPENDENCIES;
+
+      - save_cache:
+          paths:
+            - ./vendor
+          key: v1-dependencies-{{ checksum "composer.json" }}-7.4
 
       - run: composer show
 
@@ -86,7 +95,10 @@ jobs:
       - run: composer analyze
       - run: composer test -- --coverage-clover=clover.xml
       - run: composer metrics
-      - run: bash <(curl -s https://codecov.io/bash) -f ./clover.xml
+
+      - run:
+          name: Upload code coverage to codecov.io
+          command: bash <(curl -s https://codecov.io/bash) -f ./clover.xml
 
 workflows:
   test_and_lint:
