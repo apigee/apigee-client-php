@@ -171,11 +171,12 @@ class Client implements ClientInterface
      */
     public function getUserAgent(): ?string
     {
+        $user_agent = $this->getClientVersion() . '; PHP/' . PHP_VERSION;
         if (null !== $this->userAgentPrefix) {
-            return sprintf("{$this->userAgentPrefix} ({$this->getClientVersion()})");
+            return $this->userAgentPrefix . ' (' . $user_agent . ')';
         }
 
-        return $this->getClientVersion();
+        return $user_agent;
     }
 
     /**
@@ -183,7 +184,7 @@ class Client implements ClientInterface
      */
     public function getClientVersion(): string
     {
-        return sprintf('Apigee Edge PHP Client %s', self::VERSION);
+        return sprintf('Apigee Edge PHP Client/%s', self::VERSION);
     }
 
     /**
