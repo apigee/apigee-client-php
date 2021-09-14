@@ -1,10 +1,10 @@
 # Ignore all hidden files exept these.
 .*
+!/.circleci
 !/.github
 !/.gitignore
 !/.gitattributes
 !/.editorconfig
-!/.travis.yml
 !.gitkeep
 
 # Other ignored paths and files.
