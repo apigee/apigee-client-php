@@ -154,7 +154,9 @@ abstract class AcceptedRatePlanController extends OrganizationAwareEntityControl
 
         foreach ($this->getRawList($this->getAcceptedRatePlansEndpoint()->withQuery(http_build_query($query_params))) as $item) {
             // Added ID as name since in ApigeeX name field gives the id
-            $item->id = (!isset($item->id)) ? $item->name : '';
+            if (!isset($item->id)) {
+                $item->id = $item->name ?? null;
+            }
 
             /** @var \Apigee\Edge\Entity\EntityInterface $tmp */
             $tmp = $this->getEntitySerializer()->denormalize(
