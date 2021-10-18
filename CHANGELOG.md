@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## [2.0.11](https://github.com/apigee/apigee-client-php/milestone/10?closed=1)
+* [#182] Prepaid feature for Apigee X monetization.
+* [#159] Ignore global averages in optimized metrics calculation.
+* [#174] Drop support for PHP 7.1/7.2
+* [#171] Updated user-agent string with additional information.
+
 ## [2.0.10](https://github.com/apigee/apigee-client-php/milestone/9?closed=1)
 * [#165] Added support for PHP 7.4
 
