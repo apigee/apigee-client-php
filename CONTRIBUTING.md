@@ -30,7 +30,7 @@ correct and do not break any tests.
 composer fix-style # Automatically fix code style issues.
 composer check-style # Report code style issues that can not be fixed automatically.
 composer analyze # Check for errors with the static code-analysis tool.
-compose test # Run PHPUnit tests. (Please always use only tests with real Apigee Edge.) 
+composer test # Run PHPUnit tests. (Please always use only tests with real Apigee Edge.) 
 ```
 
 For new functionality or a bug fix please always provide new test cases.
