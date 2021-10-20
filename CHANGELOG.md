@@ -1,5 +1,20 @@
 # CHANGELOG
 
+## [2.0.11](https://github.com/apigee/apigee-client-php/milestone/10?closed=1)
+* [#182] Prepaid feature for Apigee X monetization.
+* [#159] Ignore global averages in optimized metrics calculation.
+* [#174] Drop support for PHP 7.1/7.2
+* [#171] Updated user-agent string with additional information.
+
+## [2.0.10](https://github.com/apigee/apigee-client-php/milestone/9?closed=1)
+* [#165] Added support for PHP 7.4
+
+## [2.0.9](https://github.com/apigee/apigee-client-php/milestone/8?closed=1)
+* [#150] Fixed bug that prevented purchase of rate plan for PHP 7.3 ApigeeX org.
+* [#153] Fix for failing user profile update for ApigeeX org.
+* [#157] Fix phpdoc_tag_type and lambda_not_used_import error.
+* [#112] Changed ClientInterface constant names and HybridOauth2 class to fit new Apigee naming.
+
 ## [2.0.8](https://github.com/apigee/apigee-client-php/milestone/7?closed=1)
 * Fixed bug that was throwing error on returning string response (ApiResponseException)
 * (Monetization) Added addition fields to Rateplan entity.

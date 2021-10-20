@@ -56,11 +56,11 @@ class ReportCriteriaDenormalizer extends ObjectDenormalizer
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      *
      * @psalm-suppress PossiblyInvalidArgument We are sure of the return type of denormalize().
      */
-    public function denormalize($data, $class, $format = null, array $context = [])
+    public function denormalize($data, $type, $format = null, array $context = [])
     {
         // This is what is in the type-hint on the $criteria property of the
         // ReportDefinition object.
@@ -68,16 +68,16 @@ class ReportCriteriaDenormalizer extends ObjectDenormalizer
         // available in symfony/serializer > 4.1 therefore we have to use a
         // workaround here.
         // https://symfony.com/doc/master/components/serializer.html#serializing-interfaces-and-abstract-classes
-        if (AbstractCriteria::class === $class && isset($context[static::CONTEXT_REPORT_DEFINITION_TYPE])) {
+        if (AbstractCriteria::class === $type && isset($context[static::CONTEXT_REPORT_DEFINITION_TYPE])) {
             switch ($context[static::CONTEXT_REPORT_DEFINITION_TYPE]) {
                 case ReportDefinitionInterface::TYPE_BILLING:
-                    $class = BillingReportCriteria::class;
+                    $type = BillingReportCriteria::class;
                     break;
                 case ReportDefinitionInterface::TYPE_PREPAID_BALANCE:
-                    $class = PrepaidBalanceReportCriteria::class;
+                    $type = PrepaidBalanceReportCriteria::class;
                     break;
                 case ReportDefinitionInterface::TYPE_REVENUE:
-                    $class = RevenueReportCriteria::class;
+                    $type = RevenueReportCriteria::class;
                     break;
 
                 default:
@@ -115,7 +115,7 @@ class ReportCriteriaDenormalizer extends ObjectDenormalizer
             $data->productIds = array_unique($data->productIds);
         }
 
-        $denormalized = parent::denormalize($data, $class, $format, $context);
+        $denormalized = parent::denormalize($data, $type, $format, $context);
 
         // According to the API documentation it is always UTC.
         // https://docs.apigee.com/api-platform/monetization/create-reports#createreportdefapi
@@ -125,7 +125,7 @@ class ReportCriteriaDenormalizer extends ObjectDenormalizer
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function supportsDenormalization($data, $type, $format = null)
     {

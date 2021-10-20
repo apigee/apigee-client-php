@@ -88,7 +88,7 @@ class ObjectNormalizer implements NormalizerInterface, SerializerAwareInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      *
      * @psalm-suppress InvalidReturnType stdClass is also an object.
      * @psalm-suppress PossiblyInvalidArgument First argument of array_filter is always an array.
@@ -108,7 +108,7 @@ class ObjectNormalizer implements NormalizerInterface, SerializerAwareInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function supportsNormalization($data, $format = null)
     {
@@ -119,7 +119,7 @@ class ObjectNormalizer implements NormalizerInterface, SerializerAwareInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setSerializer(SerializerInterface $serializer): void
     {

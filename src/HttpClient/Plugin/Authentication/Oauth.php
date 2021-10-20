@@ -100,7 +100,7 @@ class Oauth extends AbstractOauth
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function authClient(): ClientInterface
     {
@@ -108,7 +108,7 @@ class Oauth extends AbstractOauth
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      *
      * @psalm-suppress InvalidCatch - Exception by interface can be caught in PHP >= 7.1.
      */
@@ -143,7 +143,7 @@ class Oauth extends AbstractOauth
             // id and secret.
             $this->getAccessToken();
         } catch (Exception $e) {
-            throw new OauthAuthenticationException($e->getMessage(), $e->getCode(), $e);
+            throw new OauthAuthenticationException($e->getMessage(), (int) $e->getCode(), $e);
         }
     }
 }

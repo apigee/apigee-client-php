@@ -46,7 +46,7 @@ class CompanyTermsAndConditionsController extends LegalEntityTermsAndConditionsC
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getBaseEndpointUri(): UriInterface
     {
@@ -54,7 +54,7 @@ class CompanyTermsAndConditionsController extends LegalEntityTermsAndConditionsC
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getAcceptTermsAndConditionsEndpoint(string $tncId): UriInterface
     {

@@ -85,7 +85,7 @@ class ApiProduct extends Entity implements ApiProductInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getProxies(): array
     {
@@ -93,7 +93,7 @@ class ApiProduct extends Entity implements ApiProductInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setProxies(string ...$proxies): void
     {
@@ -101,7 +101,7 @@ class ApiProduct extends Entity implements ApiProductInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getQuota(): ?string
     {
@@ -109,7 +109,7 @@ class ApiProduct extends Entity implements ApiProductInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setQuota(string $quota): void
     {
@@ -117,7 +117,7 @@ class ApiProduct extends Entity implements ApiProductInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getQuotaInterval(): ?string
     {
@@ -125,7 +125,7 @@ class ApiProduct extends Entity implements ApiProductInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setQuotaInterval(string $quotaInterval): void
     {
@@ -133,7 +133,7 @@ class ApiProduct extends Entity implements ApiProductInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getQuotaTimeUnit(): ?string
     {
@@ -141,7 +141,7 @@ class ApiProduct extends Entity implements ApiProductInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setQuotaTimeUnit(string $quotaTimeUnit): void
     {
@@ -149,7 +149,7 @@ class ApiProduct extends Entity implements ApiProductInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getApprovalType(): ?string
     {
@@ -157,7 +157,7 @@ class ApiProduct extends Entity implements ApiProductInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setApprovalType(string $approvalType): void
     {
@@ -165,7 +165,7 @@ class ApiProduct extends Entity implements ApiProductInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getApiResources(): array
     {
@@ -173,7 +173,7 @@ class ApiProduct extends Entity implements ApiProductInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setApiResources(string ...$apiResources): void
     {

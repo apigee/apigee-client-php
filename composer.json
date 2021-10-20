@@ -13,7 +13,7 @@
     "homepage": "http://github.com/apigee/apigee-client-php",
     "license": "Apache-2.0",
     "require": {
-        "php": "^7.1",
+        "php": "^7.3",
         "ext-json": "*",
         "ext-openssl": "*",
         "ext-reflection": "*",
@@ -31,29 +31,27 @@
         "symfony/options-resolver": "^3.4 || ^4.0",
         "symfony/property-access": "^3.4.41 || ^4.4.9",
         "symfony/property-info": "^3.4 || ^4.0",
-        "symfony/serializer": "^3.4 || ^4.0"
+        "symfony/serializer": "^4.4"
     },
     "require-dev": {
-        "friendsofphp/php-cs-fixer": "^2.16",
+        "friendsofphp/php-cs-fixer": "^2.19",
         "fzaninotto/faker": "^1.7",
         "guzzlehttp/psr7": "^1.0",
         "league/flysystem": "^1.0",
-        "limedeck/phpunit-detailed-printer": "^3.2",
+        "limedeck/phpunit-detailed-printer": "^4",
         "monolog/monolog": "^1.23",
         "php-http/guzzle6-adapter": "^2.0",
         "php-http/mock-client": "^1.1.0",
         "phpmetrics/phpmetrics": "^2.3",
-        "phpunit/phpunit": "^6.4.0",
-        "sebastian/comparator": "^2.1",
+        "phpunit/phpunit": "^7.5.20",
+        "sebastian/comparator": "^3.0.3",
         "symfony/cache": "~3.4 || ~4.0",
-        "vimeo/psalm": "^2.0.0"
+        "vimeo/psalm": "^3.18.2"
     },
     "conflict": {
         "guzzlehttp/guzzle": "<6.1.0",
         "guzzlehttp/psr7": "<1.4.1",
-        "phpdocumentor/type-resolver": "<0.2.1",
-        "vimeo/psalm": ">2.0.13",
-        "symfony/polyfill-mbstring": ">1.20.0"
+        "phpdocumentor/type-resolver": "<0.2.1"
     },
     "autoload": {
         "psr-4": {

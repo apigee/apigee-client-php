@@ -30,15 +30,15 @@ class DeveloperPaymentTransactionDenormalizer extends PaymentTransactionDenormal
     protected $developerPaymentTransactionClass = DeveloperPaymentTransaction::class;
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
-    public function denormalize($data, $class, $format = null, array $context = [])
+    public function denormalize($data, $type, $format = null, array $context = [])
     {
         return parent::denormalize($data, $this->developerPaymentTransactionClass, $format, $context);
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function supportsDenormalization($data, $type, $format = null)
     {

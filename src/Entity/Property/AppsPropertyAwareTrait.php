@@ -29,7 +29,9 @@ trait AppsPropertyAwareTrait
     protected $apps = [];
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
+     *
+     * @return string[] Names of apps that this developer owns.
      */
     public function getApps(): array
     {
@@ -37,7 +39,7 @@ trait AppsPropertyAwareTrait
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function hasApp(string $appName): bool
     {

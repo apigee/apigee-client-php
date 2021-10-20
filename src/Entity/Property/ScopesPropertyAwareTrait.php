@@ -29,7 +29,9 @@ trait ScopesPropertyAwareTrait
     protected $scopes = [];
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
+     *
+     * @return string[]
      */
     public function getScopes(): array
     {
@@ -37,7 +39,7 @@ trait ScopesPropertyAwareTrait
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setScopes(string ...$scopes): void
     {

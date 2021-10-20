@@ -31,7 +31,7 @@ trait EntityLoadOperationControllerTrait
     use EntitySerializerAwareTrait;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function load(string $entityId): EntityInterface
     {

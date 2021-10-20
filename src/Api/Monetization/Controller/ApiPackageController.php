@@ -50,7 +50,7 @@ class ApiPackageController extends OrganizationAwareEntityController implements 
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function deleteProduct(string $apiPackageId, string $productId): void
     {
@@ -61,7 +61,7 @@ class ApiPackageController extends OrganizationAwareEntityController implements 
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function addProduct(string $apiPackageId, string $productId): void
     {
@@ -76,7 +76,7 @@ class ApiPackageController extends OrganizationAwareEntityController implements 
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getAvailableApiPackagesByDeveloper(string $developerId, bool $active = false, bool $allAvailable = true): array
     {
@@ -84,7 +84,7 @@ class ApiPackageController extends OrganizationAwareEntityController implements 
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getAvailableApiPackagesByCompany(string $company, bool $active = false, bool $allAvailable = true): array
     {
@@ -92,7 +92,7 @@ class ApiPackageController extends OrganizationAwareEntityController implements 
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function addProductWithRatePlan(string $apiPackageId, string $productId, RatePlanInterface $ratePlan): void
     {
@@ -101,7 +101,7 @@ class ApiPackageController extends OrganizationAwareEntityController implements 
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getEntityClass(): string
     {
@@ -109,7 +109,7 @@ class ApiPackageController extends OrganizationAwareEntityController implements 
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getBaseEndpointUri(): UriInterface
     {

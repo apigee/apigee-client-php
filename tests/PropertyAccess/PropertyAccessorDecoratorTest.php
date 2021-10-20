@@ -38,7 +38,7 @@ class PropertyAccessorDecoratorTest extends PropertyAccessorTest
     private static $testObj;
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public static function setUpBeforeClass(): void
     {
@@ -189,7 +189,7 @@ class PropertyAccessorDecoratorTest extends PropertyAccessorTest
     public function exceptionsToGetOnSetValue(): array
     {
         return [
-            ['shouldBeAStringArray', [null], InvalidArgumentException::class, '/^Expected argument of type "string", "NULL" given/'],
+            ['shouldBeAStringArray', [null], InvalidArgumentException::class, '/^Expected argument of type "string", "null" given/'],
         ];
     }
 }

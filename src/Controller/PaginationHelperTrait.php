@@ -37,7 +37,7 @@ trait PaginationHelperTrait
     use OrganizationAwareControllerTrait;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function createPager(int $limit = 0, ?string $startKey = null): PagerInterface
     {
@@ -49,7 +49,7 @@ trait PaginationHelperTrait
             protected $limit;
 
             /**
-             * @inheritdoc
+             * {@inheritdoc}
              */
             public function getStartKey(): ?string
             {
@@ -57,7 +57,7 @@ trait PaginationHelperTrait
             }
 
             /**
-             * @inheritdoc
+             * {@inheritdoc}
              */
             public function getLimit(): int
             {
@@ -65,7 +65,7 @@ trait PaginationHelperTrait
             }
 
             /**
-             * @inheritdoc
+             * {@inheritdoc}
              */
             public function setStartKey(?string $startKey): ?string
             {
@@ -75,7 +75,7 @@ trait PaginationHelperTrait
             }
 
             /**
-             * @inheritdoc
+             * {@inheritdoc}
              */
             public function setLimit(int $limit): int
             {
@@ -144,12 +144,12 @@ trait PaginationHelperTrait
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     abstract protected function responseToArray(ResponseInterface $response, bool $expandCompatibility = false): array;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     abstract protected function responseArrayToArrayOfEntities(array $responseArray, string $keyGetter = 'id'): array;
 
@@ -318,7 +318,7 @@ trait PaginationHelperTrait
         $query_params = [
                 'expand' => 'false',
             ] + $query_params;
-        $expandCompatibility = (ClientInterface::HYBRID_ENDPOINT === $this->getClient()->getEndpoint());
+        $expandCompatibility = (ClientInterface::APIGEE_ON_GCP_ENDPOINT === $this->getClient()->getEndpoint());
         if ($pager) {
             return $this->getResultsInRange($pager, $query_params, $expandCompatibility);
         } else {
@@ -366,7 +366,7 @@ trait PaginationHelperTrait
 
         $uri = $this->getBaseEndpointUri()->withQuery(http_build_query($query_params));
         $response = $this->getClient()->get($uri);
-        $expandCompatibility = (ClientInterface::HYBRID_ENDPOINT === $this->getClient()->getEndpoint());
+        $expandCompatibility = (ClientInterface::APIGEE_ON_GCP_ENDPOINT === $this->getClient()->getEndpoint());
 
         $ids = $this->responseToArray($response, $expandCompatibility);
 

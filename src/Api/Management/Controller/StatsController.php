@@ -302,7 +302,18 @@ class StatsController extends AbstractController implements StatsControllerInter
     private function fillGapsInMetricsData(bool $tsAscending, array $allTimeUnits, array $originalTimeUnits, array &$metricsData): void
     {
         $zeroArray = array_fill_keys($allTimeUnits, 0);
+        $needs_reindex = false;
         foreach ($metricsData as $key => $metric) {
+            // Ignore and remove every global average metric from results.
+            // As these are global averages, it does not make sense filling
+            // gaps on those. If this information is needed then the
+            // non-optimized method should be used.
+            // @see https://www.googlecloudcommunity.com/gc/Apigee/Analytics-Server-Issue-avg-total-response-time-is-fetching/td-p/58868
+            if (0 === strpos($metric['name'], 'global-')) {
+                unset($metricsData[$key]);
+                $needs_reindex = true;
+                continue;
+            }
             $metricsData[$key]['values'] = array_combine($originalTimeUnits, $metric['values']);
             $metricsData[$key]['values'] += $zeroArray;
             if ($tsAscending) {
@@ -312,6 +323,10 @@ class StatsController extends AbstractController implements StatsControllerInter
             }
             // Keep original numerical indexes.
             $metricsData[$key]['values'] = array_values($metricsData[$key]['values']);
+        }
+        // Just in case, as a "BC layer", re-index the array.
+        if ($needs_reindex) {
+            $metricsData = array_values($metricsData);
         }
     }
 
@@ -323,6 +338,6 @@ class StatsController extends AbstractController implements StatsControllerInter
     */
     private function isHybrid(): bool
     {
-        return ClientInterface::HYBRID_ENDPOINT === $this->getClient()->getEndpoint();
+        return ClientInterface::APIGEE_ON_GCP_ENDPOINT === $this->getClient()->getEndpoint();
     }
 }

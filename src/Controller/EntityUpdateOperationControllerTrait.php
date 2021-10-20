@@ -32,7 +32,7 @@ trait EntityUpdateOperationControllerTrait
     use EntitySerializerAwareTrait;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      *
      * @psalm-suppress PossiblyNullArgument $entity->id() is not null here.
      */

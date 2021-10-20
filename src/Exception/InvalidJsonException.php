@@ -51,7 +51,7 @@ class InvalidJsonException extends ApiResponseException
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function __toString()
     {

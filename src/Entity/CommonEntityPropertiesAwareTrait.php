@@ -60,7 +60,7 @@ trait CommonEntityPropertiesAwareTrait
     protected $lastModifiedBy;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getCreatedAt(): ?\DateTimeImmutable
     {
@@ -80,7 +80,7 @@ trait CommonEntityPropertiesAwareTrait
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getCreatedBy(): ?string
     {
@@ -104,7 +104,7 @@ trait CommonEntityPropertiesAwareTrait
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getLastModifiedAt(): ?\DateTimeImmutable
     {
@@ -124,7 +124,7 @@ trait CommonEntityPropertiesAwareTrait
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getLastModifiedBy(): ?string
     {

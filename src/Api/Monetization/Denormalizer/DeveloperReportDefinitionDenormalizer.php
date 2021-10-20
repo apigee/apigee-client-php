@@ -30,15 +30,15 @@ class DeveloperReportDefinitionDenormalizer extends ReportDefinitionDenormalizer
     protected $developerReportDefinitionClass = DeveloperReportDefinition::class;
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
-    public function denormalize($data, $class, $format = null, array $context = [])
+    public function denormalize($data, $type, $format = null, array $context = [])
     {
         return parent::denormalize($data, $this->developerReportDefinitionClass, $format, $context);
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function supportsDenormalization($data, $type, $format = null)
     {

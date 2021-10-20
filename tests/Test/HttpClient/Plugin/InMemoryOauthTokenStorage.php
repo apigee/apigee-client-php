@@ -63,7 +63,7 @@ final class InMemoryOauthTokenStorage implements OauthTokenStorageInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getAccessToken(): ?string
     {
@@ -71,7 +71,7 @@ final class InMemoryOauthTokenStorage implements OauthTokenStorageInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getTokenType(): ?string
     {
@@ -79,7 +79,7 @@ final class InMemoryOauthTokenStorage implements OauthTokenStorageInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getExpires(): int
     {
@@ -87,7 +87,7 @@ final class InMemoryOauthTokenStorage implements OauthTokenStorageInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function hasExpired(): bool
     {
@@ -99,7 +99,7 @@ final class InMemoryOauthTokenStorage implements OauthTokenStorageInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getRefreshToken(): ?string
     {
@@ -107,7 +107,7 @@ final class InMemoryOauthTokenStorage implements OauthTokenStorageInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getScope(): string
     {
@@ -115,7 +115,7 @@ final class InMemoryOauthTokenStorage implements OauthTokenStorageInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function saveToken(array $data): void
     {
@@ -126,7 +126,7 @@ final class InMemoryOauthTokenStorage implements OauthTokenStorageInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function markExpired(): void
     {
@@ -134,7 +134,7 @@ final class InMemoryOauthTokenStorage implements OauthTokenStorageInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function removeToken(): void
     {

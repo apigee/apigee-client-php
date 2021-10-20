@@ -49,15 +49,15 @@ abstract class RatePlanDenormalizer extends ObjectDenormalizer
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      *
      * @psalm-suppress PossiblyNullReference - Organization should not be null
      * here.
      */
-    public function denormalize($data, $class, $format = null, array $context = [])
+    public function denormalize($data, $type, $format = null, array $context = [])
     {
         /** @var \Apigee\Edge\Api\Monetization\Entity\RatePlanInterface $entity */
-        $entity = parent::denormalize($data, $class, $format, $context);
+        $entity = parent::denormalize($data, $type, $format, $context);
 
         $this->fixTimeZoneOnDenormalization($data, $entity, $entity->getOrganization()->getTimezone());
 
@@ -65,7 +65,7 @@ abstract class RatePlanDenormalizer extends ObjectDenormalizer
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function supportsDenormalization($data, $type, $format = null)
     {

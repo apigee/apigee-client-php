@@ -64,17 +64,11 @@ abstract class RatePlanNormalizer extends EntityNormalizer
             throw new UninitializedPropertyException($object, 'package', 'Apigee\Edge\Api\ApigeeX\Entity\ApiProductInterface');
         }
 
-        if (null === $object->getPackage()->getOrganization()) {
-            throw new UninitializedPropertyException($object->getPackage(), 'organization', 'Apigee\Edge\Api\Monetization\Entity\OrganizationProfileInterface');
-        }
-
-        //$this->fixTimeZoneOnNormalization($object, $normalized, $object->getPackage()->getOrganization()->getTimezone());
-
         return $normalized;
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function supportsNormalization($data, $format = null)
     {

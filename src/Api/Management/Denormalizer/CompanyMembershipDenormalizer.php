@@ -27,9 +27,9 @@ use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 class CompanyMembershipDenormalizer implements DenormalizerInterface
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
-    public function denormalize($data, $class, $format = null, array $context = [])
+    public function denormalize($data, $type, $format = null, array $context = [])
     {
         $denormalized = [];
         // Ignore parent "developer" key.
@@ -42,7 +42,7 @@ class CompanyMembershipDenormalizer implements DenormalizerInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function supportsDenormalization($data, $type, $format = null)
     {

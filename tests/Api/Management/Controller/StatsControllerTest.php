@@ -171,11 +171,11 @@ class StatsControllerTest extends ControllerTestBase
 
     protected function emptyResponseArray(): array
     {
-        return ['Response' => ['TimeUnit' => [], 'stats' => ['data' => [0 => ['values' => []]]]]];
+        return ['Response' => ['TimeUnit' => [], 'stats' => ['data' => [0 => ['name' => 'foo', 'env' => 'bar', 'values' => []]]]]];
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     protected static function defaultAPIClient(): ClientInterface
     {

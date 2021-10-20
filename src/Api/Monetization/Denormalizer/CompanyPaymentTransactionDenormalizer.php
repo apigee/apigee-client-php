@@ -49,15 +49,15 @@ class CompanyPaymentTransactionDenormalizer extends PaymentTransactionDenormaliz
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
-    public function denormalize($data, $class, $format = null, array $context = [])
+    public function denormalize($data, $type, $format = null, array $context = [])
     {
         return parent::denormalize($data, $this->companyPaymentTransactionClass, $format, $context);
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function supportsDenormalization($data, $type, $format = null)
     {

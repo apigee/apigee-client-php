@@ -20,7 +20,7 @@ namespace Apigee\Edge\HttpClient\Plugin\Authentication;
 
 use Apigee\Edge\Client;
 use Apigee\Edge\ClientInterface;
-use Apigee\Edge\Exception\HybridOauth2AuthenticationException;
+use Apigee\Edge\Exception\ApigeeOnGcpOauth2AuthenticationException;
 use Http\Client\Exception;
 use Http\Message\Authentication\Header;
 
@@ -67,7 +67,7 @@ class GceServiceAccount extends AbstractOauth
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function authClient(): ClientInterface
     {
@@ -75,7 +75,7 @@ class GceServiceAccount extends AbstractOauth
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      *
      * @psalm-suppress InvalidCatch - Exception by interface can be caught in PHP >= 7.1.
      */
@@ -86,7 +86,7 @@ class GceServiceAccount extends AbstractOauth
             $decoded_token = json_decode((string) $response->getBody(), true);
             $this->tokenStorage->saveToken($decoded_token);
         } catch (Exception $e) {
-            throw new HybridOauth2AuthenticationException($e->getMessage(), $e->getCode(), $e);
+            throw new ApigeeOnGcpOauth2AuthenticationException($e->getMessage(), (int) $e->getCode(), $e);
         }
     }
 

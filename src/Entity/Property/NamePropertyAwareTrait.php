@@ -27,7 +27,7 @@ trait NamePropertyAwareTrait
     protected $name;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getName(): ?string
     {

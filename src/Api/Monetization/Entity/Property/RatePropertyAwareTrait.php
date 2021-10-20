@@ -29,7 +29,7 @@ trait RatePropertyAwareTrait
     protected $rate;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getRate(): float
     {

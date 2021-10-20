@@ -44,14 +44,14 @@ class EdgeDateDenormalizer implements DenormalizerInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      *
      * @return object|null
      *
      * @psalm-suppress ImplementedReturnTypeMismatch - We have to return null,
      * even if it not officially supported by the overridden class.
      */
-    public function denormalize($data, $class, $format = null, array $context = [])
+    public function denormalize($data, $type, $format = null, array $context = [])
     {
         // Handle -1 in expiresAt property of AppCredential.
         if ($data < 0) {
@@ -60,11 +60,11 @@ class EdgeDateDenormalizer implements DenormalizerInterface
         $context[$this->normalizer::FORMAT_KEY] = 'U';
         $context[$this->normalizer::TIMEZONE_KEY] = new \DateTimeZone('UTC');
 
-        return $this->normalizer->denormalize(intval($data / 1000), $class, $format, $context);
+        return $this->normalizer->denormalize(intval($data / 1000), $type, $format, $context);
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function supportsDenormalization($data, $type, $format = null)
     {

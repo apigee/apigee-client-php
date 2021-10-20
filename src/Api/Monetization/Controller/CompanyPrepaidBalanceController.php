@@ -44,7 +44,7 @@ class CompanyPrepaidBalanceController extends PrepaidBalanceController implement
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getBaseEndpointUri(): UriInterface
     {
@@ -52,7 +52,7 @@ class CompanyPrepaidBalanceController extends PrepaidBalanceController implement
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     protected function getPrepaidBalanceEndpoint(): UriInterface
     {

@@ -23,7 +23,7 @@ use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
 class TermsAndConditionsNameConverter extends NameConverterBase implements NameConverterInterface
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getExternalToLocalMapping(): array
     {

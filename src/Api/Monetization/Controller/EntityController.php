@@ -29,7 +29,7 @@ use Apigee\Edge\Serializer\EntitySerializerInterface;
 abstract class EntityController extends BaseEntityController
 {
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function __construct(string $organization, ClientInterface $client, ?EntitySerializerInterface $entitySerializer = null)
     {

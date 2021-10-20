@@ -46,7 +46,7 @@ class SupportedCurrencyController extends OrganizationAwareEntityController impl
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getBaseEndpointUri(): UriInterface
     {
@@ -54,7 +54,7 @@ class SupportedCurrencyController extends OrganizationAwareEntityController impl
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getEntityClass(): string
     {

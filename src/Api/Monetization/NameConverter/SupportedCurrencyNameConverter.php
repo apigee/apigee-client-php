@@ -23,7 +23,7 @@ use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
 class SupportedCurrencyNameConverter extends NameConverterBase implements NameConverterInterface
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getExternalToLocalMapping(): array
     {

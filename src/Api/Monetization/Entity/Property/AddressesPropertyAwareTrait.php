@@ -31,7 +31,9 @@ trait AddressesPropertyAwareTrait
     protected $addresses = [];
 
     /**
-     * @@inheritdoc
+     * {@inheritdoc}
+     *
+     * @return \Apigee\Edge\Api\Monetization\Structure\Address[]
      */
     public function getAddresses(): array
     {
@@ -39,7 +41,7 @@ trait AddressesPropertyAwareTrait
     }
 
     /**
-     * @@inheritdoc
+     * {@inheritdoc}
      */
     public function setAddresses(Address ...$addresses): void
     {

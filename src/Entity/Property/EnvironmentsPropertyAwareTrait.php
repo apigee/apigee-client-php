@@ -27,7 +27,9 @@ trait EnvironmentsPropertyAwareTrait
     protected $environments = [];
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
+     *
+     * @return string[]
      */
     public function getEnvironments(): array
     {
@@ -35,7 +37,7 @@ trait EnvironmentsPropertyAwareTrait
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setEnvironments(string ...$environments): void
     {

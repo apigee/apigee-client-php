@@ -51,7 +51,7 @@ class ReportDefinitionController extends OrganizationAwareEntityController imple
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function generateReport(AbstractCriteria $criteria): string
     {
@@ -67,7 +67,7 @@ class ReportDefinitionController extends OrganizationAwareEntityController imple
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getBaseEndpointUri(): UriInterface
     {
@@ -75,7 +75,7 @@ class ReportDefinitionController extends OrganizationAwareEntityController imple
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getEntityClass(): string
     {

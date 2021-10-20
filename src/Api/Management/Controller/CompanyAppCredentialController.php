@@ -53,7 +53,7 @@ class CompanyAppCredentialController extends AppCredentialController implements 
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getBaseEndpointUri(): UriInterface
     {
@@ -63,7 +63,7 @@ class CompanyAppCredentialController extends AppCredentialController implements 
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getEntityEndpointUri(string $entityId): UriInterface
     {

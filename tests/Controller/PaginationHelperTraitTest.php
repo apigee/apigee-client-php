@@ -47,7 +47,7 @@ class PaginationHelperTraitTest extends TestCase
     protected static $testController;
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public static function setUpBeforeClass(): void
     {
@@ -179,7 +179,7 @@ class PaginationHelperTraitTestClass
     use MockClientAwareTrait;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getOrganisationName(): string
     {
@@ -187,7 +187,7 @@ class PaginationHelperTraitTestClass
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getBaseEndpointUri(): UriInterface
     {
@@ -195,7 +195,7 @@ class PaginationHelperTraitTestClass
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getClient(): ClientInterface
     {
@@ -203,7 +203,7 @@ class PaginationHelperTraitTestClass
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getEntityClass(): string
     {
@@ -211,7 +211,7 @@ class PaginationHelperTraitTestClass
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getEntitySerializer(): EntitySerializerInterface
     {
@@ -224,7 +224,7 @@ class PaginationHelperTraitTestClass
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getOrganizationController(): OrganizationControllerInterface
     {

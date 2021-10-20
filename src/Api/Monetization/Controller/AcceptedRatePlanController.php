@@ -49,7 +49,7 @@ abstract class AcceptedRatePlanController extends OrganizationAwareEntityControl
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getAllAcceptedRatePlans(): array
     {
@@ -57,7 +57,7 @@ abstract class AcceptedRatePlanController extends OrganizationAwareEntityControl
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getPaginatedAcceptedRatePlanList(int $limit = null, int $page = 1): array
     {
@@ -73,7 +73,7 @@ abstract class AcceptedRatePlanController extends OrganizationAwareEntityControl
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function acceptRatePlan(RatePlanInterface $ratePlan, DateTimeImmutable $startDate, ?DateTimeImmutable $endDate = null, ?int $quotaTarget = null, ?bool $suppressWarning = null, ?bool $waveTerminationCharge = null): AcceptedRatePlanInterface
     {
@@ -107,7 +107,7 @@ abstract class AcceptedRatePlanController extends OrganizationAwareEntityControl
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      *
      * @psalm-suppress PossiblyNullArgument - id is not null in this context.
      */

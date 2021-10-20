@@ -46,7 +46,7 @@ class TermsAndConditionsNormalizer extends EntityNormalizer
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      *
      * @psalm-suppress InvalidReturnType Returning an object here is required
      * for creating a valid Apigee Edge request.
@@ -70,7 +70,7 @@ class TermsAndConditionsNormalizer extends EntityNormalizer
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function supportsNormalization($data, $format = null)
     {

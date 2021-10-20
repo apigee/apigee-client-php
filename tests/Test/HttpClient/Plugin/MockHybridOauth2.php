@@ -31,6 +31,9 @@ use Http\Client\HttpClient;
 
 /**
  * MockHybridOauth2 authentication plugin that uses mock API client for authorisation.
+ *
+ * @deprecated in 2.0.9, will be removed in 3.0.0.
+ * https://github.com/apigee/apigee-client-php/issues/112
  */
 class MockHybridOauth2 extends HybridOauth2
 {

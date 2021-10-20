@@ -29,6 +29,8 @@ use Http\Client\Exception;
  * HybridOauth2 authentication plugin for authenticating to Hybrid Cloud API.
  *
  * @see https://developers.google.com/identity/protocols/OAuth2ServiceAccount
+ * @deprecated in 2.0.9, will be removed in 3.0.0.
+ * https://github.com/apigee/apigee-client-php/issues/112
  */
 class HybridOauth2 extends AbstractOauth
 {
@@ -89,7 +91,7 @@ class HybridOauth2 extends AbstractOauth
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function authClient(): ClientInterface
     {
@@ -97,7 +99,7 @@ class HybridOauth2 extends AbstractOauth
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      *
      * @psalm-suppress InvalidCatch - Exception by interface can be caught in PHP >= 7.1.
      */
@@ -116,7 +118,7 @@ class HybridOauth2 extends AbstractOauth
         try {
             $jwt = JWT::encode($token, $this->privateKey, 'RS256');
         } catch (DomainException $e) {
-            throw new HybridOauth2AuthenticationException($e->getMessage(), $e->getCode(), $e);
+            throw new HybridOauth2AuthenticationException($e->getMessage(), (int) $e->getCode(), $e);
         }
 
         $body = [
@@ -129,7 +131,7 @@ class HybridOauth2 extends AbstractOauth
             $decodedResponse = json_decode((string) $response->getBody(), true);
             $this->tokenStorage->saveToken($decodedResponse);
         } catch (Exception $e) {
-            throw new HybridOauth2AuthenticationException($e->getMessage(), $e->getCode(), $e);
+            throw new HybridOauth2AuthenticationException($e->getMessage(), (int) $e->getCode(), $e);
         }
     }
 }

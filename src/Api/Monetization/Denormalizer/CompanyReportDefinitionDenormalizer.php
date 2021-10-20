@@ -49,15 +49,15 @@ class CompanyReportDefinitionDenormalizer extends ReportDefinitionDenormalizer
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
-    public function denormalize($data, $class, $format = null, array $context = [])
+    public function denormalize($data, $type, $format = null, array $context = [])
     {
         return parent::denormalize($data, $this->companyReportDefinitionClass, $format, $context);
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function supportsDenormalization($data, $type, $format = null)
     {

@@ -32,7 +32,7 @@ trait NonPaginatedEntityIdListingControllerTrait
     use ClientAwareControllerTrait;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getEntityIds(): array
     {
@@ -41,13 +41,13 @@ trait NonPaginatedEntityIdListingControllerTrait
         ];
         $uri = $this->getBaseEndpointUri()->withQuery(http_build_query($query_params));
         $response = $this->getClient()->get($uri);
-        $expandCompatibility = (ClientInterface::HYBRID_ENDPOINT === $this->getClient()->getEndpoint());
+        $expandCompatibility = (ClientInterface::APIGEE_ON_GCP_ENDPOINT === $this->getClient()->getEndpoint());
 
         return $this->responseToArray($response, $expandCompatibility);
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     abstract protected function responseToArray(ResponseInterface $response, bool $expandCompatibility = false): array;
 }

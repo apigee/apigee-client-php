@@ -23,7 +23,7 @@ use Apigee\Edge\Api\Monetization\Entity\DeveloperReportDefinitionInterface;
 class DeveloperReportDefinitionNormalizer extends LegalEntityReportDefinitionNormalizer
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function supportsNormalization($data, $format = null)
     {

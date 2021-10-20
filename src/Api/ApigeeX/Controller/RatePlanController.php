@@ -113,7 +113,7 @@ class RatePlanController extends OrganizationAwareEntityController implements Ra
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     protected function buildEntityCreatePayload(EntityInterface $entity, array $context = []): string
     {
