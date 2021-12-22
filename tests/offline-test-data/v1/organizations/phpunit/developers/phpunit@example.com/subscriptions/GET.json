@@ -1,0 +1,20 @@
+{
+    "developerSubscriptions": [
+        {
+            "id": "0a9e33ba-2c63-4416-b6e3-2edcb43e5baf",
+            "name": "0a9e33ba-2c63-4416-b6e3-2edcb43e5baf",
+            "apiProduct": "phpunit_test",
+            "startTime": "1637155113144",
+            "createdAt": "1637155113144",
+            "lastModifiedAt": "1637155113144"
+        },
+        {
+            "id": "791db391-1f17-4a89-adbe-4e086d6a662d",
+            "name": "791db391-1f17-4a89-adbe-4e086d6a662d",
+            "apiProduct": "1phpunit_test",
+            "startTime": "1637238441095",
+            "createdAt": "1637238441095",
+            "lastModifiedAt": "1637238441095"
+        }
+    ]
+}

@@ -1,0 +1,44 @@
+{
+    "package": {
+        "id": "phpunit"
+    },
+    "id": "phpunit",
+    "name": "phpunit",
+    "apiProduct": "phpunit",
+    "displayName": "PHPUnit",
+    "description": "This is a test API Product",
+    "billingPeriod": "MONTHLY",
+    "ratePlanxFee": [{
+        "nanos": 0
+    }],
+    "fixedRecurringFee": [{
+        "nanos": 0
+    }],
+    "consumptionPricingRates": [
+        {
+            "end": "1",
+            "fee": {
+                "currencyCode": "USD",
+                "units": "2",
+                "nanos": 0
+            }
+        },
+        {
+            "start": "2",
+            "fee": {
+                "currencyCode": "USD",
+                "units": "1",
+                "nanos": 0
+            }
+        }
+    ],
+    "consumptionPricingType": "FIXED_PER_UNIT",
+    "revenueShareRates": [{
+        "sharePercentage": 0.59
+    }],
+    "paymentFundingModel": "POSTPAID",
+    "currencyCode": "USD",
+    "type": "STANDARD",
+    "startTime": "1637238141598",
+    "endTime": "1637238141598"
+}
