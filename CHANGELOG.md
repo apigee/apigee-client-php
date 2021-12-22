@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## [2.0.12](https://github.com/apigee/apigee-client-php/milestone/11?closed=1)
+* [#186] Added support for symfony/serializer minimum version..
+
 ## [2.0.11](https://github.com/apigee/apigee-client-php/milestone/10?closed=1)
 * [#182] Prepaid feature for Apigee X monetization.
 * [#159] Ignore global averages in optimized metrics calculation.
