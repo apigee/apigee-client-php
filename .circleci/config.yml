@@ -3,8 +3,6 @@
 # Check https://circleci.com/docs/2.0/language-php/ for more details
 #
 version: 2.1
-orbs: 
-  codecov: codecov/codecov@3.2.2
 defaults: &defaults
   docker:
     - image: cimg/php:<< parameters.php-version >>-node
@@ -74,17 +72,22 @@ php_build: &php_build
     - run:
         name: Composer Metrics
         command: composer metrics
-  
-  # Generate code coverage artifacts and upload to Codecov.
+        
     - when:
         condition: 
             and:
               - equal: [ "7.4", << parameters.php-version >> ]
               - equal: [ " ", << parameters.dependencies >> ]  
         steps:
-          - run: phpdbg -d memory_limit=-1 -qrr vendor/bin/phpunit --coverage-html build/coverage-report --coverage-clover coverage.xml
-          - codecov/upload:
-              file: 'coverage.xml'
+          # Generate code coverage artifacts and upload to Codecov.
+          - run: 
+              name: Generating Code Coverage
+              command: |
+                phpdbg -d memory_limit=-1 -qrr vendor/bin/phpunit --coverage-html build/coverage-report --coverage-clover coverage.xml
+          - run: 
+              name: Upload coverage reports to Codecov
+              command: |
+                bash <(curl -s https://codecov.io/bash) 
           - store_artifacts:
               path: build/coverage-report
           - store_test_results:
