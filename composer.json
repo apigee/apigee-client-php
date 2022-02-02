@@ -43,7 +43,7 @@
         "php-http/guzzle6-adapter": "^2.0",
         "php-http/mock-client": "^1.1.0",
         "phpmetrics/phpmetrics": "^2.3",
-        "phpunit/phpunit": "^7.5.20",
+        "phpunit/phpunit": "^9.5.13",
         "sebastian/comparator": "^3.0.3",
         "symfony/cache": "~3.4 || ~4.0",
         "vimeo/psalm": "^3.18.2"
