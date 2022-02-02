@@ -108,12 +108,12 @@ jobs:
 workflows:
   version: 2
 
-  # Declare a workflow that runs all of our jobs in parallel..
+  # Declare a workflow that runs all of our jobs in parallel...
   test_and_lint:
     jobs:
       - php-build:
           name: PHP-<< matrix.php-version >>-DEPENDENCIES="<< matrix.dependencies >>"
           matrix:
             parameters:
-              php-version: [ "7.3", "7.4", "8.1" ]
+              php-version: [ "7.3", "7.4" ]
               dependencies: [ "--prefer-lowest", " " ]
