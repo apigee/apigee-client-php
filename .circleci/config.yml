@@ -115,5 +115,5 @@ workflows:
           name: PHP-<< matrix.php-version >>-DEPENDENCIES="<< matrix.dependencies >>"
           matrix:
             parameters:
-              php-version: [ "7.3", "7.4" ]
+              php-version: [ "7.3", "7.4", "8.1"]
               dependencies: [ "--prefer-lowest", " " ]
