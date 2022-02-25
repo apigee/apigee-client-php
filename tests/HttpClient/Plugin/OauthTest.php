@@ -69,21 +69,19 @@ class OauthTest extends TestCase
         $this->client = $this->buildClient();
     }
 
-    /**
-     * @expectedException \Apigee\Edge\Exception\OauthAuthenticationException
-     */
     public function testIncorrectClientIdSecret(): void
     {
+        $this->expectException('\Apigee\Edge\Exception\OauthAuthenticationException');
+
         // Auth server respond with 401 for the provided client id and secret.
         static::$httpClient->addResponse(new Response(401));
         $this->client->get('');
     }
 
-    /**
-     * @expectedException \Apigee\Edge\Exception\OauthAuthenticationException
-     */
     public function testAuthServerError(): void
     {
+        $this->expectException('\Apigee\Edge\Exception\OauthAuthenticationException');
+
         // Auth server is unavailable.
         static::$httpClient->addException(new TransferException());
         $this->client->get('');
@@ -179,12 +177,11 @@ class OauthTest extends TestCase
         $this->assertEquals('Bearer new_access_token', $request->getHeaderLine('Authorization'));
     }
 
-    /**
-     * @expectedException \Apigee\Edge\Exception\ServerErrorException
-     * @expectedExceptionCode 500
-     */
     public function testServerErrorMeanwhileAccessTokenAuthentication(): void
     {
+        $this->expectException('\Apigee\Edge\Exception\ServerErrorException');
+        $this->expectExceptionCode('500');
+
         $body = [
             'access_token' => 'access_token',
             'expires_in' => 60,
@@ -197,12 +194,11 @@ class OauthTest extends TestCase
         $this->client->get('');
     }
 
-    /**
-     * @expectedException \Apigee\Edge\Exception\OauthAuthenticationException
-     * @expectedExceptionCode 500
-     */
     public function testServerErrorMeanwhileRefreshingToken(): void
     {
+        $this->expectException('\Apigee\Edge\Exception\OauthAuthenticationException');
+        $this->expectExceptionCode('500');
+
         $body = [
             'access_token' => 'access_token',
             'expires_in' => 60,
@@ -219,12 +215,11 @@ class OauthTest extends TestCase
         $this->client->get('');
     }
 
-    /**
-     * @expectedException \Apigee\Edge\Exception\OauthAuthenticationException
-     * @expectedExceptionCode 500
-     */
     public function testServerErrorMeanwhileRefreshingTokenWithRetryPlugin(): void
     {
+        $this->expectException('\Apigee\Edge\Exception\OauthAuthenticationException');
+        $this->expectExceptionCode('500');
+
         $client = $this->buildClient([Client::CONFIG_RETRY_PLUGIN_CONFIG => []]);
         $body = [
             'access_token' => 'access_token',

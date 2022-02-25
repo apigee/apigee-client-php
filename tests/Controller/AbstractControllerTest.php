@@ -76,12 +76,11 @@ class AbstractControllerTest extends TestCase
         };
     }
 
-    /**
-     * @expectedException \Apigee\Edge\Exception\ApiResponseException
-     * @expectedExceptionMessage Unable to parse response with unknown type. Response body: <xml></xml>
-     */
     public function testParseResponseWithUnknownContentType(): void
     {
+        $this->expectException('\Apigee\Edge\Exception\ApiResponseException');
+        $this->expectExceptionMessage('Unable to parse response with unknown type. Response body: <xml></xml>');
+
         /** @var \Apigee\Edge\Tests\Test\HttpClient\MockHttpClient $httpClient */
         $httpClient = static::mockApiClient()->getMockHttpClient();
         $httpClient->addResponse(new Response(200, [], '<xml></xml>'));
@@ -89,11 +88,10 @@ class AbstractControllerTest extends TestCase
         static::$stub->toArray($response);
     }
 
-    /**
-     * @expectedException \Apigee\Edge\Exception\InvalidJsonException
-     */
     public function testParseResponseWithInvalidJson(): void
     {
+        $this->expectException('\Apigee\Edge\Exception\InvalidJsonException');
+
         /** @var \Apigee\Edge\Tests\Test\HttpClient\MockHttpClient $httpClient */
         $httpClient = static::mockApiClient()->getMockHttpClient();
         $httpClient->addResponse(new Response(200, ['Content-Type' => 'application/json'], ''));

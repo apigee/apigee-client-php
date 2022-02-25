@@ -22,7 +22,7 @@ use Apigee\Edge\Entity\EntityInterface;
 use Apigee\Edge\Tests\Test\Entity\NewEntityProviderTrait;
 use Apigee\Edge\Tests\Test\EntitySerializer\EntitySerializerAwareTestTrait;
 use Apigee\Edge\Tests\Test\EntitySerializer\EntitySerializerValidatorAwareTrait;
-use PHPUnit\Framework\Assert;
+use DMS\PHPUnitExtensions\ArraySubset\Assert;
 
 /**
  * Validates controllers that support entity create operations.

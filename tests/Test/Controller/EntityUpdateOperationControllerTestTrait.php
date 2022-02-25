@@ -21,7 +21,7 @@ namespace Apigee\Edge\Tests\Test\Controller;
 use Apigee\Edge\Entity\EntityInterface;
 use Apigee\Edge\Tests\Test\EntitySerializer\EntitySerializerAwareTestTrait;
 use Apigee\Edge\Tests\Test\EntitySerializer\EntitySerializerValidatorAwareTrait;
-use PHPUnit\Framework\Assert;
+use DMS\PHPUnitExtensions\ArraySubset\Assert;
 
 /**
  * Validates controllers that support entity update operations.

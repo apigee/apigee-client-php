@@ -63,12 +63,11 @@ abstract class ReportDefinitionControllerTestBase extends EntityControllerTestBa
         $this->assertEquals("/v1/mint/organizations/{$test_org}/revenue-reports", static::mockApiClient()->getJournal()->getLastRequest()->getUri()->getPath());
     }
 
-    /**
-     * @expectedException \Apigee\Edge\Exception\InvalidArgumentException
-     * @expectedExceptionMessage Unable to identify report type.
-     */
     public function testGenerateReportWithUnknownCriteria(): void
     {
+        $this->expectException('\Apigee\Edge\Exception\InvalidArgumentException');
+        $this->expectExceptionMessage('Unable to identify report type.');
+
         $class = new class() extends AbstractCriteria {
         };
         /** @var \Apigee\Edge\Api\Monetization\Controller\ReportDefinitionControllerInterface $controller */

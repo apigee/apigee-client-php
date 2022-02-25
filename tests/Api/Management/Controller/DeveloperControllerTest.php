@@ -64,11 +64,11 @@ class DeveloperControllerTest extends EntityControllerTestBase
 
     /**
      * @group online
-     *
-     * @expectedException \Apigee\Edge\Exception\ClientErrorException
      */
     public function testCreateWithIncorrectData(): void
     {
+        $this->expectException('\Apigee\Edge\Exception\ClientErrorException');
+
         static::markOnlineTestSkipped(__FUNCTION__);
         $entity = new Developer(['email' => 'developer-create-exception@example.com']);
         static::entityCreateOperationTestController()->create($entity);
@@ -93,11 +93,10 @@ class DeveloperControllerTest extends EntityControllerTestBase
         $this->assertEquals($entity->getStatus(), DeveloperInterface::STATUS_ACTIVE);
     }
 
-    /**
-     * @expectedException \Apigee\Edge\Api\Management\Exception\DeveloperNotFoundException
-     */
     public function testGetDeveloperByApp(): void
     {
+        $this->expectException('\Apigee\Edge\Api\Management\Exception\DeveloperNotFoundException');
+
         $developer = (object) [
             'createdAt' => time() * 1000,
             'lastModifiedAt' => time() * 1000,

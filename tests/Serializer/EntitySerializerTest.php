@@ -179,12 +179,11 @@ class EntitySerializerTest extends TestCase
         $this->assertEmpty($entity->getVariableLengthArgs());
     }
 
-    /**
-     * @expectedException \Symfony\Component\Serializer\Exception\NotNormalizableValueException
-     * @expectedExceptionMessage Expected argument of type "string", "object" given.
-     */
     public function testSetPropertiesFromResponseWithInvalidValue(): void
     {
+        $this->expectException('\Symfony\Component\Serializer\Exception\NotNormalizableValueException');
+        $this->expectExceptionMessage('Expected argument of type "string", "object" given.');
+
         $entity = new MockEntity();
         $response = (object) [
             // Only string acceptable.
