@@ -132,7 +132,7 @@ class PropertyAccessorDecoratorTest extends PropertyAccessorTest
         } catch (\Exception $exception) {
             $this->assertInstanceOf($expectedException, $exception);
             if (null !== $expectedExceptionMessageRegexp) {
-                $this->assertRegExp($expectedExceptionMessageRegexp, $exception->getMessage());
+                $this->assertMatchesRegularExpression($expectedExceptionMessageRegexp, $exception->getMessage());
             }
         } finally {
             if (!isset($exception)) {
@@ -161,7 +161,7 @@ class PropertyAccessorDecoratorTest extends PropertyAccessorTest
             $this->propertyAccessor->setValue(static::$testObj, $property, $value);
         } catch (\Exception $exception) {
             $this->assertInstanceOf($expectedException, $exception);
-            $this->assertRegExp($expectedExceptionMessage, $exception->getMessage());
+            $this->assertMatchesRegularExpression($expectedExceptionMessage, $exception->getMessage());
         } finally {
             if (!isset($exception)) {
                 $this->fail('An exception should have been thrown.');
