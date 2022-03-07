@@ -1,4 +1,8 @@
 # CHANGELOG
+## [2.0.13](https://github.com/apigee/apigee-client-php/milestone/12?closed=1)
+* [#193] Fixed bug that was throwing error InvalidArgument while analyzing code.
+* [#207] Bump php-http/message requirement to 1.13 from 1.9.
+* [#208] Upgrade the phpunit and dependent libraries.
 
 ## [2.0.12](https://github.com/apigee/apigee-client-php/milestone/11?closed=1)
 * [#186] Added support for symfony/serializer minimum version..
