@@ -44,20 +44,18 @@ class ReportCriteriaDenormalizerTest extends TestCase
         static::$denormalizer->setSerializer(new Serializer([new DateTimeNormalizer([DateTimeNormalizer::FORMAT_KEY => EntityInterface::DATE_FORMAT])]));
     }
 
-    /**
-     * @expectedException \Error
-     */
     public function testDenormalizeWithAbtractClassNoContext(): void
     {
+        $this->expectException('\Error');
+
         static::$denormalizer->denormalize((object) [], AbstractCriteria::class, 'json');
     }
 
-    /**
-     * @expectedException \Apigee\Edge\Exception\InvalidArgumentException
-     * @expectedExceptionMessage Invalid report definition type: foo.
-     */
     public function testDenormalizeWithAbstractClassUnknownReportType(): void
     {
+        $this->expectException('\Apigee\Edge\Exception\InvalidArgumentException');
+        $this->expectExceptionMessage('Invalid report definition type: foo.');
+
         static::$denormalizer->denormalize((object) [], AbstractCriteria::class, 'json', [ReportCriteriaDenormalizer::CONTEXT_REPORT_DEFINITION_TYPE => 'foo']);
     }
 

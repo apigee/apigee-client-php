@@ -73,21 +73,19 @@ class ApigeeOnGcpOauth2Test extends TestCase
         $this->client = $this->buildClient();
     }
 
-    /**
-     * @expectedException \Apigee\Edge\Exception\ApigeeOnGcpOauth2AuthenticationException
-     */
     public function testIncorrectCredentials(): void
     {
+        $this->expectException('\Apigee\Edge\Exception\ApigeeOnGcpOauth2AuthenticationException');
+
         // Auth server respond with 401 for the provided credentials.
         static::$httpClient->addResponse(new Response(401));
         $this->client->get('');
     }
 
-    /**
-     * @expectedException \Apigee\Edge\Exception\ApigeeOnGcpOauth2AuthenticationException
-     */
     public function testAuthServerError(): void
     {
+        $this->expectException('\Apigee\Edge\Exception\ApigeeOnGcpOauth2AuthenticationException');
+
         // Auth server is unavailable.
         static::$httpClient->addException(new TransferException());
         $this->client->get('');
