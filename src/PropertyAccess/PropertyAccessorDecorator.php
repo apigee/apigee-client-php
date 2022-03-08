@@ -51,7 +51,7 @@ final class PropertyAccessorDecorator implements PropertyAccessorInterface
     {
         try {
             $this->propertyAccessor->setValue($objectOrArray, $propertyPath, $value);
-        } catch (InvalidArgumentException $exception) {
+        } catch (InvalidArgumentException | \TypeError $exception) {
             // Auto-retry, try to pass the value as variable-length arguments to
             // the setter method.
             if (is_object($objectOrArray) && is_array($value)) {
@@ -65,7 +65,7 @@ final class PropertyAccessorDecorator implements PropertyAccessorInterface
                 }
 
                 if (null === $setter) {
-                    throw new AccessException("Setter method not found for {$propertyPath} property.", 0, $exception);
+                    throw new \TypeError("Setter method not found for {$propertyPath} property.", 0, $exception);
                 }
 
                 try {

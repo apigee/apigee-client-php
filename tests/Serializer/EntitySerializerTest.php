@@ -181,8 +181,14 @@ class EntitySerializerTest extends TestCase
 
     public function testSetPropertiesFromResponseWithInvalidValue(): void
     {
-        $this->expectException('\Symfony\Component\Serializer\Exception\NotNormalizableValueException');
-        $this->expectExceptionMessage('Expected argument of type "string", "object" given.');
+        if (\PHP_VERSION_ID < 80000) {
+            $this->expectException('\Symfony\Component\Serializer\Exception\NotNormalizableValueException');
+            $this->expectExceptionMessage('Expected argument of type "string", "object" given.');
+        }
+        else{
+            $this->expectException(\TypeError::class);
+            $this->expectExceptionMessage('Argument #1 must be of type string, stdClass given');
+        }
 
         $entity = new MockEntity();
         $response = (object) [

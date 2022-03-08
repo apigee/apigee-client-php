@@ -13,7 +13,7 @@
     "homepage": "http://github.com/apigee/apigee-client-php",
     "license": "Apache-2.0",
     "require": {
-        "php": "^7.3",
+        "php": "^7.3 || ^8.0",
         "ext-json": "*",
         "ext-openssl": "*",
         "ext-reflection": "*",
