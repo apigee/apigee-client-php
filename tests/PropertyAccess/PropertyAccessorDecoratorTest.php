@@ -129,7 +129,7 @@ class PropertyAccessorDecoratorTest extends PropertyAccessorTest
     {
         try {
             $this->propertyAccessor->getValue(static::$testObj, $property);
-        } catch (\Exception $exception) {
+        } catch (\Exception | \TypeError $exception) {
             $this->assertInstanceOf($expectedException, $exception);
             if (null !== $expectedExceptionMessageRegexp) {
                 $this->assertMatchesRegularExpression($expectedExceptionMessageRegexp, $exception->getMessage());
@@ -159,7 +159,7 @@ class PropertyAccessorDecoratorTest extends PropertyAccessorTest
     {
         try {
             $this->propertyAccessor->setValue(static::$testObj, $property, $value);
-        } catch (\Exception $exception) {
+        } catch (\Exception | \TypeError $exception) {
             $this->assertInstanceOf($expectedException, $exception);
             $this->assertMatchesRegularExpression($expectedExceptionMessage, $exception->getMessage());
         } finally {
@@ -177,19 +177,37 @@ class PropertyAccessorDecoratorTest extends PropertyAccessorTest
 
     public function exceptionsToGetOnGetValue(): array
     {
-        return [
-            // It seems the upstream issue has been fixed, throwing an
-            // unexpected value exception for this case is no longer needed.
-            // https://github.com/symfony/property-access/commit/e1a6c91c0007e45bc1beba929c76548ca9fe8a85
-            ['shouldBeAStringArray', AccessException::class],
-            ['shouldBeAString', UnexpectedValueException::class, '/Invalid value returned for shouldBeAString property on instance of class@anonymous.* class. Expected type "string", got "stdClass".$/'],
-        ];
+        // It seems the upstream issue has been fixed, throwing an
+        // unexpected value exception for this case is no longer needed.
+        // https://github.com/symfony/property-access/commit/e1a6c91c0007e45bc1beba929c76548ca9fe8a85
+
+        $shouldBeAString = ['shouldBeAStringArray', AccessException::class];
+        if (\PHP_VERSION_ID < 80000) {
+            return [
+                $shouldBeAString,
+                ['shouldBeAString', UnexpectedValueException::class, '/Invalid value returned for shouldBeAString property on instance of class@anonymous.* class. Expected type "string", got "stdClass".$/'],
+            ];
+        }
+        else{
+            return [
+                $shouldBeAString,
+                ['shouldBeAString', \TypeError::class, '/Return value must be of type string, stdClass returned/'],
+            ];
+        }
     }
 
     public function exceptionsToGetOnSetValue(): array
     {
-        return [
-            ['shouldBeAStringArray', [null], InvalidArgumentException::class, '/^Expected argument of type "string", "null" given/'],
-        ];
+        // We will be checking the php version as the exception returned in php 8 is different from php 7.
+        if (\PHP_VERSION_ID < 80000) {
+            return [
+                ['shouldBeAStringArray', [null], InvalidArgumentException::class, '/^Expected argument of type "string", "null" given/'],
+            ];
+        }
+        else {
+            return [
+                ['shouldBeAStringArray', [null], \TypeError::class, '/Argument #1 must be of type string, null given/'],
+            ];
+        }
     }
 }
