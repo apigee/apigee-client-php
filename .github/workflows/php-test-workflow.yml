@@ -1,0 +1,78 @@
+name: Tests
+
+on:
+    push:
+    pull_request:
+
+jobs:
+    build:
+        name: Tests
+        runs-on: ubuntu-latest
+        strategy:
+            matrix:
+                include:
+                -   php: '7.4'
+                    dependencies-preference: " "
+                -   php: '7.4'
+                    dependencies-preference: "--prefer-lowest"
+                -   php: '8.0'
+                    dependencies-preference: " "
+                -   php: '8.0'
+                    dependencies-preference: "--prefer-lowest"
+#                -   php: '8.1'
+#                    dependencies-preference: " "
+#                -   php: '8.1'
+#                    dependencies-preference: "--prefer-lowest"
+            fail-fast: false
+        steps:
+        -   uses: actions/checkout@v2
+            with:
+                fetch-depth: 0
+        -   name: Setup PHP
+            uses: shivammathur/setup-php@v2
+            with:
+                coverage: "xdebug"
+                ini-values: date.timezone=Europe/Paris,memory_limit=-1,default_socket_timeout=10,session.gc_probability=0,apc.enable_cli=1,zend.assertions=1
+                php-version: "${{ matrix.php }}"
+
+        -   name: Validate composer.json and composer.lock
+            run: composer validate --strict
+
+        -   name: Cache Composer packages
+            id: composer-cache
+            uses: actions/cache@v2
+            with:
+                path: vendor
+                key: ${{ runner.os }}-php-${{ matrix.php }}-${{ hashFiles('./composer.json') }}
+
+        -   name: Install dependencies
+            run: COMPOSER_PROCESS_TIMEOUT=0 composer install --dev --no-suggest --no-interaction
+
+        -   name: Install Guzzle
+            run: composer require guzzlehttp/guzzle:^6.3.0 ${{ matrix.dependencies-preference }} --no-progress;
+
+        -   run: composer show
+
+        -   name: Check style for only changed files
+            run: |
+                IFS=$'\n'; CHANGED_FILES=($(git diff --name-only --diff-filter=ACMRTUXB ${{ github.event.pull_request.base.sha }} ${{ github.sha }} )); unset IFS
+                EXTRA_ARGS=('--path-mode=intersection' '--' "${CHANGED_FILES[@]}")
+                composer check-style -- --using-cache=no "${EXTRA_ARGS[@]}"
+
+        -   name: Composer Analyze
+            run: composer analyze
+
+        -   name: Composer Test
+            run: composer test
+
+        -   name: Composer Metrics
+            run: composer metrics
+
+        -   name: Upload coverage to Codecov
+            uses: codecov/codecov-action@v2
+            with:
+                fail_ci_if_error: true
+                files: ./coverage.xml
+                flags: unittests
+                name: codecov-umbrella
+                verbose: true
