@@ -13,7 +13,7 @@
     "homepage": "http://github.com/apigee/apigee-client-php",
     "license": "Apache-2.0",
     "require": {
-        "php": "^7.3 || ^8.0",
+        "php": "^7.4 || ^8.0",
         "ext-json": "*",
         "ext-openssl": "*",
         "ext-reflection": "*",
@@ -43,7 +43,7 @@
         "monolog/monolog": "^1.23",
         "php-http/guzzle6-adapter": "^2.0",
         "php-http/mock-client": "^1.1.0",
-        "phpmetrics/phpmetrics": "^2.3",
+        "phpmetrics/phpmetrics": "^2.7",
         "phpunit/phpunit": "^9.5",
         "sebastian/comparator": "^4.0.5",
         "symfony/cache": "~3.4 || ~4.0",
@@ -76,12 +76,12 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "scripts": {
-        "test": "phpunit",
-        "analyze": "psalm --config=psalm.xml.dist --show-info=false --stats",
-        "metrics": "phpmetrics .",
-        "metrics-html": "phpmetrics . --report-html=report",
-        "check-style": "php-cs-fixer fix --config=./.php_cs.dist --verbose --dry-run",
-        "fix-style": "php-cs-fixer fix --config=./.php_cs.dist"
+        "test": "vendor/bin/phpunit --coverage-clover coverage.xml",
+        "analyze": "vendor/vimeo/psalm/psalm --config=psalm.xml.dist --show-info=false --stats",
+        "metrics": "vendor/bin/phpmetrics .",
+        "metrics-html": "vendor/bin/phpmetrics . --report-html=report",
+        "check-style": "vendor/bin/php-cs-fixer fix --config=./.php_cs.dist --verbose --dry-run",
+        "fix-style": "vendor/bin/php-cs-fixer fix --config=./.php_cs.dist"
     },
     "extra": {
         "branch-alias": {
