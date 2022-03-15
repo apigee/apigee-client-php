@@ -13,7 +13,7 @@
     "homepage": "http://github.com/apigee/apigee-client-php",
     "license": "Apache-2.0",
     "require": {
-        "php": "^7.3",
+        "php": "^7.4 || ^8.0",
         "ext-json": "*",
         "ext-openssl": "*",
         "ext-reflection": "*",
@@ -24,27 +24,28 @@
         "php-http/client-implementation": "^1.0",
         "php-http/discovery": "^1.6.0",
         "php-http/httplug": "^2.0",
-        "php-http/message": "^1.9",
+        "php-http/message": "^1.13",
         "php-http/message-factory": "^1.0",
         "phpdocumentor/reflection-docblock": "^3.0 || ^4.0 || ^5.0",
         "psr/http-message": "^1.0",
-        "symfony/options-resolver": "^3.4 || ^4.0",
-        "symfony/property-access": "^3.4.41 || ^4.4.9",
-        "symfony/property-info": "^3.4 || ^4.0",
-        "symfony/serializer": "^3.4.31 || ^4.4"
+        "symfony/options-resolver": "^4.0",
+        "symfony/property-access": "^4.4.9",
+        "symfony/property-info": "^4.0",
+        "symfony/serializer": "^4.4"
     },
     "require-dev": {
+        "dms/phpunit-arraysubset-asserts": "^0.4.0",
         "friendsofphp/php-cs-fixer": "^2.19",
         "fzaninotto/faker": "^1.7",
         "guzzlehttp/psr7": "^1.0",
         "league/flysystem": "^1.0",
-        "limedeck/phpunit-detailed-printer": "^4",
+        "limedeck/phpunit-detailed-printer": "^6",
         "monolog/monolog": "^1.23",
         "php-http/guzzle6-adapter": "^2.0",
         "php-http/mock-client": "^1.1.0",
-        "phpmetrics/phpmetrics": "^2.3",
-        "phpunit/phpunit": "^7.5.20",
-        "sebastian/comparator": "^3.0.3",
+        "phpmetrics/phpmetrics": "^2.7",
+        "phpunit/phpunit": "^9.5",
+        "sebastian/comparator": "^4.0.5",
         "symfony/cache": "~3.4 || ~4.0",
         "vimeo/psalm": "^3.18.2"
     },
@@ -75,12 +76,12 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "scripts": {
-        "test": "phpunit",
-        "analyze": "psalm --config=psalm.xml.dist --show-info=false --stats",
-        "metrics": "phpmetrics .",
-        "metrics-html": "phpmetrics . --report-html=report",
-        "check-style": "php-cs-fixer fix --config=./.php_cs.dist --verbose --dry-run",
-        "fix-style": "php-cs-fixer fix --config=./.php_cs.dist"
+        "test": "vendor/bin/phpunit --coverage-clover coverage.xml",
+        "analyze": "vendor/vimeo/psalm/psalm --config=psalm.xml.dist --show-info=false --stats",
+        "metrics": "vendor/bin/phpmetrics .",
+        "metrics-html": "vendor/bin/phpmetrics . --report-html=report",
+        "check-style": "vendor/bin/php-cs-fixer fix --config=./.php_cs.dist --verbose --dry-run",
+        "fix-style": "vendor/bin/php-cs-fixer fix --config=./.php_cs.dist"
     },
     "extra": {
         "branch-alias": {

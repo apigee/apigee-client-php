@@ -42,7 +42,7 @@ php_build: &php_build
           COMPOSER_OPTIONS="--no-suggest --no-interaction"
           COMPOSER_PROCESS_TIMEOUT=0
           composer update $COMPOSER_OPTIONS
-  
+
     - run:
         name: Install dependencies
         command: |
@@ -61,30 +61,30 @@ php_build: &php_build
           EXTRA_ARGS=('--path-mode=intersection' '--' "${CHANGED_FILES[@]}")
           composer check-style -- --using-cache=no "${EXTRA_ARGS[@]}"
 
-    - run: 
+    - run:
         name: Composer Analyze
         command: composer analyze
 
-    - run: 
+    - run:
         name: Composer Test
         command: composer test
 
     - run:
         name: Composer Metrics
         command: composer metrics
-        
+
     - when:
-        condition: 
+        condition:
             and:
               - equal: [ "7.4", << parameters.php-version >> ]
-              - equal: [ " ", << parameters.dependencies >> ]  
+              - equal: [ " ", << parameters.dependencies >> ]
         steps:
           # Generate code coverage artifacts and upload to Codecov.
-          - run: 
+          - run:
               name: Generating Code Coverage
               command: |
                 phpdbg -d memory_limit=-1 -qrr vendor/bin/phpunit --coverage-html build/coverage-report --coverage-clover coverage.xml
-          - run: 
+          - run:
               name: Upload coverage reports to Codecov
               command: |
                   curl https://keybase.io/codecovsecurity/pgp_keys.asc | gpg --no-default-keyring --keyring trustedkeys.gpg --import # One-time step
@@ -115,5 +115,5 @@ workflows:
           name: PHP-<< matrix.php-version >>-DEPENDENCIES="<< matrix.dependencies >>"
           matrix:
             parameters:
-              php-version: [ "7.3", "7.4" ]
+              php-version: [ "7.4", "8.0"]
               dependencies: [ "--prefer-lowest", " " ]

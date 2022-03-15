@@ -1,11 +1,10 @@
 # Apigee Edge Client Library for PHP
 
-[![Build Status](https://travis-ci.org/apigee/apigee-client-php.svg?branch=2.x)](https://travis-ci.org/apigee/apigee-client-php)
+[![Build Status](https://github.com/apigee/apigee-client-php/actions/workflows/php-test-workflow.yml/badge.svg)](https://github.com/apigee/apigee-client-php/actions/workflows/php-test-workflow.yml)
 [![Code Coverage](https://codecov.io/gh/apigee/apigee-client-php/branch/2.x/graph/badge.svg)](https://codecov.io/gh/apigee/apigee-client-php/branch/2.x)
 [![Latest Stable Version](https://poser.pugx.org/apigee/apigee-client-php/v/stable)](https://packagist.org/packages/apigee/apigee-client-php)
 [![Total Downloads](https://poser.pugx.org/apigee/apigee-client-php/downloads)](https://packagist.org/packages/apigee/apigee-client-php)
-[![Latest Unstable Version](https://img.shields.io/badge/unstable-2.0.x--dev-orange.svg?style=flat-square)](https://packagist.org/packages/apigee/apigee-client-php)
-[![Minimum PHP Version](https://img.shields.io/badge/PHP-%3E%3D%207.1-8892BF.svg?style=flat-square)](https://php.net/)
+[![Minimum PHP Version](https://img.shields.io/badge/PHP-%3E%3D%207.4-8892BF.svg?style=flat-square)](https://php.net/)
 [![License](https://poser.pugx.org/apigee/apigee-client-php/license)](https://packagist.org/packages/apigee/apigee-client-php)
 
 The Apigee API Client Library for PHP makes it easy to develop PHP clients that call the Apigee Edge Management API. The
