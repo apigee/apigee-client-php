@@ -1,4 +1,7 @@
 # CHANGELOG
+## [2.0.14](https://github.com/apigee/apigee-client-php/milestone/13?closed=1)
+* [#211] Added support for php 8.0.
+
 ## [2.0.13](https://github.com/apigee/apigee-client-php/milestone/12?closed=1)
 * [#193] Fixed bug that was throwing error InvalidArgument while analyzing code.
 * [#207] Bump php-http/message requirement to 1.13 from 1.9.
