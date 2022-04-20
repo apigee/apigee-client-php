@@ -131,12 +131,11 @@ class RatePlanControllerTest extends EntityControllerTestBase
         $this->assertNotNull($rate_plan_revision->id());
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Start date should not be earlier than parent rate plan's start date.
-     */
     public function testCreateNewRevisionWithIncorrectStartDate(): void
     {
+        $this->expectException('\InvalidArgumentException');
+        $this->expectExceptionMessage("Start date should not be earlier than parent rate plan's start date.");
+
         /** @var \Apigee\Edge\Api\Monetization\Entity\RatePlanInterface $rate_plan */
         $rate_plan = $this->controllerForEntityLoad()->load('standard');
         $rate_plan->setStartDate(new \DateTimeImmutable('now'));

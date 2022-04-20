@@ -314,7 +314,8 @@ class Client implements ClientInterface
         ];
 
         if (null !== $this->retryPluginConfig) {
-            if (!isset($this->retryPluginConfig['exception_decider'])) {
+            $retryPluginConfig = $this->retryPluginConfig;
+            if (!isset($retryPluginConfig['exception_decider'])) {
                 $this->retryPluginConfig['exception_decider'] = function (RequestInterface $request, Exception $e) {
                     // When Oauth authentication is in use retry decider should ignore
                     // OauthAuthenticationException.

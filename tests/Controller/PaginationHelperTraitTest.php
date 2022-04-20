@@ -88,12 +88,11 @@ class PaginationHelperTraitTest extends TestCase
         $this->assertCount(3, static::$testController->getEntityIds(), 'CPS enabled');
     }
 
-    /**
-     * @expectedException \PHPUnit\Framework\Error\Notice
-     * @expectedExceptionMessage Apigee Edge PHP Client: Simulating CPS pagination on an organization that does not have CPS support. https://docs.apigee.com/api-platform/reference/cps
-     */
     public function testWithoutCpsNotice(): void
     {
+        $this->expectException('\PHPUnit\Framework\Error\Notice');
+        $this->expectExceptionMessage('Apigee Edge PHP Client: Simulating CPS pagination on an organization that does not have CPS support. https://docs.apigee.com/api-platform/reference/cps');
+
         // Make sure CPS notice suppressing is disabled.
         putenv('APIGEE_EDGE_PHP_CLIENT_SUPPRESS_CPS_SIMULATION_NOTICE=0');
         /** @var \Apigee\Edge\Tests\Test\HttpClient\MockHttpClient $httpClient */
@@ -112,12 +111,11 @@ class PaginationHelperTraitTest extends TestCase
         $this->assertCount(2, static::$testController->getEntityIds(static::$testController->createPager()));
     }
 
-    /**
-     * @expectedException \Apigee\Edge\Exception\RuntimeException
-     * @expectedExceptionMessage CPS simulation error: "foo" does not exist.
-     */
     public function testListEntityIdsWithoutCpsWithInvalidStartKey(): void
     {
+        $this->expectException('\Apigee\Edge\Exception\RuntimeException');
+        $this->expectExceptionMessage('CPS simulation error: "foo" does not exist.');
+
         $this->iniSet('error_reporting', 'E_ALL & ~E_NOTICE');
         /** @var \Apigee\Edge\Tests\Test\HttpClient\MockHttpClient $httpClient */
         $httpClient = static::mockApiClient()->getMockHttpClient();

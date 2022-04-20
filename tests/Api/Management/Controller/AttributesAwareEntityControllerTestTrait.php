@@ -24,6 +24,7 @@ use Apigee\Edge\Tests\Test\Controller\EntityControllerAwareTestTrait;
 use Apigee\Edge\Tests\Test\Controller\EntityCreateOperationTestControllerAwareTrait;
 use Apigee\Edge\Tests\Test\Entity\NewEntityProviderTrait;
 use Apigee\Edge\Tests\Test\Utility\MarkOnlineTestSkippedAwareTrait;
+use DMS\PHPUnitExtensions\ArraySubset\Assert;
 
 trait AttributesAwareEntityControllerTestTrait
 {
@@ -49,7 +50,7 @@ trait AttributesAwareEntityControllerTestTrait
         $attributesProperty = $controller->updateAttributes($entity->id(), $attributes);
         /** @var array $newAttributes */
         $newAttributes = $attributesProperty->values();
-        $this->assertArraySubset($originalAttributes, $newAttributes);
+        Assert::assertArraySubset($originalAttributes, $newAttributes);
         $this->assertArrayHasKey('name1', $newAttributes);
         $this->assertArrayHasKey('name2', $newAttributes);
         $this->assertEquals('value1', $newAttributes['name1']);

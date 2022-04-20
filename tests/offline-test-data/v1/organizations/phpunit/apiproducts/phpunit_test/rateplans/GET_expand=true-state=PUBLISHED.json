@@ -1,0 +1,14 @@
+{
+    "ratePlans": [
+        {
+            "name": "cadd3c0b-74f4-4539-9ef0-9b3a32450844",
+            "apiproduct": "phpunit_test",
+            "displayName": "phpunit_test",
+            "billingPeriod": "MONTHLY",
+            "paymentFundingModel": "POSTPAID",
+            "currencyCode": "USD",
+            "state": "PUBLISHED",
+            "startTime": "1637238141598"
+        }
+    ]
+}

@@ -3,7 +3,6 @@
 # Check https://circleci.com/docs/2.0/language-php/ for more details
 #
 version: 2.1
-
 defaults: &defaults
   docker:
     - image: cimg/php:<< parameters.php-version >>-node
@@ -38,12 +37,12 @@ php_build: &php_build
     - restore_cache: *restore_cache
 
     - run:
-        name: Update composer
+        name: Update Composer
         command: |
           COMPOSER_OPTIONS="--no-suggest --no-interaction"
           COMPOSER_PROCESS_TIMEOUT=0
           composer update $COMPOSER_OPTIONS
-  
+
     - run:
         name: Install dependencies
         command: |
@@ -62,23 +61,44 @@ php_build: &php_build
           EXTRA_ARGS=('--path-mode=intersection' '--' "${CHANGED_FILES[@]}")
           composer check-style -- --using-cache=no "${EXTRA_ARGS[@]}"
 
-    - run: 
+    - run:
         name: Composer Analyze
         command: composer analyze
 
-    - run: 
+    - run:
         name: Composer Test
-        command: |
-          PHP_VERSION=<< parameters.php-version >>;
-          if [[ $PHP_VERSION = "7.3" ]]; then composer test; fi
-          if [[ $PHP_VERSION = "7.4" ]]; then composer test -- --coverage-clover=clover.xml; fi
+        command: composer test
 
     - run:
         name: Composer Metrics
-        command: |
-          composer metrics
-          PHP_VERSION=<< parameters.php-version >>;
-          if [[ $PHP_VERSION = "7.4" ]] && [[ $DEPENDENCIES = "" ]]; then bash <(curl -s https://codecov.io/bash) -f ./clover.xml; fi
+        command: composer metrics
+
+    - when:
+        condition:
+            and:
+              - equal: [ "7.4", << parameters.php-version >> ]
+              - equal: [ " ", << parameters.dependencies >> ]
+        steps:
+          # Generate code coverage artifacts and upload to Codecov.
+          - run:
+              name: Generating Code Coverage
+              command: |
+                phpdbg -d memory_limit=-1 -qrr vendor/bin/phpunit --coverage-html build/coverage-report --coverage-clover coverage.xml
+          - run:
+              name: Upload coverage reports to Codecov
+              command: |
+                  curl https://keybase.io/codecovsecurity/pgp_keys.asc | gpg --no-default-keyring --keyring trustedkeys.gpg --import # One-time step
+                  curl -Os https://uploader.codecov.io/latest/linux/codecov
+                  curl -Os https://uploader.codecov.io/latest/linux/codecov.SHA256SUM
+                  curl -Os https://uploader.codecov.io/latest/linux/codecov.SHA256SUM.sig
+                  gpgv codecov.SHA256SUM.sig codecov.SHA256SUM
+                  shasum -a 256 -c codecov.SHA256SUM
+                  chmod +x codecov
+                  ./codecov -t ${CODECOV_TOKEN}
+          - store_artifacts:
+              path: build/coverage-report
+          - store_test_results:
+              path: build/coverage-report/index.html
 
 # Declare all of the jobs we should run.
 jobs:
@@ -95,5 +115,5 @@ workflows:
           name: PHP-<< matrix.php-version >>-DEPENDENCIES="<< matrix.dependencies >>"
           matrix:
             parameters:
-              php-version: [ "7.3", "7.4" ]
+              php-version: [ "7.4", "8.0"]
               dependencies: [ "--prefer-lowest", " " ]

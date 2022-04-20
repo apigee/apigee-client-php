@@ -5,12 +5,14 @@ coverage:
   precision: 2
   round: down
   range: "70...100"
-
   status:
     project: yes
-    patch: yes
+    patch: no
     changes: no
-  
+    default_rules:
+      flag_coverage_not_uploaded_behavior: include
+github_checks:
+  annotations: yes
 parsers:
   gcov:
     branch_detection:
@@ -23,3 +25,4 @@ comment:
   layout: "reach,diff,flags,tree"
   behavior: default
   require_changes: no
+  show_carryforward_flags: no

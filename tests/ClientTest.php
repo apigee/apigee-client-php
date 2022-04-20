@@ -103,58 +103,53 @@ class ClientTest extends TestCase
         $this->assertEquals('bar', $sent_request->getHeaderLine('Foo'));
     }
 
-    /**
-     * @expectedException \Apigee\Edge\Exception\ApiRequestException
-     */
     public function testApiNotReachable(): void
     {
+        $this->expectException('\Apigee\Edge\Exception\ApiRequestException');
+
         static::$httpClient->addException(new NetworkException('', new Request('GET', 'http://example.com')));
         $builder = new Builder(self::$httpClient);
         $client = new Client(new NullAuthentication(), null, [\Apigee\Edge\Client::CONFIG_HTTP_CLIENT_BUILDER => $builder]);
         $client->get('/');
     }
 
-    /**
-     * @expectedException \Apigee\Edge\Exception\ApiRequestException
-     */
     public function testInvalidRequest(): void
     {
+        $this->expectException('\Apigee\Edge\Exception\ApiRequestException');
+
         static::$httpClient->addException(new RequestException('Invalid request', new Request('GET', 'http://example.com')));
         $builder = new Builder(self::$httpClient);
         $client = new Client(new NullAuthentication(), null, [Client::CONFIG_HTTP_CLIENT_BUILDER => $builder]);
         $client->get('/');
     }
 
-    /**
-     * @expectedException \Apigee\Edge\Exception\ClientErrorException
-     * @expectedExceptionCode 404
-     */
     public function testApiEndpointNotFound(): void
     {
+        $this->expectException('\Apigee\Edge\Exception\ClientErrorException');
+        $this->expectExceptionCode('404');
+
         static::$httpClient->addResponse(new Response(404));
         $builder = new Builder(self::$httpClient);
         $client = new Client(new NullAuthentication(), null, [Client::CONFIG_HTTP_CLIENT_BUILDER => $builder]);
         $client->get('/');
     }
 
-    /**
-     * @expectedException \Apigee\Edge\Exception\ServerErrorException
-     * @expectedExceptionCode 500
-     */
     public function testServerError(): void
     {
+        $this->expectException('\Apigee\Edge\Exception\ServerErrorException');
+        $this->expectExceptionCode('500');
+
         static::$httpClient->addResponse(new Response(500));
         $builder = new Builder(self::$httpClient);
         $client = new Client(new NullAuthentication(), null, [Client::CONFIG_HTTP_CLIENT_BUILDER => $builder]);
         $client->get('/');
     }
 
-    /**
-     * @expectedException \Apigee\Edge\Exception\ClientErrorException
-     * @expectedExceptionCode 400
-     */
     public function testRetryPlugin(): void
     {
+        $this->expectException('\Apigee\Edge\Exception\ClientErrorException');
+        $this->expectExceptionCode('400');
+
         static::$httpClient->addResponse(new Response(500));
         static::$httpClient->addResponse(new Response(200));
         $builder = new Builder(self::$httpClient);
