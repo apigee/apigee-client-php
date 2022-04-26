@@ -35,6 +35,7 @@ abstract class EntityControllerTestBase extends BaseEntityControllerTesterBase
     use OrganizationProfileControllerAwareTestTrait;
 
     protected static $originalTimezone;
+    protected static $validator;
 
     /**
      * {@inheritdoc}
@@ -51,6 +52,7 @@ abstract class EntityControllerTestBase extends BaseEntityControllerTesterBase
      */
     public static function tearDownAfterClass(): void
     {
+        static::$validator = null;
         date_default_timezone_set(static::$originalTimezone);
     }
 
@@ -69,12 +71,11 @@ abstract class EntityControllerTestBase extends BaseEntityControllerTesterBase
      */
     protected function entitySerializerValidator(): EntitySerializerValidatorInterface
     {
-        static $validator;
-        if (null === $validator) {
-            $validator = new OrganizationAwareEntitySerializerValidator($this->entitySerializer());
+        if (null === static::$validator) {
+            static::$validator = new OrganizationAwareEntitySerializerValidator($this->entitySerializer());
         }
 
-        return $validator;
+        return static::$validator;
     }
 
     /**

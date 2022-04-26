@@ -27,16 +27,26 @@ use Apigee\Edge\Tests\Test\EntitySerializer\EntitySerializerValidatorInterface;
  */
 abstract class EntityControllerTestBase extends BaseEntityControllerTestBase
 {
+    protected static $validator;
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function tearDownAfterClass(): void
+    {
+        // Clearing the static variables.
+        static::$validator = null;
+    }
+
     /**
      * {@inheritdoc}
      */
     protected function entitySerializerValidator(): EntitySerializerValidatorInterface
     {
-        static $validator;
-        if (null === $validator) {
-            $validator = new EntitySerializerValidator($this->entitySerializer());
+        if (null === static::$validator) {
+            static::$validator = new EntitySerializerValidator($this->entitySerializer());
         }
 
-        return $validator;
+        return static::$validator;
     }
 }
