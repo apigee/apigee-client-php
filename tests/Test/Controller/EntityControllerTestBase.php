@@ -43,7 +43,6 @@ abstract class EntityControllerTestBase extends ControllerTestBase
         parent::tearDownAfterClass();
     }
 
-
     /**
      * {@inheritdoc}
      */
