@@ -87,5 +87,4 @@ abstract class EntityControllerTestBase extends ControllerTestBase
 
         return static::$validator;
     }
-
 }

@@ -27,7 +27,6 @@ use Apigee\Edge\Tests\Test\EntitySerializer\EntitySerializerValidatorInterface;
  */
 abstract class EntityControllerTestBase extends BaseEntityControllerTestBase
 {
-
     protected static $validator;
 
     /**
