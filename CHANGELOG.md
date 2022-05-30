@@ -1,4 +1,7 @@
 # CHANGELOG
+## [2.0.16](https://github.com/apigee/apigee-client-php/milestone/15?closed=1)
+* [#223] Bump required version of league/period to ^4.12.
+
 ## [2.0.15](https://github.com/apigee/apigee-client-php/milestone/14?closed=1)
 * [#215] Added support for php 8.1.
 
