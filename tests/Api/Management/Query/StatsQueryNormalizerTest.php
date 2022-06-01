@@ -48,7 +48,7 @@ class StatsQueryNormalizerTest extends TestCase
     public function testNormalizationWithMinimumData(): void
     {
         date_default_timezone_set('Europe/Budapest');
-        $q = new StatsQuery(['metric1', 'metric2'], Period::createFromMonth(2018, 1));
+        $q = new StatsQuery(['metric1', 'metric2'], Period::fromMonth(2018, 1));
         $data = static::$normalizer->normalize($q);
         $expected = [
             'select' => 'metric1,metric2',
@@ -62,7 +62,7 @@ class StatsQueryNormalizerTest extends TestCase
     public function testNormalizationWithAllParameters(): void
     {
         date_default_timezone_set('UTC');
-        $q = new StatsQuery(['metric1', 'metric2'], Period::createFromMonth(2018, 1));
+        $q = new StatsQuery(['metric1', 'metric2'], Period::fromMonth(2018, 1));
         $q->setSort(StatsQuery::SORT_ASC);
         $sortBy = 'metric1';
         $timeUnit = 'day';

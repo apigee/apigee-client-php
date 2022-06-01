@@ -31,6 +31,9 @@ abstract class EntityControllerTestBase extends ControllerTestBase
     use EntitySerializerAwareTestTrait;
     use EntitySerializerValidatorAwareTrait;
 
+    protected static $instance;
+    protected static $validator;
+
     /**
      * {@inheritdoc}
      */
@@ -40,6 +43,16 @@ abstract class EntityControllerTestBase extends ControllerTestBase
         parent::tearDownAfterClass();
     }
 
+    /**
+     * {@inheritdoc}
+     */
+    public function tearDown(): void
+    {
+        // Clearing the static variables.
+        static::$instance = null;
+        static::$validator = null;
+    }
+
     abstract protected static function entityController(ClientInterface $client = null): EntityControllerTesterInterface;
 
     /**
@@ -47,9 +60,7 @@ abstract class EntityControllerTestBase extends ControllerTestBase
      */
     protected function entitySerializer(): EntitySerializerInterface
     {
-        static $instance;
-
-        if (null === $instance) {
+        if (null === static::$instance) {
             // TODO Find a better way to expose the entity serializer used by
             // a controller.
             $ro = new \ReflectionObject(static::entityController());
@@ -59,10 +70,10 @@ abstract class EntityControllerTestBase extends ControllerTestBase
             $rm = $ro->getMethod('getEntitySerializer');
             $rm->setAccessible(true);
 
-            $instance = $rm->invoke($property->getValue(static::entityController()));
+            static::$instance = $rm->invoke($property->getValue(static::entityController()));
         }
 
-        return $instance;
+        return static::$instance;
     }
 
     /**
@@ -70,11 +81,10 @@ abstract class EntityControllerTestBase extends ControllerTestBase
      */
     protected function entitySerializerValidator(): EntitySerializerValidatorInterface
     {
-        static $validator;
-        if (null === $validator) {
-            $validator = new EntitySerializerValidator($this->entitySerializer());
+        if (null === static::$validator) {
+            static::$validator = new EntitySerializerValidator($this->entitySerializer());
         }
 
-        return $validator;
+        return static::$validator;
     }
 }

@@ -19,7 +19,7 @@
         "ext-reflection": "*",
         "fightbulc/moment": "^1.26",
         "firebase/php-jwt": "^5.0",
-        "league/period": "^3.4",
+        "league/period": "^4.12",
         "php-http/client-common": "^2.0",
         "php-http/client-implementation": "^1.0",
         "php-http/discovery": "^1.6.0",
