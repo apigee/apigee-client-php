@@ -18,7 +18,7 @@
         "ext-openssl": "*",
         "ext-reflection": "*",
         "fightbulc/moment": "^1.26",
-        "firebase/php-jwt": "^5.0",
+        "firebase/php-jwt": "^6.0",
         "league/period": "^4.12",
         "php-http/client-common": "^2.0",
         "php-http/client-implementation": "^1.0",
