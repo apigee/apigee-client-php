@@ -33,19 +33,41 @@ final class JsonDecode extends BaseJsonDecode
     private $options;
 
     /**
+     * True to return the result as an associative array, false for a nested stdClass hierarchy.
+     */
+    public const ASSOCIATIVE = 'json_decode_associative';
+
+    public const OPTIONS = 'json_decode_options';
+
+    /**
+     * Specifies the recursion depth.
+     */
+    public const RECURSION_DEPTH = 'json_decode_recursion_depth';
+
+    private $defaultContext = [
+        self::ASSOCIATIVE => false,
+        self::OPTIONS => 0,
+        self::RECURSION_DEPTH => 512,
+    ];
+
+    /**
      * JsonDecode constructor.
      *
-     * @param bool $associative
+     * @param array $defaultContext
      * @param int $depth
-     *
-     * @psalm-suppress InvalidArgument
-     * Required since symfony/serializer >= 4.2.0
-     *
-     * @see https://github.com/symfony/symfony/pull/28709
      */
-    public function __construct(bool $associative = false, int $depth = 512)
+    public function __construct($defaultContext = [], int $depth = 512)
     {
-        parent::__construct($associative, $depth);
+        if (!\is_array($defaultContext)) {
+            @trigger_error(sprintf('Using constructor parameters that are not a default context is deprecated since Symfony 4.2, use the "%s" and "%s" keys of the context instead.', self::ASSOCIATIVE, self::RECURSION_DEPTH), \E_USER_DEPRECATED);
+
+            $defaultContext = [
+                self::ASSOCIATIVE => (bool) $defaultContext,
+                self::RECURSION_DEPTH => $depth,
+            ];
+        }
+
+        parent::__construct($defaultContext, $depth);
         // Following the same logic as in JsonEcode.
         $this->options = JSON_PRESERVE_ZERO_FRACTION;
     }

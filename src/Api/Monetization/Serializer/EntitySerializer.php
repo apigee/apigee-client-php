@@ -31,11 +31,6 @@ class EntitySerializer extends BaseEntitySerializer
      * EntitySerializer constructor.
      *
      * @param array $normalizers
-     *
-     * @psalm-suppress InvalidArgument
-     * Required since symfony/serializer >= 4.2.0
-     *
-     * @see https://github.com/symfony/symfony/pull/28709
      */
     public function __construct($normalizers = [])
     {
@@ -45,7 +40,7 @@ class EntitySerializer extends BaseEntitySerializer
             [
                 // Apigee Edge's default timezone is UTC, let's pass it as
                 // timezone instead of user's current timezone.
-                new DateTimeNormalizer(EntityInterface::DATE_FORMAT, new \DateTimeZone('UTC')),
+                new DateTimeNormalizer([DateTimeNormalizer::FORMAT_KEY => EntityInterface::DATE_FORMAT, DateTimeNormalizer::TIMEZONE_KEY => new \DateTimeZone('UTC')]),
                 new DateTimeZoneDenormalizer(),
                 new DateTimeZoneNormalizer(),
                 new EntityNormalizer(),
