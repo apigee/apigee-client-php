@@ -28,11 +28,6 @@ use Symfony\Component\Serializer\Encoder\JsonDecode as BaseJsonDecode;
 final class JsonDecode extends BaseJsonDecode
 {
     /**
-     * @var int
-     */
-    private $options;
-
-    /**
      * True to return the result as an associative array, false for a nested stdClass hierarchy.
      */
     public const ASSOCIATIVE = 'json_decode_associative';
@@ -49,6 +44,11 @@ final class JsonDecode extends BaseJsonDecode
         self::OPTIONS => 0,
         self::RECURSION_DEPTH => 512,
     ];
+
+    /**
+     * @var int
+     */
+    private $options;
 
     /**
      * JsonDecode constructor.
