@@ -1,4 +1,8 @@
 # CHANGELOG
+## [2.0.17](https://github.com/apigee/apigee-client-php/milestone/16?closed=1)
+* [#230] Bump firebase/php-jwt version to ^6.
+* [#232] Deprecation warnings when called serialized classes from the Symfony framework 4.4.x.
+
 ## [2.0.16](https://github.com/apigee/apigee-client-php/milestone/15?closed=1)
 * [#223] Bump required version of league/period to ^4.12.
 
