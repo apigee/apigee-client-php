@@ -34,5 +34,8 @@ return PhpCsFixer\Config::create()
         'no_superfluous_phpdoc_tags' => false,
         // Disabled because multiple lines allow code clarity.
         'single_line_throw' => false,
+        // Disabled because phpcs fails for php8.1 if there is '&' in the argument.
+        // see https://github.com/apigee/apigee-client-php/issues/233
+        'function_typehint_space' => false,
     ])
     ->setFinder($finder);
