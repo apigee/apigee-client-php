@@ -53,11 +53,6 @@ class StatsController extends AbstractController implements StatsControllerInter
      *   Name of the organization that the entities belongs to.
      * @param \Apigee\Edge\ClientInterface $client
      *   Apigee Edge API client.
-     *
-     * @psalm-suppress InvalidArgument
-     * Required since symfony/serializer >= 4.2.0
-     *
-     * @see https://github.com/symfony/symfony/pull/28709
      */
     public function __construct(string $environment, string $organization, ClientInterface $client)
     {
@@ -67,7 +62,7 @@ class StatsController extends AbstractController implements StatsControllerInter
         $this->normalizer = new StatsQueryNormalizer();
         // Return responses as an associative array instead of in Apigee Edge's mixed object-array structure to
         // make developer's life easier.
-        $this->jsonDecoder = new JsonDecode(true);
+        $this->jsonDecoder = new JsonDecode([JsonDecode::ASSOCIATIVE => true]);
     }
 
     /**

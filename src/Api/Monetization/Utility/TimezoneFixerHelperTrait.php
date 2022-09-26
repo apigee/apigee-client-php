@@ -46,10 +46,7 @@ trait TimezoneFixerHelperTrait
         // timezone if it is different than the default PHP timezone.
         if (date_default_timezone_get() !== $orgTimezone->getName()) {
             $ro = new \ReflectionObject($object);
-            // @psalm-suppress required since symfony/serializer >= 4.2.0
-            // @see https://github.com/symfony/symfony/pull/28709
-            /** @psalm-suppress InvalidArgument */
-            $dateDenormalizer = new DateTimeNormalizer(EntityInterface::DATE_FORMAT, $orgTimezone);
+            $dateDenormalizer = new DateTimeNormalizer([DateTimeNormalizer::FORMAT_KEY => EntityInterface::DATE_FORMAT, DateTimeNormalizer::TIMEZONE_KEY => $orgTimezone]);
             foreach ($ro->getProperties() as $property) {
                 $property->setAccessible(true);
                 $value = $property->getValue($object);
@@ -81,10 +78,8 @@ trait TimezoneFixerHelperTrait
 
         if (date_default_timezone_get() !== $orgTimezone->getName()) {
             $ro = new \ReflectionObject($denormalized);
-            // @psalm-suppress required since symfony/serializer >= 4.2.0
-            // @see https://github.com/symfony/symfony/pull/28709
-            /** @psalm-suppress InvalidArgument */
-            $dateDenormalizer = new DateTimeNormalizer(EntityInterface::DATE_FORMAT, $orgTimezone);
+
+            $dateDenormalizer = new DateTimeNormalizer([DateTimeNormalizer::FORMAT_KEY => EntityInterface::DATE_FORMAT, DateTimeNormalizer::TIMEZONE_KEY => $orgTimezone]);
             foreach ($object as $prop_name => $prop_value) {
                 if ($ro->hasProperty($prop_name)) {
                     $property = $ro->getProperty($prop_name);
