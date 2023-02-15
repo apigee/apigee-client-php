@@ -46,7 +46,9 @@ jobs:
                 key: ${{ runner.os }}-php-${{ matrix.php }}-${{ hashFiles('./composer.json') }}
 
         -   name: Install dependencies
-            run: COMPOSER_PROCESS_TIMEOUT=0 composer install --dev --no-suggest --no-interaction
+            run: |
+              composer config --no-plugins allow-plugins.php-http/discovery true 
+              COMPOSER_PROCESS_TIMEOUT=0 composer install --dev --no-suggest --no-interaction
 
         -   name: Install Guzzle
             run: composer require guzzlehttp/guzzle:^6.3.0 ${{ matrix.dependencies-preference }} --no-progress;
