@@ -43,6 +43,10 @@ class Organization extends Entity implements OrganizationInterface
     protected const TYPES = [
         'trial',
         'paid',
+        'TYPE_UNSPECIFIED',
+        'TYPE_TRIAL',
+        'TYPE_PAID',
+        'TYPE_INTERNAL',
     ];
 
     /** @var string */
