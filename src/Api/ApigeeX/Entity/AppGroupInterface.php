@@ -18,12 +18,11 @@
 
 namespace Apigee\Edge\Api\ApigeeX\Entity;
 
+use Apigee\Edge\Entity\CommonEntityPropertiesInterface;
+use Apigee\Edge\Entity\Property\AttributesPropertyInterface;
 use Apigee\Edge\Entity\Property\DisplayNamePropertyInterface;
 use Apigee\Edge\Entity\Property\NamePropertyInterface;
 use Apigee\Edge\Entity\Property\StatusPropertyInterface;
-use Apigee\Edge\Entity\CommonEntityPropertiesInterface;
-use Apigee\Edge\Entity\Property\AttributesPropertyInterface;
-
 
 /**
  * Interface AppGroupInterface.

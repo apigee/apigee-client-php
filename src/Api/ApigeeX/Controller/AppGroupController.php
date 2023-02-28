@@ -18,9 +18,9 @@
 
 namespace Apigee\Edge\Api\ApigeeX\Controller;
 
-use Apigee\Edge\Api\Management\Controller\AttributesAwareEntityControllerTrait;
 use Apigee\Edge\Api\ApigeeX\Entity\AppGroup;
 use Apigee\Edge\Api\ApigeeX\Serializer\AppGroupSerializer;
+use Apigee\Edge\Api\Management\Controller\AttributesAwareEntityControllerTrait;
 use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Controller\EntityController;
 use Apigee\Edge\Controller\EntityCrudOperationsControllerTrait;

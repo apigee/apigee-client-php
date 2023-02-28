@@ -18,13 +18,13 @@
 
 namespace Apigee\Edge\Api\ApigeeX\Entity;
 
-use Apigee\Edge\Entity\Property\DisplayNamePropertyAwareTrait;
-use Apigee\Edge\Entity\Property\NamePropertyAwareTrait;
 use Apigee\Edge\Entity\CommonEntityPropertiesAwareTrait;
 use Apigee\Edge\Entity\Entity;
+use Apigee\Edge\Entity\Property\AttributesPropertyAwareTrait;
+use Apigee\Edge\Entity\Property\DisplayNamePropertyAwareTrait;
+use Apigee\Edge\Entity\Property\NamePropertyAwareTrait;
 use Apigee\Edge\Entity\Property\StatusPropertyAwareTrait;
 use Apigee\Edge\Structure\AttributesProperty;
-use Apigee\Edge\Entity\Property\AttributesPropertyAwareTrait;
 
 /**
  * Describes an AppGroup entity.
