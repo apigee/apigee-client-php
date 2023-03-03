@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright 2018 Google LLC
+ * Copyright 2023 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,15 +16,27 @@
  * limitations under the License.
  */
 
-namespace Apigee\Edge\Api\Management\Entity;
-
-use Apigee\Edge\Api\ApigeeX\Entity\App;
-use Apigee\Edge\Entity\Property\DeveloperIdPropertyAwareTrait;
+namespace Apigee\Edge\Api\ApigeeX\Controller;
 
 /**
- * Class DeveloperApp.
+ * Trait AppGroupAwareControllerTrait.
+ *
+ * @see \Apigee\Edge\Api\ApigeeX\Controller\AppGroupAwareControllerInterface
  */
-class DeveloperApp extends App implements DeveloperAppInterface
+trait AppGroupAwareControllerTrait
 {
-    use DeveloperIdPropertyAwareTrait;
+    /**
+     * Name of an AppGroup.
+     *
+     * @var string
+     */
+    protected $appGroup;
+
+    /**
+     * {@inheritdoc}
+     */
+    final public function getAppGroup(): string
+    {
+        return $this->appGroup;
+    }
 }

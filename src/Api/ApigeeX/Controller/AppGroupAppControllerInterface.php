@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright 2018 Google LLC
+ * Copyright 2023 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,15 +16,15 @@
  * limitations under the License.
  */
 
-namespace Apigee\Edge\Api\Management\Entity;
+namespace Apigee\Edge\Api\ApigeeX\Controller;
 
-use Apigee\Edge\Api\ApigeeX\Entity\App;
-use Apigee\Edge\Entity\Property\DeveloperIdPropertyAwareTrait;
+use Apigee\Edge\Api\Management\Controller\AppByOwnerControllerInterface;
 
 /**
- * Class DeveloperApp.
+ * Interface AppGroupAppControllerInterface.
+ *
+ * @see https://apidocs.apigee.com/api/apps-appgroup
  */
-class DeveloperApp extends App implements DeveloperAppInterface
+interface AppGroupAppControllerInterface extends AppByOwnerControllerInterface, AppGroupAwareControllerInterface
 {
-    use DeveloperIdPropertyAwareTrait;
 }

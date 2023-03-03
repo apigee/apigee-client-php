@@ -18,6 +18,7 @@
 
 namespace Apigee\Edge\Api\Management\Entity;
 
+use Apigee\Edge\Api\ApigeeX\Entity\AppInterface;
 use Apigee\Edge\Entity\Property\DeveloperIdPropertyInterface;
 
 /**

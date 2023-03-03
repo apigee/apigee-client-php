@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright 2018 Google LLC
+ * Copyright 2023 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,15 +16,36 @@
  * limitations under the License.
  */
 
-namespace Apigee\Edge\Api\Management\Entity;
+namespace Apigee\Edge\Api\ApigeeX\Entity;
 
 use Apigee\Edge\Api\ApigeeX\Entity\App;
-use Apigee\Edge\Entity\Property\DeveloperIdPropertyAwareTrait;
+use Apigee\Edge\Api\ApigeeX\Entity\AppInterface;
 
 /**
- * Class DeveloperApp.
+ * Class AppGroupApp.
  */
-class DeveloperApp extends App implements DeveloperAppInterface
+class AppGroupApp extends App implements AppGroupAppInterface
 {
-    use DeveloperIdPropertyAwareTrait;
+    /** @var string */
+    protected $appGroup;
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getAppGroup(): ?string
+    {
+        return $this->appGroup;
+    }
+
+    /**
+     * Set appGroup name from an Edge API response.
+     *
+     * @param string $appGroup
+     *
+     * @internal
+     */
+    public function setAppGroup(string $appGroup): void
+    {
+        $this->appGroup = $appGroup;
+    }
 }

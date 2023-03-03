@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright 2018 Google LLC
+ * Copyright 2023 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,15 +16,17 @@
  * limitations under the License.
  */
 
-namespace Apigee\Edge\Api\Management\Entity;
+namespace Apigee\Edge\Api\ApigeeX\Entity;
 
-use Apigee\Edge\Api\ApigeeX\Entity\App;
-use Apigee\Edge\Entity\Property\DeveloperIdPropertyAwareTrait;
+use Apigee\Edge\Api\ApigeeX\Entity\AppInterface;
 
 /**
- * Class DeveloperApp.
+ * Interface AppGroupAppInterface.
  */
-class DeveloperApp extends App implements DeveloperAppInterface
+interface AppGroupAppInterface extends AppInterface
 {
-    use DeveloperIdPropertyAwareTrait;
+    /**
+     * @return string
+     */
+    public function getAppGroup(): ?string;
 }
