@@ -58,6 +58,9 @@ abstract class App extends Entity implements AppInterface
     /** @var \Apigee\Edge\Api\Management\Entity\AppCredential[] */
     protected $credentials = [];
 
+    /** @var string[] */
+    protected $initialApiProducts = [];
+
     /**
      * App constructor.
      *
@@ -215,5 +218,21 @@ abstract class App extends Entity implements AppInterface
     public function setScopes(string ...$scopes): void
     {
         $this->privateSetScopes(...$scopes);
+    }
+
+    /**
+     * @param array $apiProducts
+     */
+    public function getApiProducts(): array
+    {
+        return $this->initialApiProducts;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setInitialApiProducts(array $initialApiProducts): void
+    {
+        $this->initialApiProducts = $initialApiProducts;
     }
 }
