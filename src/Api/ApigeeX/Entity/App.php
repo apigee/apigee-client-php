@@ -18,8 +18,6 @@
 
 namespace Apigee\Edge\Api\ApigeeX\Entity;
 
-use Apigee\Edge\Api\ApigeeX\Entity\AppInterface;
-use Apigee\Edge\Api\Management\Entity\AppCredential;
 use Apigee\Edge\Api\Management\Entity\AppCredentialInterface;
 use Apigee\Edge\Entity\CommonEntityPropertiesAwareTrait;
 use Apigee\Edge\Entity\Entity;
@@ -117,7 +115,6 @@ abstract class App extends Entity implements AppInterface
     {
         return $this->getAttributeValue('DisplayName');
     }
-
 
     /**
      * {@inheritdoc}

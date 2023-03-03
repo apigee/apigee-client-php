@@ -48,8 +48,8 @@ class AppDenormalizer extends ObjectDenormalizer
      */
     public function denormalize($data, $type, $format = null, array $context = [])
     {
-        /** TODO: Remove hardcoded value when appGroup property is implemented in the API */
-        $data->appGroup = "test1";
+        /* TODO: Remove hardcoded value when appGroup property is implemented in the API */
+        $data->appGroup = 'test1';
 
         if (isset($data->developerId)) {
             return parent::denormalize($data, $this->developerAppClass, $format, $context);

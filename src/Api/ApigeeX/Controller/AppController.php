@@ -19,12 +19,9 @@
 namespace Apigee\Edge\Api\ApigeeX\Controller;
 
 use Apigee\Edge\Api\ApigeeX\Entity\AppInterface;
-use Apigee\Edge\Api\ApigeeX\Controller\AppControllerInterface;
 use Apigee\Edge\Api\ApigeeX\Serializer\AppGroupEntitySerializer;
-use Apigee\Edge\Api\Management\Controller\OrganizationController;
 use Apigee\Edge\Api\Management\Controller\OrganizationControllerInterface;
 use Apigee\Edge\ClientInterface;
-use Apigee\Edge\Controller\EntityController;
 use Apigee\Edge\Controller\EntityListingControllerTrait;
 use Apigee\Edge\Controller\PaginatedEntityController;
 use Apigee\Edge\Controller\PaginationHelperTrait;

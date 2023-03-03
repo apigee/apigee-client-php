@@ -18,16 +18,7 @@
 
 namespace Apigee\Edge\Api\ApigeeX\Entity;
 
-use Apigee\Edge\Api\Management\Entity\AppCredentialInterface;
 use Apigee\Edge\Api\Management\Entity\AppInterface as ManagementAppInterface;
-use Apigee\Edge\Entity\CommonEntityPropertiesInterface;
-use Apigee\Edge\Entity\EntityInterface;
-use Apigee\Edge\Entity\Property\AttributesPropertyInterface;
-use Apigee\Edge\Entity\Property\DescriptionPropertyInterface;
-use Apigee\Edge\Entity\Property\DisplayNamePropertyInterface;
-use Apigee\Edge\Entity\Property\NamePropertyInterface;
-use Apigee\Edge\Entity\Property\ScopesPropertyInterface;
-use Apigee\Edge\Entity\Property\StatusPropertyInterface;
 
 /**
  * Interface AppInterface.

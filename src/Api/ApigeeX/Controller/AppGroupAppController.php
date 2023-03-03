@@ -56,11 +56,45 @@ class AppGroupAppController extends AppByOwnerController implements AppGroupAppC
         ?EntitySerializerInterface $entitySerializer = null,
         ?OrganizationControllerInterface $organizationController = null
     ) {
-
         $this->appGroup = $appGroup;
         $entitySerializer = $entitySerializer ?? new AppGroupEntitySerializer();
         $this->organizationController = $organizationController ?? new OrganizationController($client);
         parent::__construct($organization, $client, $entitySerializer);
+    }
+
+    /**
+     * Override the getEntities() method, for AppGroup compatibility.
+     *
+     * AppGroup does not support the "expand=false" query parameter.
+     *
+     * {@inheritdoc}
+     *
+     * @return \Apigee\Edge\Entity\EntityInterface[]
+     */
+    public function getEntities(): array
+    {
+        $uri = $this->getBaseEndpointUri();
+        $response = $this->getClient()->get($uri);
+        $responseArray = $this->responseToArray($response);
+        // Ignore entity type key from response, ex.: apiProduct.
+        $responseArray = reset($responseArray);
+
+        return $this->responseArrayToArrayOfEntities($responseArray);
+    }
+
+    /**
+     * Override the getEntityIds() method, for AppGroup compatibility.
+     *
+     * AppGroup does not support the "expand=false" query parameter.
+     *
+     * {@inheritdoc}
+     */
+    public function getEntityIds(PagerInterface $pager = null): array
+    {
+        $uri = $this->getBaseEndpointUri();
+        $response = $this->getClient()->get($uri);
+
+        return $this->responseToArray($response, true);
     }
 
     /**
@@ -85,40 +119,5 @@ class AppGroupAppController extends AppByOwnerController implements AppGroupAppC
     protected function getOrganizationController(): OrganizationControllerInterface
     {
         return $this->organizationController;
-    }
-
-    /**
-     * Override the getEntityIds() method, for AppGroup compatibility.
-     *
-     * AppGroup does not support the "expand=false" query parameter.
-     *
-     * {@inheritdoc}
-     */
-    public function getEntityIds(PagerInterface $pager = null): array
-    {
-        $uri = $this->getBaseEndpointUri();
-        $response = $this->getClient()->get($uri);
-
-        return $this->responseToArray($response, true);
-    }
-
-    /**
-     * Override the getEntities() method, for AppGroup compatibility.
-     *
-     * AppGroup does not support the "expand=false" query parameter.
-     *
-     * {@inheritdoc}
-     *
-     * @return \Apigee\Edge\Entity\EntityInterface[]
-     */
-    public function getEntities(): array
-    {
-        $uri = $this->getBaseEndpointUri();
-        $response = $this->getClient()->get($uri);
-        $responseArray = $this->responseToArray($response);
-        // Ignore entity type key from response, ex.: apiProduct.
-        $responseArray = reset($responseArray);
-
-        return $this->responseArrayToArrayOfEntities($responseArray);
     }
 }

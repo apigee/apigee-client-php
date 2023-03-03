@@ -131,5 +131,4 @@ interface AppControllerInterface extends PaginatedEntityControllerInterface, Ent
      *   An array of developer- and appgroup app ids.
      */
     public function listAppIdsByType(string $appType, PagerInterface $pager = null): array;
-
 }
