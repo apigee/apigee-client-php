@@ -28,7 +28,7 @@ use Apigee\Edge\Structure\PagerInterface;
  *
  * @see https://docs.apigee.com/api/apps-0
  */
-interface AppControllerInterface extends EntityControllerInterface
+interface AppControllerInterface extends PaginatedEntityControllerInterface, EntityControllerInterface
 {
     /**
      * Type of a developer app.

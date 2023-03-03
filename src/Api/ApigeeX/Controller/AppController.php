@@ -35,8 +35,15 @@ use Psr\Http\Message\UriInterface;
 /**
  * Class AppController.
  */
-class AppController extends EntityController implements AppControllerInterface
+class AppController extends PaginatedEntityController implements AppControllerInterface
 {
+    use EntityListingControllerTrait;
+    use PaginationHelperTrait {
+        listEntities as private traitListEntities;
+    }
+
+    protected const ID_GETTER = 'getAppId';
+
     /**
      * AppController constructor.
      *

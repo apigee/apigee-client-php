@@ -44,20 +44,20 @@ class AppGroupAppController extends AppByOwnerController implements AppGroupAppC
      * AppGroupAppController constructor.
      *
      * @param string $organization
-     * @param string $appGroupName
+     * @param string $appGroup
      * @param \Apigee\Edge\ClientInterface $client
      * @param \Apigee\Edge\Serializer\EntitySerializerInterface|null $entitySerializer
      * @param \Apigee\Edge\Api\Management\Controller\OrganizationControllerInterface|null $organizationController
      */
     public function __construct(
         string $organization,
-        string $appGroupName,
+        string $appGroup,
         ClientInterface $client,
         ?EntitySerializerInterface $entitySerializer = null,
         ?OrganizationControllerInterface $organizationController = null
     ) {
 
-        $this->appGroupName = $appGroupName;
+        $this->appGroup = $appGroup;
         $entitySerializer = $entitySerializer ?? new AppGroupEntitySerializer();
         $this->organizationController = $organizationController ?? new OrganizationController($client);
         parent::__construct($organization, $client, $entitySerializer);
@@ -68,7 +68,7 @@ class AppGroupAppController extends AppByOwnerController implements AppGroupAppC
      */
     protected function getBaseEndpointUri(): UriInterface
     {
-        return $this->client->getUriFactory()->createUri("/organizations/{$this->organization}/appgroups/{$this->appGroupName}/apps");
+        return $this->client->getUriFactory()->createUri("/organizations/{$this->organization}/appgroups/{$this->appGroup}/apps");
     }
 
     /**
