@@ -88,9 +88,9 @@ class AppGroupAppController extends AppByOwnerController implements AppGroupAppC
     }
 
     /**
-     * Override the getEntityIds() method, for Hybrid compatibility.
+     * Override the getEntityIds() method, for AppGroup compatibility.
      *
-     * Hybrid/AppGroup does not support the "expand=false" query parameter.
+     * AppGroup does not support the "expand=false" query parameter.
      *
      * {@inheritdoc}
      */
@@ -103,7 +103,7 @@ class AppGroupAppController extends AppByOwnerController implements AppGroupAppC
     }
 
     /**
-     * Override the getEntities() method, for Hybrid compatibility.
+     * Override the getEntities() method, for AppGroup compatibility.
      *
      * AppGroup does not support the "expand=false" query parameter.
      *

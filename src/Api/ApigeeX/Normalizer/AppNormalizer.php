@@ -48,8 +48,8 @@ class AppNormalizer extends ObjectNormalizer implements NormalizerInterface
         // Remove properties that saved to attributes on apps.
         unset($normalized->displayName);
         unset($normalized->description);
-        //unset($normalized->companyName);
-        // Removing for AppGroupApp.
+
+        // Remove properties for the AppGroupApp.
         unset($normalized->appFamily);
         unset($normalized->appGroup);
 

@@ -38,7 +38,7 @@ interface AppControllerInterface extends EntityControllerInterface
     /**
      * Type of a appgroup app.
      */
-    public const APP_TYPE_COMPANY = 'company';
+    public const APP_TYPE_COMPANY = 'appgroup';
 
     /**
      * String that should be sent to the API to change the status of a

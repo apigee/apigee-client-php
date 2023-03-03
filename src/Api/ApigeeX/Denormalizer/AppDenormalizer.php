@@ -48,7 +48,7 @@ class AppDenormalizer extends ObjectDenormalizer
      */
     public function denormalize($data, $type, $format = null, array $context = [])
     {
-        //kint($data->developerId);
+        /** TODO: Remove hardcoded value when appGroup property is implemented in the API */
         $data->appGroup = "test1";
 
         if (isset($data->developerId)) {

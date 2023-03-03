@@ -19,14 +19,14 @@
 namespace Apigee\Edge\Api\ApigeeX\Entity;
 
 use Apigee\Edge\Api\ApigeeX\Entity\AppInterface;
+use Apigee\Edge\Api\Management\Entity\AppCredential;
+use Apigee\Edge\Api\Management\Entity\AppCredentialInterface;
 use Apigee\Edge\Entity\CommonEntityPropertiesAwareTrait;
 use Apigee\Edge\Entity\Entity;
 use Apigee\Edge\Entity\Property\AttributesPropertyAwareTrait;
 use Apigee\Edge\Entity\Property\NamePropertyAwareTrait;
 use Apigee\Edge\Entity\Property\ScopesPropertyAwareTrait;
 use Apigee\Edge\Entity\Property\StatusPropertyAwareTrait;
-use Apigee\Edge\Api\Management\Entity\AppCredential;
-use Apigee\Edge\Api\Management\Entity\AppCredentialInterface;
 use Apigee\Edge\Structure\AttributesProperty;
 
 /**
