@@ -18,7 +18,7 @@
 
 namespace Apigee\Edge\Api\ApigeeX\Controller;
 
-use Apigee\Edge\Api\ApigeeX\Entity\AppInterface;
+use Apigee\Edge\Api\Management\Entity\AppInterface;
 use Apigee\Edge\Controller\EntityControllerInterface;
 use Apigee\Edge\Controller\PaginatedEntityControllerInterface;
 use Apigee\Edge\Structure\PagerInterface;
@@ -58,7 +58,7 @@ interface AppControllerInterface extends PaginatedEntityControllerInterface, Ent
      * @param string $appId
      *   UUID of an app (appId).
      *
-     * @return \Apigee\Edge\Api\ApigeeX\Entity\AppInterface
+     * @return \Apigee\Edge\Api\Management\Entity\AppInterface
      *   A developer- or a appgroup app entity.
      */
     public function loadAppGroup(string $appId): AppInterface;
@@ -82,7 +82,7 @@ interface AppControllerInterface extends PaginatedEntityControllerInterface, Ent
      * @param \Apigee\Edge\Structure\PagerInterface|null $pager
      *   Number of results to return.
      *
-     * @return \Apigee\Edge\Api\ApigeeX\Entity\AppInterface[]
+     * @return \Apigee\Edge\Api\Management\Entity\AppInterface[]
      *   An array that can contain both developer- and appgroup app entities.
      */
     public function listApps(bool $includeCredentials = false, PagerInterface $pager = null): array;
@@ -110,7 +110,7 @@ interface AppControllerInterface extends PaginatedEntityControllerInterface, Ent
      * @param \Apigee\Edge\Structure\PagerInterface|null $pager
      *   Number of results to return.
      *
-     * @return \Apigee\Edge\Api\ApigeeX\Entity\AppInterface[]
+     * @return \Apigee\Edge\Api\Management\Entity\AppInterface[]
      *   An array that can contain both developer- and appgroup app entities.
      */
     public function listAppsByStatus(

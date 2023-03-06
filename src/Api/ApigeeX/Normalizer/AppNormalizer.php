@@ -18,7 +18,7 @@
 
 namespace Apigee\Edge\Api\ApigeeX\Normalizer;
 
-use Apigee\Edge\Api\ApigeeX\Entity\AppInterface;
+use Apigee\Edge\Api\Management\Entity\AppInterface;
 use Apigee\Edge\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 

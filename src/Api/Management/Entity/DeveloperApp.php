@@ -18,7 +18,7 @@
 
 namespace Apigee\Edge\Api\Management\Entity;
 
-use Apigee\Edge\Api\ApigeeX\Entity\App;
+use Apigee\Edge\Api\Management\Entity\App;
 use Apigee\Edge\Entity\Property\DeveloperIdPropertyAwareTrait;
 
 /**

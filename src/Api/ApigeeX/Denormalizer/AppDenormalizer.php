@@ -19,7 +19,7 @@
 namespace Apigee\Edge\Api\ApigeeX\Denormalizer;
 
 use Apigee\Edge\Api\ApigeeX\Entity\AppGroupApp;
-use Apigee\Edge\Api\ApigeeX\Entity\AppInterface;
+use Apigee\Edge\Api\Management\Entity\AppInterface;
 use Apigee\Edge\Api\Management\Entity\DeveloperApp;
 use Apigee\Edge\Denormalizer\ObjectDenormalizer;
 use Symfony\Component\Serializer\Exception\UnexpectedValueException;
