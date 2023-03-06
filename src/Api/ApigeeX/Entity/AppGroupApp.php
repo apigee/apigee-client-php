@@ -18,6 +18,8 @@
 
 namespace Apigee\Edge\Api\ApigeeX\Entity;
 
+use Apigee\Edge\Api\Management\Entity\App;
+
 /**
  * Class AppGroupApp.
  */
