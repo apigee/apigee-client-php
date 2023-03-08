@@ -83,5 +83,4 @@ interface AppInterface extends
      * @return \Apigee\Edge\Api\Management\Entity\AppCredentialInterface[]
      */
     public function getCredentials(): array;
-
 }

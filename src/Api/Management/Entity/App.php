@@ -232,7 +232,6 @@ abstract class App extends Entity implements AppInterface
      * Set Initial API Product while creating App.
      *
      * @param array $initialApiProducts
-     *
      */
     public function setInitialApiProducts(array $initialApiProducts): void
     {
