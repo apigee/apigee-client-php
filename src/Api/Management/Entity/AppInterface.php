@@ -84,11 +84,4 @@ interface AppInterface extends
      */
     public function getCredentials(): array;
 
-    /**
-     * Set Initial API Product while creating App.
-     *
-     * @param array $initialApiProducts
-     *
-     */
-    public function setInitialApiProducts(array $initialApiProducts): void;
 }
