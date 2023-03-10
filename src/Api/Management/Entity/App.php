@@ -222,9 +222,10 @@ abstract class App extends Entity implements AppInterface
 
     /**
      * Get Initial API Products only during app creation.
-     * @return array $initialApiProducts
      * 
      * @throws \Exception If used to update existing App.
+     *
+     * @return array $initialApiProducts
      */
     final public function getApiProducts(): array
     {
