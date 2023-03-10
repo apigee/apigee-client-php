@@ -223,7 +223,7 @@ abstract class App extends Entity implements AppInterface
     /**
      * @param array $apiProducts
      */
-    public function getApiProducts(): array
+    final public function getApiProducts(): array
     {
         return $this->initialApiProducts;
     }
