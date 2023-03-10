@@ -229,19 +229,19 @@ abstract class App extends Entity implements AppInterface
     }
 
     /**
-     * Set Initial API Product while creating App only.
+     * Set Initial API Products while creating App only.
      * The method is not supported to update existing App.
      *
      * @param array $initialApiProducts
      *
      * @throws \Exception If used to update existing App.
      */
-    public function setInitialApiProducts(array $initialApiProducts): void
+    final public function setInitialApiProducts(array $initialApiProducts): void
     {
         if (!$this->appId) {
             $this->initialApiProducts = $initialApiProducts;
         } else {
-            throw new \Exception('This method is not supported to update existing App.');
+            throw new \Exception('This method is only supported for creating a new app.');
         }
     }
 }
