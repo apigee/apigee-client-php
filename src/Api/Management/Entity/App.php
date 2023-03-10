@@ -221,15 +221,22 @@ abstract class App extends Entity implements AppInterface
     }
 
     /**
-     * @param array $apiProducts
+     * Get Initial API Products only during app creation.
+     * @return array $initialApiProducts
+     * 
+     * @throws \Exception If used to update existing App.
      */
     final public function getApiProducts(): array
     {
-        return $this->initialApiProducts;
+        if (!$this->appId) {
+            return $this->initialApiProducts;
+        } else {
+            throw new \Exception('This method is only supported for creating a new app.');
+        }
     }
 
     /**
-     * Set Initial API Products while creating App only.
+     * Set Initial API Products only during app creation.
      * The method is not supported to update existing App.
      *
      * @param array $initialApiProducts
