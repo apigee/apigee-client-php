@@ -107,6 +107,7 @@ abstract class AppControllerTestBase extends EntityControllerTestBase
     {
         // This is not returned in the POST/PUT API call responses only in GET.
         unset($sentEntityAsArray['appFamily']);
+        unset($sentEntityAsArray['apiProducts']);
     }
 
     /**
@@ -116,6 +117,8 @@ abstract class AppControllerTestBase extends EntityControllerTestBase
     {
         /* @var \Apigee\Edge\Api\Management\Entity\DeveloperAppInterface $created */
         $responseObject->appFamily = $created->getAppFamily();
+
+        $responseObject->apiProducts = $created->getApiProducts();
     }
 
     /**

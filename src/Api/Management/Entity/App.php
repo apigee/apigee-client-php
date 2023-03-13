@@ -58,6 +58,9 @@ abstract class App extends Entity implements AppInterface
     /** @var \Apigee\Edge\Api\Management\Entity\AppCredential[] */
     protected $credentials = [];
 
+    /** @var string[] */
+    protected $initialApiProducts = [];
+
     /**
      * App constructor.
      *
@@ -215,5 +218,34 @@ abstract class App extends Entity implements AppInterface
     public function setScopes(string ...$scopes): void
     {
         $this->privateSetScopes(...$scopes);
+    }
+
+    /**
+     * Get Initial API Products only during app creation.
+     *
+     * @return array $initialApiProducts
+     *
+     * @internal
+     */
+    final public function getApiProducts(): array
+    {
+        return $this->initialApiProducts;
+    }
+
+    /**
+     * Set Initial API Products only during app creation.
+     * The method is not supported to update existing App.
+     *
+     * @param array $initialApiProducts
+     *
+     * @throws \LogicException If used to update existing App.
+     */
+    final public function setInitialApiProducts(array $initialApiProducts): void
+    {
+        if (!$this->appId) {
+            $this->initialApiProducts = $initialApiProducts;
+        } else {
+            throw new \LogicException('This method is only supported for creating a new app.');
+        }
     }
 }
