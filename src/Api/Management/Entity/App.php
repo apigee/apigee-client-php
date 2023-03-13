@@ -238,14 +238,14 @@ abstract class App extends Entity implements AppInterface
      *
      * @param array $initialApiProducts
      *
-     * @throws \Exception If used to update existing App.
+     * @throws \LogicException If used to update existing App.
      */
     final public function setInitialApiProducts(array $initialApiProducts): void
     {
         if (!$this->appId) {
             $this->initialApiProducts = $initialApiProducts;
         } else {
-            throw new \Exception('This method is only supported for creating a new app.');
+            throw new \LogicException('This method is only supported for creating a new app.');
         }
     }
 }
