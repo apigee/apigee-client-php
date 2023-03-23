@@ -51,7 +51,6 @@ class AppNormalizer extends ObjectNormalizer implements NormalizerInterface
 
         // Remove properties for the AppGroupApp.
         unset($normalized->appFamily);
-        unset($normalized->appGroup);
 
         return $normalized;
     }
