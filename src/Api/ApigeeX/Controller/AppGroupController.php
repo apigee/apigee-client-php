@@ -23,9 +23,11 @@ use Apigee\Edge\Api\ApigeeX\Serializer\AppGroupSerializer;
 use Apigee\Edge\Api\Management\Controller\AttributesAwareEntityControllerTrait;
 use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Controller\EntityController;
+use Apigee\Edge\Controller\EntityCreateOperationControllerTrait;
 use Apigee\Edge\Controller\EntityCrudOperationsControllerTrait;
 use Apigee\Edge\Controller\EntityListingControllerTrait;
 use Apigee\Edge\Controller\StatusAwareEntityControllerTrait;
+use Apigee\Edge\Entity\EntityInterface;
 use Apigee\Edge\Serializer\EntitySerializerInterface;
 use Psr\Http\Message\UriInterface;
 
@@ -38,6 +40,7 @@ class AppGroupController extends EntityController implements AppGroupControllerI
     use EntityCrudOperationsControllerTrait;
     use EntityListingControllerTrait;
     use StatusAwareEntityControllerTrait;
+    use EntityCreateOperationControllerTrait;
 
     /**
      * AppGroupController constructor.
@@ -86,5 +89,20 @@ class AppGroupController extends EntityController implements AppGroupControllerI
     protected function getEntityClass(): string
     {
         return AppGroup::class;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function buildEntityCreatePayload(EntityInterface $entity, array $context = []): string
+    {
+        $entitySerializer = $this->getEntitySerializer()->serialize($entity, 'json', $context);
+
+        // decode json to associative array
+        $payload = json_decode($entitySerializer, true);
+        // Removing property which is not supported for AppGroup.
+        unset($payload['apps']);
+
+        return $this->getEntitySerializer()->serialize($payload, 'json', $context);
     }
 }
