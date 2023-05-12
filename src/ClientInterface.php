@@ -19,7 +19,7 @@
 namespace Apigee\Edge;
 
 use Apigee\Edge\HttpClient\Utility\JournalInterface;
-use Http\Client\HttpClient;
+use Psr\Http\Client\ClientInterface as HttpClient;
 use Http\Message\UriFactory;
 use Psr\Http\Message\ResponseInterface;
 
