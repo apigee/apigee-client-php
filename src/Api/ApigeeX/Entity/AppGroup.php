@@ -38,7 +38,7 @@ class AppGroup extends Entity implements AppGroupInterface
     use StatusPropertyAwareTrait;
 
     /** @var string|null */
-    protected $correlationId;
+    protected $channelUri;
 
     /** @var string|null */
     protected $channelId;
@@ -57,17 +57,17 @@ class AppGroup extends Entity implements AppGroupInterface
     /**
      * {@inheritdoc}
      */
-    public function setCorrelationId(string $correlationId): void
+    public function setChannelUri(string $channelUri): void
     {
-        $this->correlationId = $correlationId;
+        $this->channelUri = $channelUri;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getCorrelationId(): ?string
+    public function getChannelUri(): ?string
     {
-        return $this->correlationId;
+        return $this->channelUri;
     }
 
     /**
