@@ -41,8 +41,14 @@ class Organization extends Entity implements OrganizationInterface
     use PropertiesPropertyAwareTrait;
 
     protected const TYPES = [
+        // Apigee Edge - https://apidocs.apigee.com/docs/organizations/1/types/Organization
         'trial',
         'paid',
+        // Apigee X - https://cloud.google.com/apigee/docs/reference/apis/apigee/rest/v1/organizations#type
+        'TYPE_UNSPECIFIED',
+        'TYPE_TRIAL',
+        'TYPE_PAID',
+        'TYPE_INTERNAL',
     ];
 
     /** @var string */
