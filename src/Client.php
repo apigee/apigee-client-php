@@ -33,7 +33,7 @@ use Http\Client\Common\Plugin\HeaderDefaultsPlugin;
 use Http\Client\Common\Plugin\HistoryPlugin;
 use Http\Client\Common\Plugin\RetryPlugin;
 use Http\Client\Exception;
-use Http\Client\HttpClient;
+use Psr\Http\Client\ClientInterface as HttpClient;
 use Http\Discovery\MessageFactoryDiscovery;
 use Http\Discovery\UriFactoryDiscovery;
 use Http\Message\Authentication;
