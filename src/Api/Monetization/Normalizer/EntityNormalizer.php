@@ -96,7 +96,11 @@ class EntityNormalizer extends ObjectNormalizer
             }
         }
 
-        return (object) $normalized;
+        //convert to ArrayObject as symfony normalizer throws error for std object.
+        //set ARRAY_AS_PROPS flag as we need entries to be accessed as properties.
+        $array_as_props = \ArrayObject::ARRAY_AS_PROPS;
+        $normalized = new \ArrayObject($normalized, $array_as_props);
+        return ($normalized);
     }
 
     /**

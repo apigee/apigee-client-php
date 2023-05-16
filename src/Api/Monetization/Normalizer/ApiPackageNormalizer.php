@@ -54,10 +54,14 @@ class ApiPackageNormalizer extends EntityNormalizer
         // Do not send redundant API product information to Apigee Edge, the
         // id of a referenced API product is enough.
         foreach ($normalized['product'] as $id => $data) {
-            $normalized['product'][$id] = (object) ['id' => $data->id];
+            $normalized['product'][$id] = (object) ['id' => $data['id']];
         }
 
-        return (object) $normalized;
+        //convert to ArrayObject as symfony normalizer throws error for std object.
+        //set ARRAY_AS_PROPS flag as we need entries to be accessed as properties.
+        $array_as_props = \ArrayObject::ARRAY_AS_PROPS;
+        $normalized = new \ArrayObject($normalized, $array_as_props);
+        return ($normalized);
     }
 
     /**

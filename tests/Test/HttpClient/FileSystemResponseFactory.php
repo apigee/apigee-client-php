@@ -62,7 +62,7 @@ class FileSystemResponseFactory implements ResponseFactory
             $adapter = new Local($folder);
         }
         $this->filesystem = new Filesystem($adapter);
-        $this->decoder = $decoder ?: new JsonDecode(true);
+        $this->decoder = $decoder ?: new JsonDecode([true]);
     }
 
     /**

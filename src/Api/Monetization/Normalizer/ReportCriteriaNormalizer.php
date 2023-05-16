@@ -75,12 +75,17 @@ class ReportCriteriaNormalizer extends ObjectNormalizer
         // According to the API documentation it is always UTC.
         // https://docs.apigee.com/api-platform/monetization/create-reports#createreportdefapi
         $this->fixTimeZoneOnNormalization($object, $normalized, new \DateTimeZone('UTC'));
-
+        $arr_empty = [];
         // Just in case, do not send empty array values either to this API.
         foreach ($normalized as $property => $value) {
             if (is_array($value) && empty($value)) {
-                unset($normalized->{$property});
+                //Get all the array which is empty
+                $arr_empty[] = $property;
             }
+        }
+
+        foreach ($arr_empty as $val) {
+            unset($normalized->{$val});
         }
 
         return $normalized;

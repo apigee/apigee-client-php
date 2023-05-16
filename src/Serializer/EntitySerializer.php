@@ -103,7 +103,7 @@ class EntitySerializer implements EntitySerializerInterface
     /**
      * {@inheritdoc}
      */
-    public function serialize($data, $format, array $context = [])
+    public function serialize($data, $format, array $context = []): string
     {
         if (!$this->supportsEncoding($format)) {
             throw new NotEncodableValueException(sprintf('Serialization for the format %s is not supported. Only %s supported.', $format, $this->format));
@@ -115,12 +115,13 @@ class EntitySerializer implements EntitySerializerInterface
     /**
      * {@inheritdoc}
      */
-    public function deserialize($data, $type, $format, array $context = [])
+    public function deserialize($data, $type, $format, array $context = []): mixed
     {
         if (!$this->supportsDecoding($format)) {
             throw new NotEncodableValueException(sprintf('Deserialization for the format %s is not supported. Only %s is supported.', $format, $this->format));
         }
 
+        $context['json_decode_associative'] = false;
         return $this->serializer->deserialize($data, $type, $format, $context);
     }
 
@@ -202,7 +203,7 @@ class EntitySerializer implements EntitySerializerInterface
     /**
      * {@inheritdoc}
      */
-    public function encode($data, $format, array $context = [])
+    public function encode($data, $format, array $context = []): string
     {
         return $this->serializer->encode($data, $format, $context = []);
     }
@@ -210,7 +211,7 @@ class EntitySerializer implements EntitySerializerInterface
     /**
      * {@inheritdoc}
      */
-    public function supportsEncoding($format)
+    public function supportsEncoding($format): bool
     {
         return $this->format === $format && $this->serializer->supportsEncoding($format);
     }

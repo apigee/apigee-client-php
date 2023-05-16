@@ -106,7 +106,7 @@ class EntitySerializerTest extends TestCase
      *
      * @param \stdClass $normalized
      */
-    public function testDenormalize(\stdClass $normalized): void
+    public function testDenormalize(mixed $normalized): void
     {
         // Set value of this nullable value to ensure that a special condition is triggered in the EntityDenormalizer.
         $normalized->nullable = null;

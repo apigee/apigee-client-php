@@ -91,7 +91,7 @@ final class PropertyAccessorDecorator implements PropertyAccessorInterface
     /**
      * {@inheritdoc}
      */
-    public function getValue($objectOrArray, $propertyPath)
+    public function getValue($objectOrArray, $propertyPath): mixed
     {
         try {
             $value = $this->propertyAccessor->getValue($objectOrArray, $propertyPath);
@@ -112,7 +112,7 @@ final class PropertyAccessorDecorator implements PropertyAccessorInterface
     /**
      * {@inheritdoc}
      */
-    public function isWritable($objectOrArray, $propertyPath)
+    public function isWritable($objectOrArray, $propertyPath): bool
     {
         return $this->propertyAccessor->isWritable($objectOrArray, $propertyPath);
     }
@@ -120,7 +120,7 @@ final class PropertyAccessorDecorator implements PropertyAccessorInterface
     /**
      * {@inheritdoc}
      */
-    public function isReadable($objectOrArray, $propertyPath)
+    public function isReadable($objectOrArray, $propertyPath): bool
     {
         return $this->propertyAccessor->isReadable($objectOrArray, $propertyPath);
     }
@@ -174,6 +174,7 @@ final class PropertyAccessorDecorator implements PropertyAccessorInterface
      * @param $message
      * @param $trace
      * @param $i
+     * @param $propertyPath
      * @param $previous
      *
      * @see \Symfony\Component\PropertyAccess\PropertyAccessor::throwInvalidArgumentException()
@@ -181,30 +182,20 @@ final class PropertyAccessorDecorator implements PropertyAccessorInterface
      * @psalm-suppress PossiblyFalseOperand
      * @psalm-suppress PossiblyFalseArgument
      */
-    private static function processTypeErrorOnSetValue($message, $trace, $i, $previous = null): void
+    private static function processTypeErrorOnSetValue($message, $trace, $i, string $propertyPath, $previous = null): void
     {
         if (!isset($trace[$i]['file']) || __FILE__ !== $trace[$i]['file']) {
             return;
         }
-
-        if (\PHP_VERSION_ID < 80000) {
-            if (0 !== strpos($message, 'Argument ')) {
-                return;
-            }
-
-            $pos = strpos($message, $delim = 'must be of the type ') ?: (strpos($message, $delim = 'must be an instance of ') ?: strpos($message, $delim = 'must implement interface '));
-            $pos += \strlen($delim);
-            $j = strpos($message, ',', $pos);
-            $type = substr($message, 2 + $j, strpos($message, ' given', $j) - $j - 2);
-            $message = substr($message, $pos, $j - $pos);
-
-            throw new InvalidArgumentException(sprintf('Expected argument of type "%s", "%s" given.', $message, 'NULL' === $type ? 'null' : $type), 0, $previous);
-        }
-
         if (preg_match('/^\S+::\S+\(\): Argument #\d+ \(\$\S+\) must be of type (\S+), (\S+) given/', $message, $matches)) {
-            list(, $expectedType, $actualType) = $matches;
+            [, $expectedType, $actualType] = $matches;
 
-            throw new InvalidArgumentException(sprintf('Expected argument of type "%s", "%s" given.', $expectedType, 'NULL' === $actualType ? 'null' : $actualType), 0, $previous);
+            throw new InvalidArgumentException(sprintf('Expected argument of type "%s", "%s" given at property path "%s".', $expectedType, 'NULL' === $actualType ? 'null' : $actualType, $propertyPath), 0, $previous);
+        }
+        if (preg_match('/^Cannot assign (\S+) to property \S+::\$\S+ of type (\S+)$/', $message, $matches)) {
+            [, $actualType, $expectedType] = $matches;
+
+            throw new InvalidArgumentException(sprintf('Expected argument of type "%s", "%s" given at property path "%s".', $expectedType, 'NULL' === $actualType ? 'null' : $actualType, $propertyPath), 0, $previous);
         }
     }
 }
