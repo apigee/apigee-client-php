@@ -107,7 +107,8 @@ class ObjectNormalizer implements NormalizerInterface, SerializerAwareInterface
         //Need to set ARRAY_AS_PROPS flag as we need Entries to be accessed as properties.
         $array_as_props = \ArrayObject::ARRAY_AS_PROPS;
         $asArray = new \ArrayObject($asArray, $array_as_props);
-        return ($asArray);
+
+        return $asArray;
     }
 
     /**

@@ -122,6 +122,7 @@ class EntitySerializer implements EntitySerializerInterface
         }
 
         $context['json_decode_associative'] = false;
+
         return $this->serializer->deserialize($data, $type, $format, $context);
     }
 

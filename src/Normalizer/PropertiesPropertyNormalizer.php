@@ -43,7 +43,8 @@ class PropertiesPropertyNormalizer extends KeyValueMapNormalizer
         //set ARRAY_AS_PROPS flag as we need entries to be accessed as properties.
         $array_as_props = \ArrayObject::ARRAY_AS_PROPS;
         $return = new \ArrayObject($return, $array_as_props);
-        return ($return);
+
+        return $return;
     }
 
     /**

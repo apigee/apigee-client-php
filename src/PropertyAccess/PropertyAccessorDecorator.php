@@ -20,7 +20,6 @@ namespace Apigee\Edge\PropertyAccess;
 
 use Apigee\Edge\Exception\UnexpectedValueException;
 use Apigee\Edge\Exception\UninitializedPropertyException;
-use Symfony\Component\PropertyAccess\Exception\AccessException;
 use Symfony\Component\PropertyAccess\Exception\InvalidArgumentException;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 
