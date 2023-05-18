@@ -34,14 +34,14 @@ interface AppGroupInterface extends AttributesPropertyInterface,
     CommonEntityPropertiesInterface
 {
     /**
-     * @param string $correlationId
+     * @param string $channelUri
      */
-    public function setCorrelationId(string $correlationId): void;
+    public function setChannelUri(string $channelUri): void;
 
     /**
      * @return string|null
      */
-    public function getCorrelationId(): ?string;
+    public function getChannelUri(): ?string;
 
     /**
      * @param string $channelId
