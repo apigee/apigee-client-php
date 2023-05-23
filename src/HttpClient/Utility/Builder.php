@@ -21,10 +21,10 @@ namespace Apigee\Edge\HttpClient\Utility;
 use Http\Client\Common\Plugin;
 use Http\Client\Common\Plugin\HeaderAppendPlugin;
 use Http\Client\Common\PluginClient;
-use Http\Client\HttpClient;
-use Http\Discovery\HttpClientDiscovery;
-use Http\Message\RequestFactory;
-use Http\Message\StreamFactory;
+use Http\Discovery\Psr18ClientDiscovery;
+use Psr\Http\Client\ClientInterface;
+use Psr\Http\Message\RequestFactoryInterface;
+use Psr\Http\Message\StreamFactoryInterface;
 
 /**
  * Class Builder.
@@ -33,7 +33,7 @@ use Http\Message\StreamFactory;
  */
 class Builder implements BuilderInterface
 {
-    /** @var HttpClient */
+    /** @var \Psr\Http\Client\ClientInterface */
     private $httpClient;
 
     /** @var PluginClient */
@@ -55,16 +55,16 @@ class Builder implements BuilderInterface
     /**
      * Builder constructor.
      *
-     * @param \Http\Client\HttpClient|null $httpClient
-     * @param \Http\Message\RequestFactory|null $requestFactory
-     * @param \Http\Message\StreamFactory|null $streamFactory
+     * @param \Psr\Http\Client\ClientInterface|null $httpClient
+     * @param \Psr\Http\Message\RequestFactoryInterface|null $requestFactory
+     * @param \Psr\Http\Message\StreamFactoryInterface|null $streamFactory
      */
     public function __construct(
-        HttpClient $httpClient = null,
-        RequestFactory $requestFactory = null,
-        StreamFactory $streamFactory = null
+        ClientInterface $httpClient = null,
+        RequestFactoryInterface $requestFactory = null,
+        StreamFactoryInterface $streamFactory = null
     ) {
-        $this->httpClient = $httpClient ?: HttpClientDiscovery::find();
+        $this->httpClient = $httpClient ?: Psr18ClientDiscovery::find();
         if (null !== $requestFactory) {
             @trigger_error('The $requestFactory parameter is deprecated since version 2.0.3 and will be removed in 3.0.0. Omit the second parameter.', E_USER_DEPRECATED);
         }
@@ -77,7 +77,7 @@ class Builder implements BuilderInterface
     /**
      * {@inheritdoc}
      */
-    public function getHttpClient(): HttpClient
+    public function getHttpClient(): ClientInterface
     {
         if ($this->rebuild()) {
             $this->pluginClient = new PluginClient($this->httpClient, $this->plugins);

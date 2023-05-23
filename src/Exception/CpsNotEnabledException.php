@@ -48,7 +48,7 @@ class CpsNotEnabledException extends \RuntimeException
         $this->organization = $organization;
     }
 
-    public function __toString()
+    public function __toString(): string
     {
         return "Core Persistence Services is not enabled on {$this->organization} organization.";
     }

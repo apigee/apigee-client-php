@@ -63,7 +63,7 @@ class ApiResponseException extends ApiRequestException
     /**
      * {@inheritdoc}
      */
-    public function __toString()
+    public function __toString(): string
     {
         $output = [
             get_called_class() . PHP_EOL,

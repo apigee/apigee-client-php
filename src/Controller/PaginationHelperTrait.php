@@ -203,7 +203,7 @@ trait PaginationHelperTrait
                 // Apigee Edge response always starts with the requested entity
                 // (startKey).
                 array_shift($tmp);
-                $tmpEntities = $this->responseArrayToArrayOfEntities($tmp, $key_provider);
+                $tmpEntities = $this->responseArrayToArrayOfEntities((array) $tmp, $key_provider);
 
                 if (count($tmpEntities) > 0) {
                     // The returned entity array is keyed by entity id which

@@ -75,7 +75,7 @@ final class PropertyAccessorDecorator implements PropertyAccessorInterface
                         $objectOrArray->{$setter}(...$value);
                     }
                 } catch (\TypeError $typeError) {
-                    self::processTypeErrorOnSetValue($typeError->getMessage(), $typeError->getTrace(), 0, $typeError);
+                    self::processTypeErrorOnSetValue($typeError->getMessage(), $typeError->getTrace(), 0, (string) $typeError);
 
                     // Rethrow the exception if it could not be transformed
                     // to an invalid argument exception.

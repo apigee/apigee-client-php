@@ -69,7 +69,6 @@ class ObjectNormalizer implements NormalizerInterface, SerializerAwareInterface
             $propertyTypeExtractor = new PropertyInfoExtractor(
                 [
                     $reflectionExtractor,
-                    $phpDocExtractor,
                 ],
                 // Type extractors
                 [

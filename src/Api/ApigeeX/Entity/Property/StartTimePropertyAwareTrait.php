@@ -41,8 +41,8 @@ trait StartTimePropertyAwareTrait
     /**
      * {@inheritdoc}
      */
-    public function setStartTime(string $startTime): void
+    public function setStartTime(string $startDate): void
     {
-        $this->startTime = $startTime;
+        $this->startTime = $startDate;
     }
 }

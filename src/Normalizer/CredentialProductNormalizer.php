@@ -35,10 +35,17 @@ class CredentialProductNormalizer implements NormalizerInterface
     public function normalize($object, $format = null, array $context = [])
     {
         /* @var \Apigee\Edge\Structure\CredentialProductInterface $object */
-        return (object) [
+        $asObject = [
             'apiproduct' => $object->getApiproduct(),
             'status' => $object->getStatus(),
         ];
+
+        //Need to convert to ArrayObject as symfony normalizer throws error for std object.
+        //Need to set ARRAY_AS_PROPS flag as we need Entries to be accessed as properties.
+        $array_as_props = \ArrayObject::ARRAY_AS_PROPS;
+        $asObject = new \ArrayObject($asObject, $array_as_props);
+
+        return $asObject;
     }
 
     /**

@@ -28,7 +28,7 @@ use Apigee\Edge\Normalizer\PropertiesPropertyNormalizer;
 use Apigee\Edge\Serializer\EntitySerializer;
 use Apigee\Edge\Tests\Test\Entity\MockEntity;
 use GuzzleHttp\Psr7\Response;
-use function GuzzleHttp\Psr7\stream_for;
+use GuzzleHttp\Psr7\Utils;
 use PHPUnit\Framework\TestCase;
 use SebastianBergmann\Comparator\ComparisonFailure;
 use SebastianBergmann\Comparator\Factory as ComparisonFactory;
@@ -153,7 +153,7 @@ class EntitySerializerTest extends TestCase
             'propertyWithoutSetter' => 1,
             'propertyWithoutGetter' => true,
         ];
-        static::$serializer->setPropertiesFromResponse(new Response('200', ['Content-type' => 'application/json'], stream_for(json_encode($response))), $entity);
+        static::$serializer->setPropertiesFromResponse(new Response('200', ['Content-type' => 'application/json'], Utils::streamFor(json_encode($response))), $entity);
         // These properties should change.
         $this->assertEquals($response->int, $entity->getInt());
         $this->assertEquals($response->bool, $entity->isBool());
@@ -175,7 +175,7 @@ class EntitySerializerTest extends TestCase
         $response = (object) [
             'variableLengthArgs' => [],
         ];
-        static::$serializer->setPropertiesFromResponse(new Response('200', ['Content-type' => 'application/json'], stream_for(json_encode($response))), $entity);
+        static::$serializer->setPropertiesFromResponse(new Response('200', ['Content-type' => 'application/json'], Utils::streamFor(json_encode($response))), $entity);
         $this->assertEmpty($entity->getVariableLengthArgs());
     }
 
@@ -196,6 +196,6 @@ class EntitySerializerTest extends TestCase
             // what we can not fix.
             'variableLengthArgs' => [(object) []],
         ];
-        static::$serializer->setPropertiesFromResponse(new Response('200', ['Content-type' => 'application/json'], stream_for(json_encode($response))), $entity);
+        static::$serializer->setPropertiesFromResponse(new Response('200', ['Content-type' => 'application/json'], Utils::streamFor(json_encode($response))), $entity);
     }
 }

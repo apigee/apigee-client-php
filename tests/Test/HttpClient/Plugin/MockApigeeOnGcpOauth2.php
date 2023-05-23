@@ -27,7 +27,7 @@ use Apigee\Edge\HttpClient\Utility\Builder;
 use Apigee\Edge\HttpClient\Utility\JournalInterface;
 use Apigee\Edge\Tests\Test\HttpClient\MockHttpClient;
 use Apigee\Edge\Tests\Test\HttpClient\Utility\TestJournal;
-use Http\Client\HttpClient;
+use Psr\Http\Client\ClientInterface as HttpClient;
 
 /**
  * MockApigeeOnGcpOauth2 authentication plugin that uses mock API client for authorisation.
@@ -40,7 +40,7 @@ class MockApigeeOnGcpOauth2 extends ApigeeOnGcpOauth2
      */
     private $journal;
     /**
-     * @var \Http\Client\HttpClient
+     * @var \Psr\Http\Client\ClientInterface
      */
     private $httpClient;
 

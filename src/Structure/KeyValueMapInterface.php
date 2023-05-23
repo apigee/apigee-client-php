@@ -20,6 +20,8 @@ namespace Apigee\Edge\Structure;
 
 /**
  * Interface KeyValueMapInterface.
+ *
+ * @extends \IteratorAggregate<string, array>
  */
 interface KeyValueMapInterface extends \IteratorAggregate
 {

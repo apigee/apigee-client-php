@@ -67,7 +67,7 @@ final class JsonDecode extends BaseJsonDecode
             ];
         }
 
-        parent::__construct($defaultContext, $depth);
+        parent::__construct($defaultContext);
         // Following the same logic as in JsonEcode.
         $this->options = JSON_PRESERVE_ZERO_FRACTION;
     }
