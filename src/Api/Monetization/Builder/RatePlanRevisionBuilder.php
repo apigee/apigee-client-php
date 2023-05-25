@@ -85,7 +85,9 @@ final class RatePlanRevisionBuilder
         unset($normalized->id);
         // Remove the end date inherited from the parent rate plan because
         // it may overlap with the new start date.
-        unset($normalized->endDate);
+        if(isset($normalized->endDate)) {
+            unset($normalized->endDate);
+        }
         // Create a new rate plan revision from the "copy" of parent rate plan.
         // We have to disable the type enforcement because an empty "addresses"
         // array is being passed to the organization which causes failures.
