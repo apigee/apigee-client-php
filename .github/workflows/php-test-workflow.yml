@@ -11,10 +11,6 @@ jobs:
         strategy:
             matrix:
                 include:
-                #-   php: '7.4'
-                #    dependencies-preference: " "
-                #-   php: '7.4'
-                #    dependencies-preference: "--prefer-lowest"
                 -   php: '8.0'
                     dependencies-preference: " "
                 -   php: '8.0'
@@ -49,9 +45,6 @@ jobs:
             run: |
               composer config --no-plugins allow-plugins.php-http/discovery true 
               COMPOSER_PROCESS_TIMEOUT=0 composer install --dev --no-suggest --no-interaction
-
-        #-   name: Install Guzzle
-        #    run: composer require guzzlehttp/guzzle:^6.3.0 ${{ matrix.dependencies-preference }} --no-progress;
 
         -   run: composer show
 
