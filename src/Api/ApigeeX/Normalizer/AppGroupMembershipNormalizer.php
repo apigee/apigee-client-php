@@ -37,9 +37,10 @@ class AppGroupMembershipNormalizer implements NormalizerInterface
         ];
         /** @var \Apigee\Edge\Api\ApigeeX\Structure\AppGroupMembership $object */
         foreach ($object->getMembers() as $member => $role) {
-            $roles[] = $role === null ? "admin" : $role;
-            $normalized['attributes'][] = array('developer' => $member, 'roles' => $roles);
+            $roles[] = null === $role ? 'admin' : $role;
+            $normalized['attributes'][] = ['developer' => $member, 'roles' => $roles];
         }
+
         return $normalized;
     }
 

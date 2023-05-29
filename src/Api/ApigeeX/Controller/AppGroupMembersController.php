@@ -18,8 +18,8 @@
 
 namespace Apigee\Edge\Api\ApigeeX\Controller;
 
-use Apigee\Edge\Api\ApigeeX\Structure\AppGroupMembership;
 use Apigee\Edge\Api\ApigeeX\Serializer\AppGroupMembershipSerializer;
+use Apigee\Edge\Api\ApigeeX\Structure\AppGroupMembership;
 use Apigee\Edge\Api\Management\Serializer\AttributesPropertyAwareEntitySerializer;
 use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Controller\AbstractController;
@@ -64,6 +64,7 @@ class AppGroupMembersController extends AbstractController implements AppGroupMe
     public function getMembers(): AppGroupMembership
     {
         $response = $this->client->get($this->getBaseEndpointUri());
+
         return $this->serializer->denormalize($this->responseToArray($response), AppGroupMembership::class);
     }
 
@@ -73,11 +74,12 @@ class AppGroupMembersController extends AbstractController implements AppGroupMe
      * TODO : Replace with the original inherited getMembers method
      */
     public function getReservedMembership(): AttributesProperty
-    { 
+    {
         $response = $this->client->get($this->getBaseEndpointUri());
         $responseArray = $this->responseToArray($response);
 
         $serializer = new AttributesPropertyAwareEntitySerializer();
+
         return $serializer->denormalize($responseArray['attributes'], AttributesProperty::class);
     }
 
@@ -91,9 +93,10 @@ class AppGroupMembersController extends AbstractController implements AppGroupMe
         $response = $this->client->put(
             $this->getBaseEndpointUri(),
             (string) json_encode((object) [
-                'attributes' => $this->serializer->normalize($members)
+                'attributes' => $this->serializer->normalize($members),
             ])
         );
+
         return $this->serializer->denormalize($this->responseToArray($response), AppGroupMembership::class);
     }
 
@@ -111,9 +114,9 @@ class AppGroupMembersController extends AbstractController implements AppGroupMe
      * {@inheritdoc}
      *
      * TODO: Remove removeMember method as it is not used for AppGroup membership
-     * As we are storing the Team members details inside _apigee_reserve_membership 
-     * attribute, we dont have separate API to delete the members from the attribute
-     * So we update the _apigee_reserve_membership attribute json at setReservedMembership()
+     * As we are storing the Team members details inside _apigee_reserve_membership
+     * attribute, we dont have separate API to delete the members from the attribute.
+     * So we update the _apigee_reserve_membership attribute json at setReservedMembership().
      */
     public function removeMember(string $email): void
     {
