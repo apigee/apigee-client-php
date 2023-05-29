@@ -31,6 +31,7 @@ class AppGroupMembershipNormalizer implements NormalizerInterface
      */
     public function normalize($object, $format = null, array $context = [])
     {
+        $roles = [];
         $normalized = [
             'attributes' => [],
         ];

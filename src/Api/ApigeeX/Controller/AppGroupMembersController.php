@@ -69,10 +69,11 @@ class AppGroupMembersController extends AbstractController implements AppGroupMe
 
     /**
      * {@inheritdoc}
+     *
+     * TODO : Replace with the original inherited getMembers method
      */
     public function getReservedMembership(): AttributesProperty
     { 
-        // TODO : Replace with the original inherited getMembers method.
         $response = $this->client->get($this->getBaseEndpointUri());
         $responseArray = $this->responseToArray($response);
 
@@ -82,10 +83,11 @@ class AppGroupMembersController extends AbstractController implements AppGroupMe
 
     /**
      * {@inheritdoc}
+     *
+     * TODO : Replace with the original inherited setMembers method
      */
     public function setReservedMembership(AttributesProperty $members): AppGroupMembership
     {
-        // TODO : Replace with the original inherited setMembers method.
         $response = $this->client->put(
             $this->getBaseEndpointUri(),
             (string) json_encode((object) [
@@ -107,13 +109,14 @@ class AppGroupMembersController extends AbstractController implements AppGroupMe
 
     /**
      * {@inheritdoc}
+     *
+     * TODO: Remove removeMember method as it is not used for AppGroup membership
+     * As we are storing the Team members details inside _apigee_reserve_membership 
+     * attribute, we dont have separate API to delete the members from the attribute
+     * So we update the _apigee_reserve_membership attribute json at setReservedMembership()
      */
     public function removeMember(string $email): void
     {
-        // TODO: Remove removeMember method as it is not used for AppGroup membership.
-        // As we are storing the Team members details inside _apigee_reserve_membership
-        // attribute, we dont have separate API to delete the members from the attribute.
-        // So we update the _apigee_reserve_membership attribute json at setReservedMembership()
         $encoded = rawurlencode($email);
         $this->client->delete($this->getBaseEndpointUri()->withPath("{$this->getBaseEndpointUri()->getPath()}/{$encoded}"));
     }
