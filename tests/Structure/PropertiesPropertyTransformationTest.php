@@ -71,7 +71,7 @@ class PropertiesPropertyTransformationTest extends TestCase
      *
      * @param \stdClass $normalized
      */
-    public function testDenormalize(\stdClass $normalized): void
+    public function testDenormalize(mixed $normalized): void
     {
         /** @var \Apigee\Edge\Structure\PropertiesProperty $object */
         $object = static::$denormalizer->denormalize($normalized, PropertiesProperty::class);

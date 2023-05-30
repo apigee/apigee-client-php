@@ -20,7 +20,6 @@ namespace Apigee\Edge\Tests\Test\HttpClient;
 
 use Apigee\Edge\Tests\Test\HttpClient\Exception\MockHttpClientException;
 use Http\Client\Common\HttpAsyncClientEmulator;
-use Http\Client\HttpClient;
 use League\Flysystem\AdapterInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;

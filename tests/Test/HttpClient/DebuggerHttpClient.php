@@ -22,9 +22,9 @@ use GuzzleHttp\RequestOptions;
 use GuzzleHttp\TransferStats;
 use Http\Adapter\Guzzle6\Client;
 use Http\Client\HttpAsyncClient;
-use Http\Client\HttpClient;
 use Http\Message\Formatter;
 use Http\Message\Formatter\SimpleFormatter;
+use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
@@ -38,7 +38,7 @@ use Psr\Log\NullLogger;
  *
  * @see https://github.com/guzzle/guzzle/pull/1202
  */
-class DebuggerHttpClient implements HttpClient, HttpAsyncClient
+class DebuggerHttpClient implements ClientInterface, HttpAsyncClient
 {
     /**
      * @var \GuzzleHttp\ClientInterface

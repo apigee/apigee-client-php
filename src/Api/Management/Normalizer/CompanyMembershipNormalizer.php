@@ -39,7 +39,9 @@ class CompanyMembershipNormalizer implements NormalizerInterface
             $normalized['developer'][] = (object) ['email' => $member, 'role' => $role];
         }
 
-        return (object) $normalized;
+        //convert to ArrayObject as symfony normalizer throws error for std object.
+        //set ARRAY_AS_PROPS flag as we need entries to be accessed as properties.
+        return new \ArrayObject($normalized, \ArrayObject::ARRAY_AS_PROPS);
     }
 
     /**

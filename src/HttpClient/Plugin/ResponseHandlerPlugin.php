@@ -70,10 +70,10 @@ final class ResponseHandlerPlugin implements Plugin
             if (is_a($e, HttpException::class)) {
                 $this->decodeResponse($e->getResponse(), $request);
             } elseif (is_a($e, RequestException::class) || is_a($e, NetworkException::class)) {
-                throw new ApiRequestException($request, $e->getMessage(), (int) $e->getCode(), $e);
+                throw new ApiRequestException($request, $e->getMessage(), $e->getCode(), $e);
             }
 
-            throw new ApiException($e->getMessage(), (int) $e->getCode(), $e);
+            throw new ApiException($e->getMessage(), $e->getCode(), $e);
         });
     }
 

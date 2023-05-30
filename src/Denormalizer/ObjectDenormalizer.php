@@ -69,7 +69,6 @@ class ObjectDenormalizer implements DenormalizerInterface, SerializerAwareInterf
             $propertyTypeExtractor = new PropertyInfoExtractor(
                 [
                     $reflectionExtractor,
-                    $phpDocExtractor,
                 ],
                 // Type extractors
                 [

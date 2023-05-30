@@ -86,7 +86,7 @@ class GceServiceAccount extends AbstractOauth
             $decoded_token = json_decode((string) $response->getBody(), true);
             $this->tokenStorage->saveToken($decoded_token);
         } catch (Exception $e) {
-            throw new ApigeeOnGcpOauth2AuthenticationException($e->getMessage(), (int) $e->getCode(), $e);
+            throw new ApigeeOnGcpOauth2AuthenticationException($e->getMessage(), $e->getCode(), $e);
         }
     }
 

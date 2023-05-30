@@ -65,7 +65,7 @@ abstract class OnlineClientBase extends Client implements OnlineClientInterface
     {
         $resolver->setDefault(static::CONFIG_HTTP_CLIENT, null);
         $resolver->setAllowedTypes(static::CONFIG_HTTP_CLIENT, [
-            '\Http\Client\HttpClient',
+            '\Psr\Http\Client\ClientInterface',
             '\Http\Client\HttpAsyncClient',
         ]);
         parent::configureOptions($resolver);

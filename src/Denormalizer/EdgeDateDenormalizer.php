@@ -60,7 +60,10 @@ class EdgeDateDenormalizer implements DenormalizerInterface
         $context[$this->normalizer::FORMAT_KEY] = 'U';
         $context[$this->normalizer::TIMEZONE_KEY] = new \DateTimeZone('UTC');
 
-        return $this->normalizer->denormalize(intval($data / 1000), $type, $format, $context);
+        //convert data in string format for denormalizer.
+        $data = (string) intval($data / 1000);
+
+        return $this->normalizer->denormalize($data, $type, $format, $context);
     }
 
     /**

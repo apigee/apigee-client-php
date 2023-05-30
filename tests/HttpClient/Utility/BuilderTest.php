@@ -132,7 +132,7 @@ class BuilderTest extends TestCase
         $builder = new Builder(self::$httpClient);
         $client = $builder->getHttpClient();
         $uriFactory = UriFactoryDiscovery::find();
-        $builder->addPlugin(new AddPathPlugin($uriFactory->createUri('edge')));
+        $builder->addPlugin(new AddPathPlugin($uriFactory->createUri('/edge')));
         $this->assertNotEquals($client, $builder->getHttpClient());
         $request = new Request('GET', 'http://example.com');
         $builder->getHttpClient()->sendRequest($request);
@@ -162,7 +162,7 @@ class BuilderTest extends TestCase
     {
         $builder = new Builder(self::$httpClient);
         $uriFactory = UriFactoryDiscovery::find();
-        $builder->addPlugin(new AddPathPlugin($uriFactory->createUri('edge')));
+        $builder->addPlugin(new AddPathPlugin($uriFactory->createUri('/edge')));
         $headers = ['Foo' => 'bar'];
         $builder->setHeaders($headers);
         $client = $builder->getHttpClient();

@@ -192,9 +192,9 @@ class OrganizationProfile extends Entity implements OrganizationProfileInterface
     /**
      * {@inheritdoc}
      */
-    public function setCurrencyCode(string $currencyCode): void
+    public function setCurrencyCode(string $currency): void
     {
-        $this->currencyCode = $currencyCode;
+        $this->currencyCode = $currency;
     }
 
     /**
@@ -216,9 +216,9 @@ class OrganizationProfile extends Entity implements OrganizationProfileInterface
     /**
      * {@inheritdoc}
      */
-    public function setBillingAdjustment(bool $billingAdjustment): void
+    public function setBillingAdjustment(bool $hasBillingAdjustment): void
     {
-        $this->billingAdjustment = $billingAdjustment;
+        $this->billingAdjustment = $hasBillingAdjustment;
     }
 
     /**
@@ -240,9 +240,9 @@ class OrganizationProfile extends Entity implements OrganizationProfileInterface
     /**
      * {@inheritdoc}
      */
-    public function setSeparateInvoiceForProduct(bool $separateInvoiceForProduct): void
+    public function setSeparateInvoiceForProduct(bool $hasSeparateInvoiceForProduct): void
     {
-        $this->separateInvoiceForProduct = $separateInvoiceForProduct;
+        $this->separateInvoiceForProduct = $hasSeparateInvoiceForProduct;
     }
 
     /**

@@ -69,7 +69,6 @@ class ObjectNormalizer implements NormalizerInterface, SerializerAwareInterface
             $propertyTypeExtractor = new PropertyInfoExtractor(
                 [
                     $reflectionExtractor,
-                    $phpDocExtractor,
                 ],
                 // Type extractors
                 [
@@ -104,7 +103,7 @@ class ObjectNormalizer implements NormalizerInterface, SerializerAwareInterface
         });
         ksort($asArray);
 
-        return (object) $asArray;
+        return $this->convertToArrayObject($asArray);
     }
 
     /**
@@ -125,5 +124,14 @@ class ObjectNormalizer implements NormalizerInterface, SerializerAwareInterface
     {
         $this->serializer = $serializer;
         $this->objectNormalizer->setSerializer($serializer);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function convertToArrayObject($normalized, $array_as_props = \ArrayObject::ARRAY_AS_PROPS)
+    {
+        //default set ARRAY_AS_PROPS flag as we need entries to be accessed as properties.
+        return new \ArrayObject($normalized, $array_as_props);
     }
 }

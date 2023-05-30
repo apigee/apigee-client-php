@@ -28,7 +28,7 @@ class ApiException extends RuntimeException implements Exception
     /**
      * {@inheritdoc}
      */
-    public function __toString()
+    public function __toString(): string
     {
         // This is just a wrapper around the base class and if it contains a reference to the previous
         // exception we should display that as a string.

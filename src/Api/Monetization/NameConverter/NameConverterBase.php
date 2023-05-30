@@ -25,7 +25,7 @@ abstract class NameConverterBase implements NameConverterInterface
     /**
      * {@inheritdoc}
      */
-    public function normalize($propertyName)
+    public function normalize($propertyName): string
     {
         if ($externalPropertyName = array_search($propertyName, $this->getExternalToLocalMapping())) {
             return $externalPropertyName;
@@ -37,7 +37,7 @@ abstract class NameConverterBase implements NameConverterInterface
     /**
      * {@inheritdoc}
      */
-    public function denormalize($propertyName)
+    public function denormalize($propertyName): string
     {
         if (array_key_exists($propertyName, $this->getExternalToLocalMapping())) {
             return $this->getExternalToLocalMapping()[$propertyName];

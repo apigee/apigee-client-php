@@ -20,7 +20,9 @@
         <!-- Added because of inherited/overridden Symfony functions. -->
         <LessSpecificReturnStatement errorLevel="info" />
         <!-- Disable errors caused by using class typehinting on variables and interfaces on setter's param types. -->
-        <TypeCoercion errorLevel="info" />
+        <ArgumentTypeCoercion errorLevel="info" />
+        <PropertyTypeCoercion errorLevel="info"/>
+
         <!-- Disable errors caused by interfaces declaring a generic object/array return type and implementations using specific classes. -->
         <InvalidReturnType errorLevel="info" />
         <InvalidReturnStatement errorLevel="info" />
@@ -34,7 +36,7 @@
         <MissingReturnType errorLevel="info" />
         <MissingPropertyType errorLevel="info" />
         <InvalidDocblock errorLevel="info" />
-        <MisplacedRequiredParam errorLevel="info" />
+        <TypeDoesNotContainType errorLevel="info" />
 
         <PropertyNotSetInConstructor errorLevel="info" />
         <MissingConstructor errorLevel="info" />
@@ -47,5 +49,8 @@
         <UnresolvableInclude errorLevel="info" />
 
         <RawObjectIteration errorLevel="info" />
+
+        <!-- Disable error caused by deprecated interface-->
+        <DeprecatedInterface errorLevel="info" />
     </issueHandlers>
 </psalm>
