@@ -102,12 +102,8 @@ class ObjectNormalizer implements NormalizerInterface, SerializerAwareInterface
             return !is_null($value);
         });
         ksort($asArray);
-        //Need to convert to ArrayObject as symfony normalizer throws error for std object.
-        //Need to set ARRAY_AS_PROPS flag as we need Entries to be accessed as properties.
-        $array_as_props = \ArrayObject::ARRAY_AS_PROPS;
-        $asArray = new \ArrayObject($asArray, $array_as_props);
 
-        return $asArray;
+        return $this->convertToArrayObject($asArray);
     }
 
     /**
@@ -128,5 +124,14 @@ class ObjectNormalizer implements NormalizerInterface, SerializerAwareInterface
     {
         $this->serializer = $serializer;
         $this->objectNormalizer->setSerializer($serializer);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function convertToArrayObject($normalized, $array_as_props = \ArrayObject::ARRAY_AS_PROPS)
+    {
+        //default set ARRAY_AS_PROPS flag as we need entries to be accessed as properties.
+        return new \ArrayObject($normalized, $array_as_props);
     }
 }

@@ -50,12 +50,7 @@ class ApiProductNormalizer extends EntityNormalizer
      */
     public function normalize($object, $format = null, array $context = [])
     {
-        $normalized = (array) parent::normalize($object, $format, $context);
-
-        //convert to ArrayObject as symfony normalizer throws error for std object.
-        //set ARRAY_AS_PROPS flag as we need entries to be accessed as properties.
-        $array_as_props = \ArrayObject::ARRAY_AS_PROPS;
-        $normalized = new \ArrayObject($normalized, $array_as_props);
+        $normalized = parent::normalize($object, $format, $context);
 
         return $normalized;
     }

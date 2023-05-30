@@ -41,10 +41,7 @@ class PropertiesPropertyNormalizer extends KeyValueMapNormalizer
 
         //convert to ArrayObject as symfony normalizer throws error for std object.
         //set ARRAY_AS_PROPS flag as we need entries to be accessed as properties.
-        $array_as_props = \ArrayObject::ARRAY_AS_PROPS;
-        $return = new \ArrayObject($return, $array_as_props);
-
-        return $return;
+        return new \ArrayObject($return, \ArrayObject::ARRAY_AS_PROPS);
     }
 
     /**
