@@ -1,4 +1,10 @@
 # CHANGELOG
+## [2.0.19](https://github.com/apigee/apigee-client-php/milestone/18?closed=1)
+* [#248] Support assigning API products to Apps on creation, Introduced setInitialApiProducts only during app creation. This will be helpful for the organization having the features.keymanagement.disable.unbounded.permissions is TRUE
+
+## [2.0.18](https://github.com/apigee/apigee-client-php/milestone/17?closed=1)
+* [#243] Add additional organization type for Apigee X
+
 ## [2.0.17](https://github.com/apigee/apigee-client-php/milestone/16?closed=1)
 * [#230] Bump firebase/php-jwt version to ^6.
 * [#232] Deprecation warnings when called serialized classes from the Symfony framework 4.4.x.

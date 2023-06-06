@@ -71,6 +71,9 @@
         "preferred-install": {
             "symfony/property-access": "source",
             "*": "dist"
+        },
+        "allow-plugins": {
+            "php-http/discovery": true
         }
     },
     "minimum-stability": "dev",

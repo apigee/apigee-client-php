@@ -19,6 +19,7 @@
 namespace Apigee\Edge\Api\Management\Query;
 
 use Apigee\Edge\Serializer\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
@@ -44,7 +45,6 @@ class StatsQueryNormalizer implements NormalizerInterface
     public function __construct()
     {
         $this->objectNormalizer = new ObjectNormalizer();
-        $this->objectNormalizer->setIgnoredAttributes(['timeRange']);
         $this->serializer = new Serializer([$this->objectNormalizer], [new JsonEncoder()]);
     }
 
@@ -55,7 +55,7 @@ class StatsQueryNormalizer implements NormalizerInterface
     {
         /** @var StatsQueryInterface $object */
         // Transform the object to JSON and back to an array to keep boolean values as boolean.
-        $json = $this->serializer->serialize($object, 'json');
+        $json = $this->serializer->serialize($object, 'json', [AbstractNormalizer::IGNORED_ATTRIBUTES => ['timeRange']]);
         $data = $this->serializer->decode($json, 'json');
         // Replace metrics with the required query parameter name and value.
         $data['select'] = implode(',', $data['metrics']);

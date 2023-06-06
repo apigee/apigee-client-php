@@ -19,8 +19,8 @@
 namespace Apigee\Edge;
 
 use Apigee\Edge\HttpClient\Utility\JournalInterface;
-use Http\Client\HttpClient;
 use Http\Message\UriFactory;
+use Psr\Http\Client\ClientInterface as HttpClient;
 use Psr\Http\Message\ResponseInterface;
 
 /**
@@ -64,7 +64,7 @@ interface ClientInterface extends HttpClient
      */
     public const APIGEE_ON_GCP_ENDPOINT = 'https://apigee.googleapis.com/v1';
 
-    public const VERSION = '2.0.17';
+    public const VERSION = '2.0.19';
 
     /**
      * Allows access to the last request, response and exception.
