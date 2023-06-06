@@ -31,13 +31,17 @@ class AppGroupMembershipDenormalizer implements DenormalizerInterface
      */
     public function denormalize($data, $type, $format = null, array $context = [])
     {
-        $data = $data['attributes'];
         $denormalized = [];
-        $key = array_search('_apigee_reserved__memberships', array_column($data, 'name'));
-        $members = json_decode($data[$key]->value);
-
-        foreach ($members as $item) {
-            $denormalized[$item->developer] = $item->role ?? null;
+        if (!empty($data['attributes'])) {
+            $data = $data['attributes'];
+            // Getting the members email id and roles.
+            $key = array_search('__apigee_reserved__developer_details', array_column($data, 'name'));
+            $members = json_decode($data[$key]->value);
+            if (is_array($members) || is_object($members)) {
+                foreach ($members as $item) {
+                    $denormalized[$item->developer] = $item->roles ?? null;
+                }
+            }
         }
 
         return new AppGroupMembership($denormalized);

@@ -114,9 +114,9 @@ class AppGroupMembersController extends AbstractController implements AppGroupMe
      * {@inheritdoc}
      *
      * TODO: Remove removeMember method as it is not used for AppGroup membership
-     * As we are storing the Team members details inside _apigee_reserve_membership
+     * As we are storing the Team members details inside __apigee_reserved__developer_details
      * attribute, we dont have separate API to delete the members from the attribute.
-     * So we update the _apigee_reserve_membership attribute json at setReservedMembership().
+     * So we update the __apigee_reserved__developer_details attribute json at setReservedMembership().
      */
     public function removeMember(string $email): void
     {
