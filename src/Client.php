@@ -33,11 +33,11 @@ use Http\Client\Common\Plugin\HeaderDefaultsPlugin;
 use Http\Client\Common\Plugin\HistoryPlugin;
 use Http\Client\Common\Plugin\RetryPlugin;
 use Http\Client\Exception;
+use Http\Client\HttpClient;
 use Http\Discovery\MessageFactoryDiscovery;
 use Http\Discovery\UriFactoryDiscovery;
 use Http\Message\Authentication;
 use Http\Message\UriFactory;
-use Psr\Http\Client\ClientInterface as HttpClient;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\UriInterface;
@@ -47,6 +47,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  * Class Client.
  *
  * Default API client implementation for Apigee Edge.
+ *
+ * @psalm-suppress DeprecatedInterface - DeprecatedInterface will be replaced in 3.x branch.
  */
 class Client implements ClientInterface
 {
