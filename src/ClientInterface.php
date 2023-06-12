@@ -19,8 +19,8 @@
 namespace Apigee\Edge;
 
 use Apigee\Edge\HttpClient\Utility\JournalInterface;
+use Http\Client\HttpClient;
 use Http\Message\UriFactory;
-use Psr\Http\Client\ClientInterface as HttpClient;
 use Psr\Http\Message\ResponseInterface;
 
 /**
