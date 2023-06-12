@@ -39,7 +39,7 @@ class AppGroupMembershipDenormalizer implements DenormalizerInterface
             $members = json_decode($data[$key]->value);
             if (is_array($members) || is_object($members)) {
                 foreach ($members as $item) {
-                    if(isset($item->developer)) {
+                    if (isset($item->developer)) {
                         $denormalized[$item->developer] = $item->roles ?? null;
                     }
                 }
@@ -59,6 +59,6 @@ class AppGroupMembershipDenormalizer implements DenormalizerInterface
             return false;
         }
 
-        return AppGroupMembership::class === $type || $type instanceof AppGroupMembership;
+        return $type instanceof AppGroupMembership;
     }
 }
