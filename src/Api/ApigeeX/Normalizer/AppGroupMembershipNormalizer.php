@@ -31,14 +31,11 @@ class AppGroupMembershipNormalizer implements NormalizerInterface
      */
     public function normalize($object, $format = null, array $context = [])
     {
-        $roles = [];
-        $normalized = [
-            'attributes' => [],
-        ];
+        $normalized = [];
+
         /** @var \Apigee\Edge\Api\ApigeeX\Structure\AppGroupMembership $object */
         foreach ($object->getMembers() as $member => $role) {
-            $roles[] = null === $role ? 'admin' : $role;
-            $normalized['attributes'][] = ['developer' => $member, 'roles' => $roles];
+            $normalized[] = ['developer' => $member, 'roles' => $role];
         }
 
         return $normalized;

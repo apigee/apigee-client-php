@@ -70,42 +70,20 @@ class AppGroupMembersController extends AbstractController implements AppGroupMe
 
     /**
      * {@inheritdoc}
-     *
-     * TODO : Replace with the original inherited getMembers method
-     */
-    public function getReservedMembership(): AttributesProperty
-    {
-        $response = $this->client->get($this->getBaseEndpointUri());
-        $responseArray = $this->responseToArray($response);
-
-        $serializer = new AttributesPropertyAwareEntitySerializer();
-
-        return $serializer->denormalize($responseArray['attributes'], AttributesProperty::class);
-    }
-
-    /**
-     * {@inheritdoc}
-     *
-     * TODO : Replace with the original inherited setMembers method
-     */
-    public function setReservedMembership(AttributesProperty $members): AppGroupMembership
-    {
-        $response = $this->client->put(
-            $this->getBaseEndpointUri(),
-            (string) json_encode((object) [
-                'attributes' => $this->serializer->normalize($members),
-            ])
-        );
-
-        return $this->serializer->denormalize($this->responseToArray($response), AppGroupMembership::class);
-    }
-
-    /**
-     * {@inheritdoc}
      */
     public function setMembers(AppGroupMembership $members): AppGroupMembership
     {
-        $response = $this->client->put($this->getBaseEndpointUri(), $this->serializer->serialize($members, 'json'));
+        $members = $this->serializer->normalize($members);
+        $apigeeReservedMembers = new AttributesProperty();
+
+        // Adding the new members into the attribute.
+        $apigeeReservedMembers->add('__apigee_reserved__developer_details', json_encode($members));
+        $response = $this->client->put(
+            $this->getBaseEndpointUri(),
+            (string) json_encode((object) [
+                'attributes' => $this->serializer->normalize($apigeeReservedMembers),
+            ])
+        );
 
         return $this->serializer->denormalize($this->responseToArray($response), AppGroupMembership::class);
     }

@@ -62,14 +62,14 @@ final class AppGroupMembership extends BaseObject
      *
      * @param string $email
      *   Developer email address.
-     * @param string|null $role
-     *   Developer role.
+     * @param array $role
+     *   Developer roles.
      *
      * @return array
      *   An associate array where developer email addresses are the keys and developer roles are the values.
      *   The value can be null if a developer has no role in a appgroup.
      */
-    public function setMember(string $email, ?string $role = null): array
+    public function setMember(string $email, ?array $role = []): array
     {
         $this->members[$email] = $role;
 
