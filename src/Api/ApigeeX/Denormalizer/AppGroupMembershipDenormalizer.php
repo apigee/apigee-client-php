@@ -59,6 +59,6 @@ class AppGroupMembershipDenormalizer implements DenormalizerInterface
             return false;
         }
 
-        return $type instanceof AppGroupMembership;
+        return AppGroupMembership::class === $type || $type instanceof AppGroupMembership;
     }
 }
