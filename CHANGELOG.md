@@ -1,4 +1,14 @@
 # CHANGELOG
+## [2.1.0](https://github.com/apigee/apigee-client-php/milestone/19?closed=1)
+* [#246] Introduced AppGroup Entity which adds support for Apigee X Teams (New Feature)
+API providers can now manage their Teams and Team members in ApigeeX for Non-Monetized Orgs. API providers using Apigee X with Monetization enabled cannot leverage Teams features in their Drupal developer portals.
+* [#247] Now, supports Team Apps for Apigee X Teams (New Feature)
+* [#260] Added channelID and channelURI in AppGroupInterface.
+* [#239] Removed support for PHP 7.4
+PHP 7.4 non-compatible beacuse Union Types not supported in PHP <8.0.
+* [#268] Team member information migrated from Apigee Edge to Apigee X are stored in AppGroup API `__apigee_reserved__developer_details` attribute.
+* [#238] Fixed error Symfony\Component\Serializer\Normalizer\AbstractNormalizer::setIgnoredAttributes() method is deprecated.
+
 ## [2.0.19](https://github.com/apigee/apigee-client-php/milestone/18?closed=1)
 * [#248] Support assigning API products to Apps on creation, Introduced setInitialApiProducts only during app creation. This will be helpful for the organization having the features.keymanagement.disable.unbounded.permissions is TRUE
 
