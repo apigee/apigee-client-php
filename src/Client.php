@@ -47,6 +47,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  * Class Client.
  *
  * Default API client implementation for Apigee Edge.
+ *
+ * @psalm-suppress DeprecatedInterface - DeprecatedInterface will be replaced in 3.x branch.
  */
 class Client implements ClientInterface
 {

@@ -81,7 +81,7 @@ abstract class AppCredentialController extends EntityController implements AppCr
         array $scopes = [],
         string $keyExpiresIn = '-1'
     ): AppCredentialInterface {
-        $response = $this->client->post(
+        $response = $this->client->put(
             $this->getBaseEndpointUri(),
             (string) json_encode((object) [
                 'apiProducts' => $apiProducts,
