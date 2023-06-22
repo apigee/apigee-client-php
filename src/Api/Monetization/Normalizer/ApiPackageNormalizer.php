@@ -54,10 +54,10 @@ class ApiPackageNormalizer extends EntityNormalizer
         // Do not send redundant API product information to Apigee Edge, the
         // id of a referenced API product is enough.
         foreach ($normalized['product'] as $id => $data) {
-            $normalized['product'][$id] = (object) ['id' => $data->id];
+            $normalized['product'][$id] = (object) ['id' => $data['id']];
         }
 
-        return (object) $normalized;
+        return $this->convertToArrayObject($normalized);
     }
 
     /**

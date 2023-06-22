@@ -167,9 +167,9 @@ abstract class AppCredentialController extends EntityController implements AppCr
     /**
      * {@inheritdoc}
      */
-    public function load(string $entityId): AppCredentialInterface
+    public function load(string $consumerKey): AppCredentialInterface
     {
-        $response = $this->client->get($this->getEntityEndpointUri($entityId));
+        $response = $this->client->get($this->getEntityEndpointUri($consumerKey));
 
         return $this->entitySerializer->deserialize(
         (string) $response->getBody(),
@@ -181,9 +181,9 @@ abstract class AppCredentialController extends EntityController implements AppCr
     /**
      * {@inheritdoc}
      */
-    public function delete(string $entityId): AppCredentialInterface
+    public function delete(string $consumerKey): AppCredentialInterface
     {
-        $response = $this->client->delete($this->getEntityEndpointUri($entityId));
+        $response = $this->client->delete($this->getEntityEndpointUri($consumerKey));
 
         return $this->entitySerializer->deserialize(
         (string) $response->getBody(),

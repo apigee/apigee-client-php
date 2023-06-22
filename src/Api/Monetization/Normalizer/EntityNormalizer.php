@@ -96,7 +96,7 @@ class EntityNormalizer extends ObjectNormalizer
             }
         }
 
-        return (object) $normalized;
+        return $this->convertToArrayObject($normalized);
     }
 
     /**

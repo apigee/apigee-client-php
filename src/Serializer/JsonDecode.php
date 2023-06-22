@@ -67,7 +67,7 @@ final class JsonDecode extends BaseJsonDecode
             ];
         }
 
-        parent::__construct($defaultContext, $depth);
+        parent::__construct($defaultContext);
         // Following the same logic as in JsonEcode.
         $this->options = JSON_PRESERVE_ZERO_FRACTION;
     }
@@ -75,7 +75,7 @@ final class JsonDecode extends BaseJsonDecode
     /**
      * {@inheritdoc}
      */
-    public function decode($data, $format, array $context = [])
+    public function decode($data, $format, array $context = []): mixed
     {
         $context['json_decode_options'] = empty($context['json_decode_options']) ? $this->options : $context['json_decode_options'];
 

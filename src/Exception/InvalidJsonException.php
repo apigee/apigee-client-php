@@ -53,7 +53,7 @@ class InvalidJsonException extends ApiResponseException
     /**
      * {@inheritdoc}
      */
-    public function __toString()
+    public function __toString(): string
     {
         return sprintf("%s\n%s", $this->jsonErrorMessage, parent::__toString());
     }

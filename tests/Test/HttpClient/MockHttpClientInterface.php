@@ -19,7 +19,7 @@
 namespace Apigee\Edge\Tests\Test\HttpClient;
 
 use Http\Client\HttpAsyncClient;
-use Http\Client\HttpClient;
+use Psr\Http\Client\ClientInterface;
 
 /**
  * Interface MockClientInterface.
@@ -29,6 +29,6 @@ use Http\Client\HttpClient;
  *
  * @see https://github.com/php-http/mock-client/pull/24
  */
-interface MockHttpClientInterface extends HttpClient, HttpAsyncClient
+interface MockHttpClientInterface extends ClientInterface, HttpAsyncClient
 {
 }

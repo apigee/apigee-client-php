@@ -27,7 +27,7 @@ use Apigee\Edge\HttpClient\Utility\Builder;
 use Apigee\Edge\HttpClient\Utility\JournalInterface;
 use Apigee\Edge\Tests\Test\HttpClient\MockHttpClient;
 use Apigee\Edge\Tests\Test\HttpClient\Utility\TestJournal;
-use Http\Client\HttpClient;
+use Psr\Http\Client\ClientInterface as HttpClient;
 
 /**
  * MockHybridOauth2 authentication plugin that uses mock API client for authorisation.
@@ -43,7 +43,7 @@ class MockHybridOauth2 extends HybridOauth2
      */
     private $journal;
     /**
-     * @var \Http\Client\HttpClient
+     * @var \Psr\Http\Client\ClientInterface
      */
     private $httpClient;
 

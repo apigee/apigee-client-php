@@ -41,7 +41,7 @@ class OrganizationProfileEntityReferencePropertyValidator implements RemoveIfPro
             return;
         }
 
-        Assert::assertEquals($output->{static::validatedProperty()}, (object) ['id' => $entity->getOrganization()->id()]);
+        Assert::assertEquals((object) ['id' => $output->{static::validatedProperty()}->id], (object) ['id' => $entity->getOrganization()->id()]);
 
         $actual = json_decode($this->entitySerializer->serialize($entity->getOrganization(), 'json'));
         $expected = $input->{static::validatedProperty()};
