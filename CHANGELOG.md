@@ -1,11 +1,12 @@
 # CHANGELOG
 ## [2.1.0](https://github.com/apigee/apigee-client-php/milestone/19?closed=1)
 * [#246] Introduced AppGroup Entity which adds support for Apigee X Teams (New Feature)
-API providers can now manage their Teams and Team members in ApigeeX for Non-Monetized Orgs. API providers using Apigee X with Monetization enabled cannot leverage Teams features in their Drupal developer portals.
+API providers can now manage their Teams and Team members in Apigee X for non-monetized organizations. API providers using Apigee X with monetization enabled cannot leverage the Teams features in their Drupal developer portals at this time.
 * [#247] Now, supports Team Apps for Apigee X Teams (New Feature)
 * [#260] Added channelID and channelURI in AppGroupInterface.
+See [appgroup-settings](https://cloud.google.com/apigee/docs/api-platform/publish/organizing-client-app-ownership#appgroup-settings) for more information.
 * [#239] Removed support for PHP 7.4
-PHP 7.4 non-compatible beacuse Union Types not supported in PHP <8.0.
+PHP 7.4 is non-compatible because Union Types are not supported in PHP <8.0.
 * [#268] Team member information migrated from Apigee Edge to Apigee X are stored in AppGroup API `__apigee_reserved__developer_details` attribute.
 * [#238] Fixed error Symfony\Component\Serializer\Normalizer\AbstractNormalizer::setIgnoredAttributes() method is deprecated.
 
