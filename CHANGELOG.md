@@ -1,4 +1,8 @@
 # CHANGELOG
+## [3.0.0](https://github.com/apigee/apigee-client-php/milestone/21?closed=1)
+* [#262] Support Symfony/Serializer minimum version 6.2 (Added support for Drupal 10)
+* [#272] Update dependencies for Symfony/Serializer 6.2 and dropped support for Symfony/Serializer 4.4
+
 ## [2.1.0](https://github.com/apigee/apigee-client-php/milestone/19?closed=1)
 * [#246] Introduced AppGroup Entity which adds support for Apigee X Teams (New Feature)
 API providers can now manage their Teams and Team members in Apigee X for non-monetized organizations. API providers using Apigee X with monetization enabled cannot leverage the Teams features in their Drupal developer portals at this time.
