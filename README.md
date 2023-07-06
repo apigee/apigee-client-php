@@ -4,11 +4,11 @@
 [![Code Coverage](https://codecov.io/gh/apigee/apigee-client-php/branch/2.x/graph/badge.svg)](https://codecov.io/gh/apigee/apigee-client-php/branch/2.x)
 [![Latest Stable Version](https://poser.pugx.org/apigee/apigee-client-php/v/stable)](https://packagist.org/packages/apigee/apigee-client-php)
 [![Total Downloads](https://poser.pugx.org/apigee/apigee-client-php/downloads)](https://packagist.org/packages/apigee/apigee-client-php)
-[![Minimum PHP Version](https://img.shields.io/badge/PHP-%3E%3D%207.4-8892BF.svg?style=flat-square)](https://php.net/)
+[![Minimum PHP Version](https://img.shields.io/badge/PHP-%3E%3D%208.0-8892BF.svg?style=flat-square)](https://php.net/)
 [![License](https://poser.pugx.org/apigee/apigee-client-php/license)](https://packagist.org/packages/apigee/apigee-client-php)
 
-The Apigee API Client Library for PHP makes it easy to develop PHP clients that call the Apigee Edge Management API. The
-Apigee API Client Library for PHP  enables you to interact with the API using objects instead of coding to handle the
+The Apigee API Client Library for PHP makes it easy to develop PHP clients that call the Apigee Edge/ X Management API. The
+Apigee API Client Library for PHP enables you to interact with the API using objects instead of coding to handle the
 HTTP request and response calls directly.
 
 Specifically, the Apigee API Client Library for PHP provides access to Apigee Edge Management APIs in the following
@@ -25,7 +25,21 @@ categories:
 * [Developers](https://apidocs.apigee.com/api/developers-0)
 * [Stats](https://apidocs.apigee.com/api/stats)
 
-For more information about the Apigee Edge Management APIs, see [Getting started with the API Edge Management APIs](https://apidocs.apigee.com/api-reference/content/api-reference-getting-started)
+For more information about the Apigee Edge Management APIs, see [Getting started with the Apigee Edge Management APIs](https://apidocs.apigee.com/api-reference/content/api-reference-getting-started)
+in the Apigee documentation.
+
+And provides access to Apigee X Management APIs in the following categories:
+* [API Products](https://cloud.google.com/apigee/docs/reference/apis/apigee/rest/v1/organizations.apiproducts)
+* [Apps](https://cloud.google.com/apigee/docs/reference/apis/apigee/rest/v1/organizations.apps)
+* [Apps: AppGroup](https://cloud.google.com/apigee/docs/reference/apis/apigee/rest/v1/organizations.appgroups.apps)
+* [Apps: Developer](https://cloud.google.com/apigee/docs/reference/apis/apigee/rest/v1/organizations.developers.apps)
+* [AppGroup](https://cloud.google.com/apigee/docs/reference/apis/apigee/rest/v1/organizations.appgroups)
+* [AppGroup App Keys](https://cloud.google.com/apigee/docs/reference/apis/apigee/rest/v1/organizations.appgroups.apps.keys)
+* [Developer App Keys](https://cloud.google.com/apigee/docs/reference/apis/apigee/rest/v1/organizations.developers.apps.keys)
+* [Developers](https://cloud.google.com/apigee/docs/reference/apis/apigee/rest/v1/organizations.developers)
+* [Stats](https://cloud.google.com/apigee/docs/reference/apis/apigee/rest/v1/organizations.environments.stats)
+
+For more information about the Apigee X Management APIs, see [Getting started with the Apigee X Management APIs](https://cloud.google.com/apigee/docs/api-platform/get-started/api-get-started)
 in the Apigee documentation.
 
 The Apigee API Client Library for PHP, built using the HTTPlug library, provides an HTTP client
