@@ -11,9 +11,10 @@ The Apigee API Client Library for PHP makes it easy to develop PHP clients that 
 Apigee API Client Library for PHP enables you to interact with the API using objects instead of coding to handle the
 HTTP request and response calls directly.
 
-Specifically, the Apigee API Client Library for PHP provides access to Apigee Edge Management APIs in the following
+Specifically, the Apigee API Client Library for PHP provides access to Apigee Edge and Apigee Management APIs in the following
 categories:
 
+### Apigee Edge
 * [API Products](https://apidocs.apigee.com/api/api-products-1)
 * [Apps](https://apidocs.apigee.com/api/apps-0)
 * [Apps: Company](https://apidocs.apigee.com/api/apps-company)
@@ -25,10 +26,7 @@ categories:
 * [Developers](https://apidocs.apigee.com/api/developers-0)
 * [Stats](https://apidocs.apigee.com/api/stats)
 
-For more information about the Apigee Edge Management APIs, see [Getting started with the Apigee Edge Management APIs](https://apidocs.apigee.com/api-reference/content/api-reference-getting-started)
-in the Apigee documentation.
-
-And provides access to Apigee X Management APIs in the following categories:
+### Apigee
 * [API Products](https://cloud.google.com/apigee/docs/reference/apis/apigee/rest/v1/organizations.apiproducts)
 * [Apps](https://cloud.google.com/apigee/docs/reference/apis/apigee/rest/v1/organizations.apps)
 * [Apps: AppGroup](https://cloud.google.com/apigee/docs/reference/apis/apigee/rest/v1/organizations.appgroups.apps)
@@ -39,7 +37,7 @@ And provides access to Apigee X Management APIs in the following categories:
 * [Developers](https://cloud.google.com/apigee/docs/reference/apis/apigee/rest/v1/organizations.developers)
 * [Stats](https://cloud.google.com/apigee/docs/reference/apis/apigee/rest/v1/organizations.environments.stats)
 
-For more information about the Apigee X Management APIs, see [Getting started with the Apigee X Management APIs](https://cloud.google.com/apigee/docs/api-platform/get-started/api-get-started)
+For more information about the Apigee Edge and Apigee Management APIs, see [Getting started with the Apigee Edge Management APIs](https://apidocs.apigee.com/api-reference/content/api-reference-getting-started) and [Getting started with the Apigee Management APIs](https://cloud.google.com/apigee/docs/api-platform/get-started/api-get-started)
 in the Apigee documentation.
 
 The Apigee API Client Library for PHP, built using the HTTPlug library, provides an HTTP client
