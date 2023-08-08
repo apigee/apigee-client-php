@@ -265,15 +265,15 @@ class StatsController extends AbstractController implements StatsControllerInter
         }
         $allTimeUnits = [];
         // Fix time unit for correct time interval calculation.
-        $startDate = new Moment('@' . $period->getStartDate()->getTimestamp());
-        $endDate = new Moment('@' . $period->getEndDate()->getTimestamp());
+        $startDate = new Moment('@' . $period->startDate->getTimestamp());
+        $endDate = new Moment('@' . $period->endDate->getTimestamp());
         // Returned intervals by Apigee Edge are always inclusive-inclusive.
         $startDate->startOf($timeUnit);
         $endDate->endOf($timeUnit);
-        $period = new Period($startDate, $endDate);
+        $period = Period::fromDate($startDate, $endDate);
         $timeUnit = '1 ' . $timeUnit;
         /** @var \DateTime $dateTime */
-        foreach ($period->getDatePeriod($timeUnit) as $dateTime) {
+        foreach ($period->rangeForward($timeUnit) as $dateTime) {
             $allTimeUnits[] = $dateTime->getTimestamp() * 1000;
         }
 
