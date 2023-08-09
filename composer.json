@@ -35,7 +35,7 @@
     },
     "require-dev": {
         "dms/phpunit-arraysubset-asserts": "^0.4.0",
-        "friendsofphp/php-cs-fixer": "^2.19",
+        "friendsofphp/php-cs-fixer": "^3.22",
         "fzaninotto/faker": "^1.7",
         "guzzlehttp/psr7": "^2.5",
         "league/flysystem": "^1.0",
@@ -78,8 +78,8 @@
         "analyze": "vendor/vimeo/psalm/psalm --config=psalm.xml.dist --show-info=false --stats",
         "metrics": "vendor/bin/phpmetrics .",
         "metrics-html": "vendor/bin/phpmetrics . --report-html=report",
-        "check-style": "vendor/bin/php-cs-fixer fix --config=./.php_cs.dist --verbose --dry-run",
-        "fix-style": "vendor/bin/php-cs-fixer fix --config=./.php_cs.dist"
+        "check-style": "vendor/bin/php-cs-fixer fix --config=./.php-cs-fixer.dist.php --verbose --dry-run",
+        "fix-style": "vendor/bin/php-cs-fixer fix --config=./.php-cs-fixer.dist.php"
     },
     "extra": {
         "branch-alias": {

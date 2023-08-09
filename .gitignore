@@ -11,7 +11,7 @@
 /*.php
 /*.xml
 /*.log
-!/.php_cs.dist
+!/.php-cs-fixer.dist.php
 !/psalm.xml.dist
 !/phpunit.xml.dist
 /vendor
