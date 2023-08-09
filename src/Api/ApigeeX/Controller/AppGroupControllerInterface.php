@@ -18,8 +18,6 @@
 
 namespace Apigee\Edge\Api\ApigeeX\Controller;
 
-use Apigee\Edge\Api\ApigeeX\Controller\PaginatedEntityIdListingControllerInterface;
-use Apigee\Edge\Api\ApigeeX\Controller\PaginatedEntityListingControllerInterface;
 use Apigee\Edge\Api\Management\Controller\AttributesAwareEntityControllerInterface;
 use Apigee\Edge\Controller\EntityControllerInterface;
 use Apigee\Edge\Controller\EntityCrudOperationsControllerInterface;
