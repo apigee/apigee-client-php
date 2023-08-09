@@ -23,7 +23,7 @@ use Apigee\Edge\Api\ApigeeX\Structure\PagerInterface;
 /**
  * Trait PaginatedEntityIdListingControllerTrait.
  *
- * @see \Apigee\Edge\Controller\PaginatedEntityIdListingControllerInterface
+ * @see \Apigee\Edge\Api\ApigeeX\Controller\PaginatedEntityIdListingControllerInterface
  */
 trait PaginatedEntityIdListingControllerTrait
 {
