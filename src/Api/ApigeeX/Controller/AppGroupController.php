@@ -22,7 +22,6 @@ use Apigee\Edge\Api\ApigeeX\Entity\AppGroup;
 use Apigee\Edge\Api\ApigeeX\Serializer\AppGroupSerializer;
 use Apigee\Edge\Api\Management\Controller\AttributesAwareEntityControllerTrait;
 use Apigee\Edge\ClientInterface;
-use Apigee\Edge\Controller\EntityController;
 use Apigee\Edge\Controller\EntityCreateOperationControllerTrait;
 use Apigee\Edge\Controller\EntityCrudOperationsControllerTrait;
 use Apigee\Edge\Controller\EntityListingControllerTrait;
@@ -34,11 +33,14 @@ use Psr\Http\Message\UriInterface;
 /**
  * Class AppGroupController.
  */
-class AppGroupController extends EntityController implements AppGroupControllerInterface
+class AppGroupController extends PaginatedEntityController implements AppGroupControllerInterface
 {
     use AttributesAwareEntityControllerTrait;
     use EntityCrudOperationsControllerTrait;
     use EntityListingControllerTrait;
+    use PaginatedEntityListingControllerTrait;
+    use PaginationHelperTrait;
+    use PaginatedEntityIdListingControllerTrait;
     use StatusAwareEntityControllerTrait;
     use EntityCreateOperationControllerTrait;
 
@@ -54,25 +56,6 @@ class AppGroupController extends EntityController implements AppGroupControllerI
     {
         $entitySerializer = $entitySerializer ?? new AppGroupSerializer();
         parent::__construct($organization, $client, $entitySerializer);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getEntities(): array
-    {
-        $uri = $this->getBaseEndpointUri();
-        $response = $this->client->get($uri);
-        $responseArray = $this->responseToArray($response);
-        // Ignore entity type key from response.
-        $responseArray = reset($responseArray);
-
-        // Appgroup can be empty.
-        if (empty($responseArray)) {
-            return [];
-        }
-
-        return $this->responseArrayToArrayOfEntities($responseArray);
     }
 
     /**
