@@ -131,8 +131,8 @@ trait PaginationHelperTrait
                 $tmp = reset($tmp);
                 // Remove the first item from the list because it is the same
                 // as the last item of $entities at this moment.
-                // Apigee Edge response always starts with the requested entity
-                // (startKey).
+                // Apigee X response always starts with the requested entity
+                // (pageToken).
                 array_shift($tmp);
                 $tmpEntities = $this->responseArrayToArrayOfEntities($tmp, $key_provider);
 
