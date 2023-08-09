@@ -28,7 +28,7 @@ use Apigee\Edge\Serializer\EntitySerializerInterface;
 /**
  * Class PaginatedEntityController.
  *
- * @see \Apigee\Edge\Controller\PaginatedEntityControllerInterface
+ * @see \Apigee\Edge\Api\ApigeeX\Controller\PaginatedEntityControllerInterface
  */
 abstract class PaginatedEntityController extends EntityController implements PaginatedEntityControllerInterface
 {

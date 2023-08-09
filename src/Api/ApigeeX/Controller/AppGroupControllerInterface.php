@@ -18,6 +18,8 @@
 
 namespace Apigee\Edge\Api\ApigeeX\Controller;
 
+use Apigee\Edge\Api\ApigeeX\Controller\PaginatedEntityIdListingControllerInterface;
+use Apigee\Edge\Api\ApigeeX\Controller\PaginatedEntityListingControllerInterface;
 use Apigee\Edge\Api\Management\Controller\AttributesAwareEntityControllerInterface;
 use Apigee\Edge\Controller\EntityControllerInterface;
 use Apigee\Edge\Controller\EntityCrudOperationsControllerInterface;
@@ -25,11 +27,15 @@ use Apigee\Edge\Controller\StatusAwareEntityControllerInterface;
 
 /**
  * Interface AppGroupControllerInterface.
+ *
+ * @see https://cloud.google.com/apigee/docs/reference/apis/apigee/rest/v1/organizations.appgroups
  */
 interface AppGroupControllerInterface extends
     AttributesAwareEntityControllerInterface,
     EntityControllerInterface,
     EntityCrudOperationsControllerInterface,
+    PaginatedEntityListingControllerInterface,
+    PaginatedEntityIdListingControllerInterface,
     StatusAwareEntityControllerInterface
 {
 }
