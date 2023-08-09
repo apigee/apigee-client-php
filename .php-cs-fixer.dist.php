@@ -11,21 +11,25 @@ $finder = PhpCsFixer\Finder::create()
  * added to the repo.
  * @todo: Add a copyright validation (https://github.com/apigee/apigee-client-php/issues/81).
  */
-return PhpCsFixer\Config::create()
+$config = new PhpCsFixer\Config();
+
+$config
     ->setRiskyAllowed(true)
     ->setRules([
         '@PSR2' => true,
         '@Symfony' => true,
         'array_syntax' => ['syntax' => 'short'],
-        'class_definition' => ['singleLine' => false, 'singleItemSingleLine' => true],
+        'class_definition' => ['single_line' => false, 'single_item_single_line' => true],
         'concat_space' => ['spacing' => 'one'],
-        'general_phpdoc_annotation_remove' => ['author'],
+        'general_phpdoc_annotation_remove' => ['annotations' => ['author']],
         'ordered_class_elements' => true,
         'ordered_imports' => true,
         'phpdoc_align' => false,
         'phpdoc_annotation_without_dot' => false,
         'phpdoc_indent' => false,
-        'phpdoc_inline_tag' => false,
+        'general_phpdoc_tag_rename' => false,
+        'phpdoc_inline_tag_normalizer' => false,
+        'phpdoc_tag_type' => false,
         'phpdoc_order' => true,
         // Disabled because fluent setters return type in an interface can not be self.
         'self_accessor' => false,
@@ -36,3 +40,5 @@ return PhpCsFixer\Config::create()
         'single_line_throw' => false,
     ])
     ->setFinder($finder);
+
+return $config;
