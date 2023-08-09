@@ -326,11 +326,11 @@ class StatsController extends AbstractController implements StatsControllerInter
     }
 
     /**
-    * Helper function to check current organization is Hybrid or Edge.
-    *
-    * @return bool
-    *   True if current organization is Hybrid otherwise False
-    */
+     * Helper function to check current organization is Hybrid or Edge.
+     *
+     * @return bool
+     *   True if current organization is Hybrid otherwise False
+     */
     private function isHybrid(): bool
     {
         return ClientInterface::APIGEE_ON_GCP_ENDPOINT === $this->getClient()->getEndpoint();

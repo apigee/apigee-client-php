@@ -32,6 +32,7 @@ use League\Period\Period;
  *
  * @group controller
  * @group management
+ *
  * @small
  */
 class StatsControllerTest extends ControllerTestBase

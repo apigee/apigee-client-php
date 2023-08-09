@@ -31,7 +31,7 @@ use Symfony\Component\Serializer\Serializer;
  */
 class StatsQueryNormalizer implements NormalizerInterface
 {
-    const DATE_FORMAT = 'm/d/Y H:i';
+    public const DATE_FORMAT = 'm/d/Y H:i';
 
     /** @var ObjectNormalizer */
     private $objectNormalizer;
