@@ -31,7 +31,7 @@ use Symfony\Component\Serializer\Serializer;
  */
 class StatsQueryNormalizer implements NormalizerInterface
 {
-    const DATE_FORMAT = 'm/d/Y H:i';
+    public const DATE_FORMAT = 'm/d/Y H:i';
 
     /** @var ObjectNormalizer */
     private $objectNormalizer;
@@ -62,8 +62,8 @@ class StatsQueryNormalizer implements NormalizerInterface
         unset($data['metrics']);
         // Transform timeRange to the required format and time zone.
         $utc = new \DateTimeZone('UTC');
-        $data['timeRange'] = $object->getTimeRange()->getStartDate()->setTimezone($utc)->format(self::DATE_FORMAT) . '~' .
-            $object->getTimeRange()->getEndDate()->setTimezone($utc)->format(self::DATE_FORMAT);
+        $data['timeRange'] = $object->getTimeRange()->startDate->setTimezone($utc)->format(self::DATE_FORMAT) . '~' .
+            $object->getTimeRange()->endDate->setTimezone($utc)->format(self::DATE_FORMAT);
         // Remove null values.
         $data = array_filter($data, function ($value) {
             return !is_null($value);

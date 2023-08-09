@@ -32,6 +32,7 @@ use League\Period\Period;
  *
  * @group controller
  * @group management
+ *
  * @small
  */
 class StatsControllerTest extends ControllerTestBase
@@ -62,7 +63,7 @@ class StatsControllerTest extends ControllerTestBase
         // Make our life easier and use the same timezone as Edge.
         // StatsQueryNormalizerTest ensures that date conversion works properly.
         date_default_timezone_set('UTC');
-        $q = new StatsQuery(['sum(message_count)'], new Period('2018-02-01 00:00', '2018-02-28 23:59'));
+        $q = new StatsQuery(['sum(message_count)'], Period::fromDate('2018-02-01 00:00', '2018-02-28 23:59'));
         $q->setTsAscending($tsAscending);
         $q->setTimeUnit('day');
         $original = $this->getController()->getMetrics($q);
@@ -103,7 +104,7 @@ class StatsControllerTest extends ControllerTestBase
         // Make our life easier and use the same timezone as Apigee Edge.
         // StatsQueryNormalizerTest ensures that date conversion works properly.
         date_default_timezone_set('UTC');
-        $q = new StatsQuery(['sum(message_count), sum(is_error)'], new Period('2018-02-01 00:00', '2018-02-28 23:59'));
+        $q = new StatsQuery(['sum(message_count), sum(is_error)'], Period::fromDate('2018-02-01 00:00', '2018-02-28 23:59'));
         $q->setTsAscending($tsAscending);
         $q->setTimeUnit('day');
         $original = $this->getController()->getMetricsByDimensions(['developer_app', 'developer'], $q);
@@ -131,7 +132,7 @@ class StatsControllerTest extends ControllerTestBase
     public function testUnsupportedTimeUnit(): void
     {
         date_default_timezone_set('UTC');
-        $q = new StatsQuery([], new Period('2018-02-01 00:00', '2018-02-28 23:59'));
+        $q = new StatsQuery([], Period::fromDate('2018-02-01 00:00', '2018-02-28 23:59'));
         $client = static::mockApiClient();
         /** @var \Apigee\Edge\Tests\Test\HttpClient\MockHttpClient $httpClient */
         $httpClient = $client->getMockHttpClient();
@@ -150,7 +151,7 @@ class StatsControllerTest extends ControllerTestBase
     public function testGapFilling(): void
     {
         date_default_timezone_set('UTC');
-        $q = new StatsQuery([], new Period('2018-02-01 11:11', '2018-02-14 23:23'));
+        $q = new StatsQuery([], Period::fromDate('2018-02-01 11:11', '2018-02-14 23:23'));
         $q->setTimeUnit('day');
         $client = static::mockApiClient();
         /** @var \Apigee\Edge\Tests\Test\HttpClient\MockHttpClient $httpClient */
@@ -160,7 +161,7 @@ class StatsControllerTest extends ControllerTestBase
         $response = $controller->getOptimisedMetrics($q);
         $this->assertCount(14, $response['TimeUnit']);
         $this->assertCount(14, $response['stats']['data'][0]['values']);
-        $q->setTimeRange(new Period('2018-02-01 11:11', '2018-02-01 23:23'));
+        $q->setTimeRange(Period::fromDate('2018-02-01 11:11', '2018-02-01 23:23'));
         $q->setTimeUnit('hour');
         $httpClient->addResponse(new Response(200, ['Content-Type' => 'application/json'], json_encode($this->emptyResponseArray())));
         $response = $controller->getOptimisedMetrics($q);
