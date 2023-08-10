@@ -40,7 +40,6 @@ class AppGroupController extends PaginatedEntityController implements AppGroupCo
     use EntityListingControllerTrait;
     use PaginatedEntityListingControllerTrait;
     use PaginationHelperTrait;
-    use PaginatedEntityIdListingControllerTrait;
     use StatusAwareEntityControllerTrait;
     use EntityCreateOperationControllerTrait;
 

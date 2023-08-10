@@ -152,48 +152,6 @@ trait PaginationHelperTrait
     }
 
     /**
-     * Loads entity ids from Apigee X.
-     *
-     * @param \Apigee\Edge\Api\ApigeeX\Structure\PagerInterface|null $pager
-     *   Pager.
-     * @param array $query_params
-     *   Additional query parameters.
-     *
-     * @return string[]
-     *   Array of entity ids.
-     */
-    protected function listEntityIds(PagerInterface $pager = null, array $query_params = []): array
-    {
-        $expandCompatibility = (ClientInterface::APIGEE_ON_GCP_ENDPOINT === $this->getClient()->getEndpoint());
-        if ($pager) {
-            return $this->getResultsInRange($pager, $query_params, $expandCompatibility);
-        } else {
-            $ids = $this->getResultsInRange($this->createPager(), $query_params, $expandCompatibility);
-            if (empty($ids)) {
-                return [];
-            }
-            $lastId = end($ids);
-            do {
-                $tmp = $this->getResultsInRange($this->createPager(0, $lastId), $query_params, $expandCompatibility);
-                // Remove the first item from the list because it is the same
-                // as the current last item of $ids.
-                // Apigee X response always starts with the requested entity
-                // id (pageToken).
-                array_shift($tmp);
-
-                if (count($tmp) > 0) {
-                    $ids = array_merge($ids, $tmp);
-                    $lastId = end($tmp);
-                } else {
-                    $lastId = false;
-                }
-            } while ($lastId);
-
-            return $ids;
-        }
-    }
-
-    /**
      * Gets entities and entity ids in a provided range from Apigee X.
      *
      * @param \Apigee\Edge\Api\ApigeeX\Structure\PagerInterface $pager

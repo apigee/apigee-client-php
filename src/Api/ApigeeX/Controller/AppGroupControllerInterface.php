@@ -33,7 +33,6 @@ interface AppGroupControllerInterface extends
     EntityControllerInterface,
     EntityCrudOperationsControllerInterface,
     PaginatedEntityListingControllerInterface,
-    PaginatedEntityIdListingControllerInterface,
     StatusAwareEntityControllerInterface
 {
 }
