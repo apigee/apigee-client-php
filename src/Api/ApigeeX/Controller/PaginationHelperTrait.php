@@ -19,7 +19,6 @@
 namespace Apigee\Edge\Api\ApigeeX\Controller;
 
 use Apigee\Edge\Api\ApigeeX\Structure\PagerInterface;
-use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Controller\BaseEndpointAwareControllerTrait;
 use Apigee\Edge\Controller\ClientAwareControllerTrait;
 
