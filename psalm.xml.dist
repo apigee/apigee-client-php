@@ -49,8 +49,5 @@
         <UnresolvableInclude errorLevel="info" />
 
         <RawObjectIteration errorLevel="info" />
-
-        <!-- Disable error caused by deprecated interface-->
-        <DeprecatedInterface errorLevel="info" />
     </issueHandlers>
 </psalm>
