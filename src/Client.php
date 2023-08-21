@@ -36,7 +36,7 @@ use Http\Client\Exception;
 use Http\Discovery\MessageFactoryDiscovery;
 use Http\Discovery\UriFactoryDiscovery;
 use Http\Message\Authentication;
-use Psr\Http\Message\UriFactoryInterface as UriFactory;
+use Psr\Http\Message\UriFactoryInterface;
 use Psr\Http\Client\ClientInterface as HttpClient;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -155,7 +155,7 @@ class Client implements ClientInterface
     /**
      * {@inheritdoc}
      */
-    public function getUriFactory(): UriFactory
+    public function getUriFactory(): UriFactoryInterface
     {
         return $this->uriFactory;
     }
