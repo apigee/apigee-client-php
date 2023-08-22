@@ -25,11 +25,14 @@ use Apigee\Edge\Controller\StatusAwareEntityControllerInterface;
 
 /**
  * Interface AppGroupControllerInterface.
+ *
+ * @see https://cloud.google.com/apigee/docs/reference/apis/apigee/rest/v1/organizations.appgroups
  */
 interface AppGroupControllerInterface extends
     AttributesAwareEntityControllerInterface,
     EntityControllerInterface,
     EntityCrudOperationsControllerInterface,
+    PaginatedEntityListingControllerInterface,
     StatusAwareEntityControllerInterface
 {
 }
