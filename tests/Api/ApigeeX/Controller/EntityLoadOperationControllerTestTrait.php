@@ -47,6 +47,21 @@ trait EntityLoadOperationControllerTestTrait
         return $entity;
     }
 
+    protected function validateLoadedEntity(EntityInterface $expected, EntityInterface $actual): void
+    {
+        // Tricky Management API does not return "description" property
+        // if it is not set in create but it returns an empty string when
+        // it gets loaded.
+        if ($expected instanceof DescriptionPropertyInterface && $actual instanceof DescriptionPropertyInterface && null !== $actual->getDescription()) {
+            $expected->setDescription($actual->getDescription());
+        }
+        $expected->setCreatedAt($actual->getCreatedAt());
+        $expectedAsObject = json_decode($this->entitySerializer()->serialize($expected, 'json'));
+
+        // Validate that we got back the same object as we created.
+        $this->entitySerializerValidator()->validate($expectedAsObject, $actual);
+    }
+
     protected function alterObjectsBeforeCompareExpectedAndLoadedEntity(\stdClass &$expectedAsObject, EntityInterface $loaded): void
     {
         // The serialized version of the created (actual) would not be the

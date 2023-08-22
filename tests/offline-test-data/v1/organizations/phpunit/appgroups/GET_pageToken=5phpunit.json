@@ -1,0 +1,17 @@
+{
+    "appGroups": [
+        {
+            "name": "5phpunit",
+            "displayName": "A PHPUnit appgroup",
+            "status": "active",
+            "attributes": [
+                {
+                    "name": "foo",
+                    "value": "bar"
+                }
+            ],
+            "createdAt": 1691588699617,
+            "lastModifiedAt": 1691588699617
+        }
+    ]
+}
