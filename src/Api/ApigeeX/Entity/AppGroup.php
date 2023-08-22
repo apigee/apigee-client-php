@@ -18,24 +18,18 @@
 
 namespace Apigee\Edge\Api\ApigeeX\Entity;
 
-use Apigee\Edge\Entity\CommonEntityPropertiesAwareTrait;
-use Apigee\Edge\Entity\Entity;
-use Apigee\Edge\Entity\Property\AttributesPropertyAwareTrait;
+use Apigee\Edge\Api\Management\Entity\AppOwner;
 use Apigee\Edge\Entity\Property\DisplayNamePropertyAwareTrait;
 use Apigee\Edge\Entity\Property\NamePropertyAwareTrait;
-use Apigee\Edge\Entity\Property\StatusPropertyAwareTrait;
 use Apigee\Edge\Structure\AttributesProperty;
 
 /**
  * Describes an AppGroup entity.
  */
-class AppGroup extends Entity implements AppGroupInterface
+class AppGroup extends AppOwner implements AppGroupInterface
 {
     use DisplayNamePropertyAwareTrait;
     use NamePropertyAwareTrait;
-    use AttributesPropertyAwareTrait;
-    use CommonEntityPropertiesAwareTrait;
-    use StatusPropertyAwareTrait;
 
     /** @var string|null */
     protected $channelUri;
