@@ -101,6 +101,7 @@ trait PaginationHelperTrait
      *   Array of entity objects.
      *
      * @psalm-suppress PossiblyNullArrayOffset $tmp->id() is always not null here.
+     * @psalm-suppress PossiblyFalseArgument $tmp not be false.
      */
     protected function listEntities(PagerInterface $pager = null, array $query_params = [], string $key_provider = 'id'): array
     {
