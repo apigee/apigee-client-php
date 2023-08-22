@@ -1,0 +1,39 @@
+{
+    "appFamily": "default",
+    "appId": "f98678b9-4d1b-4927-ba17-62e6efaadfcc",
+    "attributes": [
+        {
+            "name": "DisplayName",
+            "value": "PHP Unit: Test app"
+        },
+        {
+            "name": "Notes",
+            "value": "This is a test app created by PHP Unit."
+        },
+        {
+            "name": "foo",
+            "value": "bar"
+        }
+    ],
+    "callbackUrl": "http://example.com",
+    "createdAt": 648345600000,
+    "createdBy": "phpunit@example.com",
+    "credentials": [
+        {
+            "apiProducts": [],
+            "attributes": [],
+            "consumerKey": "0YQxigR9Fcbo1vKLBrM5QRWgXx6nU1k1",
+            "consumerSecret": "6DwTp11hKT4fap65",
+            "expiresAt": -1,
+            "issuedAt": 648345600000,
+            "scopes": [],
+            "status": "approved"
+        }
+    ],
+    "appGroup": "phpunit",
+    "lastModifiedAt": 648345600000,
+    "lastModifiedBy": "phpunit@example.com",
+    "name": "phpunit_test_app",
+    "scopes": [],
+    "status": "approved"
+}
