@@ -35,7 +35,7 @@ trait PaginationHelperTrait
     /**
      * {@inheritdoc}
      */
-    public function createPager(int $limit = 0, ?string $pageToken = null): PagerInterface
+    public function createPager(int $limit = 0, string $pageToken = null): PagerInterface
     {
         // Create an anonymous class here because this class should not exist and be in use
         // in those controllers that do not work with entities that belongs to an organization.

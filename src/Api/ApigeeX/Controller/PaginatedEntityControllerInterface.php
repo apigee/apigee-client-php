@@ -42,5 +42,5 @@ interface PaginatedEntityControllerInterface
      * @return \Apigee\Edge\Api\ApigeeX\Structure\PagerInterface
      *   The pager object.
      */
-    public function createPager(int $limit = 0, ?string $pageToken = null): PagerInterface;
+    public function createPager(int $limit = 0, string $pageToken = null): PagerInterface;
 }

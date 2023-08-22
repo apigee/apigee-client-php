@@ -48,7 +48,7 @@ abstract class PaginatedEntityController extends EntityController implements Pag
     public function __construct(
         string $organization,
         ClientInterface $client,
-        ?EntitySerializerInterface $entitySerializer = null,
+        EntitySerializerInterface $entitySerializer = null,
         OrganizationControllerInterface $organizationController = null
     ) {
         parent::__construct($organization, $client, $entitySerializer);
