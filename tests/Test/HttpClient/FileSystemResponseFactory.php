@@ -138,6 +138,6 @@ class FileSystemResponseFactory implements ResponseFactory
         $fileName .= '.json';
         $filePath .= DIRECTORY_SEPARATOR . $fileName;
 
-        return rawurldecode(($filePath));
+        return rawurldecode($filePath);
     }
 }
