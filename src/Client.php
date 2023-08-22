@@ -122,7 +122,7 @@ class Client implements ClientInterface
      *     User agent prefix.
      *   - Apigee\Edge\Client::CONFIG_HTTP_CLIENT_BUILDER: \Apigee\Edge\HttpClient\Utility\BuilderInterface|null
      *     Http client builder.
-     *   - Apigee\Edge\Client::CONFIG_URI_FACTORY: Http\Message\UriFactory|null
+     *   - Apigee\Edge\Client::CONFIG_URI_FACTORY: \Http\Message\UriFactory|null
      *     Factory for PSR-7 URIs.
      *   - Apigee\Edge\Client::CONFIG_REQUEST_FACTORY: \Http\Message\RequestFactory|null
      *     Factory for PSR-7 Requests.
