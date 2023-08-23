@@ -18,12 +18,12 @@
 
 namespace Apigee\Edge\Tests\Api\ApigeeX\Controller;
 
-use Apigee\Edge\Tests\Api\Management\Controller\DeveloperControllerAwareTestTrait;
 use Apigee\Edge\Api\ApigeeX\Controller\AppGroupMembersController;
 use Apigee\Edge\Api\ApigeeX\Controller\AppGroupMembersControllerInterface;
 use Apigee\Edge\Api\ApigeeX\Structure\AppGroupMembership;
 use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Tests\Api\ApigeeX\Entity\AppGroupTestEntityProviderTrait;
+use Apigee\Edge\Tests\Api\Management\Controller\DeveloperControllerAwareTestTrait;
 use Apigee\Edge\Tests\Api\Management\Entity\DeveloperTestEntityProviderTrait;
 use Apigee\Edge\Tests\Test\Controller\ControllerTestBase;
 use Apigee\Edge\Tests\Test\Controller\DefaultAPIClientAwareTrait;
