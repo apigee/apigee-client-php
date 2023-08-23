@@ -25,10 +25,9 @@ use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Tests\Api\ApigeeX\EntitySerializer\RatePlanSerializerValidator;
 use Apigee\Edge\Tests\Test\Controller\EntityControllerTester;
 use Apigee\Edge\Tests\Test\Controller\EntityControllerTesterInterface;
+use Apigee\Edge\Tests\Test\Controller\EntityLoadOperationControllerTestTrait;
 use Apigee\Edge\Tests\Test\Controller\MockClientAwareTrait;
 use Apigee\Edge\Tests\Test\EntitySerializer\EntitySerializerValidatorInterface;
-use Apigee\Edge\Tests\Test\HttpClient\FileSystemResponseFactory;
-use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 
 /**
@@ -51,7 +50,7 @@ class RatePlanControllerTest extends EntityControllerTestBase
     {
         $ids = [
             // Standard rate plan for ApigeeX.
-            'standard' => [StandardRatePlanInterface::class]
+            'standard' => [StandardRatePlanInterface::class],
         ];
 
         foreach ($ids as $id => $expectedClasses) {
