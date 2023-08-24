@@ -59,6 +59,7 @@ abstract class AppCredentialControllerTestBase extends EntityControllerTestBase
     {
         parent::setUpBeforeClass();
         static::$testApiProduct = static::getNewApiProduct();
+        static::apiProductController(static::defaultAPIClient())->create(static::$testApiProduct);
         static::$testAppOwner = static::setupTestAppOwner();
         static::$testApp = static::setupTestApp(static::setupTestAppOwner());
     }
@@ -125,7 +126,6 @@ abstract class AppCredentialControllerTestBase extends EntityControllerTestBase
      */
     public function testAddProducts(string $entityId): void
     {
-        static::apiProductController(static::defaultAPIClient())->create(static::$testApiProduct);
         /** @var \Apigee\Edge\Api\Management\Controller\AppCredentialControllerInterface $controller */
         $controller = $this->entityController();
         $credential = $controller->addProducts($entityId, [static::$testApiProduct->id()]);

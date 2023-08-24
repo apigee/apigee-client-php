@@ -116,6 +116,7 @@ abstract class AppControllerTestBase extends EntityControllerTestBase
      */
     protected function alterObjectsBeforeCompareResponseAndCreatedEntity(\stdClass &$responseObject, EntityInterface $created): void
     {
+        /* @var \Apigee\Edge\Api\Management\Entity\DeveloperAppInterface $created */
         $responseObject->apiProducts = $created->getApiProducts();
     }
 
