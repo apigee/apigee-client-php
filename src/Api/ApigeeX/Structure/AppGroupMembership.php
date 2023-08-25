@@ -112,10 +112,10 @@ final class AppGroupMembership extends BaseObject
      * @param string $email
      *   Developer email address.
      *
-     * @return string|null
+     * @return array|null
      *   Developer role if set, NULL otherwise.
      */
-    public function getRole(string $email): ?string
+    public function getRole(string $email): ?array
     {
         return $this->members[$email] ?? null;
     }
