@@ -6,6 +6,10 @@
         {
             "name": "foo",
             "value": "bar"
+        },
+        {
+            "name": "__apigee_reserved__developer_details",
+            "value": "[{\"developer\":\"phpunit@example.com\",\"roles\":[\"admin\"]}, {\"developer\":\"phpunit2@example.com\",\"roles\":[\"admin\"]}]"
         }
     ],
     "createdAt": 1691588699000,
