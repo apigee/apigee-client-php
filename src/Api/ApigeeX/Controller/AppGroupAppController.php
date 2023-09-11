@@ -20,12 +20,11 @@ namespace Apigee\Edge\Api\ApigeeX\Controller;
 
 use Apigee\Edge\Api\ApigeeX\Entity\AppGroupApp;
 use Apigee\Edge\Api\ApigeeX\Serializer\AppGroupEntitySerializer;
-use Apigee\Edge\Api\Management\Controller\AppByOwnerController;
+use Apigee\Edge\Api\ApigeeX\Structure\PagerInterface;
 use Apigee\Edge\Api\Management\Controller\OrganizationController;
 use Apigee\Edge\Api\Management\Controller\OrganizationControllerInterface;
 use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Serializer\EntitySerializerInterface;
-use Apigee\Edge\Structure\PagerInterface;
 use Psr\Http\Message\UriInterface;
 
 /**
@@ -60,26 +59,6 @@ class AppGroupAppController extends AppByOwnerController implements AppGroupAppC
         $entitySerializer = $entitySerializer ?? new AppGroupEntitySerializer();
         $this->organizationController = $organizationController ?? new OrganizationController($client);
         parent::__construct($organization, $client, $entitySerializer);
-    }
-
-    /**
-     * Override the getEntities() method, for AppGroup compatibility.
-     *
-     * AppGroup does not support the "expand=false" query parameter.
-     *
-     * {@inheritdoc}
-     *
-     * @return \Apigee\Edge\Entity\EntityInterface[]
-     */
-    public function getEntities(): array
-    {
-        $uri = $this->getBaseEndpointUri();
-        $response = $this->getClient()->get($uri);
-        $responseArray = $this->responseToArray($response);
-        // Ignore entity type key from response, ex.: apiProduct.
-        $responseArray = reset($responseArray);
-
-        return $this->responseArrayToArrayOfEntities($responseArray);
     }
 
     /**
