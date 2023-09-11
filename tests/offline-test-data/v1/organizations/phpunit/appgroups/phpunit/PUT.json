@@ -11,6 +11,10 @@
         {
             "name": "bar",
             "value": "baz"
+        },
+        {
+            "name": "__apigee_reserved__developer_details",
+            "value": "[{\"developer\":\"phpunit@example.com\",\"roles\":[\"simple member\"]}]"
         }
     ],
     "createdAt": 1691588699000,
