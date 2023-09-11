@@ -45,7 +45,7 @@ abstract class AppByOwnerController extends PaginatedEntityController implements
      * @param ClientInterface $client
      * @param EntitySerializerInterface|null $entitySerializer
      */
-    public function __construct(string $organization, ClientInterface $client, ?EntitySerializerInterface $entitySerializer = null)
+    public function __construct(string $organization, ClientInterface $client, EntitySerializerInterface $entitySerializer = null)
     {
         $entitySerializer = $entitySerializer ?? new AppEntitySerializer();
         parent::__construct($organization, $client, $entitySerializer);

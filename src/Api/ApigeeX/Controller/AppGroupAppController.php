@@ -52,8 +52,8 @@ class AppGroupAppController extends AppByOwnerController implements AppGroupAppC
         string $organization,
         string $appGroup,
         ClientInterface $client,
-        ?EntitySerializerInterface $entitySerializer = null,
-        ?OrganizationControllerInterface $organizationController = null
+        EntitySerializerInterface $entitySerializer = null,
+        OrganizationControllerInterface $organizationController = null
     ) {
         $this->appGroup = $appGroup;
         $entitySerializer = $entitySerializer ?? new AppGroupEntitySerializer();
