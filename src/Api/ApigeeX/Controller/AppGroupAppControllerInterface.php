@@ -18,12 +18,10 @@
 
 namespace Apigee\Edge\Api\ApigeeX\Controller;
 
-use Apigee\Edge\Api\Management\Controller\AppByOwnerControllerInterface;
-
 /**
  * Interface AppGroupAppControllerInterface.
  *
- * @see https://apidocs.apigee.com/api/apps-appgroup
+ * @see https://cloud.google.com/apigee/docs/reference/apis/apigee/rest/v1/organizations.appgroups.apps
  */
 interface AppGroupAppControllerInterface extends AppByOwnerControllerInterface, AppGroupAwareControllerInterface
 {
