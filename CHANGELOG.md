@@ -1,4 +1,11 @@
 # CHANGELOG
+## [2.1.1](https://github.com/apigee/apigee-client-php/milestone/20?closed=1)
+* [#288] Apigee X Teams with pagination.
+See [AppGroup-pagination] (https://cloud.google.com/apigee/docs/reference/apis/apigee/rest/v1/organizations.appgroups/list#query-parameters) for more information.
+* [#306] Apigee X Teams Apps with pagination.
+See [AppGroup-Apps-pagination] (https://cloud.google.com/apigee/docs/reference/apis/apigee/rest/v1/organizations.appgroups.apps/list#query-parameters) for more information.
+* [#294] Extended AppGroup class from base class AppOwner.
+
 ## [2.1.0](https://github.com/apigee/apigee-client-php/milestone/19?closed=1)
 * [#246] Introduced AppGroup Entity which adds support for Apigee X Teams (New Feature)
 API providers can now manage their Teams and Team members in Apigee X for non-monetized organizations. API providers using Apigee X with monetization enabled cannot leverage the Teams features in their Drupal developer portals at this time.
