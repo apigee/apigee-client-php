@@ -1,4 +1,13 @@
 # CHANGELOG
+## [3.0.1](https://github.com/apigee/apigee-client-php/milestone/22?closed=1)
+* [#286] Support for PHP 8.2 and updated league/period library.
+* [#290] Upgraded friendsofphp/php-cs-fixer to ^3.22.
+* [#297] Extended AppGroup class from base class AppOwner.
+* [#298] Apigee X Teams with pagination.
+See [AppGroup-pagination] (https://cloud.google.com/apigee/docs/reference/apis/apigee/rest/v1/organizations.appgroups/list#query-parameters) for more information.
+* [#307] Apigee X Teams Apps with pagination.
+See [AppGroup-Apps-pagination] (https://cloud.google.com/apigee/docs/reference/apis/apigee/rest/v1/organizations.appgroups.apps/list#query-parameters) for more information.
+
 ## [3.0.0](https://github.com/apigee/apigee-client-php/milestone/21?closed=1)
 * [#262] Support Symfony/Serializer minimum version 6.2 (Added support for Drupal 10)
 * [#272] Update dependencies for Symfony/Serializer 6.2 and dropped support for Symfony/Serializer 4.4
