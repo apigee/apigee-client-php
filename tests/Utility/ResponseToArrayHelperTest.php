@@ -19,6 +19,7 @@
 namespace Apigee\Edge\Tests\Utility;
 
 use Apigee\Edge\Tests\Test\Utility\ResponseToArrayHelper;
+use GuzzleHttp\Psr7\Utils;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
 
@@ -50,13 +51,13 @@ class ResponseToArrayHelperTest extends TestCase
         /** @var \Psr\Http\Message\ResponseInterface $response1 */
         $response1 = $this->getMockBuilder(ResponseInterface::class)->getMock();
         $response1->method('getHeaderLine')->willReturn('application/json');
-        $response1->method('getBody')->willReturn($edgeResponse);
+        $response1->method('getBody')->willReturn(Utils::streamFor($edgeResponse));
         $decodedEdgeStyle = $this->responseToArrayHelper->convertResponseToArray($response1, false);
 
         /** @var \Psr\Http\Message\ResponseInterface $response2 */
         $response2 = $this->getMockBuilder(ResponseInterface::class)->getMock();
         $response2->method('getHeaderLine')->willReturn('application/json');
-        $response2->method('getBody')->willReturn($hybridResponse);
+        $response2->method('getBody')->willReturn(Utils::streamFor($hybridResponse));
         $decodedWithCompatibility = $this->responseToArrayHelper->convertResponseToArray($response2, true);
 
         $this->assertEquals($decodedEdgeStyle, $decodedWithCompatibility);
