@@ -51,4 +51,13 @@ class CompanyMembershipNormalizer implements NormalizerInterface
     {
         return $data instanceof CompanyMembership;
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getSupportedTypes(?string $format): array {
+        return [
+            CompanyMembership::class => TRUE,
+        ];
+    }
 }

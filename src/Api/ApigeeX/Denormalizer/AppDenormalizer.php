@@ -70,4 +70,13 @@ class AppDenormalizer extends ObjectDenormalizer
 
         return AppInterface::class === $type || $type instanceof AppInterface || in_array(AppInterface::class, class_implements($type));
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getSupportedTypes(?string $format): array {
+        return [
+            AppInterface::class => TRUE,
+        ];
+    }
 }

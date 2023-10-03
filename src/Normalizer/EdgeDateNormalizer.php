@@ -38,4 +38,13 @@ class EdgeDateNormalizer implements NormalizerInterface
         /* @var \DateTimeInterface $object */
         return $object->getTimestamp() * 1000;
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getSupportedTypes(?string $format): array {
+        return [
+            \DateTimeInterface::class => TRUE,
+        ];
+    }
 }

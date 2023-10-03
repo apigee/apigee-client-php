@@ -73,4 +73,13 @@ class EdgeDateDenormalizer implements DenormalizerInterface
     {
         return isset(self::$supportedTypes[$type]);
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getSupportedTypes(?string $format): array {
+        return [
+            '*' => FALSE,
+        ];
+    }
 }

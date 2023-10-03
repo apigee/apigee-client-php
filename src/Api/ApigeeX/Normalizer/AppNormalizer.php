@@ -54,4 +54,13 @@ class AppNormalizer extends ObjectNormalizer implements NormalizerInterface
 
         return $normalized;
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getSupportedTypes(?string $format): array {
+        return [
+            AppInterface::class => TRUE,
+        ];
+    }
 }

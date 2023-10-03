@@ -133,4 +133,13 @@ class ObjectDenormalizer implements DenormalizerInterface, SerializerAwareInterf
         $this->serializer = $serializer;
         $this->objectNormalizer->setSerializer($this->serializer);
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getSupportedTypes(?string $format): array {
+        return [
+            '*' => FALSE,
+        ];
+    }
 }

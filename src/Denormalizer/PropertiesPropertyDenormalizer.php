@@ -53,4 +53,13 @@ class PropertiesPropertyDenormalizer extends KeyValueMapDenormalizer
 
         return parent::denormalize($data, $type, $format, $context);
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getSupportedTypes(?string $format): array {
+        return [
+            PropertiesProperty::class => TRUE,
+        ];
+    }
 }

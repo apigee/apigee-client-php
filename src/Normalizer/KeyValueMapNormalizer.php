@@ -46,4 +46,13 @@ class KeyValueMapNormalizer implements NormalizerInterface
     {
         return $data instanceof KeyValueMapInterface;
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getSupportedTypes(?string $format): array {
+        return [
+            KeyValueMapInterface::class => TRUE,
+        ];
+    }
 }

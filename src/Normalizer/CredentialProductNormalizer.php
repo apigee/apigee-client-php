@@ -52,4 +52,13 @@ class CredentialProductNormalizer implements NormalizerInterface
     {
         return $data instanceof CredentialProductInterface;
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getSupportedTypes(?string $format): array {
+        return [
+            CredentialProductInterface::class => TRUE,
+        ];
+    }
 }
