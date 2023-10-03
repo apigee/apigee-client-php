@@ -131,16 +131,17 @@ class ObjectNormalizer implements NormalizerInterface, SerializerAwareInterface
      */
     public function convertToArrayObject($normalized, $array_as_props = \ArrayObject::ARRAY_AS_PROPS)
     {
-        //default set ARRAY_AS_PROPS flag as we need entries to be accessed as properties.
+        // default set ARRAY_AS_PROPS flag as we need entries to be accessed as properties.
         return new \ArrayObject($normalized, $array_as_props);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getSupportedTypes(?string $format): array {
+    public function getSupportedTypes(?string $format): array
+    {
         return [
-            '*' => FALSE,
+            '*' => false,
         ];
     }
 }

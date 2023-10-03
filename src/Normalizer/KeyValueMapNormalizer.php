@@ -50,9 +50,10 @@ class KeyValueMapNormalizer implements NormalizerInterface
     /**
      * {@inheritdoc}
      */
-    public function getSupportedTypes(?string $format): array {
+    public function getSupportedTypes(?string $format): array
+    {
         return [
-            KeyValueMapInterface::class => TRUE,
+            KeyValueMapInterface::class => true,
         ];
     }
 }

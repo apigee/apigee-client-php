@@ -57,9 +57,10 @@ class AppCredentialNormalizer extends ObjectNormalizer implements NormalizerInte
     /**
      * {@inheritdoc}
      */
-    public function getSupportedTypes(?string $format): array {
+    public function getSupportedTypes(?string $format): array
+    {
         return [
-            AppCredentialInterface::class => TRUE,
+            AppCredentialInterface::class => true,
         ];
     }
 }

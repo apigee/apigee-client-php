@@ -67,9 +67,10 @@ class AttributesPropertyDenormalizer extends KeyValueMapDenormalizer
     /**
      * {@inheritdoc}
      */
-    public function getSupportedTypes(?string $format): array {
+    public function getSupportedTypes(?string $format): array
+    {
         return [
-            AttributesProperty::class => TRUE,
+            AttributesProperty::class => true,
         ];
     }
 }

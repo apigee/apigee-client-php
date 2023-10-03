@@ -40,8 +40,8 @@ class CredentialProductNormalizer implements NormalizerInterface
             'status' => $object->getStatus(),
         ];
 
-        //Need to convert to ArrayObject as symfony normalizer throws error for std object.
-        //Need to set ARRAY_AS_PROPS flag as we need Entries to be accessed as properties.
+        // Need to convert to ArrayObject as symfony normalizer throws error for std object.
+        // Need to set ARRAY_AS_PROPS flag as we need Entries to be accessed as properties.
         return new \ArrayObject($asObject, \ArrayObject::ARRAY_AS_PROPS);
     }
 
@@ -56,9 +56,10 @@ class CredentialProductNormalizer implements NormalizerInterface
     /**
      * {@inheritdoc}
      */
-    public function getSupportedTypes(?string $format): array {
+    public function getSupportedTypes(?string $format): array
+    {
         return [
-            CredentialProductInterface::class => TRUE,
+            CredentialProductInterface::class => true,
         ];
     }
 }

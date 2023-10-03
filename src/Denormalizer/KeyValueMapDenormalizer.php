@@ -50,9 +50,10 @@ class KeyValueMapDenormalizer implements DenormalizerInterface
     /**
      * {@inheritdoc}
      */
-    public function getSupportedTypes(?string $format): array {
+    public function getSupportedTypes(?string $format): array
+    {
         return [
-            KeyValueMapInterface::class => TRUE,
+            KeyValueMapInterface::class => true,
         ];
     }
 }
