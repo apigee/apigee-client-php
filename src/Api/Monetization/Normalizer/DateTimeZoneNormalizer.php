@@ -38,4 +38,14 @@ class DateTimeZoneNormalizer implements NormalizerInterface
     {
         return $data instanceof DateTimeZone;
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getSupportedTypes(?string $format): array
+    {
+        return [
+            DateTimeZone::class => true,
+        ];
+    }
 }

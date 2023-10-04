@@ -19,6 +19,7 @@
 namespace Apigee\Edge\Api\Monetization\Denormalizer;
 
 use DateTimeZone;
+use Exception;
 use Symfony\Component\Serializer\Exception\UnexpectedValueException;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 
@@ -31,7 +32,7 @@ class DateTimeZoneDenormalizer implements DenormalizerInterface
     {
         try {
             return new DateTimeZone($data);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             throw new UnexpectedValueException(sprintf('"%s" is not a valid timezone.', $data), (int) $e->getCode(), $e);
         }
     }
@@ -47,5 +48,15 @@ class DateTimeZoneDenormalizer implements DenormalizerInterface
         }
 
         return DateTimeZone::class === $type || $type instanceof DateTimeZone;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getSupportedTypes(?string $format): array
+    {
+        return [
+            DateTimeZone::class => true,
+        ];
     }
 }
