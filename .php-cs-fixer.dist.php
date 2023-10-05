@@ -38,6 +38,7 @@ $config
         'no_superfluous_phpdoc_tags' => false,
         // Disabled because multiple lines allow code clarity.
         'single_line_throw' => false,
+        'global_namespace_import' => ['import_classes' => true, 'import_constants' => true, 'import_functions' => true],
     ])
     ->setFinder($finder);
 
