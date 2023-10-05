@@ -53,4 +53,14 @@ class CompanyMembershipDenormalizer implements DenormalizerInterface
 
         return CompanyMembership::class === $type || $type instanceof CompanyMembership;
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getSupportedTypes(?string $format): array
+    {
+        return [
+            CompanyMembership::class => true,
+        ];
+    }
 }

@@ -19,6 +19,7 @@
 namespace Apigee\Edge\Normalizer;
 
 use Apigee\Edge\Structure\CredentialProductInterface;
+use ArrayObject;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 /**
@@ -40,9 +41,9 @@ class CredentialProductNormalizer implements NormalizerInterface
             'status' => $object->getStatus(),
         ];
 
-        //Need to convert to ArrayObject as symfony normalizer throws error for std object.
-        //Need to set ARRAY_AS_PROPS flag as we need Entries to be accessed as properties.
-        return new \ArrayObject($asObject, \ArrayObject::ARRAY_AS_PROPS);
+        // Need to convert to ArrayObject as symfony normalizer throws error for std object.
+        // Need to set ARRAY_AS_PROPS flag as we need Entries to be accessed as properties.
+        return new ArrayObject($asObject, ArrayObject::ARRAY_AS_PROPS);
     }
 
     /**
@@ -51,5 +52,15 @@ class CredentialProductNormalizer implements NormalizerInterface
     public function supportsNormalization($data, $format = null)
     {
         return $data instanceof CredentialProductInterface;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getSupportedTypes(?string $format): array
+    {
+        return [
+            CredentialProductInterface::class => true,
+        ];
     }
 }

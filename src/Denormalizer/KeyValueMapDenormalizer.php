@@ -46,4 +46,14 @@ class KeyValueMapDenormalizer implements DenormalizerInterface
 
         return KeyValueMapInterface::class === $type || $type instanceof KeyValueMapInterface || in_array(KeyValueMapInterface::class, class_implements($type));
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getSupportedTypes(?string $format): array
+    {
+        return [
+            KeyValueMapInterface::class => true,
+        ];
+    }
 }

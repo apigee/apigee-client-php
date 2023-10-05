@@ -47,4 +47,14 @@ class CredentialProductDenormalizer implements DenormalizerInterface
     {
         return new CredentialProduct($data->apiproduct, $data->status);
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getSupportedTypes(?string $format): array
+    {
+        return [
+            CredentialProductInterface::class => true,
+        ];
+    }
 }

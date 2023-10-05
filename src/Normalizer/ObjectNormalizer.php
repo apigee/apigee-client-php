@@ -19,6 +19,7 @@
 namespace Apigee\Edge\Normalizer;
 
 use Apigee\Edge\PropertyAccess\PropertyAccessorDecorator;
+use ArrayObject;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 use Symfony\Component\PropertyInfo\Extractor\PhpDocExtractor;
@@ -129,9 +130,19 @@ class ObjectNormalizer implements NormalizerInterface, SerializerAwareInterface
     /**
      * {@inheritDoc}
      */
-    public function convertToArrayObject($normalized, $array_as_props = \ArrayObject::ARRAY_AS_PROPS)
+    public function convertToArrayObject($normalized, $array_as_props = ArrayObject::ARRAY_AS_PROPS)
     {
-        //default set ARRAY_AS_PROPS flag as we need entries to be accessed as properties.
-        return new \ArrayObject($normalized, $array_as_props);
+        // default set ARRAY_AS_PROPS flag as we need entries to be accessed as properties.
+        return new ArrayObject($normalized, $array_as_props);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getSupportedTypes(?string $format): array
+    {
+        return [
+            '*' => false,
+        ];
     }
 }

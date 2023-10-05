@@ -93,4 +93,14 @@ class RatePlanDenormalizerFactory implements DenormalizerInterface, SerializerAw
             }
         }
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getSupportedTypes(?string $format): array
+    {
+        return [
+            '*' => false,
+        ];
+    }
 }

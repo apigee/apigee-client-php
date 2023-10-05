@@ -90,4 +90,14 @@ class RatePlanNormalizerFactory implements NormalizerInterface, SerializerAwareI
             }
         }
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getSupportedTypes(?string $format): array
+    {
+        return [
+            '*' => false,
+        ];
+    }
 }
