@@ -18,6 +18,7 @@
 
 namespace Apigee\Edge\Normalizer;
 
+use DateTimeInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 class EdgeDateNormalizer implements NormalizerInterface
@@ -27,7 +28,7 @@ class EdgeDateNormalizer implements NormalizerInterface
      */
     public function supportsNormalization($data, $format = null)
     {
-        return $data instanceof \DateTimeInterface;
+        return $data instanceof DateTimeInterface;
     }
 
     /**
@@ -45,7 +46,7 @@ class EdgeDateNormalizer implements NormalizerInterface
     public function getSupportedTypes(?string $format): array
     {
         return [
-            \DateTimeInterface::class => true,
+            DateTimeInterface::class => true,
         ];
     }
 }

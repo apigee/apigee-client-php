@@ -18,6 +18,10 @@
 
 namespace Apigee\Edge\Denormalizer;
 
+use DateTime;
+use DateTimeImmutable;
+use DateTimeInterface;
+use DateTimeZone;
 use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 
@@ -27,9 +31,9 @@ use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 class EdgeDateDenormalizer implements DenormalizerInterface
 {
     private static $supportedTypes = [
-        \DateTimeInterface::class => true,
-        \DateTimeImmutable::class => true,
-        \DateTime::class => true,
+        DateTimeInterface::class => true,
+        DateTimeImmutable::class => true,
+        DateTime::class => true,
     ];
 
     /** @var \Symfony\Component\Serializer\Normalizer\DateTimeNormalizer */
@@ -58,7 +62,7 @@ class EdgeDateDenormalizer implements DenormalizerInterface
             return null;
         }
         $context[$this->normalizer::FORMAT_KEY] = 'U';
-        $context[$this->normalizer::TIMEZONE_KEY] = new \DateTimeZone('UTC');
+        $context[$this->normalizer::TIMEZONE_KEY] = new DateTimeZone('UTC');
 
         // convert data in string format for denormalizer.
         $data = (string) intval($data / 1000);
