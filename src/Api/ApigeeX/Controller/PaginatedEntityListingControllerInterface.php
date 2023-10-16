@@ -43,8 +43,11 @@ interface PaginatedEntityListingControllerInterface extends PaginatedEntityContr
      *   Pager.
      * @param string $key_provider
      *   Getter method on the entity that should provide a unique array key.
+     * @param array $queryparams
+     *   Query parameters passed to the generator as $options['query']. This may
+     *   be modified if there are extra parameters not used as route variables.
      *
      * @return \Apigee\Edge\Entity\EntityInterface[]
      */
-    public function getEntities(PagerInterface $pager = null, string $key_provider = 'id'): array;
+    public function getEntities(PagerInterface $pager = null, string $key_provider = 'id', $queryparams = []): array;
 }
