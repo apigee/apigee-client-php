@@ -1,4 +1,10 @@
 # CHANGELOG
+## [3.0.2](https://github.com/apigee/apigee-client-php/milestone/24?closed=1)
+* [#314] Added method getSupportedTypes which is added in symfony 6.3.
+* [#316] PHPCS : Added import global namespace.
+* [#312] Bumped symfony version to 6.3.
+* Added query parameters in PaginatedEntityListingControllerInterface.
+
 ## [3.0.1](https://github.com/apigee/apigee-client-php/milestone/22?closed=1)
 * [#286] Support for PHP 8.2 and updated league/period library.
 * [#290] Upgraded friendsofphp/php-cs-fixer to ^3.22.
