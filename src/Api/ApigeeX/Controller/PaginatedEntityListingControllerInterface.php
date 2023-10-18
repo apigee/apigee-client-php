@@ -46,5 +46,5 @@ interface PaginatedEntityListingControllerInterface extends PaginatedEntityContr
      *
      * @return \Apigee\Edge\Entity\EntityInterface[]
      */
-    public function getEntities(PagerInterface $pager = null, string $key_provider = 'id'): array;
+    public function getEntities(PagerInterface $pager = null, string $key_provider = 'id', $queryparams = []): array;
 }
