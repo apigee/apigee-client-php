@@ -32,9 +32,9 @@ trait PaginatedEntityListingControllerTrait
      *
      * @return \Apigee\Edge\Entity\EntityInterface[]
      */
-    public function getEntities(PagerInterface $pager = null, string $key_provider = 'id'): array
+    public function getEntities(PagerInterface $pager = null, string $key_provider = 'id', $queryparams = []): array
     {
-        return $this->listEntities($pager, [], $key_provider);
+        return $this->listEntities($pager, $queryparams, $key_provider);
     }
 
     /**
