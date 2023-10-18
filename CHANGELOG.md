@@ -1,4 +1,7 @@
 # CHANGELOG
+## [2.1.2](https://github.com/apigee/apigee-client-php/milestone/23?closed=1)
+* Added query parameters in PaginatedEntityListingControllerInterface.
+
 ## [2.1.1](https://github.com/apigee/apigee-client-php/milestone/20?closed=1)
 * [#288] Apigee X Teams with pagination.
 See [AppGroup-pagination] (https://cloud.google.com/apigee/docs/reference/apis/apigee/rest/v1/organizations.appgroups/list#query-parameters) for more information.
