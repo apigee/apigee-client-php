@@ -3,6 +3,7 @@
 * [#314] Added method getSupportedTypes which is added in symfony 6.3.
 * [#316] PHPCS : Added import global namespace.
 * [#312] Bumped symfony version to 6.3.
+* [#310] Added support for psr/http-message >=2.0.
 * Added query parameters in PaginatedEntityListingControllerInterface.
 
 ## [3.0.1](https://github.com/apigee/apigee-client-php/milestone/22?closed=1)
