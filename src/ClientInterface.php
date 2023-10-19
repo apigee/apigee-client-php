@@ -19,9 +19,9 @@
 namespace Apigee\Edge;
 
 use Apigee\Edge\HttpClient\Utility\JournalInterface;
-use Http\Message\UriFactory;
 use Psr\Http\Client\ClientInterface as HttpClient;
 use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\UriFactoryInterface;
 
 /**
  * Interface ClientInterface.
@@ -75,8 +75,11 @@ interface ClientInterface extends HttpClient
 
     /**
      * Returns the URI factory used by the Client.
+     *
+     * @return UriFactoryInterface
      */
-    public function getUriFactory(): UriFactory;
+    #[\ReturnTypeWillChange]
+    public function getUriFactory(): UriFactoryInterface;
 
     /**
      * Returns the version of the API client.

@@ -36,7 +36,7 @@ use Http\Client\Exception;
 use Http\Discovery\MessageFactoryDiscovery;
 use Http\Discovery\UriFactoryDiscovery;
 use Http\Message\Authentication;
-use Http\Message\UriFactory;
+use Psr\Http\Message\UriFactoryInterface;
 use Psr\Http\Client\ClientInterface as HttpClient;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -66,7 +66,7 @@ class Client implements ClientInterface
 
     public const CONFIG_RETRY_PLUGIN_CONFIG = 'retry_plugin_config';
 
-    /** @var \Http\Message\UriFactory */
+    /** @var UriFactoryInterface */
     private $uriFactory;
 
     /** @var string|null */
@@ -122,7 +122,7 @@ class Client implements ClientInterface
      *     User agent prefix.
      *   - Apigee\Edge\Client::CONFIG_HTTP_CLIENT_BUILDER: \Apigee\Edge\HttpClient\Utility\BuilderInterface|null
      *     Http client builder.
-     *   - Apigee\Edge\Client::CONFIG_URI_FACTORY: \Http\Message\UriFactory|null
+     *   - Apigee\Edge\Client::CONFIG_URI_FACTORY: \Psr\Http\Message\UriFactoryInterface|null
      *     Factory for PSR-7 URIs.
      *   - Apigee\Edge\Client::CONFIG_REQUEST_FACTORY: \Http\Message\RequestFactory|null
      *     Factory for PSR-7 Requests.
@@ -153,9 +153,12 @@ class Client implements ClientInterface
     }
 
     /**
-     * {@inheritdoc}
+     * Create a new URI.
+     *
+     * @return UriFactoryInterface
      */
-    public function getUriFactory(): UriFactory
+    #[\ReturnTypeWillChange]
+    public function getUriFactory(): UriFactoryInterface
     {
         return $this->uriFactory;
     }
@@ -266,7 +269,7 @@ class Client implements ClientInterface
         $resolver->setAllowedTypes(static::CONFIG_USER_AGENT_PREFIX, ['null', 'string']);
         $resolver->setAllowedTypes(static::CONFIG_HTTP_CLIENT_BUILDER, ['null', '\Apigee\Edge\HttpClient\Utility\BuilderInterface']);
         $resolver->setAllowedTypes(static::CONFIG_JOURNAL, ['null', '\Apigee\Edge\HttpClient\Utility\JournalInterface']);
-        $resolver->setAllowedTypes(static::CONFIG_URI_FACTORY, ['null', '\Http\Message\UriFactory']);
+        $resolver->setAllowedTypes(static::CONFIG_URI_FACTORY, ['null', '\Psr\Http\Message\UriFactoryInterface']);
         $resolver->setAllowedTypes(static::CONFIG_REQUEST_FACTORY, ['null', '\Http\Message\RequestFactory']);
         $resolver->setAllowedTypes(static::CONFIG_ERROR_FORMATTER, ['null', '\Http\Message\Formatter']);
         $resolver->setAllowedTypes(static::CONFIG_RETRY_PLUGIN_CONFIG, ['null', 'array']);
