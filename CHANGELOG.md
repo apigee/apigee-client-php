@@ -1,4 +1,8 @@
 # CHANGELOG
+## [3.0.3](https://github.com/apigee/apigee-client-php/milestone/26?closed=1)
+* [#323] Add union type to suppress deprecation warning.
+* [#325] Fix error when AppGroup list is empty or do not returns appgroups array.
+
 ## [3.0.2](https://github.com/apigee/apigee-client-php/milestone/24?closed=1)
 * [#314] Added method getSupportedTypes which is added in symfony 6.3.
 * [#316] PHPCS : Added import global namespace.
