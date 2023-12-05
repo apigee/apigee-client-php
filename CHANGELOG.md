@@ -1,4 +1,7 @@
 # CHANGELOG
+## [2.1.3](https://github.com/apigee/apigee-client-php/milestone/25?closed=1)
+* [#325] Fix error when AppGroup list is empty or do not returns appgroups array.
+
 ## [2.1.2](https://github.com/apigee/apigee-client-php/milestone/23?closed=1)
 * Added query parameters in PaginatedEntityListingControllerInterface.
 
