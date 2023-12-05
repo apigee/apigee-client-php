@@ -39,6 +39,7 @@ $config
         // Disabled because multiple lines allow code clarity.
         'single_line_throw' => false,
         'global_namespace_import' => ['import_classes' => true, 'import_constants' => true, 'import_functions' => true],
+        'nullable_type_declaration_for_default_null_value' => ['use_nullable_type_declaration' => true]
     ])
     ->setFinder($finder);
 
