@@ -20,8 +20,8 @@ namespace Apigee\Edge\HttpClient\Plugin;
 
 use Apigee\Edge\Exception\OauthAccessTokenAuthenticationException;
 use Apigee\Edge\HttpClient\Plugin\Authentication\AbstractOauth;
+use Exception;
 use Http\Client\Common\Plugin;
-use Http\Client\Exception;
 use Http\Promise\Promise;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -62,9 +62,8 @@ class RetryOauthAuthenticationPlugin implements Plugin
                 // Mark access token as expired and with that ensure that the authentication plugin gets a new
                 // access token.
                 $this->auth->getTokenStorage()->markExpired();
-                $promise = $first($request);
 
-                return $promise->wait();
+                return $first($request)->wait();
             }
 
             throw $exception;

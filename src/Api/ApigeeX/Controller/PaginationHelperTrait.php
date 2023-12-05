@@ -118,7 +118,8 @@ trait PaginationHelperTrait
             // Ignore entity type key from response, ex.: developer, apiproduct,
             // etc.
             $responseArray = reset($responseArray);
-            if (empty($responseArray)) {
+            // Appgroup can be empty.
+            if (empty($responseArray) || !is_array($responseArray)) {
                 return [];
             }
             $entities = $this->responseArrayToArrayOfEntities($responseArray, $key_provider);
