@@ -60,6 +60,7 @@ class EntityNormalizer extends ObjectNormalizer
      * {@inheritdoc}
      *
      * @psalm-suppress InvalidReturnType stdClass is also an object.
+     * @psalm-suppress InvalidPropertyFetch.
      */
     public function normalize($object, $format = null, array $context = [])
     {
