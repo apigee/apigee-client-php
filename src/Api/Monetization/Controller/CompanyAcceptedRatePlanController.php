@@ -84,7 +84,7 @@ class CompanyAcceptedRatePlanController extends AcceptedRatePlanController
     protected function getAcceptedRatePlansEndpoint(): UriInterface
     {
         // For this API endpoint:
-        // https://apidocs.apigee.com/monetize/apis/get/organizations/%7Borg_name%7D/developers/%7Bdeveloper_id%7D/developer-accepted-rateplans
-        return $this->client->getUriFactory()->createUri("/mint/organizations/{$this->organization}/companies/{$this->companyName}/developer-accepted-rateplans");
+        // https://apidocs.apigee.com/docs/monetization/1/routes/mint/organizations/%7Borg_name%7D/companies/%7Bcompany_id%7D/eligible-products/get
+        return $this->client->getUriFactory()->createUri("/mint/organizations/{$this->organization}/companies/{$this->companyName}/eligible-products");
     }
 }
