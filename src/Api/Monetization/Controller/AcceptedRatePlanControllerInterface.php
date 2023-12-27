@@ -42,6 +42,13 @@ interface AcceptedRatePlanControllerInterface extends EntityControllerInterface,
     public function getAllAcceptedRatePlans(): array;
 
     /**
+     * Gets all eligible rate plans.
+     *
+     * @return \Apigee\Edge\Api\Monetization\Entity\AcceptedRatePlanInterface[]
+     */
+    public function getAllEligibleRatePlans(): array;
+
+    /**
      * Gets accepted rate plans in the provided range.
      *
      * @param int|null $limit

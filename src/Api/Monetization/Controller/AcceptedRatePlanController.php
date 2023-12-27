@@ -75,6 +75,14 @@ abstract class AcceptedRatePlanController extends OrganizationAwareEntityControl
     /**
      * {@inheritdoc}
      */
+    public function getAllEligibleRatePlans(): array
+    {
+        return $this->getEligibleRatePlan();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function acceptRatePlan(RatePlanInterface $ratePlan, DateTimeImmutable $startDate, ?DateTimeImmutable $endDate = null, ?int $quotaTarget = null, ?bool $suppressWarning = null, ?bool $waveTerminationCharge = null): AcceptedRatePlanInterface
     {
         $rc = new ReflectionClass($this->getEntityClass());
@@ -184,6 +192,33 @@ abstract class AcceptedRatePlanController extends OrganizationAwareEntityControl
         $entities = [];
 
         foreach ($this->getRawList($this->getAcceptedRatePlansEndpoint()->withQuery(http_build_query($query_params))) as $item) {
+            /** @var \Apigee\Edge\Entity\EntityInterface $tmp */
+            $tmp = $this->getEntitySerializer()->denormalize(
+                $item,
+                AcceptedRatePlanInterface::class,
+                'json'
+            );
+            $entities[$tmp->id()] = $tmp;
+        }
+
+        return $entities;
+    }
+
+    /**
+     * Helper function for listing eligible rate plans.
+     *
+     * @param array $query_params
+     *   Additional query parameters.
+     *
+     * @return \Apigee\Edge\Api\Monetization\Entity\AcceptedRatePlanInterface[]
+     *
+     * @psalm-suppress PossiblyNullArrayOffset - id() does not return null here.
+     */
+    private function getEligibleRatePlan(): array
+    {
+        $entities = [];
+
+        foreach ($this->getRawList($this->getEligibleRatePlanEndpoint()) as $item) {
             /** @var \Apigee\Edge\Entity\EntityInterface $tmp */
             $tmp = $this->getEntitySerializer()->denormalize(
                 $item,
