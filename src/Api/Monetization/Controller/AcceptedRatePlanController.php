@@ -149,6 +149,17 @@ abstract class AcceptedRatePlanController extends OrganizationAwareEntityControl
     abstract protected function getAcceptedRatePlansEndpoint(): UriInterface;
 
     /**
+     * Returns the URI for listing rate plans eligible to access.
+     *
+     * Gets the API products that a company is eligible to access, including:
+     * API products for which a company has accepted a rate plan.
+     * API products that do not have a published rate plan.
+     *
+     * @return \Psr\Http\Message\UriInterface
+     */
+    abstract protected function getEligibleRatePlanEndpoint(): UriInterface;
+
+    /**
      * Allows to alter payload before it gets sent to the API.
      *
      * @param array $payload
