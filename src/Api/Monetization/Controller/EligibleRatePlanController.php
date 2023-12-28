@@ -39,7 +39,7 @@ abstract class EligibleRatePlanController extends OrganizationAwareEntityControl
      * EligibleRatePlanController constructor.
      *
      * @param string $organization
-     * @param \Apigee\Edge\ClientInterface $client
+     * @param ClientInterface $client
      * @param \Apigee\Edge\Serializer\EntitySerializerInterface|null $entitySerializer
      */
     public function __construct(string $organization, ClientInterface $client, ?EntitySerializerInterface $entitySerializer = null)
@@ -62,7 +62,7 @@ abstract class EligibleRatePlanController extends OrganizationAwareEntityControl
     public function acceptRatePlan(RatePlanInterface $ratePlan, DateTimeImmutable $startDate, ?DateTimeImmutable $endDate = null, ?int $quotaTarget = null, ?bool $suppressWarning = null, ?bool $waveTerminationCharge = null): AcceptedRatePlanInterface
     {
         $rc = new ReflectionClass($this->getEntityClass());
-        /** @var \Apigee\Edge\Api\Monetization\Entity\AcceptedRatePlanInterface $acceptedRatePlan */
+        /** @var AcceptedRatePlanInterface $acceptedRatePlan */
         $acceptedRatePlan = $rc->newInstance(
             [
                 'ratePlan' => $ratePlan,
@@ -119,7 +119,7 @@ abstract class EligibleRatePlanController extends OrganizationAwareEntityControl
      * API products for which a company has accepted a rate plan.
      * API products that do not have a published rate plan.
      *
-     * @return \Psr\Http\Message\UriInterface
+     * @return UriInterface
      */
     abstract protected function getEligibleRatePlanEndpoint(): UriInterface;
 

@@ -38,7 +38,7 @@ class CompanyEligibleRatePlanController extends EligibleRatePlanController
      *
      * @param string $companyName
      * @param string $organization
-     * @param \Apigee\Edge\ClientInterface $client
+     * @param ClientInterface $client
      * @param \Apigee\Edge\Serializer\EntitySerializerInterface|null $entitySerializer
      */
     public function __construct(string $companyName, string $organization, ClientInterface $client, ?EntitySerializerInterface $entitySerializer = null)
