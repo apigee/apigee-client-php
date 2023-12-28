@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright 2018 Google LLC
+ * Copyright 2024 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,31 +25,21 @@ use Apigee\Edge\Controller\EntityLoadOperationControllerInterface;
 use DateTimeImmutable;
 
 /**
- * Interface AcceptedRatePlanControllerInterface.
+ * Interface EligibleRatePlanControllerInterface.
  *
  * @see https://apidocs.apigee.com/monetize/apis/
  * @see https://docs.apigee.com/api-platform/monetization/subscribe-published-rate-plan-using-api
  * @see https://docs.apigee.com/api-platform/monetization/view-rate-plans#viewingrateplansusingtheapi-viewingallacceptedrateplansforadeveloperusingtheapi
  */
-interface AcceptedRatePlanControllerInterface extends EntityControllerInterface,
+interface EligibleRatePlanControllerInterface extends EntityControllerInterface,
     EntityLoadOperationControllerInterface
 {
     /**
-     * Gets all accepted rate plans.
+     * Gets all eligible rate plans.
      *
      * @return \Apigee\Edge\Api\Monetization\Entity\AcceptedRatePlanInterface[]
      */
-    public function getAllAcceptedRatePlans(): array;
-
-    /**
-     * Gets accepted rate plans in the provided range.
-     *
-     * @param int|null $limit
-     * @param int $page
-     *
-     * @return \Apigee\Edge\Api\Monetization\Entity\AcceptedRatePlanInterface[]
-     */
-    public function getPaginatedAcceptedRatePlanList(int $limit = null, int $page = 1): array;
+    public function getAllEligibleRatePlans(): array;
 
     /**
      * Accepts a rate plan.

@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright 2018 Google LLC
+ * Copyright 2024 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,11 +18,13 @@
 
 namespace Apigee\Edge\Api\Monetization\Controller;
 
+use Apigee\Edge\Api\Monetization\Entity\CompanyEligibleRatePlan;
+use Apigee\Edge\Api\Monetization\Normalizer\EntityNormalizer;
 use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Serializer\EntitySerializerInterface;
 use Psr\Http\Message\UriInterface;
 
-class CompanyEligibleRatePlanController extends AcceptedRatePlanController
+class CompanyEligibleRatePlanController extends EligibleRatePlanController
 {
     /**
      * Name of the company.
@@ -51,6 +53,25 @@ class CompanyEligibleRatePlanController extends AcceptedRatePlanController
     protected function getBaseEndpointUri(): UriInterface
     {
         return $this->client->getUriFactory()->createUri("/mint/organizations/{$this->organization}/companies/{$this->companyName}/eligible-products");
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function getEntityClass(): string
+    {
+        return CompanyEligibleRatePlan::class;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function buildContextForEntityTransformerInCreate(): array
+    {
+        $context = [];
+        $context[EntityNormalizer::MINT_ENTITY_REFERENCE_PROPERTY_VALUES]['developer'] = $this->companyName;
+
+        return $context;
     }
 
     /**

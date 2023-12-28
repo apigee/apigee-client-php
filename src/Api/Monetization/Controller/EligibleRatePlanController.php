@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright 2018 Google LLC
+ * Copyright 2024 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,14 +29,14 @@ use DateTimeImmutable;
 use Psr\Http\Message\UriInterface;
 use ReflectionClass;
 
-abstract class AcceptedRatePlanController extends OrganizationAwareEntityController implements AcceptedRatePlanControllerInterface
+abstract class EligibleRatePlanController extends OrganizationAwareEntityController implements EligibleRatePlanControllerInterface
 {
     use EntityListingControllerTrait;
     use EntityLoadOperationControllerTrait;
     use PaginatedListingHelperTrait;
 
     /**
-     * AcceptedRatePlanController constructor.
+     * EligibleRatePlanController constructor.
      *
      * @param string $organization
      * @param \Apigee\Edge\ClientInterface $client
@@ -51,25 +51,9 @@ abstract class AcceptedRatePlanController extends OrganizationAwareEntityControl
     /**
      * {@inheritdoc}
      */
-    public function getAllAcceptedRatePlans(): array
+    public function getAllEligibleRatePlans(): array
     {
-        return $this->getAcceptedRatePlans();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getPaginatedAcceptedRatePlanList(int $limit = null, int $page = 1): array
-    {
-        $query_params = [
-            'page' => $page,
-        ];
-
-        if (null !== $limit) {
-            $query_params['size'] = $limit;
-        }
-
-        return $this->getAcceptedRatePlans($query_params);
+        return $this->getEligibleRatePlan();
     }
 
     /**
@@ -129,6 +113,17 @@ abstract class AcceptedRatePlanController extends OrganizationAwareEntityControl
     }
 
     /**
+     * Returns the URI for listing rate plans eligible to access.
+     *
+     * Gets the API products that a company is eligible to access, including:
+     * API products for which a company has accepted a rate plan.
+     * API products that do not have a published rate plan.
+     *
+     * @return \Psr\Http\Message\UriInterface
+     */
+    abstract protected function getEligibleRatePlanEndpoint(): UriInterface;
+
+    /**
      * Builds context for the entity normalizer.
      *
      * Allows controllers to add extra metadata to the payload.
@@ -136,17 +131,6 @@ abstract class AcceptedRatePlanController extends OrganizationAwareEntityControl
      * @return array
      */
     abstract protected function buildContextForEntityTransformerInCreate(): array;
-
-    /**
-     * Returns the URI for listing accepted rate plans.
-     *
-     * We have to introduce this because it is not regular that an entity
-     * has more than one listing endpoint so getBaseEntityEndpoint() was
-     * enough until this time.
-     *
-     * @return \Psr\Http\Message\UriInterface
-     */
-    abstract protected function getAcceptedRatePlansEndpoint(): UriInterface;
 
     /**
      * Allows to alter payload before it gets sent to the API.
@@ -159,7 +143,7 @@ abstract class AcceptedRatePlanController extends OrganizationAwareEntityControl
     }
 
     /**
-     * Helper function for listing accepted rate plans.
+     * Helper function for listing eligible rate plans.
      *
      * @param array $query_params
      *   Additional query parameters.
@@ -168,11 +152,11 @@ abstract class AcceptedRatePlanController extends OrganizationAwareEntityControl
      *
      * @psalm-suppress PossiblyNullArrayOffset - id() does not return null here.
      */
-    private function getAcceptedRatePlans(array $query_params = []): array
+    private function getEligibleRatePlan(): array
     {
         $entities = [];
 
-        foreach ($this->getRawList($this->getAcceptedRatePlansEndpoint()->withQuery(http_build_query($query_params))) as $item) {
+        foreach ($this->getRawList($this->getEligibleRatePlanEndpoint()) as $item) {
             /** @var \Apigee\Edge\Entity\EntityInterface $tmp */
             $tmp = $this->getEntitySerializer()->denormalize(
                 $item,
