@@ -21,8 +21,9 @@ namespace Apigee\Edge\HttpClient\Plugin\Authentication;
 use Apigee\Edge\Client;
 use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Exception\ApigeeOnGcpOauth2AuthenticationException;
-use Http\Client\Exception;
 use Http\Message\Authentication\Header;
+use Psr\Http\Client\ClientExceptionInterface;
+use Psr\Http\Client\NetworkExceptionInterface;
 
 /**
  * GCE Service Account authentication plugin for authenticating to Google
@@ -61,7 +62,7 @@ class GceServiceAccount extends AbstractOauth
             $this->authClient()->get('');
 
             return true;
-        } catch (Exception $e) {
+        } catch (NetworkExceptionInterface $e) {
             return false;
         }
     }
@@ -85,7 +86,7 @@ class GceServiceAccount extends AbstractOauth
             $response = $this->authClient()->get('');
             $decoded_token = json_decode((string) $response->getBody(), true);
             $this->tokenStorage->saveToken($decoded_token);
-        } catch (Exception $e) {
+        } catch (ClientExceptionInterface $e) {
             throw new ApigeeOnGcpOauth2AuthenticationException($e->getMessage(), $e->getCode(), $e);
         }
     }
