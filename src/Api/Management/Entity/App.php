@@ -188,7 +188,7 @@ abstract class App extends Entity implements AppInterface
     public function getCredentials(): array
     {
         usort($this->credentials, function (AppCredentialInterface $a, AppCredentialInterface $b) {
-          return $b->getIssuedAt()->getTimestamp() <=> $a->getIssuedAt()->getTimestamp();
+            return $b->getIssuedAt()->getTimestamp() <=> $a->getIssuedAt()->getTimestamp();
         });
         return $this->credentials;
     }
