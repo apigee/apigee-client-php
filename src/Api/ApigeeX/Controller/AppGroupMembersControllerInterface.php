@@ -36,7 +36,7 @@ interface AppGroupMembersControllerInterface extends AppGroupAwareControllerInte
     /**
      * List all developers associated with a appgroup.
      *
-     * @return \Apigee\Edge\Api\ApigeeX\Structure\AppGroupMembership
+     * @return AppGroupMembership
      *   Array of developers with their optional roles in the appgroup.
      */
     public function getMembers(): AppGroupMembership;
@@ -47,10 +47,10 @@ interface AppGroupMembersControllerInterface extends AppGroupAwareControllerInte
      * WARNING! If you pass en empty membership object you remove all developers
      * from the appgroup.
      *
-     * @param \Apigee\Edge\Api\ApigeeX\Structure\AppGroupMembership $members
+     * @param AppGroupMembership $members
      *   Membership object with the changes to be applied.
      *
-     * @return \Apigee\Edge\Api\ApigeeX\Structure\AppGroupMembership
+     * @return AppGroupMembership
      *   Membership object with the applied changes, it does not contain all
      *   members. Use getMembers() to retrieve them.
      */

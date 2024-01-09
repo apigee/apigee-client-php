@@ -48,7 +48,7 @@ class AppGroupMembersController extends AbstractController implements AppGroupMe
      *
      * @param string $appGroup
      * @param string $organization
-     * @param \Apigee\Edge\ClientInterface $client
+     * @param ClientInterface $client
      */
     public function __construct(string $appGroup, string $organization, ClientInterface $client)
     {
@@ -115,6 +115,7 @@ class AppGroupMembersController extends AbstractController implements AppGroupMe
             $appGroup['attributes'],
             AttributesProperty::class
         );
+
         return $appGroupAttributes;
     }
 
