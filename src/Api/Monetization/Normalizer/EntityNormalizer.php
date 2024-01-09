@@ -20,6 +20,7 @@ namespace Apigee\Edge\Api\Monetization\Normalizer;
 
 use Apigee\Edge\Api\Monetization\Structure\NestedObjectReferenceInterface;
 use Apigee\Edge\Normalizer\ObjectNormalizer;
+use ReflectionObject;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 use Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface;
 use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface;
@@ -60,6 +61,7 @@ class EntityNormalizer extends ObjectNormalizer
      * {@inheritdoc}
      *
      * @psalm-suppress InvalidReturnType stdClass is also an object.
+     * @psalm-suppress InvalidPropertyFetch.
      */
     public function normalize($object, $format = null, array $context = [])
     {
@@ -123,7 +125,7 @@ class EntityNormalizer extends ObjectNormalizer
     protected function getNestedObjectProperties($object): array
     {
         $entityReferenceProperties = [];
-        $ro = new \ReflectionObject($object);
+        $ro = new ReflectionObject($object);
         foreach ($ro->getProperties() as $property) {
             $property->setAccessible(true);
             $value = $property->getValue($object);
