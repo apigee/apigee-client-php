@@ -31,7 +31,7 @@ use Symfony\Component\Serializer\Serializer;
 
 class ReportCriteriaDenormalizerTest extends TestCase
 {
-    /** @var \Apigee\Edge\Api\Monetization\Denormalizer\ReportCriteriaDenormalizer */
+    /** @var Apigee\Edge\Api\Monetization\Denormalizer\ReportCriteriaDenormalizer */
     protected static $denormalizer;
 
     /**
@@ -46,7 +46,7 @@ class ReportCriteriaDenormalizerTest extends TestCase
 
     public function testDenormalizeWithAbtractClassNoContext(): void
     {
-        $this->expectException('\Error');
+        $this->expectException('\Symfony\Component\Serializer\Exception\NotNormalizableValueException');
 
         static::$denormalizer->denormalize((object) [], AbstractCriteria::class, 'json');
     }
