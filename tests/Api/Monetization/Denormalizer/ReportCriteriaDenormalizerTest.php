@@ -46,7 +46,7 @@ class ReportCriteriaDenormalizerTest extends TestCase
 
     public function testDenormalizeWithAbtractClassNoContext(): void
     {
-        $this->expectException('\Error');
+        $this->expectException('\Symfony\Component\Serializer\Exception\NotNormalizableValueException');
 
         static::$denormalizer->denormalize((object) [], AbstractCriteria::class, 'json');
     }
