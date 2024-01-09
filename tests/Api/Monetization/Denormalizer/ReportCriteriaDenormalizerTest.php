@@ -31,7 +31,7 @@ use Symfony\Component\Serializer\Serializer;
 
 class ReportCriteriaDenormalizerTest extends TestCase
 {
-    /** @var \Apigee\Edge\Api\Monetization\Denormalizer\ReportCriteriaDenormalizer */
+    /** @var Apigee\Edge\Api\Monetization\Denormalizer\ReportCriteriaDenormalizer */
     protected static $denormalizer;
 
     /**
