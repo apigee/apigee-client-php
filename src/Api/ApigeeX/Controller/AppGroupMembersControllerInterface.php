@@ -19,12 +19,20 @@
 namespace Apigee\Edge\Api\ApigeeX\Controller;
 
 use Apigee\Edge\Api\ApigeeX\Structure\AppGroupMembership;
+use Apigee\Edge\Structure\AttributesProperty;
 
 /**
  * Interface AppGroupMembersControllerInterface.
  */
 interface AppGroupMembersControllerInterface extends AppGroupAwareControllerInterface
 {
+    /**
+     * Returns a list of all entity attributes from AppGroup.
+     *
+     * @return AttributesProperty
+     */
+    public function getAppGroupAttributes(): AttributesProperty;
+
     /**
      * List all developers associated with a appgroup.
      *
