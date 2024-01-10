@@ -1,5 +1,6 @@
 {
-    "apps": [],
+    "channelUri": "http:\/\/example.com",
+    "channelId": "devportal",
     "name": "phpunit",
     "displayName": "A PHPUnit appgroup",
     "status": "active",
