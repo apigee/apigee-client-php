@@ -1,4 +1,11 @@
 # CHANGELOG
+## [3.0.4](https://github.com/apigee/apigee-client-php/milestone/28?closed=1)
+* [#343] Fix Invalid payload issue while editing/updating AppGroup/Teams in Apigee X.
+* [#342] Fix for test failing for symfony 6.4.
+* [#340] Fix for attribute values lost in PUT call while creating AppGroup.
+* [#337] Fix for Team app credentials listings sorted in ascending order.
+* [#334] Fix for \Apigee\Edge\HttpClient\Plugin\Authentication\GceServiceAccount::isAvailable() throws exception when called on non-GCE context.
+
 ## [3.0.3](https://github.com/apigee/apigee-client-php/milestone/26?closed=1)
 * [#323] Add union type to suppress deprecation warning.
 * [#325] Fix error when AppGroup list is empty or do not returns appgroups array.
