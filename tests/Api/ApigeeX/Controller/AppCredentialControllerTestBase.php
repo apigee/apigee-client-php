@@ -43,13 +43,13 @@ abstract class AppCredentialControllerTestBase extends EntityControllerTestBase
     // The order of these trait matters. Check @depends in test methods.
     use AttributesAwareEntityControllerTestTrait;
 
-    /** @var \Apigee\Edge\Api\ApigeeX\Entity\ApiProductInterface */
+    /** @var ApiProductInterface */
     protected static $testApiProduct;
 
-    /** @var \Apigee\Edge\Api\Management\Entity\AppOwnerInterface */
+    /** @var AppOwnerInterface */
     protected static $testAppOwner;
 
-    /** @var \Apigee\Edge\Api\Management\Entity\AppInterface */
+    /** @var AppInterface */
     protected static $testApp;
 
     /**
@@ -66,12 +66,12 @@ abstract class AppCredentialControllerTestBase extends EntityControllerTestBase
 
     public function testCreatedAppHasAnEmptyCredential(): void
     {
-        /** @var \Apigee\Edge\Api\Management\Entity\DeveloperAppInterface $entity */
-        /** @var \Apigee\Edge\Api\Management\Controller\AppByOwnerControllerInterface $controller */
+        /** @var DeveloperAppInterface $entity */
+        /** @var AppByOwnerControllerInterface $controller */
         $entity = static::appByOwnerController()->load(static::$testApp->id());
         $credentials = $entity->getCredentials();
         $this->assertCount(1, $credentials);
-        /** @var \Apigee\Edge\Api\Management\Entity\AppCredentialInterface $credential */
+        /** @var AppCredentialInterface $credential */
         $credential = reset($credentials);
         $this->assertCount(0, $credential->getApiProducts());
         $this->assertNotEmpty($credential->getConsumerKey());
@@ -82,7 +82,7 @@ abstract class AppCredentialControllerTestBase extends EntityControllerTestBase
     /**
      * @depends testCreatedAppHasAnEmptyCredential
      *
-     * @return \Apigee\Edge\Api\Management\Entity\AppCredentialInterface
+     * @return AppCredentialInterface
      */
     public function testCreate(): AppCredentialInterface
     {
@@ -102,13 +102,13 @@ abstract class AppCredentialControllerTestBase extends EntityControllerTestBase
     /**
      * @depends testCreate
      *
-     * @param \Apigee\Edge\Api\Management\Entity\AppCredentialInterface $created
+     * @param AppCredentialInterface $created
      *
      * @return string
      */
     public function testLoad(AppCredentialInterface $created)
     {
-        /** @var \Apigee\Edge\Api\Management\Entity\AppCredentialInterface $loaded */
+        /** @var AppCredentialInterface $loaded */
         $loaded = static::entityController()->load($created->id());
         $this->assertCount(count($loaded->getApiProducts()), $created->getApiProducts());
         $this->assertEquals($created->getConsumerKey(), $loaded->getConsumerKey());
@@ -126,7 +126,7 @@ abstract class AppCredentialControllerTestBase extends EntityControllerTestBase
      */
     public function testAddProducts(string $entityId): void
     {
-        /** @var \Apigee\Edge\Api\Management\Controller\AppCredentialControllerInterface $controller */
+        /** @var AppCredentialControllerInterface $controller */
         $controller = $this->entityController();
         $credential = $controller->addProducts($entityId, [static::$testApiProduct->id()]);
         $productNames = $this->getCredentialProducts($credential);
@@ -140,9 +140,9 @@ abstract class AppCredentialControllerTestBase extends EntityControllerTestBase
      */
     public function testOverrideScopes(string $entityId): void
     {
-        /** @var \Apigee\Edge\Api\Management\Controller\AppCredentialControllerInterface $controller */
+        /** @var AppCredentialControllerInterface $controller */
         $controller = $this->entityController();
-        /** @var \Apigee\Edge\Api\Management\Entity\AppCredentialInterface $credential */
+        /** @var AppCredentialInterface $credential */
         $credential = $controller->load($entityId);
         $this->assertEmpty($credential->getScopes());
         $credential = $controller->overrideScopes($entityId, ['scope 1']);
@@ -165,9 +165,9 @@ abstract class AppCredentialControllerTestBase extends EntityControllerTestBase
     public function testStatusChange(string $entityId): void
     {
         static::markOnlineTestSkipped(__FUNCTION__);
-        /** @var \Apigee\Edge\Api\Management\Controller\AppCredentialControllerInterface $controller */
+        /** @var AppCredentialControllerInterface $controller */
         $controller = static::entityController();
-        /* @var \Apigee\Edge\Api\Management\Entity\AppCredentialInterface $credential */
+        /* @var AppCredentialInterface $credential */
         $controller->setStatus($entityId, AppCredentialControllerInterface::STATUS_REVOKE);
         $credential = $controller->load($entityId);
         $this->assertEquals($credential->getStatus(), AppCredentialInterface::STATUS_REVOKED);
@@ -186,16 +186,16 @@ abstract class AppCredentialControllerTestBase extends EntityControllerTestBase
     public function testApiProductStatusChange(string $entityId): void
     {
         static::markOnlineTestSkipped(__FUNCTION__);
-        /** @var \Apigee\Edge\Api\Management\Controller\AppCredentialControllerInterface $controller */
+        /** @var AppCredentialControllerInterface $controller */
         $controller = static::entityController();
-        /* @var \Apigee\Edge\Api\Management\Entity\AppCredentialInterface $credential */
+        /* @var AppCredentialInterface $credential */
         $controller->setApiProductStatus(
             $entityId,
             static::$testApiProduct->id(),
             AppCredentialControllerInterface::STATUS_REVOKE
         );
         $credential = $controller->load($entityId);
-        /** @var \Apigee\Edge\Structure\CredentialProduct $product */
+        /** @var CredentialProduct $product */
         foreach ($credential->getApiProducts() as $product) {
             if ($product->getApiproduct() === static::$testApiProduct->id()) {
                 $this->assertEquals($product->getStatus(), CredentialProductInterface::STATUS_REVOKED);
@@ -224,11 +224,11 @@ abstract class AppCredentialControllerTestBase extends EntityControllerTestBase
     public function testGenerate(): string
     {
         static::markOnlineTestSkipped(__FUNCTION__);
-        /** @var \Apigee\Edge\Api\Management\Controller\AppCredentialControllerInterface $controller */
+        /** @var AppCredentialControllerInterface $controller */
         $controller = $this->entityController();
-        /** @var \Apigee\Edge\Api\Management\Entity\AppInterface $app */
+        /** @var AppInterface $app */
         $app = static::appByOwnerController()->load(static::$testApp->id());
-        /** @var \Apigee\Edge\Api\Management\Entity\AppCredentialInterface $credential */
+        /** @var AppCredentialInterface $credential */
         $credential = $controller->generate(
             [static::$testApiProduct->id()],
             $app->getAttributes(),
@@ -243,7 +243,7 @@ abstract class AppCredentialControllerTestBase extends EntityControllerTestBase
         // Thanks for the offline tests, we can not expect a concrete value
         // here.
         $this->assertNotEquals('-1', $credential->getExpiresAt());
-        /** @var \Apigee\Edge\Api\Management\Entity\AppInterface $updatedApp */
+        /** @var AppInterface $updatedApp */
         $updatedApp = static::appByOwnerController()->load(static::$testApp->id());
         // Credential generation should not deleted any previously existing app
         // credentials.
@@ -260,13 +260,13 @@ abstract class AppCredentialControllerTestBase extends EntityControllerTestBase
     public function testDeleteApiProduct(string $entityId): void
     {
         static::markOnlineTestSkipped(__FUNCTION__);
-        /** @var \Apigee\Edge\Api\Management\Controller\AppCredentialControllerInterface $controller */
+        /** @var AppCredentialControllerInterface $controller */
         $controller = static::entityController();
-        /** @var \Apigee\Edge\Api\Management\Entity\AppCredentialInterface $credential */
+        /** @var AppCredentialInterface $credential */
         $credential = $controller->load($entityId);
         $productNames = $this->getCredentialProducts($credential);
         $this->assertContains(static::$testApiProduct->id(), $productNames);
-        /* @var \Apigee\Edge\Api\Management\Entity\AppCredentialInterface $credential */
+        /* @var AppCredentialInterface $credential */
         $controller->deleteApiProduct(
             $entityId,
             static::$testApiProduct->id()
@@ -281,15 +281,15 @@ abstract class AppCredentialControllerTestBase extends EntityControllerTestBase
      */
     public function testAddAttributesToEntity(): string
     {
-        /** @var \Apigee\Edge\Api\Management\Entity\AppCredentialInterface $credential */
+        /** @var AppCredentialInterface $credential */
         $credentials = static::$testApp->getCredentials();
         $credential = reset($credentials);
-        /** @var \Apigee\Edge\Structure\AttributesProperty $attributes */
+        /** @var AttributesProperty $attributes */
         $attributes = $credential->getAttributes();
         $originalAttributes = $attributes->values();
         $attributes->add('name1', 'value1');
         $attributes->add('name2', 'value2');
-        /** @var \Apigee\Edge\Structure\AttributesProperty $attributesProperty */
+        /** @var AttributesProperty $attributesProperty */
         $attributesProperty = static::entityController()->updateAttributes($credential->id(), $attributes);
         /** @var array $newAttributes */
         $newAttributes = $attributesProperty->values();
@@ -334,14 +334,14 @@ abstract class AppCredentialControllerTestBase extends EntityControllerTestBase
     abstract protected static function setupTestAppOwner(): AppGroup;
 
     /**
-     * @return \Apigee\Edge\Tests\Test\Controller\EntityControllerTesterInterface|\Apigee\Edge\Api\Management\Controller\AppByOwnerControllerInterface
+     * @return EntityControllerTesterInterface|AppByOwnerControllerInterface
      */
     abstract protected static function appByOwnerController(): EntityControllerTesterInterface;
 
     private function getCredentialProducts(AppCredentialInterface $credential)
     {
         return array_map(function ($product) {
-            /* @var \Apigee\Edge\Structure\CredentialProduct $product */
+            /* @var CredentialProduct $product */
             return $product->getApiproduct();
         }, $credential->getApiProducts());
     }

@@ -22,7 +22,6 @@ use Apigee\Edge\Api\ApigeeX\Controller\AppGroupAppCredentialController;
 use Apigee\Edge\Api\ApigeeX\Entity\AppGroup;
 use Apigee\Edge\Api\ApigeeX\Entity\AppGroupInterface;
 use Apigee\Edge\Api\Management\Entity\AppInterface;
-use Apigee\Edge\Api\Management\Entity\AppOwnerInterface;
 use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Entity\EntityInterface;
 use Apigee\Edge\Tests\Api\ApigeeX\Entity\AppGroupAppTestEntityProviderTrait;
@@ -48,7 +47,7 @@ class AppGroupAppCredentialControllerTest extends AppCredentialControllerTestBas
     /**
      * {@inheritdoc}
      */
-    protected static function entityController(ClientInterface $client = null): EntityControllerTesterInterface
+    protected static function entityController(?ClientInterface $client = null): EntityControllerTesterInterface
     {
         $client = $client ?? static::defaultAPIClient();
 
