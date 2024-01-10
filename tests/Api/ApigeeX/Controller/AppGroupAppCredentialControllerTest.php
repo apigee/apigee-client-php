@@ -19,6 +19,7 @@
 namespace Apigee\Edge\Tests\Api\ApigeeX\Controller;
 
 use Apigee\Edge\Api\ApigeeX\Controller\AppGroupAppCredentialController;
+use Apigee\Edge\Api\ApigeeX\Entity\AppGroup;
 use Apigee\Edge\Api\ApigeeX\Entity\AppGroupInterface;
 use Apigee\Edge\Api\Management\Entity\AppInterface;
 use Apigee\Edge\Api\Management\Entity\AppOwnerInterface;
@@ -54,7 +55,7 @@ class AppGroupAppCredentialControllerTest extends AppCredentialControllerTestBas
         return new EntityControllerTester(new AppGroupAppCredentialController(static::defaultTestOrganization($client), static::$testAppOwner->id(), static::$testApp->id(), $client));
     }
 
-    protected static function setupTestApp(AppOwnerInterface $appOwner): AppInterface
+    protected static function setupTestApp(AppGroup $appOwner): AppInterface
     {
         $app = static::getNewAppGroupApp();
         static::appGroupAppController()->create($app);
@@ -62,7 +63,7 @@ class AppGroupAppCredentialControllerTest extends AppCredentialControllerTestBas
         return $app;
     }
 
-    protected static function setupTestAppOwner(): AppOwnerInterface
+    protected static function setupTestAppOwner(): AppGroup
     {
         $appGroup = static::getNewAppGroup();
         static::appGroupController()->create($appGroup);
