@@ -27,13 +27,6 @@ use Apigee\Edge\Structure\AttributesProperty;
 interface AppGroupMembersControllerInterface extends AppGroupAwareControllerInterface
 {
     /**
-     * Returns a list of all entity attributes from AppGroup.
-     *
-     * @return AttributesProperty
-     */
-    public function getAppGroupAttributes(): AttributesProperty;
-
-    /**
      * List all developers associated with a appgroup.
      *
      * @return AppGroupMembership

@@ -105,7 +105,9 @@ class AppGroupMembersController extends AbstractController implements AppGroupMe
     }
 
     /**
-     * {@inheritdoc}
+     * Helper function for getting all attributes in AppGroup.
+     *
+     * @return AttributesProperty
      */
     public function getAppGroupAttributes(): AttributesProperty
     {
