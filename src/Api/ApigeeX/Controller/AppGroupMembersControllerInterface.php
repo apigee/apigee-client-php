@@ -19,7 +19,6 @@
 namespace Apigee\Edge\Api\ApigeeX\Controller;
 
 use Apigee\Edge\Api\ApigeeX\Structure\AppGroupMembership;
-use Apigee\Edge\Structure\AttributesProperty;
 
 /**
  * Interface AppGroupMembersControllerInterface.
