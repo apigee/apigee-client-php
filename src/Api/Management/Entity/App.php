@@ -25,6 +25,7 @@ use Apigee\Edge\Entity\Property\NamePropertyAwareTrait;
 use Apigee\Edge\Entity\Property\ScopesPropertyAwareTrait;
 use Apigee\Edge\Entity\Property\StatusPropertyAwareTrait;
 use Apigee\Edge\Structure\AttributesProperty;
+use LogicException;
 
 /**
  * Class App.
@@ -55,7 +56,7 @@ abstract class App extends Entity implements AppInterface
     /** @var string Url, used for "three-legged" OAuth grant type flows. */
     protected $callbackUrl;
 
-    /** @var \Apigee\Edge\Api\Management\Entity\AppCredential[] */
+    /** @var AppCredential[] */
     protected $credentials = [];
 
     /** @var string[] */
@@ -187,6 +188,7 @@ abstract class App extends Entity implements AppInterface
      */
     public function getCredentials(): array
     {
+        usort($this->credentials, static fn (AppCredentialInterface $a, AppCredentialInterface $b) => $b->getIssuedAt() <=> $a->getIssuedAt());
         return $this->credentials;
     }
 
@@ -195,7 +197,7 @@ abstract class App extends Entity implements AppInterface
      *
      * Credentials, included in app, can not be changed by modifying them on the entity level.
      *
-     * @param \Apigee\Edge\Api\Management\Entity\AppCredentialInterface ...$credentials
+     * @param AppCredentialInterface ...$credentials
      *
      * @internal
      */
@@ -238,14 +240,14 @@ abstract class App extends Entity implements AppInterface
      *
      * @param array $initialApiProducts
      *
-     * @throws \LogicException If used to update existing App.
+     * @throws LogicException If used to update existing App.
      */
     final public function setInitialApiProducts(array $initialApiProducts): void
     {
         if (!$this->appId) {
             $this->initialApiProducts = $initialApiProducts;
         } else {
-            throw new \LogicException('This method is only supported for creating a new app.');
+            throw new LogicException('This method is only supported for creating a new app.');
         }
     }
 }
