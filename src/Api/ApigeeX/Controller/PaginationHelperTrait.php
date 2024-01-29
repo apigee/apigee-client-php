@@ -90,7 +90,7 @@ trait PaginationHelperTrait
     /**
      * Loads paginated list of entities from Apigee X.
      *
-     * @param \Structure\PagerInterface|null $pager
+     * @param \Apigee\Edge\Api\ApigeeX\Structure\PagerInterface|null $pager
      *   Pager.
      * @param array $query_params
      *   Additional query parameters.
