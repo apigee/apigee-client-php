@@ -90,7 +90,7 @@ trait PaginationHelperTrait
     /**
      * Loads paginated list of entities from Apigee X.
      *
-     * @param \Apigee\Edge\Api\ApigeeX\Structure\PagerInterface|null $pager
+     * @param PagerInterface|null $pager
      *   Pager.
      * @param array $query_params
      *   Additional query parameters.
@@ -152,7 +152,7 @@ trait PaginationHelperTrait
     /**
      * Gets entities and entity ids in a provided range from Apigee X.
      *
-     * @param \Structure\PagerInterface $pager
+     * @param PagerInterface $pager
      *   limit object with configured pageToken and limit.
      * @param array $query_params
      *   Query parameters for the API call.
