@@ -63,12 +63,12 @@ interface ClientInterface extends HttpClient
      */
     public const APIGEE_ON_GCP_ENDPOINT = 'https://apigee.googleapis.com/v1';
 
-    public const VERSION = '3.0.3';
+    public const VERSION = '3.0.4';
 
     /**
      * Allows access to the last request, response and exception.
      *
-     * @return \Apigee\Edge\HttpClient\Utility\JournalInterface
+     * @return JournalInterface
      */
     public function getJournal(): JournalInterface;
 
@@ -108,10 +108,10 @@ interface ClientInterface extends HttpClient
      * @param \Psr\Http\Message\UriInterface|string $uri
      * @param array $headers
      *
-     * @throws \Apigee\Edge\Exception\ApiException
+     * @throws Exception\ApiException
      * @throws \Http\Client\Exception
      *
-     * @return \Psr\Http\Message\ResponseInterface
+     * @return ResponseInterface
      */
     public function get($uri, array $headers = []): ResponseInterface;
 
@@ -121,10 +121,10 @@ interface ClientInterface extends HttpClient
      * @param \Psr\Http\Message\UriInterface|string $uri
      * @param array $headers
      *
-     * @throws \Apigee\Edge\Exception\ApiException
+     * @throws Exception\ApiException
      * @throws \Http\Client\Exception
      *
-     * @return \Psr\Http\Message\ResponseInterface
+     * @return ResponseInterface
      */
     public function head($uri, array $headers = []): ResponseInterface;
 
@@ -135,10 +135,10 @@ interface ClientInterface extends HttpClient
      * @param \Psr\Http\Message\StreamInterface|resource|string|null $body
      * @param array $headers
      *
-     * @throws \Apigee\Edge\Exception\ApiException
+     * @throws Exception\ApiException
      * @throws \Http\Client\Exception
      *
-     * @return \Psr\Http\Message\ResponseInterface
+     * @return ResponseInterface
      */
     public function post($uri, $body = null, array $headers = []): ResponseInterface;
 
@@ -149,10 +149,10 @@ interface ClientInterface extends HttpClient
      * @param \Psr\Http\Message\StreamInterface|resource|string|null $body
      * @param array $headers
      *
-     * @throws \Apigee\Edge\Exception\ApiException
+     * @throws Exception\ApiException
      * @throws \Http\Client\Exception
      *
-     * @return \Psr\Http\Message\ResponseInterface
+     * @return ResponseInterface
      */
     public function put($uri, $body = null, array $headers = []): ResponseInterface;
 
@@ -163,10 +163,10 @@ interface ClientInterface extends HttpClient
      * @param \Psr\Http\Message\StreamInterface|resource|string|null $body
      * @param array $headers
      *
-     * @throws \Apigee\Edge\Exception\ApiException
+     * @throws Exception\ApiException
      * @throws \Http\Client\Exception
      *
-     * @return \Psr\Http\Message\ResponseInterface
+     * @return ResponseInterface
      */
     public function delete($uri, $body = null, array $headers = []): ResponseInterface;
 }
