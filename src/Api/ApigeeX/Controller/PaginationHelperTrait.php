@@ -113,8 +113,12 @@ trait PaginationHelperTrait
 
             return $this->responseArrayToArrayOfEntities($responseArray, $key_provider);
         } else {
+            // Default page size set to 1000, because the AppGroupApps endpoint
+            // does not return nextPageToken unless a pageSize is specified
+            // in the request parameters.
+            $pageSize = 1000;
             // Pass an empty pager to load all entities.
-            $responseArray = $this->getResultsInRange($this->createPager(), $query_params);
+            $responseArray = $this->getResultsInRange($this->createPager($pageSize), $query_params);
             // Check flag 'nextPageToken' to get next items from the list.
             $nextPageToken = array_key_exists('nextPageToken', $responseArray) ? $responseArray['nextPageToken'] : false;
             // Ignore entity type key from response, ex.: developer, apiproduct,
@@ -125,9 +129,10 @@ trait PaginationHelperTrait
                 return [];
             }
             $entities = $this->responseArrayToArrayOfEntities($responseArray, $key_provider);
+
             if ($nextPageToken) {
                 do {
-                    $tmp = $this->getResultsInRange($this->createPager(0, $nextPageToken), $query_params);
+                    $tmp = $this->getResultsInRange($this->createPager($pageSize, $nextPageToken), $query_params);
                     // Check the flag 'nextPageToken' to get next items from the list.
                     $nextPageToken = array_key_exists('nextPageToken', $tmp) ? $tmp['nextPageToken'] : false;
                     // Ignore entity type key from response, ex.: developer,
