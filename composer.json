@@ -47,7 +47,7 @@
         "phpunit/phpunit": "^9.6",
         "sebastian/comparator": "^4.0.5",
         "symfony/cache": "^6.3",
-        "vimeo/psalm": "^5.12"
+        "vimeo/psalm": "^5.20"
     },
     "autoload": {
         "psr-4": {
