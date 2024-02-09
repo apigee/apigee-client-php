@@ -18,16 +18,20 @@
 
 namespace Apigee\Edge\Api\ApigeeX\Entity;
 
-use Apigee\Edge\Api\Management\Entity\AppOwnerInterface;
+use Apigee\Edge\Entity\CommonEntityPropertiesInterface;
+use Apigee\Edge\Entity\Property\AttributesPropertyInterface;
 use Apigee\Edge\Entity\Property\DisplayNamePropertyInterface;
 use Apigee\Edge\Entity\Property\NamePropertyInterface;
+use Apigee\Edge\Entity\Property\StatusPropertyInterface;
 
 /**
  * Interface AppGroupInterface.
  */
-interface AppGroupInterface extends AppOwnerInterface,
+interface AppGroupInterface extends AttributesPropertyInterface,
     DisplayNamePropertyInterface,
-    NamePropertyInterface
+    NamePropertyInterface,
+    StatusPropertyInterface,
+    CommonEntityPropertiesInterface
 {
     /**
      * @param string $channelUri

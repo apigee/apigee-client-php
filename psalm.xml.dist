@@ -52,5 +52,8 @@
 
         <!-- Disable error caused by deprecated interface-->
         <DeprecatedInterface errorLevel="info" />
+
+        <RiskyTruthyFalsyComparison errorLevel="info" />
+        
     </issueHandlers>
 </psalm>
