@@ -73,8 +73,7 @@
             "*": "dist"
         },
         "allow-plugins": {
-            "php-http/discovery": true,
-            "cweagans/composer-patches": true
+            "php-http/discovery": true
         }
     },
     "minimum-stability": "dev",
