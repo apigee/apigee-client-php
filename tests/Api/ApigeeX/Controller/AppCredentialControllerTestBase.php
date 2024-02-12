@@ -18,10 +18,10 @@
 
 namespace Apigee\Edge\Tests\Api\ApigeeX\Controller;
 
+use Apigee\Edge\Api\ApigeeX\Entity\AppGroup;
 use Apigee\Edge\Api\Management\Controller\AppCredentialControllerInterface;
 use Apigee\Edge\Api\Management\Entity\AppCredentialInterface;
 use Apigee\Edge\Api\Management\Entity\AppInterface;
-use Apigee\Edge\Api\Management\Entity\AppOwnerInterface;
 use Apigee\Edge\Structure\CredentialProductInterface;
 use Apigee\Edge\Tests\Api\Management\Entity\ApiProductTestEntityProviderTrait;
 use Apigee\Edge\Tests\Test\Controller\DefaultAPIClientAwareTrait;
@@ -330,9 +330,9 @@ abstract class AppCredentialControllerTestBase extends EntityControllerTestBase
         $this->assertFalse($found, 'Credential credential has not been deleted.');
     }
 
-    abstract protected static function setupTestApp(AppOwnerInterface $appOwner): AppInterface;
+    abstract protected static function setupTestApp(AppGroup $appOwner): AppInterface;
 
-    abstract protected static function setupTestAppOwner(): AppOwnerInterface;
+    abstract protected static function setupTestAppOwner(): AppGroup;
 
     /**
      * @return \Apigee\Edge\Tests\Test\Controller\EntityControllerTesterInterface|\Apigee\Edge\Api\Management\Controller\AppByOwnerControllerInterface
