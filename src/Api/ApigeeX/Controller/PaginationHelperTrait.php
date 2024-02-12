@@ -112,8 +112,14 @@ trait PaginationHelperTrait
 
             return $this->responseArrayToArrayOfEntities($responseArray, $key_provider);
         } else {
+            // Default page size set to 1000, because the AppGroupApps endpoint
+            // does not return nextPageToken unless a pageSize is specified
+            // in the request parameters.
+            $pageSize = 1000;
             // Pass an empty pager to load all entities.
-            $responseArray = $this->getResultsInRange($this->createPager(), $query_params);
+            $responseArray = $this->getResultsInRange($this->createPager($pageSize), $query_params);
+            // Check flag 'nextPageToken' to get next items from the list.
+            $nextPageToken = array_key_exists('nextPageToken', $responseArray) ? $responseArray['nextPageToken'] : false;
             // Ignore entity type key from response, ex.: developer, apiproduct,
             // etc.
             $responseArray = reset($responseArray);
@@ -122,30 +128,25 @@ trait PaginationHelperTrait
                 return [];
             }
             $entities = $this->responseArrayToArrayOfEntities($responseArray, $key_provider);
-            $lastEntity = end($entities);
-            $lastId = $lastEntity->{$key_provider}();
-            do {
-                $tmp = $this->getResultsInRange($this->createPager(0, $lastId), $query_params);
-                // Ignore entity type key from response, ex.: developer,
-                // apiproduct, etc.
-                $tmp = reset($tmp);
-                // Remove the first item from the list because it is the same
-                // as the last item of $entities at this moment.
-                // Apigee X response always starts with the requested entity
-                // (pageToken).
-                array_shift($tmp);
-                $tmpEntities = $this->responseArrayToArrayOfEntities($tmp, $key_provider);
-
-                if (count($tmpEntities) > 0) {
+            if ($nextPageToken) {
+                do {
+                    $tmp = $this->getResultsInRange($this->createPager($pageSize, $nextPageToken), $query_params);
+                    // Check the flag 'nextPageToken' to get next items from the list.
+                    $nextPageToken = array_key_exists('nextPageToken', $tmp) ? $tmp['nextPageToken'] : false;
+                    // Ignore entity type key from response, ex.: developer,
+                    // apiproduct, etc.
+                    $tmp = reset($tmp);
+                    // Remove the first item from the list because it is the same
+                    // as the last item of $entities at this moment.
+                    // Apigee X response always starts with the requested entity
+                    // (pageToken).
+                    array_shift($tmp);
+                    $tmpEntities = $this->responseArrayToArrayOfEntities($tmp, $key_provider);
                     // The returned entity array is keyed by entity id which
                     // is unique so we can do this.
                     $entities += $tmpEntities;
-                    $lastEntity = end($tmpEntities);
-                    $lastId = $lastEntity->{$key_provider}();
-                } else {
-                    $lastId = false;
-                }
-            } while ($lastId);
+                } while ($nextPageToken);
+            }
 
             return $entities;
         }
