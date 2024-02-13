@@ -20,6 +20,7 @@ namespace Apigee\Edge\Api\ApigeeX\Controller;
 
 use Apigee\Edge\Api\ApigeeX\Serializer\AppGroupMembershipSerializer;
 use Apigee\Edge\Api\ApigeeX\Structure\AppGroupMembership;
+use Apigee\Edge\Api\Management\Serializer\AttributesPropertyAwareEntitySerializer;
 use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Controller\AbstractController;
 use Apigee\Edge\Controller\OrganizationAwareControllerTrait;
@@ -47,7 +48,7 @@ class AppGroupMembersController extends AbstractController implements AppGroupMe
      *
      * @param string $appGroup
      * @param string $organization
-     * @param \Apigee\Edge\ClientInterface $client
+     * @param ClientInterface $client
      */
     public function __construct(string $appGroup, string $organization, ClientInterface $client)
     {
@@ -73,8 +74,10 @@ class AppGroupMembersController extends AbstractController implements AppGroupMe
     public function setMembers(AppGroupMembership $members): AppGroupMembership
     {
         $members = $this->serializer->normalize($members);
-        $apigeeReservedMembers = new AttributesProperty();
 
+        // We don't have a separate API to get appgroup attributes,
+        // that is why we are calling getAppGroupAttributes() method.
+        $apigeeReservedMembers = $this->getAppGroupAttributes();
         // Adding the new members into the attribute.
         $apigeeReservedMembers->add('__apigee_reserved__developer_details', json_encode($members));
         $response = $this->client->put(
@@ -99,6 +102,23 @@ class AppGroupMembersController extends AbstractController implements AppGroupMe
     {
         $encoded = rawurlencode($email);
         $this->client->delete($this->getBaseEndpointUri()->withPath("{$this->getBaseEndpointUri()->getPath()}/{$encoded}"));
+    }
+
+    /**
+     * Helper function for getting all attributes in AppGroup.
+     *
+     * @return AttributesProperty
+     */
+    public function getAppGroupAttributes(): AttributesProperty
+    {
+        $appGroup = $this->responseToArray($this->client->get($this->getBaseEndpointUri()));
+        $serializer = new AttributesPropertyAwareEntitySerializer();
+        $appGroupAttributes = $serializer->denormalize(
+            $appGroup['attributes'],
+            AttributesProperty::class
+        );
+
+        return $appGroupAttributes;
     }
 
     /**

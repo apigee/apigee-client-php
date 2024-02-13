@@ -1,0 +1,69 @@
+{
+    "appGroups": [
+        {
+            "name": "phpunit",
+            "displayName": "A PHPUnit appgroup",
+            "status": "active",
+            "attributes": [
+                {
+                    "name": "foo",
+                    "value": "bar"
+                }
+            ],
+            "createdAt": 1691588699000,
+            "lastModifiedAt": 1691588699617
+        },
+        {
+            "name": "1phpunit",
+            "displayName": "A PHPUnit appgroup",
+            "status": "active",
+            "attributes": [
+                {
+                    "name": "foo",
+                    "value": "bar"
+                }
+            ],
+            "createdAt": 1691588699000,
+            "lastModifiedAt": 1691588699617
+        },
+        {
+            "name": "2phpunit",
+            "displayName": "A PHPUnit appgroup",
+            "status": "active",
+            "attributes": [
+                {
+                    "name": "foo",
+                    "value": "bar"
+                }
+            ],
+            "createdAt": 1691588699000,
+            "lastModifiedAt": 1691588699617
+        },
+        {
+            "name": "3phpunit",
+            "displayName": "A PHPUnit appgroup",
+            "status": "active",
+            "attributes": [
+                {
+                    "name": "foo",
+                    "value": "bar"
+                }
+            ],
+            "createdAt": 1691588699000,
+            "lastModifiedAt": 1691588699617
+        },
+        {
+            "name": "4phpunit",
+            "displayName": "A PHPUnit appgroup",
+            "status": "active",
+            "attributes": [
+                {
+                    "name": "foo",
+                    "value": "bar"
+                }
+            ],
+            "createdAt": 1691588699000,
+            "lastModifiedAt": 1691588699617
+        }
+    ]
+}
