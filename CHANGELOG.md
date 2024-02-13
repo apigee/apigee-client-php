@@ -1,4 +1,8 @@
 # CHANGELOG
+## [3.0.5](https://github.com/apigee/apigee-client-php/milestone/29?closed=1)
+* [#351] Retrieving the next list items based on 'nextpagetoken' flag in Apigee X.
+* [#348] Fix for composer analyze failing in github action.
+
 ## [3.0.4](https://github.com/apigee/apigee-client-php/milestone/28?closed=1)
 * [#343] Fix Invalid payload issue while editing/updating AppGroup/Teams in Apigee X.
 * [#342] Fix for test failing for symfony 6.4.
