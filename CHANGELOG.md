@@ -1,4 +1,10 @@
 # CHANGELOG
+## [2.1.4](https://github.com/apigee/apigee-client-php/milestone/27?closed=1)
+* [#338] Fix Team app credentials listings are not in sorting order on the team app page.
+* [#339] Fix custom attribute value not updated while creating new AppGroup.
+* [#351] Fix Team apps listing not showing more than 1000 apps in Apigee X.
+* [#343] Fix error during updating an AppGroup.
+
 ## [2.1.3](https://github.com/apigee/apigee-client-php/milestone/25?closed=1)
 * [#325] Fix error when AppGroup list is empty or do not returns appgroups array.
 
