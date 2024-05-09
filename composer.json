@@ -31,7 +31,7 @@
         "symfony/options-resolver": "^6.3",
         "symfony/property-access": "^6.3",
         "symfony/property-info": "^6.3",
-        "symfony/serializer": "^6.3"
+        "symfony/serializer": "^6.3.11"
     },
     "require-dev": {
         "dms/phpunit-arraysubset-asserts": "^0.4.0",
@@ -47,7 +47,7 @@
         "phpunit/phpunit": "^9.6",
         "sebastian/comparator": "^4.0.5",
         "symfony/cache": "^6.3",
-        "vimeo/psalm": "^5.12"
+        "vimeo/psalm": "^5.20"
     },
     "autoload": {
         "psr-4": {
