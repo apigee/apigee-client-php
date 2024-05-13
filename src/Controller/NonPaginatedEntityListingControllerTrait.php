@@ -23,7 +23,7 @@ use Psr\Http\Message\ResponseInterface;
 /**
  * Trait NonPaginatedEntityListingControllerTrait.
  *
- * @see \Apigee\Edge\Controller\NonPaginatedEntityListingControllerInterface
+ * @see NonPaginatedEntityListingControllerInterface
  */
 trait NonPaginatedEntityListingControllerTrait
 {
@@ -43,6 +43,9 @@ trait NonPaginatedEntityListingControllerTrait
         $uri = $this->getBaseEndpointUri()->withQuery(http_build_query($query_params));
         $response = $this->getClient()->get($uri);
         $responseArray = $this->responseToArray($response);
+        if ([] === $responseArray) {
+            return [];
+        }
         // Ignore entity type key from response, ex.: apiProduct.
         $responseArray = reset($responseArray);
 
