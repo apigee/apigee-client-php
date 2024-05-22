@@ -27,6 +27,7 @@ use Apigee\Edge\Api\Monetization\Structure\Reports\Criteria\RevenueReportCriteri
 use Apigee\Edge\Api\Monetization\Utility\TimezoneFixerHelperTrait;
 use Apigee\Edge\Denormalizer\ObjectDenormalizer;
 use Apigee\Edge\Exception\InvalidArgumentException;
+use DateTimeZone;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 use Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface;
 use Symfony\Component\Serializer\Exception\NotNormalizableValueException;
@@ -45,10 +46,10 @@ class ReportCriteriaDenormalizer extends ObjectDenormalizer
     /**
      * ReportsCriteriaDenormalizer constructor.
      *
-     * @param \Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface|null $classMetadataFactory
-     * @param \Symfony\Component\Serializer\NameConverter\NameConverterInterface|null $nameConverter
-     * @param \Symfony\Component\PropertyAccess\PropertyAccessorInterface|null $propertyAccessor
-     * @param \Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface|null $propertyTypeExtractor
+     * @param ClassMetadataFactoryInterface|null $classMetadataFactory
+     * @param NameConverterInterface|null $nameConverter
+     * @param PropertyAccessorInterface|null $propertyAccessor
+     * @param PropertyTypeExtractorInterface|null $propertyTypeExtractor
      */
     public function __construct(?ClassMetadataFactoryInterface $classMetadataFactory = null, ?NameConverterInterface $nameConverter = null, ?PropertyAccessorInterface $propertyAccessor = null, ?PropertyTypeExtractorInterface $propertyTypeExtractor = null)
     {
@@ -124,7 +125,7 @@ class ReportCriteriaDenormalizer extends ObjectDenormalizer
 
         // According to the API documentation it is always UTC.
         // https://docs.apigee.com/api-platform/monetization/create-reports#createreportdefapi
-        $this->fixTimeZoneOnDenormalization($data, $denormalized, new \DateTimeZone('UTC'));
+        $this->fixTimeZoneOnDenormalization($data, $denormalized, new DateTimeZone('UTC'));
 
         return $denormalized;
     }
