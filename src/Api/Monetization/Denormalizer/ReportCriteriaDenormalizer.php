@@ -29,6 +29,7 @@ use Apigee\Edge\Denormalizer\ObjectDenormalizer;
 use Apigee\Edge\Exception\InvalidArgumentException;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 use Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface;
+use Symfony\Component\Serializer\Exception\NotNormalizableValueException;
 use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface;
 use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
 
@@ -115,7 +116,11 @@ class ReportCriteriaDenormalizer extends ObjectDenormalizer
             $data->productIds = array_unique($data->productIds);
         }
 
-        $denormalized = parent::denormalize($data, $type, $format, $context);
+        try {
+            $denormalized = parent::denormalize($data, $type, $format, $context);
+        } catch (NotNormalizableValueException $e) {
+            $denormalized = $data;
+        }
 
         // According to the API documentation it is always UTC.
         // https://docs.apigee.com/api-platform/monetization/create-reports#createreportdefapi
