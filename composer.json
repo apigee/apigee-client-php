@@ -50,11 +50,7 @@
         "vimeo/psalm": "^5.20"
     },
     "conflict": {
-        "symfony/options-resolver": "6.4.7",
-        "symfony/property-access": "6.4.7",
-        "symfony/property-info": "6.4.7",
-        "symfony/serializer": "6.4.7",
-        "symfony/cache": "6.4.7"
+        "symfony/serializer": "6.4.7"
     },
     "autoload": {
         "psr-4": {
