@@ -30,7 +30,6 @@ use Apigee\Edge\Exception\InvalidArgumentException;
 use DateTimeZone;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 use Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface;
-use Symfony\Component\Serializer\Exception\NotNormalizableValueException;
 use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface;
 use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
 
