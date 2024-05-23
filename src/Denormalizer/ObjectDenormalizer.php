@@ -108,11 +108,7 @@ class ObjectDenormalizer implements DenormalizerInterface, SerializerAwareInterf
             }
         }
 
-        try {
-            return $this->objectNormalizer->denormalize($cleanData, $type, $this->format, $context);
-        } catch (NotNormalizableValueException $e) {
-            return $cleanData;
-        }
+        return $this->objectNormalizer->denormalize($cleanData, $type, $this->format, $context);
     }
 
     /**

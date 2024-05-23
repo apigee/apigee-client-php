@@ -117,11 +117,7 @@ class ReportCriteriaDenormalizer extends ObjectDenormalizer
             $data->productIds = array_unique($data->productIds);
         }
 
-        try {
-            $denormalized = parent::denormalize($data, $type, $format, $context);
-        } catch (NotNormalizableValueException $e) {
-            $denormalized = $data;
-        }
+        $denormalized = parent::denormalize($data, $type, $format, $context);
 
         // According to the API documentation it is always UTC.
         // https://docs.apigee.com/api-platform/monetization/create-reports#createreportdefapi
