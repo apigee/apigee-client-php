@@ -50,7 +50,7 @@
         "vimeo/psalm": "^5.20"
     },
     "conflict": {
-        "symfony/serializer": "6.4.7"
+        "symfony/serializer": ">6.4.6"
     },
     "autoload": {
         "psr-4": {
