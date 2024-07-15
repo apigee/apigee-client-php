@@ -20,11 +20,13 @@ namespace Apigee\Edge\Api\ApigeeX\Entity;
 
 use Apigee\Edge\Entity\Property\DescriptionPropertyInterface;
 use Apigee\Edge\Entity\Property\DisplayNamePropertyInterface;
+use Apigee\Edge\Entity\Property\EnvironmentsPropertyInterface;
 use Apigee\Edge\Entity\Property\NamePropertyInterface;
 
 interface ApiProductInterface extends
     DescriptionPropertyInterface,
     DisplayNamePropertyInterface,
+    EnvironmentsPropertyInterface,
     NamePropertyInterface
 {
 }
