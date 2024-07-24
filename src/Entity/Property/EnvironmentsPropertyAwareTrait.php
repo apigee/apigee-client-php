@@ -31,7 +31,7 @@ trait EnvironmentsPropertyAwareTrait
      *
      * @return string[]
      */
-    public function getEnvironments(): array
+    public function getEnvironments(): ?array
     {
         return $this->environments;
     }

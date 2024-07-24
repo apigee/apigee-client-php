@@ -26,7 +26,7 @@ interface EnvironmentsPropertyInterface
     /**
      * @return string[]
      */
-    public function getEnvironments(): array;
+    public function getEnvironments(): ?array;
 
     /**
      * @param string ...$environments

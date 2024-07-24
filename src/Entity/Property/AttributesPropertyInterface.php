@@ -30,7 +30,7 @@ interface AttributesPropertyInterface
     /**
      * @return \Apigee\Edge\Structure\AttributesProperty
      */
-    public function getAttributes(): AttributesProperty;
+    public function getAttributes(): ?AttributesProperty;
 
     /**
      * @param \Apigee\Edge\Structure\AttributesProperty $attributes
