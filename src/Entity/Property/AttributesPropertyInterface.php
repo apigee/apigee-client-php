@@ -28,12 +28,12 @@ use Apigee\Edge\Structure\AttributesProperty;
 interface AttributesPropertyInterface
 {
     /**
-     * @return \Apigee\Edge\Structure\AttributesProperty
+     * @return AttributesProperty
      */
     public function getAttributes(): ?AttributesProperty;
 
     /**
-     * @param \Apigee\Edge\Structure\AttributesProperty $attributes
+     * @param AttributesProperty $attributes
      */
     public function setAttributes(AttributesProperty $attributes): void;
 
