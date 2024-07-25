@@ -33,7 +33,7 @@ trait AttributesPropertyAwareTrait
     /**
      * {@inheritdoc}
      */
-    public function getAttributes(): ?AttributesProperty
+    public function getAttributes(): AttributesProperty
     {
         return $this->attributes;
     }

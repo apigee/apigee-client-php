@@ -19,7 +19,6 @@
 namespace Apigee\Edge\Api\ApigeeX\Entity;
 
 use Apigee\Edge\Api\Monetization\Entity\Entity;
-use Apigee\Edge\Entity\Property\AttributesPropertyAwareTrait;
 use Apigee\Edge\Entity\Property\DescriptionPropertyAwareTrait;
 use Apigee\Edge\Entity\Property\DisplayNamePropertyAwareTrait;
 use Apigee\Edge\Entity\Property\EnvironmentsPropertyAwareTrait;
@@ -27,7 +26,6 @@ use Apigee\Edge\Entity\Property\NamePropertyAwareTrait;
 
 class ApiProduct extends Entity implements ApiProductInterface
 {
-    use AttributesPropertyAwareTrait;
     use DescriptionPropertyAwareTrait;
     use DisplayNamePropertyAwareTrait;
     use EnvironmentsPropertyAwareTrait;
