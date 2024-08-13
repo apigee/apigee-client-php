@@ -23,17 +23,17 @@ use Apigee\Edge\Structure\AttributesProperty;
 /**
  * Trait AttributesPropertyAwareTrait.
  *
- * @see \Apigee\Edge\Entity\Property\AttributesPropertyInterface
+ * @see AttributesPropertyInterface
  */
 trait AttributesPropertyAwareTrait
 {
-    /** @var \Apigee\Edge\Structure\AttributesProperty */
+    /** @var AttributesProperty */
     protected $attributes;
 
     /**
      * {@inheritdoc}
      */
-    public function getAttributes(): AttributesProperty
+    public function getAttributes(): ?AttributesProperty
     {
         return $this->attributes;
     }
