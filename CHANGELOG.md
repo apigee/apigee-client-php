@@ -1,4 +1,10 @@
 # CHANGELOG
+## [3.0.6](https://github.com/apigee/apigee-client-php/milestone/30?closed=1)
+* [#371] Added support of AttributesProperty to ApiProduct.
+* [#369] PHP 8.3 version support added for Apigee Client PHP.
+* [#364] Fix for Uncaught TypeError: AppByOwnerController::responseArrayToArrayOfEntities()
+* [#365] Restricts Symfony update to 6.4.6 due to issue in latest version 6.4.7.
+
 ## [3.0.5](https://github.com/apigee/apigee-client-php/milestone/29?closed=1)
 * [#351] Retrieving the next list items based on 'nextpagetoken' flag in Apigee X.
 * [#348] Fix for composer analyze failing in github action.
