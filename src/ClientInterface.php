@@ -63,7 +63,7 @@ interface ClientInterface extends HttpClient
      */
     public const APIGEE_ON_GCP_ENDPOINT = 'https://apigee.googleapis.com/v1';
 
-    public const VERSION = '3.0.5';
+    public const VERSION = '3.0.6';
 
     /**
      * Allows access to the last request, response and exception.
