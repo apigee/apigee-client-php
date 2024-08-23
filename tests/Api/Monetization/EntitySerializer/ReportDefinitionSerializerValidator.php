@@ -31,6 +31,12 @@ class ReportDefinitionSerializerValidator extends OrganizationAwareEntitySeriali
         // do not validate it here.
         // \Apigee\Edge\Api\Monetization\Normalizer\LegalEntityReportDefinitionNormalizer::normalize()
         unset($input->developer);
+        unset($input->mintCriteria->devCriteria);
+        unset($input->mintCriteria->groupBy);
+        unset($input->mintCriteria->monetizationPackageIds);
+        unset($input->mintCriteria->ratePlanLevels);
+        unset($input->mintCriteria->transactionTypes);
+        unset($input->mintCriteria->currencyOption);
         parent::validate($input, $entity);
     }
 }

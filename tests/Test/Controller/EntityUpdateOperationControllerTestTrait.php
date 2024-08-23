@@ -66,6 +66,12 @@ trait EntityUpdateOperationControllerTestTrait
         // Validate that the PHP Client could parse all information from the
         // API response.
         $responseObject = json_decode($responsePayload);
+        // if (isset($responseObject->mintCriteria->showSummary)) {
+        //     unset($responseObject->mintCriteria->showSummary);
+        // }
+        // if (isset($updated->mintCriteria->showSummary)) {
+        //     unset($updated->mintCriteria->showSummary);
+        // }
         $this->alterObjectsBeforeCompareResponseAndUpdateEntity($responseObject, $updated);
         $this->entitySerializerValidator()->validate($responseObject, $updated);
     }
