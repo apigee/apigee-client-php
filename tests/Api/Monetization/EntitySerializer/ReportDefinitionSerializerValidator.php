@@ -20,6 +20,7 @@ namespace Apigee\Edge\Tests\Api\Monetization\EntitySerializer;
 
 use Apigee\Edge\Entity\EntityInterface;
 use stdClass;
+
 class ReportDefinitionSerializerValidator extends OrganizationAwareEntitySerializerValidator
 {
     /**

@@ -18,23 +18,25 @@
 
 namespace Apigee\Edge\Api\Monetization\Entity;
 
+use AllowDynamicProperties;
 use Apigee\Edge\Api\Monetization\Entity\Property\OrganizationPropertyAwareTrait;
 use Apigee\Edge\Api\Monetization\Structure\Reports\Criteria\AbstractCriteria;
 use Apigee\Edge\Entity\Property\DescriptionPropertyAwareTrait;
 use Apigee\Edge\Entity\Property\NamePropertyAwareTrait;
+use DateTimeImmutable;
 
-#[\AllowDynamicProperties]
+#[AllowDynamicProperties]
 class ReportDefinition extends Entity implements ReportDefinitionInterface
 {
     use NamePropertyAwareTrait;
     use DescriptionPropertyAwareTrait;
     use OrganizationPropertyAwareTrait;
 
-    /** @var \Apigee\Edge\Api\Monetization\Structure\Reports\Criteria\AbstractCriteria */
+    /** @var AbstractCriteria */
     protected $criteria;
 
     /**
-     * @var \DateTimeImmutable|null
+     * @var DateTimeImmutable|null
      */
     protected $lastModified;
 
@@ -57,7 +59,7 @@ class ReportDefinition extends Entity implements ReportDefinitionInterface
     /**
      * {@inheritdoc}
      */
-    public function getLastModified(): ?\DateTimeImmutable
+    public function getLastModified(): ?DateTimeImmutable
     {
         return $this->lastModified;
     }
@@ -67,7 +69,7 @@ class ReportDefinition extends Entity implements ReportDefinitionInterface
      *
      * @internal
      */
-    public function setLastModified(\DateTimeImmutable $lastModified): void
+    public function setLastModified(DateTimeImmutable $lastModified): void
     {
         $this->lastModified = $lastModified;
     }

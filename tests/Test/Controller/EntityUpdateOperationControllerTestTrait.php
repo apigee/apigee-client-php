@@ -61,7 +61,7 @@ trait EntityUpdateOperationControllerTestTrait
         unset($sentAsArray['createdAt']);
         unset($sentAsArray['lastModifiedAt']);
         $responseAsArray = json_decode($responsePayload, true);
-        // Adding condition to match the showSummary paramter due to new update from symfony/serializer 
+        // Adding condition to match the showSummary paramter due to new update from symfony/serializer
         if (isset($sentAsArray['mintCriteria'])) {
             if ($sentAsArray['mintCriteria']['showSummary']) {
                 $responseAsArray['mintCriteria']['showSummary'] = $sentAsArray['mintCriteria']['showSummary'];
