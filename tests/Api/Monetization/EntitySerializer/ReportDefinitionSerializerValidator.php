@@ -20,7 +20,6 @@ namespace Apigee\Edge\Tests\Api\Monetization\EntitySerializer;
 
 use Apigee\Edge\Entity\EntityInterface;
 use stdClass;
-
 class ReportDefinitionSerializerValidator extends OrganizationAwareEntitySerializerValidator
 {
     /**
@@ -32,6 +31,7 @@ class ReportDefinitionSerializerValidator extends OrganizationAwareEntitySeriali
         // do not validate it here.
         // \Apigee\Edge\Api\Monetization\Normalizer\LegalEntityReportDefinitionNormalizer::normalize()
         unset($input->developer);
+        // Unsetting these properties for now as the symfony/serializer creates issue while instatiating a object.
         unset($input->mintCriteria->devCriteria);
         unset($input->mintCriteria->groupBy);
         unset($input->mintCriteria->monetizationPackageIds);

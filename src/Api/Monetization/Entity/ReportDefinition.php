@@ -23,6 +23,7 @@ use Apigee\Edge\Api\Monetization\Structure\Reports\Criteria\AbstractCriteria;
 use Apigee\Edge\Entity\Property\DescriptionPropertyAwareTrait;
 use Apigee\Edge\Entity\Property\NamePropertyAwareTrait;
 
+#[\AllowDynamicProperties]
 class ReportDefinition extends Entity implements ReportDefinitionInterface
 {
     use NamePropertyAwareTrait;
