@@ -30,7 +30,7 @@ trait ReportDefinitionEntityProviderTrait
     protected static function getNewReportDefinition(bool $randomData = true): ReportDefinitionInterface
     {
         $criteria = new BillingReportCriteria('JANUARY', $randomData ? date('Y') : 2019);
-        $criteria->groupBy('PACKAGE', 'PRODUCT', 'DEVELOPER')->ratePlanLevels('STANDARD', 'DEVELOPER')->developers('developer@example.com');
+        $criteria->setGroupBy('PACKAGE', 'PRODUCT', 'DEVELOPER')->setRatePlanLevels('STANDARD', 'DEVELOPER')->setDevelopers('developer@example.com');
         $entity = new ReportDefinition([
             'name' => $randomData ? static::randomGenerator()->machineName() : 'PHPUnit',
             'description' => $randomData ? static::randomGenerator()->text() : 'test report definition provider',
@@ -47,7 +47,7 @@ trait ReportDefinitionEntityProviderTrait
         /** @var \Apigee\Edge\Api\Monetization\Structure\Reports\Criteria\BillingReportCriteria $criteria */
         $criteria = $updated->getCriteria();
         $criteria->setBillingMonth('FEBRUARY');
-        $criteria->showSummary(!$criteria->getShowSummary());
+        $criteria->setShowSummary(!$criteria->getShowSummary());
         $updated->setCriteria($criteria);
 
         return $updated;

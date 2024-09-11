@@ -22,13 +22,7 @@ use Apigee\Edge\Structure\ObjectCopyHelperTrait;
 
 /**
  * Base class for all supported Monetization reports.
- *
- * Boolean getters must be prefixed with "get" instead of "is" because
- * property accessor tries to call property name (without prefix) earlier
- * than "is" . ucfirst('propertyName') - which is a setter method here.
- *
- * @see https://github.com/symfony/property-access/blob/v4.2.5/PropertyAccessor.php#L433-L435
- *
+ * 
  * @internal
  *
  * @see https://docs.apigee.com/api-platform/monetization/create-reports#repdefconfigapi
@@ -127,7 +121,7 @@ abstract class AbstractCriteria
      *
      * @return \self
      */
-    public function apps(string ...$appIds): self
+    public function setApps(string ...$appIds): self
     {
         $this->apps = $appIds;
 
@@ -147,7 +141,7 @@ abstract class AbstractCriteria
      *
      * @return \self
      */
-    public function currencies(string ...$currencyIds): self
+    public function setCurrencies(string ...$currencyIds): self
     {
         $this->currencies = $currencyIds;
 
@@ -167,7 +161,7 @@ abstract class AbstractCriteria
      *
      * @return \self
      */
-    public function currencyOption(?string $currencyOption): self
+    public function setCurrencyOption(?string $currencyOption): self
     {
         // This tweak allows to reset the previously configured currency option
         // by calling this method with an empty string or null.
@@ -181,7 +175,7 @@ abstract class AbstractCriteria
      *
      * @return \self
      */
-    public function developers(string ...$developerIds): self
+    public function setDevelopers(string ...$developerIds): self
     {
         $this->developers = $developerIds;
 
@@ -209,7 +203,7 @@ abstract class AbstractCriteria
      *
      * @return \self
      */
-    public function apiPackages(string ...$apiPackageIds): self
+    public function setApiPackages(string ...$apiPackageIds): self
     {
         $this->apiPackages = $apiPackageIds;
 
@@ -229,7 +223,7 @@ abstract class AbstractCriteria
      *
      * @return \self
      */
-    public function apiProducts(string ...$apiProductIds): self
+    public function setApiProducts(string ...$apiProductIds): self
     {
         $this->apiProducts = $apiProductIds;
 
@@ -249,7 +243,7 @@ abstract class AbstractCriteria
      *
      * @return \self
      */
-    public function pricingTypes(string ...$pricingTypes): self
+    public function setPricingTypes(string ...$pricingTypes): self
     {
         $this->pricingTypes = $pricingTypes;
 
@@ -269,7 +263,7 @@ abstract class AbstractCriteria
      *
      * @return \self
      */
-    public function ratePlanLevels(string ...$ratePlanLevels): self
+    public function setRatePlanLevels(string ...$ratePlanLevels): self
     {
         $this->ratePlanLevels = $ratePlanLevels;
 
@@ -313,7 +307,7 @@ abstract class AbstractCriteria
      *
      * @return \self
      */
-    public function showRevenueSharePercentage(bool $show): self
+    public function setShowRevenueSharePercentage(bool $show): self
     {
         $this->showRevenueSharePercentage = $show;
 
@@ -325,7 +319,7 @@ abstract class AbstractCriteria
      *
      * @return \self
      */
-    public function showSummary(bool $show): self
+    public function setShowSummary(bool $show): self
     {
         $this->showSummary = $show;
 
@@ -337,7 +331,7 @@ abstract class AbstractCriteria
      *
      * @return \self
      */
-    public function showTransactionDetail(bool $show): self
+    public function setShowTransactionDetail(bool $show): self
     {
         $this->showTransactionDetail = $show;
 
@@ -349,7 +343,7 @@ abstract class AbstractCriteria
      *
      * @return \self
      */
-    public function showTransactionType(bool $show): self
+    public function setShowTransactionType(bool $show): self
     {
         $this->showTransactionType = $show;
 

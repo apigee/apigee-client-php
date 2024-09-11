@@ -38,7 +38,7 @@ trait TransactionTypesCriteriaTrait
      *
      * @return \self
      */
-    public function transactionTypes(string ...$transactionTypes): self
+    public function setTransactionTypes(string ...$transactionTypes): self
     {
         $this->transactionTypes = $transactionTypes;
 

@@ -36,7 +36,7 @@ trait GroupByCriteriaTrait
      *
      * @return \self
      */
-    public function groupBy(string ...$groupBy): self
+    public function setGroupBy(string ...$groupBy): self
     {
         $this->groupBy = $groupBy;
 
