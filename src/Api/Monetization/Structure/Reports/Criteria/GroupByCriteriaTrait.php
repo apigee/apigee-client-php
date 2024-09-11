@@ -34,7 +34,7 @@ trait GroupByCriteriaTrait
     /**
      * @param string ...$groupBy
      *
-     * @return \self
+     * @return self
      */
     public function setGroupBy(string ...$groupBy): self
     {

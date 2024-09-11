@@ -22,7 +22,7 @@ use Apigee\Edge\Structure\ObjectCopyHelperTrait;
 
 /**
  * Base class for all supported Monetization reports.
- * 
+ *
  * @internal
  *
  * @see https://docs.apigee.com/api-platform/monetization/create-reports#repdefconfigapi
@@ -119,7 +119,7 @@ abstract class AbstractCriteria
     /**
      * @param string ...$appIds
      *
-     * @return \self
+     * @return self
      */
     public function setApps(string ...$appIds): self
     {
@@ -139,7 +139,7 @@ abstract class AbstractCriteria
     /**
      * @param string ...$currencyIds
      *
-     * @return \self
+     * @return self
      */
     public function setCurrencies(string ...$currencyIds): self
     {
@@ -159,7 +159,7 @@ abstract class AbstractCriteria
     /**
      * @param string|null $currencyOption
      *
-     * @return \self
+     * @return self
      */
     public function setCurrencyOption(?string $currencyOption): self
     {
@@ -173,7 +173,7 @@ abstract class AbstractCriteria
     /**
      * @param string ...$developerIds
      *
-     * @return \self
+     * @return self
      */
     public function setDevelopers(string ...$developerIds): self
     {
@@ -201,7 +201,7 @@ abstract class AbstractCriteria
     /**
      * @param string ...$apiPackageIds
      *
-     * @return \self
+     * @return self
      */
     public function setApiPackages(string ...$apiPackageIds): self
     {
@@ -221,7 +221,7 @@ abstract class AbstractCriteria
     /**
      * @param string ...$apiProductIds
      *
-     * @return \self
+     * @return self
      */
     public function setApiProducts(string ...$apiProductIds): self
     {
@@ -241,7 +241,7 @@ abstract class AbstractCriteria
     /**
      * @param string ...$pricingTypes
      *
-     * @return \self
+     * @return self
      */
     public function setPricingTypes(string ...$pricingTypes): self
     {
@@ -261,7 +261,7 @@ abstract class AbstractCriteria
     /**
      * @param string ...$ratePlanLevels
      *
-     * @return \self
+     * @return self
      */
     public function setRatePlanLevels(string ...$ratePlanLevels): self
     {
@@ -305,7 +305,7 @@ abstract class AbstractCriteria
     /**
      * @param bool $show
      *
-     * @return \self
+     * @return self
      */
     public function setShowRevenueSharePercentage(bool $show): self
     {
@@ -317,7 +317,7 @@ abstract class AbstractCriteria
     /**
      * @param bool $show
      *
-     * @return \self
+     * @return self
      */
     public function setShowSummary(bool $show): self
     {
@@ -329,7 +329,7 @@ abstract class AbstractCriteria
     /**
      * @param bool $show
      *
-     * @return \self
+     * @return self
      */
     public function setShowTransactionDetail(bool $show): self
     {
@@ -341,7 +341,7 @@ abstract class AbstractCriteria
     /**
      * @param bool $show
      *
-     * @return \self
+     * @return self
      */
     public function setShowTransactionType(bool $show): self
     {

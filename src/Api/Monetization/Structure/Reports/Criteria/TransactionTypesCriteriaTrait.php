@@ -36,7 +36,7 @@ trait TransactionTypesCriteriaTrait
     /**
      * @param string ...$transactionTypes
      *
-     * @return \self
+     * @return self
      */
     public function setTransactionTypes(string ...$transactionTypes): self
     {

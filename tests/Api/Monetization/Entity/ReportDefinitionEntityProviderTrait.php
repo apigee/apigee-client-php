@@ -44,7 +44,7 @@ trait ReportDefinitionEntityProviderTrait
     {
         $updated = clone $existing;
         $updated->setDescription($randomData ? static::randomGenerator()->text() : '(edited) test report definition provider');
-        /** @var \Apigee\Edge\Api\Monetization\Structure\Reports\Criteria\BillingReportCriteria $criteria */
+        /** @var BillingReportCriteria $criteria */
         $criteria = $updated->getCriteria();
         $criteria->setBillingMonth('FEBRUARY');
         $criteria->setShowSummary(!$criteria->getShowSummary());
