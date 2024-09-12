@@ -42,6 +42,7 @@ trait GroupByCriteriaTrait
     public function groupBy(string ...$groupBy): self
     {
         trigger_error(__METHOD__ . ' is deprecated in 3.0.7, will be removed in 4.0.0: use setGroupBy() instead.', E_USER_DEPRECATED);
+
         return $this->setGroupBy(...$groupBy);
     }
 
