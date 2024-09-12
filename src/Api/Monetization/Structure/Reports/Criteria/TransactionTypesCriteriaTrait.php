@@ -37,6 +37,21 @@ trait TransactionTypesCriteriaTrait
      * @param string ...$transactionTypes
      *
      * @return self
+     *
+     * @deprecated in 3.0.7, will be removed in 4.0.0. No longer needed.
+     * https://github.com/apigee/apigee-client-php/issues/373
+     */
+    public function transactionTypes(string ...$transactionTypes): self
+    {
+        $this->transactionTypes = $transactionTypes;
+
+        return $this;
+    }
+
+    /**
+     * @param string ...$transactionTypes
+     *
+     * @return self
      */
     public function setTransactionTypes(string ...$transactionTypes): self
     {

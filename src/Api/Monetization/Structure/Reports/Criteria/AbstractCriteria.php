@@ -120,6 +120,21 @@ abstract class AbstractCriteria
      * @param string ...$appIds
      *
      * @return self
+     *
+     * @deprecated in 3.0.7, will be removed in 4.0.0. No longer needed.
+     * https://github.com/apigee/apigee-client-php/issues/373
+     */
+    public function apps(string ...$appIds): self
+    {
+        $this->apps = $appIds;
+
+        return $this;
+    }
+
+    /**
+     * @param string ...$appIds
+     *
+     * @return self
      */
     public function setApps(string ...$appIds): self
     {
@@ -134,6 +149,21 @@ abstract class AbstractCriteria
     public function getCurrencies(): array
     {
         return $this->currencies;
+    }
+
+    /**
+     * @param string ...$currencyIds
+     *
+     * @return self
+     *
+     * @deprecated in 3.0.7, will be removed in 4.0.0. No longer needed.
+     * https://github.com/apigee/apigee-client-php/issues/373
+     */
+    public function currencies(string ...$currencyIds): self
+    {
+        $this->currencies = $currencyIds;
+
+        return $this;
     }
 
     /**
@@ -160,12 +190,44 @@ abstract class AbstractCriteria
      * @param string|null $currencyOption
      *
      * @return self
+     *
+     * @deprecated in 3.0.7, will be removed in 4.0.0. No longer needed.
+     * https://github.com/apigee/apigee-client-php/issues/373
+     */
+    public function currencyOption(?string $currencyOption): self
+    {
+        // This tweak allows to reset the previously configured currency option
+        // by calling this method with an empty string or null.
+        $this->currencyOption = $currencyOption;
+
+        return $this;
+    }
+
+    /**
+     * @param string|null $currencyOption
+     *
+     * @return self
      */
     public function setCurrencyOption(?string $currencyOption): self
     {
         // This tweak allows to reset the previously configured currency option
         // by calling this method with an empty string or null.
         $this->currencyOption = $currencyOption;
+
+        return $this;
+    }
+
+    /**
+     * @param string ...$developerIds
+     *
+     * @return self
+     *
+     * @deprecated in 3.0.7, will be removed in 4.0.0. No longer needed.
+     * https://github.com/apigee/apigee-client-php/issues/373
+     */
+    public function developers(string ...$developerIds): self
+    {
+        $this->developers = $developerIds;
 
         return $this;
     }
@@ -202,6 +264,21 @@ abstract class AbstractCriteria
      * @param string ...$apiPackageIds
      *
      * @return self
+     *
+     * @deprecated in 3.0.7, will be removed in 4.0.0. No longer needed.
+     * https://github.com/apigee/apigee-client-php/issues/373
+     */
+    public function apiPackages(string ...$apiPackageIds): self
+    {
+        $this->apiPackages = $apiPackageIds;
+
+        return $this;
+    }
+
+    /**
+     * @param string ...$apiPackageIds
+     *
+     * @return self
      */
     public function setApiPackages(string ...$apiPackageIds): self
     {
@@ -216,6 +293,21 @@ abstract class AbstractCriteria
     public function getApiProducts(): array
     {
         return $this->apiProducts;
+    }
+
+    /**
+     * @param string ...$apiProductIds
+     *
+     * @return self
+     *
+     * @deprecated in 3.0.7, will be removed in 4.0.0. No longer needed.
+     * https://github.com/apigee/apigee-client-php/issues/373
+     */
+    public function apiProducts(string ...$apiProductIds): self
+    {
+        $this->apiProducts = $apiProductIds;
+
+        return $this;
     }
 
     /**
@@ -242,6 +334,21 @@ abstract class AbstractCriteria
      * @param string ...$pricingTypes
      *
      * @return self
+     *
+     * @deprecated in 3.0.7, will be removed in 4.0.0. No longer needed.
+     * https://github.com/apigee/apigee-client-php/issues/373
+     */
+    public function pricingTypes(string ...$pricingTypes): self
+    {
+        $this->pricingTypes = $pricingTypes;
+
+        return $this;
+    }
+
+    /**
+     * @param string ...$pricingTypes
+     *
+     * @return self
      */
     public function setPricingTypes(string ...$pricingTypes): self
     {
@@ -256,6 +363,21 @@ abstract class AbstractCriteria
     public function getRatePlanLevels(): array
     {
         return $this->ratePlanLevels;
+    }
+
+    /**
+     * @param string ...$ratePlanLevels
+     *
+     * @return self
+     *
+     * @deprecated in 3.0.7, will be removed in 4.0.0. No longer needed.
+     * https://github.com/apigee/apigee-client-php/issues/373
+     */
+    public function ratePlanLevels(string ...$ratePlanLevels): self
+    {
+        $this->ratePlanLevels = $ratePlanLevels;
+
+        return $this;
     }
 
     /**
@@ -306,10 +428,40 @@ abstract class AbstractCriteria
      * @param bool $show
      *
      * @return self
+     *
+     * @deprecated in 3.0.7, will be removed in 4.0.0. No longer needed.
+     * https://github.com/apigee/apigee-client-php/issues/373
+     */
+    public function showRevenueSharePercentage(bool $show): self
+    {
+        $this->showRevenueSharePercentage = $show;
+
+        return $this;
+    }
+
+    /**
+     * @param bool $show
+     *
+     * @return self
      */
     public function setShowRevenueSharePercentage(bool $show): self
     {
         $this->showRevenueSharePercentage = $show;
+
+        return $this;
+    }
+
+    /**
+     * @param bool $show
+     *
+     * @return self
+     *
+     * @deprecated in 3.0.7, will be removed in 4.0.0. No longer needed.
+     * https://github.com/apigee/apigee-client-php/issues/373
+     */
+    public function showSummary(bool $show): self
+    {
+        $this->showSummary = $show;
 
         return $this;
     }
@@ -330,10 +482,40 @@ abstract class AbstractCriteria
      * @param bool $show
      *
      * @return self
+     *
+     * @deprecated in 3.0.7, will be removed in 4.0.0. No longer needed.
+     * https://github.com/apigee/apigee-client-php/issues/373
+     */
+    public function showTransactionDetail(bool $show): self
+    {
+        $this->showTransactionDetail = $show;
+
+        return $this;
+    }
+
+    /**
+     * @param bool $show
+     *
+     * @return self
      */
     public function setShowTransactionDetail(bool $show): self
     {
         $this->showTransactionDetail = $show;
+
+        return $this;
+    }
+
+    /**
+     * @param bool $show
+     *
+     * @return self
+     *
+     * @deprecated in 3.0.7, will be removed in 4.0.0. No longer needed.
+     * https://github.com/apigee/apigee-client-php/issues/373
+     */
+    public function showTransactionType(bool $show): self
+    {
+        $this->showTransactionType = $show;
 
         return $this;
     }
