@@ -43,9 +43,8 @@ trait TransactionTypesCriteriaTrait
      */
     public function transactionTypes(string ...$transactionTypes): self
     {
-        $this->transactionTypes = $transactionTypes;
-
-        return $this;
+        trigger_error(__METHOD__ . ' is deprecated in 3.0.7, will be removed in 4.0.0: use setTransactionTypes() instead.', E_USER_DEPRECATED);
+        return $this->setTransactionTypes(...$transactionTypes);
     }
 
     /**

@@ -126,9 +126,8 @@ abstract class AbstractCriteria
      */
     public function apps(string ...$appIds): self
     {
-        $this->apps = $appIds;
-
-        return $this;
+        trigger_error(__METHOD__ . ' is deprecated in 3.0.7, will be removed in 4.0.0: use setApps() instead.', E_USER_DEPRECATED);
+        return $this->setApps(...$appIds);
     }
 
     /**
@@ -161,9 +160,8 @@ abstract class AbstractCriteria
      */
     public function currencies(string ...$currencyIds): self
     {
-        $this->currencies = $currencyIds;
-
-        return $this;
+        trigger_error(__METHOD__ . ' is deprecated in 3.0.7, will be removed in 4.0.0: use setCurrencies() instead.', E_USER_DEPRECATED);
+        return $this->setCurrencies(...$currencyIds);
     }
 
     /**
@@ -198,9 +196,8 @@ abstract class AbstractCriteria
     {
         // This tweak allows to reset the previously configured currency option
         // by calling this method with an empty string or null.
-        $this->currencyOption = $currencyOption;
-
-        return $this;
+        trigger_error(__METHOD__ . ' is deprecated in 3.0.7, will be removed in 4.0.0: use setCurrencyOption() instead.', E_USER_DEPRECATED);
+        return $this->setCurrencyOption($currencyOption);
     }
 
     /**
@@ -227,9 +224,8 @@ abstract class AbstractCriteria
      */
     public function developers(string ...$developerIds): self
     {
-        $this->developers = $developerIds;
-
-        return $this;
+        trigger_error(__METHOD__ . ' is deprecated in 3.0.7, will be removed in 4.0.0: use setDevelopers() instead.', E_USER_DEPRECATED);
+        return $this->setDevelopers(...$developerIds);
     }
 
     /**
@@ -270,9 +266,8 @@ abstract class AbstractCriteria
      */
     public function apiPackages(string ...$apiPackageIds): self
     {
-        $this->apiPackages = $apiPackageIds;
-
-        return $this;
+        trigger_error(__METHOD__ . ' is deprecated in 3.0.7, will be removed in 4.0.0: use setApiPackages() instead.', E_USER_DEPRECATED);
+        return $this->setApiPackages(...$apiPackageIds);
     }
 
     /**
@@ -305,9 +300,8 @@ abstract class AbstractCriteria
      */
     public function apiProducts(string ...$apiProductIds): self
     {
-        $this->apiProducts = $apiProductIds;
-
-        return $this;
+        trigger_error(__METHOD__ . ' is deprecated in 3.0.7, will be removed in 4.0.0: use setApiProducts() instead.', E_USER_DEPRECATED);
+        return $this->setApiProducts(...$apiProductIds);
     }
 
     /**
@@ -340,9 +334,8 @@ abstract class AbstractCriteria
      */
     public function pricingTypes(string ...$pricingTypes): self
     {
-        $this->pricingTypes = $pricingTypes;
-
-        return $this;
+        trigger_error(__METHOD__ . ' is deprecated in 3.0.7, will be removed in 4.0.0: use setPricingTypes() instead.', E_USER_DEPRECATED);
+        return $this->setPricingTypes(...$pricingTypes);
     }
 
     /**
@@ -375,9 +368,8 @@ abstract class AbstractCriteria
      */
     public function ratePlanLevels(string ...$ratePlanLevels): self
     {
-        $this->ratePlanLevels = $ratePlanLevels;
-
-        return $this;
+        trigger_error(__METHOD__ . ' is deprecated in 3.0.7, will be removed in 4.0.0: use setRatePlanLevels() instead.', E_USER_DEPRECATED);
+        return $this->setRatePlanLevels(...$ratePlanLevels);
     }
 
     /**
@@ -434,9 +426,8 @@ abstract class AbstractCriteria
      */
     public function showRevenueSharePercentage(bool $show): self
     {
-        $this->showRevenueSharePercentage = $show;
-
-        return $this;
+        trigger_error(__METHOD__ . ' is deprecated in 3.0.7, will be removed in 4.0.0: use setShowRevenueSharePercentage() instead.', E_USER_DEPRECATED);
+        return $this->setShowRevenueSharePercentage($show);
     }
 
     /**
@@ -461,9 +452,8 @@ abstract class AbstractCriteria
      */
     public function showSummary(bool $show): self
     {
-        $this->showSummary = $show;
-
-        return $this;
+        trigger_error(__METHOD__ . ' is deprecated in 3.0.7, will be removed in 4.0.0: use setShowSummary() instead.', E_USER_DEPRECATED);
+        return $this->setShowSummary($show);
     }
 
     /**
@@ -488,9 +478,8 @@ abstract class AbstractCriteria
      */
     public function showTransactionDetail(bool $show): self
     {
-        $this->showTransactionDetail = $show;
-
-        return $this;
+        trigger_error(__METHOD__ . ' is deprecated in 3.0.7, will be removed in 4.0.0: use setShowTransactionDetail() instead.', E_USER_DEPRECATED);
+        return $this->setShowTransactionDetail($show);
     }
 
     /**
@@ -515,9 +504,8 @@ abstract class AbstractCriteria
      */
     public function showTransactionType(bool $show): self
     {
-        $this->showTransactionType = $show;
-
-        return $this;
+        trigger_error(__METHOD__ . ' is deprecated in 3.0.7, will be removed in 4.0.0: use setShowTransactionType() instead.', E_USER_DEPRECATED);
+        return $this->setShowTransactionType($show);
     }
 
     /**
