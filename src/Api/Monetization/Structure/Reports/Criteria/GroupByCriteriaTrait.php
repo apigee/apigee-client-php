@@ -34,9 +34,24 @@ trait GroupByCriteriaTrait
     /**
      * @param string ...$groupBy
      *
-     * @return \self
+     * @return self
+     *
+     * @deprecated in 3.0.7, will be removed in 4.0.0. No longer needed.
+     * https://github.com/apigee/apigee-client-php/issues/373
      */
     public function groupBy(string ...$groupBy): self
+    {
+        trigger_error(__METHOD__ . ' is deprecated in 3.0.7, will be removed in 4.0.0: use setGroupBy() instead.', E_USER_DEPRECATED);
+
+        return $this->setGroupBy(...$groupBy);
+    }
+
+    /**
+     * @param string ...$groupBy
+     *
+     * @return self
+     */
+    public function setGroupBy(string ...$groupBy): self
     {
         $this->groupBy = $groupBy;
 

@@ -36,9 +36,24 @@ trait TransactionTypesCriteriaTrait
     /**
      * @param string ...$transactionTypes
      *
-     * @return \self
+     * @return self
+     *
+     * @deprecated in 3.0.7, will be removed in 4.0.0. No longer needed.
+     * https://github.com/apigee/apigee-client-php/issues/373
      */
     public function transactionTypes(string ...$transactionTypes): self
+    {
+        trigger_error(__METHOD__ . ' is deprecated in 3.0.7, will be removed in 4.0.0: use setTransactionTypes() instead.', E_USER_DEPRECATED);
+
+        return $this->setTransactionTypes(...$transactionTypes);
+    }
+
+    /**
+     * @param string ...$transactionTypes
+     *
+     * @return self
+     */
+    public function setTransactionTypes(string ...$transactionTypes): self
     {
         $this->transactionTypes = $transactionTypes;
 
