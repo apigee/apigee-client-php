@@ -1,4 +1,8 @@
 # CHANGELOG
+## [3.0.7](https://github.com/apigee/apigee-client-php/milestone/31?closed=1)
+* [#374] Bump minimum required version of symfony/serializer.
+* [#376] Remove symfony/serializer conflict and bump version.
+
 ## [3.0.6](https://github.com/apigee/apigee-client-php/milestone/30?closed=1)
 * [#371] Added support of AttributesProperty to ApiProduct.
 * [#369] PHP 8.3 version support added for Apigee Client PHP.
