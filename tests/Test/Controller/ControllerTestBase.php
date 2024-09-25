@@ -35,7 +35,7 @@ abstract class ControllerTestBase extends TestCase
     /**
      * {@inheritdoc}
      */
-    public static function markOnlineTestSkipped(string $testName, ClientInterface $client = null): void
+    public static function markOnlineTestSkipped(string $testName, ?ClientInterface $client = null): void
     {
         $client = $client ?? static::defaultAPIClient();
         if (TestClientFactory::isOfflineClient($client)) {
@@ -62,7 +62,7 @@ abstract class ControllerTestBase extends TestCase
     /**
      * Returns the same random generator in tests.
      *
-     * @return \Apigee\Edge\Tests\Test\Utility\RandomGeneratorInterface
+     * @return RandomGeneratorInterface
      */
     protected static function randomGenerator(): RandomGeneratorInterface
     {

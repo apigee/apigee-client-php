@@ -19,6 +19,7 @@
 namespace Apigee\Edge\Normalizer;
 
 use Apigee\Edge\Structure\PropertiesProperty;
+use ArrayObject;
 
 /**
  * Class PropertiesPropertyNormalizer.
@@ -39,9 +40,9 @@ class PropertiesPropertyNormalizer extends KeyValueMapNormalizer
             'property' => parent::normalize($object, $format, $context),
         ];
 
-        //convert to ArrayObject as symfony normalizer throws error for std object.
-        //set ARRAY_AS_PROPS flag as we need entries to be accessed as properties.
-        return new \ArrayObject($return, \ArrayObject::ARRAY_AS_PROPS);
+        // convert to ArrayObject as symfony normalizer throws error for std object.
+        // set ARRAY_AS_PROPS flag as we need entries to be accessed as properties.
+        return new ArrayObject($return, ArrayObject::ARRAY_AS_PROPS);
     }
 
     /**

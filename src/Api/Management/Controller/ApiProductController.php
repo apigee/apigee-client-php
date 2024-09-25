@@ -46,15 +46,15 @@ class ApiProductController extends PaginatedEntityController implements ApiProdu
      * ApiProductController constructor.
      *
      * @param string $organization
-     * @param \Apigee\Edge\ClientInterface $client
-     * @param \Apigee\Edge\Serializer\EntitySerializerInterface|null $entitySerializer
-     * @param \Apigee\Edge\Api\Management\Controller\OrganizationControllerInterface|null $organizationController
+     * @param ClientInterface $client
+     * @param EntitySerializerInterface|null $entitySerializer
+     * @param OrganizationControllerInterface|null $organizationController
      */
     public function __construct(
-      string $organization,
-      ClientInterface $client,
-      ?EntitySerializerInterface $entitySerializer = null,
-      ?OrganizationControllerInterface $organizationController = null
+        string $organization,
+        ClientInterface $client,
+        ?EntitySerializerInterface $entitySerializer = null,
+        ?OrganizationControllerInterface $organizationController = null,
     ) {
         $entitySerializer = $entitySerializer ?? new ApiProductSerializer();
         parent::__construct($organization, $client, $entitySerializer, $organizationController);

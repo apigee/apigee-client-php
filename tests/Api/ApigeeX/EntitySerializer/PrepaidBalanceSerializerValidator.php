@@ -27,10 +27,10 @@ class PrepaidBalanceSerializerValidator extends EntitySerializerValidator
     /**
      * PrepaidBalanceSerializerValidator constructor.
      *
-     * @param \Apigee\Edge\Serializer\EntitySerializerInterface $serializer
+     * @param EntitySerializerInterface $serializer
      * @param array $propertyValidators
      */
-    public function __construct(EntitySerializerInterface $serializer = null, array $propertyValidators = [])
+    public function __construct(?EntitySerializerInterface $serializer = null, array $propertyValidators = [])
     {
         $propertyValidators = array_merge($propertyValidators, [
             new OrganizationProfileEntityReferencePropertyValidator(),

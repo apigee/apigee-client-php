@@ -23,11 +23,11 @@ use Apigee\Edge\Api\Monetization\Entity\DeveloperInterface;
 /**
  * Trait DeveloperPropertyAwareTrait.
  *
- * @see \Apigee\Edge\Api\Monetization\Entity\Property\DeveloperPropertyInterface
+ * @see DeveloperPropertyInterface
  */
 trait DeveloperPropertyAwareTrait
 {
-    /** @var \Apigee\Edge\Api\Monetization\Entity\DeveloperInterface|null */
+    /** @var DeveloperInterface|null */
     protected $developer;
 
     /**

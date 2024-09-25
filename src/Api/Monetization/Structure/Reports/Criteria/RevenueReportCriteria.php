@@ -18,18 +18,20 @@
 
 namespace Apigee\Edge\Api\Monetization\Structure\Reports\Criteria;
 
+use DateTimeImmutable;
+
 final class RevenueReportCriteria extends AbstractCriteria
 {
     use GroupByCriteriaTrait;
     use TransactionTypesCriteriaTrait;
 
     /**
-     * @var \DateTimeImmutable
+     * @var DateTimeImmutable
      */
     private $fromDate;
 
     /**
-     * @var \DateTimeImmutable|null
+     * @var DateTimeImmutable|null
      */
     private $toDate;
 
@@ -58,27 +60,27 @@ final class RevenueReportCriteria extends AbstractCriteria
     /**
      * RevenueReportCriteria constructor.
      *
-     * @param \DateTimeImmutable $fromDate
-     * @param \DateTimeImmutable|null $toDate
+     * @param DateTimeImmutable $fromDate
+     * @param DateTimeImmutable|null $toDate
      */
-    public function __construct(\DateTimeImmutable $fromDate, ?\DateTimeImmutable $toDate = null)
+    public function __construct(DateTimeImmutable $fromDate, ?DateTimeImmutable $toDate = null)
     {
         $this->fromDate = $fromDate;
         $this->toDate = $toDate;
     }
 
     /**
-     * @return \DateTimeImmutable
+     * @return DateTimeImmutable
      */
-    public function getFromDate(): \DateTimeImmutable
+    public function getFromDate(): DateTimeImmutable
     {
         return $this->fromDate;
     }
 
     /**
-     * @return \DateTimeImmutable|null
+     * @return DateTimeImmutable|null
      */
-    public function getToDate(): ?\DateTimeImmutable
+    public function getToDate(): ?DateTimeImmutable
     {
         return $this->toDate;
     }
@@ -113,7 +115,7 @@ final class RevenueReportCriteria extends AbstractCriteria
     /**
      * @param string ...$transactionAttributes
      *
-     * @return \self
+     * @return self
      */
     public function transactionAttributes(string ...$transactionAttributes): self
     {

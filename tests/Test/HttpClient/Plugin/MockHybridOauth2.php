@@ -39,11 +39,11 @@ class MockHybridOauth2 extends HybridOauth2
 {
     public const AUTH_SERVER = 'http://example.com/oauth/token';
     /**
-     * @var \Apigee\Edge\HttpClient\Utility\JournalInterface
+     * @var JournalInterface
      */
     private $journal;
     /**
-     * @var \Psr\Http\Client\ClientInterface
+     * @var HttpClient
      */
     private $httpClient;
 
@@ -51,9 +51,9 @@ class MockHybridOauth2 extends HybridOauth2
         string $email,
         string $privateKey,
         OauthTokenStorageInterface $tokenStorage,
-        HttpClient $httpClient = null,
-        JournalInterface $journal = null,
-        ?string $authServer = null
+        ?HttpClient $httpClient = null,
+        ?JournalInterface $journal = null,
+        ?string $authServer = null,
     ) {
         parent::__construct($email, $privateKey, $tokenStorage, $authServer);
         $this->journal = $journal ?: new TestJournal();

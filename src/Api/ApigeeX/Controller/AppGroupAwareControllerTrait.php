@@ -21,7 +21,7 @@ namespace Apigee\Edge\Api\ApigeeX\Controller;
 /**
  * Trait AppGroupAwareControllerTrait.
  *
- * @see \Apigee\Edge\Api\ApigeeX\Controller\AppGroupAwareControllerInterface
+ * @see AppGroupAwareControllerInterface
  */
 trait AppGroupAwareControllerTrait
 {

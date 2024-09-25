@@ -48,9 +48,9 @@ class CompanyController extends PaginatedEntityController implements CompanyCont
      * CompanyController constructor.
      *
      * @param string $organization
-     * @param \Apigee\Edge\ClientInterface $client
-     * @param \Apigee\Edge\Serializer\EntitySerializerInterface|null $entitySerializer
-     * @param \Apigee\Edge\Api\Management\Controller\OrganizationControllerInterface|null $organizationController
+     * @param ClientInterface $client
+     * @param EntitySerializerInterface|null $entitySerializer
+     * @param OrganizationControllerInterface|null $organizationController
      */
     public function __construct(string $organization, ClientInterface $client, ?EntitySerializerInterface $entitySerializer = null, ?OrganizationControllerInterface $organizationController = null)
     {

@@ -24,6 +24,7 @@ use Apigee\Edge\Tests\Test\EntitySerializer\PropertyValidator\RemoveIfPropertyVa
 use Apigee\Edge\Tests\Test\EntitySerializer\PropertyValidator\SerializerAwarePropertyValidatorInterface;
 use Apigee\Edge\Tests\Test\EntitySerializer\PropertyValidator\SerializerAwarePropertyValidatorTrait;
 use PHPUnit\Framework\Assert;
+use stdClass;
 
 class CompanyEntityReferencePropertyValidator implements RemoveIfPropertyValidPropertyValidatorInterface, SerializerAwarePropertyValidatorInterface
 {
@@ -31,7 +32,7 @@ class CompanyEntityReferencePropertyValidator implements RemoveIfPropertyValidPr
         setEntitySerializer as private traitSetEntitySerializer;
     }
 
-    /** @var \Apigee\Edge\Tests\Api\Monetization\EntitySerializer\PropertyValidator\OrganizationProfileEntityReferencePropertyValidator */
+    /** @var OrganizationProfileEntityReferencePropertyValidator */
     protected $orgPropValidator;
 
     /**
@@ -45,7 +46,7 @@ class CompanyEntityReferencePropertyValidator implements RemoveIfPropertyValidPr
     /**
      * {@inheritdoc}
      */
-    public function validate(\stdClass $input, \stdClass $output, EntityInterface $entity): void
+    public function validate(stdClass $input, stdClass $output, EntityInterface $entity): void
     {
         if (!$entity instanceof Developer || !$entity->getCompany()) {
             return;

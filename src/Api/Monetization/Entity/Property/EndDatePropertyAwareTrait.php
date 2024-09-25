@@ -18,22 +18,24 @@
 
 namespace Apigee\Edge\Api\Monetization\Entity\Property;
 
+use DateTimeImmutable;
+
 /**
  * Trait EndDatePropertyAwareTrait.
  *
- * @see \Apigee\Edge\Api\Monetization\Entity\Property\EndDatePropertyInterface
+ * @see EndDatePropertyInterface
  */
 trait EndDatePropertyAwareTrait
 {
     /**
-     * @var \DateTimeImmutable|null
+     * @var DateTimeImmutable|null
      */
     protected $endDate;
 
     /**
      * {@inheritdoc}
      */
-    public function getEndDate(): ?\DateTimeImmutable
+    public function getEndDate(): ?DateTimeImmutable
     {
         return $this->endDate;
     }
@@ -41,7 +43,7 @@ trait EndDatePropertyAwareTrait
     /**
      * {@inheritdoc}
      */
-    public function setEndDate(?\DateTimeImmutable $endDate): void
+    public function setEndDate(?DateTimeImmutable $endDate): void
     {
         $this->endDate = $endDate;
     }

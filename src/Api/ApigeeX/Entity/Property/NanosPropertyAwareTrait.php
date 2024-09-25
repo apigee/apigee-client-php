@@ -21,7 +21,7 @@ namespace Apigee\Edge\Api\ApigeeX\Entity\Property;
 /**
  * Trait NanosPropertyAwareTrait.
  *
- * @see \Apigee\Edge\Api\ApigeeX\Entity\Property\NanosPropertyInterface
+ * @see NanosPropertyInterface
  */
 trait NanosPropertyAwareTrait
 {

@@ -24,23 +24,24 @@ use Apigee\Edge\Serializer\EntitySerializerInterface;
 use Apigee\Edge\Tests\Test\EntitySerializer\PropertyValidator\PropertyValidatorsAwareValidatorInterface;
 use Apigee\Edge\Tests\Test\EntitySerializer\PropertyValidator\PropertyValidatorsAwareValidatorTrait;
 use Apigee\Edge\Tests\Test\EntitySerializer\PropertyValidator\SerializerAwarePropertyValidatorInterface;
+use stdClass;
 
 class EntitySerializerValidator implements EntitySerializerValidatorInterface
 {
     use PropertyValidatorsAwareValidatorTrait;
 
     /**
-     * @var \Apigee\Edge\Serializer\EntitySerializerInterface
+     * @var EntitySerializerInterface
      */
     protected $serializer;
 
     /**
      * EntitySerializerValidator constructor.
      *
-     * @param \Apigee\Edge\Serializer\EntitySerializerInterface $serializer
+     * @param EntitySerializerInterface $serializer
      * @param array $propertyValidators
      */
-    public function __construct(EntitySerializerInterface $serializer = null, array $propertyValidators = [])
+    public function __construct(?EntitySerializerInterface $serializer = null, array $propertyValidators = [])
     {
         $serializer = $serializer ?? new EntitySerializer();
         $this->serializer = $serializer;
@@ -62,7 +63,7 @@ class EntitySerializerValidator implements EntitySerializerValidatorInterface
     /**
      * {@inheritdoc}
      */
-    public function validate(\stdClass $input, EntityInterface $entity): void
+    public function validate(stdClass $input, EntityInterface $entity): void
     {
         $output = json_decode($this->serializer->serialize($entity, 'json'));
         $this->propertyValidatorsValidate($input, $output, $entity);

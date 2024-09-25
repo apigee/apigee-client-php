@@ -36,8 +36,8 @@ abstract class BillingTypeController extends EntityController implements Billing
      * BillingTypeController constructor.
      *
      * @param string $organization
-     * @param \Apigee\Edge\ClientInterface $client
-     * @param \Apigee\Edge\Serializer\EntitySerializerInterface|null $entitySerializer
+     * @param ClientInterface $client
+     * @param EntitySerializerInterface|null $entitySerializer
      */
     public function __construct(string $organization, ClientInterface $client, ?EntitySerializerInterface $entitySerializer = null)
     {
@@ -75,7 +75,7 @@ abstract class BillingTypeController extends EntityController implements Billing
     /**
      * Helper function for getting the billing type.
      *
-     * @return \Apigee\Edge\Api\ApigeeX\Entity\BillingTypeInterface
+     * @return BillingTypeInterface
      */
     private function getDeveloperBillingType(): BillingTypeInterface
     {

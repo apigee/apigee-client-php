@@ -36,7 +36,7 @@ class EdgeDateDenormalizer implements DenormalizerInterface
         DateTime::class => true,
     ];
 
-    /** @var \Symfony\Component\Serializer\Normalizer\DateTimeNormalizer */
+    /** @var DateTimeNormalizer */
     private $normalizer;
 
     /**

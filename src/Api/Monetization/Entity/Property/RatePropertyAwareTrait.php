@@ -21,7 +21,7 @@ namespace Apigee\Edge\Api\Monetization\Entity\Property;
 /**
  * Trait RatePropertyAwareTrait.
  *
- * @see \Apigee\Edge\Api\Monetization\Entity\Property\RatePropertyInterface
+ * @see RatePropertyInterface
  */
 trait RatePropertyAwareTrait
 {

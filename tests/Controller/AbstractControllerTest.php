@@ -32,13 +32,14 @@ use Psr\Http\Message\UriInterface;
  *
  * @group controller
  * @group mock
+ *
  * @small
  */
 class AbstractControllerTest extends TestCase
 {
     use MockClientAwareTrait;
 
-    /** @var \Apigee\Edge\Controller\AbstractEntityController */
+    /** @var AbstractEntityController */
     private static $stub;
 
     public static function setUpBeforeClass(): void
@@ -57,7 +58,7 @@ class AbstractControllerTest extends TestCase
             /**
              * Exposes protected parseResponseToArray method for testing.
              *
-             * @param \Psr\Http\Message\ResponseInterface $response
+             * @param ResponseInterface $response
              *
              * @return array
              */

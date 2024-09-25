@@ -20,13 +20,14 @@ namespace Apigee\Edge\Tests\Api\Management\EntitySerializer;
 
 use Apigee\Edge\Entity\EntityInterface;
 use PHPUnit\Framework\Assert;
+use stdClass;
 
 class AppSerializerValidator extends EntitySerializerValidator
 {
     /**
      * {@inheritdoc}
      */
-    public function validate(\stdClass $input, EntityInterface $entity): void
+    public function validate(stdClass $input, EntityInterface $entity): void
     {
         /** @var \Apigee\Edge\Api\Management\Entity\AppInterface $entity */
         /** @var \Apigee\Edge\Api\Management\Entity\AppCredentialInterface $credential */

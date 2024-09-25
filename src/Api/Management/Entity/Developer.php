@@ -45,10 +45,10 @@ class Developer extends AppOwner implements DeveloperInterface
     protected $companies = [];
 
     /**
-    * The original email address of the developer.
-    *
-    * @var string|null
-    */
+     * The original email address of the developer.
+     *
+     * @var string|null
+     */
     private $originalEmail;
 
     /**

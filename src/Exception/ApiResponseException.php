@@ -21,13 +21,14 @@ namespace Apigee\Edge\Exception;
 use Http\Message\Formatter;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
+use Throwable;
 
 /**
  * Thrown when a response was received but the request itself failed.
  */
 class ApiResponseException extends ApiRequestException
 {
-    /** @var \Psr\Http\Message\ResponseInterface */
+    /** @var ResponseInterface */
     private $response;
 
     /** @var string|null */
@@ -36,20 +37,20 @@ class ApiResponseException extends ApiRequestException
     /**
      * ApiResponseException constructor.
      *
-     * @param \Psr\Http\Message\ResponseInterface $response
-     * @param \Psr\Http\Message\RequestInterface $request
+     * @param ResponseInterface $response
+     * @param RequestInterface $request
      * @param string $message
      * @param int $code
-     * @param \Throwable|null $previous
-     * @param \Http\Message\Formatter|null $formatter
+     * @param Throwable|null $previous
+     * @param Formatter|null $formatter
      */
     public function __construct(
         ResponseInterface $response,
         RequestInterface $request,
         string $message = '',
         int $code = 0,
-        \Throwable $previous = null,
-        Formatter $formatter = null
+        ?Throwable $previous = null,
+        ?Formatter $formatter = null,
     ) {
         $this->response = $response;
         $message = $message ?: $response->getReasonPhrase();
@@ -76,7 +77,7 @@ class ApiResponseException extends ApiRequestException
     }
 
     /**
-     * @return \Psr\Http\Message\ResponseInterface
+     * @return ResponseInterface
      */
     public function getResponse(): ResponseInterface
     {
@@ -94,7 +95,7 @@ class ApiResponseException extends ApiRequestException
     /**
      * Tries to extract Apigee Edge error code and message from a response.
      *
-     * @param \Psr\Http\Message\ResponseInterface $response
+     * @param ResponseInterface $response
      *   API response.
      *
      * @return array

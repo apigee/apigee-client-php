@@ -18,6 +18,8 @@
 
 namespace Apigee\Edge\Utility;
 
+use LogicException;
+
 /**
  * Trait DeprecatedPropertyTrait.
  *
@@ -29,6 +31,7 @@ namespace Apigee\Edge\Utility;
  * protected $deprecatedProperties = [
  *     'deprecatedProperty' => 'replacementProperty',
  * ];
+ *
  * @endcode
  */
 trait DeprecatedPropertyTrait
@@ -41,7 +44,7 @@ trait DeprecatedPropertyTrait
         $removedBeforeVersion = '3.0.0';
 
         if (!isset($this->deprecatedProperties)) {
-            throw new \LogicException('The deprecatedProperties property must be defined to use this trait.');
+            throw new LogicException('The deprecatedProperties property must be defined to use this trait.');
         }
 
         if (isset($this->deprecatedProperties[$name])) {
@@ -52,7 +55,7 @@ trait DeprecatedPropertyTrait
                 // The property has no replacement (it does not exist anymore) or has an invalid/missing replacement.
                 $message = "The property $name is deprecated in $className and no replacement has been defined.";
                 @trigger_error($message, E_USER_DEPRECATED);
-                throw new \LogicException($message);
+                throw new LogicException($message);
             }
 
             // If the property does have a replacement.

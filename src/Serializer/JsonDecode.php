@@ -18,6 +18,10 @@
 
 namespace Apigee\Edge\Serializer;
 
+use const E_USER_DEPRECATED;
+
+use function is_array;
+
 use Symfony\Component\Serializer\Encoder\JsonDecode as BaseJsonDecode;
 
 /**
@@ -58,8 +62,8 @@ final class JsonDecode extends BaseJsonDecode
      */
     public function __construct($defaultContext = [], int $depth = 512)
     {
-        if (!\is_array($defaultContext)) {
-            @trigger_error(sprintf('Using constructor parameters that are not a default context is deprecated since Symfony 4.2, use the "%s" and "%s" keys of the context instead.', self::ASSOCIATIVE, self::RECURSION_DEPTH), \E_USER_DEPRECATED);
+        if (!is_array($defaultContext)) {
+            @trigger_error(sprintf('Using constructor parameters that are not a default context is deprecated since Symfony 4.2, use the "%s" and "%s" keys of the context instead.', self::ASSOCIATIVE, self::RECURSION_DEPTH), E_USER_DEPRECATED);
 
             $defaultContext = [
                 self::ASSOCIATIVE => (bool) $defaultContext,

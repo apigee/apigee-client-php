@@ -66,7 +66,7 @@ class Client implements ClientInterface
 
     public const CONFIG_RETRY_PLUGIN_CONFIG = 'retry_plugin_config';
 
-    /** @var \Http\Message\UriFactory */
+    /** @var UriFactory */
     private $uriFactory;
 
     /** @var string|null */
@@ -79,7 +79,7 @@ class Client implements ClientInterface
      */
     private $endpoint;
 
-    /** @var \Http\Message\Authentication */
+    /** @var Authentication */
     private $authentication;
 
     /**
@@ -89,7 +89,7 @@ class Client implements ClientInterface
      */
     private $httpClientBuilder;
 
-    /** @var \Apigee\Edge\HttpClient\Utility\JournalInterface */
+    /** @var JournalInterface */
     private $journal;
 
     /** @var bool */
@@ -111,7 +111,7 @@ class Client implements ClientInterface
     /**
      * Client constructor.
      *
-     * @param \Http\Message\Authentication $authentication
+     * @param Authentication $authentication
      *   Authentication plugin.
      * @param string|null $endpoint
      *   The Apigee Edge API endpoint, including API version. Ex.: https://api.enterprise.apigee.com/v1 (which is the
@@ -136,8 +136,8 @@ class Client implements ClientInterface
      */
     public function __construct(
         Authentication $authentication,
-        string $endpoint = null,
-        array $options = []
+        ?string $endpoint = null,
+        array $options = [],
     ) {
         $this->authentication = $authentication;
         $this->endpoint = $endpoint ?: self::EDGE_ENDPOINT;
@@ -248,7 +248,7 @@ class Client implements ClientInterface
     /**
      * Sets default for supported configuration options.
      *
-     * @param \Symfony\Component\OptionsResolver\OptionsResolver $resolver
+     * @param OptionsResolver $resolver
      *   Option resolver.
      */
     protected function configureOptions(OptionsResolver $resolver): void
@@ -387,7 +387,7 @@ class Client implements ClientInterface
     /**
      * {@inheritdoc}
      *
-     * @throws \Http\Client\Exception
+     * @throws Exception
      */
     private function send($method, $uri, array $headers = [], $body = null): ResponseInterface
     {
@@ -397,7 +397,7 @@ class Client implements ClientInterface
     /**
      * Returns Apigee Edge endpoint as an URI.
      *
-     * @return \Psr\Http\Message\UriInterface
+     * @return UriInterface
      */
     private function getBaseUri(): UriInterface
     {

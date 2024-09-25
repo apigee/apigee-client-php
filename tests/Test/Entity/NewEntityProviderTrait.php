@@ -25,7 +25,7 @@ trait NewEntityProviderTrait
     /**
      * Returns a new entity for testing.
      *
-     * @return \Apigee\Edge\Entity\EntityInterface
+     * @return EntityInterface
      */
     abstract protected static function getNewEntity(): EntityInterface;
 }

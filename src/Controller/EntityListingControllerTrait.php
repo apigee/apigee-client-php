@@ -44,7 +44,7 @@ trait EntityListingControllerTrait
         $entities = [];
 
         foreach ($responseArray as $item) {
-            //Adding id for ApigeeX.
+            // Adding id for ApigeeX.
             if (!isset($item->id)) {
                 $item->id = $item->name ?? null;
             }

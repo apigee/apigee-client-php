@@ -23,6 +23,7 @@ use Apigee\Edge\Tests\Test\Entity\NewEntityProviderTrait;
 use Apigee\Edge\Tests\Test\EntitySerializer\EntitySerializerAwareTestTrait;
 use Apigee\Edge\Tests\Test\EntitySerializer\EntitySerializerValidatorAwareTrait;
 use DMS\PHPUnitExtensions\ArraySubset\Assert;
+use stdClass;
 
 /**
  * Validates controllers that support entity create operations.
@@ -67,7 +68,7 @@ trait EntityCreateOperationControllerTestTrait
     {
     }
 
-    protected function alterObjectsBeforeCompareResponseAndCreatedEntity(\stdClass &$responseObject, EntityInterface $created): void
+    protected function alterObjectsBeforeCompareResponseAndCreatedEntity(stdClass &$responseObject, EntityInterface $created): void
     {
     }
 
@@ -79,7 +80,7 @@ trait EntityCreateOperationControllerTestTrait
     /**
      * Controller for entity create operation testing.
      *
-     * @return \Apigee\Edge\Tests\Test\Controller\EntityCreateOperationTestControllerTesterInterface
+     * @return EntityCreateOperationTestControllerTesterInterface
      */
     protected static function controllerForEntityCreate(): EntityCreateOperationTestControllerTesterInterface
     {

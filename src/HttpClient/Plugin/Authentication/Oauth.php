@@ -75,7 +75,7 @@ class Oauth extends AbstractOauth
      *   Apigee Edge username (email).
      * @param string $password
      *   Apigee Edge password.
-     * @param \Apigee\Edge\HttpClient\Plugin\Authentication\OauthTokenStorageInterface $tokenStorage
+     * @param OauthTokenStorageInterface $tokenStorage
      *   Storage where access token gets saved.
      * @param string|null $mfaToken
      *   One-time multi-factor authentication code.

@@ -37,7 +37,7 @@ abstract class AcceptedRatePlan extends Entity implements AcceptedRatePlanInterf
     /** @var string|null */
     protected $lastModifiedAt;
 
-    /** @var \Apigee\Edge\Api\ApigeeX\Entity\RatePlanInterface|null */
+    /** @var RatePlanInterface|null */
     protected $ratePlan;
 
     /**

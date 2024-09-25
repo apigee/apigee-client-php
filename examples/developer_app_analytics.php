@@ -33,7 +33,7 @@ $developerAppName = getenv('APIGEE_EDGE_PHP_EXAMPLE_DEVELOPER_APP_NAME') ?: 'tes
 
 try {
     $dc = new DeveloperController($clientFactory->getOrganization(), $clientFactory->getClient());
-    /** @var \Apigee\Edge\Api\Management\Entity\DeveloperInterface $developer */
+    /** @var Apigee\Edge\Api\Management\Entity\DeveloperInterface $developer */
     $developer = $dc->load($developerMail);
 } catch (ClientErrorException $e) {
     // HTTP code >= 400 and < 500. Ex.: 401 Unauthorised.
@@ -52,7 +52,7 @@ try {
     // Anything else, because this is the parent class of all the above.
 }
 
-$sc = new \Apigee\Edge\Api\Management\Controller\StatsController($environment, $clientFactory->getOrganization(), $clientFactory->getClient());
+$sc = new Apigee\Edge\Api\Management\Controller\StatsController($environment, $clientFactory->getOrganization(), $clientFactory->getClient());
 // Read more about Period library usage here: http://period.thephpleague.com/3.0
 $q = new StatsQuery(['total_response_time'], new Period('now - 7 days', 'now'));
 $q->setFilter("(developer_email eq '{$developer->getEmail()}' and developer_app eq '{$developerAppName}')")

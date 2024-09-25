@@ -24,6 +24,7 @@ use Apigee\Edge\Tests\Test\Controller\EntityControllerAwareTestTrait;
 use Apigee\Edge\Tests\Test\Controller\EntityControllerTesterInterface;
 use Apigee\Edge\Tests\Test\Controller\EntityCreateOperationTestControllerAwareTrait;
 use Apigee\Edge\Tests\Test\Utility\EntityStorage;
+use InvalidArgumentException;
 use PHPUnit\Framework\Assert;
 
 trait NonPaginatedEntityIdListingControllerTestTrait
@@ -55,13 +56,13 @@ trait NonPaginatedEntityIdListingControllerTestTrait
     /**
      * Controller for non-paginated entity id listing operation testing.
      *
-     * @return \Apigee\Edge\Tests\Test\Controller\EntityControllerTesterInterface|\Apigee\Edge\Controller\NonPaginatedEntityIdListingControllerInterface
+     * @return EntityControllerTesterInterface|NonPaginatedEntityIdListingControllerInterface
      */
     protected static function controllerForNonPaginatedEntityIdListing(): EntityControllerTesterInterface
     {
         $controller = static::entityController();
         if ($controller->instanceOf(NonPaginatedEntityIdListingControllerInterface::class)) {
-            throw new \InvalidArgumentException('Controller must implements NonPaginatedEntityIdListingControllerInterface.');
+            throw new InvalidArgumentException('Controller must implements NonPaginatedEntityIdListingControllerInterface.');
         }
 
         return $controller;

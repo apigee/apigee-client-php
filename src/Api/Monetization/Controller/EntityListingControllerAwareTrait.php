@@ -24,7 +24,7 @@ use Psr\Http\Message\UriInterface;
 /**
  * Trait EntityListingControllerAwareTrait.
  *
- * @see \Apigee\Edge\Api\Monetization\Controller\EntityListingControllerInterface
+ * @see EntityListingControllerInterface
  */
 trait EntityListingControllerAwareTrait
 {

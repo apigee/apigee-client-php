@@ -21,7 +21,7 @@ namespace Apigee\Edge\Entity\Property;
 /**
  * Trait AppsPropertyAwareTrait.
  *
- * @see \Apigee\Edge\Entity\Property\AppsPropertyInterface
+ * @see AppsPropertyInterface
  */
 trait AppsPropertyAwareTrait
 {

@@ -21,7 +21,7 @@ namespace Apigee\Edge\Api\Management\Controller;
 /**
  * Trait CompanyAwareControllerTrait.
  *
- * @see \Apigee\Edge\Api\Management\Controller\CompanyAwareControllerInterface
+ * @see CompanyAwareControllerInterface
  */
 trait CompanyAwareControllerTrait
 {

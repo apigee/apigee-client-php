@@ -28,7 +28,7 @@ interface EntityDeleteOperationControllerInterface
      * @param string $entityId
      *   ID of the entity to be deleted.
      *
-     * @return \Apigee\Edge\Entity\EntityInterface
+     * @return EntityInterface
      *   The deleted entity.
      */
     public function delete(string $entityId): EntityInterface;

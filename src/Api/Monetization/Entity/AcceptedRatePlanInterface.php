@@ -20,6 +20,7 @@ namespace Apigee\Edge\Api\Monetization\Entity;
 
 use Apigee\Edge\Api\Monetization\Entity\Property\EndDatePropertyInterface;
 use Apigee\Edge\Api\Monetization\Entity\Property\StartDatePropertyInterface;
+use DateTimeImmutable;
 
 interface AcceptedRatePlanInterface extends
     EntityInterface,
@@ -27,14 +28,14 @@ interface AcceptedRatePlanInterface extends
     StartDatePropertyInterface
 {
     /**
-     * @return \DateTimeImmutable|null
+     * @return DateTimeImmutable|null
      */
-    public function getUpdated(): ?\DateTimeImmutable;
+    public function getUpdated(): ?DateTimeImmutable;
 
     /**
-     * @return \DateTimeImmutable|null
+     * @return DateTimeImmutable|null
      */
-    public function getCreated(): ?\DateTimeImmutable;
+    public function getCreated(): ?DateTimeImmutable;
 
     /**
      * @return int|null
@@ -47,32 +48,32 @@ interface AcceptedRatePlanInterface extends
     public function setQuotaTarget(int $quotaTarget): void;
 
     /**
-     * @return \Apigee\Edge\Api\Monetization\Entity\RatePlanInterface
+     * @return RatePlanInterface
      */
     public function getRatePlan(): RatePlanInterface;
 
     /**
-     * @param \Apigee\Edge\Api\Monetization\Entity\RatePlanInterface $ratePlan
+     * @param RatePlanInterface $ratePlan
      */
     public function setRatePlan(RatePlanInterface $ratePlan): void;
 
     /**
-     * @return \DateTimeImmutable|null
+     * @return DateTimeImmutable|null
      */
-    public function getRenewalDate(): ?\DateTimeImmutable;
+    public function getRenewalDate(): ?DateTimeImmutable;
 
     /**
-     * @return \DateTimeImmutable|null
+     * @return DateTimeImmutable|null
      */
-    public function getNextCycleStartDate(): ?\DateTimeImmutable;
+    public function getNextCycleStartDate(): ?DateTimeImmutable;
 
     /**
-     * @return \DateTimeImmutable|null
+     * @return DateTimeImmutable|null
      */
-    public function getNextRecurringFeeDate(): ?\DateTimeImmutable;
+    public function getNextRecurringFeeDate(): ?DateTimeImmutable;
 
     /**
-     * @return \DateTimeImmutable|null
+     * @return DateTimeImmutable|null
      */
-    public function getPrevRecurringFeeDate(): ?\DateTimeImmutable;
+    public function getPrevRecurringFeeDate(): ?DateTimeImmutable;
 }

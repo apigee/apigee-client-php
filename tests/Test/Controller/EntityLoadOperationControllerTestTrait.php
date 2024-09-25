@@ -22,6 +22,7 @@ use Apigee\Edge\Entity\EntityInterface;
 use Apigee\Edge\Entity\Property\DescriptionPropertyInterface;
 use Apigee\Edge\Tests\Test\EntitySerializer\EntitySerializerAwareTestTrait;
 use Apigee\Edge\Tests\Test\EntitySerializer\EntitySerializerValidatorAwareTrait;
+use stdClass;
 
 /**
  * Validates controllers that support entity load operations.
@@ -37,7 +38,7 @@ trait EntityLoadOperationControllerTestTrait
     /**
      * @depends testCreate
      *
-     * @param \Apigee\Edge\Entity\EntityInterface $created
+     * @param EntityInterface $created
      */
     public function testLoad(EntityInterface $created): EntityInterface
     {
@@ -61,14 +62,14 @@ trait EntityLoadOperationControllerTestTrait
         $this->entitySerializerValidator()->validate($expectedAsObject, $actual);
     }
 
-    protected function alterObjectsBeforeCompareExpectedAndLoadedEntity(\stdClass &$expectedAsObject, EntityInterface $loaded): void
+    protected function alterObjectsBeforeCompareExpectedAndLoadedEntity(stdClass &$expectedAsObject, EntityInterface $loaded): void
     {
     }
 
     /**
      * Controller for entity load operation testing.
      *
-     * @return \Apigee\Edge\Tests\Test\Controller\EntityLoadOperationControllerTesterInterface
+     * @return EntityLoadOperationControllerTesterInterface
      */
     protected static function controllerForEntityLoad(): EntityLoadOperationControllerTesterInterface
     {

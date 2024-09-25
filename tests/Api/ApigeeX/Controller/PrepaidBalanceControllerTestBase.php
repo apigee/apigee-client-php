@@ -22,6 +22,7 @@ use Apigee\Edge\Tests\Api\ApigeeX\EntitySerializer\PrepaidBalanceSerializerValid
 use Apigee\Edge\Tests\Test\Controller\MockClientAwareTrait;
 use Apigee\Edge\Tests\Test\EntitySerializer\EntitySerializerValidatorInterface;
 use GuzzleHttp\Psr7\Response;
+use ReflectionObject;
 
 /**
  * Base class for developer prepaid balance tests.
@@ -87,10 +88,10 @@ abstract class PrepaidBalanceControllerTestBase extends EntityControllerTestBase
         $json = reset($json);
         $i = 0;
         // We need to prepaid balance serializer from the controller.
-        $ro = new \ReflectionObject(static::entityController());
+        $ro = new ReflectionObject(static::entityController());
         $property = $ro->getProperty('decorated');
         $property->setAccessible(true);
-        $ro = new \ReflectionObject($property->getValue(static::entityController()));
+        $ro = new ReflectionObject($property->getValue(static::entityController()));
         $rp = $ro->getProperty('prepaidBalanceSerializer');
         $rp->setAccessible(true);
         $validator = new PrepaidBalanceSerializerValidator($rp->getValue($property->getValue(static::entityController())));

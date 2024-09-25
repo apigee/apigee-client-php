@@ -22,7 +22,11 @@ use Apigee\Edge\Api\Monetization\Entity\EntityInterface;
 use Apigee\Edge\Tests\Test\Controller\DefaultAPIClientAwareTrait;
 use Apigee\Edge\Tests\Test\Controller\EntityControllerAwareTestTrait;
 use Apigee\Edge\Tests\Test\EntitySerializer\EntitySerializerAwareTestTrait;
+use DateTimeImmutable;
+use DateTimeInterface;
+use DateTimeZone;
 use PHPUnit\Framework\Assert;
+use ReflectionObject;
 
 trait TimezoneConversionTestTrait
 {
@@ -60,7 +64,7 @@ trait TimezoneConversionTestTrait
 
             // Change value of timezone, use the current timezone instead of
             // the org's timezone.
-            $entity->{$setter}(\DateTimeImmutable::createFromFormat(EntityInterface::DATE_FORMAT, '2017-12-31 16:15:59'));
+            $entity->{$setter}(DateTimeImmutable::createFromFormat(EntityInterface::DATE_FORMAT, '2017-12-31 16:15:59'));
             $this->assertEquals($currentTimezone, $entity->{$getter}()->getTimezone()->getName());
         }
         // Ensure the serializer converts the value of date properties to org's
@@ -83,11 +87,11 @@ trait TimezoneConversionTestTrait
      * aware entity, but it could happen that it does not, ex.: rate plans.
      * On Rate Plans the parent API package contains the organization reference.
      *
-     * @param \Apigee\Edge\Api\Monetization\Entity\EntityInterface $entity
+     * @param EntityInterface $entity
      *
-     * @return \DateTimeZone
+     * @return DateTimeZone
      */
-    protected function getOrganizationTimezoneFromEntity(EntityInterface $entity): \DateTimeZone
+    protected function getOrganizationTimezoneFromEntity(EntityInterface $entity): DateTimeZone
     {
         /* @var \Apigee\Edge\Api\Monetization\Entity\OrganizationAwareEntityInterface $entity */
         return $entity->getOrganization()->getTimezone();
@@ -96,7 +100,7 @@ trait TimezoneConversionTestTrait
     /**
      * Collect all date properties from entity (non-recursively) with reflection.
      *
-     * @param \Apigee\Edge\Api\Monetization\Entity\EntityInterface $entity
+     * @param EntityInterface $entity
      *
      * @return string[]
      *   Array of property names.
@@ -105,11 +109,11 @@ trait TimezoneConversionTestTrait
     {
         $properties = [];
 
-        $ro = new \ReflectionObject($entity);
+        $ro = new ReflectionObject($entity);
         foreach ($ro->getProperties() as $property) {
             $property->setAccessible(true);
             $value = $property->getValue($entity);
-            if ($value instanceof \DateTimeInterface) {
+            if ($value instanceof DateTimeInterface) {
                 $properties[] = $property->getName();
             }
         }

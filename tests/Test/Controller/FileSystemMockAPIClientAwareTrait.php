@@ -26,11 +26,11 @@ trait FileSystemMockAPIClientAwareTrait
     /**
      * Returns mock API client that reads API responses from the file system.
      *
-     * @return \Apigee\Edge\Tests\Test\FileSystemMockClient
+     * @return FileSystemMockClient
      */
     protected static function fileSystemMockClient(): FileSystemMockClient
     {
-        /** @var \Apigee\Edge\Tests\Test\FileSystemMockClient $client */
+        /** @var FileSystemMockClient $client */
         $client = TestClientFactory::getClient(FileSystemMockClient::class);
 
         return $client;

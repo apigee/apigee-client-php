@@ -35,9 +35,9 @@ class CompanyReportDefinitionController extends LegalEntityReportDefinitionContr
      *
      * @param string $developerId
      * @param string $organization
-     * @param \Apigee\Edge\ClientInterface $client
-     * @param \Apigee\Edge\Api\Monetization\Controller\ReportDefinitionControllerInterface|null $reportDefinitionController
-     * @param \Apigee\Edge\Serializer\EntitySerializerInterface|null $entitySerializer
+     * @param ClientInterface $client
+     * @param ReportDefinitionControllerInterface|null $reportDefinitionController
+     * @param EntitySerializerInterface|null $entitySerializer
      */
     public function __construct(string $developerId, string $organization, ClientInterface $client, ?ReportDefinitionControllerInterface $reportDefinitionController = null, ?EntitySerializerInterface $entitySerializer = null)
     {

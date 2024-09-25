@@ -21,6 +21,7 @@ namespace Apigee\Edge\Tests\Api\Management\Controller;
 use Apigee\Edge\Api\Management\Controller\OrganizationController;
 use Apigee\Edge\Tests\Test\Controller\ControllerTestBase;
 use Apigee\Edge\Tests\Test\Controller\FileSystemMockAPIClientAwareTrait;
+use DateTimeImmutable;
 
 /**
  * Class OrganizationControllerTest.
@@ -50,8 +51,8 @@ class OrganizationControllerTest extends ControllerTestBase
         $this->assertTrue($entity->hasProperty('self.service.virtual.host.enabled'));
         $this->assertEquals('true', $entity->getPropertyValue('features.isCpsEnabled'));
         $this->assertEquals('trial', $entity->getType());
-        $this->assertEquals(new \DateTimeImmutable('@648345600'), $entity->getCreatedAt());
-        $this->assertEquals(new \DateTimeImmutable('@648345600'), $entity->getLastModifiedAt());
+        $this->assertEquals(new DateTimeImmutable('@648345600'), $entity->getCreatedAt());
+        $this->assertEquals(new DateTimeImmutable('@648345600'), $entity->getLastModifiedAt());
         $this->assertEquals('phpunit@example.com', $entity->getCreatedBy());
         $this->assertEquals('phpunit@example.com', $entity->getLastModifiedBy());
     }

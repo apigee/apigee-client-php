@@ -18,12 +18,14 @@
 
 namespace Apigee\Edge\Structure;
 
+use IteratorAggregate;
+
 /**
  * Interface KeyValueMapInterface.
  *
  * @extends \IteratorAggregate<string, array>
  */
-interface KeyValueMapInterface extends \IteratorAggregate
+interface KeyValueMapInterface extends IteratorAggregate
 {
     /**
      * Returns values from the store.

@@ -30,7 +30,7 @@ use Apigee\Edge\Serializer\EntitySerializerInterface;
 trait EntitySerializerAwareTrait
 {
     /**
-     * @return \Apigee\Edge\Serializer\EntitySerializerInterface
+     * @return EntitySerializerInterface
      */
     abstract protected function getEntitySerializer(): EntitySerializerInterface;
 }

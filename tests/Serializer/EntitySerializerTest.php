@@ -27,11 +27,19 @@ use Apigee\Edge\Normalizer\EdgeDateNormalizer;
 use Apigee\Edge\Normalizer\PropertiesPropertyNormalizer;
 use Apigee\Edge\Serializer\EntitySerializer;
 use Apigee\Edge\Tests\Test\Entity\MockEntity;
+use DateTimeImmutable;
 use GuzzleHttp\Psr7\Response;
 use GuzzleHttp\Psr7\Utils;
+
+use const PHP_VERSION_ID;
+
 use PHPUnit\Framework\TestCase;
+use ReflectionObject;
+use ReflectionProperty;
 use SebastianBergmann\Comparator\ComparisonFailure;
 use SebastianBergmann\Comparator\Factory as ComparisonFactory;
+use stdClass;
+use TypeError;
 
 /**
  * Class EntityTransformationTest.
@@ -44,11 +52,12 @@ use SebastianBergmann\Comparator\Factory as ComparisonFactory;
  *
  * @group normalizer
  * @group denormalizer
+ *
  * @small
  */
 class EntitySerializerTest extends TestCase
 {
-    /** @var \Apigee\Edge\Serializer\EntitySerializer */
+    /** @var EntitySerializer */
     protected static $serializer;
 
     /**
@@ -93,7 +102,7 @@ class EntitySerializerTest extends TestCase
         $this->assertEquals('foo', $normalized->appCredential[0]->apiProducts[0]->apiproduct);
         $this->assertEquals('foo', $normalized->appCredential[0]->attributes[0]->name);
         $this->assertObjectNotHasAttribute('date', $normalized);
-        $date = new \DateTimeImmutable();
+        $date = new DateTimeImmutable();
         $entity->setDate($date);
         $normalized = static::$serializer->normalize($entity);
         $this->assertEquals($entity->getDate()->getTimestamp() * 1000, $normalized->date);
@@ -104,13 +113,13 @@ class EntitySerializerTest extends TestCase
     /**
      * @depends testNormalize
      *
-     * @param \stdClass $normalized
+     * @param stdClass $normalized
      */
     public function testDenormalize(mixed $normalized): void
     {
         // Set value of this nullable value to ensure that a special condition is triggered in the EntityDenormalizer.
         $normalized->nullable = null;
-        /** @var \Apigee\Edge\Tests\Test\Entity\MockEntity $object */
+        /** @var MockEntity $object */
         $object = static::$serializer->denormalize($normalized, MockEntity::class);
         $this->assertTrue(true === $object->isBool());
         $this->assertTrue(2 === $object->getInt());
@@ -127,7 +136,7 @@ class EntitySerializerTest extends TestCase
         $this->assertNull($object->getAppCredential()[0]->getExpiresAt());
         $this->assertEquals('foo', $object->getAppCredential()[0]->getApiProducts()[0]->getApiproduct());
         $this->assertEquals('bar', $object->getAppCredential()[0]->getAttributeValue('foo'));
-        $this->assertEquals(new \DateTimeImmutable('@' . $normalized->date / 1000), $object->getDate());
+        $this->assertEquals(new DateTimeImmutable('@' . $normalized->date / 1000), $object->getDate());
         $renormalized = static::$serializer->normalize($object);
         // Unset it to ensure that the two objects can be equal.
         unset($normalized->nullable);
@@ -160,10 +169,10 @@ class EntitySerializerTest extends TestCase
         $this->assertEquals($response->variableLengthArgs, $entity->getVariableLengthArgs());
         // These properties should not change.
         $this->assertEquals($original->getPropertyWithoutSetter(), $entity->getPropertyWithoutSetter());
-        $roOriginal = new \ReflectionObject($original);
-        $roEntity = new \ReflectionObject($entity);
-        /** @var \ReflectionProperty $originalProperty */
-        /** @var \ReflectionProperty $entityProperty */
+        $roOriginal = new ReflectionObject($original);
+        $roEntity = new ReflectionObject($entity);
+        /** @var ReflectionProperty $originalProperty */
+        /** @var ReflectionProperty $entityProperty */
         $originalProperty = $roOriginal->getProperty('propertyWithoutGetter');
         $originalProperty->setAccessible(true);
         $entityProperty = $roEntity->getProperty('propertyWithoutGetter');
@@ -181,11 +190,11 @@ class EntitySerializerTest extends TestCase
 
     public function testSetPropertiesFromResponseWithInvalidValue(): void
     {
-        if (\PHP_VERSION_ID < 80000) {
+        if (PHP_VERSION_ID < 80000) {
             $this->expectException('\Symfony\Component\Serializer\Exception\NotNormalizableValueException');
             $this->expectExceptionMessage('Expected argument of type "string", "object" given.');
         } else {
-            $this->expectException(\TypeError::class);
+            $this->expectException(TypeError::class);
             $this->expectExceptionMessage('Argument #1 must be of type string, stdClass given');
         }
 

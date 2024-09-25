@@ -27,6 +27,6 @@ class CompanyPaymentTransactionNameConverter extends PaymentTransactionNameConve
     {
         return parent::getExternalToLocalMapping() + [
             'developer' => 'company',
-            ];
+        ];
     }
 }

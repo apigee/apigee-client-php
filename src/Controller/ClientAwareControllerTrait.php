@@ -32,7 +32,7 @@ trait ClientAwareControllerTrait
     /**
      * The API client.
      *
-     * @return \Apigee\Edge\ClientInterface
+     * @return ClientInterface
      */
     abstract protected function getClient(): ClientInterface;
 }

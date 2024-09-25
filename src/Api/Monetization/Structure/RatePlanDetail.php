@@ -207,7 +207,7 @@ final class RatePlanDetail extends BaseObject implements
     }
 
     /**
-     * @param \Apigee\Edge\Api\Monetization\Structure\RatePlanRate ...$ratePlanRates
+     * @param RatePlanRate ...$ratePlanRates
      */
     public function setRatePlanRates(RatePlanRate ...$ratePlanRates): void
     {

@@ -39,17 +39,17 @@ class EntityNormalizer extends ObjectNormalizer
     public const MINT_ENTITY_REFERENCE_PROPERTY_VALUES = 'mint_entity_reference_values';
 
     /**
-     * @var \Symfony\Component\Serializer\NameConverter\NameConverterInterface|null
+     * @var NameConverterInterface|null
      */
     protected $nameConverter;
 
     /**
      * EntityNormalizer constructor.
      *
-     * @param \Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface|null $classMetadataFactory
-     * @param \Symfony\Component\Serializer\NameConverter\NameConverterInterface|null $nameConverter
-     * @param \Symfony\Component\PropertyAccess\PropertyAccessorInterface|null $propertyAccessor
-     * @param \Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface|null $propertyTypeExtractor
+     * @param ClassMetadataFactoryInterface|null $classMetadataFactory
+     * @param NameConverterInterface|null $nameConverter
+     * @param PropertyAccessorInterface|null $propertyAccessor
+     * @param PropertyTypeExtractorInterface|null $propertyTypeExtractor
      */
     public function __construct(?ClassMetadataFactoryInterface $classMetadataFactory = null, ?NameConverterInterface $nameConverter = null, ?PropertyAccessorInterface $propertyAccessor = null, ?PropertyTypeExtractorInterface $propertyTypeExtractor = null)
     {
@@ -75,7 +75,7 @@ class EntityNormalizer extends ObjectNormalizer
                 // only the referenced entity id.
                 if (isset($normalized[$normalizedProperty]->apiProduct)) {
                     $normalized = [
-                       'apiproduct' => $normalized[$normalizedProperty]->apiProduct,
+                        'apiproduct' => $normalized[$normalizedProperty]->apiProduct,
                     ];
                 } elseif (isset($normalized[$normalizedProperty]->id)) {
                     $normalized[$normalizedProperty] = [

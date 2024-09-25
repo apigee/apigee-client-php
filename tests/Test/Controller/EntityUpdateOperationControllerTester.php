@@ -21,6 +21,7 @@ namespace Apigee\Edge\Tests\Test\Controller;
 use Apigee\Edge\Controller\EntityUpdateOperationControllerInterface;
 use Apigee\Edge\Entity\EntityInterface;
 use Apigee\Edge\Tests\Test\Utility\EntityStorage;
+use InvalidArgumentException;
 
 final class EntityUpdateOperationControllerTester extends EntityControllerTesterBase implements EntityUpdateOperationControllerTesterInterface
 {
@@ -44,7 +45,7 @@ final class EntityUpdateOperationControllerTester extends EntityControllerTester
         parent::validateController($controller);
         if (!$controller instanceof EntityUpdateOperationControllerInterface && !$controller instanceof EntityControllerTesterInterface) {
             $class = get_class($controller);
-            throw new \InvalidArgumentException("Controller must implement EntityUpdateControllerOperationInterface or EntityControllerTesterInterface. Got {$class}.");
+            throw new InvalidArgumentException("Controller must implement EntityUpdateControllerOperationInterface or EntityControllerTesterInterface. Got {$class}.");
         }
     }
 }

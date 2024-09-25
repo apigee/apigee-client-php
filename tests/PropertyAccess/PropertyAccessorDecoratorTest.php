@@ -20,17 +20,23 @@ namespace Apigee\Edge\Tests\PropertyAccess;
 
 use Apigee\Edge\Exception\UnexpectedValueException;
 use Apigee\Edge\PropertyAccess\PropertyAccessorDecorator;
+use Exception;
+
+use const PHP_VERSION_ID;
+
+use ReflectionClass;
 use Symfony\Component\PropertyAccess\Exception\AccessException;
 use Symfony\Component\PropertyAccess\Exception\InvalidArgumentException;
 use Symfony\Component\PropertyAccess\PropertyAccessor;
 use Symfony\Component\PropertyAccess\Tests\PropertyAccessorTest;
+use TypeError;
 
 class PropertyAccessorDecoratorTest extends PropertyAccessorTest
 {
     use PhpUnitBcBridgeTrait;
 
     /**
-     * @var \Apigee\Edge\PropertyAccess\PropertyAccessorDecorator
+     * @var PropertyAccessorDecorator
      */
     private $propertyAccessor;
 
@@ -43,7 +49,7 @@ class PropertyAccessorDecoratorTest extends PropertyAccessorTest
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-        static::$testObj = new class() {
+        static::$testObj = new class {
             /** @var string[] */
             private $shouldBeAStringArray;
 
@@ -116,7 +122,7 @@ class PropertyAccessorDecoratorTest extends PropertyAccessorTest
         // Killing some kittens but still better than copy-pasting all tests
         // from parent. Our decorator must work the same as the decorated
         // class.
-        $ro = new \ReflectionClass(PropertyAccessorTest::class);
+        $ro = new ReflectionClass(PropertyAccessorTest::class);
         $property = $ro->getProperty('propertyAccessor');
         $property->setAccessible(true);
         $property->setValue($this, $this->propertyAccessor);
@@ -125,11 +131,11 @@ class PropertyAccessorDecoratorTest extends PropertyAccessorTest
     /**
      * @dataProvider exceptionsToGetOnGetValue
      */
-    public function testGetValueWithInvalidReturns(string $property, string $expectedException, string $expectedExceptionMessageRegexp = null): void
+    public function testGetValueWithInvalidReturns(string $property, string $expectedException, ?string $expectedExceptionMessageRegexp = null): void
     {
         try {
             $this->propertyAccessor->getValue(static::$testObj, $property);
-        } catch (\Exception | \TypeError $exception) {
+        } catch (Exception|TypeError $exception) {
             $this->assertInstanceOf($expectedException, $exception);
             if (null !== $expectedExceptionMessageRegexp) {
                 $this->assertMatchesRegularExpression($expectedExceptionMessageRegexp, $exception->getMessage());
@@ -159,7 +165,7 @@ class PropertyAccessorDecoratorTest extends PropertyAccessorTest
     {
         try {
             $this->propertyAccessor->setValue(static::$testObj, $property, $value);
-        } catch (\Exception | \TypeError $exception) {
+        } catch (Exception|TypeError $exception) {
             $this->assertInstanceOf($expectedException, $exception);
             $this->assertMatchesRegularExpression($expectedExceptionMessage, $exception->getMessage());
         } finally {
@@ -182,16 +188,15 @@ class PropertyAccessorDecoratorTest extends PropertyAccessorTest
         // https://github.com/symfony/property-access/commit/e1a6c91c0007e45bc1beba929c76548ca9fe8a85
 
         $shouldBeAString = ['shouldBeAStringArray', AccessException::class];
-        if (\PHP_VERSION_ID < 80000) {
+        if (PHP_VERSION_ID < 80000) {
             return [
                 $shouldBeAString,
                 ['shouldBeAString', UnexpectedValueException::class, '/Invalid value returned for shouldBeAString property on instance of class@anonymous.* class. Expected type "string", got "stdClass".$/'],
             ];
-        }
-        else{
+        } else {
             return [
                 $shouldBeAString,
-                ['shouldBeAString', \TypeError::class, '/Return value must be of type string, stdClass returned/'],
+                ['shouldBeAString', TypeError::class, '/Return value must be of type string, stdClass returned/'],
             ];
         }
     }
@@ -199,14 +204,13 @@ class PropertyAccessorDecoratorTest extends PropertyAccessorTest
     public function exceptionsToGetOnSetValue(): array
     {
         // We will be checking the php version as the exception returned in php 8 is different from php 7.
-        if (\PHP_VERSION_ID < 80000) {
+        if (PHP_VERSION_ID < 80000) {
             return [
                 ['shouldBeAStringArray', [null], InvalidArgumentException::class, '/^Expected argument of type "string", "null" given/'],
             ];
-        }
-        else {
+        } else {
             return [
-                ['shouldBeAStringArray', [null], \TypeError::class, '/Argument #1 must be of type string, null given/'],
+                ['shouldBeAStringArray', [null], TypeError::class, '/Argument #1 must be of type string, null given/'],
             ];
         }
     }

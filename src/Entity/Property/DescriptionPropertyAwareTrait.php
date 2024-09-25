@@ -21,7 +21,7 @@ namespace Apigee\Edge\Entity\Property;
 /**
  * Trait DescriptionPropertyAwareTrait.
  *
- * @see \Apigee\Edge\Entity\Property\DescriptionPropertyInterface
+ * @see DescriptionPropertyInterface
  */
 trait DescriptionPropertyAwareTrait
 {

@@ -23,6 +23,7 @@ use Apigee\Edge\Api\Monetization\Structure\LegalEntityTermsAndConditionsHistoryI
 use Apigee\Edge\Serializer\JsonEncoder;
 use Apigee\Edge\Tests\Test\Controller\MockClientAwareTrait;
 use Apigee\Edge\Tests\Test\HttpClient\FileSystemResponseFactory;
+use DateTimeImmutable;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 
@@ -68,9 +69,9 @@ abstract class LegalEntityTermsAndConditionsControllerTestBase extends EntityCon
             // Action does not matter because we do not validate it.
             'action' => LegalEntityTermsAndConditionsHistoryItem::ACTION_ACCEPTED,
             'id' => static::randomGenerator()->machineName(),
-            'auditDate' => static::entitySerializer()->normalize(new \DateTimeImmutable('now'), 'json'),
+            'auditDate' => static::entitySerializer()->normalize(new DateTimeImmutable('now'), 'json'),
             'tnc' => $encoder->decode((string) (new FileSystemResponseFactory())->createResponseForRequest(new Request('GET', 'v1/mint/organizations/phpunit/tncs/phpunit'))->getBody(), 'json'),
-            ], 'json');
+        ], 'json');
         $httpClient->setDefaultResponse(new Response(200, ['Content-Type' => 'application/json'], $mockResponse));
 
         $controller->acceptTermsAndConditionsById($tncId);

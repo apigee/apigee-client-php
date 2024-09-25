@@ -21,6 +21,7 @@ namespace Apigee\Edge\Exception;
 use Http\Message\Formatter;
 use Http\Message\Formatter\FullHttpMessageFormatter;
 use Psr\Http\Message\RequestInterface;
+use Throwable;
 
 /**
  * Exception for when a request failed, providing access to the failed request.
@@ -30,27 +31,27 @@ use Psr\Http\Message\RequestInterface;
  */
 class ApiRequestException extends ApiException
 {
-    /** @var \Psr\Http\Message\RequestInterface */
+    /** @var RequestInterface */
     protected $request;
 
-    /** @var \Http\Message\Formatter */
+    /** @var Formatter */
     protected $formatter;
 
     /**
      * ApiException constructor.
      *
-     * @param \Psr\Http\Message\RequestInterface $request
+     * @param RequestInterface $request
      * @param string $message
      * @param int $code
-     * @param \Throwable|null $previous
-     * @param \Http\Message\Formatter|null $formatter
+     * @param Throwable|null $previous
+     * @param Formatter|null $formatter
      */
     public function __construct(
         RequestInterface $request,
         string $message = '',
         int $code = 0,
-        \Throwable $previous = null,
-        Formatter $formatter = null
+        ?Throwable $previous = null,
+        ?Formatter $formatter = null,
     ) {
         $this->request = $request;
         $this->formatter = $formatter ?: new FullHttpMessageFormatter();
@@ -72,7 +73,7 @@ class ApiRequestException extends ApiException
     }
 
     /**
-     * @return \Psr\Http\Message\RequestInterface
+     * @return RequestInterface
      */
     public function getRequest(): RequestInterface
     {
@@ -80,7 +81,7 @@ class ApiRequestException extends ApiException
     }
 
     /**
-     * @return \Http\Message\Formatter
+     * @return Formatter
      */
     public function getFormatter(): Formatter
     {

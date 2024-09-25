@@ -35,7 +35,7 @@ class CompanyMembershipNormalizer implements NormalizerInterface
         $normalized = [
             'developer' => [],
         ];
-        /** @var \Apigee\Edge\Api\Management\Structure\CompanyMembership $object */
+        /** @var CompanyMembership $object */
         foreach ($object->getMembers() as $member => $role) {
             $normalized['developer'][] = (object) ['email' => $member, 'role' => $role];
         }

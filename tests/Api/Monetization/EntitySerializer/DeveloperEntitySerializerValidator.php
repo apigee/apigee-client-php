@@ -26,7 +26,7 @@ class DeveloperEntitySerializerValidator extends LegalEntitySerializerValidator
     /**
      * LegalEntitySerializerValidator constructor.
      *
-     * @param \Apigee\Edge\Serializer\EntitySerializerInterface $serializer
+     * @param EntitySerializerInterface $serializer
      * @param array $propertyValidators
      */
     public function __construct(EntitySerializerInterface $serializer, array $propertyValidators = [])

@@ -25,6 +25,7 @@ use Apigee\Edge\Tests\Test\EntitySerializer\EntitySerializerValidator;
 use Apigee\Edge\Tests\Test\EntitySerializer\EntitySerializerValidatorAwareTrait;
 use Apigee\Edge\Tests\Test\EntitySerializer\EntitySerializerValidatorInterface;
 use Apigee\Edge\Tests\Test\Utility\EntityStorage;
+use ReflectionObject;
 
 abstract class EntityControllerTestBase extends ControllerTestBase
 {
@@ -53,7 +54,7 @@ abstract class EntityControllerTestBase extends ControllerTestBase
         static::$validator = null;
     }
 
-    abstract protected static function entityController(ClientInterface $client = null): EntityControllerTesterInterface;
+    abstract protected static function entityController(?ClientInterface $client = null): EntityControllerTesterInterface;
 
     /**
      * {@inheritdoc}
@@ -63,10 +64,10 @@ abstract class EntityControllerTestBase extends ControllerTestBase
         if (null === static::$instance) {
             // TODO Find a better way to expose the entity serializer used by
             // a controller.
-            $ro = new \ReflectionObject(static::entityController());
+            $ro = new ReflectionObject(static::entityController());
             $property = $ro->getProperty('decorated');
             $property->setAccessible(true);
-            $ro = new \ReflectionObject($property->getValue(static::entityController()));
+            $ro = new ReflectionObject($property->getValue(static::entityController()));
             $rm = $ro->getMethod('getEntitySerializer');
             $rm->setAccessible(true);
 

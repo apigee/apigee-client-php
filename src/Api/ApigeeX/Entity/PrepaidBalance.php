@@ -25,7 +25,7 @@ class PrepaidBalance extends Entity implements PrepaidBalanceInterface
     /** @var string|null */
     protected $lastCreditTime;
 
-    /** @var \Apigee\Edge\Api\ApigeeX\Entity\Balance */
+    /** @var Balance */
     protected $balance;
 
     /**
@@ -37,7 +37,7 @@ class PrepaidBalance extends Entity implements PrepaidBalanceInterface
     }
 
     /**
-     * @param \Apigee\Edge\Api\ApigeeX\Entity\Balance $balance
+     * @param Balance $balance
      */
     public function setBalance(Balance $balance): void
     {

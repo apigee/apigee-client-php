@@ -27,6 +27,8 @@ use Apigee\Edge\Entity\Property\PropertiesPropertyAwareTrait;
 use Apigee\Edge\Entity\Property\RuntimeTypeAwareTrait;
 use Apigee\Edge\Structure\AddonsConfig;
 use Apigee\Edge\Structure\PropertiesProperty;
+use InvalidArgumentException;
+use ReflectionException;
 
 /**
  * Describes an Organization entity.
@@ -55,16 +57,16 @@ class Organization extends Entity implements OrganizationInterface
     protected $type;
 
     /**
-     * @var \Apigee\Edge\Structure\AddonsConfig|null
+     * @var AddonsConfig|null
      */
-    protected $addonsConfig = null;
+    protected $addonsConfig;
 
     /**
      * Organization constructor.
      *
      * @param array $values
      *
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     public function __construct(array $values = [])
     {
@@ -86,7 +88,7 @@ class Organization extends Entity implements OrganizationInterface
     public function setType(string $type): void
     {
         if (!in_array($type, self::TYPES)) {
-            throw new \InvalidArgumentException("{$type} type is not a valid.");
+            throw new InvalidArgumentException("{$type} type is not a valid.");
         }
         $this->type = $type;
     }

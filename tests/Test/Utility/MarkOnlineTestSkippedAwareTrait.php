@@ -27,7 +27,7 @@ trait MarkOnlineTestSkippedAwareTrait
      * API client.
      *
      * @param string $testName
-     * @param \Apigee\Edge\ClientInterface|null $client
+     * @param ClientInterface|null $client
      */
-    abstract public static function markOnlineTestSkipped(string $testName, ClientInterface $client = null): void;
+    abstract public static function markOnlineTestSkipped(string $testName, ?ClientInterface $client = null): void;
 }

@@ -34,7 +34,7 @@ abstract class AcceptedRatePlanDenormalizer extends ObjectDenormalizer
      */
     public function denormalize($data, $type, $format = null, array $context = [])
     {
-        /** @var \Apigee\Edge\Api\ApigeeX\Entity\AcceptedRatePlanInterface $denormalized */
+        /** @var AcceptedRatePlanInterface $denormalized */
         $denormalized = parent::denormalize($data, $type, $format, $context);
 
         return $denormalized;

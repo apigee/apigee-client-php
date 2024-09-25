@@ -26,6 +26,7 @@ use Apigee\Edge\Tests\Test\EntitySerializer\PropertyValidator\RemoveIfPropertyVa
 use Apigee\Edge\Tests\Test\EntitySerializer\PropertyValidator\SerializerAwarePropertyValidatorInterface;
 use Apigee\Edge\Tests\Test\EntitySerializer\PropertyValidator\SerializerAwarePropertyValidatorTrait;
 use PHPUnit\Framework\Assert;
+use stdClass;
 
 class ApiProductsPropertyValidator implements RemoveIfPropertyValidPropertyValidatorInterface, SerializerAwarePropertyValidatorInterface, PropertyValidatorsAwareValidatorInterface
 {
@@ -35,7 +36,7 @@ class ApiProductsPropertyValidator implements RemoveIfPropertyValidPropertyValid
     /**
      * {@inheritdoc}
      */
-    public function validate(\stdClass $input, \stdClass $output, EntityInterface $entity): void
+    public function validate(stdClass $input, stdClass $output, EntityInterface $entity): void
     {
         if (!$entity instanceof ApiProductPropertyInterface) {
             return;

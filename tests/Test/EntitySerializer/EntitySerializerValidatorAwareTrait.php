@@ -23,7 +23,7 @@ trait EntitySerializerValidatorAwareTrait
     /**
      * Returns the entity serializer validator.
      *
-     * @return \Apigee\Edge\Tests\Test\EntitySerializer\EntitySerializerValidatorInterface
+     * @return EntitySerializerValidatorInterface
      */
     abstract protected function entitySerializerValidator(): EntitySerializerValidatorInterface;
 }

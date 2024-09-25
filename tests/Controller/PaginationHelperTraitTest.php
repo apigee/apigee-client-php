@@ -43,7 +43,7 @@ class PaginationHelperTraitTest extends TestCase
 {
     use MockClientAwareTrait;
 
-    /** @var \Apigee\Edge\Tests\Controller\PaginationHelperTraitTestClass */
+    /** @var PaginationHelperTraitTestClass */
     protected static $testController;
 
     /**

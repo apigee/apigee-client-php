@@ -31,7 +31,7 @@ class BillingTypeNormalizer extends EntityNormalizer
      */
     public function normalize($object, $format = null, array $context = [])
     {
-        /** @var \Apigee\Edge\Api\ApigeeX\Entity\BillingTypeInterface $object */
+        /** @var BillingTypeInterface $object */
         /** @var object $normalized */
         $normalized = parent::normalize($object, $format, $context);
 

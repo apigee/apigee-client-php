@@ -35,7 +35,7 @@ class AppGroupAppController extends AppByOwnerController implements AppGroupAppC
     use AppGroupAwareControllerTrait;
 
     /**
-     * @var \Apigee\Edge\Api\Management\Controller\OrganizationControllerInterface
+     * @var OrganizationControllerInterface
      */
     protected $organizationController;
 
@@ -44,16 +44,16 @@ class AppGroupAppController extends AppByOwnerController implements AppGroupAppC
      *
      * @param string $organization
      * @param string $appGroup
-     * @param \Apigee\Edge\ClientInterface $client
-     * @param \Apigee\Edge\Serializer\EntitySerializerInterface|null $entitySerializer
-     * @param \Apigee\Edge\Api\Management\Controller\OrganizationControllerInterface|null $organizationController
+     * @param ClientInterface $client
+     * @param EntitySerializerInterface|null $entitySerializer
+     * @param OrganizationControllerInterface|null $organizationController
      */
     public function __construct(
         string $organization,
         string $appGroup,
         ClientInterface $client,
-        EntitySerializerInterface $entitySerializer = null,
-        OrganizationControllerInterface $organizationController = null
+        ?EntitySerializerInterface $entitySerializer = null,
+        ?OrganizationControllerInterface $organizationController = null,
     ) {
         $this->appGroup = $appGroup;
         $entitySerializer = $entitySerializer ?? new AppGroupEntitySerializer();
@@ -68,7 +68,7 @@ class AppGroupAppController extends AppByOwnerController implements AppGroupAppC
      *
      * {@inheritdoc}
      */
-    public function getEntityIds(PagerInterface $pager = null): array
+    public function getEntityIds(?PagerInterface $pager = null): array
     {
         $uri = $this->getBaseEndpointUri();
         $response = $this->getClient()->get($uri);

@@ -29,7 +29,7 @@ use Apigee\Edge\Api\Monetization\Entity\EntityInterface;
 interface PrepaidBalanceInterface extends EntityInterface
 {
     /**
-     * @return \Apigee\Edge\Api\ApigeeX\Entity\Balance
+     * @return Balance
      */
     public function getBalance(): Balance;
 

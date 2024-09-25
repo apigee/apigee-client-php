@@ -33,6 +33,7 @@ use PHPUnit\Framework\TestCase;
  * Class HybridOauth2Test.
  *
  * @group client
+ *
  * @small
  *
  * @deprecated in 2.0.9, will be removed in 3.0.0.
@@ -42,13 +43,13 @@ class HybridOauth2Test extends TestCase
 {
     private const API_ENDPOINT = 'http://api.example.com/v1';
 
-    /** @var \Apigee\Edge\Tests\Test\HttpClient\MockHttpClient */
+    /** @var MockHttpClient */
     protected static $httpClient;
 
     /** @var \Apigee\Edge\HttpClient\Utility\JournalInterface */
     private $journal;
 
-    /** @var \Apigee\Edge\ClientInterface */
+    /** @var ClientInterface */
     private $client;
 
     /** @var \Apigee\Edge\HttpClient\Plugin\Authentication\OauthTokenStorageInterface */
@@ -174,7 +175,7 @@ class HybridOauth2Test extends TestCase
      * @param array $options
      *   Client options.
      *
-     * @return \Apigee\Edge\ClientInterface
+     * @return ClientInterface
      *   API client for the test.
      */
     private function buildClient(array $options = []): ClientInterface

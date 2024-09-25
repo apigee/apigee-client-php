@@ -33,19 +33,20 @@ use PHPUnit\Framework\TestCase;
  * Class OauthTest.
  *
  * @group client
+ *
  * @small
  */
 class OauthTest extends TestCase
 {
     private const API_ENDPOINT = 'http://api.example.com/v1';
 
-    /** @var \Apigee\Edge\Tests\Test\HttpClient\MockHttpClient */
+    /** @var MockHttpClient */
     protected static $httpClient;
 
     /** @var \Apigee\Edge\HttpClient\Utility\JournalInterface */
     private $journal;
 
-    /** @var \Apigee\Edge\ClientInterface */
+    /** @var ClientInterface */
     private $client;
 
     /**
@@ -243,7 +244,7 @@ class OauthTest extends TestCase
      * @param array $options
      *   Client options.
      *
-     * @return \Apigee\Edge\ClientInterface
+     * @return ClientInterface
      *   API client for the test.
      */
     private function buildClient(array $options = []): ClientInterface

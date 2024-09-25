@@ -34,10 +34,10 @@ abstract class RatePlanNormalizer extends EntityNormalizer
     /**
      * RatePlanNormalizer constructor.
      *
-     * @param \Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface|null $classMetadataFactory
-     * @param \Symfony\Component\Serializer\NameConverter\NameConverterInterface|null $nameConverter
-     * @param \Symfony\Component\PropertyAccess\PropertyAccessorInterface|null $propertyAccessor
-     * @param \Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface|null $propertyTypeExtractor
+     * @param ClassMetadataFactoryInterface|null $classMetadataFactory
+     * @param NameConverterInterface|null $nameConverter
+     * @param PropertyAccessorInterface|null $propertyAccessor
+     * @param PropertyTypeExtractorInterface|null $propertyTypeExtractor
      */
     public function __construct(?ClassMetadataFactoryInterface $classMetadataFactory = null, ?NameConverterInterface $nameConverter = null, ?PropertyAccessorInterface $propertyAccessor = null, ?PropertyTypeExtractorInterface $propertyTypeExtractor = null)
     {
@@ -58,7 +58,7 @@ abstract class RatePlanNormalizer extends EntityNormalizer
 
         // Fix the start- and end date of the rate plan if the organization's
         // timezone is different from the default PHP timezone.
-        /** @var \Apigee\Edge\Api\Monetization\Entity\RatePlanInterface $object */
+        /** @var RatePlanInterface $object */
         if (null === $object->getPackage()) {
             throw new UninitializedPropertyException($object, 'package', 'Apigee\Edge\Api\Monetization\Entity\ApiPackageInterface');
         }

@@ -18,6 +18,9 @@
 
 namespace Apigee\Edge\Structure;
 
+use ArrayIterator;
+use Traversable;
+
 /**
  * Class KeyValueMap.
  */
@@ -93,8 +96,8 @@ abstract class KeyValueMap extends BaseObject implements KeyValueMapInterface
     /**
      * {@inheritdoc}
      */
-    public function getIterator(): \Traversable
+    public function getIterator(): Traversable
     {
-        return new \ArrayIterator($this->values());
+        return new ArrayIterator($this->values());
     }
 }

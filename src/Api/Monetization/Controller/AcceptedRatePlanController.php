@@ -39,8 +39,8 @@ abstract class AcceptedRatePlanController extends OrganizationAwareEntityControl
      * AcceptedRatePlanController constructor.
      *
      * @param string $organization
-     * @param \Apigee\Edge\ClientInterface $client
-     * @param \Apigee\Edge\Serializer\EntitySerializerInterface|null $entitySerializer
+     * @param ClientInterface $client
+     * @param EntitySerializerInterface|null $entitySerializer
      */
     public function __construct(string $organization, ClientInterface $client, ?EntitySerializerInterface $entitySerializer = null)
     {
@@ -59,7 +59,7 @@ abstract class AcceptedRatePlanController extends OrganizationAwareEntityControl
     /**
      * {@inheritdoc}
      */
-    public function getPaginatedAcceptedRatePlanList(int $limit = null, int $page = 1): array
+    public function getPaginatedAcceptedRatePlanList(?int $limit = null, int $page = 1): array
     {
         $query_params = [
             'page' => $page,
@@ -78,7 +78,7 @@ abstract class AcceptedRatePlanController extends OrganizationAwareEntityControl
     public function acceptRatePlan(RatePlanInterface $ratePlan, DateTimeImmutable $startDate, ?DateTimeImmutable $endDate = null, ?int $quotaTarget = null, ?bool $suppressWarning = null, ?bool $waveTerminationCharge = null): AcceptedRatePlanInterface
     {
         $rc = new ReflectionClass($this->getEntityClass());
-        /** @var \Apigee\Edge\Api\Monetization\Entity\AcceptedRatePlanInterface $acceptedRatePlan */
+        /** @var AcceptedRatePlanInterface $acceptedRatePlan */
         $acceptedRatePlan = $rc->newInstance(
             [
                 'ratePlan' => $ratePlan,
@@ -144,7 +144,7 @@ abstract class AcceptedRatePlanController extends OrganizationAwareEntityControl
      * has more than one listing endpoint so getBaseEntityEndpoint() was
      * enough until this time.
      *
-     * @return \Psr\Http\Message\UriInterface
+     * @return UriInterface
      */
     abstract protected function getAcceptedRatePlansEndpoint(): UriInterface;
 

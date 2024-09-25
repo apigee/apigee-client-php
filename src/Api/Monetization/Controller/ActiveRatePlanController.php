@@ -38,8 +38,8 @@ abstract class ActiveRatePlanController extends OrganizationAwareEntityControlle
      * ActiveRatePlanController constructor.
      *
      * @param string $organization
-     * @param \Apigee\Edge\ClientInterface $client
-     * @param \Apigee\Edge\Serializer\EntitySerializerInterface|null $entitySerializer
+     * @param ClientInterface $client
+     * @param EntitySerializerInterface|null $entitySerializer
      */
     public function __construct(string $organization, ClientInterface $client, ?EntitySerializerInterface $entitySerializer = null)
     {
@@ -75,7 +75,7 @@ abstract class ActiveRatePlanController extends OrganizationAwareEntityControlle
      * @param string $apiProductName
      *   Name of the API product.
      *
-     * @return \Psr\Http\Message\UriInterface
+     * @return UriInterface
      */
     abstract protected function getActiveRatePlanForApiProductEndpoint(string $apiProductName): UriInterface;
 

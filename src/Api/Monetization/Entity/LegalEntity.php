@@ -187,7 +187,7 @@ abstract class LegalEntity extends OrganizationAwareEntity implements LegalEntit
     }
 
     /**
-     * @param \Apigee\Edge\Api\Monetization\Entity\DeveloperCategory $developerCategory
+     * @param DeveloperCategory $developerCategory
      *
      * @internal
      */

@@ -29,11 +29,12 @@ use PHPUnit\Framework\TestCase;
  * @group management
  * @group normalizer
  * @group query
+ *
  * @small
  */
 class StatsQueryNormalizerTest extends TestCase
 {
-    /** @var \Apigee\Edge\Api\Management\Query\StatsQueryNormalizer */
+    /** @var StatsQueryNormalizer */
     private static $normalizer;
 
     /**

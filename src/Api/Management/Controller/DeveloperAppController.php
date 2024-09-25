@@ -33,7 +33,7 @@ class DeveloperAppController extends AppByOwnerController implements DeveloperAp
     protected $developerId;
 
     /**
-     * @var \Apigee\Edge\Api\Management\Controller\OrganizationControllerInterface
+     * @var OrganizationControllerInterface
      */
     protected $organizationController;
 
@@ -42,16 +42,16 @@ class DeveloperAppController extends AppByOwnerController implements DeveloperAp
      *
      * @param string $organization
      * @param string $developerId
-     * @param \Apigee\Edge\ClientInterface $client
+     * @param ClientInterface $client
      * @param \Apigee\Edge\Serializer\EntitySerializerInterface|null $entitySerializer
-     * @param \Apigee\Edge\Api\Management\Controller\OrganizationControllerInterface|null $organizationController
+     * @param OrganizationControllerInterface|null $organizationController
      */
     public function __construct(
         string $organization,
         string $developerId,
         ClientInterface $client,
         ?\Apigee\Edge\Serializer\EntitySerializerInterface $entitySerializer = null,
-        ?OrganizationControllerInterface $organizationController = null
+        ?OrganizationControllerInterface $organizationController = null,
     ) {
         $this->developerId = $developerId;
         $this->organizationController = $organizationController ?? new OrganizationController($client);

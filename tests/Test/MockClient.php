@@ -26,7 +26,7 @@ use GuzzleHttp\Psr7\Response;
 
 class MockClient extends OfflineClientBase implements OfflineClientInterface
 {
-    /** @var \Apigee\Edge\Tests\Test\HttpClient\MockHttpClientInterface */
+    /** @var MockHttpClientInterface */
     private $httpClient;
 
     /**

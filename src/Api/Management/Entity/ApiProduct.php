@@ -27,6 +27,7 @@ use Apigee\Edge\Entity\Property\EnvironmentsPropertyAwareTrait;
 use Apigee\Edge\Entity\Property\NamePropertyAwareTrait;
 use Apigee\Edge\Entity\Property\ScopesPropertyAwareTrait;
 use Apigee\Edge\Structure\AttributesProperty;
+use ReflectionException;
 
 /**
  * Describes an API product entity.
@@ -76,7 +77,7 @@ class ApiProduct extends Entity implements ApiProductInterface
      *
      * @param array $values
      *
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     public function __construct(array $values = [])
     {

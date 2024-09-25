@@ -21,7 +21,7 @@ namespace Apigee\Edge\Api\ApigeeX\Entity\Property;
 /**
  * Trait StartTimePropertyAwareTrait.
  *
- * @see \Apigee\Edge\Api\ApigeeX\Entity\Property\StartTimePropertyInterface
+ * @see StartTimePropertyInterface
  */
 trait StartTimePropertyAwareTrait
 {

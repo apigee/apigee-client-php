@@ -33,7 +33,7 @@ class AcceptedRatePlanNormalizer extends EntityNormalizer
      */
     public function normalize($object, $format = null, array $context = [])
     {
-        /** @var \Apigee\Edge\Api\Monetization\Entity\AcceptedRatePlanInterface $object */
+        /** @var AcceptedRatePlanInterface $object */
         /** @var object $normalized */
         $normalized = parent::normalize($object, $format, $context);
         $this->fixTimeZoneOnNormalization($object, $normalized, $object->getRatePlan()->getPackage()->getOrganization()->getTimezone());

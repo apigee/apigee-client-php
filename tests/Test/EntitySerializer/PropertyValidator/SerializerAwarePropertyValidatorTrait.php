@@ -23,12 +23,12 @@ use Apigee\Edge\Serializer\EntitySerializerInterface;
 trait SerializerAwarePropertyValidatorTrait
 {
     /**
-     * @var \Apigee\Edge\Serializer\EntitySerializerInterface
+     * @var EntitySerializerInterface
      */
     protected $entitySerializer;
 
     /**
-     * @param \Apigee\Edge\Serializer\EntitySerializerInterface $entitySerializer
+     * @param EntitySerializerInterface $entitySerializer
      */
     public function setEntitySerializer(EntitySerializerInterface $entitySerializer): void
     {

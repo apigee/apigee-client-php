@@ -24,6 +24,8 @@ use Apigee\Edge\Entity\Property\ScopesPropertyAwareTrait;
 use Apigee\Edge\Entity\Property\StatusPropertyAwareTrait;
 use Apigee\Edge\Structure\AttributesProperty;
 use Apigee\Edge\Structure\CredentialProductInterface;
+use DateTimeImmutable;
+use ReflectionException;
 
 /**
  * Class AppCredential.
@@ -52,11 +54,11 @@ class AppCredential extends Entity implements AppCredentialInterface
      * never expires. So if this value is null then it either means that this is a new entity (check whether consumerKey
      * or consumerSecret are also null) or this credential never expires.
      *
-     * @var \DateTimeImmutable|null
+     * @var DateTimeImmutable|null
      */
     protected $expiresAt;
 
-    /** @var \DateTimeImmutable */
+    /** @var DateTimeImmutable */
     protected $issuedAt;
 
     /**
@@ -64,7 +66,7 @@ class AppCredential extends Entity implements AppCredentialInterface
      *
      * @param array $values
      *
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     public function __construct(array $values = [])
     {
@@ -93,7 +95,7 @@ class AppCredential extends Entity implements AppCredentialInterface
      *
      * Included API products in an app credential can not be changed by modifying this property's value.
      *
-     * @param \Apigee\Edge\Structure\CredentialProductInterface ...$apiProducts
+     * @param CredentialProductInterface ...$apiProducts
      *
      * @internal
      */
@@ -149,7 +151,7 @@ class AppCredential extends Entity implements AppCredentialInterface
     /**
      * {@inheritdoc}
      */
-    public function getExpiresAt(): ?\DateTimeImmutable
+    public function getExpiresAt(): ?DateTimeImmutable
     {
         return $this->expiresAt;
     }
@@ -159,7 +161,7 @@ class AppCredential extends Entity implements AppCredentialInterface
      *
      * Expiration date can not be changed by modifying this property's value.
      *
-     * @param \DateTimeImmutable|null $date
+     * @param DateTimeImmutable|null $date
      *
      * @internal
      */
@@ -171,7 +173,7 @@ class AppCredential extends Entity implements AppCredentialInterface
     /**
      * {@inheritdoc}
      */
-    public function getIssuedAt(): ?\DateTimeImmutable
+    public function getIssuedAt(): ?DateTimeImmutable
     {
         return $this->issuedAt;
     }
@@ -181,11 +183,11 @@ class AppCredential extends Entity implements AppCredentialInterface
      *
      * Consumer key can not be changed by modifying this property's value.
      *
-     * @param \DateTimeImmutable $date
+     * @param DateTimeImmutable $date
      *
      * @internal
      */
-    public function setIssuedAt(\DateTimeImmutable $date): void
+    public function setIssuedAt(DateTimeImmutable $date): void
     {
         $this->issuedAt = $date;
     }

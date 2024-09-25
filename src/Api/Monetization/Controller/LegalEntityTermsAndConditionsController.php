@@ -23,6 +23,7 @@ use Apigee\Edge\Api\Monetization\Structure\LegalEntityTermsAndConditionsHistoryI
 use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Controller\EntityListingControllerTrait;
 use Apigee\Edge\Serializer\EntitySerializerInterface;
+use DateTimeImmutable;
 use Psr\Http\Message\UriInterface;
 use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
 
@@ -40,8 +41,8 @@ abstract class LegalEntityTermsAndConditionsController extends OrganizationAware
      * AcceptedTermsAndConditionsController constructor.
      *
      * @param string $organization
-     * @param \Apigee\Edge\ClientInterface $client
-     * @param \Apigee\Edge\Serializer\EntitySerializerInterface|null $entitySerializer
+     * @param ClientInterface $client
+     * @param EntitySerializerInterface|null $entitySerializer
      */
     public function __construct(string $organization, ClientInterface $client, ?EntitySerializerInterface $entitySerializer = null)
     {
@@ -68,7 +69,7 @@ abstract class LegalEntityTermsAndConditionsController extends OrganizationAware
                 // It does not matter what time we send here and in which
                 // timezone.
                 // @see \Apigee\Edge\Api\Monetization\Structure\LegalEntityTermsAndConditionsHistoryItem::$auditDate
-                'auditDate' => $this->entitySerializer->normalize(new \DateTimeImmutable('now'), null, [DateTimeNormalizer::TIMEZONE_KEY => 'UTC']),
+                'auditDate' => $this->entitySerializer->normalize(new DateTimeImmutable('now'), null, [DateTimeNormalizer::TIMEZONE_KEY => 'UTC']),
             ]));
 
         return $this->entitySerializer->deserialize(
@@ -89,7 +90,7 @@ abstract class LegalEntityTermsAndConditionsController extends OrganizationAware
                 // It does not matter what time we send here and in which
                 // timezone.
                 // @see \Apigee\Edge\Api\Monetization\Structure\LegalEntityTermsAndConditionsHistoryItem::$auditDate
-                'auditDate' => $this->entitySerializer->normalize(new \DateTimeImmutable('now'), null, [DateTimeNormalizer::TIMEZONE_KEY => 'UTC']),
+                'auditDate' => $this->entitySerializer->normalize(new DateTimeImmutable('now'), null, [DateTimeNormalizer::TIMEZONE_KEY => 'UTC']),
             ]));
 
         return $this->entitySerializer->deserialize(
@@ -105,7 +106,7 @@ abstract class LegalEntityTermsAndConditionsController extends OrganizationAware
      * @param string $tncId
      *   Terms and Conditions ID.
      *
-     * @return \Psr\Http\Message\UriInterface
+     * @return UriInterface
      */
     abstract protected function getAcceptTermsAndConditionsEndpoint(string $tncId): UriInterface;
 

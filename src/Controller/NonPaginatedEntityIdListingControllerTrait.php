@@ -24,7 +24,7 @@ use Psr\Http\Message\ResponseInterface;
 /**
  * Trait NonPaginatedEntityIdListingControllerTrait.
  *
- * @see \Apigee\Edge\Controller\NonPaginatedEntityIdListingControllerInterface
+ * @see NonPaginatedEntityIdListingControllerInterface
  */
 trait NonPaginatedEntityIdListingControllerTrait
 {

@@ -25,6 +25,8 @@ use Apigee\Edge\Entity\Property\PropertiesPropertyAwareTrait;
 use Apigee\Edge\Structure\AttributesProperty;
 use Apigee\Edge\Structure\CredentialProduct;
 use Apigee\Edge\Structure\PropertiesProperty;
+use DateTimeImmutable;
+use ReflectionException;
 
 /**
  * Dummy entity that we can use in ours tests.
@@ -66,10 +68,10 @@ class MockEntity extends Entity
     /** @var \Apigee\Edge\Api\Management\Entity\AppCredential[] */
     private $appCredential = [];
 
-    /** @var \Apigee\Edge\Structure\CredentialProduct */
+    /** @var CredentialProduct */
     private $credentialProduct;
 
-    /** @var \DateTimeImmutable|null */
+    /** @var DateTimeImmutable|null */
     private $date;
 
     /**
@@ -88,7 +90,7 @@ class MockEntity extends Entity
      *
      * @param array $values
      *
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     public function __construct(array $values = [])
     {
@@ -109,17 +111,17 @@ class MockEntity extends Entity
     }
 
     /**
-     * @return \DateTimeImmutable|null
+     * @return DateTimeImmutable|null
      */
-    public function getDate(): ?\DateTimeImmutable
+    public function getDate(): ?DateTimeImmutable
     {
         return $this->date;
     }
 
     /**
-     * @param \DateTimeImmutable|null $date
+     * @param DateTimeImmutable|null $date
      */
-    public function setDate(?\DateTimeImmutable $date): void
+    public function setDate(?DateTimeImmutable $date): void
     {
         $this->date = $date;
     }
@@ -218,7 +220,7 @@ class MockEntity extends Entity
     }
 
     /**
-     * @return \Apigee\Edge\Structure\CredentialProduct
+     * @return CredentialProduct
      */
     public function getCredentialProduct(): CredentialProduct
     {
@@ -226,7 +228,7 @@ class MockEntity extends Entity
     }
 
     /**
-     * @param \Apigee\Edge\Structure\CredentialProduct $credentialProduct
+     * @param CredentialProduct $credentialProduct
      */
     public function setCredentialProduct(CredentialProduct $credentialProduct): void
     {

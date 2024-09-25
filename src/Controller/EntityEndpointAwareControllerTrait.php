@@ -27,7 +27,7 @@ trait EntityEndpointAwareControllerTrait
      *
      * @param string $entityId
      *
-     * @return \Psr\Http\Message\UriInterface
+     * @return UriInterface
      */
     abstract protected function getEntityEndpointUri(string $entityId): UriInterface;
 }

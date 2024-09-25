@@ -63,7 +63,7 @@ abstract class AcceptedRatePlanControllerTestBase extends EntityControllerTestBa
         $httpClient = static::mockApiClient()->getMockHttpClient();
         /** @var \Apigee\Edge\Api\ApigeeX\Controller\AcceptedRatePlanControllerInterface $acceptedController */
         $acceptedController = static::entityController(static::mockApiClient());
-        /** @var \Apigee\Edge\Api\ApigeeX\Entity\RatePlanInterface $ratePlan */
+        /** @var RatePlanInterface $ratePlan */
         $ratePlan = $this->getRatePlanToAccept();
         $response = $this->getAcceptRatePlanResponse();
         $httpClient->addResponse($response);
@@ -88,12 +88,12 @@ abstract class AcceptedRatePlanControllerTestBase extends EntityControllerTestBa
     /**
      * Returns a response that will be returned for acceptRatePlan().
      *
-     * @return \Psr\Http\Message\ResponseInterface
+     * @return ResponseInterface
      */
     abstract protected function getAcceptRatePlanResponse(): ResponseInterface;
 
     /**
-     * @return \Apigee\Edge\Api\ApigeeX\Entity\RatePlanInterface
+     * @return RatePlanInterface
      */
     abstract protected function getRatePlanToAccept(): RatePlanInterface;
 

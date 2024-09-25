@@ -23,7 +23,7 @@ use Apigee\Edge\Api\Monetization\Entity\ApiProductInterface;
 /**
  * Trait ApiProductsPropertyAwareTrait.
  *
- * @see \Apigee\Edge\Api\Monetization\Entity\Property\ApiProductsPropertyInterface
+ * @see ApiProductsPropertyInterface
  */
 trait ApiProductsPropertyAwareTrait
 {
@@ -43,7 +43,7 @@ trait ApiProductsPropertyAwareTrait
     /**
      * Sets API products associated with this API package.
      *
-     * @param \Apigee\Edge\Api\Monetization\Entity\ApiProductInterface ...$products
+     * @param ApiProductInterface ...$products
      *
      * @internal
      */

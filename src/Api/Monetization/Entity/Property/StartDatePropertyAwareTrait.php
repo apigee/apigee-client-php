@@ -18,22 +18,24 @@
 
 namespace Apigee\Edge\Api\Monetization\Entity\Property;
 
+use DateTimeImmutable;
+
 /**
  * Trait StartDatePropertyAwareTrait.
  *
- * @see \Apigee\Edge\Api\Monetization\Entity\Property\StartDatePropertyInterface
+ * @see StartDatePropertyInterface
  */
 trait StartDatePropertyAwareTrait
 {
     /**
-     * @var \DateTimeImmutable
+     * @var DateTimeImmutable
      */
     protected $startDate;
 
     /**
      * {@inheritdoc}
      */
-    public function getStartDate(): \DateTimeImmutable
+    public function getStartDate(): DateTimeImmutable
     {
         return $this->startDate;
     }
@@ -41,7 +43,7 @@ trait StartDatePropertyAwareTrait
     /**
      * {@inheritdoc}
      */
-    public function setStartDate(\DateTimeImmutable $startDate): void
+    public function setStartDate(DateTimeImmutable $startDate): void
     {
         $this->startDate = $startDate;
     }

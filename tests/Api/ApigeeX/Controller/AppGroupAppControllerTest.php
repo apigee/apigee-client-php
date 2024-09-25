@@ -57,7 +57,7 @@ class AppGroupAppControllerTest extends AppControllerTestBase
     /**
      * {@inheritdoc}
      */
-    protected static function entityController(ClientInterface $client = null): EntityControllerTesterInterface
+    protected static function entityController(?ClientInterface $client = null): EntityControllerTesterInterface
     {
         return static::appGroupAppController($client);
     }

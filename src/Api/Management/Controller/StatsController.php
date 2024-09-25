@@ -23,6 +23,8 @@ use Apigee\Edge\Api\Management\Query\StatsQueryNormalizer;
 use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Controller\AbstractController;
 use Apigee\Edge\Controller\OrganizationAwareControllerTrait;
+use DateTime;
+use InvalidArgumentException;
 use League\Period\Period;
 use Moment\Moment;
 use Psr\Http\Message\UriInterface;
@@ -38,7 +40,7 @@ class StatsController extends AbstractController implements StatsControllerInter
     /** @var string */
     protected $environment;
 
-    /** @var \Apigee\Edge\Api\Management\Query\StatsQueryNormalizer */
+    /** @var StatsQueryNormalizer */
     protected $normalizer;
 
     /** @var string */
@@ -51,7 +53,7 @@ class StatsController extends AbstractController implements StatsControllerInter
      *   The environment name.
      * @param string $organization
      *   Name of the organization that the entities belongs to.
-     * @param \Apigee\Edge\ClientInterface $client
+     * @param ClientInterface $client
      *   Apigee Edge API client.
      */
     public function __construct(string $environment, string $organization, ClientInterface $client)
@@ -104,7 +106,7 @@ class StatsController extends AbstractController implements StatsControllerInter
      *   Stats query object.
      *
      * @throws \Moment\MomentException
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      *   Find more information in fillGapsInTimeUnitsData() method.
      *
      * @return array
@@ -179,7 +181,7 @@ class StatsController extends AbstractController implements StatsControllerInter
      *   Stats query object.
      *
      * @throws \Moment\MomentException
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      *   Find more information in fillGapsInTimeUnitsData() method.
      *
      * @return array
@@ -247,7 +249,7 @@ class StatsController extends AbstractController implements StatsControllerInter
      *   Time unit from StatsQuery.
      * @param bool $tsAscending
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      *   If time unit is not supported by the Moment library.
      * @throws \Moment\MomentException
      *
@@ -261,7 +263,7 @@ class StatsController extends AbstractController implements StatsControllerInter
         // unit to this function and they should rather use the "non-optimized" methods from the controller for
         // retrieving data for these time periods.
         if (in_array($timeUnit, ['decade', 'century', 'millennium'])) {
-            throw new \InvalidArgumentException("The {$timeUnit} time unit is not supported by the https://github.com/fightbulc/moment.php library.");
+            throw new InvalidArgumentException("The {$timeUnit} time unit is not supported by the https://github.com/fightbulc/moment.php library.");
         }
         $allTimeUnits = [];
         // Fix time unit for correct time interval calculation.
@@ -272,7 +274,7 @@ class StatsController extends AbstractController implements StatsControllerInter
         $endDate->endOf($timeUnit);
         $period = Period::fromDate($startDate, $endDate);
         $timeUnit = '1 ' . $timeUnit;
-        /** @var \DateTime $dateTime */
+        /** @var DateTime $dateTime */
         foreach ($period->rangeForward($timeUnit) as $dateTime) {
             $allTimeUnits[] = $dateTime->getTimestamp() * 1000;
         }

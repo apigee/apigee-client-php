@@ -24,7 +24,9 @@ use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Tests\Test\Controller\ControllerTestBase;
 use Apigee\Edge\Tests\Test\Controller\FileSystemMockAPIClientAwareTrait;
 use Apigee\Edge\Tests\Test\Controller\MockClientAwareTrait;
+use Exception;
 use GuzzleHttp\Psr7\Response;
+use InvalidArgumentException;
 use League\Period\Period;
 
 /**
@@ -142,8 +144,8 @@ class StatsControllerTest extends ControllerTestBase
             $httpClient->addResponse(new Response(200, ['Content-Type' => 'application/json'], json_encode($this->emptyResponseArray())));
             try {
                 $controller->getOptimisedMetrics($q);
-            } catch (\Exception $e) {
-                $this->assertInstanceOf(\InvalidArgumentException::class, $e);
+            } catch (Exception $e) {
+                $this->assertInstanceOf(InvalidArgumentException::class, $e);
             }
         }
     }
@@ -187,7 +189,7 @@ class StatsControllerTest extends ControllerTestBase
     /**
      * Returns a configured controller with an offline http client.
      *
-     * @return \Apigee\Edge\Api\Management\Controller\StatsController
+     * @return StatsController
      */
     protected function getController(): StatsController
     {

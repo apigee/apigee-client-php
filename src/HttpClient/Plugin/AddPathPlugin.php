@@ -41,14 +41,14 @@ final class AddPathPlugin implements Plugin
     /**
      * The URI.
      *
-     * @var \Psr\Http\Message\UriInterface
+     * @var UriInterface
      */
     private $uri;
 
     /**
      * AddPathPlugin constructor.
      *
-     * @param \Psr\Http\Message\UriInterface $uri
+     * @param UriInterface $uri
      *   The URI.
      */
     public function __construct(UriInterface $uri)

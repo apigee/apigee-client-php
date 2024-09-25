@@ -39,8 +39,8 @@ interface PaginatedEntityControllerInterface
      *   First item in the list, if it is not set then Apigee Edge decides the
      *   first item.
      *
-     * @return \Apigee\Edge\Api\ApigeeX\Structure\PagerInterface
+     * @return PagerInterface
      *   The pager object.
      */
-    public function createPager(int $limit = 0, string $pageToken = null): PagerInterface;
+    public function createPager(int $limit = 0, ?string $pageToken = null): PagerInterface;
 }

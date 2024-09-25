@@ -35,8 +35,8 @@ class TermsAndConditionsController extends OrganizationAwareEntityController imp
      * TermsAndConditionsController constructor.
      *
      * @param string $organization
-     * @param \Apigee\Edge\ClientInterface $client
-     * @param \Apigee\Edge\Serializer\EntitySerializerInterface|null $entitySerializer
+     * @param ClientInterface $client
+     * @param EntitySerializerInterface|null $entitySerializer
      */
     public function __construct(string $organization, ClientInterface $client, ?EntitySerializerInterface $entitySerializer = null)
     {
@@ -47,7 +47,7 @@ class TermsAndConditionsController extends OrganizationAwareEntityController imp
     /**
      * {@inheritdoc}
      */
-    public function getEntities(bool $currentOnly = null): array
+    public function getEntities(?bool $currentOnly = null): array
     {
         $queryParams = [];
         if (null !== $currentOnly) {
@@ -60,7 +60,7 @@ class TermsAndConditionsController extends OrganizationAwareEntityController imp
     /**
      * {@inheritdoc}
      */
-    public function getPaginatedEntityList(int $limit = null, int $page = 1, bool $currentOnly = null): array
+    public function getPaginatedEntityList(?int $limit = null, int $page = 1, ?bool $currentOnly = null): array
     {
         $queryParams = [];
         if (null !== $currentOnly) {

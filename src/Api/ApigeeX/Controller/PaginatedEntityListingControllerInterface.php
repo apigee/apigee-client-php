@@ -39,7 +39,7 @@ interface PaginatedEntityListingControllerInterface extends PaginatedEntityContr
      * If you do not actually need _all_ entities of a type then always set
      * a limit to reduce memory usage and increase speed.
      *
-     * @param \Apigee\Edge\Api\ApigeeX\Structure\PagerInterface|null $pager
+     * @param PagerInterface|null $pager
      *   Pager.
      * @param string $key_provider
      *   Getter method on the entity that should provide a unique array key.
@@ -49,5 +49,5 @@ interface PaginatedEntityListingControllerInterface extends PaginatedEntityContr
      *
      * @return \Apigee\Edge\Entity\EntityInterface[]
      */
-    public function getEntities(PagerInterface $pager = null, string $key_provider = 'id', $queryparams = []): array;
+    public function getEntities(?PagerInterface $pager = null, string $key_provider = 'id', $queryparams = []): array;
 }

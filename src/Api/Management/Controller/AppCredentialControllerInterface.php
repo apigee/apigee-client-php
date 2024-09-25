@@ -49,7 +49,7 @@ interface AppCredentialControllerInterface extends
      *
      * @throws \Apigee\Edge\Exception\ClientErrorException
      *
-     * @return \Apigee\Edge\Api\Management\Entity\AppCredentialInterface
+     * @return AppCredentialInterface
      *
      * @see https://docs.apigee.com/management/apis/post/organizations/%7Borg_name%7D/developers/%7Bdeveloper_email_or_id%7D/apps/%7Bapp_name%7D/keys/create
      */
@@ -62,7 +62,7 @@ interface AppCredentialControllerInterface extends
      *
      * @param string[] $apiProducts
      *   API Product names.
-     * @param \Apigee\Edge\Structure\AttributesProperty $appAttributes
+     * @param AttributesProperty $appAttributes
      *   Current attributes of the app. "In this API call, be sure to include any existing app attributes.
      *   If you don't, the existing attributes are deleted."
      * @param string $callbackUrl
@@ -72,14 +72,14 @@ interface AppCredentialControllerInterface extends
      * @param string $keyExpiresIn
      *   In milliseconds. A value of -1 means the key/secret pair never expire.
      *
-     * @return \Apigee\Edge\Api\Management\Entity\AppCredentialInterface
+     * @return AppCredentialInterface
      */
     public function generate(
         array $apiProducts,
         AttributesProperty $appAttributes,
         string $callbackUrl,
         array $scopes = [],
-        string $keyExpiresIn = '-1'
+        string $keyExpiresIn = '-1',
     ): AppCredentialInterface;
 
     /**
@@ -95,7 +95,7 @@ interface AppCredentialControllerInterface extends
      * @param string[] $apiProducts
      *   API Product names.
      *
-     * @return \Apigee\Edge\Api\Management\Entity\AppCredentialInterface
+     * @return AppCredentialInterface
      */
     public function addProducts(string $consumerKey, array $apiProducts): AppCredentialInterface;
 
@@ -128,7 +128,7 @@ interface AppCredentialControllerInterface extends
      *
      * @param string $consumerKey
      *
-     * @return \Apigee\Edge\Api\Management\Entity\AppCredentialInterface
+     * @return AppCredentialInterface
      */
     public function delete(string $consumerKey): AppCredentialInterface;
 
@@ -140,7 +140,7 @@ interface AppCredentialControllerInterface extends
      * @param string $consumerKey
      * @param string $apiProduct
      *
-     * @return \Apigee\Edge\Api\Management\Entity\AppCredentialInterface
+     * @return AppCredentialInterface
      */
     public function deleteApiProduct(string $consumerKey, string $apiProduct): AppCredentialInterface;
 
@@ -151,7 +151,7 @@ interface AppCredentialControllerInterface extends
      *
      * @param string $consumerKey
      *
-     * @return \Apigee\Edge\Api\Management\Entity\AppCredentialInterface
+     * @return AppCredentialInterface
      */
     public function load(string $consumerKey): AppCredentialInterface;
 
@@ -167,7 +167,7 @@ interface AppCredentialControllerInterface extends
      *   The consumer key to modify.
      * @param string[] $scopes
      *
-     * @return \Apigee\Edge\Api\Management\Entity\AppCredentialInterface
+     * @return AppCredentialInterface
      */
     public function overrideScopes(string $consumerKey, array $scopes): AppCredentialInterface;
 }

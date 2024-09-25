@@ -38,7 +38,7 @@ class GceServiceAccount extends AbstractOauth
     /**
      * GceServiceAccountAuthentication constructor.
      *
-     * @param \Apigee\Edge\HttpClient\Plugin\Authentication\OauthTokenStorageInterface $tokenStorage
+     * @param OauthTokenStorageInterface $tokenStorage
      *   Storage where access token gets saved.
      */
     public function __construct(OauthTokenStorageInterface $tokenStorage)
@@ -94,7 +94,7 @@ class GceServiceAccount extends AbstractOauth
     /**
      * Return the Auth Header required by GCE Access token endpoint.
      *
-     * @return \Http\Message\Authentication\Header
+     * @return Header
      */
     protected function getAuthHeader(): Header
     {

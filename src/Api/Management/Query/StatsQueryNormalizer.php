@@ -19,6 +19,7 @@
 namespace Apigee\Edge\Api\Management\Query;
 
 use Apigee\Edge\Serializer\JsonEncoder;
+use DateTimeZone;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
@@ -61,7 +62,7 @@ class StatsQueryNormalizer implements NormalizerInterface
         $data['select'] = implode(',', $data['metrics']);
         unset($data['metrics']);
         // Transform timeRange to the required format and time zone.
-        $utc = new \DateTimeZone('UTC');
+        $utc = new DateTimeZone('UTC');
         $data['timeRange'] = $object->getTimeRange()->startDate->setTimezone($utc)->format(self::DATE_FORMAT) . '~' .
             $object->getTimeRange()->endDate->setTimezone($utc)->format(self::DATE_FORMAT);
         // Remove null values.

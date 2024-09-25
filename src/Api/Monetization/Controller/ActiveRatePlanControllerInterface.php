@@ -42,7 +42,7 @@ interface ActiveRatePlanControllerInterface extends EntityControllerInterface,
      * @throws \Apigee\Edge\Exception\ApiResponseException
      *   If no rate plan found.
      *
-     * @return \Apigee\Edge\Api\Monetization\Entity\RatePlanInterface
+     * @return RatePlanInterface
      *   Rate plan.
      */
     public function getActiveRatePlanByApiProduct(string $apiProductName, ?bool $showPrivate = null): RatePlanInterface;

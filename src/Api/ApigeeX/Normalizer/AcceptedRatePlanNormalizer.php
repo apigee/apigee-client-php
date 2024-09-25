@@ -34,7 +34,7 @@ class AcceptedRatePlanNormalizer extends EntityNormalizer
      */
     public function normalize($object, $format = null, array $context = [])
     {
-        /** @var \Apigee\Edge\Api\ApigeeX\Entity\AcceptedRatePlanInterface $object */
+        /** @var AcceptedRatePlanInterface $object */
         /** @var object $normalized */
         $normalized = parent::normalize($object, $format, $context);
 

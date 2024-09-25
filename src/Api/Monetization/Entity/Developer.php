@@ -30,7 +30,7 @@ class Developer extends LegalEntity implements DeveloperInterface
      * Also the nested company object does not contain some information, like
      * address, customAttributes, etc.
      *
-     * @var \Apigee\Edge\Api\Monetization\Entity\Company|null
+     * @var Company|null
      */
     protected $company;
 
@@ -45,7 +45,7 @@ class Developer extends LegalEntity implements DeveloperInterface
     /**
      * @internal
      *
-     * @param \Apigee\Edge\Api\Monetization\Entity\Company $company
+     * @param Company $company
      */
     public function setCompany(Company $company): void
     {
