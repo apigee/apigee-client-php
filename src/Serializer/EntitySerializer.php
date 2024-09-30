@@ -33,6 +33,7 @@ use Symfony\Component\Serializer\Serializer;
 /**
  * Serializes, normalizes and denormalizes entities.
  */
+/** @psalm-method bool supportsNormalization(mixed $data, ?string $format = null, array $context = []) */
 class EntitySerializer implements EntitySerializerInterface
 {
     /** @var \Symfony\Component\Serializer\Serializer */

@@ -171,7 +171,7 @@ final class PropertyAccessorDecorator implements PropertyAccessorInterface
      * because it is private.
      *
      * @param $message
-     * @param $trace
+     * @param (array|int|string)[][] $trace
      * @param $i
      * @param $propertyPath
      * @param $previous
@@ -180,8 +180,11 @@ final class PropertyAccessorDecorator implements PropertyAccessorInterface
      *
      * @psalm-suppress PossiblyFalseOperand
      * @psalm-suppress PossiblyFalseArgument
+     *
+     * @psalm-param list<array{args?: array, class?: class-string, file?: string, function?: string, line?: int, type?: '->'|'::'}> $trace
+     * @psalm-param 0 $i
      */
-    private static function processTypeErrorOnSetValue($message, $trace, $i, string $propertyPath, $previous = null): void
+    private static function processTypeErrorOnSetValue(string $message, array $trace, int $i, string $propertyPath, $previous = null): void
     {
         if (!isset($trace[$i]['file']) || __FILE__ !== $trace[$i]['file']) {
             return;
