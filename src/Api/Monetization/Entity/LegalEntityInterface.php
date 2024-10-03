@@ -77,7 +77,7 @@ interface LegalEntityInterface extends OrganizationAwareEntityInterface,
     public function getRegistrationId(): ?string;
 
     /**
-     * @return \Apigee\Edge\Api\Monetization\Entity\DeveloperCategory|null
+     * @return DeveloperCategory|null
      */
     public function getDeveloperCategory(): ?DeveloperCategory;
 

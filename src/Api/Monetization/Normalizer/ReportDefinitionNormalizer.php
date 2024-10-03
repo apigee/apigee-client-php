@@ -33,10 +33,10 @@ class ReportDefinitionNormalizer extends EntityNormalizer
     /**
      * ReportDefinitionNormalizer constructor.
      *
-     * @param \Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface|null $classMetadataFactory
-     * @param \Symfony\Component\Serializer\NameConverter\NameConverterInterface|null $nameConverter
-     * @param \Symfony\Component\PropertyAccess\PropertyAccessorInterface|null $propertyAccessor
-     * @param \Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface|null $propertyTypeExtractor
+     * @param ClassMetadataFactoryInterface|null $classMetadataFactory
+     * @param NameConverterInterface|null $nameConverter
+     * @param PropertyAccessorInterface|null $propertyAccessor
+     * @param PropertyTypeExtractorInterface|null $propertyTypeExtractor
      */
     public function __construct(?ClassMetadataFactoryInterface $classMetadataFactory = null, ?NameConverterInterface $nameConverter = null, ?PropertyAccessorInterface $propertyAccessor = null, ?PropertyTypeExtractorInterface $propertyTypeExtractor = null)
     {
@@ -52,7 +52,7 @@ class ReportDefinitionNormalizer extends EntityNormalizer
      */
     public function normalize($object, $format = null, array $context = [])
     {
-        /** @var \Apigee\Edge\Api\Monetization\Entity\ReportDefinitionInterface $object */
+        /** @var ReportDefinitionInterface $object */
         /** @var object $normalized */
         $normalized = parent::normalize($object, $format, $context);
 

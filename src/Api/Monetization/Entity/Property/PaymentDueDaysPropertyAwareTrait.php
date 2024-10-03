@@ -21,7 +21,7 @@ namespace Apigee\Edge\Api\Monetization\Entity\Property;
 /**
  * Trait PaymentDueDaysPropertyAwareTrait.
  *
- * @see \Apigee\Edge\Api\Monetization\Entity\Property\PaymentDueDaysPropertyInterface
+ * @see PaymentDueDaysPropertyInterface
  */
 trait PaymentDueDaysPropertyAwareTrait
 {

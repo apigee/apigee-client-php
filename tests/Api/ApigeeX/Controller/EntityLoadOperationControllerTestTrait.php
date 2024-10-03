@@ -21,6 +21,7 @@ namespace Apigee\Edge\Tests\Api\ApigeeX\Controller;
 use Apigee\Edge\Entity\EntityInterface;
 use Apigee\Edge\Tests\Test\Controller\DefaultAPIClientAwareTrait;
 use Apigee\Edge\Tests\Test\Controller\EntityLoadOperationControllerTestTrait as BaseEntityLoadOperationControllerTestTrait;
+use stdClass;
 
 /**
  * Monetization API version of EntityLoadOperationControllerTestTrait.
@@ -62,7 +63,7 @@ trait EntityLoadOperationControllerTestTrait
         $this->entitySerializerValidator()->validate($expectedAsObject, $actual);
     }
 
-    protected function alterObjectsBeforeCompareExpectedAndLoadedEntity(\stdClass &$expectedAsObject, EntityInterface $loaded): void
+    protected function alterObjectsBeforeCompareExpectedAndLoadedEntity(stdClass &$expectedAsObject, EntityInterface $loaded): void
     {
         // The serialized version of the created (actual) would not be the
         // same as the loaded entity, because entity reference properties

@@ -39,15 +39,15 @@ class DeveloperAppCredentialController extends AppCredentialController implement
      * @param string $organization
      * @param string $developerId
      * @param string $appName
-     * @param \Apigee\Edge\ClientInterface $client
-     * @param \Apigee\Edge\Serializer\EntitySerializerInterface|null $entitySerializer
+     * @param ClientInterface $client
+     * @param EntitySerializerInterface|null $entitySerializer
      */
     public function __construct(
         string $organization,
         string $developerId,
         string $appName,
         ClientInterface $client,
-        ?EntitySerializerInterface $entitySerializer = null
+        ?EntitySerializerInterface $entitySerializer = null,
     ) {
         $this->developerId = $developerId;
         parent::__construct($organization, $appName, $client, $entitySerializer);

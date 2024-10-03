@@ -21,7 +21,7 @@ namespace Apigee\Edge\Api\Monetization\Entity\Property;
 /**
  * Trait BrokerPropertyAwareTrait.
  *
- * @see \Apigee\Edge\Api\Monetization\Entity\Property\BrokerPropertyInterface
+ * @see BrokerPropertyInterface
  */
 trait BrokerPropertyAwareTrait
 {

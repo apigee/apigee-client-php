@@ -21,7 +21,7 @@ namespace Apigee\Edge\Api\ApigeeX\Entity\Property;
 /**
  * Trait RevenueShareTypePropertyAwareTrait.
  *
- * @see \Apigee\Edge\Api\ApigeeX\Entity\Property\RevenueShareTypePropertyInterface
+ * @see RevenueShareTypePropertyInterface
  */
 trait RevenueShareTypePropertyAwareTrait
 {

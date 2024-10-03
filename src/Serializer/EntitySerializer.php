@@ -26,16 +26,19 @@ use Apigee\Edge\Normalizer\EdgeDateNormalizer;
 use Apigee\Edge\Normalizer\KeyValueMapNormalizer;
 use Apigee\Edge\Normalizer\ObjectNormalizer;
 use Psr\Http\Message\ResponseInterface;
+use ReflectionMethod;
+use ReflectionObject;
 use Symfony\Component\Serializer\Exception\NotEncodableValueException;
 use Symfony\Component\Serializer\Normalizer\ArrayDenormalizer;
 use Symfony\Component\Serializer\Serializer;
+use TypeError;
 
 /**
  * Serializes, normalizes and denormalizes entities.
  */
 class EntitySerializer implements EntitySerializerInterface
 {
-    /** @var \Symfony\Component\Serializer\Serializer */
+    /** @var Serializer */
     private $serializer;
 
     /**
@@ -63,7 +66,7 @@ class EntitySerializer implements EntitySerializerInterface
             new ArrayDenormalizer(),
             new ObjectNormalizer(),
             new ObjectDenormalizer(),
-            ]
+        ]
         );
         $this->serializer = new Serializer($normalizers, [$this->jsonEncoder()]);
     }
@@ -140,7 +143,7 @@ class EntitySerializer implements EntitySerializerInterface
             get_class($entity),
             $this->format
         );
-        $ro = new \ReflectionObject($entity);
+        $ro = new ReflectionObject($entity);
         // Copy property values from the temporary entity to $entity.
         foreach ($ro->getProperties() as $property) {
             // Ensure that these methods are exist. This is always true for all SDK entities but we can not be sure
@@ -158,7 +161,7 @@ class EntitySerializer implements EntitySerializerInterface
                 }
             }
 
-            $rm = new \ReflectionMethod($entity, $setter);
+            $rm = new ReflectionMethod($entity, $setter);
             $value = $tmp->{$getter}();
             // Exclude null values.
             // (An entity property value is null (internally) if it is scalar
@@ -168,7 +171,7 @@ class EntitySerializer implements EntitySerializerInterface
             if (null !== $value) {
                 try {
                     $rm->invoke($entity, $value);
-                } catch (\TypeError $error) {
+                } catch (TypeError $error) {
                     // Auto-retry, pass the value as variable-length arguments.
                     if (is_array($value)) {
                         // Clear the value of the property.
@@ -220,7 +223,7 @@ class EntitySerializer implements EntitySerializerInterface
     /**
      * Allows subclasses to replace the default JSON encoder.
      *
-     * @return \Apigee\Edge\Serializer\JsonEncoder
+     * @return JsonEncoder
      */
     protected function jsonEncoder(): JsonEncoder
     {

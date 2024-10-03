@@ -38,7 +38,7 @@ trait PaginatedListingHelperTrait
         return $this->listEntities($uri->withQuery(http_build_query($query_params)));
     }
 
-    protected function listEntitiesInRange(UriInterface $uri, int $limit = null, int $page = 1): array
+    protected function listEntitiesInRange(UriInterface $uri, ?int $limit = null, int $page = 1): array
     {
         // Do not lose already set query parameters.
         $query_params = [];

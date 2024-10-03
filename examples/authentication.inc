@@ -99,16 +99,16 @@ class ClientFactory
     /** @var string|null */
     private $endpoint;
 
-    /** @var \CredentialProvider */
+    /** @var CredentialProvider */
     private $credential;
 
-    /** @var \Apigee\Edge\ClientInterface|null */
+    /** @var ClientInterface|null */
     private $client;
 
     /**
      * ClientFactory constructor.
      *
-     * @param \CredentialProvider $credential
+     * @param CredentialProvider $credential
      *   Apigee Edge credentials.
      * @param string|null $endpoint
      *   Apigee Edge endpoint, if null it falls back to the url of Apigee Edge cloud.
@@ -122,7 +122,7 @@ class ClientFactory
     /**
      * Returns a configured API client.
      *
-     * @return \Apigee\Edge\ClientInterface
+     * @return ClientInterface
      */
     public function getClient(): ClientInterface
     {

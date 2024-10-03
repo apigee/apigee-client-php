@@ -34,8 +34,8 @@ class DeveloperTermsAndConditionsController extends LegalEntityTermsAndCondition
      *
      * @param string $developerId
      * @param string $organization
-     * @param \Apigee\Edge\ClientInterface $client
-     * @param \Apigee\Edge\Serializer\EntitySerializerInterface|null $entitySerializer
+     * @param ClientInterface $client
+     * @param EntitySerializerInterface|null $entitySerializer
      */
     public function __construct(string $developerId, string $organization, ClientInterface $client, ?EntitySerializerInterface $entitySerializer = null)
     {

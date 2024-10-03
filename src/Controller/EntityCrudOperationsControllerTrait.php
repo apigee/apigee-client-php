@@ -21,7 +21,7 @@ namespace Apigee\Edge\Controller;
 /**
  * Trait EntityCrudOperationsControllerTrait.
  *
- * @see \Apigee\Edge\Controller\EntityCrudOperationsControllerInterface
+ * @see EntityCrudOperationsControllerInterface
  */
 trait EntityCrudOperationsControllerTrait
 {

@@ -32,7 +32,7 @@ class CompanyReportDefinitionNameConverter extends ReportDefinitionNameConverter
     protected function getExternalToLocalMapping(): array
     {
         return parent::getExternalToLocalMapping() + [
-                'developer' => 'company',
-            ];
+            'developer' => 'company',
+        ];
     }
 }

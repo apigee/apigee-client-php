@@ -21,13 +21,14 @@ namespace Apigee\Edge\Tests\Test\Controller;
 use Apigee\Edge\Controller\EntityCreateOperationControllerInterface;
 use Apigee\Edge\Entity\EntityInterface;
 use Apigee\Edge\Tests\Test\Utility\EntityStorage;
+use InvalidArgumentException;
 
 final class EntityCreateOperationControllerTester extends EntityControllerTesterBase implements EntityCreateOperationTestControllerTesterInterface
 {
     /**
      * Creates an entity in Apigee Edge.
      *
-     * @param \Apigee\Edge\Entity\EntityInterface $entity
+     * @param EntityInterface $entity
      */
     public function create(EntityInterface $entity): void
     {
@@ -46,7 +47,7 @@ final class EntityCreateOperationControllerTester extends EntityControllerTester
         parent::validateController($controller);
         if (!$controller instanceof EntityCreateOperationControllerInterface && !$controller instanceof EntityControllerTesterInterface) {
             $class = get_class($controller);
-            throw new \InvalidArgumentException("Controller must implement EntityCreateOperationControllerInterface or EntityControllerTesterInterface. Got {$class}.");
+            throw new InvalidArgumentException("Controller must implement EntityCreateOperationControllerInterface or EntityControllerTesterInterface. Got {$class}.");
         }
     }
 }

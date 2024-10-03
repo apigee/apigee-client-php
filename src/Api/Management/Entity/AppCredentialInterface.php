@@ -22,6 +22,7 @@ use Apigee\Edge\Entity\EntityInterface;
 use Apigee\Edge\Entity\Property\AttributesPropertyInterface;
 use Apigee\Edge\Entity\Property\ScopesPropertyInterface;
 use Apigee\Edge\Entity\Property\StatusPropertyInterface;
+use DateTimeImmutable;
 
 /**
  * Interface AppCredentialInterface.
@@ -69,12 +70,12 @@ interface AppCredentialInterface extends
     public function getConsumerSecret(): string;
 
     /**
-     * @return \DateTimeImmutable|null
+     * @return DateTimeImmutable|null
      */
-    public function getExpiresAt(): ?\DateTimeImmutable;
+    public function getExpiresAt(): ?DateTimeImmutable;
 
     /**
-     * @return \DateTimeImmutable|null
+     * @return DateTimeImmutable|null
      */
-    public function getIssuedAt(): ?\DateTimeImmutable;
+    public function getIssuedAt(): ?DateTimeImmutable;
 }

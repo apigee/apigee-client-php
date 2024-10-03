@@ -30,11 +30,11 @@ trait AppGroupControllerAwareTestTrait
     use DefaultAPIClientAwareTrait;
 
     /**
-     * @param \Apigee\Edge\ClientInterface|null $client
+     * @param ClientInterface|null $client
      *
-     * @return \Apigee\Edge\Tests\Test\Controller\EntityControllerTester|\Apigee\Edge\Api\ApigeeX\Controller\AppGroupControllerInterface
+     * @return EntityControllerTester|\Apigee\Edge\Api\ApigeeX\Controller\AppGroupControllerInterface
      */
-    protected static function appGroupController(ClientInterface $client = null): EntityControllerTester
+    protected static function appGroupController(?ClientInterface $client = null): EntityControllerTester
     {
         $client = $client ?? static::defaultAPIClient();
 

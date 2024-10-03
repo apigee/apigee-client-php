@@ -45,7 +45,7 @@ abstract class LegalEntityReportDefinitionController extends OrganizationAwareEn
      * @see https://apidocs.apigee.com/monetize/apis/get/organizations/%7Borg_name%7D/developers/%7Bdev_id%7D/report-definitions
      * @see https://apidocs.apigee.com/monetize/apis/post/organizations/%7Borg_name%7D/developers/%7Bdev_id%7D/report-definitions
      *
-     * @var \Apigee\Edge\Api\Monetization\Controller\ReportDefinitionControllerInterface
+     * @var ReportDefinitionControllerInterface
      */
     protected $reportDefinitionController;
 
@@ -53,9 +53,9 @@ abstract class LegalEntityReportDefinitionController extends OrganizationAwareEn
      * LegalEntityReportDefinitionController constructor.
      *
      * @param string $organization
-     * @param \Apigee\Edge\ClientInterface $client
-     * @param \Apigee\Edge\Api\Monetization\Controller\ReportDefinitionControllerInterface|null $reportDefinitionController
-     * @param \Apigee\Edge\Serializer\EntitySerializerInterface|null $entitySerializer
+     * @param ClientInterface $client
+     * @param ReportDefinitionControllerInterface|null $reportDefinitionController
+     * @param EntitySerializerInterface|null $entitySerializer
      */
     public function __construct(string $organization, ClientInterface $client, ?ReportDefinitionControllerInterface $reportDefinitionController = null, ?EntitySerializerInterface $entitySerializer = null)
     {

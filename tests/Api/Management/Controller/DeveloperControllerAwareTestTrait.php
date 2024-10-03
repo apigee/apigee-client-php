@@ -31,11 +31,11 @@ trait DeveloperControllerAwareTestTrait
     use DefaultAPIClientAwareTrait;
 
     /**
-     * @param \Apigee\Edge\ClientInterface|null $client
+     * @param ClientInterface|null $client
      *
-     * @return \Apigee\Edge\Tests\Test\Controller\EntityControllerTesterInterface|\Apigee\Edge\Api\Management\Controller\DeveloperControllerInterface
+     * @return EntityControllerTesterInterface|\Apigee\Edge\Api\Management\Controller\DeveloperControllerInterface
      */
-    protected static function developerController(ClientInterface $client = null): EntityControllerTesterInterface
+    protected static function developerController(?ClientInterface $client = null): EntityControllerTesterInterface
     {
         $client = $client ?? static::defaultAPIClient();
 

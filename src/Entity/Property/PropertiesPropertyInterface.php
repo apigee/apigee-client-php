@@ -26,7 +26,7 @@ use Apigee\Edge\Structure\PropertiesProperty;
 interface PropertiesPropertyInterface
 {
     /**
-     * @return \Apigee\Edge\Structure\PropertiesProperty
+     * @return PropertiesProperty
      */
     public function getProperties(): PropertiesProperty;
 

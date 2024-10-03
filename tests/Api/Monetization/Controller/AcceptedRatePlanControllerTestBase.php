@@ -22,6 +22,7 @@ use Apigee\Edge\Api\Monetization\Entity\RatePlanInterface;
 use Apigee\Edge\Tests\Api\Monetization\EntitySerializer\AcceptedRatePlanSerializerValidator;
 use Apigee\Edge\Tests\Test\Controller\MockClientAwareTrait;
 use Apigee\Edge\Tests\Test\EntitySerializer\EntitySerializerValidatorInterface;
+use DateTimeImmutable;
 use GuzzleHttp\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
 
@@ -63,9 +64,9 @@ abstract class AcceptedRatePlanControllerTestBase extends EntityControllerTestBa
         $httpClient = static::mockApiClient()->getMockHttpClient();
         /** @var \Apigee\Edge\Api\Monetization\Controller\AcceptedRatePlanControllerInterface $acceptedController */
         $acceptedController = static::entityController(static::mockApiClient());
-        /** @var \Apigee\Edge\Api\Monetization\Entity\RatePlanInterface $ratePlan */
+        /** @var RatePlanInterface $ratePlan */
         $ratePlan = $this->getRatePlanToAccept();
-        $startDate = new \DateTimeImmutable('now');
+        $startDate = new DateTimeImmutable('now');
         $response = $this->getAcceptRatePlanResponse();
         $httpClient->addResponse($response);
         /** @var \Apigee\Edge\Api\Monetization\Entity\AcceptedRatePlanInterface $acceptedRatePlan */
@@ -82,7 +83,7 @@ abstract class AcceptedRatePlanControllerTestBase extends EntityControllerTestBa
 
         $httpClient->addResponse($response);
         /* @var \Apigee\Edge\Api\Monetization\Entity\AcceptedRatePlanInterface $acceptedRatePlan */
-        $acceptedController->acceptRatePlan($ratePlan, $startDate, new \DateTimeImmutable('tomorrow'), 10, false, false);
+        $acceptedController->acceptRatePlan($ratePlan, $startDate, new DateTimeImmutable('tomorrow'), 10, false, false);
         $payload = json_decode((string) static::mockApiClient()->getJournal()->getLastRequest()->getBody());
         $this->assertNotNull($payload->endDate);
         $this->assertEquals(10, $payload->quotaTarget);
@@ -91,7 +92,7 @@ abstract class AcceptedRatePlanControllerTestBase extends EntityControllerTestBa
 
         $httpClient->addResponse($response);
         /* @var \Apigee\Edge\Api\Monetization\Entity\AcceptedRatePlanInterface $acceptedRatePlan */
-        $acceptedController->acceptRatePlan($ratePlan, $startDate, new \DateTimeImmutable('tomorrow'), 10, true, true);
+        $acceptedController->acceptRatePlan($ratePlan, $startDate, new DateTimeImmutable('tomorrow'), 10, true, true);
         $payload = json_decode((string) static::mockApiClient()->getJournal()->getLastRequest()->getBody());
         $this->assertEquals('true', $payload->suppressWarning);
         $this->assertEquals('true', $payload->waveTerminationCharge);
@@ -110,7 +111,7 @@ abstract class AcceptedRatePlanControllerTestBase extends EntityControllerTestBa
         /** @var \Apigee\Edge\Api\Monetization\Entity\AcceptedRatePlanInterface $acceptedRatePlan */
         $acceptedRatePlan = $acceptedController->load('phpunit');
         $originalStartDate = $acceptedRatePlan->getStartDate();
-        $acceptedRatePlan->setStartDate(new \DateTimeImmutable('now'));
+        $acceptedRatePlan->setStartDate(new DateTimeImmutable('now'));
         $acceptedController->updateSubscription($acceptedRatePlan);
         $payload = json_decode((string) static::mockApiClient()->getJournal()->getLastRequest()->getBody());
         // Make sure we do not send properties with null values.
@@ -139,12 +140,12 @@ abstract class AcceptedRatePlanControllerTestBase extends EntityControllerTestBa
     /**
      * Returns a response that will be returned for acceptRatePlan().
      *
-     * @return \Psr\Http\Message\ResponseInterface
+     * @return ResponseInterface
      */
     abstract protected function getAcceptRatePlanResponse(): ResponseInterface;
 
     /**
-     * @return \Apigee\Edge\Api\Monetization\Entity\RatePlanInterface
+     * @return RatePlanInterface
      */
     abstract protected function getRatePlanToAccept(): RatePlanInterface;
 

@@ -40,7 +40,7 @@ class PrepaidBalance extends Entity implements PrepaidBalanceInterface
     /**
      * Value of "supportedCurrency" from the API response.
      *
-     * @var \Apigee\Edge\Api\Monetization\Entity\SupportedCurrency
+     * @var SupportedCurrency
      */
     protected $currency;
 

@@ -19,16 +19,17 @@
 namespace Apigee\Edge\Tests\Test\EntitySerializer;
 
 use Apigee\Edge\Entity\EntityInterface;
+use stdClass;
 
 interface EntitySerializerValidatorInterface
 {
     /**
      * Validates entity objects created from API responses.
      *
-     * @param \stdClass $input
+     * @param stdClass $input
      *   JSON decoded raw API response as object.
-     * @param \Apigee\Edge\Entity\EntityInterface $entity
+     * @param EntityInterface $entity
      *   Created entity object from the API response by a serializer.
      */
-    public function validate(\stdClass $input, EntityInterface $entity): void;
+    public function validate(stdClass $input, EntityInterface $entity): void;
 }

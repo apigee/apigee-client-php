@@ -25,7 +25,7 @@ use Apigee\Edge\Structure\PropertiesProperty;
  */
 trait PropertiesPropertyAwareTrait
 {
-    /** @var \Apigee\Edge\Structure\PropertiesProperty */
+    /** @var PropertiesProperty */
     protected $properties;
 
     /**

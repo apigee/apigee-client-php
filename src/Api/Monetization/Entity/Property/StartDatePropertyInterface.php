@@ -18,15 +18,17 @@
 
 namespace Apigee\Edge\Api\Monetization\Entity\Property;
 
+use DateTimeImmutable;
+
 interface StartDatePropertyInterface
 {
     /**
-     * @return \DateTimeImmutable
+     * @return DateTimeImmutable
      */
-    public function getStartDate(): \DateTimeImmutable;
+    public function getStartDate(): DateTimeImmutable;
 
     /**
-     * @param \DateTimeImmutable $startDate
+     * @param DateTimeImmutable $startDate
      */
-    public function setStartDate(\DateTimeImmutable $startDate): void;
+    public function setStartDate(DateTimeImmutable $startDate): void;
 }

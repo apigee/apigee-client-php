@@ -21,7 +21,9 @@ namespace Apigee\Edge\Tests\Api\Monetization\Controller;
 use Apigee\Edge\Tests\Api\Monetization\EntitySerializer\PrepaidBalanceSerializerValidator;
 use Apigee\Edge\Tests\Test\Controller\MockClientAwareTrait;
 use Apigee\Edge\Tests\Test\EntitySerializer\EntitySerializerValidatorInterface;
+use DateTimeImmutable;
 use GuzzleHttp\Psr7\Response;
+use ReflectionObject;
 
 /**
  * Base class for developer- and company prepaid balance tests.
@@ -96,15 +98,15 @@ abstract class PrepaidBalanceControllerTestBase extends EntityControllerTestBase
         /** @var \Apigee\Edge\Api\Monetization\Controller\PrepaidBalanceControllerInterface $controller */
         $controller = static::entityController();
         /** @var \Apigee\Edge\Api\Monetization\Entity\PrepaidBalanceInterface[] $entities */
-        $entities = $controller->getPrepaidBalance(new \DateTimeImmutable('2018-10-01'));
+        $entities = $controller->getPrepaidBalance(new DateTimeImmutable('2018-10-01'));
         $json = json_decode((string) static::defaultAPIClient()->getJournal()->getLastResponse()->getBody());
         $json = reset($json);
         $i = 0;
         // We need to prepaid balance serializer from the controller.
-        $ro = new \ReflectionObject(static::entityController());
+        $ro = new ReflectionObject(static::entityController());
         $property = $ro->getProperty('decorated');
         $property->setAccessible(true);
-        $ro = new \ReflectionObject($property->getValue(static::entityController()));
+        $ro = new ReflectionObject($property->getValue(static::entityController()));
         $rp = $ro->getProperty('prepaidBalanceSerializer');
         $rp->setAccessible(true);
         $validator = new PrepaidBalanceSerializerValidator($rp->getValue($property->getValue(static::entityController())));
@@ -126,7 +128,7 @@ abstract class PrepaidBalanceControllerTestBase extends EntityControllerTestBase
         /** @var \Apigee\Edge\Api\Monetization\Controller\PrepaidBalanceControllerInterface $controller */
         $controller = static::entityController(static::mockApiClient());
         $currencyCode = 'USD';
-        $billingMonth = new \DateTimeImmutable('now');
+        $billingMonth = new DateTimeImmutable('now');
         $balance = $controller->getPrepaidBalanceByCurrency($currencyCode, $billingMonth);
         // In case of an empty result this should return null.
         $this->assertNull($balance);

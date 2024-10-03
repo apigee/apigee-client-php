@@ -41,7 +41,7 @@ class ApiPackageController extends OrganizationAwareEntityController implements 
      *
      * @param string $organization
      * @param ClientInterface $client
-     * @param \Apigee\Edge\Serializer\EntitySerializerInterface|null $entitySerializer
+     * @param EntitySerializerInterface|null $entitySerializer
      */
     public function __construct(string $organization, ClientInterface $client, ?EntitySerializerInterface $entitySerializer = null)
     {

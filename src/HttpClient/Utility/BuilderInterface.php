@@ -29,7 +29,7 @@ use Psr\Http\Client\ClientInterface;
 interface BuilderInterface
 {
     /**
-     * @return \Psr\Http\Client\ClientInterface
+     * @return ClientInterface
      */
     public function getHttpClient(): ClientInterface;
 
@@ -61,7 +61,7 @@ interface BuilderInterface
      *
      * The plugin is added to the end of the plugin list.
      *
-     * @param \Http\Client\Common\Plugin
+     * @param Plugin
      *   Http client plugin.
      *
      * @see http://docs.php-http.org/en/latest/plugins/introduction.html#how-it-works

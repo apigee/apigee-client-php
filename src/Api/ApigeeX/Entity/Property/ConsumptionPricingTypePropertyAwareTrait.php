@@ -21,7 +21,7 @@ namespace Apigee\Edge\Api\ApigeeX\Entity\Property;
 /**
  * Trait ConsumptionPricingTypePropertyAwareTrait.
  *
- * @see \Apigee\Edge\Api\ApigeeX\Entity\Property\ConsumptionPricingTypePropertyInterface
+ * @see ConsumptionPricingTypePropertyInterface
  */
 trait ConsumptionPricingTypePropertyAwareTrait
 {

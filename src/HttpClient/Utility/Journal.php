@@ -33,10 +33,10 @@ use Psr\Http\Message\ResponseInterface;
  */
 final class Journal implements JournalInterface
 {
-    /** @var \Psr\Http\Message\RequestInterface */
+    /** @var RequestInterface */
     private $lastRequest;
 
-    /** @var \Psr\Http\Message\ResponseInterface */
+    /** @var ResponseInterface */
     private $lastResponse;
 
     /** @var \Http\Client\Exception */
@@ -52,8 +52,8 @@ final class Journal implements JournalInterface
     /**
      * Record a successful call.
      *
-     * @param \Psr\Http\Message\RequestInterface $request Request use to make the call
-     * @param \Psr\Http\Message\ResponseInterface $response Response returned by the call
+     * @param RequestInterface $request Request use to make the call
+     * @param ResponseInterface $response Response returned by the call
      */
     public function addSuccess(RequestInterface $request, ResponseInterface $response): void
     {
@@ -65,8 +65,8 @@ final class Journal implements JournalInterface
     /**
      * Record a failed call.
      *
-     * @param \Psr\Http\Message\RequestInterface $request Request use to make the call
-     * @param \Psr\Http\Client\ClientExceptionInterface $exception Exception returned by the call
+     * @param RequestInterface $request Request use to make the call
+     * @param ClientExceptionInterface $exception Exception returned by the call
      */
     public function addFailure(RequestInterface $request, ClientExceptionInterface $exception): void
     {
@@ -75,7 +75,7 @@ final class Journal implements JournalInterface
     }
 
     /**
-     * @return \Psr\Http\Message\RequestInterface
+     * @return RequestInterface
      */
     public function getLastRequest()
     {
@@ -83,7 +83,7 @@ final class Journal implements JournalInterface
     }
 
     /**
-     * @return \Psr\Http\Message\ResponseInterface
+     * @return ResponseInterface
      */
     public function getLastResponse()
     {

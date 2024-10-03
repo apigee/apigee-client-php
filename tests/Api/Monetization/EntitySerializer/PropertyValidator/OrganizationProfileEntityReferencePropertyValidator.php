@@ -23,6 +23,7 @@ use Apigee\Edge\Entity\EntityInterface;
 use Apigee\Edge\Tests\Test\EntitySerializer\PropertyValidator\RemoveIfPropertyValidPropertyValidatorInterface;
 use Apigee\Edge\Tests\Test\EntitySerializer\PropertyValidator\SerializerAwarePropertyValidatorTrait;
 use PHPUnit\Framework\Assert;
+use stdClass;
 
 class OrganizationProfileEntityReferencePropertyValidator implements RemoveIfPropertyValidPropertyValidatorInterface, \Apigee\Edge\Tests\Test\EntitySerializer\PropertyValidator\SerializerAwarePropertyValidatorInterface
 {
@@ -31,7 +32,7 @@ class OrganizationProfileEntityReferencePropertyValidator implements RemoveIfPro
     /**
      * {@inheritdoc}
      */
-    public function validate(\stdClass $input, \stdClass $output, EntityInterface $entity): void
+    public function validate(stdClass $input, stdClass $output, EntityInterface $entity): void
     {
         if (!$entity instanceof OrganizationPropertyInterface) {
             return;

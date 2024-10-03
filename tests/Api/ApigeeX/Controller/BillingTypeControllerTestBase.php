@@ -32,7 +32,7 @@ abstract class BillingTypeControllerTestBase extends EntityControllerTestBase
         $controller = static::entityController();
         $ratePlans = $controller->getAllBillingDetails();
         $input = json_decode((string) static::defaultAPIClient()->getJournal()->getLastResponse()->getBody());
-        $this->entitySerializerValidator()->validate($input, $ratePlans);       
+        $this->entitySerializerValidator()->validate($input, $ratePlans);
     }
 
     public function testUpdateBillingType(): void

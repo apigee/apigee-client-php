@@ -18,6 +18,8 @@
 
 namespace Apigee\Edge\Structure;
 
+use ReflectionObject;
+
 trait ObjectCopyHelperTrait
 {
     /**
@@ -27,7 +29,7 @@ trait ObjectCopyHelperTrait
      */
     public function __clone()
     {
-        $ro = new \ReflectionObject($this);
+        $ro = new ReflectionObject($this);
         foreach ($ro->getProperties() as $property) {
             $property->setAccessible(true);
             $value = $property->getValue($this);

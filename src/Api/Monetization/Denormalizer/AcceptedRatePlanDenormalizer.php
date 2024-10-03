@@ -34,7 +34,7 @@ abstract class AcceptedRatePlanDenormalizer extends ObjectDenormalizer
      */
     public function denormalize($data, $type, $format = null, array $context = [])
     {
-        /** @var \Apigee\Edge\Api\Monetization\Entity\AcceptedRatePlanInterface $denormalized */
+        /** @var AcceptedRatePlanInterface $denormalized */
         $denormalized = parent::denormalize($data, $type, $format, $context);
 
         $this->fixTimeZoneOnDenormalization($data, $denormalized, $denormalized->getRatePlan()->getPackage()->getOrganization()->getTimezone());

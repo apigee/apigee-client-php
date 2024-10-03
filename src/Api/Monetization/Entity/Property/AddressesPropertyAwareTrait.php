@@ -23,7 +23,7 @@ use Apigee\Edge\Api\Monetization\Structure\Address;
 /**
  * Trait AddressesPropertyAwareTrait.
  *
- * @see \Apigee\Edge\Api\Monetization\Entity\Property\AddressesPropertyInterface
+ * @see AddressesPropertyInterface
  */
 trait AddressesPropertyAwareTrait
 {

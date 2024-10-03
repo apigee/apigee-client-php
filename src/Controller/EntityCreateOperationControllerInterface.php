@@ -25,7 +25,7 @@ interface EntityCreateOperationControllerInterface
     /**
      * Creates an entity in Apigee Edge.
      *
-     * @param \Apigee\Edge\Entity\EntityInterface $entity
+     * @param EntityInterface $entity
      */
     public function create(EntityInterface $entity): void;
 }

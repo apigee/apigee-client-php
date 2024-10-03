@@ -31,11 +31,12 @@ use PHPUnit\Framework\TestCase;
  * @group client
  * @group mock
  * @group offline
+ *
  * @small
  */
 class BuilderTest extends TestCase
 {
-    /** @var \Apigee\Edge\Tests\Test\HttpClient\MockHttpClient */
+    /** @var MockHttpClient */
     protected static $httpClient;
 
     /**
@@ -78,7 +79,7 @@ class BuilderTest extends TestCase
     /**
      * @depends testShouldSetHeaders
      *
-     * @param \Apigee\Edge\HttpClient\Utility\Builder $builder
+     * @param Builder $builder
      */
     public function testShouldSetHeaderValue(Builder $builder): void
     {
@@ -96,7 +97,7 @@ class BuilderTest extends TestCase
     /**
      * @depends testShouldSetHeaders
      *
-     * @param \Apigee\Edge\HttpClient\Utility\Builder $builder
+     * @param Builder $builder
      */
     public function testShouldRemoveHeader(Builder $builder): void
     {
@@ -112,7 +113,7 @@ class BuilderTest extends TestCase
     /**
      * @depends testShouldSetHeaders
      *
-     * @param \Apigee\Edge\HttpClient\Utility\Builder $builder
+     * @param Builder $builder
      */
     public function testShouldRemoveAllHeaders(Builder $builder): void
     {
@@ -145,7 +146,7 @@ class BuilderTest extends TestCase
     /**
      * @depends testShouldAddPlugin
      *
-     * @param \Apigee\Edge\HttpClient\Utility\Builder $builder
+     * @param Builder $builder
      */
     public function testShouldRemovePlugin(Builder $builder): void
     {

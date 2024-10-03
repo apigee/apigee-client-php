@@ -26,6 +26,7 @@ use Apigee\Edge\Entity\Property\NamePropertyInterface;
 use Apigee\Edge\Entity\Property\PropertiesPropertyInterface;
 use Apigee\Edge\Entity\Property\RuntimeTypeInterface;
 use Apigee\Edge\Structure\AddonsConfig;
+use InvalidArgumentException;
 
 /**
  * Interface OrganizationInterface.
@@ -47,7 +48,7 @@ interface OrganizationInterface extends
     /**
      * @param string $type
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function setType(string $type): void;
 
@@ -59,12 +60,12 @@ interface OrganizationInterface extends
     public function getTypes(): array;
 
     /**
-     * @return \Apigee\Edge\Structure\AddonsConfig|null
+     * @return AddonsConfig|null
      */
     public function getAddonsConfig(): ?AddonsConfig;
 
     /**
-     * @param \Apigee\Edge\Structure\AddonsConfig $addonsConfig
+     * @param AddonsConfig $addonsConfig
      */
     public function setAddonsConfig(AddonsConfig $addonsConfig): void;
 }

@@ -26,7 +26,7 @@ trait DefaultTestOrganizationAwareTrait
      * Returns the name of the default test organization that is used in the
      * current test run.
      *
-     * @param \Apigee\Edge\ClientInterface $client
+     * @param ClientInterface $client
      *
      * @return string
      */

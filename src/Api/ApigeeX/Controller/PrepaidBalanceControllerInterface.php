@@ -30,7 +30,7 @@ interface PrepaidBalanceControllerInterface extends EntityControllerInterface, P
      * @param string $currencyCode
      * @param string $transaction_id
      *
-     * @return \Apigee\Edge\Api\ApigeeX\Entity\PrepaidBalanceInterface
+     * @return PrepaidBalanceInterface
      */
     public function topUpBalance($amount, $amountnano, string $currencyCode, string $transaction_id): PrepaidBalanceInterface;
 

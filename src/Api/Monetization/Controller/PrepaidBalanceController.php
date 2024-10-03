@@ -27,6 +27,7 @@ use Apigee\Edge\Api\Monetization\Serializer\PrepaidBalanceSerializer;
 use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Controller\EntityListingControllerTrait;
 use Apigee\Edge\Serializer\EntitySerializerInterface;
+use DateTimeImmutable;
 use Psr\Http\Message\UriInterface;
 
 abstract class PrepaidBalanceController extends OrganizationAwareEntityController implements PrepaidBalanceControllerInterface
@@ -36,7 +37,7 @@ abstract class PrepaidBalanceController extends OrganizationAwareEntityControlle
     use PaginatedEntityListingControllerAwareTrait;
 
     /**
-     * @var \Apigee\Edge\Serializer\EntitySerializerInterface
+     * @var EntitySerializerInterface
      */
     protected $prepaidBalanceSerializer;
 
@@ -51,10 +52,10 @@ abstract class PrepaidBalanceController extends OrganizationAwareEntityControlle
      * PrepaidBalanceController constructor.
      *
      * @param string $organization
-     * @param \Apigee\Edge\ClientInterface $client
-     * @param \Apigee\Edge\Serializer\EntitySerializerInterface|null $balanceSerializer
+     * @param ClientInterface $client
+     * @param EntitySerializerInterface|null $balanceSerializer
      * @param string|null $prepaidBalanceClass
-     * @param \Apigee\Edge\Serializer\EntitySerializerInterface|null $prepaidBalanceSerializer
+     * @param EntitySerializerInterface|null $prepaidBalanceSerializer
      */
     public function __construct(string $organization, ClientInterface $client, ?EntitySerializerInterface $balanceSerializer = null, ?string $prepaidBalanceClass = null, ?EntitySerializerInterface $prepaidBalanceSerializer = null)
     {
@@ -105,7 +106,7 @@ abstract class PrepaidBalanceController extends OrganizationAwareEntityControlle
      * @param float $replenishAmount
      * @param float $recurringAmount
      *
-     * @return \Apigee\Edge\Api\Monetization\Entity\BalanceInterface
+     * @return BalanceInterface
      */
     public function setupRecurringPayments(string $currencyCode, string $paymentProviderId, float $replenishAmount, float $recurringAmount): BalanceInterface
     {
@@ -132,7 +133,7 @@ abstract class PrepaidBalanceController extends OrganizationAwareEntityControlle
      * @param string $currencyCode
      * @param string $paymentProviderId
      *
-     * @return \Apigee\Edge\Api\Monetization\Entity\BalanceInterface
+     * @return BalanceInterface
      */
     public function disableRecurringPayments(string $currencyCode, string $paymentProviderId): BalanceInterface
     {
@@ -154,7 +155,7 @@ abstract class PrepaidBalanceController extends OrganizationAwareEntityControlle
     /**
      * {@inheritdoc}
      */
-    public function getPrepaidBalance(\DateTimeImmutable $billingMonth): array
+    public function getPrepaidBalance(DateTimeImmutable $billingMonth): array
     {
         return $this->listPrepaidBalances($billingMonth);
     }
@@ -162,7 +163,7 @@ abstract class PrepaidBalanceController extends OrganizationAwareEntityControlle
     /**
      * {@inheritdoc}
      */
-    public function getPrepaidBalanceByCurrency(string $currencyCode, \DateTimeImmutable $billingMonth): ?PrepaidBalanceInterface
+    public function getPrepaidBalanceByCurrency(string $currencyCode, DateTimeImmutable $billingMonth): ?PrepaidBalanceInterface
     {
         $result = $this->listPrepaidBalances($billingMonth, $currencyCode);
 
@@ -187,21 +188,21 @@ abstract class PrepaidBalanceController extends OrganizationAwareEntityControlle
      * has more than one listing endpoint so getBaseEntityEndpoint() was
      * enough until this time.
      *
-     * @return \Psr\Http\Message\UriInterface
+     * @return UriInterface
      */
     abstract protected function getPrepaidBalanceEndpoint(): UriInterface;
 
     /**
      * Helper function which returns prepaid balances..
      *
-     * @param \DateTimeImmutable $billingMonth
+     * @param DateTimeImmutable $billingMonth
      * @param string|null $currencyCode
      *
      * @return \Apigee\Edge\Api\Monetization\Entity\PrepaidBalanceInterface[]
      *
      * @psalm-suppress PossiblyNullArrayOffset - id() does not return null here.
      */
-    private function listPrepaidBalances(\DateTimeImmutable $billingMonth, ?string $currencyCode = null): array
+    private function listPrepaidBalances(DateTimeImmutable $billingMonth, ?string $currencyCode = null): array
     {
         $query_params = [
             'billingMonth' => strtoupper($billingMonth->format('F')),
@@ -213,7 +214,7 @@ abstract class PrepaidBalanceController extends OrganizationAwareEntityControlle
 
         $balances = [];
         foreach ($this->getRawList($this->getPrepaidBalanceEndpoint()->withQuery(http_build_query($query_params))) as $item) {
-            /** @var \Apigee\Edge\Api\Monetization\Entity\PrepaidBalanceInterface $balance */
+            /** @var PrepaidBalanceInterface $balance */
             $balance = $this->prepaidBalanceSerializer->denormalize($item, $this->prepaidBalanceClass);
             $balances[$balance->id()] = $balance;
         }

@@ -25,7 +25,7 @@ trait PreviousRatePlanRevisionPropertyAwareTrait
     /**
      * Value of "parentRatePlan" from the Apigee Edge API response.
      *
-     * @var \Apigee\Edge\Api\Monetization\Entity\RatePlanInterface|\Apigee\Edge\Api\Monetization\Entity\RatePlanRevisionInterface
+     * @var RatePlanInterface|\Apigee\Edge\Api\Monetization\Entity\RatePlanRevisionInterface
      */
     protected $previousRatePlanRevision;
 
@@ -38,7 +38,7 @@ trait PreviousRatePlanRevisionPropertyAwareTrait
     }
 
     /**
-     * @param \Apigee\Edge\Api\Monetization\Entity\RatePlanInterface|\Apigee\Edge\Api\Monetization\Entity\RatePlanRevisionInterface $previousRatePlanRevision
+     * @param RatePlanInterface|\Apigee\Edge\Api\Monetization\Entity\RatePlanRevisionInterface $previousRatePlanRevision
      *
      * @internal
      */

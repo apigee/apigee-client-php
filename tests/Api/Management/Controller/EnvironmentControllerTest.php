@@ -49,7 +49,7 @@ class EnvironmentControllerTest extends EntityControllerTestBase
     /**
      * Test load depends on this so we had to implement it.
      *
-     * @return \Apigee\Edge\Entity\EntityInterface
+     * @return EntityInterface
      */
     public function testCreate(): EntityInterface
     {
@@ -64,7 +64,7 @@ class EnvironmentControllerTest extends EntityControllerTestBase
     /**
      * {@inheritdoc}
      */
-    protected static function entityController(ClientInterface $client = null): EntityControllerTesterInterface
+    protected static function entityController(?ClientInterface $client = null): EntityControllerTesterInterface
     {
         $client = $client ?? static::defaultAPIClient();
 

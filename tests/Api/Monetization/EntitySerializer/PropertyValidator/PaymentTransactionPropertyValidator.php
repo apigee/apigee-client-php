@@ -26,6 +26,8 @@ use Apigee\Edge\Tests\Api\Monetization\EntitySerializer\LegalEntitySerializerVal
 use Apigee\Edge\Tests\Test\EntitySerializer\PropertyValidator\SerializerAwarePropertyValidatorInterface;
 use Apigee\Edge\Tests\Test\EntitySerializer\PropertyValidator\SerializerAwarePropertyValidatorTrait;
 use PHPUnit\Framework\Assert;
+use ReflectionObject;
+use stdClass;
 
 /**
  * Even if payment transactions are not entities we extend the entity
@@ -51,7 +53,7 @@ class PaymentTransactionPropertyValidator implements \Apigee\Edge\Tests\Test\Ent
     /**
      * {@inheritdoc}
      */
-    public function validate(\stdClass $input, \stdClass $output, EntityInterface $entity): void
+    public function validate(stdClass $input, stdClass $output, EntityInterface $entity): void
     {
         if (!$entity instanceof BalanceInterface || null === $entity->getTransaction()) {
             return;
@@ -80,7 +82,7 @@ class PaymentTransactionPropertyValidator implements \Apigee\Edge\Tests\Test\Ent
         // this a different way.
         // TODO Validate organization object before it gets removed.
         unset($expected->organization);
-        $ro = new \ReflectionObject($lentity);
+        $ro = new ReflectionObject($lentity);
         $orgProp = $ro->getProperty('organization');
         $orgProp->setAccessible(true);
         // Only way to clear organization.

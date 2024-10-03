@@ -54,8 +54,8 @@ class DeveloperController extends PaginatedEntityController implements Developer
      * DeveloperController constructor.
      *
      * @param string $organization
-     * @param \Apigee\Edge\ClientInterface $client
-     * @param \Apigee\Edge\Serializer\EntitySerializerInterface|null $entitySerializer
+     * @param ClientInterface $client
+     * @param EntitySerializerInterface|null $entitySerializer
      * @param OrganizationControllerInterface|null $organizationController
      */
     public function __construct(string $organization, ClientInterface $client, ?EntitySerializerInterface $entitySerializer = null, ?OrganizationControllerInterface $organizationController = null)
@@ -87,8 +87,8 @@ class DeveloperController extends PaginatedEntityController implements Developer
      * {@inheritdoc}
      */
     public function getEntities(
-        PagerInterface $pager = null,
-        string $key_provider = 'id'
+        ?PagerInterface $pager = null,
+        string $key_provider = 'id',
     ): array {
         // The getEntityIds() returns email addresses so we should use email
         // addresses as keys in the array as well.
@@ -106,7 +106,7 @@ class DeveloperController extends PaginatedEntityController implements Developer
      */
     public function update(EntityInterface $entity): void
     {
-        /** @var \Apigee\Edge\Api\Management\Entity\Developer $entity */
+        /** @var Developer $entity */
         $developer_entity = $entity;
         $uri = $this->getEntityEndpointUri($developer_entity->originalEmail());
         $response = $this->getClient()->put(

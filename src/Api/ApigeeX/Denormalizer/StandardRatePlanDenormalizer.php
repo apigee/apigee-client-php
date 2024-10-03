@@ -61,7 +61,7 @@ class StandardRatePlanDenormalizer extends RatePlanDenormalizer
         }
 
         if (parent::supportsDenormalization($data, $type, $format)) {
-            //return RatePlanInterface::TYPE_STANDARD == $data->type;
+            // return RatePlanInterface::TYPE_STANDARD == $data->type;
             return RatePlanInterface::TYPE_STANDARD == 'STANDARD';
         }
 

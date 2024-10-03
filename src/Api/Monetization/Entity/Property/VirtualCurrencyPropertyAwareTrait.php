@@ -21,7 +21,7 @@ namespace Apigee\Edge\Api\Monetization\Entity\Property;
 /**
  * Trait VirtualCurrencyPropertyAwareTrait.
  *
- * @see \Apigee\Edge\Api\Monetization\Entity\Property\VirtualCurrencyPropertyInterface
+ * @see VirtualCurrencyPropertyInterface
  */
 trait VirtualCurrencyPropertyAwareTrait
 {

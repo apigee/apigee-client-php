@@ -25,7 +25,7 @@ interface ProductPropertyInterface
     /**
      * Returns the apiproduct information included in rateplan detials.
      *
-     * @return \Apigee\Edge\Api\Monetization\Entity\ApiProduct
+     * @return ApiProduct
      */
     public function getProduct(): ?ApiProduct;
 }

@@ -76,7 +76,7 @@ abstract class RatePlan extends OrganizationAwareEntity implements RatePlanInter
      *
      * It can be null when a new rate plan is created.
      *
-     * @var \Apigee\Edge\Api\Monetization\Entity\ApiPackage|null
+     * @var ApiPackage|null
      */
     protected $package;
 

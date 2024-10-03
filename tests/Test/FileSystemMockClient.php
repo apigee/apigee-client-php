@@ -26,15 +26,15 @@ use League\Flysystem\AdapterInterface;
 
 class FileSystemMockClient extends OfflineClientBase implements OfflineClientInterface
 {
-    /** @var \Apigee\Edge\Tests\Test\HttpClient\FileSystemHttpMockClient */
+    /** @var FileSystemHttpMockClient */
     private $httpClient;
 
     /**
      * FileSystemMockClient constructor.
      *
-     * @param \League\Flysystem\AdapterInterface|null $adapter
+     * @param AdapterInterface|null $adapter
      */
-    public function __construct(AdapterInterface $adapter = null)
+    public function __construct(?AdapterInterface $adapter = null)
     {
         $this->httpClient = new FileSystemHttpMockClient($adapter);
         parent::__construct([Client::CONFIG_HTTP_CLIENT_BUILDER => new Builder($this->httpClient)]);

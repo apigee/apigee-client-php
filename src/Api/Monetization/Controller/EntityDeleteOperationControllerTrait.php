@@ -24,7 +24,7 @@ use Apigee\Edge\Controller\EntityEndpointAwareControllerTrait;
 /**
  * Trait EntityDeleteOperationControllerTrait.
  *
- * @see \Apigee\Edge\Api\Monetization\Controller\EntityDeleteOperationControllerInterface
+ * @see EntityDeleteOperationControllerInterface
  */
 trait EntityDeleteOperationControllerTrait
 {

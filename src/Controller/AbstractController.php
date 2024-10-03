@@ -38,17 +38,17 @@ abstract class AbstractController
     /**
      * Client interface that should be used for communication.
      *
-     * @var \Apigee\Edge\ClientInterface
+     * @var ClientInterface
      */
     protected $client;
 
-    /** @var \Symfony\Component\Serializer\Encoder\JsonDecode */
+    /** @var JsonDecode */
     protected $jsonDecoder;
 
     /**
      * AbstractController constructor.
      *
-     * @param \Apigee\Edge\ClientInterface $client
+     * @param ClientInterface $client
      */
     public function __construct(ClientInterface $client)
     {

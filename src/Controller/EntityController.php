@@ -36,15 +36,15 @@ abstract class EntityController extends AbstractEntityController
      *
      * @param string $organization
      *   Name of the organization that the entities belongs to.
-     * @param \Apigee\Edge\ClientInterface $client
-     * @param \Apigee\Edge\Serializer\EntitySerializerInterface|null $entitySerializer
+     * @param ClientInterface $client
+     * @param EntitySerializerInterface|null $entitySerializer
      *
      * @psalm-suppress InvalidArgument - There is no issue with the arguments.
      */
     public function __construct(
         string $organization,
         ClientInterface $client,
-        ?EntitySerializerInterface $entitySerializer = null
+        ?EntitySerializerInterface $entitySerializer = null,
     ) {
         $this->organization = $organization;
         parent::__construct($client, $entitySerializer);

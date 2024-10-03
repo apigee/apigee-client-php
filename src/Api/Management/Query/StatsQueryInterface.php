@@ -37,7 +37,7 @@ interface StatsQueryInterface
     /**
      * @param string[] $metrics
      *
-     * @return \Apigee\Edge\Api\Management\Query\StatsQueryInterface
+     * @return StatsQueryInterface
      */
     public function setMetrics(array $metrics): StatsQueryInterface;
 
@@ -49,7 +49,7 @@ interface StatsQueryInterface
     /**
      * @param Period $timeRange
      *
-     * @return \Apigee\Edge\Api\Management\Query\StatsQueryInterface
+     * @return StatsQueryInterface
      */
     public function setTimeRange(Period $timeRange): StatsQueryInterface;
 
@@ -61,7 +61,7 @@ interface StatsQueryInterface
     /**
      * @param string|null $timeUnit
      *
-     * @return \Apigee\Edge\Api\Management\Query\StatsQueryInterface
+     * @return StatsQueryInterface
      */
     public function setTimeUnit(?string $timeUnit): StatsQueryInterface;
 
@@ -73,7 +73,7 @@ interface StatsQueryInterface
     /**
      * @param string|null $sortBy
      *
-     * @return \Apigee\Edge\Api\Management\Query\StatsQueryInterface
+     * @return StatsQueryInterface
      */
     public function setSortBy(?string $sortBy): StatsQueryInterface;
 
@@ -85,7 +85,7 @@ interface StatsQueryInterface
     /**
      * @param string|null $sort
      *
-     * @return \Apigee\Edge\Api\Management\Query\StatsQueryInterface
+     * @return StatsQueryInterface
      */
     public function setSort(?string $sort): StatsQueryInterface;
 
@@ -97,7 +97,7 @@ interface StatsQueryInterface
     /**
      * @param int|null $topK
      *
-     * @return \Apigee\Edge\Api\Management\Query\StatsQueryInterface
+     * @return StatsQueryInterface
      */
     public function setTopK(?int $topK): StatsQueryInterface;
 
@@ -109,7 +109,7 @@ interface StatsQueryInterface
     /**
      * @param int|null $limit
      *
-     * @return \Apigee\Edge\Api\Management\Query\StatsQueryInterface
+     * @return StatsQueryInterface
      */
     public function setLimit(?int $limit): StatsQueryInterface;
 
@@ -121,7 +121,7 @@ interface StatsQueryInterface
     /**
      * @param int|null $offset
      *
-     * @return \Apigee\Edge\Api\Management\Query\StatsQueryInterface
+     * @return StatsQueryInterface
      */
     public function setOffset(?int $offset): StatsQueryInterface;
 
@@ -133,7 +133,7 @@ interface StatsQueryInterface
     /**
      * @param bool|null $realtime
      *
-     * @return \Apigee\Edge\Api\Management\Query\StatsQueryInterface
+     * @return StatsQueryInterface
      */
     public function setRealtime(?bool $realtime): StatsQueryInterface;
 
@@ -145,7 +145,7 @@ interface StatsQueryInterface
     /**
      * @param int|null $accuracy
      *
-     * @return \Apigee\Edge\Api\Management\Query\StatsQueryInterface
+     * @return StatsQueryInterface
      */
     public function setAccuracy(?int $accuracy): StatsQueryInterface;
 
@@ -157,7 +157,7 @@ interface StatsQueryInterface
     /**
      * @param bool $tsAscending
      *
-     * @return \Apigee\Edge\Api\Management\Query\StatsQueryInterface
+     * @return StatsQueryInterface
      */
     public function setTsAscending(bool $tsAscending): StatsQueryInterface;
 
@@ -169,7 +169,7 @@ interface StatsQueryInterface
     /**
      * @param string|null $filter
      *
-     * @return \Apigee\Edge\Api\Management\Query\StatsQueryInterface
+     * @return StatsQueryInterface
      *
      * @see https://docs.apigee.com/analytics-services/reference/analytics-reference#filters
      */

@@ -21,7 +21,7 @@ namespace Apigee\Edge\Api\ApigeeX\Entity\Property;
 /**
  * Trait FixedFeeFrequencyPropertyAwareTrait.
  *
- * @see \Apigee\Edge\Api\ApigeeX\Entity\Property\FixedFeeFrequencyPropertyInterface
+ * @see FixedFeeFrequencyPropertyInterface
  */
 trait FixedFeeFrequencyPropertyAwareTrait
 {

@@ -23,6 +23,7 @@ use Apigee\Edge\Api\Monetization\Entity\EntityInterface;
 use Apigee\Edge\Api\Monetization\Normalizer\DateTimeZoneNormalizer;
 use Apigee\Edge\Api\Monetization\Normalizer\EntityNormalizer;
 use Apigee\Edge\Serializer\EntitySerializer as BaseEntitySerializer;
+use DateTimeZone;
 use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
 
 class EntitySerializer extends BaseEntitySerializer
@@ -40,7 +41,7 @@ class EntitySerializer extends BaseEntitySerializer
             [
                 // Apigee Edge's default timezone is UTC, let's pass it as
                 // timezone instead of user's current timezone.
-                new DateTimeNormalizer([DateTimeNormalizer::FORMAT_KEY => EntityInterface::DATE_FORMAT, DateTimeNormalizer::TIMEZONE_KEY => new \DateTimeZone('UTC')]),
+                new DateTimeNormalizer([DateTimeNormalizer::FORMAT_KEY => EntityInterface::DATE_FORMAT, DateTimeNormalizer::TIMEZONE_KEY => new DateTimeZone('UTC')]),
                 new DateTimeZoneDenormalizer(),
                 new DateTimeZoneNormalizer(),
                 new EntityNormalizer(),

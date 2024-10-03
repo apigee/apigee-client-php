@@ -34,7 +34,7 @@ trait ListingHelperTrait
     /**
      * Returns a raw API response as an array of a listing API endpoint.
      *
-     * @param \Psr\Http\Message\UriInterface $uri
+     * @param UriInterface $uri
      *   URI of the endpoint where the request should be sent.
      *
      * @return array
@@ -46,7 +46,7 @@ trait ListingHelperTrait
 
         $responseArray = $this->responseToArray($response);
 
-        //ApigeeX can return empty array.
+        // ApigeeX can return empty array.
         if (empty($responseArray)) {
             return $responseArray;
         }
@@ -58,7 +58,7 @@ trait ListingHelperTrait
     /**
      * Returns a raw API response as an array when there is single value in api response.
      *
-     * @param \Psr\Http\Message\UriInterface $uri
+     * @param UriInterface $uri
      *   URI of the endpoint where the request should be sent.
      *
      * @return array

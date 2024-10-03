@@ -34,7 +34,7 @@ trait EntityDeleteOperationControllerTestTrait
     /**
      * @depends testLoad
      *
-     * @param \Apigee\Edge\Entity\EntityInterface $entity
+     * @param EntityInterface $entity
      */
     public function testDelete(EntityInterface $entity): void
     {

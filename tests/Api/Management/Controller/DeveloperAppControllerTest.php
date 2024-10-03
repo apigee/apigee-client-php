@@ -44,7 +44,7 @@ class DeveloperAppControllerTest extends AppControllerTestBase
     use DeveloperTestEntityProviderTrait;
     use ParameterUrlEncodingTestTrait;
 
-    /** @var \Apigee\Edge\Api\Management\Entity\DeveloperInterface */
+    /** @var DeveloperInterface */
     protected static $testDeveloper;
 
     /**
@@ -60,7 +60,7 @@ class DeveloperAppControllerTest extends AppControllerTestBase
     /**
      * {@inheritdoc}
      */
-    protected static function entityController(ClientInterface $client = null): EntityControllerTesterInterface
+    protected static function entityController(?ClientInterface $client = null): EntityControllerTesterInterface
     {
         return static::developerAppController($client);
     }

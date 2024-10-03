@@ -65,7 +65,7 @@ class ApiProductControllerTest extends EntityControllerTestBase
             $expectedEntityId = 'phpunit_test';
             $unexpectedId = 'should_not_appear';
         } else {
-            /** @var \Apigee\Edge\Api\Management\Entity\ApiProductInterface $unexpectedEntity */
+            /** @var ApiProductInterface $unexpectedEntity */
             $unexpectedEntity = static::getNewEntity();
             $unexpectedEntity->setAttribute('foo', 'foo');
             // Use the same controller as the entity create test uses because
@@ -73,7 +73,7 @@ class ApiProductControllerTest extends EntityControllerTestBase
             // returns.
             static::controllerForEntityCreate()->create($unexpectedEntity);
             $unexpectedId = $unexpectedEntity->id();
-            /** @var \Apigee\Edge\Api\Management\Entity\ApiProductInterface $expectedEntity */
+            /** @var ApiProductInterface $expectedEntity */
             $expectedEntity = static::getNewEntity();
             $expectedEntity->setAttribute('foo', 'bar');
             static::controllerForEntityCreate()->create($expectedEntity);
@@ -88,7 +88,7 @@ class ApiProductControllerTest extends EntityControllerTestBase
     /**
      * {@inheritdoc}
      */
-    protected static function entityController(ClientInterface $client = null): EntityControllerTesterInterface
+    protected static function entityController(?ClientInterface $client = null): EntityControllerTesterInterface
     {
         return static::apiProductController($client);
     }

@@ -39,8 +39,8 @@ abstract class LegalEntityController extends OrganizationAwareEntityController i
      * LegalEntityController constructor.
      *
      * @param string $organization
-     * @param \Apigee\Edge\ClientInterface $client
-     * @param \Apigee\Edge\Serializer\EntitySerializerInterface|null $entitySerializer
+     * @param ClientInterface $client
+     * @param EntitySerializerInterface|null $entitySerializer
      */
     public function __construct(string $organization, ClientInterface $client, ?EntitySerializerInterface $entitySerializer = null)
     {

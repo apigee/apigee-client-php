@@ -30,7 +30,7 @@ trait ReportTypeFromCriteriaHelperTrait
     /**
      * Gets the type of a report definition based on the criteria in it.
      *
-     * @param \Apigee\Edge\Api\Monetization\Structure\Reports\Criteria\AbstractCriteria $criteria
+     * @param AbstractCriteria $criteria
      *
      * @throws \Apigee\Edge\Exception\RuntimeException
      *   If report type could not be identified.
@@ -38,7 +38,7 @@ trait ReportTypeFromCriteriaHelperTrait
      * @return string
      *   The type of a report.
      *
-     * @see \Apigee\Edge\Api\Monetization\Entity\ReportDefinitionInterface
+     * @see ReportDefinitionInterface
      */
     final protected function getReportTypeFromCriteria(AbstractCriteria $criteria): string
     {

@@ -130,12 +130,12 @@ interface RatePlanInterface extends
     /**
      * It could be null only when a rate plan is created.
      *
-     * @return \Apigee\Edge\Api\Monetization\Entity\ApiPackageInterface|null
+     * @return ApiPackageInterface|null
      */
     public function getPackage(): ?ApiPackageInterface;
 
     /**
-     * @param \Apigee\Edge\Api\Monetization\Entity\ApiPackageInterface $package
+     * @param ApiPackageInterface $package
      */
     public function setPackage(ApiPackageInterface $package): void;
 
@@ -165,7 +165,7 @@ interface RatePlanInterface extends
     public function getRatePlanDetails(): array;
 
     /**
-     * @param \Apigee\Edge\Api\Monetization\Structure\RatePlanDetail ...$ratePlanDetails
+     * @param RatePlanDetail ...$ratePlanDetails
      */
     public function setRatePlanDetails(RatePlanDetail ...$ratePlanDetails): void;
 

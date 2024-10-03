@@ -52,7 +52,7 @@ interface RatePlanControllerInterface extends
     /**
      * Creates a new rate plan revision.
      *
-     * @param \Apigee\Edge\Api\ApigeeX\Entity\RatePlanRevisionInterface $entity
+     * @param RatePlanRevisionInterface $entity
      *   Rate plan revision to be created.
      */
     public function createNewRevision(RatePlanRevisionInterface $entity): void;

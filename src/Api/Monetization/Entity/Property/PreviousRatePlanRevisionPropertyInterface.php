@@ -23,7 +23,7 @@ use Apigee\Edge\Api\Monetization\Entity\RatePlanInterface;
 interface PreviousRatePlanRevisionPropertyInterface
 {
     /**
-     * @return \Apigee\Edge\Api\Monetization\Entity\RatePlanInterface|\Apigee\Edge\Api\Monetization\Entity\RatePlanRevisionInterface
+     * @return RatePlanInterface|\Apigee\Edge\Api\Monetization\Entity\RatePlanRevisionInterface
      */
     public function getPreviousRatePlanRevision(): RatePlanInterface;
 }

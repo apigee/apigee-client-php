@@ -23,14 +23,14 @@ use Apigee\Edge\Api\Monetization\Entity\CompanyInterface;
 /**
  * Trait CompanyPropertyAwareTrait.
  *
- * @see \Apigee\Edge\Api\Monetization\Entity\Property\CompanyPropertyInterface
+ * @see CompanyPropertyInterface
  */
 trait CompanyPropertyAwareTrait
 {
     /**
      * Value of "developer" from the API response.
      *
-     * @var \Apigee\Edge\Api\Monetization\Entity\CompanyInterface|null
+     * @var CompanyInterface|null
      */
     protected $company;
 

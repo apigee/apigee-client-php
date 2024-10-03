@@ -18,6 +18,9 @@
 
 namespace Apigee\Edge\Tests\Test\Controller;
 
+use InvalidArgumentException;
+use ReflectionObject;
+
 /**
  * @internal
  */
@@ -46,7 +49,7 @@ abstract class EntityControllerTesterBase
         } elseif (method_exists($this->decorated, $name)) {
             $object = $this->decorated;
         } else {
-            throw new \InvalidArgumentException("Method not found {$name}.");
+            throw new InvalidArgumentException("Method not found {$name}.");
         }
 
         return call_user_func_array([$object, $name], $arguments);
@@ -54,7 +57,7 @@ abstract class EntityControllerTesterBase
 
     public function instanceOf(string $fqcn): bool
     {
-        $ro = new \ReflectionObject($this);
+        $ro = new ReflectionObject($this);
         if ($this->decorated instanceof EntityControllerTesterInterface) {
             return $this->decorated->instanceOf($fqcn);
         }
@@ -65,12 +68,12 @@ abstract class EntityControllerTesterBase
     /**
      * @param object $controller
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     protected function validateController($controller): void
     {
         if (!is_object($controller)) {
-            throw new \InvalidArgumentException('Controller must be an object.');
+            throw new InvalidArgumentException('Controller must be an object.');
         }
     }
 }

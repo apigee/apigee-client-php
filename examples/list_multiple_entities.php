@@ -28,7 +28,7 @@ require_once 'authentication.inc';
  * List all developers on the organization.
  */
 $dc = new DeveloperController($clientFactory->getOrganization(), $clientFactory->getClient());
-/** @var \Apigee\Edge\Api\Management\Entity\DeveloperInterface $developer */
+/** @var Apigee\Edge\Api\Management\Entity\DeveloperInterface $developer */
 foreach ($dc->getEntities() as $developer) {
     echo $developer->getFirstName() . ' ' . $developer->getLastName() . "\n";
 }
@@ -76,7 +76,7 @@ foreach ($dc->getEntities($dc->createPager(5, 'john.doe@example.com')) as $devel
  * In the SDK anything that implements \Apigee\Edge\Controller\NonCpsListingEntityControllerInterface.
  */
 $ac = new ApiProductController($clientFactory->getOrganization(), $clientFactory->getClient());
-/** @var \Apigee\Edge\Api\Management\Entity\ApiProductInterface $product */
+/** @var Apigee\Edge\Api\Management\Entity\ApiProductInterface $product */
 foreach ($ac->getEntities() as $product) {
     echo $product->getDisplayName() . "\n";
 }

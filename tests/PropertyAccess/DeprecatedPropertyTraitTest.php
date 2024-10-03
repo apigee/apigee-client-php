@@ -19,6 +19,8 @@
 namespace Apigee\Edge\Tests\PropertyAccess;
 
 use Apigee\Edge\Utility\DeprecatedPropertyTrait;
+use Exception;
+use LogicException;
 use PHPUnit\Framework\TestCase;
 
 class DeprecatedPropertyTraitTest extends TestCase
@@ -28,14 +30,14 @@ class DeprecatedPropertyTraitTest extends TestCase
      */
     public function testUndeclaredDeprecatedProperties(): void
     {
-        $a = new class() {
+        $a = new class {
             use DeprecatedPropertyTrait;
         };
 
         try {
             $c = $a->b;
-        } catch (\Exception $exception) {
-            $this->assertInstanceOf(\LogicException::class, $exception);
+        } catch (Exception $exception) {
+            $this->assertInstanceOf(LogicException::class, $exception);
         }
     }
 
@@ -44,7 +46,7 @@ class DeprecatedPropertyTraitTest extends TestCase
      */
     public function testdeprecatedProperties(): void
     {
-        $a = new class() {
+        $a = new class {
             use DeprecatedPropertyTrait;
             public $new = 'ABC';
             protected $deprecatedProperties = [
@@ -60,15 +62,15 @@ class DeprecatedPropertyTraitTest extends TestCase
         // Try accessing "removed" property.
         try {
             $c = $a->removed;
-        } catch (\Exception $exception1) {
-            $this->assertInstanceOf(\LogicException::class, $exception1);
+        } catch (Exception $exception1) {
+            $this->assertInstanceOf(LogicException::class, $exception1);
         }
 
         // Try accessing "invalid" property, where it's replacement "undeclared" is invalid.
         try {
             $c = $a->invalid;
-        } catch (\Exception $exception2) {
-            $this->assertInstanceOf(\LogicException::class, $exception2);
+        } catch (Exception $exception2) {
+            $this->assertInstanceOf(LogicException::class, $exception2);
         } finally {
             if (!isset($exception2)) {
                 $this->fail('An exception should have been thrown.');

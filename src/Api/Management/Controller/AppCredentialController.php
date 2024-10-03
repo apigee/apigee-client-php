@@ -43,8 +43,8 @@ abstract class AppCredentialController extends EntityController implements AppCr
      *
      * @param string $organization
      * @param string $appName
-     * @param \Apigee\Edge\ClientInterface $client
-     * @param \Apigee\Edge\Serializer\EntitySerializerInterface|null $entitySerializer
+     * @param ClientInterface $client
+     * @param EntitySerializerInterface|null $entitySerializer
      */
     public function __construct(string $organization, string $appName, ClientInterface $client, ?EntitySerializerInterface $entitySerializer = null)
     {
@@ -79,7 +79,7 @@ abstract class AppCredentialController extends EntityController implements AppCr
         AttributesProperty $appAttributes,
         string $callbackUrl,
         array $scopes = [],
-        string $keyExpiresIn = '-1'
+        string $keyExpiresIn = '-1',
     ): AppCredentialInterface {
         $response = $this->client->put(
             $this->getBaseEndpointUri(),
@@ -172,10 +172,10 @@ abstract class AppCredentialController extends EntityController implements AppCr
         $response = $this->client->get($this->getEntityEndpointUri($consumerKey));
 
         return $this->entitySerializer->deserialize(
-        (string) $response->getBody(),
-        $this->getEntityClass(),
-        'json'
-      );
+            (string) $response->getBody(),
+            $this->getEntityClass(),
+            'json'
+        );
     }
 
     /**
@@ -186,10 +186,10 @@ abstract class AppCredentialController extends EntityController implements AppCr
         $response = $this->client->delete($this->getEntityEndpointUri($consumerKey));
 
         return $this->entitySerializer->deserialize(
-        (string) $response->getBody(),
-        $this->getEntityClass(),
-        'json'
-      );
+            (string) $response->getBody(),
+            $this->getEntityClass(),
+            'json'
+        );
     }
 
     /**

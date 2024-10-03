@@ -19,13 +19,14 @@
 namespace Apigee\Edge\Tests\Api\Monetization\EntitySerializer;
 
 use Apigee\Edge\Entity\EntityInterface;
+use stdClass;
 
 class ReportDefinitionSerializerValidator extends OrganizationAwareEntitySerializerValidator
 {
     /**
      * {@inheritdoc}
      */
-    public function validate(\stdClass $input, EntityInterface $entity): void
+    public function validate(stdClass $input, EntityInterface $entity): void
     {
         // Developer property gets removed from the normalized output so we
         // do not validate it here.

@@ -31,7 +31,7 @@ abstract class OnlineClientBase extends Client implements OnlineClientInterface
     /**
      * OnlineClientBase constructor.
      *
-     * @param \Http\Message\Authentication $authentication
+     * @param Authentication $authentication
      * @param string|null $endpoint
      * @param array $options
      */

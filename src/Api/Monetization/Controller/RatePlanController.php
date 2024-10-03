@@ -45,8 +45,8 @@ class RatePlanController extends OrganizationAwareEntityController implements Ra
      *
      * @param string $apiPackage
      * @param string $organization
-     * @param \Apigee\Edge\ClientInterface $client
-     * @param \Apigee\Edge\Serializer\EntitySerializerInterface|null $entitySerializer
+     * @param ClientInterface $client
+     * @param EntitySerializerInterface|null $entitySerializer
      */
     public function __construct(string $apiPackage, string $organization, ClientInterface $client, ?EntitySerializerInterface $entitySerializer = null)
     {

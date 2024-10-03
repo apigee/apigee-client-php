@@ -28,7 +28,7 @@ class CompanyRatePlanNameConverter extends RatePlanNameConverter implements Name
     protected function getExternalToLocalMapping(): array
     {
         return parent::getExternalToLocalMapping() + [
-                'developer' => 'company',
-            ];
+            'developer' => 'company',
+        ];
     }
 }

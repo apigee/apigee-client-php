@@ -21,7 +21,7 @@ namespace Apigee\Edge\Entity\Property;
 /**
  * Trait OrganizationNamePropertyAwareTrait.
  *
- * @see \Apigee\Edge\Entity\Property\OrganizationNamePropertyInterface
+ * @see OrganizationNamePropertyInterface
  */
 trait OrganizationNamePropertyAwareTrait
 {

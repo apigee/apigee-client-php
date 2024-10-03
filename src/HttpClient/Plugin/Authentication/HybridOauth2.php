@@ -78,7 +78,7 @@ class HybridOauth2 extends AbstractOauth
      *   The service account email.
      * @param string $privateKey
      *   The service account private key.
-     * @param \Apigee\Edge\HttpClient\Plugin\Authentication\OauthTokenStorageInterface $tokenStorage
+     * @param OauthTokenStorageInterface $tokenStorage
      *   Storage where access token gets saved.
      * @param string|null $authServer
      *   Authentication server.

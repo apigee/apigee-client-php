@@ -253,12 +253,12 @@ interface OrganizationProfileInterface extends EntityInterface,
     public function setTransactionRelayURL(string $transactionRelayURL): void;
 
     /**
-     * @return \DateTimeZone
+     * @return DateTimeZone
      */
     public function getTimezone(): DateTimeZone;
 
     /**
-     * @param \DateTimeZone $timezone
+     * @param DateTimeZone $timezone
      */
     public function setTimezone(DateTimeZone $timezone): void;
 

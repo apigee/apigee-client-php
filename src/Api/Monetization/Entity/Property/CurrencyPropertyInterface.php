@@ -23,12 +23,12 @@ use Apigee\Edge\Api\Monetization\Entity\SupportedCurrencyInterface;
 interface CurrencyPropertyInterface
 {
     /**
-     * @return \Apigee\Edge\Api\Monetization\Entity\SupportedCurrencyInterface
+     * @return SupportedCurrencyInterface
      */
     public function getCurrency(): SupportedCurrencyInterface;
 
     /**
-     * @param \Apigee\Edge\Api\Monetization\Entity\SupportedCurrencyInterface $currency
+     * @param SupportedCurrencyInterface $currency
      */
     public function setCurrency(SupportedCurrencyInterface $currency): void;
 }

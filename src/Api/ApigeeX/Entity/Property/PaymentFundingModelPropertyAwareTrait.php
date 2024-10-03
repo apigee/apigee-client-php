@@ -21,7 +21,7 @@ namespace Apigee\Edge\Api\ApigeeX\Entity\Property;
 /**
  * Trait PaymentFundingModelPropertyAwareTrait.
  *
- * @see \Apigee\Edge\Api\ApigeeX\Entity\Property\PaymentFundingModelPropertyInterface
+ * @see PaymentFundingModelPropertyInterface
  */
 trait PaymentFundingModelPropertyAwareTrait
 {

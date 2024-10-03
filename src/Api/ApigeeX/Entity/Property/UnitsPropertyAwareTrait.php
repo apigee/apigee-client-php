@@ -21,7 +21,7 @@ namespace Apigee\Edge\Api\ApigeeX\Entity\Property;
 /**
  * Trait UnitsPropertyAwareTrait.
  *
- * @see \Apigee\Edge\Api\ApigeeX\Entity\Property\UnitsPropertyInterface
+ * @see UnitsPropertyInterface
  */
 trait UnitsPropertyAwareTrait
 {

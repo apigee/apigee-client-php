@@ -23,6 +23,7 @@ use Apigee\Edge\Entity\Property\AttributesPropertyInterface;
 use Apigee\Edge\Tests\Test\EntitySerializer\PropertyValidator\PropertyValidatorInterface;
 use Apigee\Edge\Tests\Test\EntitySerializer\PropertyValidator\SerializerAwarePropertyValidatorTrait;
 use PHPUnit\Framework\Assert;
+use stdClass;
 
 class CustomAttributesPropertyValidator implements PropertyValidatorInterface, \Apigee\Edge\Tests\Test\EntitySerializer\PropertyValidator\SerializerAwarePropertyValidatorInterface
 {
@@ -31,7 +32,7 @@ class CustomAttributesPropertyValidator implements PropertyValidatorInterface, \
     /**
      * {@inheritdoc}
      */
-    public function validate(\stdClass $input, \stdClass $output, EntityInterface $entity): void
+    public function validate(stdClass $input, stdClass $output, EntityInterface $entity): void
     {
         if (!$entity instanceof AttributesPropertyInterface) {
             return;

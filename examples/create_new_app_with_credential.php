@@ -33,7 +33,7 @@ $dac = new DeveloperAppController($clientFactory->getOrganization(), $developerM
 
 try {
     // Create a new developer app.
-    /** @var \Apigee\Edge\Api\Management\Entity\DeveloperApp $developerApp */
+    /** @var DeveloperApp $developerApp */
     $developerApp = new DeveloperApp(['name' => 'test_app_1']);
     $developerApp->setDisplayName('My first app');
     $developerApp->setAttributes(new AttributesProperty(['bar' => 'baz']));
@@ -46,7 +46,7 @@ try {
 
     // Add products, attributes, and scopes to the auto-generated credential that was created along with the app.
     $credentials = $developerApp->getCredentials();
-    /** @var \Apigee\Edge\Api\Management\Entity\AppCredential $credential */
+    /** @var Apigee\Edge\Api\Management\Entity\AppCredential $credential */
     $credential = reset($credentials);
     $dacc->addProducts($credential->id(), $apiProducts);
     $dacc->updateAttributes($credential->id(), $credAttributes);

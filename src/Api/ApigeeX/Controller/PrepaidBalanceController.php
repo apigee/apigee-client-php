@@ -35,7 +35,7 @@ abstract class PrepaidBalanceController extends OrganizationAwareEntityControlle
     use PaginatedEntityListingControllerAwareTrait;
 
     /**
-     * @var \Apigee\Edge\Serializer\EntitySerializerInterface
+     * @var EntitySerializerInterface
      */
     protected $prepaidBalanceSerializer;
 
@@ -50,10 +50,10 @@ abstract class PrepaidBalanceController extends OrganizationAwareEntityControlle
      * PrepaidBalanceController constructor.
      *
      * @param string $organization
-     * @param \Apigee\Edge\ClientInterface $client
-     * @param \Apigee\Edge\Serializer\EntitySerializerInterface|null $balanceSerializer
+     * @param ClientInterface $client
+     * @param EntitySerializerInterface|null $balanceSerializer
      * @param string|null $prepaidBalanceClass
-     * @param \Apigee\Edge\Serializer\EntitySerializerInterface|null $prepaidBalanceSerializer
+     * @param EntitySerializerInterface|null $prepaidBalanceSerializer
      */
     public function __construct(string $organization, ClientInterface $client, ?EntitySerializerInterface $balanceSerializer = null, ?string $prepaidBalanceClass = null, ?EntitySerializerInterface $prepaidBalanceSerializer = null)
     {
@@ -75,9 +75,9 @@ abstract class PrepaidBalanceController extends OrganizationAwareEntityControlle
             $this->getBaseEndpointUri(),
             (string) json_encode((object) [
                 'transactionAmount' => [
-                  'currencyCode' => $currencyCode,
-                  'units' => $amount,
-                  'nanos' => $amountnano,
+                    'currencyCode' => $currencyCode,
+                    'units' => $amount,
+                    'nanos' => $amountnano,
                 ],
                 'transactionId' => $transaction_id,
             ])
@@ -109,7 +109,7 @@ abstract class PrepaidBalanceController extends OrganizationAwareEntityControlle
     /**
      * Returns the URI of the prepaid balances endpoint.
      *
-     * @return \Psr\Http\Message\UriInterface
+     * @return UriInterface
      */
     abstract protected function getPrepaidBalanceEndpoint(): UriInterface;
 
@@ -126,7 +126,7 @@ abstract class PrepaidBalanceController extends OrganizationAwareEntityControlle
     {
         $balances = [];
         foreach ($this->getRawList($this->getPrepaidBalanceEndpoint()) as $item) {
-            /** @var \Apigee\Edge\Api\ApigeeX\Entity\PrepaidBalanceInterface $balance */
+            /** @var PrepaidBalanceInterface $balance */
             $balance = $this->prepaidBalanceSerializer->denormalize($item, $this->prepaidBalanceClass);
             $balances[$balance->getBalance()->getCurrencyCode()] = $balance;
         }

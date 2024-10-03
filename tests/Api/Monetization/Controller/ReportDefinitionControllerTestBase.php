@@ -33,6 +33,7 @@ use Apigee\Edge\Tests\Test\Controller\EntityUpdateOperationControllerTestTrait;
 use Apigee\Edge\Tests\Test\Controller\MockClientAwareTrait;
 use Apigee\Edge\Tests\Test\EntitySerializer\EntitySerializerValidatorInterface;
 use Apigee\Edge\Tests\Test\TestClientFactory;
+use DateTimeImmutable;
 use GuzzleHttp\Psr7\Response;
 
 abstract class ReportDefinitionControllerTestBase extends EntityControllerTestBase
@@ -59,7 +60,7 @@ abstract class ReportDefinitionControllerTestBase extends EntityControllerTestBa
         $this->assertEquals("/v1/mint/organizations/{$test_org}/billing-reports", static::mockApiClient()->getJournal()->getLastRequest()->getUri()->getPath());
         $controller->generateReport(new PrepaidBalanceReportCriteria('JANUARY', 2019));
         $this->assertEquals("/v1/mint/organizations/{$test_org}/prepaid-balance-reports", static::mockApiClient()->getJournal()->getLastRequest()->getUri()->getPath());
-        $controller->generateReport(new RevenueReportCriteria(new \DateTimeImmutable('yesterday'), new \DateTimeImmutable('now')));
+        $controller->generateReport(new RevenueReportCriteria(new DateTimeImmutable('yesterday'), new DateTimeImmutable('now')));
         $this->assertEquals("/v1/mint/organizations/{$test_org}/revenue-reports", static::mockApiClient()->getJournal()->getLastRequest()->getUri()->getPath());
     }
 
@@ -68,7 +69,7 @@ abstract class ReportDefinitionControllerTestBase extends EntityControllerTestBa
         $this->expectException('\Apigee\Edge\Exception\InvalidArgumentException');
         $this->expectExceptionMessage('Unable to identify report type.');
 
-        $class = new class() extends AbstractCriteria {
+        $class = new class extends AbstractCriteria {
         };
         /** @var \Apigee\Edge\Api\Monetization\Controller\ReportDefinitionControllerInterface $controller */
         $controller = static::entityController(static::mockApiClient());

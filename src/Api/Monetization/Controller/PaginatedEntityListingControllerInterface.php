@@ -31,5 +31,5 @@ interface PaginatedEntityListingControllerInterface extends EntityListingControl
      *
      * @return \Apigee\Edge\Entity\EntityInterface[]
      */
-    public function getPaginatedEntityList(int $limit = null, int $page = 1): array;
+    public function getPaginatedEntityList(?int $limit = null, int $page = 1): array;
 }

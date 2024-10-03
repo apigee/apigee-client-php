@@ -57,16 +57,16 @@ class AppControllerTest extends EntityControllerTestBase
     use DefaultTestOrganizationAwareTrait;
     use MarkOnlineTestSkippedAwareTrait;
 
-    /** @var \Apigee\Edge\Api\Management\Entity\DeveloperInterface */
+    /** @var DeveloperInterface */
     protected static $testDeveloper;
 
-    /** @var \Apigee\Edge\Api\Management\Entity\CompanyInterface */
+    /** @var CompanyInterface */
     protected static $testCompany;
 
-    /** @var \Apigee\Edge\Api\Management\Entity\DeveloperAppInterface */
+    /** @var DeveloperAppInterface */
     protected static $testDeveloperApp;
 
-    /** @var \Apigee\Edge\Api\Management\Entity\CompanyAppInterface */
+    /** @var CompanyAppInterface */
     protected static $testCompanyApp;
 
     /**
@@ -111,7 +111,7 @@ class AppControllerTest extends EntityControllerTestBase
         $this->assertEquals(static::$testDeveloperApp, $apps[static::$testDeveloperApp->getAppId()]);
         $this->assertEquals(static::$testCompanyApp, $apps[static::$testCompanyApp->getAppId()]);
         $apps = static::entityController()->listApps(false);
-        /** @var \Apigee\Edge\Api\Management\Entity\AppInterface $firstApp */
+        /** @var AppInterface $firstApp */
         $firstApp = reset($apps);
         $this->assertEmpty($firstApp->getCredentials());
     }
@@ -172,9 +172,9 @@ class AppControllerTest extends EntityControllerTestBase
     /**
      * {@inheritdoc}
      *
-     * @return \Apigee\Edge\Tests\Test\Controller\EntityControllerTesterInterface|\Apigee\Edge\Api\Management\Controller\AppControllerInterface
+     * @return EntityControllerTesterInterface|AppControllerInterface
      */
-    protected static function entityController(ClientInterface $client = null): EntityControllerTesterInterface
+    protected static function entityController(?ClientInterface $client = null): EntityControllerTesterInterface
     {
         $client = $client ?? static::defaultAPIClient();
 

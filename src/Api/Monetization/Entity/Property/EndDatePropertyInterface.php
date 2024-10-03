@@ -18,15 +18,17 @@
 
 namespace Apigee\Edge\Api\Monetization\Entity\Property;
 
+use DateTimeImmutable;
+
 interface EndDatePropertyInterface
 {
     /**
-     * @return \DateTimeImmutable|null
+     * @return DateTimeImmutable|null
      */
-    public function getEndDate(): ?\DateTimeImmutable;
+    public function getEndDate(): ?DateTimeImmutable;
 
     /**
-     * @param \DateTimeImmutable|null $endDate
+     * @param DateTimeImmutable|null $endDate
      */
-    public function setEndDate(?\DateTimeImmutable $endDate): void;
+    public function setEndDate(?DateTimeImmutable $endDate): void;
 }

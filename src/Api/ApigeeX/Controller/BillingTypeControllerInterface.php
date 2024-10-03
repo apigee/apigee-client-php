@@ -34,7 +34,7 @@ interface BillingTypeControllerInterface extends
     /**
      * Gets the billingtype.
      *
-     * @return \Apigee\Edge\Api\ApigeeX\Entity\BillingTypeInterface
+     * @return BillingTypeInterface
      */
     public function getAllBillingDetails(): BillingTypeInterface;
 

@@ -28,7 +28,7 @@ trait DefaultAPIClientAwareTrait
      * Default API client decided by TestClientFactory based on the predefined
      * environment variables.
      *
-     * @return \Apigee\Edge\ClientInterface
+     * @return ClientInterface
      */
     abstract protected static function defaultAPIClient(): ClientInterface;
 }

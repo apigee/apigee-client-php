@@ -23,7 +23,7 @@ use Apigee\Edge\Entity\EntityInterface;
 /**
  * Trait EntityDeleteOperationControllerTrait.
  *
- * @see \Apigee\Edge\Controller\EntityDeleteOperationControllerInterface
+ * @see EntityDeleteOperationControllerInterface
  */
 trait EntityDeleteOperationControllerTrait
 {

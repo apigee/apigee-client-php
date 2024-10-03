@@ -23,7 +23,7 @@ use Psr\Http\Message\UriInterface;
 /**
  * Trait PaginatedEntityControllerAwareTrait.
  *
- * @see \Apigee\Edge\Api\Monetization\Controller\PaginatedEntityListingControllerInterface
+ * @see PaginatedEntityListingControllerInterface
  */
 trait PaginatedEntityListingControllerAwareTrait
 {
@@ -44,10 +44,10 @@ trait PaginatedEntityListingControllerAwareTrait
      *
      * @return \Apigee\Edge\Entity\EntityInterface[]
      */
-    public function getPaginatedEntityList(int $limit = null, int $page = 1): array
+    public function getPaginatedEntityList(?int $limit = null, int $page = 1): array
     {
         return $this->listEntitiesInRange($this->getBaseEndpointUri(), $limit, $page);
     }
 
-    abstract protected function listEntitiesInRange(UriInterface $uri, int $limit = null, int $page = 1): array;
+    abstract protected function listEntitiesInRange(UriInterface $uri, ?int $limit = null, int $page = 1): array;
 }

@@ -39,8 +39,8 @@ class DeveloperAcceptedRatePlanController extends AcceptedRatePlanController
      *
      * @param string $developerId
      * @param string $organization
-     * @param \Apigee\Edge\ClientInterface $client
-     * @param \Apigee\Edge\Serializer\EntitySerializerInterface|null $entitySerializer
+     * @param ClientInterface $client
+     * @param EntitySerializerInterface|null $entitySerializer
      */
     public function __construct(string $developerId, string $organization, ClientInterface $client, ?EntitySerializerInterface $entitySerializer = null)
     {
@@ -55,6 +55,7 @@ class DeveloperAcceptedRatePlanController extends AcceptedRatePlanController
     {
         // For these API endpoint:
         $developerId = rawurlencode($this->developer);
+
         // https://apidocs.apigee.com/monetize/apis/post/organizations/%7Borg_name%7D/developers/%7Bdeveloper_or_company_id%7D/developer-rateplans (create)
         // https://apidocs.apigee.com/monetize/apis/put/organizations/%7Borg_name%7D/developers/%7Bdeveloper_id%7D/developer-rateplans/%7Bplan_id%7D (update)
         // https://apidocs.apigee.com/monetize/apis/put/organizations/%7Borg_name%7D/developers/%7Bdeveloper_id%7D/developer-rateplans/%7Bplan_id%7D (load)
@@ -86,6 +87,7 @@ class DeveloperAcceptedRatePlanController extends AcceptedRatePlanController
     protected function getAcceptedRatePlansEndpoint(): UriInterface
     {
         $developerId = rawurlencode($this->developer);
+
         // For this API endpoint:
         // https://apidocs.apigee.com/monetize/apis/get/organizations/%7Borg_name%7D/developers/%7Bdeveloper_id%7D/developer-accepted-rateplans
         return $this->client->getUriFactory()->createUri("/mint/organizations/{$this->organization}/developers/{$developerId}/developer-accepted-rateplans");

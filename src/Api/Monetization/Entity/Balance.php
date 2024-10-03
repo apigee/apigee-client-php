@@ -28,7 +28,7 @@ class Balance extends Entity implements BalanceInterface
     /**
      * Value of "supportedCurrency" from the API response.
      *
-     * @var \Apigee\Edge\Api\Monetization\Entity\SupportedCurrency
+     * @var SupportedCurrency
      */
     protected $currency;
 
@@ -48,7 +48,7 @@ class Balance extends Entity implements BalanceInterface
     /** @var float */
     protected $usage;
 
-    /** @var \Apigee\Edge\Api\Monetization\Structure\PaymentTransaction|null */
+    /** @var PaymentTransaction|null */
     protected $transaction;
 
     /**
@@ -132,7 +132,7 @@ class Balance extends Entity implements BalanceInterface
     }
 
     /**
-     * @param \Apigee\Edge\Api\Monetization\Structure\PaymentTransaction $transaction
+     * @param PaymentTransaction $transaction
      *
      * @internal
      */

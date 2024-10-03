@@ -49,7 +49,7 @@ interface BalanceInterface extends EntityInterface, CurrencyPropertyInterface
     public function getUsage(): float;
 
     /**
-     * @return \Apigee\Edge\Api\Monetization\Structure\PaymentTransaction|null
+     * @return PaymentTransaction|null
      */
     public function getTransaction(): ?PaymentTransaction;
 }

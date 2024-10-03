@@ -66,7 +66,7 @@ class PaginatedEntityListingControllerAwareTraitClass
     use JsonDecoderAwareTrait;
 
     /**
-     * @var \Apigee\Edge\ClientInterface
+     * @var ClientInterface
      */
     protected $client;
 

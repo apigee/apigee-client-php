@@ -20,6 +20,7 @@ namespace Apigee\Edge\Tests\Test\Controller;
 
 use Apigee\Edge\Controller\EntityLoadOperationControllerInterface;
 use Apigee\Edge\Entity\EntityInterface;
+use InvalidArgumentException;
 
 final class EntityLoadOperationControllerTester extends EntityControllerTesterBase implements EntityLoadOperationControllerTesterInterface
 {
@@ -39,7 +40,7 @@ final class EntityLoadOperationControllerTester extends EntityControllerTesterBa
         parent::validateController($controller);
         if (!$controller instanceof EntityLoadOperationControllerInterface && !$controller instanceof EntityControllerTesterInterface) {
             $class = get_class($controller);
-            throw new \InvalidArgumentException("Controller must implement EntityLoadOperationControllerInterface or EntityControllerTesterInterface. Got {$class}.");
+            throw new InvalidArgumentException("Controller must implement EntityLoadOperationControllerInterface or EntityControllerTesterInterface. Got {$class}.");
         }
     }
 }

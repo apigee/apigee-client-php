@@ -25,7 +25,7 @@ trait EntitySerializerAwareTestTrait
     /**
      * Returns the entity serializer used by the tested controller.
      *
-     * @return \Apigee\Edge\Serializer\EntitySerializerInterface
+     * @return EntitySerializerInterface
      */
     abstract protected function entitySerializer(): EntitySerializerInterface;
 }

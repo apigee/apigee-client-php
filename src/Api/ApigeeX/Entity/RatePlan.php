@@ -59,7 +59,7 @@ abstract class RatePlan extends Entity implements RatePlanInterface
     /**
      * It can be null when a new rate plan is created.
      *
-     * @var \Apigee\Edge\Api\ApigeeX\Entity\ApiProduct|null
+     * @var ApiProduct|null
      */
     protected $package;
 

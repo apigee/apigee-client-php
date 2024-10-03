@@ -45,7 +45,7 @@ trait StatusPropertyAwareTrait
      * @param string $status
      *   Status of the entity.
      *
-     * @see \Apigee\Edge\Entity\Property\StatusPropertyInterface
+     * @see StatusPropertyInterface
      *
      * @internal
      */

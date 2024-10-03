@@ -45,15 +45,15 @@ class AppController extends PaginatedEntityController implements AppControllerIn
      * AppController constructor.
      *
      * @param string $organization
-     * @param \Apigee\Edge\ClientInterface $client
-     * @param \Apigee\Edge\Serializer\EntitySerializerInterface|null $entitySerializer
-     * @param \Apigee\Edge\Api\Management\Controller\OrganizationControllerInterface|null $organizationController
+     * @param ClientInterface $client
+     * @param EntitySerializerInterface|null $entitySerializer
+     * @param OrganizationControllerInterface|null $organizationController
      */
     public function __construct(
         string $organization,
         ClientInterface $client,
         ?EntitySerializerInterface $entitySerializer = null,
-        ?OrganizationControllerInterface $organizationController = null
+        ?OrganizationControllerInterface $organizationController = null,
     ) {
         $entitySerializer = $entitySerializer ?? new AppGroupEntitySerializer();
         parent::__construct($organization, $client, $entitySerializer, $organizationController);
@@ -77,7 +77,7 @@ class AppController extends PaginatedEntityController implements AppControllerIn
     /**
      * {@inheritdoc}
      */
-    public function listAppIds(PagerInterface $pager = null): array
+    public function listAppIds(?PagerInterface $pager = null): array
     {
         return $this->listEntityIds($pager, []);
     }
@@ -85,7 +85,7 @@ class AppController extends PaginatedEntityController implements AppControllerIn
     /**
      * {@inheritdoc}
      */
-    public function listApps(bool $includeCredentials = true, PagerInterface $pager = null): array
+    public function listApps(bool $includeCredentials = true, ?PagerInterface $pager = null): array
     {
         $queryParams = [
             'includeCred' => $includeCredentials ? 'true' : 'false',
@@ -97,7 +97,7 @@ class AppController extends PaginatedEntityController implements AppControllerIn
     /**
      * {@inheritdoc}
      */
-    public function listAppIdsByStatus(string $status, PagerInterface $pager = null): array
+    public function listAppIdsByStatus(string $status, ?PagerInterface $pager = null): array
     {
         $queryParams = [
             'status' => $status,
@@ -112,7 +112,7 @@ class AppController extends PaginatedEntityController implements AppControllerIn
     public function listAppsByStatus(
         string $status,
         bool $includeCredentials = true,
-        PagerInterface $pager = null
+        ?PagerInterface $pager = null,
     ): array {
         $queryParams = [
             'status' => $status,
@@ -125,7 +125,7 @@ class AppController extends PaginatedEntityController implements AppControllerIn
     /**
      * {@inheritdoc}
      */
-    public function listAppIdsByType(string $appType, PagerInterface $pager = null): array
+    public function listAppIdsByType(string $appType, ?PagerInterface $pager = null): array
     {
         $queryParams = [
             'apptype' => $appType,
@@ -156,9 +156,9 @@ class AppController extends PaginatedEntityController implements AppControllerIn
      * {@inheritdoc}
      */
     protected function listEntities(
-        PagerInterface $pager = null,
+        ?PagerInterface $pager = null,
         array $query_params = [],
-        string $idGetter = null
+        ?string $idGetter = null,
     ): array {
         $idGetter = $idGetter ?? static::ID_GETTER;
 

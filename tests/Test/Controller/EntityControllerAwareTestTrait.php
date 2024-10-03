@@ -25,9 +25,9 @@ trait EntityControllerAwareTestTrait
     /**
      * Returns the decorated entity controller used in a test.
      *
-     * @param \Apigee\Edge\ClientInterface|null $client
+     * @param ClientInterface|null $client
      *
-     * @return \Apigee\Edge\Tests\Test\Controller\EntityControllerTesterInterface
+     * @return EntityControllerTesterInterface
      */
-    abstract protected static function entityController(ClientInterface $client = null): EntityControllerTesterInterface;
+    abstract protected static function entityController(?ClientInterface $client = null): EntityControllerTesterInterface;
 }

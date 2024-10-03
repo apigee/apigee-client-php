@@ -20,50 +20,51 @@ namespace Apigee\Edge\Api\Monetization\Entity;
 
 use Apigee\Edge\Api\Monetization\Entity\Property\EndDatePropertyAwareTrait;
 use Apigee\Edge\Api\Monetization\Entity\Property\StartDatePropertyAwareTrait;
+use DateTimeImmutable;
 
 abstract class AcceptedRatePlan extends Entity implements AcceptedRatePlanInterface
 {
     use EndDatePropertyAwareTrait;
     use StartDatePropertyAwareTrait;
 
-    /** @var \DateTimeImmutable|null */
+    /** @var DateTimeImmutable|null */
     protected $created;
 
     /** @var int|null */
     protected $quotaTarget;
 
-    /** @var \Apigee\Edge\Api\Monetization\Entity\RatePlanInterface */
+    /** @var RatePlanInterface */
     protected $ratePlan;
 
-    /** @var \DateTimeImmutable|null */
+    /** @var DateTimeImmutable|null */
     protected $updated;
 
-    /** @var \DateTimeImmutable|null */
+    /** @var DateTimeImmutable|null */
     protected $renewalDate;
 
-    /** @var \DateTimeImmutable|null */
+    /** @var DateTimeImmutable|null */
     protected $nextCycleStartDate;
 
-    /** @var \DateTimeImmutable|null */
+    /** @var DateTimeImmutable|null */
     protected $nextRecurringFeeDate;
 
-    /** @var \DateTimeImmutable|null */
+    /** @var DateTimeImmutable|null */
     protected $prevRecurringFeeDate;
 
     /**
      * {@inheritdoc}
      */
-    public function getUpdated(): ?\DateTimeImmutable
+    public function getUpdated(): ?DateTimeImmutable
     {
         return $this->updated;
     }
 
     /**
-     * @param \DateTimeImmutable $updated
+     * @param DateTimeImmutable $updated
      *
      * @internal
      */
-    public function setUpdated(\DateTimeImmutable $updated): void
+    public function setUpdated(DateTimeImmutable $updated): void
     {
         $this->updated = $updated;
     }
@@ -71,17 +72,17 @@ abstract class AcceptedRatePlan extends Entity implements AcceptedRatePlanInterf
     /**
      * {@inheritdoc}
      */
-    public function getCreated(): ?\DateTimeImmutable
+    public function getCreated(): ?DateTimeImmutable
     {
         return $this->created;
     }
 
     /**
-     * @param \DateTimeImmutable $created
+     * @param DateTimeImmutable $created
      *
      * @internal
      */
-    public function setCreated(\DateTimeImmutable $created): void
+    public function setCreated(DateTimeImmutable $created): void
     {
         $this->created = $created;
     }
@@ -121,17 +122,17 @@ abstract class AcceptedRatePlan extends Entity implements AcceptedRatePlanInterf
     /**
      * {@inheritdoc}
      */
-    public function getRenewalDate(): ?\DateTimeImmutable
+    public function getRenewalDate(): ?DateTimeImmutable
     {
         return $this->renewalDate;
     }
 
     /**
-     * @param \DateTimeImmutable $renewalDate
+     * @param DateTimeImmutable $renewalDate
      *
      * @internal
      */
-    public function setRenewalDate(\DateTimeImmutable $renewalDate): void
+    public function setRenewalDate(DateTimeImmutable $renewalDate): void
     {
         $this->renewalDate = $renewalDate;
     }
@@ -139,17 +140,17 @@ abstract class AcceptedRatePlan extends Entity implements AcceptedRatePlanInterf
     /**
      * {@inheritdoc}
      */
-    public function getNextCycleStartDate(): ?\DateTimeImmutable
+    public function getNextCycleStartDate(): ?DateTimeImmutable
     {
         return $this->nextCycleStartDate;
     }
 
     /**
-     * @param \DateTimeImmutable $nextCycleStartDate
+     * @param DateTimeImmutable $nextCycleStartDate
      *
      * @internal
      */
-    public function setNextCycleStartDate(\DateTimeImmutable $nextCycleStartDate): void
+    public function setNextCycleStartDate(DateTimeImmutable $nextCycleStartDate): void
     {
         $this->nextCycleStartDate = $nextCycleStartDate;
     }
@@ -157,17 +158,17 @@ abstract class AcceptedRatePlan extends Entity implements AcceptedRatePlanInterf
     /**
      * {@inheritdoc}
      */
-    public function getNextRecurringFeeDate(): ?\DateTimeImmutable
+    public function getNextRecurringFeeDate(): ?DateTimeImmutable
     {
         return $this->nextRecurringFeeDate;
     }
 
     /**
-     * @param \DateTimeImmutable $nextRecurringFeeDate
+     * @param DateTimeImmutable $nextRecurringFeeDate
      *
      * @internal
      */
-    public function setNextRecurringFeeDate(\DateTimeImmutable $nextRecurringFeeDate): void
+    public function setNextRecurringFeeDate(DateTimeImmutable $nextRecurringFeeDate): void
     {
         $this->nextRecurringFeeDate = $nextRecurringFeeDate;
     }
@@ -175,17 +176,17 @@ abstract class AcceptedRatePlan extends Entity implements AcceptedRatePlanInterf
     /**
      * {@inheritdoc}
      */
-    public function getPrevRecurringFeeDate(): ?\DateTimeImmutable
+    public function getPrevRecurringFeeDate(): ?DateTimeImmutable
     {
         return $this->prevRecurringFeeDate;
     }
 
     /**
-     * @param \DateTimeImmutable $prevRecurringFeeDate
+     * @param DateTimeImmutable $prevRecurringFeeDate
      *
      * @internal
      */
-    public function setPrevRecurringFeeDate(\DateTimeImmutable $prevRecurringFeeDate): void
+    public function setPrevRecurringFeeDate(DateTimeImmutable $prevRecurringFeeDate): void
     {
         $this->prevRecurringFeeDate = $prevRecurringFeeDate;
     }

@@ -22,6 +22,7 @@ use Apigee\Edge\Api\Monetization\Entity\Property\OrganizationPropertyInterface;
 use Apigee\Edge\Api\Monetization\Structure\Reports\Criteria\AbstractCriteria;
 use Apigee\Edge\Entity\Property\DescriptionPropertyInterface;
 use Apigee\Edge\Entity\Property\NamePropertyInterface;
+use DateTimeImmutable;
 
 interface ReportDefinitionInterface extends EntityInterface, NamePropertyInterface, DescriptionPropertyInterface, OrganizationPropertyInterface
 {
@@ -30,7 +31,7 @@ interface ReportDefinitionInterface extends EntityInterface, NamePropertyInterfa
     public const TYPE_REVENUE = 'REVENUE';
 
     /**
-     * @param \Apigee\Edge\Api\Monetization\Structure\Reports\Criteria\AbstractCriteria $criteria
+     * @param AbstractCriteria $criteria
      */
     public function setCriteria(AbstractCriteria $criteria): void;
 
@@ -40,12 +41,12 @@ interface ReportDefinitionInterface extends EntityInterface, NamePropertyInterfa
      * Also, the API endpoint does not return the "lastModified" property in the
      * response body until a definition has been modified..
      *
-     * @return \DateTimeImmutable|null
+     * @return DateTimeImmutable|null
      */
-    public function getLastModified(): ?\DateTimeImmutable;
+    public function getLastModified(): ?DateTimeImmutable;
 
     /**
-     * @return \Apigee\Edge\Api\Monetization\Structure\Reports\Criteria\AbstractCriteria
+     * @return AbstractCriteria
      */
     public function getCriteria(): AbstractCriteria;
 }

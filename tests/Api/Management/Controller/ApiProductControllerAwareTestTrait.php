@@ -27,15 +27,15 @@ use Apigee\Edge\Tests\Test\Controller\EntityControllerTesterInterface;
 
 trait ApiProductControllerAwareTestTrait
 {
-    use DefaultTestOrganizationAwareTrait;
+    use defaultTestOrganizationAwareTrait;
     use DefaultAPIClientAwareTrait;
 
     /**
-     * @param \Apigee\Edge\ClientInterface|null $client
+     * @param ClientInterface|null $client
      *
-     * @return \Apigee\Edge\Tests\Test\Controller\EntityControllerTesterInterface|\Apigee\Edge\Api\Management\Controller\ApiProductControllerInterface
+     * @return EntityControllerTesterInterface|\Apigee\Edge\Api\Management\Controller\ApiProductControllerInterface
      */
-    protected static function apiProductController(ClientInterface $client = null): EntityControllerTesterInterface
+    protected static function apiProductController(?ClientInterface $client = null): EntityControllerTesterInterface
     {
         $client = $client ?? static::defaultAPIClient();
 
