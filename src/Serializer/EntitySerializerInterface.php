@@ -29,7 +29,6 @@ use Symfony\Component\Serializer\SerializerInterface;
 /**
  * Serializes, deserializes, normalizes and denormalizes entities.
  */
-/** @psalm-method bool supportsNormalization(mixed $data, ?string $format = null, array $context = []) */
 interface EntitySerializerInterface extends NormalizerInterface, DenormalizerInterface, EncoderInterface, DecoderInterface, SerializerInterface
 {
     /**
