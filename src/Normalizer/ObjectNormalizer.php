@@ -40,10 +40,10 @@ use Symfony\Component\Serializer\SerializerInterface;
  */
 class ObjectNormalizer implements NormalizerInterface, SerializerAwareInterface
 {
-    /** @var \Symfony\Component\Serializer\Normalizer\ObjectNormalizer */
+    /** @var BaseObjectNormalizer */
     private $objectNormalizer;
 
-    /** @var \Symfony\Component\Serializer\SerializerInterface|null */
+    /** @var SerializerInterface|null */
     private $serializer;
 
     /**
@@ -56,12 +56,12 @@ class ObjectNormalizer implements NormalizerInterface, SerializerAwareInterface
     /**
      * EntityNormalizer constructor.
      *
-     * @param \Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface|null $classMetadataFactory
-     * @param \Symfony\Component\Serializer\NameConverter\NameConverterInterface|null $nameConverter
-     * @param \Symfony\Component\PropertyAccess\PropertyAccessorInterface|null $propertyAccessor
-     * @param \Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface|null $propertyTypeExtractor
+     * @param ClassMetadataFactoryInterface|null $classMetadataFactory
+     * @param NameConverterInterface|null $nameConverter
+     * @param PropertyAccessorInterface|null $propertyAccessor
+     * @param PropertyTypeExtractorInterface|null $propertyTypeExtractor
      */
-    public function __construct(ClassMetadataFactoryInterface $classMetadataFactory = null, NameConverterInterface $nameConverter = null, PropertyAccessorInterface $propertyAccessor = null, PropertyTypeExtractorInterface $propertyTypeExtractor = null)
+    public function __construct(?ClassMetadataFactoryInterface $classMetadataFactory = null, ?NameConverterInterface $nameConverter = null, ?PropertyAccessorInterface $propertyAccessor = null, ?PropertyTypeExtractorInterface $propertyTypeExtractor = null)
     {
         if (null === $propertyTypeExtractor) {
             $reflectionExtractor = new ReflectionExtractor();

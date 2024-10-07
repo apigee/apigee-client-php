@@ -33,14 +33,15 @@ use SebastianBergmann\Comparator\Factory as ComparisonFactory;
  * @group structure
  * @group normalizer
  * @group denormalizer
+ *
  * @small
  */
 class AttributesPropertyTransformationTest extends TestCase
 {
-    /** @var \Apigee\Edge\Normalizer\KeyValueMapNormalizer */
+    /** @var KeyValueMapNormalizer */
     protected static $normalizer;
 
-    /** @var \Apigee\Edge\Denormalizer\AttributesPropertyDenormalizer */
+    /** @var AttributesPropertyDenormalizer */
     protected static $denormalizer;
 
     /**
@@ -72,7 +73,7 @@ class AttributesPropertyTransformationTest extends TestCase
      */
     public function testDenormalize(array $normalized): void
     {
-        /** @var \Apigee\Edge\Structure\AttributesProperty $object */
+        /** @var AttributesProperty $object */
         $object = static::$denormalizer->denormalize($normalized, AttributesProperty::class);
         $this->assertTrue($object->has('foo'));
         $this->assertEquals('bar', $object->getValue('foo'));

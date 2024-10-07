@@ -28,7 +28,7 @@ interface AddressesPropertyInterface
     public function getAddresses(): array;
 
     /**
-     * @param \Apigee\Edge\Api\Monetization\Structure\Address ...$addresses
+     * @param Address ...$addresses
      */
     public function setAddresses(Address ...$addresses): void;
 }

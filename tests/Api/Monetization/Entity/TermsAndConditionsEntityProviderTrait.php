@@ -22,6 +22,7 @@ use Apigee\Edge\Api\Monetization\Entity\TermsAndConditions;
 use Apigee\Edge\Api\Monetization\Entity\TermsAndConditionsInterface;
 use Apigee\Edge\Tests\Api\Monetization\Controller\OrganizationProfileControllerAwareTestTrait;
 use Apigee\Edge\Tests\Test\Utility\RandomGeneratorAwareTrait;
+use DateTimeImmutable;
 
 trait TermsAndConditionsEntityProviderTrait
 {
@@ -31,7 +32,7 @@ trait TermsAndConditionsEntityProviderTrait
     protected static function getNewTnC(bool $randomData = true): TermsAndConditionsInterface
     {
         $entity = new TermsAndConditions([
-            'startDate' => $randomData ? new \DateTimeImmutable('tomorrow') : \DateTimeImmutable::createFromFormat(TermsAndConditionsInterface::DATE_FORMAT, '2017-12-31 16:15:59'),
+            'startDate' => $randomData ? new DateTimeImmutable('tomorrow') : DateTimeImmutable::createFromFormat(TermsAndConditionsInterface::DATE_FORMAT, '2017-12-31 16:15:59'),
             'description' => $randomData ? static::randomGenerator()->text() : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
             // In the API level the version could be anything, so it is string.
             // Because it is a string JSON float serialization trick does

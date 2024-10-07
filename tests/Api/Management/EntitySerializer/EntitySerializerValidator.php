@@ -28,10 +28,10 @@ class EntitySerializerValidator extends BaseEntitySerializerValidator
     /**
      * EntitySerializerValidator constructor.
      *
-     * @param \Apigee\Edge\Serializer\EntitySerializerInterface|null $serializer
+     * @param EntitySerializerInterface|null $serializer
      * @param array $propertyValidators
      */
-    public function __construct(EntitySerializerInterface $serializer = null, array $propertyValidators = [])
+    public function __construct(?EntitySerializerInterface $serializer = null, array $propertyValidators = [])
     {
         $propertyValidators = array_merge($propertyValidators, [
             new CreatedAtPropertyValidator(),

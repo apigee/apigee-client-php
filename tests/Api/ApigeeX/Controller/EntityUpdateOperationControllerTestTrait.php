@@ -26,6 +26,7 @@ use Apigee\Edge\Tests\Test\Controller\EntityUpdateOperationControllerTesterInter
 use Apigee\Edge\Tests\Test\EntitySerializer\EntitySerializerAwareTestTrait;
 use Apigee\Edge\Tests\Test\EntitySerializer\EntitySerializerValidatorAwareTrait;
 use DMS\PHPUnitExtensions\ArraySubset\Assert;
+use stdClass;
 
 /**
  * Validates controllers that support entity update operations.
@@ -42,7 +43,7 @@ trait EntityUpdateOperationControllerTestTrait
     /**
      * @depends testLoad
      *
-     * @param \Apigee\Edge\Entity\EntityInterface $existing
+     * @param EntityInterface $existing
      */
     public function testUpdate(EntityInterface $existing): EntityInterface
     {
@@ -80,14 +81,14 @@ trait EntityUpdateOperationControllerTestTrait
     {
     }
 
-    protected function alterObjectsBeforeCompareResponseAndUpdateEntity(\stdClass &$responseObject, EntityInterface $created): void
+    protected function alterObjectsBeforeCompareResponseAndUpdateEntity(stdClass &$responseObject, EntityInterface $created): void
     {
     }
 
     /**
      * Controller for entity update operation testing.
      *
-     * @return \Apigee\Edge\Tests\Test\Controller\EntityUpdateOperationControllerTesterInterface
+     * @return EntityUpdateOperationControllerTesterInterface
      */
     protected static function controllerForEntityUpdate(): EntityUpdateOperationControllerTesterInterface
     {

@@ -36,11 +36,11 @@ class MockOauth extends Oauth
 {
     public const AUTH_SERVER = 'http://example.com/oauth/token';
     /**
-     * @var \Apigee\Edge\HttpClient\Utility\JournalInterface
+     * @var JournalInterface
      */
     private $journal;
     /**
-     * @var \Psr\Http\Client\ClientInterface
+     * @var HttpClient
      */
     private $httpClient;
 
@@ -48,13 +48,13 @@ class MockOauth extends Oauth
         string $username,
         string $password,
         OauthTokenStorageInterface $tokenStorage,
-        HttpClient $httpClient = null,
-        JournalInterface $journal = null,
+        ?HttpClient $httpClient = null,
+        ?JournalInterface $journal = null,
         ?string $mfaToken = null,
         ?string $clientId = null,
         ?string $clientSecret = null,
         ?string $scope = null,
-        ?string $authServer = null
+        ?string $authServer = null,
     ) {
         parent::__construct($username, $password, $tokenStorage, $mfaToken, $clientId, $clientSecret, $scope, $authServer);
         $this->journal = $journal ?: new TestJournal();

@@ -40,15 +40,15 @@ use Psr\Http\Message\ResponseInterface;
  */
 final class ResponseHandlerPlugin implements Plugin
 {
-    /** @var \Http\Message\Formatter */
+    /** @var Formatter */
     private $formatter;
 
     /**
      * ResponseHandlerPlugin constructor.
      *
-     * @param \Http\Message\Formatter|null $formatter
+     * @param Formatter|null $formatter
      */
-    public function __construct(Formatter $formatter = null)
+    public function __construct(?Formatter $formatter = null)
     {
         $this->formatter = $formatter ?: new FullHttpMessageFormatter();
     }
@@ -80,13 +80,13 @@ final class ResponseHandlerPlugin implements Plugin
     /**
      * Throws one our of our exceptions if the API response code is higher than 399.
      *
-     * @param \Psr\Http\Message\ResponseInterface $response
-     * @param \Psr\Http\Message\RequestInterface $request
+     * @param ResponseInterface $response
+     * @param RequestInterface $request
      *
-     * @throws \Apigee\Edge\Exception\ClientErrorException
-     * @throws \Apigee\Edge\Exception\ServerErrorException
+     * @throws ClientErrorException
+     * @throws ServerErrorException
      *
-     * @return \Psr\Http\Message\ResponseInterface
+     * @return ResponseInterface
      */
     private function decodeResponse(ResponseInterface $response, RequestInterface $request)
     {

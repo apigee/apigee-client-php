@@ -23,7 +23,7 @@ trait RandomGeneratorAwareTrait
     /**
      * Returns a random generator.
      *
-     * @return \Apigee\Edge\Tests\Test\Utility\RandomGeneratorInterface
+     * @return RandomGeneratorInterface
      */
     abstract protected static function randomGenerator(): RandomGeneratorInterface;
 }

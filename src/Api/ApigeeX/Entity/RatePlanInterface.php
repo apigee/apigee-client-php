@@ -58,12 +58,12 @@ interface RatePlanInterface extends
     /**
      * It could be null only when a rate plan is created.
      *
-     * @return \Apigee\Edge\Api\ApigeeX\Entity\ApiProductInterface|null
+     * @return ApiProductInterface|null
      */
     public function getPackage(): ?ApiProductInterface;
 
     /**
-     * @param \Apigee\Edge\Api\ApigeeX\Entity\ApiProductInterface $package
+     * @param ApiProductInterface $package
      */
     public function setPackage(ApiProductInterface $package): void;
 
@@ -73,7 +73,7 @@ interface RatePlanInterface extends
     public function getRatePlanxFee(): array;
 
     /**
-     * @param \Apigee\Edge\Api\ApigeeX\Structure\RatePlanXFee ...$ratePlanXFee
+     * @param RatePlanXFee ...$ratePlanXFee
      */
     public function setRatePlanxFee(RatePlanXFee ...$ratePlanXFee): void;
 
@@ -83,7 +83,7 @@ interface RatePlanInterface extends
     public function getFixedRecurringFee(): array;
 
     /**
-     * @param \Apigee\Edge\Api\ApigeeX\Structure\FixedRecurringFee ...$fixedRecurringFee
+     * @param FixedRecurringFee ...$fixedRecurringFee
      */
     public function setFixedRecurringFee(FixedRecurringFee ...$fixedRecurringFee): void;
 
@@ -93,7 +93,7 @@ interface RatePlanInterface extends
     public function getConsumptionPricingRates(): array;
 
     /**
-     * @param \Apigee\Edge\Api\ApigeeX\Structure\ConsumptionPricingRate ...$consumptionPricingRates
+     * @param ConsumptionPricingRate ...$consumptionPricingRates
      */
     public function setConsumptionPricingRates(ConsumptionPricingRate ...$consumptionPricingRates): void;
 
@@ -103,7 +103,7 @@ interface RatePlanInterface extends
     public function getRevenueShareRates(): array;
 
     /**
-     * @param \Apigee\Edge\Api\ApigeeX\Structure\RevenueShareRates ...$revenueShareRates
+     * @param RevenueShareRates ...$revenueShareRates
      */
     public function setRevenueShareRates(RevenueShareRates ...$revenueShareRates): void;
 }

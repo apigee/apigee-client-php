@@ -25,7 +25,7 @@ interface EntityUpdateOperationControllerInterface
     /**
      * Updates an entity in Apigee Edge.
      *
-     * @param \Apigee\Edge\Entity\EntityInterface $entity
+     * @param EntityInterface $entity
      *   Entity object with changes.
      */
     public function update(EntityInterface $entity): void;

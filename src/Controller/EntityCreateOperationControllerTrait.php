@@ -23,7 +23,7 @@ use Apigee\Edge\Entity\EntityInterface;
 /**
  * Trait EntityCreateOperationControllerTrait.
  *
- * @see \Apigee\Edge\Controller\EntityCreateOperationControllerInterface
+ * @see EntityCreateOperationControllerInterface
  */
 trait EntityCreateOperationControllerTrait
 {
@@ -45,7 +45,7 @@ trait EntityCreateOperationControllerTrait
     /**
      * Serializes the entity to a JSON payload for the request.
      *
-     * @param \Apigee\Edge\Entity\EntityInterface $entity
+     * @param EntityInterface $entity
      *   Entity to be serialized.
      * @param array $context
      *   Context for the serializer.

@@ -22,6 +22,7 @@ use Apigee\Edge\Client;
 use Apigee\Edge\Exception\ClientErrorException;
 use Apigee\Edge\HttpClient\Plugin\Authentication\NullAuthentication;
 use Apigee\Edge\HttpClient\Utility\Builder;
+use Exception;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 use Http\Client\Common\Plugin\HeaderAppendPlugin;
@@ -35,11 +36,12 @@ use PHPUnit\Framework\TestCase;
  *
  * @group client
  * @group mock
+ *
  * @small
  */
 class ClientTest extends TestCase
 {
-    /** @var \Http\Mock\Client */
+    /** @var MockHttpClient */
     protected static $httpClient;
 
     /**
@@ -69,7 +71,7 @@ class ClientTest extends TestCase
     /**
      * @depends testDefaultConfiguration
      *
-     * @param \Apigee\Edge\Client $client
+     * @param Client $client
      */
     public function testEndpointShouldBeOverridden(Client $client): void
     {
@@ -109,7 +111,7 @@ class ClientTest extends TestCase
 
         static::$httpClient->addException(new NetworkException('', new Request('GET', 'http://example.com')));
         $builder = new Builder(self::$httpClient);
-        $client = new Client(new NullAuthentication(), null, [\Apigee\Edge\Client::CONFIG_HTTP_CLIENT_BUILDER => $builder]);
+        $client = new Client(new NullAuthentication(), null, [Client::CONFIG_HTTP_CLIENT_BUILDER => $builder]);
         $client->get('/');
     }
 
@@ -177,7 +179,7 @@ class ClientTest extends TestCase
         $client = new Client(new NullAuthentication(), null, [Client::CONFIG_HTTP_CLIENT_BUILDER => $builder]);
         try {
             $client->get('/');
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->assertInstanceOf(ClientErrorException::class, $e);
             /* @var \Apigee\Edge\Exception\ClientErrorException $e */
             $this->assertEquals($e->getEdgeErrorCode(), $errorCode);
@@ -201,7 +203,7 @@ class ClientTest extends TestCase
         $client = new Client(new NullAuthentication(), null, [Client::CONFIG_HTTP_CLIENT_BUILDER => $builder]);
         try {
             $client->get('/');
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->assertInstanceOf(ClientErrorException::class, $e);
             /* @var \Apigee\Edge\Exception\ClientErrorException $e */
             $this->assertEquals($e->getEdgeErrorCode(), $errorCode);

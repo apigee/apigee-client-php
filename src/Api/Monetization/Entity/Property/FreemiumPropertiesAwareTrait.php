@@ -21,7 +21,7 @@ namespace Apigee\Edge\Api\Monetization\Entity\Property;
 /**
  * Trait FreemiumDurationPropertiesAwareTrait.
  *
- * @see \Apigee\Edge\Api\Monetization\Entity\Property\FreemiumPropertiesInterface
+ * @see FreemiumPropertiesInterface
  */
 trait FreemiumPropertiesAwareTrait
 {

@@ -32,7 +32,7 @@ abstract class AbstractOauth implements Authentication
     use DeprecatedPropertyTrait;
 
     /**
-     * @var \Apigee\Edge\HttpClient\Plugin\Authentication\OauthTokenStorageInterface
+     * @var OauthTokenStorageInterface
      */
     protected $tokenStorage;
 
@@ -49,7 +49,7 @@ abstract class AbstractOauth implements Authentication
     /**
      * Constructor.
      *
-     * @param \Apigee\Edge\HttpClient\Plugin\Authentication\OauthTokenStorageInterface $tokenStorage
+     * @param OauthTokenStorageInterface $tokenStorage
      *   Storage where access token gets saved.
      * @param string $authServer
      *   Authentication server.
@@ -83,7 +83,7 @@ abstract class AbstractOauth implements Authentication
     /**
      * Returns the token storage.
      *
-     * @return \Apigee\Edge\HttpClient\Plugin\Authentication\OauthTokenStorageInterface
+     * @return OauthTokenStorageInterface
      */
     public function getTokenStorage(): OauthTokenStorageInterface
     {
@@ -103,7 +103,7 @@ abstract class AbstractOauth implements Authentication
     /**
      * Returns a pre-configured client for authorization API calls.
      *
-     * @return \Apigee\Edge\ClientInterface
+     * @return ClientInterface
      */
     abstract protected function authClient(): ClientInterface;
 

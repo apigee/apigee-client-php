@@ -46,7 +46,7 @@ class CompanyMembersController extends AbstractController implements CompanyMemb
      *
      * @param string $companyName
      * @param string $organization
-     * @param \Apigee\Edge\ClientInterface $client
+     * @param ClientInterface $client
      */
     public function __construct(string $companyName, string $organization, ClientInterface $client)
     {

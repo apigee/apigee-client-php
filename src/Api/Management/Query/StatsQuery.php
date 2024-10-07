@@ -25,14 +25,14 @@ use League\Period\Period;
  */
 class StatsQuery implements StatsQueryInterface
 {
-    const SORT_ASC = 'ASC';
+    public const SORT_ASC = 'ASC';
 
-    const SORT_DESC = 'DESC';
+    public const SORT_DESC = 'DESC';
 
     /** @var string[] */
     private $metrics = [];
 
-    /** @var \League\Period\Period */
+    /** @var Period */
     private $timeRange;
 
     /** @var string|null */
@@ -70,7 +70,7 @@ class StatsQuery implements StatsQueryInterface
      *
      * @param string[] $metrics
      *   Metrics to be aggregated for the report.
-     * @param \League\Period\Period $timeRange
+     * @param Period $timeRange
      *   The start and end time for the desired interval.
      */
     public function __construct(array $metrics, Period $timeRange)

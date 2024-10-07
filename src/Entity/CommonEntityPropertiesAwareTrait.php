@@ -18,6 +18,8 @@
 
 namespace Apigee\Edge\Entity;
 
+use DateTimeImmutable;
+
 /**
  * Trait CommonEntityPropertiesAwareTrait.
  *
@@ -30,7 +32,7 @@ namespace Apigee\Edge\Entity;
 trait CommonEntityPropertiesAwareTrait
 {
     /**
-     * @var \DateTimeImmutable|null
+     * @var DateTimeImmutable|null
      */
     protected $createdAt;
 
@@ -45,7 +47,7 @@ trait CommonEntityPropertiesAwareTrait
     protected $createdBy;
 
     /**
-     * @var \DateTimeImmutable|null
+     * @var DateTimeImmutable|null
      */
     protected $lastModifiedAt;
 
@@ -62,7 +64,7 @@ trait CommonEntityPropertiesAwareTrait
     /**
      * {@inheritdoc}
      */
-    public function getCreatedAt(): ?\DateTimeImmutable
+    public function getCreatedAt(): ?DateTimeImmutable
     {
         return $this->createdAt;
     }
@@ -70,11 +72,11 @@ trait CommonEntityPropertiesAwareTrait
     /**
      * Set creation date of an entity from an Edge API response.
      *
-     * @param \DateTimeImmutable $date
+     * @param DateTimeImmutable $date
      *
      * @internal
      */
-    public function setCreatedAt(\DateTimeImmutable $date): void
+    public function setCreatedAt(DateTimeImmutable $date): void
     {
         $this->createdAt = $date;
     }
@@ -106,7 +108,7 @@ trait CommonEntityPropertiesAwareTrait
     /**
      * {@inheritdoc}
      */
-    public function getLastModifiedAt(): ?\DateTimeImmutable
+    public function getLastModifiedAt(): ?DateTimeImmutable
     {
         return $this->lastModifiedAt;
     }
@@ -114,11 +116,11 @@ trait CommonEntityPropertiesAwareTrait
     /**
      * Set the last modification date of an entity from an Edge API response.
      *
-     * @param \DateTimeImmutable $date
+     * @param DateTimeImmutable $date
      *
      * @internal
      */
-    public function setLastModifiedAt(\DateTimeImmutable $date): void
+    public function setLastModifiedAt(DateTimeImmutable $date): void
     {
         $this->lastModifiedAt = $date;
     }

@@ -26,11 +26,11 @@ trait MockClientAwareTrait
     /**
      * Returns a mock API client.
      *
-     * @return \Apigee\Edge\Tests\Test\MockClient
+     * @return MockClient
      */
     protected static function mockApiClient(): MockClient
     {
-        /** @var \Apigee\Edge\Tests\Test\MockClient $client */
+        /** @var MockClient $client */
         $client = TestClientFactory::getClient(MockClient::class);
 
         return $client;

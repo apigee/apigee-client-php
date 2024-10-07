@@ -28,7 +28,7 @@ use Psr\Http\Message\UriInterface;
 /**
  * Trait AttributesAwareEntityControllerTrait.
  *
- * @see \Apigee\Edge\Api\Management\Controller\AttributesAwareEntityControllerInterface
+ * @see AttributesAwareEntityControllerInterface
  */
 trait AttributesAwareEntityControllerTrait
 {

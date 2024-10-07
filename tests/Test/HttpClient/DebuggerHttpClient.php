@@ -46,12 +46,12 @@ class DebuggerHttpClient implements ClientInterface, HttpAsyncClient
     private $client;
 
     /**
-     * @var \Http\Message\Formatter
+     * @var Formatter
      */
     private $formatter;
 
     /**
-     * @var \Psr\Log\LoggerInterface
+     * @var LoggerInterface
      */
     private $logger;
 
@@ -64,8 +64,8 @@ class DebuggerHttpClient implements ClientInterface, HttpAsyncClient
      * DebuggerHttpClient constructor.
      *
      * @param array $config
-     * @param \Http\Message\Formatter|null $formatter
-     * @param \Psr\Log\LoggerInterface|null $logger
+     * @param Formatter|null $formatter
+     * @param LoggerInterface|null $logger
      * @param string|null $logFormat
      */
     public function __construct(array $config = [], ?Formatter $formatter = null, ?LoggerInterface $logger = null, ?string $logFormat = null)

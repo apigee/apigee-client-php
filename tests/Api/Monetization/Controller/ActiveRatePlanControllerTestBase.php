@@ -20,6 +20,7 @@ namespace Apigee\Edge\Tests\Api\Monetization\Controller;
 
 use Apigee\Edge\Tests\Api\Monetization\EntitySerializer\RatePlanSerializerValidator;
 use Apigee\Edge\Tests\Test\EntitySerializer\EntitySerializerValidatorInterface;
+use Exception;
 
 /**
  * Base test class for developer- and company active rate plans.
@@ -52,7 +53,7 @@ abstract class ActiveRatePlanControllerTestBase extends EntityControllerTestBase
         $this->assertEmpty(static::defaultAPIClient()->getJournal()->getLastRequest()->getUri()->getQuery());
         try {
             $controller->getActiveRatePlanByApiProduct('phpunit', true);
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             // File does not exist, so it is fine.
         }
         $this->assertEquals('showPrivate=true', static::defaultAPIClient()->getJournal()->getLastRequest()->getUri()->getQuery());

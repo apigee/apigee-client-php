@@ -47,7 +47,7 @@ interface LegalEntityTermsAndConditionsControllerInterface extends OrganizationA
      * @param string $tncId
      *   Id of a terms and conditions.
      *
-     * @return \Apigee\Edge\Api\Monetization\Structure\LegalEntityTermsAndConditionsHistoryItem
+     * @return LegalEntityTermsAndConditionsHistoryItem
      */
     public function acceptTermsAndConditionsById(string $tncId): LegalEntityTermsAndConditionsHistoryItem;
 
@@ -61,7 +61,7 @@ interface LegalEntityTermsAndConditionsControllerInterface extends OrganizationA
      * @param string $tncId
      *   Id of a terms and conditions.
      *
-     * @return \Apigee\Edge\Api\Monetization\Structure\LegalEntityTermsAndConditionsHistoryItem
+     * @return LegalEntityTermsAndConditionsHistoryItem
      */
     public function declineTermsAndConditionsById(string $tncId): LegalEntityTermsAndConditionsHistoryItem;
 }

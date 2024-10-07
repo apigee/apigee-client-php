@@ -41,7 +41,7 @@ class CompanyAppControllerTest extends AppControllerTestBase
     use CompanyControllerAwareTestTrait;
     use CompanyTestEntityProviderTrait;
 
-    /** @var \Apigee\Edge\Api\Management\Entity\CompanyInterface */
+    /** @var CompanyInterface */
     protected static $testCompany;
 
     /**
@@ -57,7 +57,7 @@ class CompanyAppControllerTest extends AppControllerTestBase
     /**
      * {@inheritdoc}
      */
-    protected static function entityController(ClientInterface $client = null): EntityControllerTesterInterface
+    protected static function entityController(?ClientInterface $client = null): EntityControllerTesterInterface
     {
         return static::companyAppController($client);
     }

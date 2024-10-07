@@ -21,7 +21,7 @@ namespace Apigee\Edge\Api\ApigeeX\Entity\Property;
 /**
  * Trait EndTimePropertyAwareTrait.
  *
- * @see \Apigee\Edge\Api\ApigeeX\Entity\Property\EndTimePropertyInterface
+ * @see EndTimePropertyInterface
  */
 trait EndTimePropertyAwareTrait
 {

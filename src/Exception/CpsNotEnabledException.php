@@ -18,6 +18,7 @@
 
 namespace Apigee\Edge\Exception;
 
+use RuntimeException;
 use Throwable;
 
 /**
@@ -29,7 +30,7 @@ use Throwable;
  * @see https://docs.apigee.com/api-services/content/api-reference-getting-started#cps
  * @deprecated Since 2.0.1, https://github.com/apigee/apigee-client-php/pull/43/files
  */
-class CpsNotEnabledException extends \RuntimeException
+class CpsNotEnabledException extends RuntimeException
 {
     /**
      * @var string
@@ -43,7 +44,7 @@ class CpsNotEnabledException extends \RuntimeException
      * @param int $code
      * @param Throwable|null $previous
      */
-    public function __construct(string $organization, $code = 0, Throwable $previous = null)
+    public function __construct(string $organization, $code = 0, ?Throwable $previous = null)
     {
         $this->organization = $organization;
     }

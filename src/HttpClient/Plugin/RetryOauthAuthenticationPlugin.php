@@ -32,14 +32,14 @@ use Psr\Http\Message\ResponseInterface;
 class RetryOauthAuthenticationPlugin implements Plugin
 {
     /**
-     * @var \Apigee\Edge\HttpClient\Plugin\Authentication\AbstractOauth
+     * @var AbstractOauth
      */
     private $auth;
 
     /**
      * RetryOauthAuthenticationPlugin constructor.
      *
-     * @param \Apigee\Edge\HttpClient\Plugin\Authentication\AbstractOauth $auth
+     * @param AbstractOauth $auth
      */
     public function __construct(AbstractOauth $auth)
     {

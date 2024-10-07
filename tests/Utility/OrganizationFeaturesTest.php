@@ -36,7 +36,7 @@ class OrganizationFeaturesTest extends TestCase
      */
     public function testOrganizationFeatures(?string $propertyValue, bool $expectedResult): void
     {
-        /** @var \Apigee\Edge\Api\Management\Entity\OrganizationInterface $organization */
+        /** @var OrganizationInterface $organization */
         $organization = $this->getMockBuilder(OrganizationInterface::class)->getMock();
         $organization->method('getPropertyValue')->willReturn($propertyValue);
         $this->assertEquals($expectedResult, OrganizationFeatures::isCpsEnabled($organization));
@@ -65,7 +65,7 @@ class OrganizationFeaturesTest extends TestCase
      */
     public function testPaginationAvailable($isCpsEnabled, $isHybridEnabled, $expected, $message): void
     {
-        /** @var \Apigee\Edge\Api\Management\Entity\OrganizationInterface $organization */
+        /** @var OrganizationInterface $organization */
         $organization = $this->getMockBuilder(OrganizationInterface::class)->getMock();
         $organization->method('getPropertyValue')->will($this->returnValueMap([
             ['features.isCpsEnabled', $isCpsEnabled],
@@ -97,7 +97,7 @@ class OrganizationFeaturesTest extends TestCase
      */
     public function testCompaniesAvailable($isHybridEnabled, $expected, $message): void
     {
-        /** @var \Apigee\Edge\Api\Management\Entity\OrganizationInterface $organization */
+        /** @var OrganizationInterface $organization */
         $organization = $this->getMockBuilder(OrganizationInterface::class)->getMock();
         $organization->method('getPropertyValue')->willReturn($isHybridEnabled);
         $this->assertEquals($expected, OrganizationFeatures::isCompaniesFeatureAvailable($organization), $message);

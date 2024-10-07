@@ -25,7 +25,7 @@ final class OrganizationFeatures
     /**
      * Checks whether CPS feature is enabled on an organization.
      *
-     * @param \Apigee\Edge\Api\Management\Entity\OrganizationInterface $org
+     * @param OrganizationInterface $org
      *
      * @return bool
      */
@@ -37,7 +37,7 @@ final class OrganizationFeatures
     /**
      * Checks whether pagination is enabled on an organization.
      *
-     * @param \Apigee\Edge\Api\Management\Entity\OrganizationInterface $org
+     * @param OrganizationInterface $org
      *
      * @return bool
      */
@@ -49,7 +49,7 @@ final class OrganizationFeatures
     /**
      * Checks whether companies features/resources are supported for an organization.
      *
-     * @param \Apigee\Edge\Api\Management\Entity\OrganizationInterface $org
+     * @param OrganizationInterface $org
      *
      * @return bool
      */
@@ -61,7 +61,7 @@ final class OrganizationFeatures
     /**
      * Checks whether hybrid feature is enabled on an organization.
      *
-     * @param \Apigee\Edge\Api\Management\Entity\OrganizationInterface $org
+     * @param OrganizationInterface $org
      *
      * @return bool
      */
@@ -73,7 +73,7 @@ final class OrganizationFeatures
     /**
      * Checks whether monetization feature is enabled on an organization.
      *
-     * @param \Apigee\Edge\Api\Management\Entity\OrganizationInterface $org
+     * @param OrganizationInterface $org
      *
      * @return bool
      */
@@ -87,7 +87,7 @@ final class OrganizationFeatures
      *
      * @param string $feature
      *   Name of a "feature' property.
-     * @param \Apigee\Edge\Api\Management\Entity\OrganizationInterface $org
+     * @param OrganizationInterface $org
      *   The organization to be checked.
      *
      * @return bool

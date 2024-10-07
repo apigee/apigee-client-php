@@ -27,7 +27,7 @@ trait BaseEndpointAwareControllerTrait
      *
      * In case of an entity that belongs to an organisation it should return organization/[orgName]/[endpoint].
      *
-     * @return \Psr\Http\Message\UriInterface
+     * @return UriInterface
      */
     abstract protected function getBaseEndpointUri(): UriInterface;
 }

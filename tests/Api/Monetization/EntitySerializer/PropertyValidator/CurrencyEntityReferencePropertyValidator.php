@@ -22,6 +22,7 @@ use Apigee\Edge\Api\Monetization\Entity\Property\CurrencyPropertyInterface;
 use Apigee\Edge\Entity\EntityInterface;
 use Apigee\Edge\Tests\Test\EntitySerializer\PropertyValidator\SerializerAwarePropertyValidatorTrait;
 use PHPUnit\Framework\Assert;
+use stdClass;
 
 class CurrencyEntityReferencePropertyValidator implements \Apigee\Edge\Tests\Test\EntitySerializer\PropertyValidator\RemoveIfPropertyValidPropertyValidatorInterface, \Apigee\Edge\Tests\Test\EntitySerializer\PropertyValidator\SerializerAwarePropertyValidatorInterface
 {
@@ -29,7 +30,7 @@ class CurrencyEntityReferencePropertyValidator implements \Apigee\Edge\Tests\Tes
         setEntitySerializer as private traitSetEntitySerializer;
     }
 
-    /** @var \Apigee\Edge\Tests\Api\Monetization\EntitySerializer\PropertyValidator\OrganizationProfileEntityReferencePropertyValidator */
+    /** @var OrganizationProfileEntityReferencePropertyValidator */
     protected $orgPropValidator;
 
     /**
@@ -43,7 +44,7 @@ class CurrencyEntityReferencePropertyValidator implements \Apigee\Edge\Tests\Tes
     /**
      * {@inheritdoc}
      */
-    public function validate(\stdClass $input, \stdClass $output, EntityInterface $entity): void
+    public function validate(stdClass $input, stdClass $output, EntityInterface $entity): void
     {
         if (!$entity instanceof CurrencyPropertyInterface) {
             return;

@@ -23,14 +23,14 @@ use Apigee\Edge\Structure\PagerInterface;
 /**
  * Trait PaginatedEntityIdListingControllerTrait.
  *
- * @see \Apigee\Edge\Controller\PaginatedEntityIdListingControllerInterface
+ * @see PaginatedEntityIdListingControllerInterface
  */
 trait PaginatedEntityIdListingControllerTrait
 {
     /**
      * {@inheritdoc}
      */
-    public function getEntityIds(PagerInterface $pager = null): array
+    public function getEntityIds(?PagerInterface $pager = null): array
     {
         return $this->listEntityIds($pager);
     }
@@ -38,5 +38,5 @@ trait PaginatedEntityIdListingControllerTrait
     /**
      * {@inheritdoc}
      */
-    abstract protected function listEntityIds(PagerInterface $pager = null, array $query_params = []): array;
+    abstract protected function listEntityIds(?PagerInterface $pager = null, array $query_params = []): array;
 }

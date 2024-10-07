@@ -41,16 +41,16 @@ final class RatePlanRevisionBuilder
      * The end date of the new rate plan revision is not set even if it was
      * set on the "parent" rate plan.
      *
-     * @param \Apigee\Edge\Api\Monetization\Entity\RatePlanInterface $ratePlan
+     * @param RatePlanInterface $ratePlan
      *   "Parent" rate plan.
-     * @param \DateTimeImmutable $startDate
+     * @param DateTimeImmutable $startDate
      *   Start date of the rate plan revision.
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      *   If the provided start date is earlier than the start date of the
      *   "parent" rate plan.
      *
-     * @return \Apigee\Edge\Api\Monetization\Entity\RatePlanRevisionInterface
+     * @return RatePlanRevisionInterface
      *   New rate plan revision.
      */
     public static function buildRatePlanRevision(RatePlanInterface $ratePlan, DateTimeImmutable $startDate): RatePlanRevisionInterface
@@ -93,7 +93,7 @@ final class RatePlanRevisionBuilder
         // array is being passed to the organization which causes failures.
         // @see Apigee\Edge\Api\Monetization\Entity\OrganizationAwareEntity
         // @see https://github.com/symfony/symfony/issues/28161
-        /** @var \Apigee\Edge\Api\Monetization\Entity\RatePlanRevisionInterface $revision */
+        /** @var RatePlanRevisionInterface $revision */
         $revision = $ratePlanSerializer->denormalize($normalized, RatePlanInterface::class, null, [ObjectNormalizer::DISABLE_TYPE_ENFORCEMENT => true]);
         $revision->setStartDate($startDate);
 

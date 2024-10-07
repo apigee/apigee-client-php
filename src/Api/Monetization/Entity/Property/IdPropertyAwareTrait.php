@@ -21,7 +21,7 @@ namespace Apigee\Edge\Api\Monetization\Entity\Property;
 /**
  * Trait IdPropertyAwareTrait.
  *
- * @see \Apigee\Edge\Api\Monetization\Entity\Property\IdPropertyInterface
+ * @see IdPropertyInterface
  */
 trait IdPropertyAwareTrait
 {

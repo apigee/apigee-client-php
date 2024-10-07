@@ -28,7 +28,7 @@ interface EntityLoadOperationControllerInterface
      * @param string $entityId
      *   Id of the entity.
      *
-     * @return \Apigee\Edge\Entity\EntityInterface
+     * @return EntityInterface
      *   Entity object.
      */
     public function load(string $entityId): EntityInterface;

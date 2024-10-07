@@ -33,7 +33,7 @@ use Psr\Http\Message\StreamFactoryInterface;
  */
 class Builder implements BuilderInterface
 {
-    /** @var \Psr\Http\Client\ClientInterface */
+    /** @var ClientInterface */
     private $httpClient;
 
     /** @var PluginClient */
@@ -55,14 +55,14 @@ class Builder implements BuilderInterface
     /**
      * Builder constructor.
      *
-     * @param \Psr\Http\Client\ClientInterface|null $httpClient
-     * @param \Psr\Http\Message\RequestFactoryInterface|null $requestFactory
-     * @param \Psr\Http\Message\StreamFactoryInterface|null $streamFactory
+     * @param ClientInterface|null $httpClient
+     * @param RequestFactoryInterface|null $requestFactory
+     * @param StreamFactoryInterface|null $streamFactory
      */
     public function __construct(
-        ClientInterface $httpClient = null,
-        RequestFactoryInterface $requestFactory = null,
-        StreamFactoryInterface $streamFactory = null
+        ?ClientInterface $httpClient = null,
+        ?RequestFactoryInterface $requestFactory = null,
+        ?StreamFactoryInterface $streamFactory = null,
     ) {
         $this->httpClient = $httpClient ?: Psr18ClientDiscovery::find();
         if (null !== $requestFactory) {

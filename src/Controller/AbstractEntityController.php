@@ -36,16 +36,16 @@ abstract class AbstractEntityController extends AbstractController
     use EntityClassAwareTrait;
 
     /**
-     * @var \Apigee\Edge\Serializer\EntitySerializerInterface
+     * @var EntitySerializerInterface
      */
     protected $entitySerializer;
 
     /**
      * AbstractEntityController constructor.
      *
-     * @param \Apigee\Edge\ClientInterface $client
+     * @param ClientInterface $client
      *   Apigee Edge API client.
-     * @param \Apigee\Edge\Serializer\EntitySerializerInterface|null $entitySerializer
+     * @param EntitySerializerInterface|null $entitySerializer
      */
     public function __construct(ClientInterface $client, ?EntitySerializerInterface $entitySerializer = null)
     {

@@ -19,6 +19,9 @@
 namespace Apigee\Edge\Api\Monetization\Utility;
 
 use Apigee\Edge\Api\Monetization\Entity\EntityInterface;
+use DateTimeImmutable;
+use DateTimeZone;
+use ReflectionObject;
 use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
 
 /**
@@ -37,21 +40,21 @@ trait TimezoneFixerHelperTrait
      *   The object that has been normalized.
      * @param $normalized
      *   The normalized object.
-     * @param \DateTimeZone $orgTimezone
+     * @param DateTimeZone $orgTimezone
      *   Timezone of the organization retrieved from the organization profile.
      */
-    protected function fixTimeZoneOnNormalization($object, $normalized, \DateTimeZone $orgTimezone): void
+    protected function fixTimeZoneOnNormalization($object, $normalized, DateTimeZone $orgTimezone): void
     {
         // Change timezone of all normalized dates to organization's current
         // timezone if it is different than the default PHP timezone.
         if (date_default_timezone_get() !== $orgTimezone->getName()) {
-            $ro = new \ReflectionObject($object);
+            $ro = new ReflectionObject($object);
             $dateDenormalizer = new DateTimeNormalizer([DateTimeNormalizer::FORMAT_KEY => EntityInterface::DATE_FORMAT, DateTimeNormalizer::TIMEZONE_KEY => $orgTimezone]);
             foreach ($ro->getProperties() as $property) {
                 $property->setAccessible(true);
                 $value = $property->getValue($object);
-                if ($value instanceof \DateTimeImmutable) {
-                    $normalized->{$property->getName()} = $dateDenormalizer->normalize($value, \DateTimeImmutable::class);
+                if ($value instanceof DateTimeImmutable) {
+                    $normalized->{$property->getName()} = $dateDenormalizer->normalize($value, DateTimeImmutable::class);
                 }
             }
         }
@@ -68,16 +71,16 @@ trait TimezoneFixerHelperTrait
      *   The object that got denormalized.
      * @param object $denormalized
      *   The denormalized object.
-     * @param \DateTimeZone $orgTimezone
+     * @param DateTimeZone $orgTimezone
      *   Timezone of the organization retrieved from the organization profile.
      */
-    protected function fixTimeZoneOnDenormalization($object, $denormalized, \DateTimeZone $orgTimezone): void
+    protected function fixTimeZoneOnDenormalization($object, $denormalized, DateTimeZone $orgTimezone): void
     {
         // Change timezone of all date objects to organization's current
         // timezone if it is different than the default PHP timezone.
 
         if (date_default_timezone_get() !== $orgTimezone->getName()) {
-            $ro = new \ReflectionObject($denormalized);
+            $ro = new ReflectionObject($denormalized);
 
             $dateDenormalizer = new DateTimeNormalizer([DateTimeNormalizer::FORMAT_KEY => EntityInterface::DATE_FORMAT, DateTimeNormalizer::TIMEZONE_KEY => $orgTimezone]);
             foreach ($object as $prop_name => $prop_value) {
@@ -85,8 +88,8 @@ trait TimezoneFixerHelperTrait
                     $property = $ro->getProperty($prop_name);
                     $property->setAccessible(true);
                     $value = $property->getValue($denormalized);
-                    if ($value instanceof \DateTimeImmutable) {
-                        $property->setValue($denormalized, $dateDenormalizer->denormalize($prop_value, \DateTimeImmutable::class));
+                    if ($value instanceof DateTimeImmutable) {
+                        $property->setValue($denormalized, $dateDenormalizer->denormalize($prop_value, DateTimeImmutable::class));
                     }
                 }
             }

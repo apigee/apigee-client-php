@@ -20,8 +20,14 @@ namespace Apigee\Edge\PropertyAccess;
 
 use Apigee\Edge\Exception\UnexpectedValueException;
 use Apigee\Edge\Exception\UninitializedPropertyException;
+
+use function get_class;
+use function gettype;
+
+use ReflectionObject;
 use Symfony\Component\PropertyAccess\Exception\InvalidArgumentException;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
+use TypeError;
 
 /**
  * Extra features for Symfony's property accessor.
@@ -29,14 +35,14 @@ use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 final class PropertyAccessorDecorator implements PropertyAccessorInterface
 {
     /**
-     * @var \Symfony\Component\PropertyAccess\PropertyAccessorInterface
+     * @var PropertyAccessorInterface
      */
     private $propertyAccessor;
 
     /**
      * PropertyAccessorDecorator constructor.
      *
-     * @param \Symfony\Component\PropertyAccess\PropertyAccessorInterface $propertyAccessor
+     * @param PropertyAccessorInterface $propertyAccessor
      */
     public function __construct(PropertyAccessorInterface $propertyAccessor)
     {
@@ -50,7 +56,7 @@ final class PropertyAccessorDecorator implements PropertyAccessorInterface
     {
         try {
             $this->propertyAccessor->setValue($objectOrArray, $propertyPath, $value);
-        } catch (InvalidArgumentException | \TypeError $exception) {
+        } catch (InvalidArgumentException|TypeError $exception) {
             // Auto-retry, try to pass the value as variable-length arguments to
             // the setter method.
             if (is_object($objectOrArray) && is_array($value)) {
@@ -64,7 +70,7 @@ final class PropertyAccessorDecorator implements PropertyAccessorInterface
                 }
 
                 if (null === $setter) {
-                    throw new \TypeError("Setter method not found for {$propertyPath} property.", 0, $exception);
+                    throw new TypeError("Setter method not found for {$propertyPath} property.", 0, $exception);
                 }
 
                 try {
@@ -74,7 +80,7 @@ final class PropertyAccessorDecorator implements PropertyAccessorInterface
                     } else {
                         $objectOrArray->{$setter}(...$value);
                     }
-                } catch (\TypeError $typeError) {
+                } catch (TypeError $typeError) {
                     self::processTypeErrorOnSetValue($typeError->getMessage(), $typeError->getTrace(), 0, (string) $typeError);
 
                     // Rethrow the exception if it could not be transformed
@@ -94,7 +100,7 @@ final class PropertyAccessorDecorator implements PropertyAccessorInterface
     {
         try {
             $value = $this->propertyAccessor->getValue($objectOrArray, $propertyPath);
-        } catch (\TypeError $error) {
+        } catch (TypeError $error) {
             // Make sure it is an object.
             if (is_object($objectOrArray)) {
                 self::processTypeErrorOnGetValue($objectOrArray, (string) $propertyPath, $error);
@@ -134,11 +140,11 @@ final class PropertyAccessorDecorator implements PropertyAccessorInterface
      *
      * @param object $object
      * @param string $property
-     * @param \TypeError $error
+     * @param TypeError $error
      *
      * @see \Symfony\Component\PropertyAccess\PropertyAccessor::throwInvalidArgumentException()
      */
-    private static function processTypeErrorOnGetValue($object, string $property, \TypeError $error): void
+    private static function processTypeErrorOnGetValue($object, string $property, TypeError $error): void
     {
         if (0 !== strpos($error->getMessage(), 'Return value of ')) {
             return;
@@ -146,7 +152,7 @@ final class PropertyAccessorDecorator implements PropertyAccessorInterface
 
         $pos = strpos($error->getMessage(), $delim = 'must be of the type ') ?: (strpos($error->getMessage(), $delim = 'must be an instance of ') ?: strpos($error->getMessage(), $delim = 'must implement interface '));
         if (false !== $pos) {
-            $ro = new \ReflectionObject($object);
+            $ro = new ReflectionObject($object);
             $rp = $ro->getProperty($property);
             $rp->setAccessible(true);
             $pos += strlen($delim);
@@ -157,7 +163,7 @@ final class PropertyAccessorDecorator implements PropertyAccessorInterface
                 throw new UninitializedPropertyException($object, $property, $expectedType);
             }
 
-            $actualType = \is_object($actualValue) ? \get_class($actualValue) : \gettype($actualValue);
+            $actualType = \is_object($actualValue) ? get_class($actualValue) : gettype($actualValue);
 
             // Until we are using strongly typed variables this should not happen.
             throw new UnexpectedValueException($object, $property, $expectedType, $actualType);

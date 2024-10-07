@@ -22,6 +22,9 @@ use Apigee\Edge\Api\Management\Controller\ApiProductControllerInterface;
 use Apigee\Edge\Controller\EntityDeleteOperationControllerInterface;
 use Apigee\Edge\Entity\EntityInterface;
 use Apigee\Edge\Tests\Test\HttpClient\Exception\MockHttpClientException;
+use Exception;
+use InvalidArgumentException;
+use ReflectionObject;
 
 /**
  * Stores created test entities meanwhile a test run.
@@ -50,7 +53,7 @@ final class EntityStorage
     }
 
     /**
-     * @return \Apigee\Edge\Tests\Test\Utility\EntityStorage
+     * @return EntityStorage
      */
     public static function getInstance(): EntityStorage
     {
@@ -62,13 +65,13 @@ final class EntityStorage
     }
 
     /**
-     * @param \Apigee\Edge\Entity\EntityInterface $entity
+     * @param EntityInterface $entity
      * @param object $controller
      */
     public function addEntity(EntityInterface $entity, $controller): void
     {
         if (!is_object($controller)) {
-            throw  new \InvalidArgumentException('Controller must be an object.');
+            throw new InvalidArgumentException('Controller must be an object.');
         }
         $controllerId = $this->getControllerId($controller);
         if (!array_key_exists($controllerId, self::$controllers)) {
@@ -84,7 +87,7 @@ final class EntityStorage
     public function removeEntity(string $entityId, $controller): void
     {
         if (!is_object($controller)) {
-            throw  new \InvalidArgumentException('Controller must be an object.');
+            throw new InvalidArgumentException('Controller must be an object.');
         }
         $controllerId = $this->getControllerId($controller);
         unset(self::$createdEntities[$controllerId][$entityId]);
@@ -102,7 +105,7 @@ final class EntityStorage
     public function getCreatedEntitiesByStorage($controller): array
     {
         if (!is_object($controller)) {
-            throw  new \InvalidArgumentException('Controller must be an object.');
+            throw new InvalidArgumentException('Controller must be an object.');
         }
 
         return self::$createdEntities[$this->getControllerId($controller)]['entity'] ?? [];
@@ -125,14 +128,14 @@ final class EntityStorage
         });
         foreach (static::$controllers as $controllerId => $controller) {
             if ($controller instanceof EntityDeleteOperationControllerInterface) {
-                /** @var \Apigee\Edge\Entity\EntityInterface $entity */
+                /** @var EntityInterface $entity */
                 foreach (self::$createdEntities[$controllerId] as $entity) {
                     try {
                         $controller->delete($entity->id());
                     } catch (MockHttpClientException $e) {
                         // Nothing to do, if an offline client was being used
                         // there is no need for a clean up.
-                    } catch (\Exception $e) {
+                    } catch (Exception $e) {
                         // Do not fail test if the removal of a test entity
                         // failed but log the failed attempt.
                         // It could happen that an entity has been already
@@ -154,7 +157,7 @@ final class EntityStorage
     private function resetStorageByController($controller): void
     {
         if (!is_object($controller)) {
-            throw  new \InvalidArgumentException('Controller must be an object.');
+            throw new InvalidArgumentException('Controller must be an object.');
         }
         $controllerId = $this->getControllerId($controller);
         unset(self::$createdEntities[$controllerId]);
@@ -169,10 +172,10 @@ final class EntityStorage
     private function getControllerId($controller): string
     {
         if (!is_object($controller)) {
-            throw  new \InvalidArgumentException('Controller must be an object.');
+            throw new InvalidArgumentException('Controller must be an object.');
         }
 
-        $ro = new \ReflectionObject($controller);
+        $ro = new ReflectionObject($controller);
 
         return $ro->getName() . '-' . spl_object_hash($controller);
     }

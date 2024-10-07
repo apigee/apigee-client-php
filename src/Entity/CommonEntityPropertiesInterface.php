@@ -18,6 +18,8 @@
 
 namespace Apigee\Edge\Entity;
 
+use DateTimeImmutable;
+
 /**
  * Interface CommonEntityPropertiesInterface.
  *
@@ -30,9 +32,9 @@ interface CommonEntityPropertiesInterface
     /**
      * Returns creation date of entity.
      *
-     * @return \DateTimeImmutable|null
+     * @return DateTimeImmutable|null
      */
-    public function getCreatedAt(): ?\DateTimeImmutable;
+    public function getCreatedAt(): ?DateTimeImmutable;
 
     /**
      * Returns the email address of the user/developer who created the entity.
@@ -47,9 +49,9 @@ interface CommonEntityPropertiesInterface
     /**
      * Returns last modification date of entity.
      *
-     * @return \DateTimeImmutable|null
+     * @return DateTimeImmutable|null
      */
-    public function getLastModifiedAt(): ?\DateTimeImmutable;
+    public function getLastModifiedAt(): ?DateTimeImmutable;
 
     /**
      * Returns the email address of the user/developer who modified the entity the last time.

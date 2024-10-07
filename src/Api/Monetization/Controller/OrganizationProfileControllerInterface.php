@@ -32,7 +32,7 @@ interface OrganizationProfileControllerInterface extends EntityControllerInterfa
     EntityUpdateOperationControllerInterface
 {
     /**
-     * @return \Apigee\Edge\Api\Monetization\Entity\OrganizationProfileInterface
+     * @return OrganizationProfileInterface
      */
     public function load(): OrganizationProfileInterface;
 }

@@ -23,7 +23,7 @@ use Apigee\Edge\Api\Monetization\Entity\SupportedCurrencyInterface;
 /**
  * Trait CurrencyPropertyAwareTrait.
  *
- * @see \Apigee\Edge\Api\Monetization\Entity\Property\CurrencyPropertyInterface
+ * @see CurrencyPropertyInterface
  */
 trait CurrencyPropertyAwareTrait
 {

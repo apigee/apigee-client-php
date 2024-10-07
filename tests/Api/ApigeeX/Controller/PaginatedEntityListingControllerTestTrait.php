@@ -23,6 +23,7 @@ use Apigee\Edge\Tests\Test\Controller\DefaultAPIClientAwareTrait;
 use Apigee\Edge\Tests\Test\Controller\EntityControllerAwareTestTrait;
 use Apigee\Edge\Tests\Test\Controller\EntityControllerTesterInterface;
 use Apigee\Edge\Tests\Test\TestClientFactory;
+use InvalidArgumentException;
 use PHPUnit\Framework\Assert;
 
 trait PaginatedEntityListingControllerTestTrait
@@ -102,14 +103,14 @@ trait PaginatedEntityListingControllerTestTrait
     /**
      * Controller for paginated entity listing operation testing.
      *
-     * @return \Apigee\Edge\Tests\Test\Controller\EntityControllerTesterInterface|\Apigee\Edge\Api\ApigeeX\Controller\PaginatedEntityListingControllerInterface
+     * @return EntityControllerTesterInterface|PaginatedEntityListingControllerInterface
      */
     protected static function controllerForPaginatedEntityListing(): EntityControllerTesterInterface
     {
         $controller = static::entityController();
 
         if ($controller->instanceOf(PaginatedEntityListingControllerInterface::class)) {
-            throw new \InvalidArgumentException('Controller must implements PaginatedEntityListingControllerInterface.');
+            throw new InvalidArgumentException('Controller must implements PaginatedEntityListingControllerInterface.');
         }
 
         return $controller;

@@ -21,7 +21,7 @@ namespace Apigee\Edge\Api\Monetization\Entity\Property;
 /**
  * Trait KeepOriginalStartDatePropertyAwareTrait.
  *
- * @see \Apigee\Edge\Api\Monetization\Entity\Property\KeepOriginalStartDatePropertyInterface
+ * @see KeepOriginalStartDatePropertyInterface
  */
 trait KeepOriginalStartDatePropertyAwareTrait
 {

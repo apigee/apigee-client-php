@@ -20,7 +20,7 @@ namespace Apigee\Edge\Api\Monetization\Entity;
 
 class DeveloperCategoryRatePlan extends RatePlan implements DeveloperCategoryRatePlanInterface
 {
-    /** @var \Apigee\Edge\Api\Monetization\Entity\DeveloperCategory */
+    /** @var DeveloperCategory */
     protected $developerCategory;
 
     /**

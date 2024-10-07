@@ -27,7 +27,7 @@ use Psr\Http\Message\ResponseInterface;
 /**
  * Utility methods for those controllers that supports paginated listing.
  *
- * @see \Apigee\Edge\Controller\PaginatedEntityListingControllerInterface
+ * @see PaginatedEntityListingControllerInterface
  */
 trait PaginationHelperTrait
 {
@@ -43,7 +43,7 @@ trait PaginationHelperTrait
     {
         // Create an anonymous class here because this class should not exist and be in use
         // in those controllers that do not work with entities that belongs to an organization.
-        $pager = new class() implements PagerInterface {
+        $pager = new class implements PagerInterface {
             protected $startKey;
 
             protected $limit;
@@ -94,7 +94,7 @@ trait PaginationHelperTrait
     /**
      * Loads paginated list of entities from Apigee Edge.
      *
-     * @param \Apigee\Edge\Structure\PagerInterface|null $pager
+     * @param PagerInterface|null $pager
      *   Pager.
      * @param array $query_params
      *   Additional query parameters.
@@ -104,7 +104,7 @@ trait PaginationHelperTrait
      * @return \Apigee\Edge\Entity\EntityInterface[]
      *   Array of entity objects.
      */
-    protected function listEntities(PagerInterface $pager = null, array $query_params = [], string $key_provider = 'id'): array
+    protected function listEntities(?PagerInterface $pager = null, array $query_params = [], string $key_provider = 'id'): array
     {
         /** @var \Apigee\Edge\Api\Management\Entity\OrganizationInterface $organization */
         $organization = $this->getOrganizationController()->load($this->getOrganisationName());
@@ -121,7 +121,7 @@ trait PaginationHelperTrait
     /**
      * Loads entity ids from Apigee Edge.
      *
-     * @param \Apigee\Edge\Structure\PagerInterface|null $pager
+     * @param PagerInterface|null $pager
      *   Pager.
      * @param array $query_params
      *   Additional query parameters.
@@ -129,7 +129,7 @@ trait PaginationHelperTrait
      * @return string[]
      *   Array of entity ids.
      */
-    protected function listEntityIds(PagerInterface $pager = null, array $query_params = []): array
+    protected function listEntityIds(?PagerInterface $pager = null, array $query_params = []): array
     {
         /** @var \Apigee\Edge\Api\Management\Entity\OrganizationInterface $organization */
         $organization = $this->getOrganizationController()->load($this->getOrganisationName());
@@ -156,7 +156,7 @@ trait PaginationHelperTrait
     /**
      * Real paginated entity listing on organization with CPS support.
      *
-     * @param \Apigee\Edge\Structure\PagerInterface|null $pager
+     * @param PagerInterface|null $pager
      *   Pager.
      * @param array $query_params
      *   Additional query parameters.
@@ -168,11 +168,11 @@ trait PaginationHelperTrait
      *
      * @psalm-suppress PossiblyNullArrayOffset $tmp->id() is always not null here.
      */
-    private function listEntitiesWithCps(PagerInterface $pager = null, array $query_params = [], string $key_provider = 'id'): array
+    private function listEntitiesWithCps(?PagerInterface $pager = null, array $query_params = [], string $key_provider = 'id'): array
     {
         $query_params = [
-                'expand' => 'true',
-            ] + $query_params;
+            'expand' => 'true',
+        ] + $query_params;
 
         if ($pager) {
             $responseArray = $this->getResultsInRange($pager, $query_params);
@@ -225,7 +225,7 @@ trait PaginationHelperTrait
      *
      * For example, on on-prem installations.
      *
-     * @param \Apigee\Edge\Structure\PagerInterface|null $pager
+     * @param PagerInterface|null $pager
      *   Pager.
      * @param array $query_params
      *   Additional query parameters.
@@ -235,11 +235,11 @@ trait PaginationHelperTrait
      * @return \Apigee\Edge\Entity\EntityInterface[]
      *   Array of entity objects.
      */
-    private function listEntitiesWithoutCps(PagerInterface $pager = null, array $query_params = [], string $key_provider = 'id'): array
+    private function listEntitiesWithoutCps(?PagerInterface $pager = null, array $query_params = [], string $key_provider = 'id'): array
     {
         $query_params = [
-                'expand' => 'true',
-            ] + $query_params;
+            'expand' => 'true',
+        ] + $query_params;
 
         $uri = $this->getBaseEndpointUri()->withQuery(http_build_query($query_params));
         $response = $this->getClient()->get($uri);
@@ -257,7 +257,7 @@ trait PaginationHelperTrait
      *
      * This method for organizations with CPS enabled.
      *
-     * @param \Apigee\Edge\Structure\PagerInterface $pager
+     * @param PagerInterface $pager
      *   CPS limit object with configured startKey and limit.
      * @param array $query_params
      *   Query parameters for the API call.
@@ -286,10 +286,10 @@ trait PaginationHelperTrait
     /**
      * Triggers an E_USER_NOTICE if pagination is used in a non-CPS org.
      *
-     * @param \Apigee\Edge\Structure\PagerInterface|null $pager
+     * @param PagerInterface|null $pager
      *   Pager.
      */
-    private function triggerCpsSimulationNotice(PagerInterface $pager = null): void
+    private function triggerCpsSimulationNotice(?PagerInterface $pager = null): void
     {
         // Trigger an E_USER_NOTICE error if pagination feature needs to
         // be simulated on an organization without CPS to let developers
@@ -305,7 +305,7 @@ trait PaginationHelperTrait
     /**
      * Real paginated entity id listing on organization with CPS support.
      *
-     * @param \Apigee\Edge\Structure\PagerInterface|null $pager
+     * @param PagerInterface|null $pager
      *   Pager.
      * @param array $query_params
      *   Additional query parameters.
@@ -313,11 +313,11 @@ trait PaginationHelperTrait
      * @return string[]
      *   Array of entity ids.
      */
-    private function listEntityIdsWithCps(PagerInterface $pager = null, array $query_params = []): array
+    private function listEntityIdsWithCps(?PagerInterface $pager = null, array $query_params = []): array
     {
         $query_params = [
-                'expand' => 'false',
-            ] + $query_params;
+            'expand' => 'false',
+        ] + $query_params;
         $expandCompatibility = (ClientInterface::APIGEE_ON_GCP_ENDPOINT === $this->getClient()->getEndpoint());
         if ($pager) {
             return $this->getResultsInRange($pager, $query_params, $expandCompatibility);
@@ -350,7 +350,7 @@ trait PaginationHelperTrait
     /**
      * Simulates paginated entity id listing on organization without CPS.
      *
-     * @param \Apigee\Edge\Structure\PagerInterface|null $pager
+     * @param PagerInterface|null $pager
      *   Pager.
      * @param array $query_params
      *   Additional query parameters.
@@ -358,11 +358,11 @@ trait PaginationHelperTrait
      * @return string[]
      *   Array of entity ids.
      */
-    private function listEntityIdsWithoutCps(PagerInterface $pager = null, array $query_params = []): array
+    private function listEntityIdsWithoutCps(?PagerInterface $pager = null, array $query_params = []): array
     {
         $query_params = [
-                'expand' => 'false',
-            ] + $query_params;
+            'expand' => 'false',
+        ] + $query_params;
 
         $uri = $this->getBaseEndpointUri()->withQuery(http_build_query($query_params));
         $response = $this->getClient()->get($uri);
@@ -377,7 +377,7 @@ trait PaginationHelperTrait
     /**
      * Simulates paginated response on an organization without CPS.
      *
-     * @param \Apigee\Edge\Structure\PagerInterface $pager
+     * @param PagerInterface $pager
      *   Pager.
      * @param array $result
      *   The non-paginated result returned by the API.
@@ -388,7 +388,7 @@ trait PaginationHelperTrait
      * @return array
      *   The paginated result.
      */
-    private function simulateCpsPagination(PagerInterface $pager, array $result, array $array_search_haystack = null): array
+    private function simulateCpsPagination(PagerInterface $pager, array $result, ?array $array_search_haystack = null): array
     {
         $array_search_haystack = $array_search_haystack ?? $result;
         // If start key is null let's set it to the first key in the
@@ -404,6 +404,7 @@ trait PaginationHelperTrait
         if (false === $offset) {
             throw new RuntimeException(sprintf('CPS simulation error: "%s" does not exist.', $start_key));
         }
+
         // The default pagination limit (aka. "count") on CPS supported
         // listing endpoints varies. When this script was written it was
         // 1000 on two endpoints and 100 on two app related endpoints,

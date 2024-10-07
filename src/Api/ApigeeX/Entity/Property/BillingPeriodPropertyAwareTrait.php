@@ -21,7 +21,7 @@ namespace Apigee\Edge\Api\ApigeeX\Entity\Property;
 /**
  * Trait BillingPeriodPropertyAwareTrait.
  *
- * @see \Apigee\Edge\Api\ApigeeX\Entity\Property\BillingPeriodPropertyInterface
+ * @see BillingPeriodPropertyInterface
  */
 trait BillingPeriodPropertyAwareTrait
 {

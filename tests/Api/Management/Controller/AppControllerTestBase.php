@@ -31,6 +31,7 @@ use Apigee\Edge\Tests\Test\Controller\EntityUpdateOperationControllerTestTrait;
 use Apigee\Edge\Tests\Test\EntitySerializer\EntitySerializerValidatorInterface;
 use Apigee\Edge\Tests\Test\TestClientFactory;
 use PHPUnit\Framework\Assert;
+use stdClass;
 
 /**
  * Base class for developer- and company app controller tests.
@@ -113,7 +114,7 @@ abstract class AppControllerTestBase extends EntityControllerTestBase
     /**
      * {@inheritdoc}
      */
-    protected function alterObjectsBeforeCompareResponseAndCreatedEntity(\stdClass &$responseObject, EntityInterface $created): void
+    protected function alterObjectsBeforeCompareResponseAndCreatedEntity(stdClass &$responseObject, EntityInterface $created): void
     {
         /* @var \Apigee\Edge\Api\Management\Entity\DeveloperAppInterface $created */
         $responseObject->appFamily = $created->getAppFamily();
@@ -133,7 +134,7 @@ abstract class AppControllerTestBase extends EntityControllerTestBase
     /**
      * {@inheritdoc}
      */
-    protected function alterObjectsBeforeCompareResponseAndUpdateEntity(\stdClass &$responseObject, EntityInterface $created): void
+    protected function alterObjectsBeforeCompareResponseAndUpdateEntity(stdClass &$responseObject, EntityInterface $created): void
     {
         $this->alterObjectsBeforeCompareResponseAndCreatedEntity($responseObject, $created);
     }

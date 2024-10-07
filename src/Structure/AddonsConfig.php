@@ -23,7 +23,7 @@ namespace Apigee\Edge\Structure;
  */
 final class AddonsConfig extends BaseObject
 {
-    /** @var \Apigee\Edge\Structure\MonetizationConfig */
+    /** @var MonetizationConfig */
     protected $monetizationConfig;
 
     /**

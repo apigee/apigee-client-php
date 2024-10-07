@@ -32,7 +32,7 @@ trait OrganizationControllerAwareTrait
     /**
      * Returns a configured organization controller.
      *
-     * @return \Apigee\Edge\Api\Management\Controller\OrganizationControllerInterface
+     * @return OrganizationControllerInterface
      */
     abstract protected function getOrganizationController(): OrganizationControllerInterface;
 }

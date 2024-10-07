@@ -18,6 +18,8 @@
 
 namespace Apigee\Edge\Exception;
 
+use LogicException;
+
 /**
  * Thrown when a property has not been initialized.
  *
@@ -26,7 +28,7 @@ namespace Apigee\Edge\Exception;
  *
  * @see \Symfony\Component\Serializer\Normalizer\NormalizerInterface::normalize()
  */
-class UninitializedPropertyException extends \LogicException implements ApiClientException
+class UninitializedPropertyException extends LogicException implements ApiClientException
 {
     /**
      * UninitializedPropertyException constructor.

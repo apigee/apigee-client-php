@@ -98,7 +98,7 @@ class OrganizationProfile extends Entity implements OrganizationProfileInterface
     /** @var string|null */
     protected $transactionRelayURL;
 
-    /** @var \DateTimeZone */
+    /** @var DateTimeZone */
     protected $timezone;
 
     /**

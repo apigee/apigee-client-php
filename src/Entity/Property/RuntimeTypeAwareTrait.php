@@ -21,7 +21,7 @@ namespace Apigee\Edge\Entity\Property;
 /**
  * Trait RuntimeTypeAwareTrait.
  *
- * @see \Apigee\Edge\Entity\Property\RuntimeTypeInterface
+ * @see RuntimeTypeInterface
  */
 trait RuntimeTypeAwareTrait
 {

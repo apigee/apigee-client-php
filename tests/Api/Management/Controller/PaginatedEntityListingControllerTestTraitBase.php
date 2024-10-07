@@ -62,7 +62,7 @@ trait PaginatedEntityListingControllerTestTraitBase
      * This helper function allows to choose the best one for pagination
      * testing.
      *
-     * @param \Apigee\Edge\Entity\EntityInterface $entity
+     * @param EntityInterface $entity
      *
      * @return string
      */

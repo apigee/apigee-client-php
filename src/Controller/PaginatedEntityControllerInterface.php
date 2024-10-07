@@ -44,7 +44,7 @@ interface PaginatedEntityControllerInterface
      * @throws \Apigee\Edge\Exception\CpsNotEnabledException
      *   If CPS is not enabled on the organization.
      *
-     * @return \Apigee\Edge\Structure\PagerInterface
+     * @return PagerInterface
      *   The pager object.
      */
     public function createPager(int $limit = 0, ?string $startKey = null): PagerInterface;

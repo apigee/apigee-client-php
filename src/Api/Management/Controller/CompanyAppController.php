@@ -31,7 +31,7 @@ class CompanyAppController extends AppByOwnerController implements CompanyAppCon
 {
     use CompanyAwareControllerTrait;
     /**
-     * @var \Apigee\Edge\Api\Management\Controller\OrganizationControllerInterface
+     * @var OrganizationControllerInterface
      */
     protected $organizationController;
 
@@ -40,16 +40,16 @@ class CompanyAppController extends AppByOwnerController implements CompanyAppCon
      *
      * @param string $organization
      * @param string $companyName
-     * @param \Apigee\Edge\ClientInterface $client
-     * @param \Apigee\Edge\Serializer\EntitySerializerInterface|null $entitySerializer
-     * @param \Apigee\Edge\Api\Management\Controller\OrganizationControllerInterface|null $organizationController
+     * @param ClientInterface $client
+     * @param EntitySerializerInterface|null $entitySerializer
+     * @param OrganizationControllerInterface|null $organizationController
      */
     public function __construct(
         string $organization,
         string $companyName,
         ClientInterface $client,
         ?EntitySerializerInterface $entitySerializer = null,
-        ?OrganizationControllerInterface $organizationController = null
+        ?OrganizationControllerInterface $organizationController = null,
     ) {
         $this->companyName = $companyName;
         $entitySerializer = $entitySerializer ?? new AppEntitySerializer();

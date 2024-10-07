@@ -54,7 +54,7 @@ abstract class AbstractBillingCriteria extends AbstractCriteria
     /**
      * @param string $billingMonth
      *
-     * @return \self
+     * @return self
      */
     public function setBillingMonth(string $billingMonth): self
     {
@@ -66,7 +66,7 @@ abstract class AbstractBillingCriteria extends AbstractCriteria
     /**
      * @param int $billingYear
      *
-     * @return \self
+     * @return self
      */
     public function setBillingYear(int $billingYear): self
     {

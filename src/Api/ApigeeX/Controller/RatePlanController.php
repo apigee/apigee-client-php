@@ -47,8 +47,8 @@ class RatePlanController extends OrganizationAwareEntityController implements Ra
      *
      * @param string $apiProduct
      * @param string $organization
-     * @param \Apigee\Edge\ClientInterface $client
-     * @param \Apigee\Edge\Serializer\EntitySerializerInterface|null $entitySerializer
+     * @param ClientInterface $client
+     * @param EntitySerializerInterface|null $entitySerializer
      */
     public function __construct(string $apiProduct, string $organization, ClientInterface $client, ?EntitySerializerInterface $entitySerializer = null)
     {
@@ -73,7 +73,7 @@ class RatePlanController extends OrganizationAwareEntityController implements Ra
         // Ignore entity type key from response, ex.: product.
         $responseArray = reset($responseArray);
 
-        //XProduct is not monetized and we skip it.
+        // XProduct is not monetized and we skip it.
         if (empty($responseArray)) {
             return [];
         }

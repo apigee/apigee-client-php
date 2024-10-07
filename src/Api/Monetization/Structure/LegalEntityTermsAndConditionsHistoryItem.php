@@ -22,6 +22,7 @@ use Apigee\Edge\Api\Monetization\Entity\Property\IdPropertyAwareTrait;
 use Apigee\Edge\Api\Monetization\Entity\Property\IdPropertyInterface;
 use Apigee\Edge\Api\Monetization\Entity\TermsAndConditionsInterface;
 use Apigee\Edge\Structure\BaseObject;
+use DateTimeImmutable;
 
 /**
  * Represents an accepted or declined terms & conditions by a developer- or
@@ -44,7 +45,7 @@ final class LegalEntityTermsAndConditionsHistoryItem extends BaseObject implemen
      * no matter what is being sent in the payload - even if the
      * auditDate is a required parameter at this moment.
      *
-     * @var \DateTimeImmutable
+     * @var DateTimeImmutable
      */
     private $auditDate;
 
@@ -52,25 +53,25 @@ final class LegalEntityTermsAndConditionsHistoryItem extends BaseObject implemen
     private $tnc;
 
     /**
-     * @return \DateTimeImmutable
+     * @return DateTimeImmutable
      */
-    public function getAuditDate(): \DateTimeImmutable
+    public function getAuditDate(): DateTimeImmutable
     {
         return $this->auditDate;
     }
 
     /**
-     * @param \DateTimeImmutable $auditDate
+     * @param DateTimeImmutable $auditDate
      *
      * @internal
      */
-    public function setAuditDate(\DateTimeImmutable $auditDate): void
+    public function setAuditDate(DateTimeImmutable $auditDate): void
     {
         $this->auditDate = $auditDate;
     }
 
     /**
-     * @return \Apigee\Edge\Api\Monetization\Entity\TermsAndConditionsInterface
+     * @return TermsAndConditionsInterface
      */
     public function getTnc(): TermsAndConditionsInterface
     {
@@ -78,7 +79,7 @@ final class LegalEntityTermsAndConditionsHistoryItem extends BaseObject implemen
     }
 
     /**
-     * @param \Apigee\Edge\Api\Monetization\Entity\TermsAndConditionsInterface $tnc
+     * @param TermsAndConditionsInterface $tnc
      */
     public function setTnc(TermsAndConditionsInterface $tnc): void
     {

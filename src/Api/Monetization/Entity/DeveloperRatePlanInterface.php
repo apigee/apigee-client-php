@@ -23,7 +23,7 @@ use Apigee\Edge\Api\Monetization\Entity\Property\DeveloperPropertyInterface;
 interface DeveloperRatePlanInterface extends RatePlanInterface, DeveloperPropertyInterface
 {
     /**
-     * @param \Apigee\Edge\Api\Monetization\Entity\DeveloperInterface $developer
+     * @param DeveloperInterface $developer
      */
     public function setDeveloper(DeveloperInterface $developer): void;
 }

@@ -23,7 +23,7 @@ use Apigee\Edge\Api\Monetization\Entity\DeveloperInterface;
 interface DeveloperPropertyInterface
 {
     /**
-     * @return \Apigee\Edge\Api\Monetization\Entity\DeveloperInterface|null
+     * @return DeveloperInterface|null
      *   It can be null only when a new entity is created.
      */
     public function getDeveloper(): ?DeveloperInterface;

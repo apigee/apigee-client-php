@@ -23,6 +23,7 @@ use Apigee\Edge\Entity\Entity;
 use Apigee\Edge\Entity\Property\NamePropertyAwareTrait;
 use Apigee\Edge\Entity\Property\PropertiesPropertyAwareTrait;
 use Apigee\Edge\Structure\PropertiesProperty;
+use ReflectionException;
 
 /**
  * Class Environment.
@@ -41,7 +42,7 @@ class Environment extends Entity implements EnvironmentInterface
      *
      * @param array $values
      *
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     public function __construct(array $values = [])
     {

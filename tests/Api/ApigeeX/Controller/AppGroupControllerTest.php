@@ -63,7 +63,7 @@ class AppGroupControllerTest extends EntityControllerTestBase
         /** @var \Apigee\Edge\Api\ApigeeX\Controller\AppGroupControllerInterface $controller */
         $controller = static::entityController();
 
-        /** @var \Apigee\Edge\Api\ApigeeX\Entity\AppGroupInterface $entity */
+        /** @var AppGroupInterface $entity */
         $entity = static::getNewEntity();
         $controller->create($entity);
         $controller->setStatus($entity->id(), AppGroupInterface::STATUS_INACTIVE);
@@ -77,7 +77,7 @@ class AppGroupControllerTest extends EntityControllerTestBase
     /**
      * {@inheritdoc}
      */
-    protected static function entityController(ClientInterface $client = null): EntityControllerTesterInterface
+    protected static function entityController(?ClientInterface $client = null): EntityControllerTesterInterface
     {
         return static::appGroupController($client);
     }

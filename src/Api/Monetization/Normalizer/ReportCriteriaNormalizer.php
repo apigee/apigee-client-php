@@ -22,6 +22,7 @@ use Apigee\Edge\Api\Monetization\NameConverter\ReportCriteriaNameConverter;
 use Apigee\Edge\Api\Monetization\Structure\Reports\Criteria\AbstractCriteria;
 use Apigee\Edge\Api\Monetization\Utility\TimezoneFixerHelperTrait;
 use Apigee\Edge\Normalizer\ObjectNormalizer;
+use DateTimeZone;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 use Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface;
 use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface;
@@ -40,10 +41,10 @@ class ReportCriteriaNormalizer extends ObjectNormalizer
      * ReportsCriteriaNormalizer constructor.
      *
      * @param string $organization
-     * @param \Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface|null $classMetadataFactory
-     * @param \Symfony\Component\Serializer\NameConverter\NameConverterInterface|null $nameConverter
-     * @param \Symfony\Component\PropertyAccess\PropertyAccessorInterface|null $propertyAccessor
-     * @param \Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface|null $propertyTypeExtractor
+     * @param ClassMetadataFactoryInterface|null $classMetadataFactory
+     * @param NameConverterInterface|null $nameConverter
+     * @param PropertyAccessorInterface|null $propertyAccessor
+     * @param PropertyTypeExtractorInterface|null $propertyTypeExtractor
      */
     public function __construct(string $organization, ?ClassMetadataFactoryInterface $classMetadataFactory = null, ?NameConverterInterface $nameConverter = null, ?PropertyAccessorInterface $propertyAccessor = null, ?PropertyTypeExtractorInterface $propertyTypeExtractor = null)
     {
@@ -77,12 +78,12 @@ class ReportCriteriaNormalizer extends ObjectNormalizer
 
         // According to the API documentation it is always UTC.
         // https://docs.apigee.com/api-platform/monetization/create-reports#createreportdefapi
-        $this->fixTimeZoneOnNormalization($object, $normalized, new \DateTimeZone('UTC'));
+        $this->fixTimeZoneOnNormalization($object, $normalized, new DateTimeZone('UTC'));
         $arr_empty = [];
         // Just in case, do not send empty array values either to this API.
         foreach ($normalized as $property => $value) {
             if (is_array($value) && empty($value)) {
-                //Get all the array which is empty
+                // Get all the array which is empty
                 $arr_empty[] = $property;
             }
         }

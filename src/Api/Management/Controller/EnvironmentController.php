@@ -39,13 +39,13 @@ class EnvironmentController extends EntityController implements EnvironmentContr
      * EnvironmentController constructor.
      *
      * @param string $organization
-     * @param \Apigee\Edge\ClientInterface $client
-     * @param \Apigee\Edge\Serializer\EntitySerializerInterface|null $entitySerializer
+     * @param ClientInterface $client
+     * @param EntitySerializerInterface|null $entitySerializer
      */
     public function __construct(
         string $organization,
         ClientInterface $client,
-        ?EntitySerializerInterface $entitySerializer = null
+        ?EntitySerializerInterface $entitySerializer = null,
     ) {
         $entitySerializer = $entitySerializer ?? new EnvironmentSerializer();
         parent::__construct($organization, $client, $entitySerializer);

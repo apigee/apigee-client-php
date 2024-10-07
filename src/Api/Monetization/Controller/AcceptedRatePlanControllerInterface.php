@@ -49,16 +49,16 @@ interface AcceptedRatePlanControllerInterface extends EntityControllerInterface,
      *
      * @return \Apigee\Edge\Api\Monetization\Entity\AcceptedRatePlanInterface[]
      */
-    public function getPaginatedAcceptedRatePlanList(int $limit = null, int $page = 1): array;
+    public function getPaginatedAcceptedRatePlanList(?int $limit = null, int $page = 1): array;
 
     /**
      * Accepts a rate plan.
      *
-     * @param \Apigee\Edge\Api\Monetization\Entity\RatePlanInterface $ratePlan
+     * @param RatePlanInterface $ratePlan
      *   The rate plan to be accepted.
-     * @param \DateTimeImmutable $startDate
+     * @param DateTimeImmutable $startDate
      *   Date when the rate plan starts.
-     * @param \DateTimeImmutable|null $endDate
+     * @param DateTimeImmutable|null $endDate
      *   Date when the rate plan ends.
      * @param int|null $quotaTarget
      *   (This property is valid for adjustable notification rate plans only.)
@@ -71,14 +71,14 @@ interface AcceptedRatePlanControllerInterface extends EntityControllerInterface,
      *   Flag that specifies whether termination fees are waved when an active
      *   rate plan is terminated as part of activating the new rate plan.
      *
-     * @return \Apigee\Edge\Api\Monetization\Entity\AcceptedRatePlanInterface
+     * @return AcceptedRatePlanInterface
      */
     public function acceptRatePlan(RatePlanInterface $ratePlan, DateTimeImmutable $startDate, ?DateTimeImmutable $endDate = null, ?int $quotaTarget = null, ?bool $suppressWarning = null, ?bool $waveTerminationCharge = null): AcceptedRatePlanInterface;
 
     /**
      * Update a rate plan that has been accepted by a developer.
      *
-     * @param \Apigee\Edge\Api\Monetization\Entity\AcceptedRatePlanInterface $acceptedRatePlan
+     * @param AcceptedRatePlanInterface $acceptedRatePlan
      *   Previously accepted rate plan that should be modified.
      * @param bool|null $suppressWarning
      *   Flag that specifies whether to suppress the error if the developer

@@ -22,6 +22,7 @@ use Apigee\Edge\Entity\EntityInterface;
 use Apigee\Edge\Tests\Api\Monetization\EntitySerializer\LegalEntitySerializerValidator;
 use Apigee\Edge\Tests\Test\EntitySerializer\PropertyValidator\SerializerAwarePropertyValidatorTrait;
 use PHPUnit\Framework\Assert;
+use stdClass;
 
 class LegalEntityEntityReferencePropertyValidator implements \Apigee\Edge\Tests\Test\EntitySerializer\PropertyValidator\RemoveIfPropertyValidPropertyValidatorInterface, \Apigee\Edge\Tests\Test\EntitySerializer\PropertyValidator\SerializerAwarePropertyValidatorInterface
 {
@@ -42,7 +43,7 @@ class LegalEntityEntityReferencePropertyValidator implements \Apigee\Edge\Tests\
     /**
      * {@inheritdoc}
      */
-    public function validate(\stdClass $input, \stdClass $output, EntityInterface $entity): void
+    public function validate(stdClass $input, stdClass $output, EntityInterface $entity): void
     {
         if (!method_exists($entity, 'getCompany') && !method_exists($entity, 'getDeveloper')) {
             return;

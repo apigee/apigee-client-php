@@ -42,8 +42,8 @@ class OrganizationController extends AbstractEntityController implements Organiz
     /**
      * OrganizationController constructor.
      *
-     * @param \Apigee\Edge\ClientInterface $client
-     * @param \Apigee\Edge\Serializer\EntitySerializerInterface|null $entitySerializer
+     * @param ClientInterface $client
+     * @param EntitySerializerInterface|null $entitySerializer
      */
     public function __construct(ClientInterface $client, ?EntitySerializerInterface $entitySerializer = null)
     {

@@ -37,7 +37,7 @@ interface TermsAndConditionsControllerInterface extends EntityControllerInterfac
      *
      * @return \Apigee\Edge\Api\Monetization\Entity\TermsAndConditionsInterface[]
      */
-    public function getEntities(bool $currentOnly = null): array;
+    public function getEntities(?bool $currentOnly = null): array;
 
     /**
      * Loads all terms and conditions in the provided range.
@@ -52,5 +52,5 @@ interface TermsAndConditionsControllerInterface extends EntityControllerInterfac
      *
      * @return \Apigee\Edge\Api\Monetization\Entity\TermsAndConditionsInterface[]
      */
-    public function getPaginatedEntityList(int $limit = null, int $page = 1, bool $currentOnly = null): array;
+    public function getPaginatedEntityList(?int $limit = null, int $page = 1, ?bool $currentOnly = null): array;
 }

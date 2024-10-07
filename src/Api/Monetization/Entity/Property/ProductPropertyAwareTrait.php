@@ -23,12 +23,12 @@ use Apigee\Edge\Api\Monetization\Entity\ApiProduct;
 /**
  * Trait ProductPropertyAwareTrait.
  *
- * @see \Apigee\Edge\Api\Monetization\Entity\Property\ProductPropertyInterface
+ * @see ProductPropertyInterface
  */
 trait ProductPropertyAwareTrait
 {
-    /** @var \Apigee\Edge\Api\Monetization\Entity\ApiProduct|null */
-    protected $product = null;
+    /** @var ApiProduct|null */
+    protected $product;
 
     /**
      * {@inheritdoc}
@@ -41,7 +41,7 @@ trait ProductPropertyAwareTrait
     /**
      * Sets the product information.
      *
-     * @param \Apigee\Edge\Api\Monetization\Entity\ApiProduct $product
+     * @param ApiProduct $product
      *
      * @internal
      */

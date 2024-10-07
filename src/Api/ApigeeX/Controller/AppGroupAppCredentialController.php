@@ -37,15 +37,15 @@ class AppGroupAppCredentialController extends CompanyAppCredentialController
      * @param string $organization
      * @param string $appGroup
      * @param string $appName
-     * @param \Apigee\Edge\ClientInterface $client
-     * @param \Apigee\Edge\Serializer\EntitySerializerInterface|null $entitySerializer
+     * @param ClientInterface $client
+     * @param EntitySerializerInterface|null $entitySerializer
      */
     public function __construct(
         string $organization,
         string $appGroup,
         string $appName,
         ClientInterface $client,
-        ?EntitySerializerInterface $entitySerializer = null
+        ?EntitySerializerInterface $entitySerializer = null,
     ) {
         $this->appGroup = $appGroup;
         parent::__construct($organization, $appGroup, $appName, $client, $entitySerializer);

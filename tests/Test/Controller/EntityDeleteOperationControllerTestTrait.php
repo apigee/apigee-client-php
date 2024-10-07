@@ -40,9 +40,10 @@ trait EntityDeleteOperationControllerTestTrait
 
     /**
      * @depends testUpdate
+     *
      * @group online
      *
-     * @param \Apigee\Edge\Entity\EntityInterface $entity
+     * @param EntityInterface $entity
      */
     public function testDelete(EntityInterface $entity): void
     {
@@ -66,7 +67,7 @@ trait EntityDeleteOperationControllerTestTrait
     /**
      * Controller for entity load operation testing.
      *
-     * @return \Apigee\Edge\Tests\Test\Controller\EntityDeleteOperationControllerTesterInterface
+     * @return EntityDeleteOperationControllerTesterInterface
      */
     protected static function controllerForEntityDelete(): EntityDeleteOperationControllerTesterInterface
     {
@@ -79,7 +80,7 @@ trait EntityDeleteOperationControllerTestTrait
     /**
      * Provided by EntityLoadOperationControllerTestTrait out of the box.
      *
-     * @return \Apigee\Edge\Tests\Test\Controller\EntityLoadOperationControllerTesterInterface
+     * @return EntityLoadOperationControllerTesterInterface
      */
     abstract protected static function controllerForEntityLoad(): EntityLoadOperationControllerTesterInterface;
 }

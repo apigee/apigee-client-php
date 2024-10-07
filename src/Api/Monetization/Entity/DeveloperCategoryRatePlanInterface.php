@@ -21,12 +21,12 @@ namespace Apigee\Edge\Api\Monetization\Entity;
 interface DeveloperCategoryRatePlanInterface extends RatePlanInterface
 {
     /**
-     * @return \Apigee\Edge\Api\Monetization\Entity\DeveloperCategoryInterface
+     * @return DeveloperCategoryInterface
      */
     public function getDeveloperCategory(): DeveloperCategoryInterface;
 
     /**
-     * @param \Apigee\Edge\Api\Monetization\Entity\DeveloperCategoryInterface $developerCategory
+     * @param DeveloperCategoryInterface $developerCategory
      */
     public function setDeveloperCategory(DeveloperCategoryInterface $developerCategory): void;
 }

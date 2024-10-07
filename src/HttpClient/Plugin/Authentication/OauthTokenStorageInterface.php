@@ -21,7 +21,7 @@ namespace Apigee\Edge\HttpClient\Plugin\Authentication;
 /**
  * Describes a storage that is used by the Oauth authentication plugin for storing and returning access token data.
  *
- * @see \Apigee\Edge\HttpClient\Plugin\Authentication\Oauth
+ * @see Oauth
  */
 interface OauthTokenStorageInterface
 {

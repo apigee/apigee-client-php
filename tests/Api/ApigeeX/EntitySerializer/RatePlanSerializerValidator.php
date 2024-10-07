@@ -21,25 +21,26 @@ namespace Apigee\Edge\Tests\Api\ApigeeX\EntitySerializer;
 use Apigee\Edge\Api\ApigeeX\Entity\RatePlanRevisionInterface;
 use Apigee\Edge\Entity\EntityInterface;
 use Apigee\Edge\Serializer\EntitySerializerInterface;
-use Apigee\Edge\Tests\Test\EntitySerializer\EntitySerializerValidator;
 use Apigee\Edge\Tests\Api\ApigeeX\EntitySerializer\PropertyValidator\ApiPackageEntityReferencePropertyValidator;
 use Apigee\Edge\Tests\Api\ApigeeX\EntitySerializer\PropertyValidator\ParentRatePlanEntityReferencePropertyValidator;
 use Apigee\Edge\Tests\Api\ApigeeX\EntitySerializer\PropertyValidator\RatePlanDetailsPropertyValidator;
+use Apigee\Edge\Tests\Test\EntitySerializer\EntitySerializerValidator;
+use stdClass;
 
 class RatePlanSerializerValidator extends EntitySerializerValidator
 {
     /**
      * RatePlanSerializerValidator constructor.
      *
-     * @param \Apigee\Edge\Serializer\EntitySerializerInterface $serializer
+     * @param EntitySerializerInterface $serializer
      * @param array $propertyValidators
      */
-    public function __construct(EntitySerializerInterface $serializer = null, array $propertyValidators = [])
+    public function __construct(?EntitySerializerInterface $serializer = null, array $propertyValidators = [])
     {
         $propertyValidators = array_merge($propertyValidators, [
-            //new CurrencyEntityReferencePropertyValidator(),
+            // new CurrencyEntityReferencePropertyValidator(),
             new ApiPackageEntityReferencePropertyValidator(),
-            new RatePlanDetailsPropertyValidator()
+            new RatePlanDetailsPropertyValidator(),
         ]);
         parent::__construct($serializer, $propertyValidators);
     }
@@ -47,7 +48,7 @@ class RatePlanSerializerValidator extends EntitySerializerValidator
     /**
      * {@inheritdoc}
      */
-    public function validate(\stdClass $input, EntityInterface $entity): void
+    public function validate(stdClass $input, EntityInterface $entity): void
     {
         /* @var \Apigee\Edge\Api\ApigeeX\Entity\StandardRatePlanInterface $entity */
         if ($entity instanceof RatePlanRevisionInterface) {

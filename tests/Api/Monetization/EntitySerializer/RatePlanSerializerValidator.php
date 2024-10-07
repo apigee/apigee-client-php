@@ -27,16 +27,17 @@ use Apigee\Edge\Tests\Api\Monetization\EntitySerializer\PropertyValidator\Develo
 use Apigee\Edge\Tests\Api\Monetization\EntitySerializer\PropertyValidator\LegalEntityEntityReferencePropertyValidator;
 use Apigee\Edge\Tests\Api\Monetization\EntitySerializer\PropertyValidator\ParentRatePlanEntityReferencePropertyValidator;
 use Apigee\Edge\Tests\Api\Monetization\EntitySerializer\PropertyValidator\RatePlanDetailsPropertyValidator;
+use stdClass;
 
 class RatePlanSerializerValidator extends OrganizationAwareEntitySerializerValidator
 {
     /**
      * RatePlanSerializerValidator constructor.
      *
-     * @param \Apigee\Edge\Serializer\EntitySerializerInterface $serializer
+     * @param EntitySerializerInterface $serializer
      * @param array $propertyValidators
      */
-    public function __construct(EntitySerializerInterface $serializer = null, array $propertyValidators = [])
+    public function __construct(?EntitySerializerInterface $serializer = null, array $propertyValidators = [])
     {
         $propertyValidators = array_merge($propertyValidators, [
             new CurrencyEntityReferencePropertyValidator(),
@@ -55,7 +56,7 @@ class RatePlanSerializerValidator extends OrganizationAwareEntitySerializerValid
     /**
      * {@inheritdoc}
      */
-    public function validate(\stdClass $input, EntityInterface $entity): void
+    public function validate(stdClass $input, EntityInterface $entity): void
     {
         /* @var \Apigee\Edge\Api\Monetization\Entity\StandardRatePlanInterface $entity */
         // According to engineering this is a transient property and it should

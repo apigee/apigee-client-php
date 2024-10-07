@@ -31,7 +31,7 @@ interface OfflineClientInterface extends ClientInterface
     /**
      * Exposes the underlying mock http client.
      *
-     * @return \Apigee\Edge\Tests\Test\HttpClient\MockHttpClientInterface
+     * @return MockHttpClientInterface
      */
     public function getMockHttpClient(): MockHttpClientInterface;
 }

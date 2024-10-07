@@ -30,10 +30,10 @@ class CompanyAcceptedRatePlanNormalizer extends AcceptedRatePlanNormalizer
     /**
      * CompanyAcceptedRatePlanNormalizer constructor.
      *
-     * @param \Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface|null $classMetadataFactory
-     * @param \Symfony\Component\Serializer\NameConverter\NameConverterInterface|null $nameConverter
-     * @param \Symfony\Component\PropertyAccess\PropertyAccessorInterface|null $propertyAccessor
-     * @param \Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface|null $propertyTypeExtractor
+     * @param ClassMetadataFactoryInterface|null $classMetadataFactory
+     * @param NameConverterInterface|null $nameConverter
+     * @param PropertyAccessorInterface|null $propertyAccessor
+     * @param PropertyTypeExtractorInterface|null $propertyTypeExtractor
      */
     public function __construct(?ClassMetadataFactoryInterface $classMetadataFactory = null, ?NameConverterInterface $nameConverter = null, ?PropertyAccessorInterface $propertyAccessor = null, ?PropertyTypeExtractorInterface $propertyTypeExtractor = null)
     {

@@ -21,6 +21,7 @@ namespace Apigee\Edge\Tests\Test\Controller;
 use Apigee\Edge\Controller\EntityDeleteOperationControllerInterface;
 use Apigee\Edge\Entity\EntityInterface;
 use Apigee\Edge\Tests\Test\Utility\EntityStorage;
+use InvalidArgumentException;
 
 final class EntityDeleteOperationControllerTester extends EntityControllerTesterBase implements EntityDeleteOperationControllerTesterInterface
 {
@@ -46,7 +47,7 @@ final class EntityDeleteOperationControllerTester extends EntityControllerTester
         parent::validateController($controller);
         if (!$controller instanceof EntityDeleteOperationControllerInterface && !$controller instanceof EntityControllerTesterInterface) {
             $class = get_class($controller);
-            throw new \InvalidArgumentException("Controller must implement EntityDeleteOperationControllerInterface or EntityControllerTesterInterface. Got {$class}.");
+            throw new InvalidArgumentException("Controller must implement EntityDeleteOperationControllerInterface or EntityControllerTesterInterface. Got {$class}.");
         }
     }
 }

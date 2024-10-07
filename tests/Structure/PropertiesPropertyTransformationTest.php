@@ -24,6 +24,7 @@ use Apigee\Edge\Structure\PropertiesProperty;
 use PHPUnit\Framework\TestCase;
 use SebastianBergmann\Comparator\ComparisonFailure;
 use SebastianBergmann\Comparator\Factory as ComparisonFactory;
+use stdClass;
 
 /**
  * Class PropertiesPropertyTransformationTest.
@@ -33,14 +34,15 @@ use SebastianBergmann\Comparator\Factory as ComparisonFactory;
  * @group structure
  * @group normalizer
  * @group denormalizer
+ *
  * @small
  */
 class PropertiesPropertyTransformationTest extends TestCase
 {
-    /** @var \Apigee\Edge\Normalizer\PropertiesPropertyNormalizer */
+    /** @var PropertiesPropertyNormalizer */
     protected static $normalizer;
 
-    /** @var \Apigee\Edge\Denormalizer\PropertiesPropertyDenormalizer */
+    /** @var PropertiesPropertyDenormalizer */
     protected static $denormalizer;
 
     /**
@@ -69,11 +71,11 @@ class PropertiesPropertyTransformationTest extends TestCase
     /**
      * @depends testNormalize
      *
-     * @param \stdClass $normalized
+     * @param stdClass $normalized
      */
     public function testDenormalize(mixed $normalized): void
     {
-        /** @var \Apigee\Edge\Structure\PropertiesProperty $object */
+        /** @var PropertiesProperty $object */
         $object = static::$denormalizer->denormalize($normalized, PropertiesProperty::class);
         $this->assertTrue($object->has('features.isCpsEnabled'));
         $this->assertEquals('true', $object->getValue('features.isCpsEnabled'));

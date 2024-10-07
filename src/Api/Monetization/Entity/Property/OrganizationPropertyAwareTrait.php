@@ -23,7 +23,7 @@ use Apigee\Edge\Api\Monetization\Entity\OrganizationProfileInterface;
 /**
  * Trait OrganizationPropertyAwareTrait.
  *
- * @see \Apigee\Edge\Api\Monetization\Entity\OrganizationProfileInterface
+ * @see OrganizationProfileInterface
  */
 trait OrganizationPropertyAwareTrait
 {

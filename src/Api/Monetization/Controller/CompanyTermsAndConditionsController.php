@@ -36,8 +36,8 @@ class CompanyTermsAndConditionsController extends LegalEntityTermsAndConditionsC
      *
      * @param string $companyName
      * @param string $organization
-     * @param \Apigee\Edge\ClientInterface $client
-     * @param \Apigee\Edge\Serializer\EntitySerializerInterface|null $entitySerializer
+     * @param ClientInterface $client
+     * @param EntitySerializerInterface|null $entitySerializer
      */
     public function __construct(string $companyName, string $organization, ClientInterface $client, ?EntitySerializerInterface $entitySerializer = null)
     {

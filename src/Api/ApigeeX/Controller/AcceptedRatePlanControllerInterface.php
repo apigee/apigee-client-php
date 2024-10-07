@@ -47,22 +47,22 @@ interface AcceptedRatePlanControllerInterface extends
      *
      * @return \Apigee\Edge\Api\ApigeeX\Entity\AcceptedRatePlanInterface[]
      */
-    public function getPaginatedAcceptedRatePlanList(int $limit = null, int $page = 1): array;
+    public function getPaginatedAcceptedRatePlanList(?int $limit = null, int $page = 1): array;
 
     /**
      * Accepts a rate plan.
      *
-     * @param \Apigee\Edge\Api\ApigeeX\Entity\RatePlanInterface $ratePlan
+     * @param RatePlanInterface $ratePlan
      *   The rate plan to be accepted.
      *
-     * @return \Apigee\Edge\Api\ApigeeX\Entity\AcceptedRatePlanInterface
+     * @return AcceptedRatePlanInterface
      */
     public function acceptRatePlan(RatePlanInterface $ratePlan): AcceptedRatePlanInterface;
 
     /**
      * Update a rate plan that has been accepted by a developer.
      *
-     * @param \Apigee\Edge\Api\ApigeeX\Entity\AcceptedRatePlanInterface $acceptedRatePlan
+     * @param AcceptedRatePlanInterface $acceptedRatePlan
      *   Previously accepted rate plan that should be modified.
      */
     public function updateSubscription(AcceptedRatePlanInterface $acceptedRatePlan): void;

@@ -32,7 +32,7 @@ class AppGroupMembershipSerializer extends EntitySerializer
     public function __construct($normalizers = [])
     {
         $normalizers = array_merge($normalizers, [
-            new AppgroupMembershipDenormalizer(), new AppgroupMembershipNormalizer(),
+            new AppGroupMembershipDenormalizer(), new AppGroupMembershipNormalizer(),
         ]);
         parent::__construct($normalizers);
     }

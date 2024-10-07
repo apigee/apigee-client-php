@@ -33,6 +33,7 @@ use Apigee\Edge\Tests\Test\Controller\EntityControllerTesterInterface;
 use Apigee\Edge\Tests\Test\Controller\MockClientAwareTrait;
 use Apigee\Edge\Tests\Test\EntitySerializer\EntitySerializerValidatorInterface;
 use Apigee\Edge\Tests\Test\HttpClient\FileSystemResponseFactory;
+use DateTimeImmutable;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 
@@ -106,9 +107,9 @@ class RatePlanControllerTest extends EntityControllerTestBase
         /** @var \Apigee\Edge\Api\Monetization\Entity\RatePlanInterface $rate_plan */
         // Create a new revision from a rate plan revision.
         $rate_plan = $this->controllerForEntityLoad()->load('standard-rev');
-        $rate_plan->setStartDate(new \DateTimeImmutable('now'));
-        /** @var \Apigee\Edge\Api\Monetization\Entity\RatePlanRevisionInterface $rate_plan_revision */
-        $rate_plan_revision_start_date = new \DateTimeImmutable('tomorrow');
+        $rate_plan->setStartDate(new DateTimeImmutable('now'));
+        /** @var RatePlanRevisionInterface $rate_plan_revision */
+        $rate_plan_revision_start_date = new DateTimeImmutable('tomorrow');
         $rate_plan_revision = RatePlanRevisionBuilder::buildRatePlanRevision($rate_plan, $rate_plan_revision_start_date);
         $this->assertNull($rate_plan_revision->id());
         $this->assertNull($rate_plan_revision->getEndDate());
@@ -138,8 +139,8 @@ class RatePlanControllerTest extends EntityControllerTestBase
 
         /** @var \Apigee\Edge\Api\Monetization\Entity\RatePlanInterface $rate_plan */
         $rate_plan = $this->controllerForEntityLoad()->load('standard');
-        $rate_plan->setStartDate(new \DateTimeImmutable('now'));
-        RatePlanRevisionBuilder::buildRatePlanRevision($rate_plan, new \DateTimeImmutable('yesterday'));
+        $rate_plan->setStartDate(new DateTimeImmutable('now'));
+        RatePlanRevisionBuilder::buildRatePlanRevision($rate_plan, new DateTimeImmutable('yesterday'));
     }
 
     /**
@@ -158,7 +159,7 @@ class RatePlanControllerTest extends EntityControllerTestBase
     /**
      * {@inheritdoc}
      */
-    protected static function entityController(ClientInterface $client = null): EntityControllerTesterInterface
+    protected static function entityController(?ClientInterface $client = null): EntityControllerTesterInterface
     {
         $client = $client ?? static::defaultAPIClient();
 

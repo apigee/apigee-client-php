@@ -21,7 +21,7 @@ namespace Apigee\Edge\Api\ApigeeX\Entity\Property;
 /**
  * Trait CurrencyCodePropertyAwareTrait.
  *
- * @see \Apigee\Edge\Api\ApigeeX\Entity\Property\CurrencyCodePropertyInterface
+ * @see CurrencyCodePropertyInterface
  */
 trait CurrencyCodePropertyAwareTrait
 {

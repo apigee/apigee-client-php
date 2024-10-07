@@ -22,11 +22,13 @@ use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Tests\Test\HttpClient\DebuggerHttpClient;
 use Http\Message\Authentication\BasicAuth;
 use Http\Message\Formatter\CurlCommandFormatter;
+use InvalidArgumentException;
 use Monolog\Formatter\LineFormatter;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 use Monolog\Processor\PsrLogMessageProcessor;
 use ReflectionClass;
+use ReflectionException;
 
 /**
  * Class TestClientFactory.
@@ -60,9 +62,9 @@ class TestClientFactory
      *   Enforces factory to rebuild the test client instead of returning it
      *   from its static cache.
      *
-     * @return \Apigee\Edge\ClientInterface
+     * @return ClientInterface
      */
-    public static function getClient(string $fqcn = null, bool $reset = false): ClientInterface
+    public static function getClient(?string $fqcn = null, bool $reset = false): ClientInterface
     {
         $fqcn = $fqcn ?: getenv('APIGEE_EDGE_PHP_CLIENT_API_CLIENT') ?: FileSystemMockClient::class;
 
@@ -71,9 +73,9 @@ class TestClientFactory
         }
 
         try {
-            $clientRC = new \ReflectionClass($fqcn);
-        } catch (\ReflectionException $e) {
-            throw new \InvalidArgumentException("Unable to initialize client class with {$fqcn} name.", $e->getCode(), $e);
+            $clientRC = new ReflectionClass($fqcn);
+        } catch (ReflectionException $e) {
+            throw new InvalidArgumentException("Unable to initialize client class with {$fqcn} name.", $e->getCode(), $e);
         }
 
         if ($clientRC->implementsInterface(OnlineClientInterface::class)) {
@@ -104,7 +106,7 @@ class TestClientFactory
             /* @var \Apigee\Edge\Tests\Test\OfflineClientInterface $client */
             self::$instances[$fqcn] = $clientRC->newInstance();
         } else {
-            throw new \InvalidArgumentException(
+            throw new InvalidArgumentException(
                 sprintf(
                     'Class must implements either %s interface or %s interface. Got %s.',
                     OnlineClientInterface::class,
@@ -120,7 +122,7 @@ class TestClientFactory
     /**
      * Helper function that returns whether an API client is offline or not.
      *
-     * @param \Apigee\Edge\ClientInterface $client
+     * @param ClientInterface $client
      *   API client.
      *
      * @return bool

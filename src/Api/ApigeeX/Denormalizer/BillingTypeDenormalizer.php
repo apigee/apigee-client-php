@@ -28,7 +28,7 @@ abstract class BillingTypeDenormalizer extends ObjectDenormalizer
      */
     public function denormalize($data, $type, $format = null, array $context = [])
     {
-        /** @var \Apigee\Edge\Api\ApigeeX\Entity\BillingTypeInterface $denormalized */
+        /** @var BillingTypeInterface $denormalized */
         $denormalized = parent::denormalize($data, $type, $format, $context);
 
         return $denormalized;

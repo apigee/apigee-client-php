@@ -82,7 +82,7 @@ class DeveloperControllerTest extends EntityControllerTestBase
         static::markOnlineTestSkipped(__FUNCTION__);
         /** @var \Apigee\Edge\Api\Management\Controller\DeveloperControllerInterface $controller */
         $controller = static::entityController();
-        /** @var \Apigee\Edge\Api\Management\Entity\DeveloperInterface $entity */
+        /** @var DeveloperInterface $entity */
         $entity = static::getNewEntity();
         $controller->create($entity);
         $controller->setStatus($entity->id(), DeveloperInterface::STATUS_INACTIVE);
@@ -151,7 +151,7 @@ class DeveloperControllerTest extends EntityControllerTestBase
     /**
      * {@inheritdoc}
      */
-    protected static function entityController(ClientInterface $client = null): EntityControllerTesterInterface
+    protected static function entityController(?ClientInterface $client = null): EntityControllerTesterInterface
     {
         return static::developerController($client);
     }

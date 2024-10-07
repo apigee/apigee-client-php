@@ -26,28 +26,28 @@ use Apigee\Edge\Serializer\EntitySerializerInterface;
 /**
  * Class PaginatedEntityController.
  *
- * @see \Apigee\Edge\Controller\PaginatedEntityControllerInterface
+ * @see PaginatedEntityControllerInterface
  */
 abstract class PaginatedEntityController extends EntityController implements PaginatedEntityControllerInterface
 {
     use OrganizationControllerAwareTrait;
 
-    /** @var \Apigee\Edge\Api\Management\Controller\OrganizationControllerInterface */
+    /** @var OrganizationControllerInterface */
     protected $organizationController;
 
     /**
      * PaginatedEntityController constructor.
      *
      * @param string $organization
-     * @param \Apigee\Edge\ClientInterface $client
-     * @param \Apigee\Edge\Serializer\EntitySerializerInterface|null $entitySerializer
+     * @param ClientInterface $client
+     * @param EntitySerializerInterface|null $entitySerializer
      * @param OrganizationControllerInterface|null $organizationController
      */
     public function __construct(
         string $organization,
         ClientInterface $client,
         ?EntitySerializerInterface $entitySerializer = null,
-        OrganizationControllerInterface $organizationController = null
+        ?OrganizationControllerInterface $organizationController = null,
     ) {
         parent::__construct($organization, $client, $entitySerializer);
         $this->organizationController = $organizationController ?: new OrganizationController($client);

@@ -34,10 +34,10 @@ class TermsAndConditionsDenormalizer extends ObjectDenormalizer
     /**
      * TermsAndConditionsDenormalizer constructor.
      *
-     * @param \Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface|null $classMetadataFactory
-     * @param \Symfony\Component\Serializer\NameConverter\NameConverterInterface|null $nameConverter
-     * @param \Symfony\Component\PropertyAccess\PropertyAccessorInterface|null $propertyAccessor
-     * @param \Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface|null $propertyTypeExtractor
+     * @param ClassMetadataFactoryInterface|null $classMetadataFactory
+     * @param NameConverterInterface|null $nameConverter
+     * @param PropertyAccessorInterface|null $propertyAccessor
+     * @param PropertyTypeExtractorInterface|null $propertyTypeExtractor
      */
     public function __construct(?ClassMetadataFactoryInterface $classMetadataFactory = null, ?NameConverterInterface $nameConverter = null, ?PropertyAccessorInterface $propertyAccessor = null, ?PropertyTypeExtractorInterface $propertyTypeExtractor = null)
     {
@@ -53,7 +53,7 @@ class TermsAndConditionsDenormalizer extends ObjectDenormalizer
      */
     public function denormalize($data, $type, $format = null, array $context = [])
     {
-        /** @var \Apigee\Edge\Api\Monetization\Entity\TermsAndConditionsInterface $entity */
+        /** @var TermsAndConditionsInterface $entity */
         $entity = parent::denormalize($data, $type, $format, $context);
 
         $this->fixTimeZoneOnDenormalization($data, $entity, $entity->getOrganization()->getTimezone());

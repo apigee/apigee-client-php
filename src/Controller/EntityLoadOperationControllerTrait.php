@@ -23,7 +23,7 @@ use Apigee\Edge\Entity\EntityInterface;
 /**
  * Trait EntityLoadOperationControllerTrait.
  *
- * @see \Apigee\Edge\Controller\EntityLoadOperationControllerInterface
+ * @see EntityLoadOperationControllerInterface
  */
 trait EntityLoadOperationControllerTrait
 {

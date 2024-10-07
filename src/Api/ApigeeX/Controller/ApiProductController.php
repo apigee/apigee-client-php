@@ -44,7 +44,7 @@ class ApiProductController extends OrganizationAwareEntityController implements 
      *
      * @param string $organization
      * @param ClientInterface $client
-     * @param \Apigee\Edge\Serializer\EntitySerializerInterface|null $entitySerializer
+     * @param EntitySerializerInterface|null $entitySerializer
      */
     public function __construct(string $organization, ClientInterface $client, ?EntitySerializerInterface $entitySerializer = null)
     {
@@ -127,7 +127,7 @@ class ApiProductController extends OrganizationAwareEntityController implements 
         $subscribed_product_ids = [];
         if ('developers' == $type) {
             // Developer subscriptions.
-            /** @var \Apigee\Edge\Api\ApigeeX\Controller\DeveloperAcceptedRatePlanController $dev_accepted_rateplan */
+            /** @var DeveloperAcceptedRatePlanController $dev_accepted_rateplan */
             $dev_accepted_rateplan = new DeveloperAcceptedRatePlanController($entityId, $this->organization, $this->client);
             $subscriptions = $dev_accepted_rateplan->getAllAcceptedRatePlans();
 
@@ -142,7 +142,7 @@ class ApiProductController extends OrganizationAwareEntityController implements 
 
         foreach ($this->getAvailablexApiProducts($type, $entityId, true) as $item) {
             // Create a new rate plan controller.
-            /** @var \Apigee\Edge\Api\ApigeeX\Controller\RatePlanController $rateplan */
+            /** @var RatePlanController $rateplan */
             $rateplan = new RatePlanController($item->id(), $this->organization, $this->client);
 
             if (empty($rateplan->getEntities())) {
@@ -154,7 +154,7 @@ class ApiProductController extends OrganizationAwareEntityController implements 
             } else {
                 foreach ($rateplan->getEntities() as $plan) {
                     if (null !== $plan->getendTime() && $plan->getendTime() < $current_ms) {
-                        //Free product - No active rateplan
+                        // Free product - No active rateplan
                         $products[$item->id()] = $item;
                     }
                 }

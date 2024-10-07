@@ -35,9 +35,9 @@ interface EntitySerializerInterface extends NormalizerInterface, DenormalizerInt
     /**
      * Set property values on an entity from an Apigee Edge response.
      *
-     * @param \Psr\Http\Message\ResponseInterface $response
+     * @param ResponseInterface $response
      *   Response from Apigee Edge.
-     * @param \Apigee\Edge\Entity\EntityInterface $entity
+     * @param EntityInterface $entity
      *   Entity that properties should be updated.
      */
     public function setPropertiesFromResponse(ResponseInterface $response, EntityInterface $entity): void;

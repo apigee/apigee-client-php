@@ -34,21 +34,21 @@ use Symfony\Component\Serializer\Encoder\JsonDecode;
  */
 class FileSystemResponseFactory implements ResponseFactory
 {
-    /** @var \League\Flysystem\Filesystem */
+    /** @var Filesystem */
     private $filesystem;
 
-    /** @var \Symfony\Component\Serializer\Encoder\DecoderInterface */
+    /** @var DecoderInterface */
     private $decoder;
 
     /**
      * FileSystemResponseFactory constructor.
      *
-     * @param \League\Flysystem\AdapterInterface|null $adapter
+     * @param AdapterInterface|null $adapter
      *   FlySystem adapter.
      * @param DecoderInterface|null $decoder
      *   Decoder interface for reading request bodies. Default is JsonDecode.
      */
-    public function __construct(AdapterInterface $adapter = null, DecoderInterface $decoder = null)
+    public function __construct(?AdapterInterface $adapter = null, ?DecoderInterface $decoder = null)
     {
         if (null === $adapter) {
             $defaultFolder = realpath(sprintf(
@@ -73,7 +73,7 @@ class FileSystemResponseFactory implements ResponseFactory
         $reasonPhrase = null,
         array $headers = [],
         $body = null,
-        $protocolVersion = '1.1'
+        $protocolVersion = '1.1',
     ) {
         return new Response(
             $statusCode,
@@ -100,7 +100,7 @@ class FileSystemResponseFactory implements ResponseFactory
         $statusCode = 200,
         $reasonPhrase = null,
         array $headers = [],
-        $protocolVersion = '1.1'
+        $protocolVersion = '1.1',
     ) {
         $path = $this->transformRequestToPath($request);
         try {
@@ -118,7 +118,7 @@ class FileSystemResponseFactory implements ResponseFactory
     /**
      * Transforms a request to a valid file system path.
      *
-     * @param \Psr\Http\Message\RequestInterface $request
+     * @param RequestInterface $request
      *
      * @return string
      */

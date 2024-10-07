@@ -31,6 +31,7 @@ use Apigee\Edge\Api\Monetization\Entity\Property\VirtualCurrencyPropertyInterfac
 use Apigee\Edge\Entity\Property\StatusPropertyAwareTrait;
 use Apigee\Edge\Entity\Property\StatusPropertyInterface;
 use Apigee\Edge\Structure\BaseObject;
+use DateTimeImmutable;
 
 /**
  * @internal
@@ -58,7 +59,7 @@ class PaymentTransaction extends BaseObject implements
      *
      * TODO Can this be null?
      *
-     * @var \DateTimeImmutable|null
+     * @var DateTimeImmutable|null
      */
     protected $endDate;
 
@@ -68,7 +69,7 @@ class PaymentTransaction extends BaseObject implements
      * According to engineering, utcStartTime = startTime so we do not parse
      * the first one from the API response.
      *
-     * @var \DateTimeImmutable
+     * @var DateTimeImmutable
      */
     protected $startDate;
 

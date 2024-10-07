@@ -21,13 +21,14 @@ namespace Apigee\Edge\Api\Monetization\Controller;
 use Apigee\Edge\Api\Monetization\Entity\BalanceInterface;
 use Apigee\Edge\Api\Monetization\Entity\PrepaidBalanceInterface;
 use Apigee\Edge\Controller\EntityControllerInterface;
+use DateTimeImmutable;
 
 interface PrepaidBalanceControllerInterface extends EntityControllerInterface, PaginatedEntityListingControllerInterface
 {
     /**
      * @param string $currencyCode
      *
-     * @return \Apigee\Edge\Api\Monetization\Entity\BalanceInterface|null
+     * @return BalanceInterface|null
      */
     public function getByCurrency(string $currencyCode): ?BalanceInterface;
 
@@ -35,7 +36,7 @@ interface PrepaidBalanceControllerInterface extends EntityControllerInterface, P
      * @param float $amount
      * @param string $currencyCode
      *
-     * @return \Apigee\Edge\Api\Monetization\Entity\BalanceInterface
+     * @return BalanceInterface
      */
     public function topUpBalance(float $amount, string $currencyCode): BalanceInterface;
 
@@ -47,7 +48,7 @@ interface PrepaidBalanceControllerInterface extends EntityControllerInterface, P
      * @param float $replenishAmount
      * @param float $recurringAmount
      *
-     * @return \Apigee\Edge\Api\Monetization\Entity\BalanceInterface
+     * @return BalanceInterface
      */
     public function setupRecurringPayments(string $currencyCode, string $paymentProviderId, float $replenishAmount, float $recurringAmount): BalanceInterface;
 
@@ -57,26 +58,26 @@ interface PrepaidBalanceControllerInterface extends EntityControllerInterface, P
      * @param string $currencyCode
      * @param string $paymentProviderId
      *
-     * @return \Apigee\Edge\Api\Monetization\Entity\BalanceInterface
+     * @return BalanceInterface
      */
     public function disableRecurringPayments(string $currencyCode, string $paymentProviderId): BalanceInterface;
 
     /**
      * Gets prepaid balances.
      *
-     * @param \DateTimeImmutable $billingMonth
+     * @param DateTimeImmutable $billingMonth
      *
      * @return \Apigee\Edge\Api\Monetization\Entity\PrepaidBalanceInterface[]
      */
-    public function getPrepaidBalance(\DateTimeImmutable $billingMonth): array;
+    public function getPrepaidBalance(DateTimeImmutable $billingMonth): array;
 
     /**
      * Gets prepaid balance by currency.
      *
      * @param string $currencyCode
-     * @param \DateTimeImmutable $billingMonth
+     * @param DateTimeImmutable $billingMonth
      *
-     * @return \Apigee\Edge\Api\Monetization\Entity\PrepaidBalanceInterface|null
+     * @return PrepaidBalanceInterface|null
      */
-    public function getPrepaidBalanceByCurrency(string $currencyCode, \DateTimeImmutable $billingMonth): ?PrepaidBalanceInterface;
+    public function getPrepaidBalanceByCurrency(string $currencyCode, DateTimeImmutable $billingMonth): ?PrepaidBalanceInterface;
 }

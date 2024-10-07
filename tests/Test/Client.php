@@ -29,7 +29,7 @@ class Client extends OnlineClientBase implements OnlineClientInterface
     /**
      * Client constructor.
      *
-     * @param \Http\Message\Authentication $authentication
+     * @param Authentication $authentication
      * @param string|null $endpoint
      * @param array $options
      */

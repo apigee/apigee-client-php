@@ -64,7 +64,7 @@ class CompanyControllerTest extends EntityControllerTestBase
         /** @var \Apigee\Edge\Api\Management\Controller\CompanyControllerInterface $controller */
         $controller = static::entityController();
 
-        /** @var \Apigee\Edge\Api\Management\Entity\CompanyInterface $entity */
+        /** @var CompanyInterface $entity */
         $entity = static::getNewEntity();
         $controller->create($entity);
         $controller->setStatus($entity->id(), CompanyInterface::STATUS_INACTIVE);
@@ -78,7 +78,7 @@ class CompanyControllerTest extends EntityControllerTestBase
     /**
      * {@inheritdoc}
      */
-    protected static function entityController(ClientInterface $client = null): EntityControllerTesterInterface
+    protected static function entityController(?ClientInterface $client = null): EntityControllerTesterInterface
     {
         return static::companyController($client);
     }
