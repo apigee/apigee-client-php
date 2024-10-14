@@ -70,10 +70,6 @@ class ApiProductController extends OrganizationAwareEntityController implements 
 
     /**
      * {@inheritdoc}
-     *
-     * @return \Apigee\Edge\Api\Monetization\Entity\ApiProductInterface[]
-     *
-     * @psalm-return array<\Apigee\Edge\Api\Monetization\Entity\ApiProductInterface>
      */
     public function getEligibleProductsByDeveloper(string $entityId): array
     {

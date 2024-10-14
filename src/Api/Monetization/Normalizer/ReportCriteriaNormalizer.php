@@ -64,10 +64,7 @@ class ReportCriteriaNormalizer extends ObjectNormalizer
         /** @var object $normalized */
         $normalized = parent::normalize($object, $format, $context);
 
-        $addOrganizationIdCallback = /**
-         * @psalm-return object{id:string, orgId:string}
-         */
-        function (string $id): object {
+        $addOrganizationIdCallback = function (string $id) {
             return (object) ['id' => $id, 'orgId' => $this->organization];
         };
 
