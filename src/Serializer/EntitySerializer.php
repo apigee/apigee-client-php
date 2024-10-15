@@ -221,6 +221,16 @@ class EntitySerializer implements EntitySerializerInterface
     }
 
     /**
+     * {@inheritdoc}
+     */
+    public function getSupportedTypes(?string $format): array
+    {
+        return [
+            EntitySerializerInterface::class => true,
+        ];
+    }
+
+    /**
      * Allows subclasses to replace the default JSON encoder.
      *
      * @return JsonEncoder
@@ -230,15 +240,5 @@ class EntitySerializer implements EntitySerializerInterface
         // Keep the same structure that we get from Apigee Edge, do not
         // transforms objects to arrays.
         return new JsonEncoder(new JsonDecode());
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getSupportedTypes(?string $format): array
-    {
-        return [
-            EntitySerializerInterface::class => true,
-        ];
     }
 }
