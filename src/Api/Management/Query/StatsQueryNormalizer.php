@@ -21,7 +21,6 @@ namespace Apigee\Edge\Api\Management\Query;
 use Apigee\Edge\Serializer\JsonEncoder;
 use DateTimeZone;
 use StatsQuery;
-use StatsQueryInterface;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
@@ -105,7 +104,7 @@ class StatsQueryNormalizer implements NormalizerInterface
     public function getSupportedTypes(?string $format): array
     {
         return [
-            StatsQueryInterface::class => true,
+            StatsQuery::class => true,
         ];
     }
 }
