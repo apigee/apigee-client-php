@@ -20,7 +20,6 @@ namespace Apigee\Edge\Api\Management\Query;
 
 use Apigee\Edge\Serializer\JsonEncoder;
 use DateTimeZone;
-use StatsQuery;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
