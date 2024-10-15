@@ -231,4 +231,14 @@ class EntitySerializer implements EntitySerializerInterface
         // transforms objects to arrays.
         return new JsonEncoder(new JsonDecode());
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getSupportedTypes(?string $format): array
+    {
+        return [
+            EntitySerializerInterface::class => true,
+        ];
+    }
 }
