@@ -20,6 +20,7 @@ namespace Apigee\Edge\Api\Monetization\Normalizer;
 
 use Apigee\Edge\Api\Monetization\Structure\NestedObjectReferenceInterface;
 use Apigee\Edge\Normalizer\ObjectNormalizer;
+use ArrayObject;
 use ReflectionObject;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 use Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface;
@@ -63,7 +64,7 @@ class EntityNormalizer extends ObjectNormalizer
      * @psalm-suppress InvalidReturnType stdClass is also an object.
      * @psalm-suppress InvalidPropertyFetch.
      */
-    public function normalize($object, $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
+    public function normalize($object, $format = null, array $context = []): array|string|int|float|bool|ArrayObject|null
     {
         $normalized = (array) parent::normalize($object, $format, $context);
 

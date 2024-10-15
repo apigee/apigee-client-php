@@ -18,6 +18,8 @@
 
 namespace Apigee\Edge\Api\Monetization\Normalizer;
 
+use ArrayObject;
+
 abstract class LegalEntityReportDefinitionNormalizer extends ReportDefinitionNormalizer
 {
     /**
@@ -26,7 +28,7 @@ abstract class LegalEntityReportDefinitionNormalizer extends ReportDefinitionNor
      * @psalm-suppress InvalidReturnType Returning an object here is required
      * for creating a valid Apigee Edge request.
      */
-    public function normalize($object, $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
+    public function normalize($object, $format = null, array $context = []): array|string|int|float|bool|ArrayObject|null
     {
         /** @var object $normalized */
         $normalized = parent::normalize($object, $format, $context);
