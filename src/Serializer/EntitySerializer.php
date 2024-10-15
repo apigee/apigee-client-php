@@ -82,7 +82,7 @@ class EntitySerializer implements EntitySerializerInterface
     /**
      * {@inheritdoc}
      */
-    public function supportsDenormalization($data, $type, $format = null)
+    public function supportsDenormalization($data, $type, $format = null): bool
     {
         return $this->format === $format && $this->serializer->supportsDenormalization($data, $type, $format);
     }

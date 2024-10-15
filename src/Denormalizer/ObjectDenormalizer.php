@@ -113,7 +113,7 @@ class ObjectDenormalizer implements DenormalizerInterface, SerializerAwareInterf
     /**
      * {@inheritdoc}
      */
-    public function supportsDenormalization($data, $type, $format = null)
+    public function supportsDenormalization($data, $type, $format = null): bool
     {
         if ('[]' === substr($type, -2)) {
             return false;
