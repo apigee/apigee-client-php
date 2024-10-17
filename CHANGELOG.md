@@ -1,4 +1,7 @@
 # CHANGELOG
+## [3.0.8](https://github.com/apigee/apigee-client-php/milestone/32?closed=1)
+* [#379] Update option-resolver's symfony component version to its latest.
+
 ## [3.0.7](https://github.com/apigee/apigee-client-php/milestone/31?closed=1)
 * [#374] Bump minimum required version of symfony/serializer.
 * [#376] Remove symfony/serializer conflict and bump version.
