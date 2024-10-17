@@ -221,6 +221,16 @@ class EntitySerializer implements EntitySerializerInterface
     }
 
     /**
+     * {@inheritdoc}
+     */
+    public function getSupportedTypes(?string $format): array
+    {
+        return [
+            EntitySerializerInterface::class => true,
+        ];
+    }
+
+    /**
      * Allows subclasses to replace the default JSON encoder.
      *
      * @return JsonEncoder

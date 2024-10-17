@@ -61,4 +61,14 @@ class AppGroupMembershipDenormalizer implements DenormalizerInterface
 
         return AppGroupMembership::class === $type || $type instanceof AppGroupMembership;
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getSupportedTypes(?string $format): array
+    {
+        return [
+            AppGroupMembership::class => true,
+        ];
+    }
 }

@@ -96,4 +96,14 @@ class StatsQueryNormalizer implements NormalizerInterface
     {
         return $data instanceof StatsQuery;
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getSupportedTypes(?string $format): array
+    {
+        return [
+            StatsQuery::class => true,
+        ];
+    }
 }
