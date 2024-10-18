@@ -40,7 +40,7 @@ class DeveloperBillingTypeDenormalizer extends BillingTypeDenormalizer
     /**
      * {@inheritdoc}
      */
-    public function supportsDenormalization($data, $type, $format = null)
+    public function supportsDenormalization($data, $type, $format = null): bool
     {
         if (parent::supportsDenormalization($data, $type, $format)) {
             return true;

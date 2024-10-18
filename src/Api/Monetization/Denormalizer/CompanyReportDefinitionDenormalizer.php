@@ -59,7 +59,7 @@ class CompanyReportDefinitionDenormalizer extends ReportDefinitionDenormalizer
     /**
      * {@inheritdoc}
      */
-    public function supportsDenormalization($data, $type, $format = null)
+    public function supportsDenormalization($data, $type, $format = null): bool
     {
         if (parent::supportsDenormalization($data, $type, $format)) {
             // Non-developer specific reports API also returns the developer

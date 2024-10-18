@@ -40,7 +40,7 @@ class DeveloperAcceptedRatePlanDenormalizer extends AcceptedRatePlanDenormalizer
     /**
      * {@inheritdoc}
      */
-    public function supportsDenormalization($data, $type, $format = null)
+    public function supportsDenormalization($data, $type, $format = null): bool
     {
         if (parent::supportsDenormalization($data, $type, $format)) {
             return true;

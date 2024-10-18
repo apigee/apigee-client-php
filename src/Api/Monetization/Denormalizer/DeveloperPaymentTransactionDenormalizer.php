@@ -40,7 +40,7 @@ class DeveloperPaymentTransactionDenormalizer extends PaymentTransactionDenormal
     /**
      * {@inheritdoc}
      */
-    public function supportsDenormalization($data, $type, $format = null)
+    public function supportsDenormalization($data, $type, $format = null): bool
     {
         if (parent::supportsDenormalization($data, $type, $format)) {
             return !$data->developer->isCompany;
