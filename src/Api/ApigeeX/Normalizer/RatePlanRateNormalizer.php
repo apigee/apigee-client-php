@@ -21,7 +21,6 @@ namespace Apigee\Edge\Api\ApigeeX\Normalizer;
 use Apigee\Edge\Api\Monetization\Structure\RatePlanRate;
 use Apigee\Edge\Api\Monetization\Structure\RatePlanRateRevShare;
 use Apigee\Edge\Normalizer\ObjectNormalizer;
-use ArrayObject;
 
 class RatePlanRateNormalizer extends ObjectNormalizer
 {
@@ -31,7 +30,7 @@ class RatePlanRateNormalizer extends ObjectNormalizer
      * @psalm-suppress InvalidReturnType Returning an object here is required
      * for creating a valid Apigee Edge request.
      */
-    public function normalize($object, $format = null, array $context = []): array|string|int|float|bool|ArrayObject|null
+    public function normalize($object, $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         /** @var object $normalized */
         $normalized = parent::normalize($object, $format, $context);
@@ -47,7 +46,7 @@ class RatePlanRateNormalizer extends ObjectNormalizer
     /**
      * {@inheritdoc}
      */
-    public function supportsNormalization($data, $format = null)
+    public function supportsNormalization($data, $format = null): bool
     {
         return $data instanceof RatePlanRate;
     }

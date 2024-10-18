@@ -21,7 +21,6 @@ namespace Apigee\Edge\Api\ApigeeX\Normalizer;
 use Apigee\Edge\Api\Monetization\Normalizer\CompanyRatePlanNormalizer;
 use Apigee\Edge\Api\Monetization\Normalizer\DeveloperCategoryRatePlanNormalizer;
 use Apigee\Edge\Api\Monetization\Normalizer\DeveloperRatePlanNormalizer;
-use ArrayObject;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\SerializerAwareInterface;
 use Symfony\Component\Serializer\SerializerAwareTrait;
@@ -57,7 +56,7 @@ class RatePlanNormalizerFactory implements NormalizerInterface, SerializerAwareI
      * @psalm-suppress InvalidNullableReturnType - There are going to be at
      * least one normalizer always that can normalize data here.
      */
-    public function normalize($object, $format = null, array $context = []): array|string|int|float|bool|ArrayObject|null
+    public function normalize($object, $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         foreach ($this->normalizers as $normalizer) {
             // Return the result from the first denormalizer that can
@@ -71,7 +70,7 @@ class RatePlanNormalizerFactory implements NormalizerInterface, SerializerAwareI
     /**
      * {@inheritdoc}
      */
-    public function supportsNormalization($data, $format = null)
+    public function supportsNormalization($data, $format = null): bool
     {
         foreach ($this->normalizers as $denormalizer) {
             if ($denormalizer->supportsNormalization($data, $format)) {

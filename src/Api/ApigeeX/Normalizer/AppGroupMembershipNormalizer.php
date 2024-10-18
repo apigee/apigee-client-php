@@ -19,7 +19,6 @@
 namespace Apigee\Edge\Api\ApigeeX\Normalizer;
 
 use Apigee\Edge\Api\ApigeeX\Structure\AppGroupMembership;
-use ArrayObject;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 class AppGroupMembershipNormalizer implements NormalizerInterface
@@ -30,7 +29,7 @@ class AppGroupMembershipNormalizer implements NormalizerInterface
      * @psalm-suppress InvalidReturnType Returning an object here is required
      * for creating a valid Apigee Edge request.
      */
-    public function normalize($object, $format = null, array $context = []): array|string|int|float|bool|ArrayObject|null
+    public function normalize($object, $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $normalized = [];
 
@@ -45,7 +44,7 @@ class AppGroupMembershipNormalizer implements NormalizerInterface
     /**
      * {@inheritdoc}
      */
-    public function supportsNormalization($data, $format = null)
+    public function supportsNormalization($data, $format = null): bool
     {
         return $data instanceof AppGroupMembership;
     }

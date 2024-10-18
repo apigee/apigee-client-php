@@ -20,7 +20,6 @@ namespace Apigee\Edge\Api\Management\Normalizer;
 
 use Apigee\Edge\Api\Management\Entity\AppInterface;
 use Apigee\Edge\Normalizer\ObjectNormalizer;
-use ArrayObject;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 /**
@@ -31,7 +30,7 @@ class AppNormalizer extends ObjectNormalizer implements NormalizerInterface
     /**
      * {@inheritdoc}
      */
-    public function supportsNormalization($data, $format = null)
+    public function supportsNormalization($data, $format = null): bool
     {
         return $data instanceof AppInterface;
     }
@@ -42,7 +41,7 @@ class AppNormalizer extends ObjectNormalizer implements NormalizerInterface
      * @psalm-suppress InvalidReturnType Returning an object here is required
      * for creating a valid Apigee Edge request.
      */
-    public function normalize($object, $format = null, array $context = []): array|string|int|float|bool|ArrayObject|null
+    public function normalize($object, $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         /** @var object $normalized */
         $normalized = parent::normalize($object, $format, $context);

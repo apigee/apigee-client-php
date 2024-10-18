@@ -25,7 +25,6 @@ use Apigee\Edge\Entity\EntityInterface;
 use Apigee\Edge\Normalizer\EdgeDateNormalizer;
 use Apigee\Edge\Normalizer\KeyValueMapNormalizer;
 use Apigee\Edge\Normalizer\ObjectNormalizer;
-use ArrayObject;
 use Psr\Http\Message\ResponseInterface;
 use ReflectionMethod;
 use ReflectionObject;
@@ -91,7 +90,7 @@ class EntitySerializer implements EntitySerializerInterface
     /**
      * {@inheritdoc}
      */
-    public function normalize($object, $format = null, array $context = []): array|string|int|float|bool|ArrayObject|null
+    public function normalize($object, $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         return $this->serializer->normalize($object, $format, $context);
     }
@@ -99,7 +98,7 @@ class EntitySerializer implements EntitySerializerInterface
     /**
      * {@inheritdoc}
      */
-    public function supportsNormalization($data, $format = null)
+    public function supportsNormalization($data, $format = null): bool
     {
         return $this->format === $format && $this->serializer->supportsNormalization($data, $format);
     }
@@ -200,7 +199,7 @@ class EntitySerializer implements EntitySerializerInterface
     /**
      * {@inheritdoc}
      */
-    public function supportsDecoding($format)
+    public function supportsDecoding($format): bool
     {
         return $this->format === $format && $this->serializer->supportsDecoding($format);
     }

@@ -20,7 +20,6 @@ namespace Apigee\Edge\Api\ApigeeX\Normalizer;
 
 use Apigee\Edge\Api\ApigeeX\Entity\RatePlanInterface;
 use Apigee\Edge\Api\ApigeeX\Entity\StandardRatePlanInterface;
-use ArrayObject;
 
 class StandardRatePlanNormalizer extends RatePlanNormalizer
 {
@@ -30,7 +29,7 @@ class StandardRatePlanNormalizer extends RatePlanNormalizer
      * @psalm-suppress InvalidReturnType Returning an object here is required
      * for creating a valid Apigee Edge request.
      */
-    public function normalize($object, $format = null, array $context = []): array|string|int|float|bool|ArrayObject|null
+    public function normalize($object, $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         /** @var object $normalized */
         $normalized = parent::normalize($object, $format, $context);
@@ -42,7 +41,7 @@ class StandardRatePlanNormalizer extends RatePlanNormalizer
     /**
      * {@inheritdoc}
      */
-    public function supportsNormalization($data, $format = null)
+    public function supportsNormalization($data, $format = null): bool
     {
         return $data instanceof StandardRatePlanInterface;
     }

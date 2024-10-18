@@ -19,7 +19,6 @@
 namespace Apigee\Edge\Api\Management\Normalizer;
 
 use Apigee\Edge\Api\Management\Structure\CompanyMembership;
-use ArrayObject;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 class CompanyMembershipNormalizer implements NormalizerInterface
@@ -30,7 +29,7 @@ class CompanyMembershipNormalizer implements NormalizerInterface
      * @psalm-suppress InvalidReturnType Returning an object here is required
      * for creating a valid Apigee Edge request.
      */
-    public function normalize($object, $format = null, array $context = []): array|string|int|float|bool|ArrayObject|null
+    public function normalize($object, $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $normalized = [
             'developer' => [],
@@ -48,7 +47,7 @@ class CompanyMembershipNormalizer implements NormalizerInterface
     /**
      * {@inheritdoc}
      */
-    public function supportsNormalization($data, $format = null)
+    public function supportsNormalization($data, $format = null): bool
     {
         return $data instanceof CompanyMembership;
     }

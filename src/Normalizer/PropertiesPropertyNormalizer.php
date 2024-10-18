@@ -19,7 +19,6 @@
 namespace Apigee\Edge\Normalizer;
 
 use Apigee\Edge\Structure\PropertiesProperty;
-use ArrayObject;
 
 /**
  * Class PropertiesPropertyNormalizer.
@@ -34,7 +33,7 @@ class PropertiesPropertyNormalizer extends KeyValueMapNormalizer
      * @psalm-suppress InvalidReturnType Returning an object here is required
      * for creating a valid Apigee Edge request.
      */
-    public function normalize($object, $format = null, array $context = []): array|string|int|float|bool|ArrayObject|null
+    public function normalize($object, $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $return = [
             'property' => parent::normalize($object, $format, $context),
@@ -48,7 +47,7 @@ class PropertiesPropertyNormalizer extends KeyValueMapNormalizer
     /**
      * {@inheritdoc}
      */
-    public function supportsNormalization($data, $format = null)
+    public function supportsNormalization($data, $format = null): bool
     {
         return $data instanceof PropertiesProperty;
     }

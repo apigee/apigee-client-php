@@ -18,7 +18,6 @@
 
 namespace Apigee\Edge\Normalizer;
 
-use ArrayObject;
 use DateTimeInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
@@ -27,7 +26,7 @@ class EdgeDateNormalizer implements NormalizerInterface
     /**
      * {@inheritdoc}
      */
-    public function supportsNormalization($data, $format = null)
+    public function supportsNormalization($data, $format = null): bool
     {
         return $data instanceof DateTimeInterface;
     }
@@ -35,7 +34,7 @@ class EdgeDateNormalizer implements NormalizerInterface
     /**
      * {@inheritdoc}
      */
-    public function normalize($object, $format = null, array $context = []): array|string|int|float|bool|ArrayObject|null
+    public function normalize($object, $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         /* @var \DateTimeInterface $object */
         return $object->getTimestamp() * 1000;

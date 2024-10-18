@@ -19,7 +19,6 @@
 namespace Apigee\Edge\Normalizer;
 
 use Apigee\Edge\Structure\CredentialProductInterface;
-use ArrayObject;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 /**
@@ -33,7 +32,7 @@ class CredentialProductNormalizer implements NormalizerInterface
      * @psalm-suppress InvalidReturnType Returning an object here is required
      * for creating a valid Apigee Edge request.
      */
-    public function normalize($object, $format = null, array $context = []): array|string|int|float|bool|ArrayObject|null
+    public function normalize($object, $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         /* @var \Apigee\Edge\Structure\CredentialProductInterface $object */
         $asObject = [
@@ -49,7 +48,7 @@ class CredentialProductNormalizer implements NormalizerInterface
     /**
      * {@inheritdoc}
      */
-    public function supportsNormalization($data, $format = null)
+    public function supportsNormalization($data, $format = null): bool
     {
         return $data instanceof CredentialProductInterface;
     }

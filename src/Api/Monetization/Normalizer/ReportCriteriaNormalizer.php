@@ -22,7 +22,6 @@ use Apigee\Edge\Api\Monetization\NameConverter\ReportCriteriaNameConverter;
 use Apigee\Edge\Api\Monetization\Structure\Reports\Criteria\AbstractCriteria;
 use Apigee\Edge\Api\Monetization\Utility\TimezoneFixerHelperTrait;
 use Apigee\Edge\Normalizer\ObjectNormalizer;
-use ArrayObject;
 use DateTimeZone;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 use Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface;
@@ -60,7 +59,7 @@ class ReportCriteriaNormalizer extends ObjectNormalizer
      * @psalm-suppress InvalidReturnType Returning an object here is required
      * for creating a valid Apigee Edge request.
      */
-    public function normalize($object, $format = null, array $context = []): array|string|int|float|bool|ArrayObject|null
+    public function normalize($object, $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         /** @var object $normalized */
         $normalized = parent::normalize($object, $format, $context);
@@ -96,7 +95,7 @@ class ReportCriteriaNormalizer extends ObjectNormalizer
     /**
      * {@inheritdoc}
      */
-    public function supportsNormalization($data, $format = null)
+    public function supportsNormalization($data, $format = null): bool
     {
         return $data instanceof AbstractCriteria;
     }

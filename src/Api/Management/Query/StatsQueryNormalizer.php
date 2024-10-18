@@ -19,7 +19,6 @@
 namespace Apigee\Edge\Api\Management\Query;
 
 use Apigee\Edge\Serializer\JsonEncoder;
-use ArrayObject;
 use DateTimeZone;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
@@ -53,7 +52,7 @@ class StatsQueryNormalizer implements NormalizerInterface
     /**
      * {@inheritdoc}
      */
-    public function normalize($object, $format = null, array $context = []): array|string|int|float|bool|ArrayObject|null
+    public function normalize($object, $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         /** @var StatsQueryInterface $object */
         // Transform the object to JSON and back to an array to keep boolean values as boolean.
@@ -93,7 +92,7 @@ class StatsQueryNormalizer implements NormalizerInterface
     /**
      * {@inheritdoc}
      */
-    public function supportsNormalization($data, $format = null)
+    public function supportsNormalization($data, $format = null): bool
     {
         return $data instanceof StatsQuery;
     }

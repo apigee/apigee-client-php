@@ -19,7 +19,6 @@
 namespace Apigee\Edge\Normalizer;
 
 use Apigee\Edge\PropertyAccess\PropertyAccessorDecorator;
-use ArrayObject;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 use Symfony\Component\PropertyInfo\Extractor\PhpDocExtractor;
@@ -94,7 +93,7 @@ class ObjectNormalizer implements NormalizerInterface, SerializerAwareInterface
      * @psalm-suppress PossiblyInvalidArgument First argument of array_filter is always an array.
      * @psalm-suppress PossiblyNullArgument First argument of array_filter is always an array.
      */
-    public function normalize($object, $format = null, array $context = []): array|string|int|float|bool|ArrayObject|null
+    public function normalize($object, $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $asArray = $this->objectNormalizer->normalize($object, $this->format, $context);
         // Exclude null values from the output, even if PATCH is not supported on Apigee Edge
@@ -110,7 +109,7 @@ class ObjectNormalizer implements NormalizerInterface, SerializerAwareInterface
     /**
      * {@inheritdoc}
      */
-    public function supportsNormalization($data, $format = null)
+    public function supportsNormalization($data, $format = null): bool
     {
         // Enforce the only supported format if format is null.
         $format = $format ?? $this->format;
