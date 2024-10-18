@@ -67,7 +67,7 @@ class RatePlanDenormalizerFactory implements DenormalizerInterface, SerializerAw
     /**
      * {@inheritdoc}
      */
-    public function supportsDenormalization($data, $type, $format = null)
+    public function supportsDenormalization($data, $type, $format = null): bool
     {
         foreach ($this->denormalizers as $denormalizer) {
             if ($denormalizer->supportsDenormalization($data, $type, $format)) {
