@@ -21,6 +21,7 @@ namespace Apigee\Edge\Api\Monetization\Normalizer;
 use Apigee\Edge\Api\Monetization\Entity\ReportDefinitionInterface;
 use Apigee\Edge\Api\Monetization\NameConverter\ReportDefinitionNameConverter;
 use Apigee\Edge\Api\Monetization\Utility\ReportTypeFromCriteriaHelperTrait;
+use ArrayObject;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 use Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface;
 use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface;
@@ -50,7 +51,7 @@ class ReportDefinitionNormalizer extends EntityNormalizer
      * @psalm-suppress InvalidReturnType Returning an object here is required
      * for creating a valid Apigee Edge request.
      */
-    public function normalize($object, $format = null, array $context = [])
+    public function normalize($object, $format = null, array $context = []): array|string|int|float|bool|ArrayObject|null
     {
         /** @var ReportDefinitionInterface $object */
         /** @var object $normalized */

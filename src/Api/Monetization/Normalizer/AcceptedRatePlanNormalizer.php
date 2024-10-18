@@ -20,6 +20,7 @@ namespace Apigee\Edge\Api\Monetization\Normalizer;
 
 use Apigee\Edge\Api\Monetization\Entity\AcceptedRatePlanInterface;
 use Apigee\Edge\Api\Monetization\Utility\TimezoneFixerHelperTrait;
+use ArrayObject;
 
 class AcceptedRatePlanNormalizer extends EntityNormalizer
 {
@@ -31,7 +32,7 @@ class AcceptedRatePlanNormalizer extends EntityNormalizer
      * @psalm-suppress InvalidReturnType Returning an object here is required
      * for creating a valid Apigee Edge request.
      */
-    public function normalize($object, $format = null, array $context = [])
+    public function normalize($object, $format = null, array $context = []): array|string|int|float|bool|ArrayObject|null
     {
         /** @var AcceptedRatePlanInterface $object */
         /** @var object $normalized */
