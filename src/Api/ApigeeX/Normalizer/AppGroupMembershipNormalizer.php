@@ -48,4 +48,14 @@ class AppGroupMembershipNormalizer implements NormalizerInterface
     {
         return $data instanceof AppGroupMembership;
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getSupportedTypes(?string $format): array
+    {
+        return [
+            AppGroupMembership::class => true,
+        ];
+    }
 }

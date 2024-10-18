@@ -42,7 +42,7 @@ class CredentialProductNormalizer implements NormalizerInterface
 
         // Need to convert to ArrayObject as symfony normalizer throws error for std object.
         // Need to set ARRAY_AS_PROPS flag as we need Entries to be accessed as properties.
-        return new ArrayObject($asObject, ArrayObject::ARRAY_AS_PROPS);
+        return new \ArrayObject($asObject, \ArrayObject::ARRAY_AS_PROPS);
     }
 
     /**

@@ -129,10 +129,10 @@ class ObjectNormalizer implements NormalizerInterface, SerializerAwareInterface
     /**
      * {@inheritDoc}
      */
-    public function convertToArrayObject($normalized, $array_as_props = ArrayObject::ARRAY_AS_PROPS)
+    public function convertToArrayObject($normalized, $array_as_props = \ArrayObject::ARRAY_AS_PROPS)
     {
         // default set ARRAY_AS_PROPS flag as we need entries to be accessed as properties.
-        return new ArrayObject($normalized, $array_as_props);
+        return new \ArrayObject($normalized, $array_as_props);
     }
 
     /**
