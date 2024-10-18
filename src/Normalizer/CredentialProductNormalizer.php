@@ -19,7 +19,6 @@
 namespace Apigee\Edge\Normalizer;
 
 use Apigee\Edge\Structure\CredentialProductInterface;
-use ArrayObject;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 /**
@@ -33,7 +32,7 @@ class CredentialProductNormalizer implements NormalizerInterface
      * @psalm-suppress InvalidReturnType Returning an object here is required
      * for creating a valid Apigee Edge request.
      */
-    public function normalize($object, $format = null, array $context = [])
+    public function normalize($object, $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         /* @var \Apigee\Edge\Structure\CredentialProductInterface $object */
         $asObject = [
@@ -43,13 +42,13 @@ class CredentialProductNormalizer implements NormalizerInterface
 
         // Need to convert to ArrayObject as symfony normalizer throws error for std object.
         // Need to set ARRAY_AS_PROPS flag as we need Entries to be accessed as properties.
-        return new ArrayObject($asObject, ArrayObject::ARRAY_AS_PROPS);
+        return new \ArrayObject($asObject, \ArrayObject::ARRAY_AS_PROPS);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function supportsNormalization($data, $format = null)
+    public function supportsNormalization($data, $format = null): bool
     {
         return $data instanceof CredentialProductInterface;
     }
