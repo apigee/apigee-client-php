@@ -51,7 +51,7 @@ abstract class RatePlanNormalizer extends EntityNormalizer
      * @psalm-suppress InvalidReturnType Returning an object here is required
      * for creating a valid Apigee Edge request.
      */
-    public function normalize($object, $format = null, array $context = [])
+    public function normalize($object, $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         /** @var object $normalized */
         $normalized = parent::normalize($object, $format, $context);
@@ -75,7 +75,7 @@ abstract class RatePlanNormalizer extends EntityNormalizer
     /**
      * {@inheritdoc}
      */
-    public function supportsNormalization($data, $format = null)
+    public function supportsNormalization($data, $format = null): bool
     {
         return $data instanceof RatePlanInterface;
     }

@@ -29,7 +29,7 @@ class KeyValueMapNormalizer implements NormalizerInterface
     /**
      * {@inheritdoc}
      */
-    public function normalize($object, $format = null, array $context = [])
+    public function normalize($object, $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $return = [];
         foreach ($object->values() as $key => $value) {
@@ -42,7 +42,7 @@ class KeyValueMapNormalizer implements NormalizerInterface
     /**
      * {@inheritdoc}
      */
-    public function supportsNormalization($data, $format = null)
+    public function supportsNormalization($data, $format = null): bool
     {
         return $data instanceof KeyValueMapInterface;
     }

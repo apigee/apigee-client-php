@@ -90,7 +90,7 @@ class EntitySerializer implements EntitySerializerInterface
     /**
      * {@inheritdoc}
      */
-    public function normalize($object, $format = null, array $context = [])
+    public function normalize($object, $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         return $this->serializer->normalize($object, $format, $context);
     }
@@ -98,7 +98,7 @@ class EntitySerializer implements EntitySerializerInterface
     /**
      * {@inheritdoc}
      */
-    public function supportsNormalization($data, $format = null)
+    public function supportsNormalization($data, $format = null): bool
     {
         return $this->format === $format && $this->serializer->supportsNormalization($data, $format);
     }
@@ -199,7 +199,7 @@ class EntitySerializer implements EntitySerializerInterface
     /**
      * {@inheritdoc}
      */
-    public function supportsDecoding($format)
+    public function supportsDecoding($format): bool
     {
         return $this->format === $format && $this->serializer->supportsDecoding($format);
     }
