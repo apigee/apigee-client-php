@@ -34,8 +34,6 @@ use Symfony\Component\Serializer\Serializer;
 use TypeError;
 
 /**
- * @psalm-suppress LessSpecificImplementedReturnType
- *
  * Serializes, normalizes and denormalizes entities.
  */
 class EntitySerializer implements EntitySerializerInterface
@@ -223,6 +221,8 @@ class EntitySerializer implements EntitySerializerInterface
     }
 
     /**
+     * @psalm-suppress LessSpecificImplementedReturnType
+     *
      * {@inheritdoc}
      */
     public function getSupportedTypes(?string $format): array
