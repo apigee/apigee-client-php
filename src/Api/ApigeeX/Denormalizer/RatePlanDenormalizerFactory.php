@@ -56,12 +56,12 @@ class RatePlanDenormalizerFactory implements DenormalizerInterface, SerializerAw
      * @psalm-suppress InvalidNullableReturnType - There are going to be at
      * least one denormalizer always that can denormalize data here.
      */
-    public function denormalize($data, $type, $format = null, array $context = [])
+    public function denormalize($data, $type, $format = null, array $context = []): mixed
     {
         foreach ($this->denormalizers as $denormalizer) {
             // Return the result from the first denormalizer that can
             // denormalize this.
-            if ($denormalizer->supportsDenormalization($data, $type, $format)) {
+            if ($denormalizer->supportsDenormalization($data, $type, $format, $context)) {
                 return $denormalizer->denormalize($data, $type, $format, $context);
             }
         }
@@ -70,10 +70,10 @@ class RatePlanDenormalizerFactory implements DenormalizerInterface, SerializerAw
     /**
      * {@inheritdoc}
      */
-    public function supportsDenormalization($data, $type, $format = null): bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
         foreach ($this->denormalizers as $denormalizer) {
-            if ($denormalizer->supportsDenormalization($data, $type, $format)) {
+            if ($denormalizer->supportsDenormalization($data, $type, $format, $context)) {
                 return true;
             }
         }

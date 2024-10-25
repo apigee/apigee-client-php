@@ -89,7 +89,7 @@ class ObjectDenormalizer implements DenormalizerInterface, SerializerAwareInterf
     /**
      * {@inheritdoc}
      */
-    public function denormalize($data, $type, $format = null, array $context = [])
+    public function denormalize($data, $type, $format = null, array $context = []): mixed
     {
         // The original input should not be altered.
         if (is_object($data)) {
@@ -113,7 +113,7 @@ class ObjectDenormalizer implements DenormalizerInterface, SerializerAwareInterf
     /**
      * {@inheritdoc}
      */
-    public function supportsDenormalization($data, $type, $format = null): bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
         if ('[]' === substr($type, -2)) {
             return false;
@@ -122,7 +122,7 @@ class ObjectDenormalizer implements DenormalizerInterface, SerializerAwareInterf
         // Enforce the only supported format if format is null.
         $format = $format ?? $this->format;
 
-        return $format === $this->format && $this->objectNormalizer->supportsDenormalization($data, $type, $format);
+        return $format === $this->format && $this->objectNormalizer->supportsDenormalization($data, $type, $format, $context);
     }
 
     /**

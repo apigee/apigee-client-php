@@ -55,7 +55,7 @@ class EdgeDateDenormalizer implements DenormalizerInterface
      * @psalm-suppress ImplementedReturnTypeMismatch - We have to return null,
      * even if it not officially supported by the overridden class.
      */
-    public function denormalize($data, $type, $format = null, array $context = [])
+    public function denormalize($data, $type, $format = null, array $context = []): mixed
     {
         // Handle -1 in expiresAt property of AppCredential.
         if ($data < 0) {
@@ -73,7 +73,7 @@ class EdgeDateDenormalizer implements DenormalizerInterface
     /**
      * {@inheritdoc}
      */
-    public function supportsDenormalization($data, $type, $format = null): bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
         return isset(self::$supportedTypes[$type]);
     }

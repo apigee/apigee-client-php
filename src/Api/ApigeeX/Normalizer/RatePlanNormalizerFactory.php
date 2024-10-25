@@ -70,10 +70,10 @@ class RatePlanNormalizerFactory implements NormalizerInterface, SerializerAwareI
     /**
      * {@inheritdoc}
      */
-    public function supportsNormalization($data, $format = null): bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
         foreach ($this->normalizers as $denormalizer) {
-            if ($denormalizer->supportsNormalization($data, $format)) {
+            if ($denormalizer->supportsNormalization($data, $format, $context)) {
                 return true;
             }
         }

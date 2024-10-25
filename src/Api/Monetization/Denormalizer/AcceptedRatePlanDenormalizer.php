@@ -32,7 +32,7 @@ abstract class AcceptedRatePlanDenormalizer extends ObjectDenormalizer
      * @psalm-suppress PossiblyNullReference - getPackage() can only return
      * null when a rate plan is created. It does not return null here.
      */
-    public function denormalize($data, $type, $format = null, array $context = [])
+    public function denormalize($data, $type, $format = null, array $context = []): mixed
     {
         /** @var AcceptedRatePlanInterface $denormalized */
         $denormalized = parent::denormalize($data, $type, $format, $context);
@@ -45,7 +45,7 @@ abstract class AcceptedRatePlanDenormalizer extends ObjectDenormalizer
     /**
      * {@inheritdoc}
      */
-    public function supportsDenormalization($data, $type, $format = null): bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
         // Do not apply this on array objects. ArrayDenormalizer takes care of them.
         if ('[]' === substr($type, -2)) {

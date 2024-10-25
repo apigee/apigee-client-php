@@ -85,7 +85,7 @@ class ReportDefinitionSerializer extends EntitySerializer
     /**
      * {@inheritdoc}
      */
-    public function denormalize($data, $type, $format = null, array $context = [])
+    public function denormalize($data, $type, $format = null, array $context = []): mixed
     {
         $this->addReportDefinitionTypeToContext($data, $context);
 
