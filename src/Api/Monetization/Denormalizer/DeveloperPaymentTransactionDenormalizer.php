@@ -32,7 +32,7 @@ class DeveloperPaymentTransactionDenormalizer extends PaymentTransactionDenormal
     /**
      * {@inheritdoc}
      */
-    public function denormalize($data, $type, $format = null, array $context = [])
+    public function denormalize($data, $type, $format = null, array $context = []): mixed
     {
         return parent::denormalize($data, $this->developerPaymentTransactionClass, $format, $context);
     }
@@ -40,9 +40,9 @@ class DeveloperPaymentTransactionDenormalizer extends PaymentTransactionDenormal
     /**
      * {@inheritdoc}
      */
-    public function supportsDenormalization($data, $type, $format = null): bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        if (parent::supportsDenormalization($data, $type, $format)) {
+        if (parent::supportsDenormalization($data, $type, $format, $context)) {
             return !$data->developer->isCompany;
         }
 

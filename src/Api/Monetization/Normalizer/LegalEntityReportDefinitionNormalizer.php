@@ -18,7 +18,6 @@
 
 namespace Apigee\Edge\Api\Monetization\Normalizer;
 
-
 abstract class LegalEntityReportDefinitionNormalizer extends ReportDefinitionNormalizer
 {
     /**

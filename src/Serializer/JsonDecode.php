@@ -79,7 +79,7 @@ final class JsonDecode extends BaseJsonDecode
     /**
      * {@inheritdoc}
      */
-    public function decode($data, $format, array $context = []): mixed
+    public function decode($data, $format, array $context = []): mixed: mixed
     {
         $context['json_decode_options'] = empty($context['json_decode_options']) ? $this->options : $context['json_decode_options'];
 

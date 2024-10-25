@@ -45,7 +45,7 @@ class ApiPackageDenormalizer extends ObjectDenormalizer
     /**
      * {@inheritdoc}
      */
-    public function supportsDenormalization($data, $type, $format = null): bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
         // Do not apply this on array objects. ArrayDenormalizer takes care of them.
         if ('[]' === substr($type, -2)) {
