@@ -222,6 +222,8 @@ class EntitySerializer implements EntitySerializerInterface
 
     /**
      * {@inheritdoc}
+     *
+     * @psalm-suppress LessSpecificImplementedReturnType
      */
     public function getSupportedTypes(?string $format): array
     {
