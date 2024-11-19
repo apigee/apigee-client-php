@@ -95,11 +95,11 @@ class AppCredential extends Entity implements AppCredentialInterface
      *
      * Included API products in an app credential can not be changed by modifying this property's value.
      *
-     * @param CredentialProductInterface ...$apiProducts
+     * @param CredentialProductInterface|array ...$apiProducts
      *
      * @internal
      */
-    public function setApiProducts(CredentialProductInterface ...$apiProducts): void
+    public function setApiProducts(CredentialProductInterface|array ...$apiProducts): void
     {
         $this->apiProducts = $apiProducts;
     }
