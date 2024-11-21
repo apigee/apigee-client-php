@@ -326,22 +326,31 @@ trait PaginationHelperTrait
             if (empty($ids)) {
                 return [];
             }
-            $lastId = end($ids);
-            do {
-                $tmp = $this->getResultsInRange($this->createPager(0, $lastId), $query_params, $expandCompatibility);
-                // Remove the first item from the list because it is the same
-                // as the current last item of $ids.
-                // Apigee Edge response always starts with the requested entity
-                // id (startKey).
+            if (count($ids) > 100) {
+                $lastId = end($ids);
+                do {
+                    $tmp = $this->getResultsInRange($this->createPager(0, $lastId), $query_params, $expandCompatibility);
+                    // Remove the first item from the list because it is the same
+                    // as the current last item of $ids.
+                    // Apigee Edge response always starts with the requested entity
+                    // id (startKey).
+                    array_shift($tmp);
+                    if (count($tmp) > 0) {
+                        $ids = array_merge($ids, $tmp);
+                        $lastId = end($tmp);
+                    } else {
+                        $lastId = false;
+                    }
+                } while ($lastId);
+            } else {
+                // Condition added to load the expanded details for each app in a single call.
+                $query_params = ['expand' => 'true'];
+                $tmp = $this->getResultsInRange($this->createPager(), $query_params, $expandCompatibility);
                 array_shift($tmp);
-
                 if (count($tmp) > 0) {
                     $ids = array_merge($ids, $tmp);
-                    $lastId = end($tmp);
-                } else {
-                    $lastId = false;
                 }
-            } while ($lastId);
+            }
 
             return $ids;
         }
