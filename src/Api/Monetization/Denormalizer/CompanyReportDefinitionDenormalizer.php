@@ -51,7 +51,7 @@ class CompanyReportDefinitionDenormalizer extends ReportDefinitionDenormalizer
     /**
      * {@inheritdoc}
      */
-    public function denormalize($data, $type, $format = null, array $context = [])
+    public function denormalize($data, $type, $format = null, array $context = []): mixed
     {
         return parent::denormalize($data, $this->companyReportDefinitionClass, $format, $context);
     }
@@ -59,9 +59,9 @@ class CompanyReportDefinitionDenormalizer extends ReportDefinitionDenormalizer
     /**
      * {@inheritdoc}
      */
-    public function supportsDenormalization($data, $type, $format = null): bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        if (parent::supportsDenormalization($data, $type, $format)) {
+        if (parent::supportsDenormalization($data, $type, $format, $context)) {
             // Non-developer specific reports API also returns the developer
             // property, but it is always NULL.
             return is_object($data->developer) && $data->developer->isCompany;

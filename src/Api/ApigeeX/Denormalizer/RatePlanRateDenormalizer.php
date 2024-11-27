@@ -33,7 +33,7 @@ class RatePlanRateDenormalizer extends ObjectDenormalizer
     /**
      * {@inheritdoc}
      */
-    public function denormalize($data, $type, $format = null, array $context = [])
+    public function denormalize($data, $type, $format = null, array $context = []): mixed
     {
         $denormalized = (array) $data;
         if (RatePlanRate::TYPE_REVSHARE === $data->type) {
@@ -48,7 +48,7 @@ class RatePlanRateDenormalizer extends ObjectDenormalizer
     /**
      * {@inheritdoc}
      */
-    public function supportsDenormalization($data, $type, $format = null): bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
         // Do not apply this on array objects. ArrayDenormalizer takes care of them.
         if ('[]' === substr($type, -2)) {

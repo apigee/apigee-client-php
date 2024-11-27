@@ -41,7 +41,7 @@ class StandardRatePlanDenormalizer extends RatePlanDenormalizer
     /**
      * {@inheritdoc}
      */
-    public function denormalize($data, $type, $format = null, array $context = [])
+    public function denormalize($data, $type, $format = null, array $context = []): mixed
     {
         if (isset($data->parentRatePlan)) {
             return parent::denormalize($data, $this->standardRatePlanRevisionClass, $format, $context);
@@ -53,14 +53,14 @@ class StandardRatePlanDenormalizer extends RatePlanDenormalizer
     /**
      * {@inheritdoc}
      */
-    public function supportsDenormalization($data, $type, $format = null): bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
         // Do not apply this on array objects. ArrayDenormalizer takes care of them.
         if ('[]' === substr($type, -2)) {
             return false;
         }
 
-        if (parent::supportsDenormalization($data, $type, $format)) {
+        if (parent::supportsDenormalization($data, $type, $format, $context)) {
             return RatePlanInterface::TYPE_STANDARD == $data->type;
         }
 

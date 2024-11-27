@@ -109,12 +109,12 @@ class ObjectNormalizer implements NormalizerInterface, SerializerAwareInterface
     /**
      * {@inheritdoc}
      */
-    public function supportsNormalization($data, $format = null): bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
         // Enforce the only supported format if format is null.
         $format = $format ?? $this->format;
 
-        return $format === $this->format && $this->objectNormalizer->supportsNormalization($data, $format);
+        return $format === $this->format && $this->objectNormalizer->supportsNormalization($data, $format, $context);
     }
 
     /**

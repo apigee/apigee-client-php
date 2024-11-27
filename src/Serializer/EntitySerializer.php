@@ -25,6 +25,7 @@ use Apigee\Edge\Entity\EntityInterface;
 use Apigee\Edge\Normalizer\EdgeDateNormalizer;
 use Apigee\Edge\Normalizer\KeyValueMapNormalizer;
 use Apigee\Edge\Normalizer\ObjectNormalizer;
+use Apigee\Edge\Serializer\JsonDecode;
 use Psr\Http\Message\ResponseInterface;
 use ReflectionMethod;
 use ReflectionObject;
@@ -74,7 +75,7 @@ class EntitySerializer implements EntitySerializerInterface
     /**
      * {@inheritdoc}
      */
-    public function denormalize($data, $type, $format = null, array $context = [])
+    public function denormalize($data, $type, $format = null, array $context = []): mixed
     {
         return $this->serializer->denormalize($data, $type, $format, $context);
     }
@@ -82,9 +83,9 @@ class EntitySerializer implements EntitySerializerInterface
     /**
      * {@inheritdoc}
      */
-    public function supportsDenormalization($data, $type, $format = null): bool
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
-        return $this->format === $format && $this->serializer->supportsDenormalization($data, $type, $format);
+        return $this->format === $format && $this->serializer->supportsDenormalization($data, $type, $format, $context);
     }
 
     /**
@@ -98,9 +99,9 @@ class EntitySerializer implements EntitySerializerInterface
     /**
      * {@inheritdoc}
      */
-    public function supportsNormalization($data, $format = null): bool
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return $this->format === $format && $this->serializer->supportsNormalization($data, $format);
+        return $this->format === $format && $this->serializer->supportsNormalization($data, $format, $context);
     }
 
     /**
@@ -191,7 +192,7 @@ class EntitySerializer implements EntitySerializerInterface
     /**
      * {@inheritdoc}
      */
-    public function decode($data, $format, array $context = [])
+    public function decode($data, $format, array $context = []): mixed
     {
         return $this->serializer->decode($data, $format, $context);
     }
