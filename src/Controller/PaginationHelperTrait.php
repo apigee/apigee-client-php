@@ -326,7 +326,19 @@ trait PaginationHelperTrait
             if (empty($ids)) {
                 return [];
             }
-            if (count($ids) > 100) {
+            // The default pagination limit (aka. "count") on CPS supported
+            // listing endpoints varies. When this script was written it was
+            // 1000 on two endpoints and 100 on two app related endpoints,
+            // namely List Developer Apps and List Company Apps. A
+            // developer/company should not have 100 apps, this is
+            // the reason why this limit is smaller. Therefore we choose to
+            // use 1000 as max limit to improve performance of page.
+            // Developers & Companies with more than 100 Apps will face
+            // performance issue.
+            // https://apidocs.apigee.com/management/apis/get/organizations/%7Borg_name%7D/apiproducts-0
+            // https://apidocs.apigee.com/management/apis/get/organizations/%7Borg_name%7D/developers
+            // https://apidocs.apigee.com/management/apis/get/organizations/%7Borg_name%7D/developers/%7Bdeveloper_email_or_id%7D/apps
+            if (count($ids) > 1000) {
                 $lastId = end($ids);
                 do {
                     $tmp = $this->getResultsInRange($this->createPager(0, $lastId), $query_params, $expandCompatibility);
