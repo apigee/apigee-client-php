@@ -44,7 +44,7 @@ trait PaginatedEntityIdListingControllerTestTrait
             $entityIds = $this->controllerForPaginatedEntityIdListing()->getEntityIds();
         }
 
-        /** @var \Apigee\Edge\Entity\EntityInterface[] $tmp */
+        /** @var EntityInterface[] $tmp */
         $tmp = $entityIds;
         // Get the 4th item from the list.
         array_shift($tmp);

@@ -67,7 +67,7 @@ interface PrepaidBalanceControllerInterface extends EntityControllerInterface, P
      *
      * @param DateTimeImmutable $billingMonth
      *
-     * @return \Apigee\Edge\Api\Monetization\Entity\PrepaidBalanceInterface[]
+     * @return PrepaidBalanceInterface[]
      */
     public function getPrepaidBalance(DateTimeImmutable $billingMonth): array;
 

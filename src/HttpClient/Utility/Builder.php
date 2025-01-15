@@ -45,7 +45,7 @@ class Builder implements BuilderInterface
     /**
      * Http client plugins.
      *
-     * @var \Http\Client\Common\Plugin[]
+     * @var Plugin[]
      */
     private $plugins = [];
 
