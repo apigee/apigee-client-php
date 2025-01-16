@@ -60,7 +60,7 @@ class PropertiesPropertyTransformationTest extends TestCase
         $object = new PropertiesProperty(['features.isCpsEnabled' => 'true']);
         $this->assertEquals('true', $object->getValue('features.isCpsEnabled'));
         $normalized = static::$normalizer->normalize($object);
-        $this->assertObjectHasAttribute('property', $normalized);
+        $this->assertObjectHasProperty('property', $normalized);
         $this->assertArrayHasKey(0, $normalized->property);
         $this->assertEquals('features.isCpsEnabled', $normalized->property[0]->name);
         $this->assertEquals('true', $normalized->property[0]->value);

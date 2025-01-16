@@ -71,8 +71,8 @@ abstract class AcceptedRatePlanControllerTestBase extends EntityControllerTestBa
         $acceptedRatePlan = $acceptedController->acceptRatePlan($ratePlan);
         $payload = json_decode((string) static::mockApiClient()->getJournal()->getLastRequest()->getBody());
         // Make sure we do not send properties with null values.
-        $this->assertObjectNotHasAttribute('endTime', $payload);
-        $this->assertObjectNotHasAttribute('startTime', $payload);
+        $this->assertObjectNotHasProperty('endTime', $payload);
+        $this->assertObjectNotHasProperty('startTime', $payload);
 
         // Make sure the properties copied from the response to the created
         // object.

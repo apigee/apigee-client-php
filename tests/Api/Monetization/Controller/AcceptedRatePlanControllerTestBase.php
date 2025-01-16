@@ -73,10 +73,10 @@ abstract class AcceptedRatePlanControllerTestBase extends EntityControllerTestBa
         $acceptedRatePlan = $acceptedController->acceptRatePlan($ratePlan, $startDate);
         $payload = json_decode((string) static::mockApiClient()->getJournal()->getLastRequest()->getBody());
         // Make sure we do not send properties with null values.
-        $this->assertObjectNotHasAttribute('endDate', $payload);
-        $this->assertObjectNotHasAttribute('quotaTarget', $payload);
-        $this->assertObjectNotHasAttribute('suppressWarning', $payload);
-        $this->assertObjectNotHasAttribute('waveTerminationCharge', $payload);
+        $this->assertObjectNotHasProperty('endDate', $payload);
+        $this->assertObjectNotHasProperty('quotaTarget', $payload);
+        $this->assertObjectNotHasProperty('suppressWarning', $payload);
+        $this->assertObjectNotHasProperty('waveTerminationCharge', $payload);
         // Make sure the properties copied from the response to the created
         // object.
         $this->assertNotNull($acceptedRatePlan->id());
@@ -115,8 +115,8 @@ abstract class AcceptedRatePlanControllerTestBase extends EntityControllerTestBa
         $acceptedController->updateSubscription($acceptedRatePlan);
         $payload = json_decode((string) static::mockApiClient()->getJournal()->getLastRequest()->getBody());
         // Make sure we do not send properties with null values.
-        $this->assertObjectNotHasAttribute('suppressWarning', $payload);
-        $this->assertObjectNotHasAttribute('waveTerminationCharge', $payload);
+        $this->assertObjectNotHasProperty('suppressWarning', $payload);
+        $this->assertObjectNotHasProperty('waveTerminationCharge', $payload);
         // Make sure response values override values in the original object.
         $this->assertEquals($originalStartDate, $acceptedRatePlan->getStartDate());
 

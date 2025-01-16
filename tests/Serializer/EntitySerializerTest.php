@@ -101,7 +101,7 @@ class EntitySerializerTest extends TestCase
         $this->assertEquals(-1, $normalized->appCredential[0]->expiresAt);
         $this->assertEquals('foo', $normalized->appCredential[0]->apiProducts[0]->apiproduct);
         $this->assertEquals('foo', $normalized->appCredential[0]->attributes[0]->name);
-        $this->assertObjectNotHasAttribute('date', $normalized);
+        $this->assertObjectNotHasProperty('date', $normalized);
         $date = new DateTimeImmutable();
         $entity->setDate($date);
         $normalized = static::$serializer->normalize($entity);
