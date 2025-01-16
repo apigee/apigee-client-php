@@ -120,8 +120,7 @@ class EntitySerializerTest extends TestCase
         // Set value of this nullable value to ensure that a special condition is triggered in the EntityDenormalizer.
         $normalized->nullable = null;
         /** @var MockEntity $object */
-        $mockEntity = new MockEntity();
-        $object = static::$serializer->denormalize($normalized, $mockEntity::class);
+        $object = static::$serializer->denormalize($normalized, MockEntity::class);
         $this->assertTrue(true === $object->isBool());
         $this->assertTrue(2 === $object->getInt());
         $this->assertTrue(0 === $object->getZero());
