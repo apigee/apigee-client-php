@@ -30,11 +30,11 @@ class RatePlanRateNormalizer extends ObjectNormalizer
      * @psalm-suppress InvalidReturnType Returning an object here is required
      * for creating a valid Apigee Edge request.
      */
-    public function normalize($object, $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
+    public function normalize($data, $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         /** @var object $normalized */
-        $normalized = parent::normalize($object, $format, $context);
-        if ($object instanceof RatePlanRateRevShare) {
+        $normalized = parent::normalize($data, $format, $context);
+        if ($data instanceof RatePlanRateRevShare) {
             $normalized->type = RatePlanRate::TYPE_REVSHARE;
         } else {
             $normalized->type = RatePlanRate::TYPE_RATECARD;

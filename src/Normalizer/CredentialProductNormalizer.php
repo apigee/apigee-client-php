@@ -32,12 +32,12 @@ class CredentialProductNormalizer implements NormalizerInterface
      * @psalm-suppress InvalidReturnType Returning an object here is required
      * for creating a valid Apigee Edge request.
      */
-    public function normalize($object, $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
+    public function normalize($data, $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        /* @var \Apigee\Edge\Structure\CredentialProductInterface $object */
+        /* @var \Apigee\Edge\Structure\CredentialProductInterface $data */
         $asObject = [
-            'apiproduct' => $object->getApiproduct(),
-            'status' => $object->getStatus(),
+            'apiproduct' => $data->getApiproduct(),
+            'status' => $data->getStatus(),
         ];
 
         // Need to convert to \ArrayObject as symfony normalizer throws error for std object.

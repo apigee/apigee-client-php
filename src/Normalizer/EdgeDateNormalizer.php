@@ -34,10 +34,10 @@ class EdgeDateNormalizer implements NormalizerInterface
     /**
      * {@inheritdoc}
      */
-    public function normalize($object, $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
+    public function normalize($data, $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        /* @var \DateTimeInterface $object */
-        return $object->getTimestamp() * 1000;
+        /* @var \DateTimeInterface $data */
+        return $data->getTimestamp() * 1000;
     }
 
     /**

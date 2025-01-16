@@ -51,23 +51,23 @@ abstract class RatePlanNormalizer extends EntityNormalizer
      * @psalm-suppress InvalidReturnType Returning an object here is required
      * for creating a valid Apigee Edge request.
      */
-    public function normalize($object, $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
+    public function normalize($data, $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         /** @var object $normalized */
-        $normalized = parent::normalize($object, $format, $context);
+        $normalized = parent::normalize($data, $format, $context);
 
         // Fix the start- and end date of the rate plan if the organization's
         // timezone is different from the default PHP timezone.
-        /** @var RatePlanInterface $object */
-        if (null === $object->getPackage()) {
-            throw new UninitializedPropertyException($object, 'package', 'Apigee\Edge\Api\Monetization\Entity\ApiPackageInterface');
+        /** @var RatePlanInterface $data */
+        if (null === $data->getPackage()) {
+            throw new UninitializedPropertyException($data, 'package', 'Apigee\Edge\Api\Monetization\Entity\ApiPackageInterface');
         }
 
-        if (null === $object->getPackage()->getOrganization()) {
-            throw new UninitializedPropertyException($object->getPackage(), 'organization', 'Apigee\Edge\Api\Monetization\Entity\OrganizationProfileInterface');
+        if (null === $data->getPackage()->getOrganization()) {
+            throw new UninitializedPropertyException($data->getPackage(), 'organization', 'Apigee\Edge\Api\Monetization\Entity\OrganizationProfileInterface');
         }
 
-        $this->fixTimeZoneOnNormalization($object, $normalized, $object->getPackage()->getOrganization()->getTimezone());
+        $this->fixTimeZoneOnNormalization($data, $normalized, $data->getPackage()->getOrganization()->getTimezone());
 
         return $normalized;
     }

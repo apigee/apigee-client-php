@@ -52,41 +52,41 @@ class StatsQueryNormalizer implements NormalizerInterface
     /**
      * {@inheritdoc}
      */
-    public function normalize($object, $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
+    public function normalize($data, $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        /** @var StatsQueryInterface $object */
+        /** @var StatsQueryInterface $data */
         // Transform the object to JSON and back to an array to keep boolean values as boolean.
-        $json = $this->serializer->serialize($object, 'json', [AbstractNormalizer::IGNORED_ATTRIBUTES => ['timeRange']]);
-        $data = $this->serializer->decode($json, 'json');
+        $json = $this->serializer->serialize($data, 'json', [AbstractNormalizer::IGNORED_ATTRIBUTES => ['timeRange']]);
+        $decodedData = $this->serializer->decode($json, 'json');
         // Replace metrics with the required query parameter name and value.
-        $data['select'] = implode(',', $data['metrics']);
-        unset($data['metrics']);
+        $decodedData['select'] = implode(',', $decodedData['metrics']);
+        unset($decodedData['metrics']);
         // Transform timeRange to the required format and time zone.
         $utc = new DateTimeZone('UTC');
-        $data['timeRange'] = $object->getTimeRange()->startDate->setTimezone($utc)->format(self::DATE_FORMAT) . '~' .
-            $object->getTimeRange()->endDate->setTimezone($utc)->format(self::DATE_FORMAT);
+        $decodedData['timeRange'] = $data->getTimeRange()->startDate->setTimezone($utc)->format(self::DATE_FORMAT) . '~' .
+            $data->getTimeRange()->endDate->setTimezone($utc)->format(self::DATE_FORMAT);
         // Remove null values.
-        $data = array_filter($data, function ($value) {
+        $decodedData = array_filter($decodedData, function ($value) {
             return !is_null($value);
         });
         // Fix boolean values.
-        foreach ($data as $key => $value) {
+        foreach ($decodedData as $key => $value) {
             if (is_bool($value)) {
-                $data[$key] = $value ? 'true' : 'false';
+                $decodedData[$key] = $value ? 'true' : 'false';
             }
         }
         // Following parameter names should be passed in lowercase format.
         // (We solve this problem in place instead of creating a name converter.)
-        if (isset($data['sortBy'])) {
-            $data['sortby'] = $data['sortBy'];
-            unset($data['sortBy']);
+        if (isset($decodedData['sortBy'])) {
+            $decodedData['sortby'] = $decodedData['sortBy'];
+            unset($decodedData['sortBy']);
         }
-        if (isset($data['topK'])) {
-            $data['topk'] = $data['topK'];
-            unset($data['topK']);
+        if (isset($decodedData['topK'])) {
+            $decodedData['topk'] = $decodedData['topK'];
+            unset($decodedData['topK']);
         }
 
-        return $data;
+        return $decodedData;
     }
 
     /**

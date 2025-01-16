@@ -63,11 +63,11 @@ class EntityNormalizer extends ObjectNormalizer
      * @psalm-suppress InvalidReturnType stdClass is also an object.
      * @psalm-suppress InvalidPropertyFetch.
      */
-    public function normalize($object, $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
+    public function normalize($data, $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $normalized = (array) parent::normalize($object, $format, $context);
+        $normalized = (array) parent::normalize($data, $format, $context);
 
-        $entityReferenceProperties = $this->getNestedObjectProperties($object);
+        $entityReferenceProperties = $this->getNestedObjectProperties($data);
 
         if (!empty($entityReferenceProperties)) {
             foreach ($entityReferenceProperties as $entityProperty => $normalizedProperty) {
