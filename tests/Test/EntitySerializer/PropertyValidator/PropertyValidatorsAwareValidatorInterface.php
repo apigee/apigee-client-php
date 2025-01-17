@@ -23,7 +23,7 @@ interface PropertyValidatorsAwareValidatorInterface
     /**
      * Set property validators.
      *
-     * @param \Apigee\Edge\Tests\Test\EntitySerializer\PropertyValidator\PropertyValidatorInterface[] $validators
+     * @param PropertyValidatorInterface[] $validators
      */
     public function setPropertyValidators(array $validators): void;
 }

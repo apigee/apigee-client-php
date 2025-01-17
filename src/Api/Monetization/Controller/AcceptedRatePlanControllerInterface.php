@@ -37,7 +37,7 @@ interface AcceptedRatePlanControllerInterface extends EntityControllerInterface,
     /**
      * Gets all accepted rate plans.
      *
-     * @return \Apigee\Edge\Api\Monetization\Entity\AcceptedRatePlanInterface[]
+     * @return AcceptedRatePlanInterface[]
      */
     public function getAllAcceptedRatePlans(): array;
 
@@ -47,7 +47,7 @@ interface AcceptedRatePlanControllerInterface extends EntityControllerInterface,
      * @param int|null $limit
      * @param int $page
      *
-     * @return \Apigee\Edge\Api\Monetization\Entity\AcceptedRatePlanInterface[]
+     * @return AcceptedRatePlanInterface[]
      */
     public function getPaginatedAcceptedRatePlanList(?int $limit = null, int $page = 1): array;
 

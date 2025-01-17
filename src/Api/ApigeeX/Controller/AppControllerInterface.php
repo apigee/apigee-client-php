@@ -82,7 +82,7 @@ interface AppControllerInterface extends PaginatedEntityControllerInterface, Ent
      * @param PagerInterface|null $pager
      *   Number of results to return.
      *
-     * @return \Apigee\Edge\Api\Management\Entity\AppInterface[]
+     * @return AppInterface[]
      *   An array that can contain both developer- and appgroup app entities.
      */
     public function listApps(bool $includeCredentials = false, ?PagerInterface $pager = null): array;
@@ -110,7 +110,7 @@ interface AppControllerInterface extends PaginatedEntityControllerInterface, Ent
      * @param PagerInterface|null $pager
      *   Number of results to return.
      *
-     * @return \Apigee\Edge\Api\Management\Entity\AppInterface[]
+     * @return AppInterface[]
      *   An array that can contain both developer- and appgroup app entities.
      */
     public function listAppsByStatus(

@@ -35,7 +35,7 @@ interface AcceptedRatePlanControllerInterface extends
     /**
      * Gets all accepted rate plans.
      *
-     * @return \Apigee\Edge\Api\ApigeeX\Entity\AcceptedRatePlanInterface[]
+     * @return AcceptedRatePlanInterface[]
      */
     public function getAllAcceptedRatePlans(): array;
 
@@ -45,7 +45,7 @@ interface AcceptedRatePlanControllerInterface extends
      * @param int|null $limit
      * @param int $page
      *
-     * @return \Apigee\Edge\Api\ApigeeX\Entity\AcceptedRatePlanInterface[]
+     * @return AcceptedRatePlanInterface[]
      */
     public function getPaginatedAcceptedRatePlanList(?int $limit = null, int $page = 1): array;
 

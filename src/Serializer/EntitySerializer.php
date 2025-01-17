@@ -25,7 +25,6 @@ use Apigee\Edge\Entity\EntityInterface;
 use Apigee\Edge\Normalizer\EdgeDateNormalizer;
 use Apigee\Edge\Normalizer\KeyValueMapNormalizer;
 use Apigee\Edge\Normalizer\ObjectNormalizer;
-use Apigee\Edge\Serializer\JsonDecode;
 use Psr\Http\Message\ResponseInterface;
 use ReflectionMethod;
 use ReflectionObject;
