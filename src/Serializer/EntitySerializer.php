@@ -90,9 +90,9 @@ class EntitySerializer implements EntitySerializerInterface
     /**
      * {@inheritdoc}
      */
-    public function normalize($object, $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
+    public function normalize($data, $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        return $this->serializer->normalize($object, $format, $context);
+        return $this->serializer->normalize($data, $format, $context);
     }
 
     /**

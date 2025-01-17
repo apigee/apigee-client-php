@@ -31,12 +31,12 @@ class AcceptedRatePlanNormalizer extends EntityNormalizer
      * @psalm-suppress InvalidReturnType Returning an object here is required
      * for creating a valid Apigee Edge request.
      */
-    public function normalize($object, $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
+    public function normalize($data, $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        /** @var AcceptedRatePlanInterface $object */
+        /** @var AcceptedRatePlanInterface $data */
         /** @var object $normalized */
-        $normalized = parent::normalize($object, $format, $context);
-        $this->fixTimeZoneOnNormalization($object, $normalized, $object->getRatePlan()->getPackage()->getOrganization()->getTimezone());
+        $normalized = parent::normalize($data, $format, $context);
+        $this->fixTimeZoneOnNormalization($data, $normalized, $data->getRatePlan()->getPackage()->getOrganization()->getTimezone());
 
         return $normalized;
     }

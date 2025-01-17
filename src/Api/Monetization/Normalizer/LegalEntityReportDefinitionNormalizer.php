@@ -27,10 +27,10 @@ abstract class LegalEntityReportDefinitionNormalizer extends ReportDefinitionNor
      * @psalm-suppress InvalidReturnType Returning an object here is required
      * for creating a valid Apigee Edge request.
      */
-    public function normalize($object, $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
+    public function normalize($data, $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         /** @var object $normalized */
-        $normalized = parent::normalize($object, $format, $context);
+        $normalized = parent::normalize($data, $format, $context);
         // In case of POST requests there is no problem if the developer
         // (or company) reference is in the API request, but in case of PUT
         // request it causes a mint.databaseException.

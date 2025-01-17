@@ -59,10 +59,10 @@ class ReportCriteriaNormalizer extends ObjectNormalizer
      * @psalm-suppress InvalidReturnType Returning an object here is required
      * for creating a valid Apigee Edge request.
      */
-    public function normalize($object, $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
+    public function normalize($data, $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         /** @var object $normalized */
-        $normalized = parent::normalize($object, $format, $context);
+        $normalized = parent::normalize($data, $format, $context);
 
         $addOrganizationIdCallback = function (string $id) {
             return (object) ['id' => $id, 'orgId' => $this->organization];
@@ -75,7 +75,7 @@ class ReportCriteriaNormalizer extends ObjectNormalizer
 
         // According to the API documentation it is always UTC.
         // https://docs.apigee.com/api-platform/monetization/create-reports#createreportdefapi
-        $this->fixTimeZoneOnNormalization($object, $normalized, new DateTimeZone('UTC'));
+        $this->fixTimeZoneOnNormalization($data, $normalized, new DateTimeZone('UTC'));
         $arr_empty = [];
         // Just in case, do not send empty array values either to this API.
         foreach ($normalized as $property => $value) {
