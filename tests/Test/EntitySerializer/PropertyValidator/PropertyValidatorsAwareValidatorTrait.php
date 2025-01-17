@@ -30,11 +30,11 @@ use stdClass;
  */
 trait PropertyValidatorsAwareValidatorTrait
 {
-    /** @var \Apigee\Edge\Tests\Test\EntitySerializer\PropertyValidator\PropertyValidatorInterface[] */
+    /** @var PropertyValidator\PropertyValidatorInterface[] */
     protected $propertyValidators = [];
 
     /**
-     * @param \Apigee\Edge\Tests\Test\EntitySerializer\PropertyValidator\PropertyValidatorInterface[] $propertyValidators
+     * @param PropertyValidatorInterface[] $propertyValidators
      */
     public function setPropertyValidators(array $propertyValidators): void
     {

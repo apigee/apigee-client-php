@@ -23,7 +23,7 @@ use Apigee\Edge\Api\Monetization\Structure\Address;
 interface AddressesPropertyInterface
 {
     /**
-     * @return \Apigee\Edge\Api\Monetization\Structure\Address[]
+     * @return Address[]
      */
     public function getAddresses(): array;
 

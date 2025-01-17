@@ -68,7 +68,7 @@ interface RatePlanInterface extends
     public function setPackage(ApiProductInterface $package): void;
 
     /**
-     * @return \Apigee\Edge\Api\ApigeeX\Structure\RatePlanXFee[]
+     * @return RatePlanXFee[]
      */
     public function getRatePlanxFee(): array;
 
@@ -78,7 +78,7 @@ interface RatePlanInterface extends
     public function setRatePlanxFee(RatePlanXFee ...$ratePlanXFee): void;
 
     /**
-     * @return \Apigee\Edge\Api\ApigeeX\Structure\FixedRecurringFee[]
+     * @return FixedRecurringFee[]
      */
     public function getFixedRecurringFee(): array;
 
@@ -88,7 +88,7 @@ interface RatePlanInterface extends
     public function setFixedRecurringFee(FixedRecurringFee ...$fixedRecurringFee): void;
 
     /**
-     * @return \Apigee\Edge\Api\ApigeeX\Structure\ConsumptionPricingRate[]
+     * @return ConsumptionPricingRate[]
      */
     public function getConsumptionPricingRates(): array;
 
@@ -98,7 +98,7 @@ interface RatePlanInterface extends
     public function setConsumptionPricingRates(ConsumptionPricingRate ...$consumptionPricingRates): void;
 
     /**
-     * @return \Apigee\Edge\Api\ApigeeX\Structure\RevenueShareRates[]
+     * @return RevenueShareRates[]
      */
     public function getRevenueShareRates(): array;
 

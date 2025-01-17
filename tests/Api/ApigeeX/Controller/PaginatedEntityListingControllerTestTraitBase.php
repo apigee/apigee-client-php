@@ -33,7 +33,7 @@ trait PaginatedEntityListingControllerTestTraitBase
      * @param string $entityIdPrefix
      *   Random entity id prefix for this test.
      *
-     * @return \Apigee\Edge\Entity\EntityInterface[]
+     * @return EntityInterface[]
      */
     protected function setupForPaginatedEntityListingTest(string $entityIdPrefix): array
     {

@@ -32,13 +32,13 @@ class RatePlanNormalizerFactory implements NormalizerInterface, SerializerAwareI
         setSerializer as private traitSetSerializer;
     }
 
-    /** @var \Symfony\Component\Serializer\Normalizer\NormalizerInterface[] */
+    /** @var NormalizerInterface[] */
     protected $normalizers = [];
 
     /**
      * RatePlanDenormalizerFactory constructor.
      *
-     * @param \Symfony\Component\Serializer\Normalizer\NormalizerInterface[] $normalizers
+     * @param NormalizerInterface[] $normalizers
      */
     public function __construct(array $normalizers = [])
     {
