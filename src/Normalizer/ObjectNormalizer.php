@@ -93,9 +93,9 @@ class ObjectNormalizer implements NormalizerInterface, SerializerAwareInterface
      * @psalm-suppress PossiblyInvalidArgument First argument of array_filter is always an array.
      * @psalm-suppress PossiblyNullArgument First argument of array_filter is always an array.
      */
-    public function normalize($object, $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
+    public function normalize($data, $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $asArray = $this->objectNormalizer->normalize($object, $this->format, $context);
+        $asArray = $this->objectNormalizer->normalize($data, $this->format, $context);
         // Exclude null values from the output, even if PATCH is not supported on Apigee Edge
         // sending a smaller portion of data in POST/PUT is always a good practice.
         $asArray = array_filter($asArray, function ($value) {

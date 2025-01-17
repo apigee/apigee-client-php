@@ -29,13 +29,13 @@ class CompanyMembershipNormalizer implements NormalizerInterface
      * @psalm-suppress InvalidReturnType Returning an object here is required
      * for creating a valid Apigee Edge request.
      */
-    public function normalize($object, $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
+    public function normalize($data, $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $normalized = [
             'developer' => [],
         ];
-        /** @var CompanyMembership $object */
-        foreach ($object->getMembers() as $member => $role) {
+        /** @var CompanyMembership $data */
+        foreach ($data->getMembers() as $member => $role) {
             $normalized['developer'][] = (object) ['email' => $member, 'role' => $role];
         }
 

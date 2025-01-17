@@ -51,20 +51,20 @@ class TermsAndConditionsNormalizer extends EntityNormalizer
      * @psalm-suppress InvalidReturnType Returning an object here is required
      * for creating a valid Apigee Edge request.
      */
-    public function normalize($object, $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
+    public function normalize($data, $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         /** @var object $normalized */
-        $normalized = parent::normalize($object, $format, $context);
+        $normalized = parent::normalize($data, $format, $context);
 
         // Fix the start- and end date of the terms and conditions
         // if the organization's timezone is different from the default
         // PHP timezone.
-        /** @var TermsAndConditionsInterface $object */
-        if (null === $object->getOrganization()) {
-            throw new UninitializedPropertyException($object, 'organization', 'Apigee\Edge\Api\Monetization\Entity\OrganizationProfileInterface');
+        /** @var TermsAndConditionsInterface $data */
+        if (null === $data->getOrganization()) {
+            throw new UninitializedPropertyException($data, 'organization', 'Apigee\Edge\Api\Monetization\Entity\OrganizationProfileInterface');
         }
 
-        $this->fixTimeZoneOnNormalization($object, $normalized, $object->getOrganization()->getTimezone());
+        $this->fixTimeZoneOnNormalization($data, $normalized, $data->getOrganization()->getTimezone());
 
         return $normalized;
     }

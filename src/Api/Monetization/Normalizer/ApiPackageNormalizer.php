@@ -47,9 +47,9 @@ class ApiPackageNormalizer extends EntityNormalizer
      * @psalm-suppress InvalidReturnType Returning an object here is required
      * for creating a valid Apigee Edge request.
      */
-    public function normalize($object, $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
+    public function normalize($data, $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $normalized = (array) parent::normalize($object, $format, $context);
+        $normalized = (array) parent::normalize($data, $format, $context);
 
         // Do not send redundant API product information to Apigee Edge, the
         // id of a referenced API product is enough.
