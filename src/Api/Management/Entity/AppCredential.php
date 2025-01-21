@@ -37,9 +37,9 @@ class AppCredential extends Entity implements AppCredentialInterface
     use StatusPropertyAwareTrait;
 
     /**
-     * Array of credential products or an empty array.
+     * Array of credential products.
      *
-     * @var \Apigee\Edge\Structure\CredentialProduct[]|array
+     * @var \Apigee\Edge\Structure\CredentialProduct[]
      */
     protected $apiProducts = [];
 
