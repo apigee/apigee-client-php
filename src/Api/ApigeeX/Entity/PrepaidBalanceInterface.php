@@ -36,5 +36,5 @@ interface PrepaidBalanceInterface extends EntityInterface
     /**
      * @return string
      */
-    public function getlastCreditTime(): ?string;
+    public function getLastCreditTime(): ?string;
 }
