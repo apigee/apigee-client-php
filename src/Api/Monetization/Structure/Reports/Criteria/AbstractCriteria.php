@@ -120,21 +120,6 @@ abstract class AbstractCriteria
      * @param string ...$appIds
      *
      * @return self
-     *
-     * @deprecated in 3.0.7, will be removed in 4.0.0. No longer needed.
-     * https://github.com/apigee/apigee-client-php/issues/373
-     */
-    public function apps(string ...$appIds): self
-    {
-        trigger_error(__METHOD__ . ' is deprecated in 3.0.7, will be removed in 4.0.0: use setApps() instead.', E_USER_DEPRECATED);
-
-        return $this->setApps(...$appIds);
-    }
-
-    /**
-     * @param string ...$appIds
-     *
-     * @return self
      */
     public function setApps(string ...$appIds): self
     {
