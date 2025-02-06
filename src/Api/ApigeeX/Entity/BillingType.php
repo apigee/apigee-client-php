@@ -28,7 +28,7 @@ abstract class BillingType extends Entity implements BillingTypeInterface
     /**
      * {@inheritdoc}
      */
-    public function getbillingType(): ?string
+    public function getBillingType(): ?string
     {
         return $this->billingType;
     }
@@ -38,7 +38,7 @@ abstract class BillingType extends Entity implements BillingTypeInterface
      *
      * @internal
      */
-    public function setbillingType(?string $billingType): void
+    public function setBillingType(?string $billingType): void
     {
         $this->billingType = $billingType;
     }
