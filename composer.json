@@ -47,6 +47,8 @@
         "phpunit/phpunit": "^9.6",
         "sebastian/comparator": "^4.0.5",
         "symfony/cache": "^7.2.3",
+        "symfony/type-info": "^7.2.2",
+        "symfony/var-exporter": "^7.2.0",
         "vimeo/psalm": "^5.20"
     },
     "autoload": {
