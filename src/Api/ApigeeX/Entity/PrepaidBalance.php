@@ -47,7 +47,7 @@ class PrepaidBalance extends Entity implements PrepaidBalanceInterface
     /**
      * {@inheritdoc}
      */
-    public function getlastCreditTime(): ?string
+    public function getLastCreditTime(): ?string
     {
         return $this->lastCreditTime;
     }
@@ -55,7 +55,7 @@ class PrepaidBalance extends Entity implements PrepaidBalanceInterface
     /**
      * @param string $lastCreditTime
      */
-    public function setlastCreditTime(string $lastCreditTime): void
+    public function setLastCreditTime(string $lastCreditTime): void
     {
         $this->lastCreditTime = $lastCreditTime;
     }
