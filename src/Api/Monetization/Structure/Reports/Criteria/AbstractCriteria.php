@@ -120,21 +120,6 @@ abstract class AbstractCriteria
      * @param string ...$appIds
      *
      * @return self
-     *
-     * @deprecated in 3.0.7, will be removed in 4.0.0. No longer needed.
-     * https://github.com/apigee/apigee-client-php/issues/373
-     */
-    public function apps(string ...$appIds): self
-    {
-        trigger_error(__METHOD__ . ' is deprecated in 3.0.7, will be removed in 4.0.0: use setApps() instead.', E_USER_DEPRECATED);
-
-        return $this->setApps(...$appIds);
-    }
-
-    /**
-     * @param string ...$appIds
-     *
-     * @return self
      */
     public function setApps(string ...$appIds): self
     {
@@ -149,21 +134,6 @@ abstract class AbstractCriteria
     public function getCurrencies(): array
     {
         return $this->currencies;
-    }
-
-    /**
-     * @param string ...$currencyIds
-     *
-     * @return self
-     *
-     * @deprecated in 3.0.7, will be removed in 4.0.0. No longer needed.
-     * https://github.com/apigee/apigee-client-php/issues/373
-     */
-    public function currencies(string ...$currencyIds): self
-    {
-        trigger_error(__METHOD__ . ' is deprecated in 3.0.7, will be removed in 4.0.0: use setCurrencies() instead.', E_USER_DEPRECATED);
-
-        return $this->setCurrencies(...$currencyIds);
     }
 
     /**
@@ -190,23 +160,6 @@ abstract class AbstractCriteria
      * @param string|null $currencyOption
      *
      * @return self
-     *
-     * @deprecated in 3.0.7, will be removed in 4.0.0. No longer needed.
-     * https://github.com/apigee/apigee-client-php/issues/373
-     */
-    public function currencyOption(?string $currencyOption): self
-    {
-        // This tweak allows to reset the previously configured currency option
-        // by calling this method with an empty string or null.
-        trigger_error(__METHOD__ . ' is deprecated in 3.0.7, will be removed in 4.0.0: use setCurrencyOption() instead.', E_USER_DEPRECATED);
-
-        return $this->setCurrencyOption($currencyOption);
-    }
-
-    /**
-     * @param string|null $currencyOption
-     *
-     * @return self
      */
     public function setCurrencyOption(?string $currencyOption): self
     {
@@ -215,21 +168,6 @@ abstract class AbstractCriteria
         $this->currencyOption = $currencyOption;
 
         return $this;
-    }
-
-    /**
-     * @param string ...$developerIds
-     *
-     * @return self
-     *
-     * @deprecated in 3.0.7, will be removed in 4.0.0. No longer needed.
-     * https://github.com/apigee/apigee-client-php/issues/373
-     */
-    public function developers(string ...$developerIds): self
-    {
-        trigger_error(__METHOD__ . ' is deprecated in 3.0.7, will be removed in 4.0.0: use setDevelopers() instead.', E_USER_DEPRECATED);
-
-        return $this->setDevelopers(...$developerIds);
     }
 
     /**
@@ -264,21 +202,6 @@ abstract class AbstractCriteria
      * @param string ...$apiPackageIds
      *
      * @return self
-     *
-     * @deprecated in 3.0.7, will be removed in 4.0.0. No longer needed.
-     * https://github.com/apigee/apigee-client-php/issues/373
-     */
-    public function apiPackages(string ...$apiPackageIds): self
-    {
-        trigger_error(__METHOD__ . ' is deprecated in 3.0.7, will be removed in 4.0.0: use setApiPackages() instead.', E_USER_DEPRECATED);
-
-        return $this->setApiPackages(...$apiPackageIds);
-    }
-
-    /**
-     * @param string ...$apiPackageIds
-     *
-     * @return self
      */
     public function setApiPackages(string ...$apiPackageIds): self
     {
@@ -293,21 +216,6 @@ abstract class AbstractCriteria
     public function getApiProducts(): array
     {
         return $this->apiProducts;
-    }
-
-    /**
-     * @param string ...$apiProductIds
-     *
-     * @return self
-     *
-     * @deprecated in 3.0.7, will be removed in 4.0.0. No longer needed.
-     * https://github.com/apigee/apigee-client-php/issues/373
-     */
-    public function apiProducts(string ...$apiProductIds): self
-    {
-        trigger_error(__METHOD__ . ' is deprecated in 3.0.7, will be removed in 4.0.0: use setApiProducts() instead.', E_USER_DEPRECATED);
-
-        return $this->setApiProducts(...$apiProductIds);
     }
 
     /**
@@ -334,21 +242,6 @@ abstract class AbstractCriteria
      * @param string ...$pricingTypes
      *
      * @return self
-     *
-     * @deprecated in 3.0.7, will be removed in 4.0.0. No longer needed.
-     * https://github.com/apigee/apigee-client-php/issues/373
-     */
-    public function pricingTypes(string ...$pricingTypes): self
-    {
-        trigger_error(__METHOD__ . ' is deprecated in 3.0.7, will be removed in 4.0.0: use setPricingTypes() instead.', E_USER_DEPRECATED);
-
-        return $this->setPricingTypes(...$pricingTypes);
-    }
-
-    /**
-     * @param string ...$pricingTypes
-     *
-     * @return self
      */
     public function setPricingTypes(string ...$pricingTypes): self
     {
@@ -363,21 +256,6 @@ abstract class AbstractCriteria
     public function getRatePlanLevels(): array
     {
         return $this->ratePlanLevels;
-    }
-
-    /**
-     * @param string ...$ratePlanLevels
-     *
-     * @return self
-     *
-     * @deprecated in 3.0.7, will be removed in 4.0.0. No longer needed.
-     * https://github.com/apigee/apigee-client-php/issues/373
-     */
-    public function ratePlanLevels(string ...$ratePlanLevels): self
-    {
-        trigger_error(__METHOD__ . ' is deprecated in 3.0.7, will be removed in 4.0.0: use setRatePlanLevels() instead.', E_USER_DEPRECATED);
-
-        return $this->setRatePlanLevels(...$ratePlanLevels);
     }
 
     /**
@@ -428,42 +306,12 @@ abstract class AbstractCriteria
      * @param bool $show
      *
      * @return self
-     *
-     * @deprecated in 3.0.7, will be removed in 4.0.0. No longer needed.
-     * https://github.com/apigee/apigee-client-php/issues/373
-     */
-    public function showRevenueSharePercentage(bool $show): self
-    {
-        trigger_error(__METHOD__ . ' is deprecated in 3.0.7, will be removed in 4.0.0: use setShowRevenueSharePercentage() instead.', E_USER_DEPRECATED);
-
-        return $this->setShowRevenueSharePercentage($show);
-    }
-
-    /**
-     * @param bool $show
-     *
-     * @return self
      */
     public function setShowRevenueSharePercentage(bool $show): self
     {
         $this->showRevenueSharePercentage = $show;
 
         return $this;
-    }
-
-    /**
-     * @param bool $show
-     *
-     * @return self
-     *
-     * @deprecated in 3.0.7, will be removed in 4.0.0. No longer needed.
-     * https://github.com/apigee/apigee-client-php/issues/373
-     */
-    public function showSummary(bool $show): self
-    {
-        trigger_error(__METHOD__ . ' is deprecated in 3.0.7, will be removed in 4.0.0: use setShowSummary() instead.', E_USER_DEPRECATED);
-
-        return $this->setShowSummary($show);
     }
 
     /**
@@ -482,42 +330,12 @@ abstract class AbstractCriteria
      * @param bool $show
      *
      * @return self
-     *
-     * @deprecated in 3.0.7, will be removed in 4.0.0. No longer needed.
-     * https://github.com/apigee/apigee-client-php/issues/373
-     */
-    public function showTransactionDetail(bool $show): self
-    {
-        trigger_error(__METHOD__ . ' is deprecated in 3.0.7, will be removed in 4.0.0: use setShowTransactionDetail() instead.', E_USER_DEPRECATED);
-
-        return $this->setShowTransactionDetail($show);
-    }
-
-    /**
-     * @param bool $show
-     *
-     * @return self
      */
     public function setShowTransactionDetail(bool $show): self
     {
         $this->showTransactionDetail = $show;
 
         return $this;
-    }
-
-    /**
-     * @param bool $show
-     *
-     * @return self
-     *
-     * @deprecated in 3.0.7, will be removed in 4.0.0. No longer needed.
-     * https://github.com/apigee/apigee-client-php/issues/373
-     */
-    public function showTransactionType(bool $show): self
-    {
-        trigger_error(__METHOD__ . ' is deprecated in 3.0.7, will be removed in 4.0.0: use setShowTransactionType() instead.', E_USER_DEPRECATED);
-
-        return $this->setShowTransactionType($show);
     }
 
     /**
