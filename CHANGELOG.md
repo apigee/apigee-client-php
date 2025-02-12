@@ -1,4 +1,21 @@
 # CHANGELOG
+
+## [4.0.0](https://github.com/apigee/apigee-client-php/milestone/33?closed=1)
+* [#381] Changes for Symfony 7.1 upgrade.
+* [#385] Fixes for issue UnimplementedInterfaceMethod: Method getsupportedtypes is not defined.
+* [#389] MethodSignatureMismatch: Method supportsDenormalization with return type '' is different to return type 'bool' of inherited method.
+* [#390] Fixes issue of Method normalize with return type '' is different to return type 'ArrayObject|array<array-key, mixed>|null|scalar' of inherited method NormalizerInterface::normalize.
+* [#393] Suppressing the LessSpecificImplementedReturnType error for getSupportedTypes function.
+* [#395] Changes made for symfony 7 standards, declaring return type and adding missing parameters.
+* [#403] Fixes for new PHPCS changes.
+* [#404] Fixes for ParamNameMismatch error on composer analyze.
+* [#406] Changes added for setting minimum Symfony version to 7.
+* [#407] Removed PHP8.1 test from matrix for 4x.
+* [#398] Removed empty array option for CredentialProducts in AppCredential file due to strict Type.
+* [#410] 4x Fixes to make getter setter functions compatible with ctype_lower checks in symfony serializer component.
+* [#412] Update the symfony components to stable versions.
+* [#414] Deprecated function apps removed in 4.x.
+
 ## [3.0.8](https://github.com/apigee/apigee-client-php/milestone/32?closed=1)
 * [#379] Update option-resolver's symfony component version to its latest.
 
