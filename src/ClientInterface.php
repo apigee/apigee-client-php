@@ -63,6 +63,90 @@ interface ClientInterface extends HttpClient
      */
     public const APIGEE_ON_GCP_ENDPOINT = 'https://apigee.googleapis.com/v1';
 
+    /**
+     * Default endpoint for Apigee Management API on GCP DRZ United States location.
+     *
+     * @var string
+     */
+    public const APIGEE_ON_GCP_US_DRZ_ENDPOINT = 'https://us-apigee.googleapis.com/v1';
+
+    /**
+     * Default endpoint for Apigee Management API on GCP DRZ Canada location.
+     *
+     * @var string
+     */
+    public const APIGEE_ON_GCP_CA_DRZ_ENDPOINT = 'https://ca-apigee.googleapis.com/v1';
+
+    /**
+     * Default endpoint for Apigee Management API on GCP DRZ European Union location.
+     *
+     * @var string
+     */
+    public const APIGEE_ON_GCP_EU_DRZ_ENDPOINT = 'https://eu-apigee.googleapis.com/v1';
+
+    /**
+     * Default endpoint for Apigee Management API on GCP DRZ Germany location.
+     *
+     * @var string
+     */
+    public const APIGEE_ON_GCP_DE_DRZ_ENDPOINT = 'https://de-apigee.googleapis.com/v1';
+
+    /**
+     * Default endpoint for Apigee Management API on GCP DRZ France location.
+     *
+     * @var string
+     */
+    public const APIGEE_ON_GCP_FR_DRZ_ENDPOINT = 'https://fr-apigee.googleapis.com/v1';
+
+    /**
+     * Default endpoint for Apigee Management API on GCP DRZ Switzerland location.
+     *
+     * @var string
+     */
+    public const APIGEE_ON_GCP_CH_DRZ_ENDPOINT = 'https://ch-apigee.googleapis.com/v1';
+
+    /**
+     * Default endpoint for Apigee Management API on GCP DRZ Australia location.
+     *
+     * @var string
+     */
+    public const APIGEE_ON_GCP_AU_DRZ_ENDPOINT = 'https://au-apigee.googleapis.com/v1';
+
+    /**
+     * Default endpoint for Apigee Management API on GCP DRZ India location.
+     *
+     * @var string
+     */
+    public const APIGEE_ON_GCP_IN_DRZ_ENDPOINT = 'https://in-apigee.googleapis.com/v1';
+
+    /**
+     * Default endpoint for Apigee Management API on GCP DRZ Japan location.
+     *
+     * @var string
+     */
+    public const APIGEE_ON_GCP_JP_DRZ_ENDPOINT = 'https://jp-apigee.googleapis.com/v1';
+
+    /**
+     * Default endpoint for Apigee Management API on GCP DRZ Saudi Arabia location.
+     *
+     * @var string
+     */
+    public const APIGEE_ON_GCP_SA_DRZ_ENDPOINT = 'https://sa-apigee.googleapis.com/v1';
+
+    /**
+     * Default endpoint for Apigee Management API on GCP DRZ Israel location.
+     *
+     * @var string
+     */
+    public const APIGEE_ON_GCP_IL_DRZ_ENDPOINT = 'https://il-apigee.googleapis.com/v1';
+
+    /**
+     * A space-delimited list of the permissions that the application requests.
+     *
+     * @var string
+     */
+    public const APIGEE_TOKEN_ENDPOINT = 'https://www.googleapis.com/auth/cloud-platform';
+
     public const VERSION = '4.0.0';
 
     /**
