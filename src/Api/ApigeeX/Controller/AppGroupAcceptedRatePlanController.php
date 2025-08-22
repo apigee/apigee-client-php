@@ -20,6 +20,7 @@ namespace Apigee\Edge\Api\ApigeeX\Controller;
 
 use Apigee\Edge\Api\ApigeeX\Entity\AppGroupAcceptedRatePlan;
 use Apigee\Edge\Api\Monetization\Normalizer\EntityNormalizer;
+use Apigee\Edge\Api\ApigeeX\Serializer\AppGroupAcceptedRatePlanSerializer;
 use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Serializer\EntitySerializerInterface;
 use Psr\Http\Message\UriInterface;
@@ -43,6 +44,7 @@ class AppGroupAcceptedRatePlanController extends AcceptedRatePlanController
      */
     public function __construct(string $appGroupName, string $organization, ClientInterface $client, ?EntitySerializerInterface $entitySerializer = null)
     {
+        $entitySerializer = $entitySerializer ?? new AppGroupAcceptedRatePlanSerializer();
         parent::__construct($organization, $client, $entitySerializer);
         $this->appGroupName = $appGroupName;
         $this->organization = $organization;
@@ -85,6 +87,7 @@ class AppGroupAcceptedRatePlanController extends AcceptedRatePlanController
      */
     protected function getAcceptedRatePlansEndpoint(): UriInterface
     {
+
         // @todo update the enpoints
         // For this API endpoint:
         // https://apidocs.apigee.com/monetize/apis/get/organizations/%7Borg_name%7D/developers/%7Bdeveloper_id%7D/developer-accepted-rateplans

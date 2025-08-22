@@ -150,24 +150,8 @@ abstract class AcceptedRatePlanController extends OrganizationAwareEntityControl
      */
     private function getAcceptedRatePlans(array $query_params = []): array
     {
-        $entities = [];
-
-        foreach ($this->getRawList($this->getAcceptedRatePlansEndpoint()->withQuery(http_build_query($query_params))) as $item) {
-            // Added ID as name since in ApigeeX name field gives the id
-            if (!isset($item->id)) {
-                $item->id = $item->name ?? null;
-            }
-
-            /** @var \Apigee\Edge\Entity\EntityInterface $tmp */
-            $tmp = $this->getEntitySerializer()->denormalize(
-                $item,
-                AcceptedRatePlanInterface::class,
-                'json'
-            );
-
-            $entities[$tmp->id()] = $tmp;
-        }
-
-        return $entities;
+        return $this->responseArrayToArrayOfEntities(
+            $this->getRawList($this->getAcceptedRatePlansEndpoint()->withQuery(http_build_query($query_params)))
+        );
     }
 }

@@ -16,15 +16,33 @@
  * limitations under the License.
  */
 
-namespace Apigee\Edge\Api\ApigeeX\Entity;
+namespace Apigee\Edge\Api\ApigeeX\Entity\Property;
 
-use Apigee\Edge\Api\ApigeeX\Entity\Property\AppGroupPropertyAwareTrait;
-use Apigee\Edge\Api\ApigeeX\Entity\AppGroupAcceptedRatePlanInterface;
+use Apigee\Edge\Api\ApigeeX\Entity\DeveloperInterface;
 
 /**
- * Represents an accepted rate plan by an appGroup.
+ * Trait DeveloperPropertyAwareTrait.
+ *
+ * @see DeveloperPropertyInterface
  */
-class AppGroupAcceptedRatePlan extends AcceptedRatePlan implements AppGroupAcceptedRatePlanInterface
+trait DeveloperPropertyAwareTrait
 {
-    use AppGroupPropertyAwareTrait;
+    /** @var DeveloperInterface|null */
+    protected $developer;
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getDeveloper(): ?DeveloperInterface
+    {
+        return $this->developer;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setDeveloper(DeveloperInterface $developer): void
+    {
+        $this->developer = $developer;
+    }
 }
