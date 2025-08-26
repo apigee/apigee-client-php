@@ -19,26 +19,22 @@
 namespace Apigee\Edge\Api\ApigeeX\Normalizer;
 
 use Apigee\Edge\Api\ApigeeX\Entity\AppGroupAcceptedRatePlanInterface;
-use Apigee\Edge\Api\ApigeeX\NameConverter\AppGroupAcceptedRatePlanNameConverter;
-use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
-use Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface;
-use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface;
-use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
+use Apigee\Edge\Api\ApigeeX\Entity\AcceptedRatePlanInterface;
 
 class AppGroupAcceptedRatePlanNormalizer extends AcceptedRatePlanNormalizer
 {
     /**
-     * CompanyAcceptedRatePlanNormalizer constructor.
+     * {@inheritdoc}
      *
-     * @param ClassMetadataFactoryInterface|null $classMetadataFactory
-     * @param NameConverterInterface|null $nameConverter
-     * @param PropertyAccessorInterface|null $propertyAccessor
-     * @param PropertyTypeExtractorInterface|null $propertyTypeExtractor
+     * @psalm-suppress InvalidReturnType Returning an object here is required
+     * for creating a valid Apigee Edge request.
      */
-    public function __construct(?ClassMetadataFactoryInterface $classMetadataFactory = null, ?NameConverterInterface $nameConverter = null, ?PropertyAccessorInterface $propertyAccessor = null, ?PropertyTypeExtractorInterface $propertyTypeExtractor = null)
+    public function normalize($object, $format = null, array $context = [])
     {
-        $nameConverter = $nameConverter ?? new AppGroupAcceptedRatePlanNameConverter();
-        parent::__construct($classMetadataFactory, $nameConverter, $propertyAccessor, $propertyTypeExtractor);
+        /** @var object $normalized */
+        $normalized = parent::normalize($object, $format, $context);
+
+        return $normalized;
     }
 
     /**

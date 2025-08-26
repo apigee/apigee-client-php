@@ -19,6 +19,7 @@
 namespace Apigee\Edge\Api\ApigeeX\Entity\Property;
 
 use Apigee\Edge\Api\ApigeeX\Entity\DeveloperInterface;
+use Apigee\Edge\Entity\Property\EmailPropertyAwareTrait;
 
 /**
  * Trait DeveloperPropertyAwareTrait.
@@ -27,6 +28,7 @@ use Apigee\Edge\Api\ApigeeX\Entity\DeveloperInterface;
  */
 trait DeveloperPropertyAwareTrait
 {
+    use EmailPropertyAwareTrait;
     /** @var DeveloperInterface|null */
     protected $developer;
 

@@ -18,8 +18,6 @@
 
 namespace Apigee\Edge\Api\ApigeeX\Entity;
 
-use Apigee\Edge\Api\ApigeeX\Entity\Property\AppGroupPropertyInterface;
-
-interface DeveloperInterface extends AppGroupPropertyInterface
+interface DeveloperInterface
 {
 }

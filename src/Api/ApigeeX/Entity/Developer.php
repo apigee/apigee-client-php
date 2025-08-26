@@ -18,39 +18,10 @@
 
 namespace Apigee\Edge\Api\ApigeeX\Entity;
 
-use Apigee\Edge\Api\Monetization\Entity\LegalEntity;
+use Apigee\Edge\Api\ApigeeX\Entity\Property\DeveloperPropertyAwareTrait;
+use Apigee\Edge\Entity\Entity;
 
-class Developer extends LegalEntity implements DeveloperInterface
+class Developer extends Entity implements DeveloperInterface
 {
-    /**
-     * Value of "parent" from the API response.
-     *
-     * #FIXME
-     * This value only contains a reference to the company set in the
-     * MINT_COMPANY_ID. (It could happen that the developer is not actually
-     * member of the referenced company.)
-     * Also the nested company object does not contain some information, like
-     * address, customAttributes, etc.
-     *
-     * @var AppGroup|null
-     */
-    protected $appgroup;
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getAppGroup(): ?AppGroupInterface
-    {
-        return $this->appgroup;
-    }
-
-    /**
-     * @internal
-     *
-     * @param Appgroup $appgroup
-     */
-    public function setAppGroup(AppGroup $appgroup): void
-    {
-        $this->appgroup = $appgroup;
-    }
+    use DeveloperPropertyAwareTrait;
 }

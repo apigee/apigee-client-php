@@ -28,7 +28,7 @@ use Apigee\Edge\Api\ApigeeX\Entity\AppGroupInterface;
 trait AppGroupPropertyAwareTrait
 {
     /**
-     * Value of "developer" from the API response.
+     * Value of "appgroup" from the API response.
      *
      * @var AppGroupInterface|null
      */
