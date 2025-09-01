@@ -75,8 +75,10 @@ class OrganizationController extends AbstractEntityController implements Organiz
         $uri = $this->getBaseEndpointUri()->withPath("{$this->getBaseEndpointUri()->getPath()}/{$organizationName}:getProjectMapping");
         $response = $this->getClient()->get($uri);
         $decodedResponse = (array) json_decode((string) $response->getBody(), true);
-        $dataResidencyEndpoint = 'https://' . $decodedResponse['location'] . '-apigee.googleapis.com/v1';
-
-        return $dataResidencyEndpoint;
+        if (isset($decodedResponse['location'])) {
+            return 'https://' . $decodedResponse['location'] . '-apigee.googleapis.com/v1';
+        } else {
+            return ClientInterface::APIGEE_ON_GCP_ENDPOINT;
+        }
     }
 }
