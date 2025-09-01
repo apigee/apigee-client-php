@@ -66,4 +66,15 @@ class OrganizationController extends AbstractEntityController implements Organiz
     {
         return Organization::class;
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getProjectMapping(string $organizationName): array
+    {
+        $uri = $this->getBaseEndpointUri()->withPath("{$this->getBaseEndpointUri()->getPath()}/{$organizationName}:getProjectMapping");
+        $response = $this->getClient()->get($uri);
+
+        return (array) json_decode((string) $response->getBody(), true);
+    }
 }

@@ -39,4 +39,16 @@ interface OrganizationControllerInterface extends
     EntityCrudOperationsControllerInterface,
     NonPaginatedEntityListingControllerInterface
 {
+    /**
+     * Gets the project mapping for an organization.
+     *
+     * This is only available for Apigee X/Hybrid organizations.
+     *
+     * @param string $organizationName
+     *   The name of the organization.
+     *
+     * @return array
+     *   The project mapping information.
+     */
+    public function getProjectMapping(string $organizationName): array;
 }
