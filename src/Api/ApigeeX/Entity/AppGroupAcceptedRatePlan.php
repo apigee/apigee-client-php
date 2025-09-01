@@ -19,6 +19,7 @@
 namespace Apigee\Edge\Api\ApigeeX\Entity;
 
 use Apigee\Edge\Api\ApigeeX\Entity\Property\AppGroupPropertyAwareTrait;
+use Apigee\Edge\Api\ApigeeX\Entity\AppGroupAcceptedRatePlanInterface;
 
 /**
  * Represents an accepted rate plan by an appGroup.

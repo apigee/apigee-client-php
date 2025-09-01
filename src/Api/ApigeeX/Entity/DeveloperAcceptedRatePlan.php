@@ -18,7 +18,7 @@
 
 namespace Apigee\Edge\Api\ApigeeX\Entity;
 
-use Apigee\Edge\Api\Monetization\Entity\Property\DeveloperPropertyAwareTrait;
+use Apigee\Edge\Api\ApigeeX\Entity\Property\DeveloperPropertyAwareTrait;
 
 /**
  * Represents an accepted rate plan by a developer.

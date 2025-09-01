@@ -18,37 +18,33 @@
 
 namespace Apigee\Edge\Api\ApigeeX\Entity\Property;
 
-use Apigee\Edge\Api\ApigeeX\Entity\AppGroupInterface;
+use Apigee\Edge\Api\ApigeeX\Entity\DeveloperInterface;
+use Apigee\Edge\Entity\Property\EmailPropertyAwareTrait;
 
 /**
- * Trait AppGroupPropertyAwareTrait.
+ * Trait DeveloperPropertyAwareTrait.
  *
- * @see AppGroupPropertyInterface
+ * @see DeveloperPropertyInterface
  */
-trait AppGroupPropertyAwareTrait
+trait DeveloperPropertyAwareTrait
 {
-    /**
-     * Value of "appgroup" from the API response.
-     *
-     * @var AppGroupInterface|null
-     */
-    protected $appgroup;
+    use EmailPropertyAwareTrait;
+    /** @var DeveloperInterface|null */
+    protected $developer;
 
     /**
      * {@inheritdoc}
      */
-    public function getAppGroup(): ?AppGroupInterface
+    public function getDeveloper(): ?DeveloperInterface
     {
-        return $this->appgroup;
+        return $this->developer;
     }
 
     /**
      * {@inheritdoc}
-     *
-     * @internal
      */
-    public function setAppGroup(AppGroupInterface $appgroup): void
+    public function setDeveloper(DeveloperInterface $developer): void
     {
-        $this->appgroup = $appgroup;
+        $this->developer = $developer;
     }
 }
