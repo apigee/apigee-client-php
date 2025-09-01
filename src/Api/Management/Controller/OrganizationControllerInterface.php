@@ -40,15 +40,15 @@ interface OrganizationControllerInterface extends
     NonPaginatedEntityListingControllerInterface
 {
     /**
-     * Gets the project mapping for an organization.
+     * Returns the Data Residency Endpoint for the organization.
      *
      * This is only available for Apigee X/Hybrid organizations.
      *
      * @param string $organizationName
      *   The name of the organization.
      *
-     * @return array
-     *   The project mapping information.
+     * @return string
+     *   The location based endpoint is returned.
      */
-    public function getProjectMapping(string $organizationName): array;
+    public function getDataResidencyEndpoint(string $organizationName): string;
 }

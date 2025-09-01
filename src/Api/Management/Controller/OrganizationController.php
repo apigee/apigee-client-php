@@ -70,11 +70,13 @@ class OrganizationController extends AbstractEntityController implements Organiz
     /**
      * {@inheritdoc}
      */
-    public function getProjectMapping(string $organizationName): array
+    public function getDataResidencyEndpoint(string $organizationName): string
     {
         $uri = $this->getBaseEndpointUri()->withPath("{$this->getBaseEndpointUri()->getPath()}/{$organizationName}:getProjectMapping");
         $response = $this->getClient()->get($uri);
+        $decodedResponse = (array) json_decode((string) $response->getBody(), true);
+        $dataResidencyEndpoint = 'https://' . $decodedResponse['location'] . '-apigee.googleapis.com/v1';
 
-        return (array) json_decode((string) $response->getBody(), true);
+        return $dataResidencyEndpoint;
     }
 }
