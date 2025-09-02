@@ -54,6 +54,21 @@ class OrganizationController extends AbstractEntityController implements Organiz
     /**
      * {@inheritdoc}
      */
+    public function getDataResidencyEndpoint(string $organizationName): string
+    {
+        $uri = $this->getBaseEndpointUri()->withPath("{$this->getBaseEndpointUri()->getPath()}/{$organizationName}:getProjectMapping");
+        $response = $this->getClient()->get($uri);
+        $decodedResponse = (array) json_decode((string) $response->getBody(), true);
+        if (isset($decodedResponse['location'])) {
+            return 'https://' . $decodedResponse['location'] . '-apigee.googleapis.com/v1';
+        } else {
+            return ClientInterface::APIGEE_ON_GCP_ENDPOINT;
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     protected function getBaseEndpointUri(): UriInterface
     {
         return $this->client->getUriFactory()->createUri('/organizations');
@@ -65,20 +80,5 @@ class OrganizationController extends AbstractEntityController implements Organiz
     protected function getEntityClass(): string
     {
         return Organization::class;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getDataResidencyEndpoint(string $organizationName): string
-    {
-        $uri = $this->getBaseEndpointUri()->withPath("{$this->getBaseEndpointUri()->getPath()}/{$organizationName}:getProjectMapping");
-        $response = $this->getClient()->get($uri);
-        $decodedResponse = (array) json_decode((string) $response->getBody(), true);
-        if (isset($decodedResponse['location'])) {
-            return 'https://' . $decodedResponse['location'] . '-apigee.googleapis.com/v1';
-        } else {
-            return ClientInterface::APIGEE_ON_GCP_ENDPOINT;
-        }
     }
 }
