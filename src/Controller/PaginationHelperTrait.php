@@ -366,7 +366,7 @@ trait PaginationHelperTrait
 
         $uri = $this->getBaseEndpointUri()->withQuery(http_build_query($query_params));
         $response = $this->getClient()->get($uri);
-        $expandCompatibility = (ClientInterface::EDGE_ENDPOINT !== $this->getClient()->getEndpoint());
+        $expandCompatibility = (bool) preg_match('/apigee\.googleapis\.com/', $this->getClient()->getEndpoint());
 
         $ids = $this->responseToArray($response, $expandCompatibility);
 
