@@ -318,7 +318,7 @@ trait PaginationHelperTrait
         $query_params = [
             'expand' => 'false',
         ] + $query_params;
-        $expandCompatibility = (ClientInterface::EDGE_ENDPOINT !== $this->getClient()->getEndpoint());
+        $expandCompatibility = (bool) preg_match('/apigee\.googleapis\.com/', $this->getClient()->getEndpoint());
         if ($pager) {
             return $this->getResultsInRange($pager, $query_params, $expandCompatibility);
         } else {

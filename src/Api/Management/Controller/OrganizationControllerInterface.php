@@ -39,4 +39,16 @@ interface OrganizationControllerInterface extends
     EntityCrudOperationsControllerInterface,
     NonPaginatedEntityListingControllerInterface
 {
+    /**
+     * Returns the Data Residency Endpoint for the organization.
+     *
+     * This is only available for Apigee X/Hybrid organizations.
+     *
+     * @param string $organizationName
+     *   The name of the organization.
+     *
+     * @return string
+     *   The location based endpoint is returned.
+     */
+    public function getDataResidencyEndpoint(string $organizationName): string;
 }
