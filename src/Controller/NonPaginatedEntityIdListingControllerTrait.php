@@ -18,7 +18,6 @@
 
 namespace Apigee\Edge\Controller;
 
-use Apigee\Edge\ClientInterface;
 use Psr\Http\Message\ResponseInterface;
 
 /**
