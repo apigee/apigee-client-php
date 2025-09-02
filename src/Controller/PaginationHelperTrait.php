@@ -18,7 +18,6 @@
 
 namespace Apigee\Edge\Controller;
 
-use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Exception\RuntimeException;
 use Apigee\Edge\Structure\PagerInterface;
 use Apigee\Edge\Utility\OrganizationFeatures;
