@@ -319,7 +319,6 @@ trait PaginationHelperTrait
             'expand' => 'false',
         ] + $query_params;
         $expandCompatibility = str_ends_with($this->getClient()->getEndpoint(), 'apigee.googleapis.com/v1');
-
         if ($pager) {
             return $this->getResultsInRange($pager, $query_params, $expandCompatibility);
         } else {
