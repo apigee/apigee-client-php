@@ -77,7 +77,7 @@ class AppGroupMembersController extends AbstractController implements AppGroupMe
 
         // We don't have a separate API to get appgroup attributes,
         // that is why we are calling getAppGroupAttributes() method.
-        $apigeeReservedMembers = $this->getAppGroupAttributes();
+        $apigeeReservedMembers = $this->getAppGroupAttributes() ?? new AttributesProperty();
         // Adding the new members into the attribute.
         $apigeeReservedMembers->add('__apigee_reserved__developer_details', json_encode($members));
         $response = $this->client->put(
