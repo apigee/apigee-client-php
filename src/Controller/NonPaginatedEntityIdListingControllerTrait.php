@@ -41,8 +41,8 @@ trait NonPaginatedEntityIdListingControllerTrait
         ];
         $uri = $this->getBaseEndpointUri()->withQuery(http_build_query($query_params));
         $response = $this->getClient()->get($uri);
-        $baseDomain = explode('https://', ClientInterface::APIGEE_ON_GCP_ENDPOINT);
-        $expandCompatibility = str_ends_with($this->getClient()->getEndpoint(), $baseDomain[1]);
+        $baseDomain = str_replace('https://', '', ClientInterface::APIGEE_ON_GCP_ENDPOINT);
+        $expandCompatibility = str_ends_with($this->getClient()->getEndpoint(), $baseDomain);
 
         return $this->responseToArray($response, $expandCompatibility);
     }
