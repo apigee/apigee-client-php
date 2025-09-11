@@ -111,14 +111,11 @@ class AppGroupMembersController extends AbstractController implements AppGroupMe
      */
     public function getAppGroupAttributes(): AttributesProperty
     {
-        $appGroup = $this->responseToArray($this->client->get($this->getBaseEndpointUri()));
-        $serializer = new AttributesPropertyAwareEntitySerializer();
-        $appGroupAttributes = $serializer->denormalize(
-            $appGroup['attributes'],
-            AttributesProperty::class
-        );
+        $appGroupController = new AppGroupController($this->organization, $this->client);
+        /** @var \Apigee\Edge\Api\ApigeeX\Entity\AppGroupInterface $appGroup */
+        $appGroup = $appGroupController->load($this->appGroup);
 
-        return $appGroupAttributes;
+        return $appGroup->getAttributes();
     }
 
     /**
