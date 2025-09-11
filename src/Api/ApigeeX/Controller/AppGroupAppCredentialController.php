@@ -22,6 +22,7 @@ use Apigee\Edge\Api\Management\Controller\CompanyAppCredentialController;
 use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Serializer\EntitySerializerInterface;
 use Psr\Http\Message\UriInterface;
+use Apigee\Edge\Api\Management\Entity\AppCredentialInterface;
 
 /**
  * Class AppGroupAppCredentialController.
@@ -49,6 +50,29 @@ class AppGroupAppCredentialController extends CompanyAppCredentialController
     ) {
         $this->appGroup = $appGroup;
         parent::__construct($organization, $appGroup, $appName, $client, $entitySerializer);
+    }
+
+    /**
+     * Modify (override) scopes of a customer key.
+     *
+     * @param string $consumerKey
+     *   The consumer key to modify.
+     * @param string[] $scopes
+     *
+     * @return AppCredentialInterface
+     */
+    public function overrideAppGroupScopes(string $consumerKey, array $scopes): AppCredentialInterface
+    {
+        $response = $this->client->post(
+            $this->getEntityEndpointUri($consumerKey),
+            (string) json_encode((object) ['appGroupAppKey' => ['scopes' => $scopes]])
+        );
+
+        return $this->entitySerializer->deserialize(
+            (string) $response->getBody(),
+            $this->getEntityClass(),
+            'json'
+        );
     }
 
     /**
