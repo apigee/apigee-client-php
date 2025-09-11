@@ -19,10 +19,10 @@
 namespace Apigee\Edge\Api\ApigeeX\Controller;
 
 use Apigee\Edge\Api\Management\Controller\CompanyAppCredentialController;
+use Apigee\Edge\Api\Management\Entity\AppCredentialInterface;
 use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Serializer\EntitySerializerInterface;
 use Psr\Http\Message\UriInterface;
-use Apigee\Edge\Api\Management\Entity\AppCredentialInterface;
 
 /**
  * Class AppGroupAppCredentialController.
