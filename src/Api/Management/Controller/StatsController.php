@@ -121,6 +121,7 @@ class StatsController extends AbstractController implements StatsControllerInter
         if (empty($response['stats'])) {
             return $response;
         }
+
         if (null !== $query->getTimeUnit()) {
             $originalTimeUnits = $response['TimeUnit'];
             $response['TimeUnit'] = $this->fillGapsInTimeUnitsData(
@@ -147,6 +148,7 @@ class StatsController extends AbstractController implements StatsControllerInter
     public function getMetricsByDimensions(array $dimensions, StatsQueryInterface $query, ?string $optimized = 'js'): array
     {
         $query_params = (array) $this->normalizer->normalize($query);
+
         if ('js' === $optimized && !$this->isHybrid()) {
             $query_params += [
                 '_optimized' => $optimized,
@@ -196,6 +198,7 @@ class StatsController extends AbstractController implements StatsControllerInter
         if (empty($response['stats'])) {
             return $response;
         }
+
         if (null !== $query->getTimeUnit()) {
             $originalTimeUnits = $response['TimeUnit'];
             $response['TimeUnit'] = $this->fillGapsInTimeUnitsData(
@@ -265,6 +268,7 @@ class StatsController extends AbstractController implements StatsControllerInter
         if (in_array($timeUnit, ['decade', 'century', 'millennium'])) {
             throw new InvalidArgumentException("The {$timeUnit} time unit is not supported by the https://github.com/fightbulc/moment.php library.");
         }
+
         $allTimeUnits = [];
         // Fix time unit for correct time interval calculation.
         $startDate = new Moment('@' . $period->startDate->getTimestamp());
@@ -311,8 +315,10 @@ class StatsController extends AbstractController implements StatsControllerInter
                 $needs_reindex = true;
                 continue;
             }
+
             $metricsData[$key]['values'] = array_combine($originalTimeUnits, $metric['values']);
             $metricsData[$key]['values'] += $zeroArray;
+
             if ($tsAscending) {
                 ksort($metricsData[$key]['values']);
             } else {
@@ -321,6 +327,7 @@ class StatsController extends AbstractController implements StatsControllerInter
             // Keep original numerical indexes.
             $metricsData[$key]['values'] = array_values($metricsData[$key]['values']);
         }
+
         // Just in case, as a "BC layer", re-index the array.
         if ($needs_reindex) {
             $metricsData = array_values($metricsData);
@@ -336,7 +343,8 @@ class StatsController extends AbstractController implements StatsControllerInter
     private function isHybrid(): bool
     {
         // Determines if the current endpoint is an ApigeeX endpoint.
-        $baseDomain = explode('https://', ClientInterface::APIGEE_ON_GCP_ENDPOINT);
-        return str_ends_with($this->getClient()->getEndpoint(), $baseDomain[1]);
+        $baseDomain = explode('https://', ClientInterface::APIGEE_ON_GCP_ENDPOINT)[1];
+
+        return str_ends_with($this->getClient()->getEndpoint(), $baseDomain);
     }
 }

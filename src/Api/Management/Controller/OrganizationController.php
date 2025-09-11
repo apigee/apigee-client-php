@@ -52,22 +52,6 @@ class OrganizationController extends AbstractEntityController implements Organiz
     }
 
     /**
-     * {@inheritdoc}
-     */
-    protected function getBaseEndpointUri(): UriInterface
-    {
-        return $this->client->getUriFactory()->createUri('/organizations');
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function getEntityClass(): string
-    {
-        return Organization::class;
-    }
-
-    /**
      * Gets the project ID and region for an Apigee organization.
      *
      * This is only available for Apigee X organizations.
@@ -84,5 +68,21 @@ class OrganizationController extends AbstractEntityController implements Organiz
         $response = $this->getClient()->get($uri);
 
         return $this->responseToArray($response);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function getBaseEndpointUri(): UriInterface
+    {
+        return $this->client->getUriFactory()->createUri('/organizations');
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function getEntityClass(): string
+    {
+        return Organization::class;
     }
 }
