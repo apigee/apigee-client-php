@@ -107,9 +107,9 @@ class AppGroupMembersController extends AbstractController implements AppGroupMe
     /**
      * Helper function for getting all attributes in AppGroup.
      *
-     * @return AttributesProperty
+     * @return AttributesProperty|null
      */
-    public function getAppGroupAttributes(): AttributesProperty
+    public function getAppGroupAttributes(): ?AttributesProperty
     {
         $appGroupController = new AppGroupController($this->organization, $this->client);
         /** @var \Apigee\Edge\Api\ApigeeX\Entity\AppGroupInterface $appGroup */
