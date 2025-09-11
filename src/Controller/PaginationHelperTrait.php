@@ -318,7 +318,8 @@ trait PaginationHelperTrait
         $query_params = [
             'expand' => 'false',
         ] + $query_params;
-        $expandCompatibility = str_ends_with($this->getClient()->getEndpoint(), 'apigee.googleapis.com/v1');
+        $baseDomain = explode('https://', ClientInterface::APIGEE_ON_GCP_ENDPOINT);
+        $expandCompatibility = str_ends_with($this->getClient()->getEndpoint(), $baseDomain[1]);
         if ($pager) {
             return $this->getResultsInRange($pager, $query_params, $expandCompatibility);
         } else {
@@ -366,8 +367,8 @@ trait PaginationHelperTrait
 
         $uri = $this->getBaseEndpointUri()->withQuery(http_build_query($query_params));
         $response = $this->getClient()->get($uri);
-        $expandCompatibility = str_ends_with($this->getClient()->getEndpoint(), 'apigee.googleapis.com/v1');
-
+        $baseDomain = explode('https://', ClientInterface::APIGEE_ON_GCP_ENDPOINT);
+        $expandCompatibility = str_ends_with($this->getClient()->getEndpoint(), $baseDomain[1]);
         $ids = $this->responseToArray($response, $expandCompatibility);
 
         // Re-key the array from 0 if CPS had to be simulated.

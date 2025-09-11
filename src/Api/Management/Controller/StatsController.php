@@ -335,7 +335,8 @@ class StatsController extends AbstractController implements StatsControllerInter
      */
     private function isHybrid(): bool
     {
-        // An Apigee Hybrid/X endpoint will always contain "apigee.googleapis.com".
-        return str_ends_with($this->getClient()->getEndpoint(), 'apigee.googleapis.com/v1');
+        // Determines if the current endpoint is an ApigeeX endpoint.
+        $baseDomain = explode('https://', ClientInterface::APIGEE_ON_GCP_ENDPOINT);
+        return str_ends_with($this->getClient()->getEndpoint(), $baseDomain[1]);
     }
 }

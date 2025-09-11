@@ -78,11 +78,11 @@ class OrganizationController extends AbstractEntityController implements Organiz
      * @return array
      *   Organization detail.
      */
-    public function getProjectMapping(string $organizationName): array  
+    public function getProjectMapping(string $organizationName): array
     {
-        
         $uri = $this->getBaseEndpointUri()->withPath("{$this->getBaseEndpointUri()}/{$organizationName}:getProjectMapping");
         $response = $this->getClient()->get($uri);
+
         return $this->responseToArray($response);
     }
 }
