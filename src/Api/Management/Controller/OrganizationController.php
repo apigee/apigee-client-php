@@ -52,6 +52,25 @@ class OrganizationController extends AbstractEntityController implements Organiz
     }
 
     /**
+     * Gets the project ID and region for an Apigee organization.
+     *
+     * This is only available for Apigee X organizations.
+     *
+     * @param string $organizationName
+     *   The name of the organization.
+     *
+     * @return array
+     *   Organization detail.
+     */
+    public function getProjectMapping(string $organizationName): array
+    {
+        $uri = $this->getBaseEndpointUri()->withPath("{$this->getBaseEndpointUri()}/{$organizationName}:getProjectMapping");
+        $response = $this->getClient()->get($uri);
+
+        return $this->responseToArray($response);
+    }
+
+    /**
      * {@inheritdoc}
      */
     protected function getBaseEndpointUri(): UriInterface
