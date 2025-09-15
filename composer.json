@@ -35,7 +35,7 @@
     },
     "require-dev": {
         "dms/phpunit-arraysubset-asserts": "^0.4.0",
-        "friendsofphp/php-cs-fixer": "^3.22",
+        "friendsofphp/php-cs-fixer": "^3.87",
         "fzaninotto/faker": "^1.7",
         "guzzlehttp/psr7": "^2.5",
         "league/flysystem": "^1.0",
