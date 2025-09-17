@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## [4.0.1](https://github.com/apigee/apigee-client-php/milestone/35?closed=1)
+* [#423] Support for drz endpoint.
+
 ## [4.0.0](https://github.com/apigee/apigee-client-php/milestone/33?closed=1)
 * [#381] Changes for Symfony 7.1 upgrade.
 * [#385] Fixes for issue UnimplementedInterfaceMethod: Method getsupportedtypes is not defined.
