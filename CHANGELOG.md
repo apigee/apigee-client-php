@@ -1,4 +1,8 @@
 # CHANGELOG
+## [3.0.9](https://github.com/apigee/apigee-client-php/milestone/34?closed=1)
+* [#409] Changed the getter and setter to camelcase function name.
+* [#420] Support for drz endpoint.
+
 ## [3.0.8](https://github.com/apigee/apigee-client-php/milestone/32?closed=1)
 * [#379] Update option-resolver's symfony component version to its latest.
 
