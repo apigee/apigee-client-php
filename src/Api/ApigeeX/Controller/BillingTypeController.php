@@ -50,7 +50,7 @@ abstract class BillingTypeController extends EntityController implements Billing
      */
     public function getAllBillingDetails(): BillingTypeInterface
     {
-        return $this->getDeveloperBillingType();
+        return $this->getBillingType();
     }
 
     /**
@@ -77,7 +77,7 @@ abstract class BillingTypeController extends EntityController implements Billing
      *
      * @return BillingTypeInterface
      */
-    private function getDeveloperBillingType(): BillingTypeInterface
+    private function getBillingType(): BillingTypeInterface
     {
         $item = $this->getRawSingleList($this->getBaseEndpointUri());
 
