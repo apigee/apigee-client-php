@@ -79,6 +79,14 @@ class ApiProductController extends OrganizationAwareEntityController implements 
     /**
      * {@inheritdoc}
      */
+    public function getEligibleProductsByAppGroup(string $entityId): array
+    {
+        return $this->getEligibleProducts('appgroups', $entityId);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     protected function getEntityClass(): string
     {
         return ApiProduct::class;
