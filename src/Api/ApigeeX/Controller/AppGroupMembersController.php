@@ -18,6 +18,7 @@
 
 namespace Apigee\Edge\Api\ApigeeX\Controller;
 
+use Apigee\Edge\Api\ApigeeX\Entity\AppGroupInterface;
 use Apigee\Edge\Api\ApigeeX\Serializer\AppGroupMembershipSerializer;
 use Apigee\Edge\Api\ApigeeX\Structure\AppGroupMembership;
 use Apigee\Edge\ClientInterface;
@@ -74,14 +75,14 @@ class AppGroupMembersController extends AbstractController implements AppGroupMe
     {
         $members = $this->serializer->normalize($members);
 
-        // We don't have a separate API to get appgroup attributes,
-        // that is why we are calling getAppGroupAttributes() method.
-        $apigeeReservedMembers = $this->getAppGroupAttributes() ?? new AttributesProperty();
+        $appGroup = $this->loadAppGroup();
+        $apigeeReservedMembers = $appGroup->getAttributes() ?? new AttributesProperty();
         // Adding the new members into the attribute.
         $apigeeReservedMembers->add('__apigee_reserved__developer_details', json_encode($members));
         $response = $this->client->put(
             $this->getBaseEndpointUri(),
             (string) json_encode((object) [
+                'email' => $appGroup->getEmail(),
                 'attributes' => $this->serializer->normalize($apigeeReservedMembers),
             ])
         );
@@ -110,11 +111,7 @@ class AppGroupMembersController extends AbstractController implements AppGroupMe
      */
     public function getAppGroupAttributes(): ?AttributesProperty
     {
-        $appGroupController = new AppGroupController($this->organization, $this->client);
-        /** @var \Apigee\Edge\Api\ApigeeX\Entity\AppGroupInterface $appGroup */
-        $appGroup = $appGroupController->load($this->appGroup);
-
-        return $appGroup->getAttributes();
+        return $this->loadAppGroup()->getAttributes();
     }
 
     /**
@@ -131,5 +128,19 @@ class AppGroupMembersController extends AbstractController implements AppGroupMe
     protected function getBaseEndpointUri(): UriInterface
     {
         return $this->client->getUriFactory()->createUri("/organizations/{$this->organization}/appgroups/{$this->appGroup}");
+    }
+
+    /**
+     * Helper function for getting AppGroup.
+     *
+     * @return AppGroupInterface
+     */
+    private function loadAppGroup(): AppGroupInterface
+    {
+        $appGroupController = new AppGroupController($this->organization, $this->client);
+        /** @var AppGroupInterface $appGroup */
+        $appGroup = $appGroupController->load($this->appGroup);
+
+        return $appGroup;
     }
 }
