@@ -115,20 +115,6 @@ class AppGroupMembersController extends AbstractController implements AppGroupMe
     }
 
     /**
-     * Helper function for getting AppGroup.
-     *
-     * @return AppGroupInterface
-     */
-    private function loadAppGroup(): AppGroupInterface
-    {
-        $appGroupController = new AppGroupController($this->organization, $this->client);
-        /** @var AppGroupInterface $appGroup */
-        $appGroup = $appGroupController->load($this->appGroup);
-
-        return $appGroup;
-    }
-
-    /**
      * {@inheritdoc}
      */
     public function getOrganisationName(): string
@@ -142,5 +128,19 @@ class AppGroupMembersController extends AbstractController implements AppGroupMe
     protected function getBaseEndpointUri(): UriInterface
     {
         return $this->client->getUriFactory()->createUri("/organizations/{$this->organization}/appgroups/{$this->appGroup}");
+    }
+
+    /**
+     * Helper function for getting AppGroup.
+     *
+     * @return AppGroupInterface
+     */
+    private function loadAppGroup(): AppGroupInterface
+    {
+        $appGroupController = new AppGroupController($this->organization, $this->client);
+        /** @var AppGroupInterface $appGroup */
+        $appGroup = $appGroupController->load($this->appGroup);
+
+        return $appGroup;
     }
 }
