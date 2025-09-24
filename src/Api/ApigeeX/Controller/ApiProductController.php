@@ -140,8 +140,7 @@ class ApiProductController extends OrganizationAwareEntityController implements 
                     $subscribed_product_ids[$subscription->getapiproduct()] = $subscription->getapiproduct();
                 }
             }
-        }
-        elseif ('appgroups' == $type) {
+        } elseif ('appgroups' == $type) {
             // AppGroup subscriptions.
             /** @var AppGroupAcceptedRatePlanController $appgroup_accepted_rateplan */
             $appgroup_accepted_rateplan = new AppGroupAcceptedRatePlanController($entityId, $this->organization, $this->client);
