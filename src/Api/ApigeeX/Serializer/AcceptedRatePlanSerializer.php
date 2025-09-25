@@ -18,11 +18,10 @@
 
 namespace Apigee\Edge\Api\ApigeeX\Serializer;
 
+use Apigee\Edge\Api\ApigeeX\Denormalizer\AppGroupAcceptedRatePlanDenormalizer;
 use Apigee\Edge\Api\ApigeeX\Denormalizer\DeveloperAcceptedRatePlanDenormalizer;
 use Apigee\Edge\Api\ApigeeX\Normalizer\AcceptedRatePlanNormalizer;
-use Apigee\Edge\Api\ApigeeX\Denormalizer\AppGroupAcceptedRatePlanDenormalizer;
 use Apigee\Edge\Api\ApigeeX\Normalizer\AppGroupAcceptedRatePlanNormalizer;
-use Apigee\Edge\Api\ApigeeX\Serializer\DeveloperSerializer;
 use Apigee\Edge\Api\Monetization\Serializer\EntitySerializer;
 use Apigee\Edge\Api\Monetization\Serializer\LegalEntitySerializer;
 use Apigee\Edge\Api\Monetization\Serializer\RatePlanSerializer;

@@ -19,8 +19,8 @@
 namespace Apigee\Edge\Api\ApigeeX\Serializer;
 
 use Apigee\Edge\Api\ApigeeX\Denormalizer\DeveloperDenormalizer;
-use Apigee\Edge\Api\Monetization\Serializer\EntitySerializer;
 use Apigee\Edge\Api\ApigeeX\Normalizer\DeveloperNormalizer;
+use Apigee\Edge\Api\Monetization\Serializer\EntitySerializer;
 
 class DeveloperSerializer extends EntitySerializer
 {
