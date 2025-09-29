@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright 2021 Google LLC
+ * Copyright 2025 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,8 +18,9 @@
 
 namespace Apigee\Edge\Api\ApigeeX\Entity;
 
-use Apigee\Edge\Api\ApigeeX\Entity\Property\DeveloperPropertyInterface;
+use Apigee\Edge\Api\ApigeeX\Entity\Property\AppGroupPropertyAwareTrait;
 
-interface DeveloperAcceptedRatePlanInterface extends AcceptedRatePlanInterface, DeveloperPropertyInterface
+class AppGroupRatePlan extends RatePlan implements AppGroupRatePlanInterface
 {
+    use AppGroupPropertyAwareTrait;
 }
