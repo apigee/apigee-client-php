@@ -83,4 +83,15 @@ interface ApiProductControllerInterface extends
      *   List of eligible API products.
      */
     public function getEligibleProductsByDeveloper(string $entityId): array;
+
+    /**
+     * Returns appgroup subscription.
+     *
+     * @param string $entityId
+     *   Id of a appgroup.
+     *
+     * @return \Apigee\Edge\Api\ApigeeX\Entity\ApiProductInterface[]
+     *   List of eligible API products.
+     */
+    public function getEligibleProductsByAppGroup(string $entityId): array;
 }

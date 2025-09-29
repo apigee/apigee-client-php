@@ -20,7 +20,6 @@ namespace Apigee\Edge\Api\ApigeeX\Controller;
 
 use Apigee\Edge\Api\ApigeeX\Serializer\AppGroupMembershipSerializer;
 use Apigee\Edge\Api\ApigeeX\Structure\AppGroupMembership;
-use Apigee\Edge\Api\Management\Serializer\AttributesPropertyAwareEntitySerializer;
 use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Controller\AbstractController;
 use Apigee\Edge\Controller\OrganizationAwareControllerTrait;
@@ -77,7 +76,7 @@ class AppGroupMembersController extends AbstractController implements AppGroupMe
 
         // We don't have a separate API to get appgroup attributes,
         // that is why we are calling getAppGroupAttributes() method.
-        $apigeeReservedMembers = $this->getAppGroupAttributes();
+        $apigeeReservedMembers = $this->getAppGroupAttributes() ?? new AttributesProperty();
         // Adding the new members into the attribute.
         $apigeeReservedMembers->add('__apigee_reserved__developer_details', json_encode($members));
         $response = $this->client->put(
@@ -107,18 +106,15 @@ class AppGroupMembersController extends AbstractController implements AppGroupMe
     /**
      * Helper function for getting all attributes in AppGroup.
      *
-     * @return AttributesProperty
+     * @return AttributesProperty|null
      */
-    public function getAppGroupAttributes(): AttributesProperty
+    public function getAppGroupAttributes(): ?AttributesProperty
     {
-        $appGroup = $this->responseToArray($this->client->get($this->getBaseEndpointUri()));
-        $serializer = new AttributesPropertyAwareEntitySerializer();
-        $appGroupAttributes = $serializer->denormalize(
-            $appGroup['attributes'],
-            AttributesProperty::class
-        );
+        $appGroupController = new AppGroupController($this->organization, $this->client);
+        /** @var \Apigee\Edge\Api\ApigeeX\Entity\AppGroupInterface $appGroup */
+        $appGroup = $appGroupController->load($this->appGroup);
 
-        return $appGroupAttributes;
+        return $appGroup->getAttributes();
     }
 
     /**
