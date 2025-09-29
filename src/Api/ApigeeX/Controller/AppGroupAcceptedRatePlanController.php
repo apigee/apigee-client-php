@@ -19,6 +19,7 @@
 namespace Apigee\Edge\Api\ApigeeX\Controller;
 
 use Apigee\Edge\Api\ApigeeX\Entity\AppGroupAcceptedRatePlan;
+use Apigee\Edge\Api\ApigeeX\Serializer\AppGroupAcceptedRatePlanSerializer;
 use Apigee\Edge\Api\Monetization\Normalizer\EntityNormalizer;
 use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Serializer\EntitySerializerInterface;
@@ -43,6 +44,7 @@ class AppGroupAcceptedRatePlanController extends AcceptedRatePlanController
      */
     public function __construct(string $appGroupName, string $organization, ClientInterface $client, ?EntitySerializerInterface $entitySerializer = null)
     {
+        $entitySerializer = $entitySerializer ?? new AppGroupAcceptedRatePlanSerializer();
         parent::__construct($organization, $client, $entitySerializer);
         $this->appGroupName = $appGroupName;
         $this->organization = $organization;

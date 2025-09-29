@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright 2021 Google LLC
+ * Copyright 2025 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,10 +16,15 @@
  * limitations under the License.
  */
 
-namespace Apigee\Edge\Api\ApigeeX\Entity;
+namespace Apigee\Edge\Api\ApigeeX\Entity\Property;
 
-use Apigee\Edge\Api\ApigeeX\Entity\Property\DeveloperPropertyInterface;
+use Apigee\Edge\Api\ApigeeX\Entity\DeveloperInterface;
 
-interface DeveloperAcceptedRatePlanInterface extends AcceptedRatePlanInterface, DeveloperPropertyInterface
+interface DeveloperPropertyInterface
 {
+    /**
+     * @return DeveloperInterface|null
+     *   It can be null only when a new entity is created.
+     */
+    public function getDeveloper(): ?DeveloperInterface;
 }
