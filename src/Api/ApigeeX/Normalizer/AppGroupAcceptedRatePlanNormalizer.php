@@ -29,10 +29,10 @@ class AppGroupAcceptedRatePlanNormalizer extends AcceptedRatePlanNormalizer
      * @psalm-suppress InvalidReturnType Returning an object here is required
      * for creating a valid Apigee Edge request.
      */
-    public function normalize($object, $format = null, array $context = [])
+    public function normalize($data, $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         /** @var object $normalized */
-        $normalized = parent::normalize($object, $format, $context);
+        $normalized = parent::normalize($data, $format, $context);
 
         return $normalized;
     }
@@ -40,7 +40,7 @@ class AppGroupAcceptedRatePlanNormalizer extends AcceptedRatePlanNormalizer
     /**
      * {@inheritdoc}
      */
-    public function supportsNormalization($data, $format = null)
+    public function supportsNormalization($data, $format = null, array $context = []): bool
     {
         return $data instanceof AppGroupAcceptedRatePlanInterface;
     }

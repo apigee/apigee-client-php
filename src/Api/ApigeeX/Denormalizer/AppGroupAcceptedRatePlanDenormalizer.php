@@ -33,7 +33,7 @@ class AppGroupAcceptedRatePlanDenormalizer extends AcceptedRatePlanDenormalizer
     /**
      * {@inheritdoc}
      */
-    public function denormalize($data, $type, $format = null, array $context = [])
+    public function denormalize($data, $type, $format = null, array $context = []): mixed
     {
         return parent::denormalize($data, $this->appGroupAcceptedRatePlanClass, $format, $context);
     }
@@ -41,7 +41,7 @@ class AppGroupAcceptedRatePlanDenormalizer extends AcceptedRatePlanDenormalizer
     /**
      * {@inheritdoc}
      */
-    public function supportsDenormalization($data, $type, $format = null)
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
         // Do not apply this on array objects. ArrayDenormalizer takes care of them.
         if ('[]' === substr($type, -2)) {
