@@ -136,8 +136,19 @@ class ApiProductController extends OrganizationAwareEntityController implements 
             $subscriptions = $dev_accepted_rateplan->getAllAcceptedRatePlans();
 
             foreach ($subscriptions as $subscription) {
-                if (null === $subscription->getendTime()) {
+                if (null === $subscription->getEndTime()) {
                     $subscribed_product_ids[$subscription->getapiproduct()] = $subscription->getapiproduct();
+                }
+            }
+        } elseif ('appgroups' == $type) {
+            // AppGroup subscriptions.
+            /** @var AppGroupAcceptedRatePlanController $appgroup_accepted_rateplan */
+            $appgroup_accepted_rateplan = new AppGroupAcceptedRatePlanController($entityId, $this->organization, $this->client);
+            $subscriptions = $appgroup_accepted_rateplan->getAllAcceptedRatePlans();
+
+            foreach ($subscriptions as $subscription) {
+                if (null === $subscription->getEndTime()) {
+                    $subscribed_product_ids[$subscription->getApiProduct()] = $subscription->getApiProduct();
                 }
             }
         }
@@ -157,7 +168,7 @@ class ApiProductController extends OrganizationAwareEntityController implements 
                 $products[$item->id()] = $item;
             } else {
                 foreach ($rateplan->getEntities() as $plan) {
-                    if (null !== $plan->getendTime() && $plan->getendTime() < $current_ms) {
+                    if (null !== $plan->getEndTime() && $plan->getEndTime() < $current_ms) {
                         // Free product - No active rateplan
                         $products[$item->id()] = $item;
                     }
