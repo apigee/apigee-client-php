@@ -1,7 +1,8 @@
+
 <?php
 
 /*
- * Copyright 2021 Google LLC
+ * Copyright 2025 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,10 +17,17 @@
  * limitations under the License.
  */
 
-namespace Apigee\Edge\Api\ApigeeX\Entity;
+namespace Apigee\Edge\Api\ApigeeX\Serializer;
 
-use Apigee\Edge\Api\ApigeeX\Entity\Property\DeveloperPropertyInterface;
+use Apigee\Edge\Api\ApigeeX\Denormalizer\AppGroupAcceptedRatePlanDenormalizer;
 
-interface DeveloperAcceptedRatePlanInterface extends AcceptedRatePlanInterface, DeveloperPropertyInterface
+class AppGroupAcceptedRatePlanSerializer extends AcceptedRatePlanSerializer
 {
+    public function __construct(array $normalizers = [])
+    {
+        // By creating a new serializer that only contains the denormalizer we need,
+        // we avoid the ambiguity that was causing the problem.
+        $normalizers[] = new AppGroupAcceptedRatePlanDenormalizer();
+        parent::__construct($normalizers);
+    }
 }

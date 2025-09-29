@@ -20,8 +20,8 @@ namespace Apigee\Edge\Api\ApigeeX\Serializer;
 
 use Apigee\Edge\Api\ApigeeX\Denormalizer\DeveloperAcceptedRatePlanDenormalizer;
 use Apigee\Edge\Api\ApigeeX\Normalizer\AcceptedRatePlanNormalizer;
-use Apigee\Edge\Api\Monetization\Denormalizer\CompanyAcceptedRatePlanDenormalizer;
-use Apigee\Edge\Api\Monetization\Normalizer\CompanyAcceptedRatePlanNormalizer;
+use Apigee\Edge\Api\ApigeeX\Denormalizer\AppGroupAcceptedRatePlanDenormalizer;
+use Apigee\Edge\Api\ApigeeX\Normalizer\AppGroupAcceptedRatePlanNormalizer;
 use Apigee\Edge\Api\Monetization\Serializer\EntitySerializer;
 use Apigee\Edge\Api\Monetization\Serializer\LegalEntitySerializer;
 use Apigee\Edge\Api\Monetization\Serializer\RatePlanSerializer;
@@ -37,8 +37,8 @@ class AcceptedRatePlanSerializer extends EntitySerializer
 
         return array_merge(
             [
-                new CompanyAcceptedRatePlanDenormalizer(),
-                new CompanyAcceptedRatePlanNormalizer(),
+                new AppGroupAcceptedRatePlanDenormalizer(),
+                new AppGroupAcceptedRatePlanNormalizer(),
                 new DeveloperAcceptedRatePlanDenormalizer(),
                 new AcceptedRatePlanNormalizer(),
             ],
