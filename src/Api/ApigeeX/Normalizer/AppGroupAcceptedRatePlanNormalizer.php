@@ -19,7 +19,7 @@
 namespace Apigee\Edge\Api\ApigeeX\Normalizer;
 
 use Apigee\Edge\Api\ApigeeX\Entity\AppGroupAcceptedRatePlanInterface;
-use Apigee\Edge\Api\ApigeeX\Entity\AcceptedRatePlanInterface;
+use ArrayObject;
 
 class AppGroupAcceptedRatePlanNormalizer extends AcceptedRatePlanNormalizer
 {
@@ -29,7 +29,7 @@ class AppGroupAcceptedRatePlanNormalizer extends AcceptedRatePlanNormalizer
      * @psalm-suppress InvalidReturnType Returning an object here is required
      * for creating a valid Apigee Edge request.
      */
-    public function normalize($data, $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
+    public function normalize($data, $format = null, array $context = []): array|string|int|float|bool|ArrayObject|null
     {
         /** @var object $normalized */
         $normalized = parent::normalize($data, $format, $context);
