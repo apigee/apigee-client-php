@@ -20,8 +20,10 @@ namespace Apigee\Edge\Api\ApigeeX\Entity;
 
 use Apigee\Edge\Api\ApigeeX\Entity\Property\DeveloperPropertyAwareTrait;
 use Apigee\Edge\Entity\Entity;
+use Apigee\Edge\Entity\Property\NamePropertyAwareTrait;
 
 class Developer extends Entity implements DeveloperInterface
 {
     use DeveloperPropertyAwareTrait;
+    use NamePropertyAwareTrait;
 }

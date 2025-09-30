@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright 2021 Google LLC
+ * Copyright 2025 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,15 +18,11 @@
 
 namespace Apigee\Edge\Api\ApigeeX\Serializer;
 
-use Apigee\Edge\Api\ApigeeX\Denormalizer\AppGroupAcceptedRatePlanDenormalizer;
-use Apigee\Edge\Api\ApigeeX\Denormalizer\DeveloperAcceptedRatePlanDenormalizer;
-use Apigee\Edge\Api\ApigeeX\Normalizer\AcceptedRatePlanNormalizer;
-use Apigee\Edge\Api\ApigeeX\Normalizer\AppGroupAcceptedRatePlanNormalizer;
+use Apigee\Edge\Api\ApigeeX\Denormalizer\DeveloperDenormalizer;
+use Apigee\Edge\Api\ApigeeX\Normalizer\DeveloperNormalizer;
 use Apigee\Edge\Api\Monetization\Serializer\EntitySerializer;
-use Apigee\Edge\Api\Monetization\Serializer\LegalEntitySerializer;
-use Apigee\Edge\Api\Monetization\Serializer\RatePlanSerializer;
 
-class AcceptedRatePlanSerializer extends EntitySerializer
+class DeveloperSerializer extends EntitySerializer
 {
     /**
      * {@inheritdoc}
@@ -37,14 +33,9 @@ class AcceptedRatePlanSerializer extends EntitySerializer
 
         return array_merge(
             [
-                new AppGroupAcceptedRatePlanDenormalizer(),
-                new AppGroupAcceptedRatePlanNormalizer(),
-                new DeveloperAcceptedRatePlanDenormalizer(),
-                new AcceptedRatePlanNormalizer(),
+                new DeveloperDenormalizer(),
+                new DeveloperNormalizer(),
             ],
-            LegalEntitySerializer::getEntityTypeSpecificDefaultNormalizers(),
-            DeveloperSerializer::getEntityTypeSpecificDefaultNormalizers(),
-            RatePlanSerializer::getEntityTypeSpecificDefaultNormalizers(),
             $normalizers
         );
     }
