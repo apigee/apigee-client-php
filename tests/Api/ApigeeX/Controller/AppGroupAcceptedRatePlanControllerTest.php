@@ -69,5 +69,5 @@ class AppGroupAcceptedRatePlanControllerTest extends AcceptedRatePlanControllerT
         $ratePlan = $ratePlanController->load('appgroup-rev');
 
         return $ratePlan;
-    }   
+    }
 }
