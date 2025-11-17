@@ -1,4 +1,6 @@
 # CHANGELOG
+## [4.0.2](https://github.com/apigee/apigee-client-php/milestone/36?closed=1)
+* [#447] Support to update AppGroup app credential scope object.
 
 ## [4.0.1](https://github.com/apigee/apigee-client-php/milestone/35?closed=1)
 * [#423] Support for drz endpoint.
