@@ -1,4 +1,7 @@
 # CHANGELOG
+## [3.0.10](https://github.com/apigee/apigee-client-php/milestone/37?closed=1)
+* [#422] Support to update AppGroup app credential scope object.
+
 ## [3.0.9](https://github.com/apigee/apigee-client-php/milestone/34?closed=1)
 * [#409] Changed the getter and setter to camelcase function name.
 * [#420] Support for drz endpoint.
