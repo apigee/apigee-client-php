@@ -1,0 +1,22 @@
+{
+    "wallets": [
+        {
+            "balance": {
+                "currencyCode": "AUD",
+                "units": "15",
+                "nanos": 200000000
+            },
+            "lastCreditTime": "1643317863972",
+            "id" : "AUD"
+        },
+        {
+            "balance": {
+                "currencyCode": "USD",
+                "units": "12",
+                "nanos": 345000000
+            },
+            "lastCreditTime": "1643038805286",
+            "id" : "USD"
+        }
+    ]
+}
