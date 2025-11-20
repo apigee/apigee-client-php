@@ -29,7 +29,6 @@ use Apigee\Edge\Tests\Test\Controller\EntityControllerTesterInterface;
  * @group controller
  * @group monetization
  */
-
 class AppGroupPrepaidBalanceControllerTest extends PrepaidBalanceControllerTestBase
 {
     protected static $appGroupName = 'phpunit';
@@ -43,5 +42,4 @@ class AppGroupPrepaidBalanceControllerTest extends PrepaidBalanceControllerTestB
 
         return new EntityControllerTester(new AppGroupPrepaidBalanceController(self::$appGroupName, static::defaultTestOrganization($client), $client));
     }
-
 }
