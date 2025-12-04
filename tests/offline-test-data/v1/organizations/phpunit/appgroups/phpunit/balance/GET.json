@@ -1,0 +1,12 @@
+{
+    "wallets": [
+        {
+            "balance": {
+                "currencyCode": "USD",
+                "units": "30",
+                "nanos": 200000000
+            },
+            "lastCreditTime": "1633595340380"
+        }
+    ]
+}
