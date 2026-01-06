@@ -214,4 +214,197 @@ class PropertyAccessorDecoratorTest extends PropertyAccessorTest
             ];
         }
     }
+
+    /* * COMPATIBILITY OVERRIDES (PHPUnit 9+ vs Symfony 7.4+) *
+     *
+     * Note: We use `object|array` type hint because Symfony 7.4+ enforces it.
+     * We use `$value = null` (optional) because some tests in 7.4 don't pass the 3rd argument.
+     * We use `...func_get_args()` to pass exactly the arguments received to the parent.
+     */
+
+    /**
+     * @dataProvider getValidReadPropertyPaths
+     */
+    public function testGetValue(object|array $objectOrArray, string $path, $value = null)
+    {
+        parent::testGetValue(...func_get_args());
+    }
+
+    /**
+     * @dataProvider getPathsWithMissingProperty
+     */
+    public function testGetValueThrowsExceptionIfPropertyNotFound(object|array $objectOrArray, string $path)
+    {
+        parent::testGetValueThrowsExceptionIfPropertyNotFound(...func_get_args());
+    }
+
+    /**
+     * @dataProvider getPathsWithMissingProperty
+     */
+    public function testGetValueReturnsNullIfPropertyNotFoundAndExceptionIsDisabled(object|array $objectOrArray, string $path)
+    {
+        parent::testGetValueReturnsNullIfPropertyNotFoundAndExceptionIsDisabled(...func_get_args());
+    }
+
+    /**
+     * @dataProvider getPathsWithMissingIndex
+     */
+    public function testGetValueThrowsNoExceptionIfIndexNotFound(object|array $objectOrArray, string $path)
+    {
+        parent::testGetValueThrowsNoExceptionIfIndexNotFound(...func_get_args());
+    }
+
+    /**
+     * @dataProvider getPathsWithMissingIndex
+     */
+    public function testGetValueThrowsExceptionIfIndexNotFoundAndIndexExceptionsEnabled(object|array $objectOrArray, string $path)
+    {
+        parent::testGetValueThrowsExceptionIfIndexNotFoundAndIndexExceptionsEnabled(...func_get_args());
+    }
+
+    /**
+     * @dataProvider getValidWritePropertyPaths
+     */
+    public function testSetValue(object|array $objectOrArray, string $path, $value = null)
+    {
+        parent::testSetValue(...func_get_args());
+    }
+
+    /**
+     * @dataProvider getPathsWithMissingProperty
+     */
+    public function testSetValueThrowsExceptionIfPropertyNotFound(object|array $objectOrArray, string $path)
+    {
+        parent::testSetValueThrowsExceptionIfPropertyNotFound(...func_get_args());
+    }
+
+    /**
+     * @dataProvider getPathsWithMissingIndex
+     */
+    public function testSetValueThrowsNoExceptionIfIndexNotFound(object|array $objectOrArray, string $path)
+    {
+        parent::testSetValueThrowsNoExceptionIfIndexNotFound(...func_get_args());
+    }
+
+    /**
+     * @dataProvider getPathsWithMissingIndex
+     */
+    public function testSetValueThrowsNoExceptionIfIndexNotFoundAndIndexExceptionsEnabled(object|array $objectOrArray, string $path)
+    {
+        parent::testSetValueThrowsNoExceptionIfIndexNotFoundAndIndexExceptionsEnabled(...func_get_args());
+    }
+
+    /**
+     * @dataProvider getValidReadPropertyPaths
+     */
+    public function testIsReadable(object|array $objectOrArray, string $path, $value = null)
+    {
+        parent::testIsReadable(...func_get_args());
+    }
+
+    /**
+     * @dataProvider getPathsWithMissingProperty
+     */
+    public function testIsReadableReturnsFalseIfPropertyNotFound(object|array $objectOrArray, string $path)
+    {
+        parent::testIsReadableReturnsFalseIfPropertyNotFound(...func_get_args());
+    }
+
+    /**
+     * @dataProvider getPathsWithMissingIndex
+     */
+    public function testIsReadableReturnsTrueIfIndexNotFound(object|array $objectOrArray, string $path)
+    {
+        parent::testIsReadableReturnsTrueIfIndexNotFound(...func_get_args());
+    }
+
+    /**
+     * @dataProvider getPathsWithMissingIndex
+     */
+    public function testIsReadableReturnsFalseIfIndexNotFoundAndIndexExceptionsEnabled(object|array $objectOrArray, string $path)
+    {
+        parent::testIsReadableReturnsFalseIfIndexNotFoundAndIndexExceptionsEnabled(...func_get_args());
+    }
+
+    /**
+     * @dataProvider getValidWritePropertyPaths
+     */
+    public function testIsWritable(object|array $objectOrArray, string $path, $value = null)
+    {
+        parent::testIsWritable(...func_get_args());
+    }
+
+    /**
+     * @dataProvider getPathsWithMissingProperty
+     */
+    public function testIsWritableReturnsFalseIfPropertyNotFound(object|array $objectOrArray, string $path)
+    {
+        parent::testIsWritableReturnsFalseIfPropertyNotFound(...func_get_args());
+    }
+
+    /**
+     * @dataProvider getPathsWithMissingIndex
+     */
+    public function testIsWritableReturnsTrueIfIndexNotFound(object|array $objectOrArray, string $path)
+    {
+        parent::testIsWritableReturnsTrueIfIndexNotFound(...func_get_args());
+    }
+
+    /**
+     * @dataProvider getPathsWithMissingIndex
+     */
+    public function testIsWritableReturnsTrueIfIndexNotFoundAndIndexExceptionsEnabled(object|array $objectOrArray, string $path)
+    {
+        parent::testIsWritableReturnsTrueIfIndexNotFoundAndIndexExceptionsEnabled(...func_get_args());
+    }
+
+    /**
+     * @dataProvider getNullSafeIndexPaths
+     */
+    public function testNullSafeIndexWithThrowOnInvalidIndex(object|array $objectOrArray, string $path, $value = null)
+    {
+        parent::testNullSafeIndexWithThrowOnInvalidIndex(...func_get_args());
+    }
+
+    /**
+     * @dataProvider getReferenceChainObjectsForSetValue
+     */
+    public function testSetValueForReferenceChainIssue($object, $path, $value)
+    {
+        parent::testSetValueForReferenceChainIssue($object, $path, $value);
+    }
+
+    /**
+     * @dataProvider getReferenceChainObjectsForIsWritable
+     */
+    public function testIsWritableForReferenceChainIssue($object, $path, $value)
+    {
+        parent::testIsWritableForReferenceChainIssue($object, $path, $value);
+    }
+
+    /* * PHP 8.4 SKIPS * */
+
+    public function testIsWritableWithAsymmetricVisibility()
+    {
+        if (PHP_VERSION_ID < 80400) {
+            $this->markTestSkipped('Requires PHP 8.4');
+        }
+        parent::testIsWritableWithAsymmetricVisibility();
+    }
+
+    public function testIsReadableWithAsymmetricVisibility()
+    {
+        if (PHP_VERSION_ID < 80400) {
+            $this->markTestSkipped('Requires PHP 8.4');
+        }
+        parent::testIsReadableWithAsymmetricVisibility();
+    }
+
+    public function testSetValueWithAsymmetricVisibility(string $propertyPath = '', ?string $expectedException = null)
+    {
+        if (PHP_VERSION_ID < 80400) {
+            $this->markTestSkipped('Requires PHP 8.4');
+        }
+        parent::testSetValueWithAsymmetricVisibility($propertyPath, $expectedException);
+    }
 }
