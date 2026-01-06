@@ -225,7 +225,7 @@ class PropertyAccessorDecoratorTest extends PropertyAccessorTest
     /**
      * @dataProvider getValidReadPropertyPaths
      */
-    public function testGetValue(object|array $objectOrArray, string $path, $value = null)
+    public function testGetValue(object|array $objectOrArray, string $path, $value = null): void
     {
         parent::testGetValue(...func_get_args());
     }
@@ -233,7 +233,7 @@ class PropertyAccessorDecoratorTest extends PropertyAccessorTest
     /**
      * @dataProvider getPathsWithMissingProperty
      */
-    public function testGetValueThrowsExceptionIfPropertyNotFound(object|array $objectOrArray, string $path)
+    public function testGetValueThrowsExceptionIfPropertyNotFound(object|array $objectOrArray, string $path): void
     {
         parent::testGetValueThrowsExceptionIfPropertyNotFound(...func_get_args());
     }
@@ -241,7 +241,7 @@ class PropertyAccessorDecoratorTest extends PropertyAccessorTest
     /**
      * @dataProvider getPathsWithMissingProperty
      */
-    public function testGetValueReturnsNullIfPropertyNotFoundAndExceptionIsDisabled(object|array $objectOrArray, string $path)
+    public function testGetValueReturnsNullIfPropertyNotFoundAndExceptionIsDisabled(object|array $objectOrArray, string $path): void
     {
         parent::testGetValueReturnsNullIfPropertyNotFoundAndExceptionIsDisabled(...func_get_args());
     }
@@ -249,7 +249,7 @@ class PropertyAccessorDecoratorTest extends PropertyAccessorTest
     /**
      * @dataProvider getPathsWithMissingIndex
      */
-    public function testGetValueThrowsNoExceptionIfIndexNotFound(object|array $objectOrArray, string $path)
+    public function testGetValueThrowsNoExceptionIfIndexNotFound(object|array $objectOrArray, string $path): void
     {
         parent::testGetValueThrowsNoExceptionIfIndexNotFound(...func_get_args());
     }
@@ -257,7 +257,7 @@ class PropertyAccessorDecoratorTest extends PropertyAccessorTest
     /**
      * @dataProvider getPathsWithMissingIndex
      */
-    public function testGetValueThrowsExceptionIfIndexNotFoundAndIndexExceptionsEnabled(object|array $objectOrArray, string $path)
+    public function testGetValueThrowsExceptionIfIndexNotFoundAndIndexExceptionsEnabled(object|array $objectOrArray, string $path): void
     {
         parent::testGetValueThrowsExceptionIfIndexNotFoundAndIndexExceptionsEnabled(...func_get_args());
     }
@@ -265,7 +265,7 @@ class PropertyAccessorDecoratorTest extends PropertyAccessorTest
     /**
      * @dataProvider getValidWritePropertyPaths
      */
-    public function testSetValue(object|array $objectOrArray, string $path, $value = null)
+    public function testSetValue(object|array $objectOrArray, string $path, $value = null): void
     {
         parent::testSetValue(...func_get_args());
     }
@@ -273,7 +273,7 @@ class PropertyAccessorDecoratorTest extends PropertyAccessorTest
     /**
      * @dataProvider getPathsWithMissingProperty
      */
-    public function testSetValueThrowsExceptionIfPropertyNotFound(object|array $objectOrArray, string $path)
+    public function testSetValueThrowsExceptionIfPropertyNotFound(object|array $objectOrArray, string $path): void
     {
         parent::testSetValueThrowsExceptionIfPropertyNotFound(...func_get_args());
     }
@@ -281,7 +281,7 @@ class PropertyAccessorDecoratorTest extends PropertyAccessorTest
     /**
      * @dataProvider getPathsWithMissingIndex
      */
-    public function testSetValueThrowsNoExceptionIfIndexNotFound(object|array $objectOrArray, string $path)
+    public function testSetValueThrowsNoExceptionIfIndexNotFound(object|array $objectOrArray, string $path): void
     {
         parent::testSetValueThrowsNoExceptionIfIndexNotFound(...func_get_args());
     }
@@ -289,7 +289,7 @@ class PropertyAccessorDecoratorTest extends PropertyAccessorTest
     /**
      * @dataProvider getPathsWithMissingIndex
      */
-    public function testSetValueThrowsNoExceptionIfIndexNotFoundAndIndexExceptionsEnabled(object|array $objectOrArray, string $path)
+    public function testSetValueThrowsNoExceptionIfIndexNotFoundAndIndexExceptionsEnabled(object|array $objectOrArray, string $path): void
     {
         parent::testSetValueThrowsNoExceptionIfIndexNotFoundAndIndexExceptionsEnabled(...func_get_args());
     }
@@ -297,7 +297,7 @@ class PropertyAccessorDecoratorTest extends PropertyAccessorTest
     /**
      * @dataProvider getValidReadPropertyPaths
      */
-    public function testIsReadable(object|array $objectOrArray, string $path, $value = null)
+    public function testIsReadable(object|array $objectOrArray, string $path, $value = null): void
     {
         parent::testIsReadable(...func_get_args());
     }
@@ -305,7 +305,7 @@ class PropertyAccessorDecoratorTest extends PropertyAccessorTest
     /**
      * @dataProvider getPathsWithMissingProperty
      */
-    public function testIsReadableReturnsFalseIfPropertyNotFound(object|array $objectOrArray, string $path)
+    public function testIsReadableReturnsFalseIfPropertyNotFound(object|array $objectOrArray, string $path): void
     {
         parent::testIsReadableReturnsFalseIfPropertyNotFound(...func_get_args());
     }
@@ -313,7 +313,7 @@ class PropertyAccessorDecoratorTest extends PropertyAccessorTest
     /**
      * @dataProvider getPathsWithMissingIndex
      */
-    public function testIsReadableReturnsTrueIfIndexNotFound(object|array $objectOrArray, string $path)
+    public function testIsReadableReturnsTrueIfIndexNotFound(object|array $objectOrArray, string $path): void
     {
         parent::testIsReadableReturnsTrueIfIndexNotFound(...func_get_args());
     }
@@ -321,7 +321,7 @@ class PropertyAccessorDecoratorTest extends PropertyAccessorTest
     /**
      * @dataProvider getPathsWithMissingIndex
      */
-    public function testIsReadableReturnsFalseIfIndexNotFoundAndIndexExceptionsEnabled(object|array $objectOrArray, string $path)
+    public function testIsReadableReturnsFalseIfIndexNotFoundAndIndexExceptionsEnabled(object|array $objectOrArray, string $path): void
     {
         parent::testIsReadableReturnsFalseIfIndexNotFoundAndIndexExceptionsEnabled(...func_get_args());
     }
@@ -329,7 +329,7 @@ class PropertyAccessorDecoratorTest extends PropertyAccessorTest
     /**
      * @dataProvider getValidWritePropertyPaths
      */
-    public function testIsWritable(object|array $objectOrArray, string $path, $value = null)
+    public function testIsWritable(object|array $objectOrArray, string $path, $value = null): void
     {
         parent::testIsWritable(...func_get_args());
     }
@@ -337,7 +337,7 @@ class PropertyAccessorDecoratorTest extends PropertyAccessorTest
     /**
      * @dataProvider getPathsWithMissingProperty
      */
-    public function testIsWritableReturnsFalseIfPropertyNotFound(object|array $objectOrArray, string $path)
+    public function testIsWritableReturnsFalseIfPropertyNotFound(object|array $objectOrArray, string $path): void
     {
         parent::testIsWritableReturnsFalseIfPropertyNotFound(...func_get_args());
     }
@@ -345,7 +345,7 @@ class PropertyAccessorDecoratorTest extends PropertyAccessorTest
     /**
      * @dataProvider getPathsWithMissingIndex
      */
-    public function testIsWritableReturnsTrueIfIndexNotFound(object|array $objectOrArray, string $path)
+    public function testIsWritableReturnsTrueIfIndexNotFound(object|array $objectOrArray, string $path): void
     {
         parent::testIsWritableReturnsTrueIfIndexNotFound(...func_get_args());
     }
@@ -353,7 +353,7 @@ class PropertyAccessorDecoratorTest extends PropertyAccessorTest
     /**
      * @dataProvider getPathsWithMissingIndex
      */
-    public function testIsWritableReturnsTrueIfIndexNotFoundAndIndexExceptionsEnabled(object|array $objectOrArray, string $path)
+    public function testIsWritableReturnsTrueIfIndexNotFoundAndIndexExceptionsEnabled(object|array $objectOrArray, string $path): void
     {
         parent::testIsWritableReturnsTrueIfIndexNotFoundAndIndexExceptionsEnabled(...func_get_args());
     }
@@ -361,7 +361,7 @@ class PropertyAccessorDecoratorTest extends PropertyAccessorTest
     /**
      * @dataProvider getNullSafeIndexPaths
      */
-    public function testNullSafeIndexWithThrowOnInvalidIndex(object|array $objectOrArray, string $path, $value = null)
+    public function testNullSafeIndexWithThrowOnInvalidIndex(object|array $objectOrArray, string $path, $value = null): void
     {
         parent::testNullSafeIndexWithThrowOnInvalidIndex(...func_get_args());
     }
@@ -369,7 +369,7 @@ class PropertyAccessorDecoratorTest extends PropertyAccessorTest
     /**
      * @dataProvider getReferenceChainObjectsForSetValue
      */
-    public function testSetValueForReferenceChainIssue($object, $path, $value)
+    public function testSetValueForReferenceChainIssue($object, $path, $value): void
     {
         parent::testSetValueForReferenceChainIssue($object, $path, $value);
     }
@@ -377,14 +377,14 @@ class PropertyAccessorDecoratorTest extends PropertyAccessorTest
     /**
      * @dataProvider getReferenceChainObjectsForIsWritable
      */
-    public function testIsWritableForReferenceChainIssue($object, $path, $value)
+    public function testIsWritableForReferenceChainIssue($object, $path, $value): void
     {
         parent::testIsWritableForReferenceChainIssue($object, $path, $value);
     }
 
     /* * PHP 8.4 SKIPS * */
 
-    public function testIsWritableWithAsymmetricVisibility()
+    public function testIsWritableWithAsymmetricVisibility(): void
     {
         if (PHP_VERSION_ID < 80400) {
             $this->markTestSkipped('Requires PHP 8.4');
@@ -392,7 +392,7 @@ class PropertyAccessorDecoratorTest extends PropertyAccessorTest
         parent::testIsWritableWithAsymmetricVisibility();
     }
 
-    public function testIsReadableWithAsymmetricVisibility()
+    public function testIsReadableWithAsymmetricVisibility(): void
     {
         if (PHP_VERSION_ID < 80400) {
             $this->markTestSkipped('Requires PHP 8.4');
@@ -400,7 +400,7 @@ class PropertyAccessorDecoratorTest extends PropertyAccessorTest
         parent::testIsReadableWithAsymmetricVisibility();
     }
 
-    public function testSetValueWithAsymmetricVisibility(string $propertyPath = '', ?string $expectedException = null)
+    public function testSetValueWithAsymmetricVisibility(string $propertyPath = '', ?string $expectedException = null): void
     {
         if (PHP_VERSION_ID < 80400) {
             $this->markTestSkipped('Requires PHP 8.4');
