@@ -129,6 +129,18 @@ class PropertyAccessorDecoratorTest extends PropertyAccessorTest
     }
 
     /**
+     * Overrides the parent test method.
+     * Uses the DataProvider from the parent class.
+     *
+     * @dataProvider Symfony\Component\PropertyAccess\Tests\PropertyAccessorTest::voidAccessorProvider
+     */
+    public function testIgnoreVoidAccessor(string $property, mixed $value): void
+    {
+        // This assumes the test logic is also valid for your decorator.
+        parent::testIgnoreVoidAccessor($property, $value);
+    }
+
+    /**
      * @dataProvider exceptionsToGetOnGetValue
      */
     public function testGetValueWithInvalidReturns(string $property, string $expectedException, ?string $expectedExceptionMessageRegexp = null): void
