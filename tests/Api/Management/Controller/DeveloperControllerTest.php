@@ -37,6 +37,7 @@ use Apigee\Edge\Tests\Test\Controller\MockClientAwareTrait;
 use Apigee\Edge\Tests\Test\TestClientFactory;
 use Apigee\Edge\Tests\Test\Utility\MarkOnlineTestSkippedAwareTrait;
 use GuzzleHttp\Psr7\Response;
+use Composer\InstalledVersions;
 
 /**
  * Class DeveloperControllerTest.
@@ -61,7 +62,7 @@ class DeveloperControllerTest extends EntityControllerTestBase
     use PaginatedEntityIdListingControllerTestTrait;
     use PaginatedEntityListingControllerTestTrait;
     use AttributesAwareEntityControllerTestTrait;
-
+    
     /**
      * @group online
      */
@@ -179,5 +180,58 @@ class DeveloperControllerTest extends EntityControllerTestBase
     protected static function entityCreateOperationTestController(): EntityCreateOperationTestControllerTesterInterface
     {
         return new EntityCreateOperationControllerTester(static::entityController());
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function alterArraysBeforeCompareSentAndReceivedPayloadsInCreate(array &$sentEntityAsArray, array $responseEntityAsArray): void
+    {
+        // Get the version string (e.g., "6.4.12")
+        $version = InstalledVersions::getVersion('symfony/serializer');
+        if (version_compare($version, '7.3.11', '>=')) {
+            // The originalEmail property is not returned by the API on creation.
+            unset($sentEntityAsArray['originalEmail']);
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function alterObjectsBeforeCompareResponseAndCreatedEntity(\stdClass &$responseObject, \Apigee\Edge\Entity\EntityInterface $created): void
+    {
+        $version = InstalledVersions::getVersion('symfony/serializer');
+        if (version_compare($version, '7.3.11', '>=')) {
+            // The originalEmail property is not returned by the API on creation.
+            if ($created instanceof \Apigee\Edge\Api\Management\Entity\Developer) {
+                $responseObject->originalEmail = $created->originalEmail();
+            }
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function alterArraysBeforeCompareSentAndReceivedPayloadsInUpdate(array &$sentEntityAsArray, array $responseEntityAsArray): void
+    {
+        $version = InstalledVersions::getVersion('symfony/serializer');
+        if (version_compare($version, '7.3.11', '>=')) {
+            // The originalEmail property is not returned by the API on update.
+            unset($sentEntityAsArray['originalEmail']);
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function alterObjectsBeforeCompareResponseAndUpdateEntity(\stdClass &$responseObject, \Apigee\Edge\Entity\EntityInterface $updated): void
+    {
+        $version = InstalledVersions::getVersion('symfony/serializer');
+        if (version_compare($version, '7.3.11', '>=')) {
+            // The originalEmail property is not returned by the API on update.
+            if ($updated instanceof \Apigee\Edge\Api\Management\Entity\Developer) {
+                $responseObject->originalEmail = $updated->originalEmail();
+            }
+        }
     }
 }
