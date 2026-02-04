@@ -205,12 +205,12 @@ class PropertyAccessorDecoratorTest extends PropertyAccessorTest
                 $shouldBeAString,
                 ['shouldBeAString', UnexpectedValueException::class, '/Invalid value returned for shouldBeAString property on instance of class@anonymous.* class. Expected type "string", got "stdClass".$/'],
             ];
-        } else {
-            return [
-                $shouldBeAString,
-                ['shouldBeAString', TypeError::class, '/Return value must be of type string, stdClass returned/'],
-            ];
         }
+
+        return [
+            $shouldBeAString,
+            ['shouldBeAString', TypeError::class, '/Return value must be of type string, stdClass returned/'],
+        ];
     }
 
     public function exceptionsToGetOnSetValue(): array
@@ -220,11 +220,11 @@ class PropertyAccessorDecoratorTest extends PropertyAccessorTest
             return [
                 ['shouldBeAStringArray', [null], InvalidArgumentException::class, '/^Expected argument of type "string", "null" given/'],
             ];
-        } else {
-            return [
-                ['shouldBeAStringArray', [null], TypeError::class, '/Argument #1 must be of type string, null given/'],
-            ];
         }
+
+        return [
+            ['shouldBeAStringArray', [null], TypeError::class, '/Argument #1 must be of type string, null given/'],
+        ];
     }
 
     /* * COMPATIBILITY OVERRIDES (PHPUnit 9+ vs Symfony 7.4+) *
