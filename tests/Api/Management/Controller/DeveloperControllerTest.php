@@ -7,7 +7,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *      https://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -36,8 +36,9 @@ use Apigee\Edge\Tests\Test\Controller\EntityUpdateOperationControllerTestTrait;
 use Apigee\Edge\Tests\Test\Controller\MockClientAwareTrait;
 use Apigee\Edge\Tests\Test\TestClientFactory;
 use Apigee\Edge\Tests\Test\Utility\MarkOnlineTestSkippedAwareTrait;
-use GuzzleHttp\Psr7\Response;
 use Composer\InstalledVersions;
+use GuzzleHttp\Psr7\Response;
+use stdClass;
 
 /**
  * Class DeveloperControllerTest.
@@ -62,7 +63,7 @@ class DeveloperControllerTest extends EntityControllerTestBase
     use PaginatedEntityIdListingControllerTestTrait;
     use PaginatedEntityListingControllerTestTrait;
     use AttributesAwareEntityControllerTestTrait;
-    
+
     /**
      * @group online
      */
@@ -198,12 +199,12 @@ class DeveloperControllerTest extends EntityControllerTestBase
     /**
      * {@inheritdoc}
      */
-    protected function alterObjectsBeforeCompareResponseAndCreatedEntity(\stdClass &$responseObject, \Apigee\Edge\Entity\EntityInterface $created): void
+    protected function alterObjectsBeforeCompareResponseAndCreatedEntity(stdClass &$responseObject, EntityInterface $created): void
     {
         $version = InstalledVersions::getVersion('symfony/serializer');
         if (version_compare($version, '7.3.11', '>=')) {
             // The originalEmail property is not returned by the API on creation.
-            if ($created instanceof \Apigee\Edge\Api\Management\Entity\Developer) {
+            if ($created instanceof Developer) {
                 $responseObject->originalEmail = $created->originalEmail();
             }
         }
@@ -224,12 +225,12 @@ class DeveloperControllerTest extends EntityControllerTestBase
     /**
      * {@inheritdoc}
      */
-    protected function alterObjectsBeforeCompareResponseAndUpdateEntity(\stdClass &$responseObject, \Apigee\Edge\Entity\EntityInterface $updated): void
+    protected function alterObjectsBeforeCompareResponseAndUpdateEntity(stdClass &$responseObject, EntityInterface $updated): void
     {
         $version = InstalledVersions::getVersion('symfony/serializer');
         if (version_compare($version, '7.3.11', '>=')) {
             // The originalEmail property is not returned by the API on update.
-            if ($updated instanceof \Apigee\Edge\Api\Management\Entity\Developer) {
+            if ($updated instanceof Developer) {
                 $responseObject->originalEmail = $updated->originalEmail();
             }
         }

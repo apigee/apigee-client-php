@@ -111,29 +111,9 @@ class DeveloperController extends PaginatedEntityController implements Developer
         $uri = $this->getEntityEndpointUri($developer_entity->originalEmail());
         $response = $this->getClient()->put(
             $uri,
-            $this->getEntitySerializer()->serialize($developer_entity, 'json', ['ignored_attributes' => ['originalEmail']])
+            $this->getEntitySerializer()->serialize($developer_entity, 'json')
         );
         $this->getEntitySerializer()->setPropertiesFromResponse($response, $developer_entity);
-    }
-
-
-    /**
-     * Ensure 'originalEmail' is not included when creating developers.
-     *
-     * {@inheritdoc}
-     */
-    protected function buildEntityCreatePayload(EntityInterface $entity, array $context = []): string
-    {
-        if ($entity instanceof Developer) {
-            $ignored = $context['ignored_attributes'] ?? [];
-            $ignored[] = 'originalEmail';
-            $context['ignored_attributes'] = array_values(array_unique($ignored));
-        }
-
-        // The original implementation (from trait) simply delegates to the
-        // entity serializer. Mirror that behavior here while applying our
-        // adjusted context.
-        return $this->getEntitySerializer()->serialize($entity, 'json', $context);
     }
 
     /**
