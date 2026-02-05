@@ -60,6 +60,7 @@ final class PropertyAccessorDecorator implements PropertyAccessorInterface
             // Auto-retry, try to pass the value as variable-length arguments to
             // the setter method.
             if (is_object($objectOrArray) && is_array($value)) {
+                /** @var object $objectOrArray */
                 $setter = null;
                 // Support setPropertyName() and propertyName() setters.
                 foreach (['set' . ucfirst((string) $propertyPath), (string) $propertyPath] as $methodName) {
