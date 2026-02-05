@@ -7,7 +7,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *      https://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -36,7 +36,9 @@ use Apigee\Edge\Tests\Test\Controller\EntityUpdateOperationControllerTestTrait;
 use Apigee\Edge\Tests\Test\Controller\MockClientAwareTrait;
 use Apigee\Edge\Tests\Test\TestClientFactory;
 use Apigee\Edge\Tests\Test\Utility\MarkOnlineTestSkippedAwareTrait;
+use Composer\InstalledVersions;
 use GuzzleHttp\Psr7\Response;
+use stdClass;
 
 /**
  * Class DeveloperControllerTest.
@@ -179,5 +181,58 @@ class DeveloperControllerTest extends EntityControllerTestBase
     protected static function entityCreateOperationTestController(): EntityCreateOperationTestControllerTesterInterface
     {
         return new EntityCreateOperationControllerTester(static::entityController());
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function alterArraysBeforeCompareSentAndReceivedPayloadsInCreate(array &$sentEntityAsArray, array $responseEntityAsArray): void
+    {
+        // Get the version string (e.g., "6.4.12")
+        $version = InstalledVersions::getVersion('symfony/serializer');
+        if (version_compare($version, '6.4.33', '>=')) {
+            // The originalEmail property is not returned by the API on creation.
+            unset($sentEntityAsArray['originalEmail']);
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function alterObjectsBeforeCompareResponseAndCreatedEntity(stdClass &$responseObject, EntityInterface $created): void
+    {
+        $version = InstalledVersions::getVersion('symfony/serializer');
+        if (version_compare($version, '6.4.33', '>=')) {
+            // The originalEmail property is not returned by the API on creation.
+            if ($created instanceof Developer) {
+                $responseObject->originalEmail = $created->originalEmail();
+            }
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function alterArraysBeforeCompareSentAndReceivedPayloadsInUpdate(array &$sentEntityAsArray, array $responseEntityAsArray): void
+    {
+        $version = InstalledVersions::getVersion('symfony/serializer');
+        if (version_compare($version, '6.4.33', '>=')) {
+            // The originalEmail property is not returned by the API on update.
+            unset($sentEntityAsArray['originalEmail']);
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function alterObjectsBeforeCompareResponseAndUpdateEntity(stdClass &$responseObject, EntityInterface $updated): void
+    {
+        $version = InstalledVersions::getVersion('symfony/serializer');
+        if (version_compare($version, '6.4.33', '>=')) {
+            // The originalEmail property is not returned by the API on update.
+            if ($updated instanceof Developer) {
+                $responseObject->originalEmail = $updated->originalEmail();
+            }
+        }
     }
 }
