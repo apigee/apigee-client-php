@@ -2,6 +2,7 @@
 ## [4.0.3](https://github.com/apigee/apigee-client-php/milestone/39?closed=1)
 * [#457] Upgrade Symfony dependencies to v7.3.
 * [#455] support new firebase/php-jwt ^7.0 version.
+* [#461] Override testIgnoreVoidAccessor method.
 * [#462] Resolved Developer test failure and Upgrade Symfony components to 7.4.
 
 ## [4.0.2](https://github.com/apigee/apigee-client-php/milestone/36?closed=1)
