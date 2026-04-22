@@ -50,7 +50,7 @@
         "symfony/cache": "^7.4.8",
         "symfony/type-info": "^7.4.8",
         "symfony/var-exporter": "^7.4.8",
-        "vimeo/psalm": "^6.0",
+        "vimeo/psalm": "^5.20 || ^6.0",
         "amphp/amp": "^3.1.1",
         "amphp/byte-stream": "^2.1.2",
         "amphp/cache": "^2.0.1",
