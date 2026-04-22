@@ -36,7 +36,7 @@
     },
     "require-dev": {
         "dms/phpunit-arraysubset-asserts": "^0.4.0",
-        "friendsofphp/php-cs-fixer": "^3.68",
+        "friendsofphp/php-cs-fixer": "^3.80",
         "fzaninotto/faker": "^1.7",
         "guzzlehttp/psr7": "^2.5",
         "league/flysystem": "^1.0",
@@ -50,7 +50,7 @@
         "symfony/cache": "^7.4.8",
         "symfony/type-info": "^7.4.8",
         "symfony/var-exporter": "^7.4.8",
-        "vimeo/psalm": "^5.20 || ^6.0",
+        "vimeo/psalm": "^6.14.0",
         "amphp/amp": "^3.1.1",
         "amphp/byte-stream": "^2.1.2",
         "amphp/cache": "^2.0.1",
@@ -66,7 +66,8 @@
         "amphp/process": "^2.0.3",
         "amphp/serialization": "^1.1.0",
         "amphp/sync": "^2.0",
-        "revolt/event-loop": "^1.1.0"
+        "revolt/event-loop": "^1.1.0",
+        "symfony/filesystem": "^7.4.8"
     },
     "autoload": {
         "psr-4": {
