@@ -127,7 +127,6 @@ class EntityNormalizer extends ObjectNormalizer
         $entityReferenceProperties = [];
         $ro = new ReflectionObject($object);
         foreach ($ro->getProperties() as $property) {
-            $property->setAccessible(true);
             $value = $property->getValue($object);
             if (is_object($value) && $value instanceof NestedObjectReferenceInterface) {
                 if ($this->nameConverter) {

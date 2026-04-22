@@ -31,6 +31,10 @@ use Symfony\Component\PropertyAccess\PropertyAccessor;
 use Symfony\Component\PropertyAccess\Tests\PropertyAccessorTest;
 use TypeError;
 
+if (!class_exists(PropertyAccessorTest::class)) {
+    return;
+}
+
 class PropertyAccessorDecoratorTest extends PropertyAccessorTest
 {
     use PhpUnitBcBridgeTrait;
@@ -124,7 +128,6 @@ class PropertyAccessorDecoratorTest extends PropertyAccessorTest
         // class.
         $ro = new ReflectionClass(PropertyAccessorTest::class);
         $property = $ro->getProperty('propertyAccessor');
-        $property->setAccessible(true);
         $property->setValue($this, $this->propertyAccessor);
     }
 
@@ -412,11 +415,14 @@ class PropertyAccessorDecoratorTest extends PropertyAccessorTest
         parent::testIsReadableWithAsymmetricVisibility();
     }
 
-    public function testSetValueWithAsymmetricVisibility(string $propertyPath = '', ?string $expectedException = null): void
+    /**
+     * @dataProvider Symfony\Component\PropertyAccess\Tests\PropertyAccessorTest::setValueWithAsymmetricVisibilityDataProvider
+     */
+    public function testSetValueWithAsymmetricVisibility(string $propertyPath, ?string $expectedException): void
     {
         if (PHP_VERSION_ID < 80400) {
             $this->markTestSkipped('Requires PHP 8.4');
         }
-        parent::testSetValueWithAsymmetricVisibility($propertyPath, $expectedException);
+        parent::testSetValueWithAsymmetricVisibility(...func_get_args());
     }
 }

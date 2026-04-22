@@ -174,9 +174,7 @@ class EntitySerializerTest extends TestCase
         /** @var ReflectionProperty $originalProperty */
         /** @var ReflectionProperty $entityProperty */
         $originalProperty = $roOriginal->getProperty('propertyWithoutGetter');
-        $originalProperty->setAccessible(true);
         $entityProperty = $roEntity->getProperty('propertyWithoutGetter');
-        $entityProperty->setAccessible(true);
         $this->assertEquals($originalProperty->getValue($original), $entityProperty->getValue($entity));
 
         // Ensure that value of a property that uses variable-length

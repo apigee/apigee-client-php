@@ -44,6 +44,6 @@ abstract class BillingTypeDenormalizer extends ObjectDenormalizer
             return false;
         }
 
-        return BillingTypeInterface::class === $type || $type instanceof BillingTypeInterface || in_array(BillingTypeInterface::class, class_implements($type));
+        return BillingTypeInterface::class === $type || $type instanceof BillingTypeInterface || in_array(BillingTypeInterface::class, class_implements($type) ?: []);
     }
 }

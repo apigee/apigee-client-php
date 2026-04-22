@@ -29,7 +29,7 @@ use Psr\Http\Message\ResponseInterface;
 /**
  * Automatically re-authenticate if a request fails because of an expired access- or refresh token.
  */
-class RetryOauthAuthenticationPlugin implements Plugin
+final class RetryOauthAuthenticationPlugin implements Plugin
 {
     /**
      * @var AbstractOauth

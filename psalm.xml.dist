@@ -7,7 +7,7 @@
     allowStringToStandInForClass="true"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns="https://getpsalm.org/schema/config"
-    xsi:schemaLocation="https://getpsalm.org/schema/config file:///var/www/html/vendor/vimeo/psalm/config.xsd"
+    xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
 >
     <projectFiles>
         <directory name="src" />
@@ -54,6 +54,17 @@
         <DeprecatedInterface errorLevel="info" />
 
         <RiskyTruthyFalsyComparison errorLevel="info" />
+
+        <MissingOverrideAttribute errorLevel="info" />
+        <PossiblyUnusedMethod errorLevel="info" />
+        <PossiblyUnusedReturnValue errorLevel="info" />
+        <PossiblyUnusedParam errorLevel="info" />
+        <UnusedProperty errorLevel="info" />
+        <UnusedClass errorLevel="info" />
+        <UnusedVariable errorLevel="info" />
+        <UnusedDocblockParam errorLevel="info" />
+        <UnnecessaryVarAnnotation errorLevel="info" />
+        <PossiblyUnusedProperty errorLevel="info" />
         
     </issueHandlers>
 </psalm>

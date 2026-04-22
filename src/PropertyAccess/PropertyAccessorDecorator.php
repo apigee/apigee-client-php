@@ -155,7 +155,6 @@ final class PropertyAccessorDecorator implements PropertyAccessorInterface
         if (false !== $pos) {
             $ro = new ReflectionObject($object);
             $rp = $ro->getProperty($property);
-            $rp->setAccessible(true);
             $pos += strlen($delim);
             $actualValue = $rp->getValue($object);
             $expectedType = substr($error->getMessage(), $pos, (int) strpos($error->getMessage(), ',', $pos) - $pos);

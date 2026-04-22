@@ -29,6 +29,8 @@ use Http\Message\Authentication\BasicAuth;
  * Oauth authentication plugin for authenticating to Apigee Edge with Oauth (SAML).
  *
  * @see https://apidocs.apigee.com/api-reference/content/using-oauth2-security-apigee-edge-management-api
+ *
+ * @psalm-suppress ClassMustBeFinal
  */
 class Oauth extends AbstractOauth
 {

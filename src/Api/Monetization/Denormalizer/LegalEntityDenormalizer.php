@@ -83,6 +83,6 @@ class LegalEntityDenormalizer extends ObjectDenormalizer
             return false;
         }
 
-        return LegalEntityInterface::class === $type || $type instanceof LegalEntityInterface || in_array(LegalEntityInterface::class, class_implements($type));
+        return LegalEntityInterface::class === $type || $type instanceof LegalEntityInterface || in_array(LegalEntityInterface::class, class_implements($type) ?: []);
     }
 }

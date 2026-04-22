@@ -21,7 +21,7 @@ namespace Apigee\Edge\Normalizer;
 use DateTimeInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-class EdgeDateNormalizer implements NormalizerInterface
+final class EdgeDateNormalizer implements NormalizerInterface
 {
     /**
      * {@inheritdoc}

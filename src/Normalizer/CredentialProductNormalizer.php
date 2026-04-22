@@ -24,7 +24,7 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 /**
  * Class CredentialProductNormalizer.
  */
-class CredentialProductNormalizer implements NormalizerInterface
+final class CredentialProductNormalizer implements NormalizerInterface
 {
     /**
      * {@inheritdoc}
