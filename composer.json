@@ -31,7 +31,8 @@
         "symfony/options-resolver": "^7.4.8",
         "symfony/property-access": "^7.4.8",
         "symfony/property-info": "^7.4.8",
-        "symfony/serializer": "^7.4.8"
+        "symfony/serializer": "^7.4.8",
+        "guzzlehttp/promises": "^2.0.3"
     },
     "require-dev": {
         "dms/phpunit-arraysubset-asserts": "^0.4.0",
@@ -49,7 +50,23 @@
         "symfony/cache": "^7.4.8",
         "symfony/type-info": "^7.4.8",
         "symfony/var-exporter": "^7.4.8",
-        "vimeo/psalm": "^6.0"
+        "vimeo/psalm": "^6.0",
+        "amphp/amp": "^3.1.1",
+        "amphp/byte-stream": "^2.1.2",
+        "amphp/cache": "^2.0.1",
+        "amphp/dns": "^2.4.1",
+        "amphp/parallel": "^2.3.3",
+        "amphp/parser": "^1.1.1",
+        "amphp/socket": "^2.4.0",
+        "daverandom/libdns": "^2.1.0",
+        "symfony/console": "^6.4.36 || ^7.0",
+        "spatie/array-to-xml": "^3.4.4",
+        "nikic/php-parser": "^5.7.0",
+        "amphp/pipeline": "^1.2.3",
+        "amphp/process": "^2.0.3",
+        "amphp/serialization": "^1.1.0",
+        "amphp/sync": "^2.0",
+        "revolt/event-loop": "^1.1.0"
     },
     "autoload": {
         "psr-4": {
