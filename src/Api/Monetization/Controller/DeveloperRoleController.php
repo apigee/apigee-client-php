@@ -22,7 +22,7 @@ use Apigee\Edge\Api\Monetization\Entity\DeveloperRole;
 use Apigee\Edge\Controller\EntityListingControllerTrait;
 use Psr\Http\Message\UriInterface;
 
-class DeveloperRoleController extends OrganizationAwareEntityController implements DeveloperRoleControllerInterface
+final class DeveloperRoleController extends OrganizationAwareEntityController implements DeveloperRoleControllerInterface
 {
     use EntityCreateOperationControllerTrait;
     use EntityListingControllerTrait;

@@ -23,7 +23,7 @@ use Apigee\Edge\Api\Monetization\Entity\Property\DeveloperPropertyAwareTrait;
 /**
  * Represents an accepted rate plan by a developer.
  */
-class DeveloperAcceptedRatePlan extends AcceptedRatePlan implements DeveloperAcceptedRatePlanInterface
+final class DeveloperAcceptedRatePlan extends AcceptedRatePlan implements DeveloperAcceptedRatePlanInterface
 {
     use DeveloperPropertyAwareTrait;
 }

@@ -25,7 +25,7 @@ use Apigee\Edge\Structure\AttributesProperty;
 /**
  * Describes a Company entity.
  */
-class Company extends AppOwner implements CompanyInterface
+final class Company extends AppOwner implements CompanyInterface
 {
     use DisplayNamePropertyAwareTrait;
     use NamePropertyAwareTrait;

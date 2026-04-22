@@ -30,7 +30,7 @@ use Psr\Http\Message\UriInterface;
 /**
  * Allows to manage appgroup memberships.
  */
-class AppGroupMembersController extends AbstractController implements AppGroupMembersControllerInterface
+final class AppGroupMembersController extends AbstractController implements AppGroupMembersControllerInterface
 {
     use AppGroupAwareControllerTrait;
     use OrganizationAwareControllerTrait;

@@ -21,6 +21,6 @@ namespace Apigee\Edge\Exception;
 /**
  * This library's own invalid argument exception.
  */
-class InvalidArgumentException extends \InvalidArgumentException implements ApiClientException
+final class InvalidArgumentException extends \InvalidArgumentException implements ApiClientException
 {
 }

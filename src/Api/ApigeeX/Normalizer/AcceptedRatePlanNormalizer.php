@@ -22,6 +22,9 @@ use Apigee\Edge\Api\ApigeeX\Entity\AcceptedRatePlanInterface;
 use Apigee\Edge\Api\Monetization\Normalizer\EntityNormalizer;
 use Apigee\Edge\Api\Monetization\Utility\TimezoneFixerHelperTrait;
 
+/**
+ * @psalm-suppress ClassMustBeFinal
+ */
 class AcceptedRatePlanNormalizer extends EntityNormalizer
 {
     use TimezoneFixerHelperTrait;

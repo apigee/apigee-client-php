@@ -23,7 +23,7 @@ use Apigee\Edge\Api\Monetization\Normalizer\LegalEntityNormalizer;
 use Apigee\Edge\Denormalizer\AttributesPropertyDenormalizer;
 use Apigee\Edge\Normalizer\KeyValueMapNormalizer;
 
-class LegalEntitySerializer extends EntitySerializer
+final class LegalEntitySerializer extends EntitySerializer
 {
     /**
      * {@inheritdoc}

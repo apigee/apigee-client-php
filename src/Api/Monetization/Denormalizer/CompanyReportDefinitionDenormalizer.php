@@ -25,7 +25,7 @@ use Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface;
 use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface;
 use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
 
-class CompanyReportDefinitionDenormalizer extends ReportDefinitionDenormalizer
+final class CompanyReportDefinitionDenormalizer extends ReportDefinitionDenormalizer
 {
     /**
      * Fully qualified class name of the company report definition entity.

@@ -20,7 +20,7 @@ namespace Apigee\Edge\Api\Monetization\Normalizer;
 
 use Apigee\Edge\Api\Monetization\Entity\DeveloperRatePlanInterface;
 
-class DeveloperRatePlanNormalizer extends LegalEntityRatePlanNormalizer
+final class DeveloperRatePlanNormalizer extends LegalEntityRatePlanNormalizer
 {
     /**
      * {@inheritdoc}

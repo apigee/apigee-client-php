@@ -21,7 +21,7 @@ namespace Apigee\Edge\Api\Monetization\Serializer;
 use Apigee\Edge\Api\Monetization\Denormalizer\TermsAndConditionsDenormalizer;
 use Apigee\Edge\Api\Monetization\Normalizer\TermsAndConditionsNormalizer;
 
-class TermsAndConditionsSerializer extends EntitySerializer
+final class TermsAndConditionsSerializer extends EntitySerializer
 {
     /**
      * {@inheritdoc}

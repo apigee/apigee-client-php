@@ -33,7 +33,7 @@ use Symfony\Component\Serializer\Encoder\JsonDecode;
 /**
  * Class StatsController.
  */
-class StatsController extends AbstractController implements StatsControllerInterface
+final class StatsController extends AbstractController implements StatsControllerInterface
 {
     use OrganizationAwareControllerTrait;
 

@@ -24,7 +24,7 @@ use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 /**
  * Denormalizes company membership data.
  */
-class CompanyMembershipDenormalizer implements DenormalizerInterface
+final class CompanyMembershipDenormalizer implements DenormalizerInterface
 {
     /**
      * {@inheritdoc}

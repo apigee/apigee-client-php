@@ -24,7 +24,7 @@ use Apigee\Edge\Entity\Property\DisplayNamePropertyAwareTrait;
 use Apigee\Edge\Entity\Property\NamePropertyAwareTrait;
 use Apigee\Edge\Entity\Property\StatusPropertyAwareTrait;
 
-class ApiPackage extends OrganizationAwareEntity implements ApiPackageInterface
+final class ApiPackage extends OrganizationAwareEntity implements ApiPackageInterface
 {
     use ApiProductsPropertyAwareTrait;
     use DescriptionPropertyAwareTrait;

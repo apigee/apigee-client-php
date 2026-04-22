@@ -26,7 +26,7 @@ use Psr\Http\Message\UriInterface;
  * The endpoint currently returns both developers and companies, this may
  * change later!
  */
-class DeveloperController extends LegalEntityController implements DeveloperControllerInterface
+final class DeveloperController extends LegalEntityController implements DeveloperControllerInterface
 {
     use PaginatedListingHelperTrait;
 

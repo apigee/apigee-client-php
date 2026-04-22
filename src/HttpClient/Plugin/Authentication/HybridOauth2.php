@@ -31,6 +31,7 @@ use Http\Client\Exception;
  * @see https://developers.google.com/identity/protocols/OAuth2ServiceAccount
  * @deprecated in 2.0.9, will be removed in 3.0.0.
  * https://github.com/apigee/apigee-client-php/issues/112
+ * @psalm-suppress ClassMustBeFinal
  */
 class HybridOauth2 extends AbstractOauth
 {

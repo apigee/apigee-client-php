@@ -25,7 +25,7 @@ use Psr\Http\Message\UriInterface;
 /**
  * Class DeveloperAppCredentialController.
  */
-class DeveloperAppCredentialController extends AppCredentialController implements DeveloperAppCredentialControllerInterface
+final class DeveloperAppCredentialController extends AppCredentialController implements DeveloperAppCredentialControllerInterface
 {
     /** @var string Developer email or id. */
     protected $developerId;

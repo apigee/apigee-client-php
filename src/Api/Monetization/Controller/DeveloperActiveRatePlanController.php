@@ -22,7 +22,7 @@ use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Serializer\EntitySerializerInterface;
 use Psr\Http\Message\UriInterface;
 
-class DeveloperActiveRatePlanController extends ActiveRatePlanController
+final class DeveloperActiveRatePlanController extends ActiveRatePlanController
 {
     /**
      * UUID or email address of a developer.

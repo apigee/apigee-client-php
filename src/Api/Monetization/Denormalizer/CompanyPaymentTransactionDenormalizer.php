@@ -25,7 +25,7 @@ use Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface;
 use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface;
 use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
 
-class CompanyPaymentTransactionDenormalizer extends PaymentTransactionDenormalizer
+final class CompanyPaymentTransactionDenormalizer extends PaymentTransactionDenormalizer
 {
     /**
      * Fully qualified class name of the company payment transaction object.

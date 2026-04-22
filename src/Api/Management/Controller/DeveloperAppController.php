@@ -25,7 +25,7 @@ use Psr\Http\Message\UriInterface;
 /**
  * Class DeveloperAppController.
  */
-class DeveloperAppController extends AppByOwnerController implements DeveloperAppControllerInterface
+final class DeveloperAppController extends AppByOwnerController implements DeveloperAppControllerInterface
 {
     /**
      * @var string Developer email or id.

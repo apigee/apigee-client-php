@@ -21,7 +21,7 @@ namespace Apigee\Edge\Api\Monetization\Entity;
 use Apigee\Edge\Entity\Property\DescriptionPropertyAwareTrait;
 use Apigee\Edge\Entity\Property\NamePropertyAwareTrait;
 
-class PaymentProvider extends Entity implements PaymentProviderInterface
+final class PaymentProvider extends Entity implements PaymentProviderInterface
 {
     use DescriptionPropertyAwareTrait;
     use NamePropertyAwareTrait;

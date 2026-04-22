@@ -22,7 +22,7 @@ use Apigee\Edge\Api\ApigeeX\Denormalizer\ApiProductDenormalizer;
 use Apigee\Edge\Api\ApigeeX\Normalizer\ApiProductNormalizer;
 use Apigee\Edge\Api\Monetization\Serializer\EntitySerializer;
 
-class ApiProductSerializer extends EntitySerializer
+final class ApiProductSerializer extends EntitySerializer
 {
     /**
      * {@inheritdoc}

@@ -23,7 +23,7 @@ use Apigee\Edge\Entity\Property\DisplayNamePropertyAwareTrait;
 use Apigee\Edge\Entity\Property\NamePropertyAwareTrait;
 use Apigee\Edge\Entity\Property\StatusPropertyAwareTrait;
 
-class ApiProduct extends OrganizationAwareEntity implements ApiProductInterface
+final class ApiProduct extends OrganizationAwareEntity implements ApiProductInterface
 {
     use DescriptionPropertyAwareTrait;
     use DisplayNamePropertyAwareTrait;

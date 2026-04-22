@@ -25,7 +25,7 @@ use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 /**
  * Class CredentialProductDenormalizer.
  */
-class CredentialProductDenormalizer implements DenormalizerInterface
+final class CredentialProductDenormalizer implements DenormalizerInterface
 {
     /**
      * {@inheritdoc}

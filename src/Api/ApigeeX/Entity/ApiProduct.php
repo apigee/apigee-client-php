@@ -24,7 +24,7 @@ use Apigee\Edge\Entity\Property\DescriptionPropertyAwareTrait;
 use Apigee\Edge\Entity\Property\DisplayNamePropertyAwareTrait;
 use Apigee\Edge\Entity\Property\NamePropertyAwareTrait;
 
-class ApiProduct extends Entity implements ApiProductInterface
+final class ApiProduct extends Entity implements ApiProductInterface
 {
     use AttributesPropertyAwareTrait;
     use DescriptionPropertyAwareTrait;

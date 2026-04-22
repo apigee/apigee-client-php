@@ -20,7 +20,7 @@ namespace Apigee\Edge\Api\Monetization\Entity;
 
 use Apigee\Edge\Api\Monetization\Entity\Property\DeveloperPropertyAwareTrait;
 
-class DeveloperReportDefinition extends ReportDefinition implements DeveloperReportDefinitionInterface
+final class DeveloperReportDefinition extends ReportDefinition implements DeveloperReportDefinitionInterface
 {
     use DeveloperPropertyAwareTrait;
 }

@@ -26,7 +26,7 @@ use Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface;
 use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface;
 use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
 
-class AddressNormalizer extends ObjectNormalizer
+final class AddressNormalizer extends ObjectNormalizer
 {
     /**
      * AddressNormalizer constructor.

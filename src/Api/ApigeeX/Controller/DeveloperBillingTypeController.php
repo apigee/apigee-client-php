@@ -23,7 +23,7 @@ use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Serializer\EntitySerializerInterface;
 use Psr\Http\Message\UriInterface;
 
-class DeveloperBillingTypeController extends BillingTypeController
+final class DeveloperBillingTypeController extends BillingTypeController
 {
     /**
      * Email address of a developer.

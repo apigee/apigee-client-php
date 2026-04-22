@@ -21,7 +21,7 @@ namespace Apigee\Edge\Api\Monetization\Serializer;
 use Apigee\Edge\Api\Monetization\Denormalizer\PrepaidBalanceDenormalizer;
 use Apigee\Edge\Api\Monetization\Normalizer\PrepaidBalanceNormalizer;
 
-class PrepaidBalanceSerializer extends EntitySerializer
+final class PrepaidBalanceSerializer extends EntitySerializer
 {
     /**
      * {@inheritdoc}

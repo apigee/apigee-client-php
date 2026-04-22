@@ -30,7 +30,7 @@ use Symfony\Component\Serializer\Serializer;
  *
  * Normalizes StatsQueryInterface objects to an array that can be passed to the Stats API as query parameter.
  */
-class StatsQueryNormalizer implements NormalizerInterface
+final class StatsQueryNormalizer implements NormalizerInterface
 {
     public const DATE_FORMAT = 'm/d/Y H:i';
 

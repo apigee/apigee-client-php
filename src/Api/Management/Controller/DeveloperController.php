@@ -38,7 +38,7 @@ use Psr\Http\Message\UriInterface;
 /**
  * Class DeveloperController.
  */
-class DeveloperController extends PaginatedEntityController implements DeveloperControllerInterface
+final class DeveloperController extends PaginatedEntityController implements DeveloperControllerInterface
 {
     use AttributesAwareEntityControllerTrait;
     use EntityCrudOperationsControllerTrait;

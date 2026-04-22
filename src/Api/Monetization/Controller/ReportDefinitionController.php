@@ -28,7 +28,7 @@ use Apigee\Edge\Serializer\EntitySerializerInterface;
 use Apigee\Edge\Utility\ResponseToArrayHelper;
 use Psr\Http\Message\UriInterface;
 
-class ReportDefinitionController extends OrganizationAwareEntityController implements ReportDefinitionControllerInterface
+final class ReportDefinitionController extends OrganizationAwareEntityController implements ReportDefinitionControllerInterface
 {
     use EntityCrudOperationsControllerTrait;
     use EntityListingControllerAwareTrait;

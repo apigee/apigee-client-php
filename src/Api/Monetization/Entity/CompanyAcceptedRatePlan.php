@@ -23,7 +23,7 @@ use Apigee\Edge\Api\Monetization\Entity\Property\CompanyPropertyAwareTrait;
 /**
  * Represents an accepted rate plan by a company.
  */
-class CompanyAcceptedRatePlan extends AcceptedRatePlan implements CompanyAcceptedRatePlanInterface
+final class CompanyAcceptedRatePlan extends AcceptedRatePlan implements CompanyAcceptedRatePlanInterface
 {
     use CompanyPropertyAwareTrait;
 }

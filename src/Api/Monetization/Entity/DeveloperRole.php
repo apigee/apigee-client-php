@@ -21,7 +21,7 @@ namespace Apigee\Edge\Api\Monetization\Entity;
 use Apigee\Edge\Entity\Property\DescriptionPropertyAwareTrait;
 use Apigee\Edge\Entity\Property\NamePropertyAwareTrait;
 
-class DeveloperRole extends OrganizationAwareEntity implements DeveloperRoleInterface
+final class DeveloperRole extends OrganizationAwareEntity implements DeveloperRoleInterface
 {
     use DescriptionPropertyAwareTrait;
     use NamePropertyAwareTrait;

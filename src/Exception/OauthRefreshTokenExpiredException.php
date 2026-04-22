@@ -21,6 +21,6 @@ namespace Apigee\Edge\Exception;
 /**
  * In case if the client is unable refresh access token by using the refresh token because it has expired.
  */
-class OauthRefreshTokenExpiredException extends ApiResponseException
+final class OauthRefreshTokenExpiredException extends ApiResponseException
 {
 }

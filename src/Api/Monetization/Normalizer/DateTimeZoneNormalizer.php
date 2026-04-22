@@ -21,7 +21,7 @@ namespace Apigee\Edge\Api\Monetization\Normalizer;
 use DateTimeZone;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-class DateTimeZoneNormalizer implements NormalizerInterface
+final class DateTimeZoneNormalizer implements NormalizerInterface
 {
     /**
      * {@inheritdoc}

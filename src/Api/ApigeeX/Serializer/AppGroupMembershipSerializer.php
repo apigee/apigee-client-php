@@ -22,7 +22,7 @@ use Apigee\Edge\Api\ApigeeX\Denormalizer\AppGroupMembershipDenormalizer;
 use Apigee\Edge\Api\ApigeeX\Normalizer\AppGroupMembershipNormalizer;
 use Apigee\Edge\Serializer\EntitySerializer;
 
-class AppGroupMembershipSerializer extends EntitySerializer
+final class AppGroupMembershipSerializer extends EntitySerializer
 {
     /**
      * AppGroupMembershipSerializer constructor.

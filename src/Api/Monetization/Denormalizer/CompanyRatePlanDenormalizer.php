@@ -23,7 +23,7 @@ use Apigee\Edge\Api\Monetization\Entity\CompanyRatePlanRevision;
 use Apigee\Edge\Api\Monetization\Entity\RatePlanInterface;
 use Apigee\Edge\Api\Monetization\NameConverter\CompanyRatePlanNameConverter;
 
-class CompanyRatePlanDenormalizer extends RatePlanDenormalizer
+final class CompanyRatePlanDenormalizer extends RatePlanDenormalizer
 {
     /**
      * Fully qualified class name of the company rate plan entity.

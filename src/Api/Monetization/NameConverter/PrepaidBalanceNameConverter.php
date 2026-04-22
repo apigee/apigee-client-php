@@ -20,7 +20,7 @@ namespace Apigee\Edge\Api\Monetization\NameConverter;
 
 use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
 
-class PrepaidBalanceNameConverter extends NameConverterBase implements NameConverterInterface
+final class PrepaidBalanceNameConverter extends NameConverterBase implements NameConverterInterface
 {
     /**
      * {@inheritdoc}

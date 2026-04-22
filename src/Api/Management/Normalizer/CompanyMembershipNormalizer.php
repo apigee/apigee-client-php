@@ -21,7 +21,7 @@ namespace Apigee\Edge\Api\Management\Normalizer;
 use Apigee\Edge\Api\Management\Structure\CompanyMembership;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-class CompanyMembershipNormalizer implements NormalizerInterface
+final class CompanyMembershipNormalizer implements NormalizerInterface
 {
     /**
      * {@inheritdoc}

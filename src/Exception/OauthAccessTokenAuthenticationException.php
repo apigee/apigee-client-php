@@ -21,6 +21,6 @@ namespace Apigee\Edge\Exception;
 /**
  * Exception for the case when authentication fails by using Oauth access token.
  */
-class OauthAccessTokenAuthenticationException extends ApiRequestException
+final class OauthAccessTokenAuthenticationException extends ApiRequestException
 {
 }

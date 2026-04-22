@@ -21,7 +21,7 @@ namespace Apigee\Edge\Api\Monetization\Entity;
 use Apigee\Edge\Entity\Property\DescriptionPropertyAwareTrait;
 use Apigee\Edge\Entity\Property\NamePropertyAwareTrait;
 
-class DeveloperCategory extends Entity implements DeveloperCategoryInterface
+final class DeveloperCategory extends Entity implements DeveloperCategoryInterface
 {
     use DescriptionPropertyAwareTrait;
     use NamePropertyAwareTrait;

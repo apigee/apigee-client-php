@@ -21,7 +21,7 @@ namespace Apigee\Edge\Api\Monetization\Entity;
 use Apigee\Edge\Api\Monetization\Entity\Property\KeepOriginalStartDatePropertyAwareTrait;
 use Apigee\Edge\Api\Monetization\Entity\Property\PreviousRatePlanRevisionPropertyAwareTrait;
 
-class StandardRatePlanRevision extends StandardRatePlan implements RatePlanRevisionInterface
+final class StandardRatePlanRevision extends StandardRatePlan implements RatePlanRevisionInterface
 {
     use KeepOriginalStartDatePropertyAwareTrait;
     use PreviousRatePlanRevisionPropertyAwareTrait;

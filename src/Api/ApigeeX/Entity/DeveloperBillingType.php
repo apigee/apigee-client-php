@@ -21,6 +21,6 @@ namespace Apigee\Edge\Api\ApigeeX\Entity;
 /**
  * Represents billing type of a developer.
  */
-class DeveloperBillingType extends BillingType implements DeveloperBillingTypeInterface
+final class DeveloperBillingType extends BillingType implements DeveloperBillingTypeInterface
 {
 }

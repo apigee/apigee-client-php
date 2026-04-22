@@ -22,7 +22,7 @@ use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Serializer\EntitySerializerInterface;
 use Psr\Http\Message\UriInterface;
 
-class DeveloperPrepaidBalanceController extends PrepaidBalanceController implements DeveloperPrepaidBalanceControllerInterface
+final class DeveloperPrepaidBalanceController extends PrepaidBalanceController implements DeveloperPrepaidBalanceControllerInterface
 {
     /**
      * UUID or email address of a developer.

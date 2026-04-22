@@ -21,7 +21,7 @@ namespace Apigee\Edge\Api\Management\Entity;
 /**
  * Class CompanyApp.
  */
-class CompanyApp extends App implements CompanyAppInterface
+final class CompanyApp extends App implements CompanyAppInterface
 {
     /** @var string */
     protected $companyName;

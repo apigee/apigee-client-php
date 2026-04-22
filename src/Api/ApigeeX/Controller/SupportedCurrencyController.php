@@ -23,7 +23,7 @@ use Apigee\Edge\Api\Monetization\Entity\SupportedCurrency;
 use Apigee\Edge\Controller\EntityListingControllerTrait;
 use Psr\Http\Message\UriInterface;
 
-class SupportedCurrencyController extends EntityController implements SupportedCurrencyControllerInterface
+final class SupportedCurrencyController extends EntityController implements SupportedCurrencyControllerInterface
 {
     use EntityListingControllerTrait;
 

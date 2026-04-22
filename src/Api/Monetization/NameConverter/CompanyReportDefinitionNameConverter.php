@@ -24,7 +24,7 @@ namespace Apigee\Edge\Api\Monetization\NameConverter;
  *
  * @see \Apigee\Edge\Api\Monetization\Entity\CompanyReportDefinition
  */
-class CompanyReportDefinitionNameConverter extends ReportDefinitionNameConverter
+final class CompanyReportDefinitionNameConverter extends ReportDefinitionNameConverter
 {
     /**
      * {@inheritdoc}

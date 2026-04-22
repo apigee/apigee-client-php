@@ -24,7 +24,7 @@ use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 /**
  * Denormalizes appgroup membership data.
  */
-class AppGroupMembershipDenormalizer implements DenormalizerInterface
+final class AppGroupMembershipDenormalizer implements DenormalizerInterface
 {
     /**
      * {@inheritdoc}

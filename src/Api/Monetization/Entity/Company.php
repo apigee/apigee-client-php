@@ -18,6 +18,6 @@
 
 namespace Apigee\Edge\Api\Monetization\Entity;
 
-class Company extends LegalEntity implements CompanyInterface
+final class Company extends LegalEntity implements CompanyInterface
 {
 }

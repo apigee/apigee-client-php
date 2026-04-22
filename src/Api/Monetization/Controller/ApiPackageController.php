@@ -27,7 +27,7 @@ use Apigee\Edge\Controller\EntityLoadOperationControllerTrait;
 use Apigee\Edge\Serializer\EntitySerializerInterface;
 use Psr\Http\Message\UriInterface;
 
-class ApiPackageController extends OrganizationAwareEntityController implements ApiPackageControllerInterface
+final class ApiPackageController extends OrganizationAwareEntityController implements ApiPackageControllerInterface
 {
     use EntityCreateOperationControllerTrait;
     use EntityDeleteOperationControllerTrait;

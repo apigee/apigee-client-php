@@ -25,7 +25,7 @@ use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Serializer\EntitySerializerInterface;
 use Psr\Http\Message\UriInterface;
 
-class DeveloperAcceptedRatePlanController extends AcceptedRatePlanController
+final class DeveloperAcceptedRatePlanController extends AcceptedRatePlanController
 {
     /**
      * UUID or email address of a developer.

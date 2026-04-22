@@ -20,7 +20,7 @@ namespace Apigee\Edge\Api\Monetization\Controller;
 
 use Psr\Http\Message\UriInterface;
 
-class CompanyPrepaidBalanceController extends PrepaidBalanceController implements CompanyPrepaidBalanceControllerInterface
+final class CompanyPrepaidBalanceController extends PrepaidBalanceController implements CompanyPrepaidBalanceControllerInterface
 {
     /**
      * Name of the company.

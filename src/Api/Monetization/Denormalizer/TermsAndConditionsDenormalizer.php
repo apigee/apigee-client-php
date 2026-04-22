@@ -27,7 +27,7 @@ use Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface;
 use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface;
 use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
 
-class TermsAndConditionsDenormalizer extends ObjectDenormalizer
+final class TermsAndConditionsDenormalizer extends ObjectDenormalizer
 {
     use TimezoneFixerHelperTrait;
 

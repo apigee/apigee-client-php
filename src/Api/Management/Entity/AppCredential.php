@@ -30,7 +30,7 @@ use ReflectionException;
 /**
  * Class AppCredential.
  */
-class AppCredential extends Entity implements AppCredentialInterface
+final class AppCredential extends Entity implements AppCredentialInterface
 {
     use AttributesPropertyAwareTrait;
     use ScopesPropertyAwareTrait;

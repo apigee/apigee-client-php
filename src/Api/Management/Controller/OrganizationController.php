@@ -32,7 +32,7 @@ use Psr\Http\Message\UriInterface;
 /**
  * Class OrganizationController.
  */
-class OrganizationController extends AbstractEntityController implements OrganizationControllerInterface
+final class OrganizationController extends AbstractEntityController implements OrganizationControllerInterface
 {
     use EntityCrudOperationsControllerTrait;
     use EntityListingControllerTrait;

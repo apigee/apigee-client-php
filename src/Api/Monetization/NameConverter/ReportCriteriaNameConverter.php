@@ -18,7 +18,7 @@
 
 namespace Apigee\Edge\Api\Monetization\NameConverter;
 
-class ReportCriteriaNameConverter extends NameConverterBase
+final class ReportCriteriaNameConverter extends NameConverterBase
 {
     /**
      * {@inheritdoc}

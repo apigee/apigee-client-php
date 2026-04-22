@@ -65,6 +65,7 @@
         <UnusedDocblockParam errorLevel="info" />
         <UnnecessaryVarAnnotation errorLevel="info" />
         <PossiblyUnusedProperty errorLevel="info" />
+        <UnusedParam errorLevel="info" />
         
     </issueHandlers>
 </psalm>

@@ -26,7 +26,7 @@ use Apigee\Edge\Structure\AttributesProperty;
 /**
  * Describes a Developer entity.
  */
-class Developer extends AppOwner implements DeveloperInterface
+final class Developer extends AppOwner implements DeveloperInterface
 {
     use DeveloperIdPropertyAwareTrait;
     use EmailPropertyAwareTrait;

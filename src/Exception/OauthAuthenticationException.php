@@ -21,6 +21,6 @@ namespace Apigee\Edge\Exception;
 /**
  * For OAuth authentication issues.
  */
-class OauthAuthenticationException extends ApiException
+final class OauthAuthenticationException extends ApiException
 {
 }

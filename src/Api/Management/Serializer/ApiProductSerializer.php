@@ -18,6 +18,6 @@
 
 namespace Apigee\Edge\Api\Management\Serializer;
 
-class ApiProductSerializer extends AttributesPropertyAwareEntitySerializer
+final class ApiProductSerializer extends AttributesPropertyAwareEntitySerializer
 {
 }

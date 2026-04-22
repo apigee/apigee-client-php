@@ -21,7 +21,7 @@ namespace Apigee\Edge\Api\ApigeeX\Normalizer;
 use Apigee\Edge\Api\ApigeeX\Entity\BillingTypeInterface;
 use Apigee\Edge\Api\Monetization\Normalizer\EntityNormalizer;
 
-class BillingTypeNormalizer extends EntityNormalizer
+final class BillingTypeNormalizer extends EntityNormalizer
 {
     /**
      * {@inheritdoc}

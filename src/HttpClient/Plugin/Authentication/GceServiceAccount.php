@@ -31,7 +31,7 @@ use Psr\Http\Client\NetworkExceptionInterface;
  *
  * @see https://developers.google.com/identity/protocols/OAuth2ServiceAccount
  */
-class GceServiceAccount extends AbstractOauth
+final class GceServiceAccount extends AbstractOauth
 {
     public const DEFAULT_GCE_AUTH_SERVER = 'http://metadata.google.internal/computeMetadata/v1/instance/service-accounts/default/token';
 

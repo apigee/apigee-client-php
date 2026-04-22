@@ -22,7 +22,7 @@ use Apigee\Edge\Api\Monetization\Entity\DeveloperRatePlan;
 use Apigee\Edge\Api\Monetization\Entity\DeveloperRatePlanRevision;
 use Apigee\Edge\Api\Monetization\Entity\RatePlanInterface;
 
-class DeveloperRatePlanDenormalizer extends RatePlanDenormalizer
+final class DeveloperRatePlanDenormalizer extends RatePlanDenormalizer
 {
     /**
      * Fully qualified class name of the developer rate plan entity.

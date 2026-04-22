@@ -25,7 +25,7 @@ use Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface;
 use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface;
 use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
 
-class SupportedCurrencyNormalizer extends EntityNormalizer
+final class SupportedCurrencyNormalizer extends EntityNormalizer
 {
     /**
      * SupportedCurrencyNormalizer constructor.

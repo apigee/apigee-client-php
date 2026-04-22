@@ -22,7 +22,7 @@ use Apigee\Edge\Api\Management\Denormalizer\CompanyMembershipDenormalizer;
 use Apigee\Edge\Api\Management\Normalizer\CompanyMembershipNormalizer;
 use Apigee\Edge\Serializer\EntitySerializer;
 
-class CompanyMembershipSerializer extends EntitySerializer
+final class CompanyMembershipSerializer extends EntitySerializer
 {
     /**
      * CompanyMembershipSerializer constructor.

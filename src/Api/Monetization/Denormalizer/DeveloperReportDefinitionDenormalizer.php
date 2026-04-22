@@ -20,7 +20,7 @@ namespace Apigee\Edge\Api\Monetization\Denormalizer;
 
 use Apigee\Edge\Api\Monetization\Entity\DeveloperReportDefinition;
 
-class DeveloperReportDefinitionDenormalizer extends ReportDefinitionDenormalizer
+final class DeveloperReportDefinitionDenormalizer extends ReportDefinitionDenormalizer
 {
     /**
      * Fully qualified class name of the developer report definition entity.

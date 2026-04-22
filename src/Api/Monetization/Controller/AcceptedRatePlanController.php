@@ -99,7 +99,7 @@ abstract class AcceptedRatePlanController extends OrganizationAwareEntityControl
         if (null !== $waveTerminationCharge) {
             $tmp['waveTerminationCharge'] = $waveTerminationCharge ? 'true' : 'false';
         }
-        $payload = json_encode($tmp);
+        $payload = (string) json_encode($tmp);
         $response = $this->client->post($this->getBaseEndpointUri(), $payload);
         $this->getEntitySerializer()->setPropertiesFromResponse($response, $acceptedRatePlan);
 
@@ -122,7 +122,7 @@ abstract class AcceptedRatePlanController extends OrganizationAwareEntityControl
             $tmp['waveTerminationCharge'] = $waveTerminationCharge ? 'true' : 'false';
         }
         $this->alterRequestPayload($tmp, $acceptedRatePlan);
-        $payload = json_encode($tmp);
+        $payload = (string) json_encode($tmp);
         // Update an existing entity.
         $response = $this->client->put($this->getEntityEndpointUri($acceptedRatePlan->id()), $payload);
         $this->getEntitySerializer()->setPropertiesFromResponse($response, $acceptedRatePlan);

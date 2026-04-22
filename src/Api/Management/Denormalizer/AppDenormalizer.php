@@ -27,7 +27,7 @@ use Symfony\Component\Serializer\Exception\UnexpectedValueException;
 /**
  * Dynamically denormalizes apps to developer- or company apps.
  */
-class AppDenormalizer extends ObjectDenormalizer
+final class AppDenormalizer extends ObjectDenormalizer
 {
     /**
      * Fully qualified class name of the developer app entity.

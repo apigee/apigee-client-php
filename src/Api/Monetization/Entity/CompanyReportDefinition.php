@@ -20,7 +20,7 @@ namespace Apigee\Edge\Api\Monetization\Entity;
 
 use Apigee\Edge\Api\Monetization\Entity\Property\CompanyPropertyAwareTrait;
 
-class CompanyReportDefinition extends ReportDefinition implements CompanyReportDefinitionInterface
+final class CompanyReportDefinition extends ReportDefinition implements CompanyReportDefinitionInterface
 {
     use CompanyPropertyAwareTrait;
 }

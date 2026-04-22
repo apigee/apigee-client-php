@@ -22,7 +22,7 @@ use Apigee\Edge\Api\Monetization\Structure\RatePlanRate;
 use Apigee\Edge\Api\Monetization\Structure\RatePlanRateRevShare;
 use Apigee\Edge\Normalizer\ObjectNormalizer;
 
-class RatePlanRateNormalizer extends ObjectNormalizer
+final class RatePlanRateNormalizer extends ObjectNormalizer
 {
     /**
      * {@inheritdoc}
