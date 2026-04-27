@@ -57,7 +57,7 @@ class AttributesPropertyDenormalizer extends KeyValueMapDenormalizer
             foreach ($data as $key => $item) {
                 if (is_object($item)) {
                     $flatten[$item->name] = $item->value ?? null;
-                } else { 
+                } else {
                     $flatten[$key] = $item;
                 }
             }
