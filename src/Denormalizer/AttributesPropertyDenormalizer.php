@@ -51,12 +51,16 @@ final class AttributesPropertyDenormalizer extends KeyValueMapDenormalizer
     public function denormalize($data, $type, $format = null, array $context = []): mixed
     {
         $flatten = [];
-        foreach ($data as $key => $item) {
-            if (is_object($item)) {
-                // $data came from the EntityNormalizer.
-                $flatten[$item->name] = $item->value ?? null;
-            } else {
-                $flatten[$key] = $item;
+        // The Apigee X API omits the 'attributes' key entirely on new/empty
+        // AppGroups (teams), so $data can be null here.
+        if (!empty($data)) {
+            foreach ($data as $key => $item) {
+                if (is_object($item)) {
+                    // $data came from the EntityNormalizer.
+                    $flatten[$item->name] = $item->value ?? null;
+                } else {
+                    $flatten[$key] = $item;
+                }
             }
         }
         $data = $flatten;

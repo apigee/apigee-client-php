@@ -114,7 +114,7 @@ final class AppGroupMembersController extends AbstractController implements AppG
         $appGroup = $this->responseToArray($this->client->get($this->getBaseEndpointUri()));
         $serializer = new AttributesPropertyAwareEntitySerializer();
         $appGroupAttributes = $serializer->denormalize(
-            $appGroup['attributes'],
+            $appGroup['attributes'] ?? '',
             AttributesProperty::class
         );
 
