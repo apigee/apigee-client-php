@@ -23,6 +23,6 @@ use Apigee\Edge\Exception\ApiResponseException;
 /**
  * Class DeveloperNotFoundException.
  */
-class DeveloperNotFoundException extends ApiResponseException
+final class DeveloperNotFoundException extends ApiResponseException
 {
 }

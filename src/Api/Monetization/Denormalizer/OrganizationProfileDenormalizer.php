@@ -26,7 +26,7 @@ use Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface;
 use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface;
 use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
 
-class OrganizationProfileDenormalizer extends ObjectDenormalizer
+final class OrganizationProfileDenormalizer extends ObjectDenormalizer
 {
     /**
      * OrganizationProfileDenormalizer constructor.
@@ -52,6 +52,6 @@ class OrganizationProfileDenormalizer extends ObjectDenormalizer
             return false;
         }
 
-        return OrganizationProfileInterface::class === $type || $type instanceof OrganizationProfileInterface || in_array(OrganizationProfileInterface::class, class_implements($type));
+        return OrganizationProfileInterface::class === $type || $type instanceof OrganizationProfileInterface || in_array(OrganizationProfileInterface::class, class_implements($type) ?: []);
     }
 }

@@ -23,7 +23,7 @@ use Apigee\Edge\Api\ApigeeX\Normalizer\PrepaidBalanceNormalizer;
 use Apigee\Edge\Api\Monetization\Serializer\EntitySerializer;
 use Apigee\Edge\Api\Monetization\Serializer\SupportedCurrencySerializer;
 
-class PrepaidBalanceSerializer extends EntitySerializer
+final class PrepaidBalanceSerializer extends EntitySerializer
 {
     /**
      * {@inheritDoc}

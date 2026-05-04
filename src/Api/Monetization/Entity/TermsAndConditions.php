@@ -21,7 +21,7 @@ namespace Apigee\Edge\Api\Monetization\Entity;
 use Apigee\Edge\Api\Monetization\Entity\Property\StartDatePropertyAwareTrait;
 use Apigee\Edge\Entity\Property\DescriptionPropertyAwareTrait;
 
-class TermsAndConditions extends OrganizationAwareEntity implements TermsAndConditionsInterface
+final class TermsAndConditions extends OrganizationAwareEntity implements TermsAndConditionsInterface
 {
     use DescriptionPropertyAwareTrait;
     use StartDatePropertyAwareTrait;

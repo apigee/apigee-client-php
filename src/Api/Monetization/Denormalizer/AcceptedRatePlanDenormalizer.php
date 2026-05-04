@@ -52,6 +52,6 @@ abstract class AcceptedRatePlanDenormalizer extends ObjectDenormalizer
             return false;
         }
 
-        return AcceptedRatePlanInterface::class === $type || $type instanceof AcceptedRatePlanInterface || in_array(AcceptedRatePlanInterface::class, class_implements($type));
+        return AcceptedRatePlanInterface::class === $type || $type instanceof AcceptedRatePlanInterface || in_array(AcceptedRatePlanInterface::class, class_implements($type) ?: []);
     }
 }

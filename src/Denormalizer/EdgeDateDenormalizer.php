@@ -28,7 +28,7 @@ use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 /**
  * Class EdgeDateDenormalizer.
  */
-class EdgeDateDenormalizer implements DenormalizerInterface
+final class EdgeDateDenormalizer implements DenormalizerInterface
 {
     private static $supportedTypes = [
         DateTimeInterface::class => true,

@@ -27,7 +27,7 @@ use Apigee\Edge\Api\Monetization\Normalizer\DeveloperReportDefinitionNormalizer;
 use Apigee\Edge\Api\Monetization\Normalizer\ReportCriteriaNormalizer;
 use Apigee\Edge\Api\Monetization\Normalizer\ReportDefinitionNormalizer;
 
-class ReportDefinitionSerializer extends EntitySerializer
+final class ReportDefinitionSerializer extends EntitySerializer
 {
     /**
      * ReportDefinitionSerializer constructor.

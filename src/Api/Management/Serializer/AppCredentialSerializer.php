@@ -22,7 +22,7 @@ use Apigee\Edge\Api\Management\Normalizer\AppCredentialNormalizer;
 use Apigee\Edge\Denormalizer\CredentialProductDenormalizer;
 use Apigee\Edge\Normalizer\CredentialProductNormalizer;
 
-class AppCredentialSerializer extends AttributesPropertyAwareEntitySerializer
+final class AppCredentialSerializer extends AttributesPropertyAwareEntitySerializer
 {
     /**
      * AppCredentialSerializer constructor.

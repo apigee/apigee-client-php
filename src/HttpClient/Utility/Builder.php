@@ -31,7 +31,7 @@ use Psr\Http\Message\StreamFactoryInterface;
  *
  * Helper class that makes creation of HTTP client instances easier.
  */
-class Builder implements BuilderInterface
+final class Builder implements BuilderInterface
 {
     /** @var ClientInterface */
     private $httpClient;
@@ -168,12 +168,10 @@ class Builder implements BuilderInterface
      * Set or remove rebuild flag from the client.
      *
      * @param bool $rebuild
-     *
-     * @return bool
      */
-    private function needsRebuild(bool $rebuild = true): bool
+    private function needsRebuild(bool $rebuild = true): void
     {
-        return $this->rebuild = $rebuild;
+        $this->rebuild = $rebuild;
     }
 
     /**

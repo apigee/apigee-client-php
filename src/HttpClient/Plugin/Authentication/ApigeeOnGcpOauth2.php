@@ -29,6 +29,7 @@ use Http\Client\Exception;
  * ApigeeOnGcpOauth2 authentication plugin for authenticating to GCP API.
  *
  * @see https://developers.google.com/identity/protocols/OAuth2ServiceAccount
+ * @psalm-suppress ClassMustBeFinal
  */
 class ApigeeOnGcpOauth2 extends AbstractOauth
 {

@@ -18,7 +18,7 @@
 
 namespace Apigee\Edge\Api\Monetization\NameConverter;
 
-class CompanyPaymentTransactionNameConverter extends PaymentTransactionNameConverter
+final class CompanyPaymentTransactionNameConverter extends PaymentTransactionNameConverter
 {
     /**
      * {@inheritdoc}

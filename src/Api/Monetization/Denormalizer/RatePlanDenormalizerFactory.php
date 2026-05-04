@@ -23,7 +23,7 @@ use Symfony\Component\Serializer\SerializerAwareInterface;
 use Symfony\Component\Serializer\SerializerAwareTrait;
 use Symfony\Component\Serializer\SerializerInterface;
 
-class RatePlanDenormalizerFactory implements DenormalizerInterface, SerializerAwareInterface
+final class RatePlanDenormalizerFactory implements DenormalizerInterface, SerializerAwareInterface
 {
     use SerializerAwareTrait {
         setSerializer as private traitSetSerializer;

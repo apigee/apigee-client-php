@@ -25,7 +25,7 @@ use Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface;
 use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface;
 use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
 
-class OrganizationProfileNormalizer extends EntityNormalizer
+final class OrganizationProfileNormalizer extends EntityNormalizer
 {
     /**
      * OrganizationProfileNormalizer constructor.

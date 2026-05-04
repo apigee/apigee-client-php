@@ -30,7 +30,7 @@ use Apigee\Edge\Controller\EntityLoadOperationControllerTrait;
 use Apigee\Edge\Serializer\EntitySerializerInterface;
 use Psr\Http\Message\UriInterface;
 
-class ApiProductController extends OrganizationAwareEntityController implements ApiProductControllerInterface
+final class ApiProductController extends OrganizationAwareEntityController implements ApiProductControllerInterface
 {
     use EntityCreateOperationControllerTrait;
     use EntityDeleteOperationControllerTrait;
@@ -134,7 +134,7 @@ class ApiProductController extends OrganizationAwareEntityController implements 
             }
         }
 
-        $current_ms = substr((string) (microtime(true) * 1000), 0);
+        $current_ms = substr((string) ((int) (microtime(true) * 1000.0)), 0);
 
         foreach ($this->getAvailablexApiProducts($type, $entityId, true) as $item) {
             // Create a new rate plan controller.

@@ -22,7 +22,7 @@ use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Serializer\EntitySerializerInterface;
 use Psr\Http\Message\UriInterface;
 
-class CompanyActiveRatePlanController extends ActiveRatePlanController
+final class CompanyActiveRatePlanController extends ActiveRatePlanController
 {
     /**
      * Name of the company.

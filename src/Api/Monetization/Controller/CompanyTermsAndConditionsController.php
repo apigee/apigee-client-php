@@ -22,7 +22,7 @@ use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Serializer\EntitySerializerInterface;
 use Psr\Http\Message\UriInterface;
 
-class CompanyTermsAndConditionsController extends LegalEntityTermsAndConditionsController
+final class CompanyTermsAndConditionsController extends LegalEntityTermsAndConditionsController
 {
     /**
      * Name of the company.

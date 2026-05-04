@@ -23,7 +23,7 @@ use Apigee\Edge\Api\Monetization\Denormalizer\DeveloperPaymentTransactionDenorma
 use Apigee\Edge\Api\Monetization\Normalizer\CompanyPaymentTransactionNormalizer;
 use Apigee\Edge\Api\Monetization\Normalizer\DeveloperPaymentTransactionNormalizer;
 
-class PaymentTransactionSerializer extends EntitySerializer
+final class PaymentTransactionSerializer extends EntitySerializer
 {
     /**
      * {@inheritdoc}

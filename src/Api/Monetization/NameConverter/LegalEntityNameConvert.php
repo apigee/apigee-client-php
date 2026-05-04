@@ -26,7 +26,7 @@ use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
  *
  * @see \Apigee\Edge\Api\Monetization\Entity\LegalEntity
  */
-class LegalEntityNameConvert extends NameConverterBase implements NameConverterInterface
+final class LegalEntityNameConvert extends NameConverterBase implements NameConverterInterface
 {
     /**
      * {@inheritdoc}

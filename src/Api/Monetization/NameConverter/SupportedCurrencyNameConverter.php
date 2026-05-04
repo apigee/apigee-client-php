@@ -20,7 +20,7 @@ namespace Apigee\Edge\Api\Monetization\NameConverter;
 
 use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
 
-class SupportedCurrencyNameConverter extends NameConverterBase implements NameConverterInterface
+final class SupportedCurrencyNameConverter extends NameConverterBase implements NameConverterInterface
 {
     /**
      * {@inheritdoc}

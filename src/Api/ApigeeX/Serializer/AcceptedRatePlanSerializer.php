@@ -26,7 +26,7 @@ use Apigee\Edge\Api\Monetization\Serializer\EntitySerializer;
 use Apigee\Edge\Api\Monetization\Serializer\LegalEntitySerializer;
 use Apigee\Edge\Api\Monetization\Serializer\RatePlanSerializer;
 
-class AcceptedRatePlanSerializer extends EntitySerializer
+final class AcceptedRatePlanSerializer extends EntitySerializer
 {
     /**
      * {@inheritdoc}

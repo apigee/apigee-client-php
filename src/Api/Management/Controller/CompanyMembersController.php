@@ -28,7 +28,7 @@ use Psr\Http\Message\UriInterface;
 /**
  * Allows to manage company memberships.
  */
-class CompanyMembersController extends AbstractController implements CompanyMembersControllerInterface
+final class CompanyMembersController extends AbstractController implements CompanyMembersControllerInterface
 {
     use CompanyAwareControllerTrait;
     use OrganizationAwareControllerTrait;

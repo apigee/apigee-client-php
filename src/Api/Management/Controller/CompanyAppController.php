@@ -27,7 +27,7 @@ use Psr\Http\Message\UriInterface;
 /**
  * Class CompanyAppController.
  */
-class CompanyAppController extends AppByOwnerController implements CompanyAppControllerInterface
+final class CompanyAppController extends AppByOwnerController implements CompanyAppControllerInterface
 {
     use CompanyAwareControllerTrait;
     /**

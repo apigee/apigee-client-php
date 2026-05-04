@@ -21,7 +21,7 @@ namespace Apigee\Edge\Api\Monetization\Serializer;
 use Apigee\Edge\Api\Monetization\Denormalizer\OrganizationProfileDenormalizer;
 use Apigee\Edge\Api\Monetization\Normalizer\OrganizationProfileNormalizer;
 
-class OrganizationProfileSerializer extends EntitySerializer
+final class OrganizationProfileSerializer extends EntitySerializer
 {
     /**
      * {@inheritdoc}

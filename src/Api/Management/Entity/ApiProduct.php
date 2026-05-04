@@ -32,7 +32,7 @@ use ReflectionException;
 /**
  * Describes an API product entity.
  */
-class ApiProduct extends Entity implements ApiProductInterface
+final class ApiProduct extends Entity implements ApiProductInterface
 {
     use AttributesPropertyAwareTrait;
     use CommonEntityPropertiesAwareTrait;

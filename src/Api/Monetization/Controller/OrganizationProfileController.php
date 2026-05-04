@@ -27,7 +27,7 @@ use Apigee\Edge\Controller\EntityUpdateOperationControllerTrait;
 use Apigee\Edge\Serializer\EntitySerializerInterface;
 use Psr\Http\Message\UriInterface;
 
-class OrganizationProfileController extends EntityController implements OrganizationProfileControllerInterface
+final class OrganizationProfileController extends EntityController implements OrganizationProfileControllerInterface
 {
     use EntityLoadOperationControllerTrait;
     use EntityUpdateOperationControllerTrait;

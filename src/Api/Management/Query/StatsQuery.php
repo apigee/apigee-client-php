@@ -23,7 +23,7 @@ use League\Period\Period;
 /**
  * Class StatsQuery.
  */
-class StatsQuery implements StatsQueryInterface
+final class StatsQuery implements StatsQueryInterface
 {
     public const SORT_ASC = 'ASC';
 

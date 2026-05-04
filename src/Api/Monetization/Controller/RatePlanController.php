@@ -28,7 +28,7 @@ use Apigee\Edge\Entity\EntityInterface;
 use Apigee\Edge\Serializer\EntitySerializerInterface;
 use Psr\Http\Message\UriInterface;
 
-class RatePlanController extends OrganizationAwareEntityController implements RatePlanControllerInterface
+final class RatePlanController extends OrganizationAwareEntityController implements RatePlanControllerInterface
 {
     use EntityCrudOperationsControllerTrait {
         buildEntityCreatePayload as private traitBuildContextForEntityTransformerInCreate;
@@ -79,6 +79,9 @@ class RatePlanController extends OrganizationAwareEntityController implements Ra
         $responseArray = $this->responseToArray($response);
         // Ignore entity type key from response, ex.: product.
         $responseArray = reset($responseArray);
+        if (!is_array($responseArray)) {
+            $responseArray = [];
+        }
 
         return $this->responseArrayToArrayOfEntities($responseArray);
     }
@@ -94,7 +97,7 @@ class RatePlanController extends OrganizationAwareEntityController implements Ra
     public function createNewRevision(RatePlanRevisionInterface $entity): void
     {
         $payload = $this->getEntitySerializer()->serialize($entity, 'json');
-        $response = $this->getClient()->post($this->getEntityEndpointUri($entity->getPreviousRatePlanRevision()->id()) . '/revision', $payload);
+        $response = $this->getClient()->post((string) $this->getEntityEndpointUri($entity->getPreviousRatePlanRevision()->id()) . '/revision', $payload);
         $this->getEntitySerializer()->setPropertiesFromResponse($response, $entity);
     }
 

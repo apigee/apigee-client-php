@@ -20,7 +20,7 @@ namespace Apigee\Edge\Api\ApigeeX\Denormalizer;
 
 use Apigee\Edge\Api\ApigeeX\Entity\DeveloperBillingType;
 
-class DeveloperBillingTypeDenormalizer extends BillingTypeDenormalizer
+final class DeveloperBillingTypeDenormalizer extends BillingTypeDenormalizer
 {
     /**
      * Fully qualified class name of the developer billing type.

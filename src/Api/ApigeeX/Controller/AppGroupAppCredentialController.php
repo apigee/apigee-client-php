@@ -27,7 +27,7 @@ use Psr\Http\Message\UriInterface;
 /**
  * Class AppGroupAppCredentialController.
  */
-class AppGroupAppCredentialController extends CompanyAppCredentialController
+final class AppGroupAppCredentialController extends CompanyAppCredentialController
 {
     /** @var string appgroup name. */
     protected $appGroup;

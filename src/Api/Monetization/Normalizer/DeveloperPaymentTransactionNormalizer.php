@@ -20,7 +20,7 @@ namespace Apigee\Edge\Api\Monetization\Normalizer;
 
 use Apigee\Edge\Api\Monetization\Structure\DeveloperPaymentTransaction;
 
-class DeveloperPaymentTransactionNormalizer extends PaymentTransactionNormalizer
+final class DeveloperPaymentTransactionNormalizer extends PaymentTransactionNormalizer
 {
     /**
      * {@inheritdoc}

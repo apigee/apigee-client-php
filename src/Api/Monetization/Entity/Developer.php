@@ -18,7 +18,7 @@
 
 namespace Apigee\Edge\Api\Monetization\Entity;
 
-class Developer extends LegalEntity implements DeveloperInterface
+final class Developer extends LegalEntity implements DeveloperInterface
 {
     /**
      * Value of "parent" from the API response.

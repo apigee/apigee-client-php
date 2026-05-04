@@ -24,7 +24,7 @@ use ArrayObject;
 /**
  * Class PropertiesPropertyNormalizer.
  */
-class PropertiesPropertyNormalizer extends KeyValueMapNormalizer
+final class PropertiesPropertyNormalizer extends KeyValueMapNormalizer
 {
     /**
      * Transforms JSON representation of properties property to compatible with what Edge accepts.

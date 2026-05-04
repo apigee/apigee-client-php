@@ -28,7 +28,7 @@ use LogicException;
  *
  * @see \Symfony\Component\Serializer\Normalizer\NormalizerInterface::normalize()
  */
-class UninitializedPropertyException extends LogicException implements ApiClientException
+final class UninitializedPropertyException extends LogicException implements ApiClientException
 {
     /**
      * UninitializedPropertyException constructor.

@@ -31,7 +31,7 @@ use ReflectionException;
  * @TODO
  * "mdc" property is ignored.
  */
-class Environment extends Entity implements EnvironmentInterface
+final class Environment extends Entity implements EnvironmentInterface
 {
     use CommonEntityPropertiesAwareTrait;
     use NamePropertyAwareTrait;

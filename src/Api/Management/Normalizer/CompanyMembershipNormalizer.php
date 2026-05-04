@@ -22,7 +22,7 @@ use Apigee\Edge\Api\Management\Structure\CompanyMembership;
 use ArrayObject;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-class CompanyMembershipNormalizer implements NormalizerInterface
+final class CompanyMembershipNormalizer implements NormalizerInterface
 {
     /**
      * {@inheritdoc}

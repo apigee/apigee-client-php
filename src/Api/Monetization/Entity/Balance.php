@@ -21,7 +21,7 @@ namespace Apigee\Edge\Api\Monetization\Entity;
 use Apigee\Edge\Api\Monetization\Entity\Property\CurrencyPropertyAwareTrait;
 use Apigee\Edge\Api\Monetization\Structure\PaymentTransaction;
 
-class Balance extends Entity implements BalanceInterface
+final class Balance extends Entity implements BalanceInterface
 {
     use CurrencyPropertyAwareTrait;
 

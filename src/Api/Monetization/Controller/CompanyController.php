@@ -26,7 +26,7 @@ use Psr\Http\Message\UriInterface;
  * The endpoint currently returns both developers and companies, this may
  * change later!
  */
-class CompanyController extends LegalEntityController implements CompanyControllerInterface
+final class CompanyController extends LegalEntityController implements CompanyControllerInterface
 {
     /**
      * {@inheritdoc}

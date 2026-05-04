@@ -23,7 +23,7 @@ use Apigee\Edge\Api\Management\Entity\App;
 /**
  * Class AppGroupApp.
  */
-class AppGroupApp extends App implements AppGroupAppInterface
+final class AppGroupApp extends App implements AppGroupAppInterface
 {
     /** @var string */
     protected $appGroup;

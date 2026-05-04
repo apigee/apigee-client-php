@@ -21,6 +21,6 @@ namespace Apigee\Edge\Exception;
 /**
  * For ApigeeOnGcpOauth2Authentication authentication issues.
  */
-class ApigeeOnGcpOauth2AuthenticationException extends ApiException
+final class ApigeeOnGcpOauth2AuthenticationException extends ApiException
 {
 }

@@ -21,7 +21,7 @@ namespace Apigee\Edge\Api\Monetization\Serializer;
 use Apigee\Edge\Api\Monetization\Denormalizer\ApiPackageDenormalizer;
 use Apigee\Edge\Api\Monetization\Normalizer\ApiPackageNormalizer;
 
-class ApiPackageSerializer extends EntitySerializer
+final class ApiPackageSerializer extends EntitySerializer
 {
     /**
      * {@inheritdoc}

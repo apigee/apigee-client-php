@@ -23,7 +23,7 @@ use Apigee\Edge\Api\ApigeeX\Entity\Property\NanosPropertyAwareTrait;
 use Apigee\Edge\Api\ApigeeX\Entity\Property\UnitsPropertyAwareTrait;
 use Apigee\Edge\Api\Monetization\Entity\Entity;
 
-class Balance extends Entity
+final class Balance extends Entity
 {
     use CurrencyCodePropertyAwareTrait;
     use NanosPropertyAwareTrait;

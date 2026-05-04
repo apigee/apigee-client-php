@@ -24,6 +24,6 @@ namespace Apigee\Edge\Exception;
  * @deprecated in 2.0.9, will be removed in 3.0.0.
  * https://github.com/apigee/apigee-client-php/issues/112
  */
-class HybridOauth2AuthenticationException extends ApiException
+final class HybridOauth2AuthenticationException extends ApiException
 {
 }

@@ -33,7 +33,7 @@ use ReflectionException;
 /**
  * Describes an Organization entity.
  */
-class Organization extends Entity implements OrganizationInterface
+final class Organization extends Entity implements OrganizationInterface
 {
     use DisplayNamePropertyAwareTrait;
     use CommonEntityPropertiesAwareTrait;

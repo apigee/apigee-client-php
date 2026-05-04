@@ -31,6 +31,10 @@ use Symfony\Component\PropertyAccess\PropertyAccessor;
 use Symfony\Component\PropertyAccess\Tests\PropertyAccessorTest;
 use TypeError;
 
+if (!class_exists(PropertyAccessorTest::class)) {
+    return;
+}
+
 class PropertyAccessorDecoratorTest extends PropertyAccessorTest
 {
     use PhpUnitBcBridgeTrait;
@@ -124,7 +128,6 @@ class PropertyAccessorDecoratorTest extends PropertyAccessorTest
         // class.
         $ro = new ReflectionClass(PropertyAccessorTest::class);
         $property = $ro->getProperty('propertyAccessor');
-        $property->setAccessible(true);
         $property->setValue($this, $this->propertyAccessor);
     }
 

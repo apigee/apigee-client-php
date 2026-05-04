@@ -23,7 +23,7 @@ use Apigee\Edge\Structure\AttributesProperty;
 /**
  * Class AttributesPropertyDenormalizer.
  */
-class AttributesPropertyDenormalizer extends KeyValueMapDenormalizer
+final class AttributesPropertyDenormalizer extends KeyValueMapDenormalizer
 {
     /**
      * {@inheritdoc}

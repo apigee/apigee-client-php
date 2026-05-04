@@ -33,7 +33,7 @@ use Psr\Http\Message\UriInterface;
 /**
  * Class ApiProductController.
  */
-class ApiProductController extends PaginatedEntityController implements ApiProductControllerInterface
+final class ApiProductController extends PaginatedEntityController implements ApiProductControllerInterface
 {
     use AttributesAwareEntityControllerTrait;
     use EntityCrudOperationsControllerTrait;

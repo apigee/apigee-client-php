@@ -31,7 +31,7 @@ use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
 /**
  * Dynamically denormalizes legal entities to developers or companies.
  */
-class LegalEntityDenormalizer extends ObjectDenormalizer
+final class LegalEntityDenormalizer extends ObjectDenormalizer
 {
     /**
      * Fully qualified class name of the developer entity.
@@ -83,6 +83,6 @@ class LegalEntityDenormalizer extends ObjectDenormalizer
             return false;
         }
 
-        return LegalEntityInterface::class === $type || $type instanceof LegalEntityInterface || in_array(LegalEntityInterface::class, class_implements($type));
+        return LegalEntityInterface::class === $type || $type instanceof LegalEntityInterface || in_array(LegalEntityInterface::class, class_implements($type) ?: []);
     }
 }

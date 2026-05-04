@@ -26,7 +26,7 @@ use Apigee\Edge\Entity\Property\NamePropertyAwareTrait;
 use Apigee\Edge\Entity\Property\StatusPropertyAwareTrait;
 use DateTimeZone;
 
-class OrganizationProfile extends Entity implements OrganizationProfileInterface
+final class OrganizationProfile extends Entity implements OrganizationProfileInterface
 {
     use AddressesPropertyAwareTrait;
     use BrokerPropertyAwareTrait;

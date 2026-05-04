@@ -28,7 +28,7 @@ use Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface;
 use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface;
 use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
 
-class ReportCriteriaNormalizer extends ObjectNormalizer
+final class ReportCriteriaNormalizer extends ObjectNormalizer
 {
     use TimezoneFixerHelperTrait;
 

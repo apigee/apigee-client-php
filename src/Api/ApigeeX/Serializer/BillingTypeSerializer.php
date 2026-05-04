@@ -22,7 +22,7 @@ use Apigee\Edge\Api\ApigeeX\Denormalizer\DeveloperBillingTypeDenormalizer;
 use Apigee\Edge\Api\ApigeeX\Normalizer\BillingTypeNormalizer;
 use Apigee\Edge\Api\Monetization\Serializer\EntitySerializer;
 
-class BillingTypeSerializer extends EntitySerializer
+final class BillingTypeSerializer extends EntitySerializer
 {
     /**
      * {@inheritdoc}

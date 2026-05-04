@@ -21,7 +21,7 @@ namespace Apigee\Edge\Api\Monetization\Serializer;
 use Apigee\Edge\Api\Monetization\Denormalizer\BalanceDenormalizer;
 use Apigee\Edge\Api\Monetization\Normalizer\BalanceNormalizer;
 
-class BalanceSerializer extends EntitySerializer
+final class BalanceSerializer extends EntitySerializer
 {
     /**
      * {@inheritdoc}

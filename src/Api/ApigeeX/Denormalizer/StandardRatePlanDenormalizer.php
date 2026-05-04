@@ -22,7 +22,7 @@ use Apigee\Edge\Api\ApigeeX\Entity\RatePlanInterface;
 use Apigee\Edge\Api\ApigeeX\Entity\StandardRatePlan;
 use Apigee\Edge\Api\ApigeeX\Entity\StandardRatePlanRevision;
 
-class StandardRatePlanDenormalizer extends RatePlanDenormalizer
+final class StandardRatePlanDenormalizer extends RatePlanDenormalizer
 {
     /**
      * Fully qualified class name of the standard rate plan entity.

@@ -23,7 +23,7 @@ use Symfony\Component\Serializer\Exception\UnexpectedValueException as BaseUnexp
 /**
  * Thrown when a value of a property does not match with its expected type.
  */
-class UnexpectedValueException extends BaseUnexpectedValueException implements ApiClientException
+final class UnexpectedValueException extends BaseUnexpectedValueException implements ApiClientException
 {
     /**
      * UnexpectedValueException constructor.

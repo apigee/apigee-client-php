@@ -20,6 +20,6 @@ namespace Apigee\Edge\Api\ApigeeX\Serializer;
 
 use Apigee\Edge\Api\Management\Serializer\AttributesPropertyAwareEntitySerializer;
 
-class AppGroupSerializer extends AttributesPropertyAwareEntitySerializer
+final class AppGroupSerializer extends AttributesPropertyAwareEntitySerializer
 {
 }

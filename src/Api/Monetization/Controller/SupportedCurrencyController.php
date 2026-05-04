@@ -25,7 +25,7 @@ use Apigee\Edge\Controller\EntityListingControllerTrait;
 use Apigee\Edge\Serializer\EntitySerializerInterface;
 use Psr\Http\Message\UriInterface;
 
-class SupportedCurrencyController extends OrganizationAwareEntityController implements SupportedCurrencyControllerInterface
+final class SupportedCurrencyController extends OrganizationAwareEntityController implements SupportedCurrencyControllerInterface
 {
     use EntityCrudOperationsControllerTrait;
     use EntityListingControllerTrait;

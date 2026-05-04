@@ -30,7 +30,7 @@ use Throwable;
  * @see https://docs.apigee.com/api-services/content/api-reference-getting-started#cps
  * @deprecated Since 2.0.1, https://github.com/apigee/apigee-client-php/pull/43/files
  */
-class CpsNotEnabledException extends RuntimeException
+final class CpsNotEnabledException extends RuntimeException
 {
     /**
      * @var string

@@ -26,7 +26,7 @@ use Throwable;
 /**
  * Class InvalidJsonException.
  */
-class InvalidJsonException extends ApiResponseException
+final class InvalidJsonException extends ApiResponseException
 {
     /** @var string */
     protected $jsonErrorMessage;

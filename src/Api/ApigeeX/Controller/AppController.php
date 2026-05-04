@@ -32,7 +32,7 @@ use Psr\Http\Message\UriInterface;
 /**
  * Class AppController.
  */
-class AppController extends PaginatedEntityController implements AppControllerInterface
+final class AppController extends PaginatedEntityController implements AppControllerInterface
 {
     use EntityListingControllerTrait;
     use PaginationHelperTrait {

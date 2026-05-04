@@ -24,7 +24,7 @@ use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Serializer\EntitySerializerInterface;
 use Psr\Http\Message\UriInterface;
 
-class CompanyAcceptedRatePlanController extends AcceptedRatePlanController
+final class CompanyAcceptedRatePlanController extends AcceptedRatePlanController
 {
     /**
      * Name of the company.

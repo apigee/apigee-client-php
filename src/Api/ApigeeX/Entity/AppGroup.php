@@ -29,7 +29,7 @@ use Apigee\Edge\Structure\AttributesProperty;
 /**
  * Describes an AppGroup entity.
  */
-class AppGroup extends Entity implements AppGroupInterface
+final class AppGroup extends Entity implements AppGroupInterface
 {
     use DisplayNamePropertyAwareTrait;
     use NamePropertyAwareTrait;

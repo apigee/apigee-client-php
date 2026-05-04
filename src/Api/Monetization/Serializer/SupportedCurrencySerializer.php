@@ -21,7 +21,7 @@ namespace Apigee\Edge\Api\Monetization\Serializer;
 use Apigee\Edge\Api\Monetization\Denormalizer\SupportedCurrencyDenormalizer;
 use Apigee\Edge\Api\Monetization\Normalizer\SupportedCurrencyNormalizer;
 
-class SupportedCurrencySerializer extends EntitySerializer
+final class SupportedCurrencySerializer extends EntitySerializer
 {
     /**
      * {@inheritdoc}

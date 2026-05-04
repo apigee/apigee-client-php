@@ -26,7 +26,7 @@ use Apigee\Edge\Denormalizer\CredentialProductDenormalizer;
 use Apigee\Edge\Normalizer\CredentialProductNormalizer;
 use Apigee\Edge\Serializer\EntitySerializer;
 
-class AppGroupEntitySerializer extends EntitySerializer
+final class AppGroupEntitySerializer extends EntitySerializer
 {
     /**
      * AppGroupEntitySerializer constructor.

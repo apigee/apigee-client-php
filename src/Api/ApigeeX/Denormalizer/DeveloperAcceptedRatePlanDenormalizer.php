@@ -20,7 +20,7 @@ namespace Apigee\Edge\Api\ApigeeX\Denormalizer;
 
 use Apigee\Edge\Api\ApigeeX\Entity\DeveloperAcceptedRatePlan;
 
-class DeveloperAcceptedRatePlanDenormalizer extends AcceptedRatePlanDenormalizer
+final class DeveloperAcceptedRatePlanDenormalizer extends AcceptedRatePlanDenormalizer
 {
     /**
      * Fully qualified class name of the developer accepted rate plan entity.

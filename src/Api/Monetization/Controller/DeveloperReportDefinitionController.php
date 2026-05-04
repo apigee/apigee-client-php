@@ -23,7 +23,7 @@ use Apigee\Edge\ClientInterface;
 use Apigee\Edge\Serializer\EntitySerializerInterface;
 use Psr\Http\Message\UriInterface;
 
-class DeveloperReportDefinitionController extends LegalEntityReportDefinitionController implements DeveloperReportDefinitionControllerInterface
+final class DeveloperReportDefinitionController extends LegalEntityReportDefinitionController implements DeveloperReportDefinitionControllerInterface
 {
     /**
      * @var string

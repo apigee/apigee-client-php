@@ -25,7 +25,7 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 /**
  * Class AppNormalizer.
  */
-class AppNormalizer extends ObjectNormalizer implements NormalizerInterface
+final class AppNormalizer extends ObjectNormalizer implements NormalizerInterface
 {
     /**
      * {@inheritdoc}

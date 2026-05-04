@@ -20,7 +20,7 @@ namespace Apigee\Edge\Api\Monetization\Denormalizer;
 
 use Apigee\Edge\Api\Monetization\Structure\DeveloperPaymentTransaction;
 
-class DeveloperPaymentTransactionDenormalizer extends PaymentTransactionDenormalizer
+final class DeveloperPaymentTransactionDenormalizer extends PaymentTransactionDenormalizer
 {
     /**
      * Fully qualified class name of the developer payment transaction object.

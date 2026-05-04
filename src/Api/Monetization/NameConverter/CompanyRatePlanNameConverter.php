@@ -20,7 +20,7 @@ namespace Apigee\Edge\Api\Monetization\NameConverter;
 
 use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
 
-class CompanyRatePlanNameConverter extends RatePlanNameConverter implements NameConverterInterface
+final class CompanyRatePlanNameConverter extends RatePlanNameConverter implements NameConverterInterface
 {
     /**
      * {@inheritdoc}

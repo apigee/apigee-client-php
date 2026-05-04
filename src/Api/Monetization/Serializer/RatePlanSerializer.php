@@ -23,7 +23,7 @@ use Apigee\Edge\Api\Monetization\Denormalizer\RatePlanRateDenormalizer;
 use Apigee\Edge\Api\Monetization\Normalizer\RatePlanNormalizerFactory;
 use Apigee\Edge\Api\Monetization\Normalizer\RatePlanRateNormalizer;
 
-class RatePlanSerializer extends EntitySerializer
+final class RatePlanSerializer extends EntitySerializer
 {
     /**
      * {@inheritdoc}

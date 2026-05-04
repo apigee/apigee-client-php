@@ -30,7 +30,7 @@ use Psr\Http\Message\UriInterface;
 /**
  * Class EnvironmentController.
  */
-class EnvironmentController extends EntityController implements EnvironmentControllerInterface
+final class EnvironmentController extends EntityController implements EnvironmentControllerInterface
 {
     use EntityCrudOperationsControllerTrait;
     use NonPaginatedEntityIdListingControllerTrait;

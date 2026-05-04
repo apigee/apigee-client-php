@@ -21,7 +21,7 @@ namespace Apigee\Edge\Api\Monetization\Serializer;
 use Apigee\Edge\Api\Monetization\Denormalizer\AddressDenormalizer;
 use Apigee\Edge\Api\Monetization\Normalizer\AddressNormalizer;
 
-class AddressSerializer extends EntitySerializer
+final class AddressSerializer extends EntitySerializer
 {
     /**
      * {@inheritdoc}

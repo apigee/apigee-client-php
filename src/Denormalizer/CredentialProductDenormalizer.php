@@ -25,7 +25,7 @@ use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 /**
  * Class CredentialProductDenormalizer.
  */
-class CredentialProductDenormalizer implements DenormalizerInterface
+final class CredentialProductDenormalizer implements DenormalizerInterface
 {
     /**
      * {@inheritdoc}
@@ -37,7 +37,7 @@ class CredentialProductDenormalizer implements DenormalizerInterface
             return false;
         }
 
-        return CredentialProductInterface::class === $type || $type instanceof CredentialProductInterface || in_array(CredentialProductInterface::class, class_implements($type));
+        return CredentialProductInterface::class === $type || $type instanceof CredentialProductInterface || in_array(CredentialProductInterface::class, class_implements($type) ?: []);
     }
 
     /**

@@ -30,7 +30,7 @@ use Psr\Http\Message\UriInterface;
 /**
  * Class AppGroupAppController.
  */
-class AppGroupAppController extends AppByOwnerController implements AppGroupAppControllerInterface
+final class AppGroupAppController extends AppByOwnerController implements AppGroupAppControllerInterface
 {
     use AppGroupAwareControllerTrait;
 

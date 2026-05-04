@@ -25,7 +25,7 @@ use Apigee\Edge\Controller\EntityListingControllerTrait;
 use Apigee\Edge\Serializer\EntitySerializerInterface;
 use Psr\Http\Message\UriInterface;
 
-class TermsAndConditionsController extends OrganizationAwareEntityController implements TermsAndConditionsControllerInterface
+final class TermsAndConditionsController extends OrganizationAwareEntityController implements TermsAndConditionsControllerInterface
 {
     use EntityCrudOperationsControllerTrait;
     use EntityListingControllerTrait;

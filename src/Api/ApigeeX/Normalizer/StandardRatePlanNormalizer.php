@@ -21,7 +21,7 @@ namespace Apigee\Edge\Api\ApigeeX\Normalizer;
 use Apigee\Edge\Api\ApigeeX\Entity\RatePlanInterface;
 use Apigee\Edge\Api\ApigeeX\Entity\StandardRatePlanInterface;
 
-class StandardRatePlanNormalizer extends RatePlanNormalizer
+final class StandardRatePlanNormalizer extends RatePlanNormalizer
 {
     /**
      * {@inheritdoc}

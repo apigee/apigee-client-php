@@ -26,7 +26,7 @@ use Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface;
 use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface;
 use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
 
-class SupportedCurrencyDenormalizer extends ObjectDenormalizer
+final class SupportedCurrencyDenormalizer extends ObjectDenormalizer
 {
     /**
      * SupportedCurrencyDenormalizer constructor.
@@ -52,6 +52,6 @@ class SupportedCurrencyDenormalizer extends ObjectDenormalizer
             return false;
         }
 
-        return SupportedCurrencyInterface::class === $type || $type instanceof SupportedCurrencyInterface || in_array(SupportedCurrencyInterface::class, class_implements($type));
+        return SupportedCurrencyInterface::class === $type || $type instanceof SupportedCurrencyInterface || in_array(SupportedCurrencyInterface::class, class_implements($type) ?: []);
     }
 }

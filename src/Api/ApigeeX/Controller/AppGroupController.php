@@ -33,7 +33,7 @@ use Psr\Http\Message\UriInterface;
 /**
  * Class AppGroupController.
  */
-class AppGroupController extends PaginatedEntityController implements AppGroupControllerInterface
+final class AppGroupController extends PaginatedEntityController implements AppGroupControllerInterface
 {
     use AttributesAwareEntityControllerTrait;
     use EntityCrudOperationsControllerTrait;

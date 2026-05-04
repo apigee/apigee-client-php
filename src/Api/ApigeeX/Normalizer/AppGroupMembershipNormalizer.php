@@ -21,7 +21,7 @@ namespace Apigee\Edge\Api\ApigeeX\Normalizer;
 use Apigee\Edge\Api\ApigeeX\Structure\AppGroupMembership;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-class AppGroupMembershipNormalizer implements NormalizerInterface
+final class AppGroupMembershipNormalizer implements NormalizerInterface
 {
     /**
      * {@inheritdoc}

@@ -25,7 +25,7 @@ use Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface;
 use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface;
 use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
 
-class CompanyAcceptedRatePlanDenormalizer extends AcceptedRatePlanDenormalizer
+final class CompanyAcceptedRatePlanDenormalizer extends AcceptedRatePlanDenormalizer
 {
     /**
      * Fully qualified class name of the company accepted rate plan entity.

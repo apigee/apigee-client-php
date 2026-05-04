@@ -23,6 +23,6 @@ namespace Apigee\Edge\Exception;
  *
  * For >= 500 HTTP codes.
  */
-class ServerErrorException extends ApiResponseException
+final class ServerErrorException extends ApiResponseException
 {
 }

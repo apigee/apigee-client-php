@@ -26,7 +26,7 @@ use Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface;
 use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface;
 use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
 
-class ApiProductNormalizer extends EntityNormalizer
+final class ApiProductNormalizer extends EntityNormalizer
 {
     /**
      * ApiProductNormalizer constructor.

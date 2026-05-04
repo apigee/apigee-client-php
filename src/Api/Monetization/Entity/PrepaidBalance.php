@@ -20,7 +20,7 @@ namespace Apigee\Edge\Api\Monetization\Entity;
 
 use Apigee\Edge\Api\Monetization\Entity\Property\CurrencyPropertyAwareTrait;
 
-class PrepaidBalance extends Entity implements PrepaidBalanceInterface
+final class PrepaidBalance extends Entity implements PrepaidBalanceInterface
 {
     use CurrencyPropertyAwareTrait;
 

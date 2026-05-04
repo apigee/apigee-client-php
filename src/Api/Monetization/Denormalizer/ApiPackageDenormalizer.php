@@ -26,7 +26,7 @@ use Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface;
 use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface;
 use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
 
-class ApiPackageDenormalizer extends ObjectDenormalizer
+final class ApiPackageDenormalizer extends ObjectDenormalizer
 {
     /**
      * ApiPackageDenormalizer constructor.
@@ -52,6 +52,6 @@ class ApiPackageDenormalizer extends ObjectDenormalizer
             return false;
         }
 
-        return ApiPackageInterface::class === $type || $type instanceof ApiPackageInterface || in_array(ApiPackageInterface::class, class_implements($type));
+        return ApiPackageInterface::class === $type || $type instanceof ApiPackageInterface || in_array(ApiPackageInterface::class, class_implements($type) ?: []);
     }
 }

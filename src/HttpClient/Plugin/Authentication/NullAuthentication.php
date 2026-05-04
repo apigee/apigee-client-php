@@ -24,7 +24,7 @@ use Psr\Http\Message\RequestInterface;
 /**
  * Null authentication.
  */
-class NullAuthentication implements Authentication
+final class NullAuthentication implements Authentication
 {
     /**
      * {@inheritdoc}

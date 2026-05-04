@@ -20,7 +20,7 @@ namespace Apigee\Edge\Api\Monetization\Normalizer;
 
 use Apigee\Edge\Api\Monetization\Entity\DeveloperReportDefinitionInterface;
 
-class DeveloperReportDefinitionNormalizer extends LegalEntityReportDefinitionNormalizer
+final class DeveloperReportDefinitionNormalizer extends LegalEntityReportDefinitionNormalizer
 {
     /**
      * {@inheritdoc}

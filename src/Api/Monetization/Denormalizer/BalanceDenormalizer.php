@@ -26,7 +26,7 @@ use Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface;
 use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface;
 use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
 
-class BalanceDenormalizer extends ObjectDenormalizer
+final class BalanceDenormalizer extends ObjectDenormalizer
 {
     /**
      * BalanceDenormalizer constructor.
@@ -52,6 +52,6 @@ class BalanceDenormalizer extends ObjectDenormalizer
             return false;
         }
 
-        return BalanceInterface::class === $type || $type instanceof BalanceInterface || in_array(BalanceInterface::class, class_implements($type));
+        return BalanceInterface::class === $type || $type instanceof BalanceInterface || in_array(BalanceInterface::class, class_implements($type) ?: []);
     }
 }
