@@ -20,6 +20,7 @@ namespace Apigee\Edge\Api\Management\Normalizer;
 
 use Apigee\Edge\Api\Management\Entity\AppCredentialInterface;
 use Apigee\Edge\Normalizer\ObjectNormalizer;
+use ArrayObject;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 /**
@@ -41,7 +42,7 @@ final class AppCredentialNormalizer extends ObjectNormalizer implements Normaliz
      * @psalm-suppress InvalidReturnType Returning an object here is required
      * for creating a valid Apigee Edge request.
      */
-    public function normalize($data, $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
+    public function normalize($data, $format = null, array $context = []): array|string|int|float|bool|ArrayObject|null
     {
         /** @var object $normalized */
         $normalized = parent::normalize($data, $format, $context);

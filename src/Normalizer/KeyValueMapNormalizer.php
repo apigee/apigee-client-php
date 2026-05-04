@@ -19,6 +19,7 @@
 namespace Apigee\Edge\Normalizer;
 
 use Apigee\Edge\Structure\KeyValueMapInterface;
+use ArrayObject;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 /**
@@ -29,7 +30,7 @@ class KeyValueMapNormalizer implements NormalizerInterface
     /**
      * {@inheritdoc}
      */
-    public function normalize($data, $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
+    public function normalize($data, $format = null, array $context = []): array|string|int|float|bool|ArrayObject|null
     {
         $return = [];
         foreach ($data->values() as $key => $value) {

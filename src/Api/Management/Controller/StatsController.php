@@ -234,10 +234,10 @@ final class StatsController extends AbstractController implements StatsControlle
     {
         if ($this->isHybrid()) {
             return $this->client->getUriFactory()->createUri("/organizations/{$this->organization}/environments/$this->environment/optimizedStats/");
-        } else {
-            // Slash in the end is always required.
-            return $this->client->getUriFactory()->createUri("/organizations/{$this->organization}/environments/$this->environment/stats/");
         }
+
+        // Slash in the end is always required.
+        return $this->client->getUriFactory()->createUri("/organizations/{$this->organization}/environments/$this->environment/stats/");
     }
 
     /**

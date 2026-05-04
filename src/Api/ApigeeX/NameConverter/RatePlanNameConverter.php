@@ -25,6 +25,7 @@ use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
  * Maps rate plan properties from the API response to their destination properties.
  *
  * @see \Apigee\Edge\Api\ApigeeX\Entity\RatePlan
+ *
  * @psalm-suppress ClassMustBeFinal
  */
 class RatePlanNameConverter extends NameConverterBase implements NameConverterInterface

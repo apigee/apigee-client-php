@@ -19,6 +19,7 @@
 namespace Apigee\Edge\Normalizer;
 
 use Apigee\Edge\Structure\PropertiesProperty;
+use ArrayObject;
 
 /**
  * Class PropertiesPropertyNormalizer.
@@ -33,7 +34,7 @@ final class PropertiesPropertyNormalizer extends KeyValueMapNormalizer
      * @psalm-suppress InvalidReturnType Returning an object here is required
      * for creating a valid Apigee Edge request.
      */
-    public function normalize($data, $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
+    public function normalize($data, $format = null, array $context = []): array|string|int|float|bool|ArrayObject|null
     {
         $return = [
             'property' => parent::normalize($data, $format, $context),
@@ -41,7 +42,7 @@ final class PropertiesPropertyNormalizer extends KeyValueMapNormalizer
 
         // convert to \ArrayObject as symfony normalizer throws error for std object.
         // set ARRAY_AS_PROPS flag as we need entries to be accessed as properties.
-        return new \ArrayObject($return, \ArrayObject::ARRAY_AS_PROPS);
+        return new ArrayObject($return, ArrayObject::ARRAY_AS_PROPS);
     }
 
     /**

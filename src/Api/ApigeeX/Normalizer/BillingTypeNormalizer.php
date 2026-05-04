@@ -20,6 +20,7 @@ namespace Apigee\Edge\Api\ApigeeX\Normalizer;
 
 use Apigee\Edge\Api\ApigeeX\Entity\BillingTypeInterface;
 use Apigee\Edge\Api\Monetization\Normalizer\EntityNormalizer;
+use ArrayObject;
 
 final class BillingTypeNormalizer extends EntityNormalizer
 {
@@ -29,7 +30,7 @@ final class BillingTypeNormalizer extends EntityNormalizer
      * @psalm-suppress InvalidReturnType Returning an object here is required
      * for creating a valid Apigee Edge request.
      */
-    public function normalize($data, $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
+    public function normalize($data, $format = null, array $context = []): array|string|int|float|bool|ArrayObject|null
     {
         /** @var BillingTypeInterface $data */
         /** @var object $normalized */

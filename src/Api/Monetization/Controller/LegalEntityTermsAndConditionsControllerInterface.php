@@ -42,7 +42,7 @@ interface LegalEntityTermsAndConditionsControllerInterface extends OrganizationA
      *
      * Specifying audit date is omitted at this moment.
      *
-     * @see \Apigee\Edge\Api\Monetization\Structure\LegalEntityTermsAndConditionsHistoryItem::$auditDate
+     * @see LegalEntityTermsAndConditionsHistoryItem::$auditDate
      *
      * @param string $tncId
      *   Id of a terms and conditions.
@@ -56,7 +56,7 @@ interface LegalEntityTermsAndConditionsControllerInterface extends OrganizationA
      *
      * Specifying audit date is omitted at this moment.
      *
-     * @see \Apigee\Edge\Api\Monetization\Structure\LegalEntityTermsAndConditionsHistoryItem::$auditDate
+     * @see LegalEntityTermsAndConditionsHistoryItem::$auditDate
      *
      * @param string $tncId
      *   Id of a terms and conditions.
