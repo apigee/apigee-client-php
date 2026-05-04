@@ -198,7 +198,7 @@ abstract class PrepaidBalanceController extends OrganizationAwareEntityControlle
      * @param DateTimeImmutable $billingMonth
      * @param string|null $currencyCode
      *
-     * @return \Apigee\Edge\Api\Monetization\Entity\PrepaidBalanceInterface[]
+     * @return PrepaidBalanceInterface[]
      *
      * @psalm-suppress PossiblyNullArrayOffset - id() does not return null here.
      */

@@ -118,7 +118,7 @@ abstract class PrepaidBalanceController extends OrganizationAwareEntityControlle
      *
      * @param string|null $currencyCode
      *
-     * @return \Apigee\Edge\Api\ApigeeX\Entity\PrepaidBalanceInterface[]
+     * @return PrepaidBalanceInterface[]
      *
      * @psalm-suppress PossiblyNullArrayOffset - id() does not return null here.
      */

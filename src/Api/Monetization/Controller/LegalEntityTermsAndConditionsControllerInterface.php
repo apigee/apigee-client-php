@@ -33,7 +33,7 @@ interface LegalEntityTermsAndConditionsControllerInterface extends OrganizationA
      * Gets all accepted/declined terms and conditions history events
      * for a developer -or company.
      *
-     * @return \Apigee\Edge\Api\Monetization\Structure\LegalEntityTermsAndConditionsHistoryItem[]
+     * @return LegalEntityTermsAndConditionsHistoryItem[]
      */
     public function getTermsAndConditionsHistory(): array;
 
@@ -42,7 +42,7 @@ interface LegalEntityTermsAndConditionsControllerInterface extends OrganizationA
      *
      * Specifying audit date is omitted at this moment.
      *
-     * @see \Apigee\Edge\Api\Monetization\Structure\LegalEntityTermsAndConditionsHistoryItem::$auditDate
+     * @see LegalEntityTermsAndConditionsHistoryItem::$auditDate
      *
      * @param string $tncId
      *   Id of a terms and conditions.
@@ -56,7 +56,7 @@ interface LegalEntityTermsAndConditionsControllerInterface extends OrganizationA
      *
      * Specifying audit date is omitted at this moment.
      *
-     * @see \Apigee\Edge\Api\Monetization\Structure\LegalEntityTermsAndConditionsHistoryItem::$auditDate
+     * @see LegalEntityTermsAndConditionsHistoryItem::$auditDate
      *
      * @param string $tncId
      *   Id of a terms and conditions.

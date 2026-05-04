@@ -35,7 +35,7 @@ use ReflectionException;
  */
 class TestClientFactory
 {
-    /** @var \Apigee\Edge\ClientInterface[] */
+    /** @var ClientInterface[] */
     private static $instances = [];
 
     /**

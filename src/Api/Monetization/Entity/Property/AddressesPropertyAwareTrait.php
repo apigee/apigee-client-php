@@ -27,13 +27,13 @@ use Apigee\Edge\Api\Monetization\Structure\Address;
  */
 trait AddressesPropertyAwareTrait
 {
-    /** @var \Apigee\Edge\Api\Monetization\Structure\Address[] */
+    /** @var Address[] */
     protected $addresses = [];
 
     /**
      * {@inheritdoc}
      *
-     * @return \Apigee\Edge\Api\Monetization\Structure\Address[]
+     * @return Address[]
      */
     public function getAddresses(): array
     {

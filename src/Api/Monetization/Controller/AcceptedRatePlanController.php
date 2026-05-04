@@ -164,7 +164,7 @@ abstract class AcceptedRatePlanController extends OrganizationAwareEntityControl
      * @param array $query_params
      *   Additional query parameters.
      *
-     * @return \Apigee\Edge\Api\Monetization\Entity\AcceptedRatePlanInterface[]
+     * @return AcceptedRatePlanInterface[]
      *
      * @psalm-suppress PossiblyNullArrayOffset - id() does not return null here.
      */
