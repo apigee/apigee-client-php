@@ -30,6 +30,7 @@ use Psr\Http\Client\NetworkExceptionInterface;
  * Cloud API.
  *
  * @see https://developers.google.com/identity/protocols/OAuth2ServiceAccount
+ *
  * @psalm-suppress ClassMustBeFinal
  */
 class GceServiceAccount extends AbstractOauth
