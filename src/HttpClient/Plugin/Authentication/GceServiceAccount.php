@@ -30,8 +30,10 @@ use Psr\Http\Client\NetworkExceptionInterface;
  * Cloud API.
  *
  * @see https://developers.google.com/identity/protocols/OAuth2ServiceAccount
+ *
+ * @psalm-suppress ClassMustBeFinal
  */
-final class GceServiceAccount extends AbstractOauth
+class GceServiceAccount extends AbstractOauth
 {
     public const DEFAULT_GCE_AUTH_SERVER = 'http://metadata.google.internal/computeMetadata/v1/instance/service-accounts/default/token';
 
