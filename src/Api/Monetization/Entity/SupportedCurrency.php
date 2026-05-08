@@ -24,7 +24,10 @@ use Apigee\Edge\Entity\Property\DisplayNamePropertyAwareTrait;
 use Apigee\Edge\Entity\Property\NamePropertyAwareTrait;
 use Apigee\Edge\Entity\Property\StatusPropertyAwareTrait;
 
-final class SupportedCurrency extends OrganizationAwareEntity implements SupportedCurrencyInterface
+/**
+ * @psalm-suppress ClassMustBeFinal
+ */
+class SupportedCurrency extends OrganizationAwareEntity implements SupportedCurrencyInterface
 {
     use DescriptionPropertyAwareTrait;
     use DisplayNamePropertyAwareTrait;
