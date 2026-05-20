@@ -1,4 +1,7 @@
 # CHANGELOG
+## [4.0.5](https://github.com/apigee/apigee-client-php/milestone/42?closed=1)
+* [#470] Fixed warning while creating a new team.
+
 ## [4.0.4](https://github.com/apigee/apigee-client-php/milestone/40?closed=1)
 * [#467] Fix: Ignore 'originalEmail' when creating developer entities.
 
