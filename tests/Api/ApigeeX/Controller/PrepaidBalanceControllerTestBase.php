@@ -90,10 +90,8 @@ abstract class PrepaidBalanceControllerTestBase extends EntityControllerTestBase
         // We need to prepaid balance serializer from the controller.
         $ro = new ReflectionObject(static::entityController());
         $property = $ro->getProperty('decorated');
-        $property->setAccessible(true);
         $ro = new ReflectionObject($property->getValue(static::entityController()));
         $rp = $ro->getProperty('prepaidBalanceSerializer');
-        $rp->setAccessible(true);
         $validator = new PrepaidBalanceSerializerValidator($rp->getValue($property->getValue(static::entityController())));
 
         foreach ($entities as $entity) {

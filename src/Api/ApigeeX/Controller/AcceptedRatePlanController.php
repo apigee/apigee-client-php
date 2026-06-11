@@ -89,7 +89,7 @@ abstract class AcceptedRatePlanController extends OrganizationAwareEntityControl
 
         $tmp = json_decode($payload, true);
 
-        $payload = json_encode($tmp);
+        $payload = (string) json_encode($tmp);
 
         $response = $this->client->post($this->getBaseEndpointUri(), $payload);
         $this->getEntitySerializer()->setPropertiesFromResponse($response, $acceptedRatePlan);

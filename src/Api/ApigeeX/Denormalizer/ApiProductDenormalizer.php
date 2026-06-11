@@ -52,6 +52,6 @@ class ApiProductDenormalizer extends ObjectDenormalizer
             return false;
         }
 
-        return ApiProductInterface::class === $type || $type instanceof ApiProductInterface || in_array(ApiProductInterface::class, class_implements($type));
+        return ApiProductInterface::class === $type || $type instanceof ApiProductInterface || in_array(ApiProductInterface::class, class_implements($type) ?: []);
     }
 }

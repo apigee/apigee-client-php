@@ -51,7 +51,6 @@ trait TimezoneFixerHelperTrait
             $ro = new ReflectionObject($object);
             $dateDenormalizer = new DateTimeNormalizer([DateTimeNormalizer::FORMAT_KEY => EntityInterface::DATE_FORMAT, DateTimeNormalizer::TIMEZONE_KEY => $orgTimezone]);
             foreach ($ro->getProperties() as $property) {
-                $property->setAccessible(true);
                 $value = $property->getValue($object);
                 if ($value instanceof DateTimeImmutable) {
                     $normalized->{$property->getName()} = $dateDenormalizer->normalize($value, DateTimeImmutable::class);
@@ -86,7 +85,6 @@ trait TimezoneFixerHelperTrait
             foreach ($object as $prop_name => $prop_value) {
                 if ($ro->hasProperty($prop_name)) {
                     $property = $ro->getProperty($prop_name);
-                    $property->setAccessible(true);
                     $value = $property->getValue($denormalized);
                     if ($value instanceof DateTimeImmutable) {
                         $property->setValue($denormalized, $dateDenormalizer->denormalize($prop_value, DateTimeImmutable::class));

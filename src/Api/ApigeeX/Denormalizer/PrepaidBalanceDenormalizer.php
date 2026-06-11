@@ -52,6 +52,6 @@ class PrepaidBalanceDenormalizer extends ObjectDenormalizer
             return false;
         }
 
-        return PrepaidBalanceInterface::class === $type || $type instanceof PrepaidBalanceInterface || in_array(PrepaidBalanceInterface::class, class_implements($type));
+        return PrepaidBalanceInterface::class === $type || $type instanceof PrepaidBalanceInterface || in_array(PrepaidBalanceInterface::class, class_implements($type) ?: []);
     }
 }

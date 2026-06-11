@@ -178,7 +178,7 @@ trait PaginationHelperTrait
             $responseArray = $this->getResultsInRange($pager, $query_params);
             // Ignore entity type key from response, ex.: developer,
             // apiproduct, etc.
-            $responseArray = reset($responseArray);
+            $responseArray = reset($responseArray) ?: [];
 
             return $this->responseArrayToArrayOfEntities($responseArray, $key_provider);
         } else {
@@ -197,7 +197,7 @@ trait PaginationHelperTrait
                 $tmp = $this->getResultsInRange($this->createPager(0, $lastId), $query_params);
                 // Ignore entity type key from response, ex.: developer,
                 // apiproduct, etc.
-                $tmp = reset($tmp);
+                $tmp = reset($tmp) ?: [];
                 // Remove the first item from the list because it is the same
                 // as the last item of $entities at this moment.
                 // Apigee Edge response always starts with the requested entity
@@ -245,7 +245,7 @@ trait PaginationHelperTrait
         $response = $this->getClient()->get($uri);
         $responseArray = $this->responseToArray($response);
         // Ignore entity type key from response, ex.: apiProduct.
-        $responseArray = reset($responseArray);
+        $responseArray = reset($responseArray) ?: [];
 
         $entities = $this->responseArrayToArrayOfEntities($responseArray, $key_provider);
 
@@ -394,7 +394,7 @@ trait PaginationHelperTrait
         $array_search_haystack = $array_search_haystack ?? $result;
         // If start key is null let's set it to the first key in the
         // result just like the API would do.
-        $start_key = $pager->getStartKey() ?? reset($array_search_haystack);
+        $start_key = $pager->getStartKey() ?? (reset($array_search_haystack) ?: '');
         $offset = array_search($start_key, $array_search_haystack);
         // Start key has not been found in the response. Apigee Edge with
         // CPS enabled would return an HTTP 404, with error code

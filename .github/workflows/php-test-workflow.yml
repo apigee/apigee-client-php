@@ -19,6 +19,14 @@ jobs:
                     dependencies-preference: " "
                 -   php: '8.3'
                     dependencies-preference: "--prefer-lowest"
+                -   php: '8.4'
+                    dependencies-preference: " "
+                -   php: '8.4'
+                    dependencies-preference: "--prefer-lowest"
+                -   php: '8.5'
+                    dependencies-preference: " "
+                -   php: '8.5'
+                    dependencies-preference: "--prefer-lowest"
             fail-fast: false
         steps:
         -   uses: actions/checkout@v4

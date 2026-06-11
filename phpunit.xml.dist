@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <!--
   ~ Copyright 2018 Google LLC
   ~
@@ -15,17 +14,15 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
   -->
-
-<phpunit
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/6.4/phpunit.xsd"
-         colors="true"
-         bootstrap="./vendor/autoload.php"
-         printerClass="LimeDeck\Testing\Printer"
-         verbose="true">
-    <php>
-        <!--  Apigee Edge credentials - uncomment and change these lines to change to an online test.  -->
-        <!--
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd" colors="true" bootstrap="./vendor/autoload.php" printerClass="LimeDeck\Testing\Printer" verbose="true">
+  <coverage>
+    <include>
+      <directory suffix=".php">./src</directory>
+    </include>
+  </coverage>
+  <php>
+    <!--  Apigee Edge credentials - uncomment and change these lines to change to an online test.  -->
+    <!--
         <env name="APIGEE_EDGE_PHP_CLIENT_API_CLIENT" value="\Apigee\Edge\Tests\Test\Client"/>
         <env name="APIGEE_EDGE_PHP_CLIENT_HTTP_CLIENT" value="\Http\Adapter\Guzzle6\Client"/>
         <env name="APIGEE_EDGE_PHP_CLIENT_ORGANIZATION" value="myorg"/>
@@ -34,15 +31,10 @@
         <env name="APIGEE_EDGE_PHP_CLIENT_ENVIRONMENT" value="prod"/>
         <env name="APIGEE_EDGE_ENDPOINT" value="https://api.enterprise.apigee.com/v1"/>
         -->
-    </php>
-    <testsuites>
-        <testsuite name="All Apigee Edge PHP API Client Tests">
-            <directory>tests/</directory>
-        </testsuite>
-    </testsuites>
-    <filter>
-        <whitelist>
-            <directory suffix=".php">./src</directory>
-        </whitelist>
-    </filter>
+  </php>
+  <testsuites>
+    <testsuite name="All Apigee Edge PHP API Client Tests">
+      <directory>tests/</directory>
+    </testsuite>
+  </testsuites>
 </phpunit>
