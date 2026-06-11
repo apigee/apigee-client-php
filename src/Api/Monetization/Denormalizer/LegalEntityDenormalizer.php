@@ -68,9 +68,9 @@ class LegalEntityDenormalizer extends ObjectDenormalizer
     {
         if ($data->isCompany) {
             return parent::denormalize($data, $this->companyClass, $format, $context);
-        } else {
-            return parent::denormalize($data, $this->developerClass, $format, $context);
         }
+
+        return parent::denormalize($data, $this->developerClass, $format, $context);
     }
 
     /**
