@@ -74,6 +74,6 @@ abstract class RatePlanDenormalizer extends ObjectDenormalizer
             return false;
         }
 
-        return RatePlanInterface::class === $type || $type instanceof RatePlanInterface || in_array(RatePlanInterface::class, class_implements($type));
+        return RatePlanInterface::class === $type || $type instanceof RatePlanInterface || in_array(RatePlanInterface::class, class_implements($type) ?: []);
     }
 }

@@ -71,6 +71,6 @@ class TermsAndConditionsDenormalizer extends ObjectDenormalizer
             return false;
         }
 
-        return TermsAndConditionsInterface::class === $type || $type instanceof TermsAndConditionsInterface || in_array(TermsAndConditionsInterface::class, class_implements($type));
+        return TermsAndConditionsInterface::class === $type || $type instanceof TermsAndConditionsInterface || in_array(TermsAndConditionsInterface::class, class_implements($type) ?: []);
     }
 }

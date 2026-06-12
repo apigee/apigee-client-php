@@ -68,7 +68,7 @@ class AppDenormalizer extends ObjectDenormalizer
             return false;
         }
 
-        return AppInterface::class === $type || $type instanceof AppInterface || in_array(AppInterface::class, class_implements($type));
+        return AppInterface::class === $type || $type instanceof AppInterface || in_array(AppInterface::class, class_implements($type) ?: []);
     }
 
     /**
