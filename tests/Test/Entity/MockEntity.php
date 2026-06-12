@@ -65,7 +65,7 @@ class MockEntity extends Entity
     /** @var string */
     private $emptyString = '';
 
-    /** @var \Apigee\Edge\Api\Management\Entity\AppCredential[] */
+    /** @var AppCredential[] */
     private $appCredential = [];
 
     /** @var CredentialProduct */
@@ -236,7 +236,7 @@ class MockEntity extends Entity
     }
 
     /**
-     * @return \Apigee\Edge\Api\Management\Entity\AppCredential[]
+     * @return AppCredential[]
      */
     public function getAppCredential(): array
     {
@@ -244,7 +244,7 @@ class MockEntity extends Entity
     }
 
     /**
-     * @param \Apigee\Edge\Api\Management\Entity\AppCredential[] $appCredential
+     * @param AppCredential[] $appCredential
      */
     public function setAppCredential(array $appCredential): void
     {

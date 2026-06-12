@@ -86,7 +86,7 @@ abstract class RatePlan extends OrganizationAwareEntity implements RatePlanInter
     /** @var bool */
     protected $published = false;
 
-    /** @var \Apigee\Edge\Api\Monetization\Structure\RatePlanDetail[] */
+    /** @var RatePlanDetail[] */
     protected $ratePlanDetails = [];
 
     /** @var float|null */

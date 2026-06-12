@@ -45,7 +45,7 @@ class Builder implements BuilderInterface
     /**
      * Http client plugins.
      *
-     * @var \Http\Client\Common\Plugin[]
+     * @var Plugin[]
      */
     private $plugins = [];
 
@@ -168,12 +168,10 @@ class Builder implements BuilderInterface
      * Set or remove rebuild flag from the client.
      *
      * @param bool $rebuild
-     *
-     * @return bool
      */
-    private function needsRebuild(bool $rebuild = true): bool
+    private function needsRebuild(bool $rebuild = true): void
     {
-        return $this->rebuild = $rebuild;
+        $this->rebuild = $rebuild;
     }
 
     /**

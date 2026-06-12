@@ -38,7 +38,7 @@ abstract class LegalEntityTermsAndConditionsControllerTestBase extends EntityCon
     {
         /** @var \Apigee\Edge\Api\Monetization\Controller\LegalEntityTermsAndConditionsControllerInterface $controller */
         $controller = static::entityController();
-        /** @var \Apigee\Edge\Api\Monetization\Structure\LegalEntityTermsAndConditionsHistoryItem[] $entities */
+        /** @var LegalEntityTermsAndConditionsHistoryItem[] $entities */
         $entities = $controller->getTermsAndConditionsHistory();
         $json = json_decode((string) static::defaultAPIClient()->getJournal()->getLastResponse()->getBody());
         $json = reset($json);

@@ -23,7 +23,7 @@ use IteratorAggregate;
 /**
  * Interface KeyValueMapInterface.
  *
- * @extends \IteratorAggregate<string, array>
+ * @extends IteratorAggregate<string, array>
  */
 interface KeyValueMapInterface extends IteratorAggregate
 {

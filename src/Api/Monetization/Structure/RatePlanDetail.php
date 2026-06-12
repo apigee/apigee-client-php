@@ -103,7 +103,7 @@ final class RatePlanDetail extends BaseObject implements
     /** @var string */
     private $meteringType;
 
-    /** @var \Apigee\Edge\Api\Monetization\Structure\RatePlanRate[] */
+    /** @var RatePlanRate[] */
     private $ratePlanRates = [];
 
     /** @var string */
@@ -199,7 +199,7 @@ final class RatePlanDetail extends BaseObject implements
     }
 
     /**
-     * @return \Apigee\Edge\Api\Monetization\Structure\RatePlanRate[]
+     * @return RatePlanRate[]
      */
     public function getRatePlanRates(): array
     {

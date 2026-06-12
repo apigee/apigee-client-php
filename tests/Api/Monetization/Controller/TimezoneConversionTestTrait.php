@@ -111,7 +111,6 @@ trait TimezoneConversionTestTrait
 
         $ro = new ReflectionObject($entity);
         foreach ($ro->getProperties() as $property) {
-            $property->setAccessible(true);
             $value = $property->getValue($entity);
             if ($value instanceof DateTimeInterface) {
                 $properties[] = $property->getName();

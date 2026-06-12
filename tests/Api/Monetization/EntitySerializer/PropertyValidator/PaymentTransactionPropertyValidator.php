@@ -84,7 +84,6 @@ class PaymentTransactionPropertyValidator implements \Apigee\Edge\Tests\Test\Ent
         unset($expected->organization);
         $ro = new ReflectionObject($lentity);
         $orgProp = $ro->getProperty('organization');
-        $orgProp->setAccessible(true);
         // Only way to clear organization.
         $orgProp->setValue($lentity, null);
         // These properties are missing (not returned by Apigee Edge) on a

@@ -42,7 +42,7 @@ final class EntityStorage
     /** @var object[] */
     private static $controllers = [];
 
-    /** @var \Apigee\Edge\Entity\EntityInterface[] */
+    /** @var EntityInterface[] */
     private static $createdEntities = [];
 
     /**
@@ -100,7 +100,7 @@ final class EntityStorage
     /**
      * @param object $controller
      *
-     * @return \Apigee\Edge\Entity\EntityInterface[]
+     * @return EntityInterface[]
      */
     public function getCreatedEntitiesByStorage($controller): array
     {

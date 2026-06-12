@@ -55,5 +55,18 @@
 
         <RiskyTruthyFalsyComparison errorLevel="info" />
         
+        <ClassMustBeFinal errorLevel="info" />
+        <MissingOverrideAttribute errorLevel="info" />
+        <PossiblyUnusedMethod errorLevel="info" />
+        <PossiblyUnusedReturnValue errorLevel="info" />
+        <PossiblyUnusedParam errorLevel="info" />
+        <UnusedProperty errorLevel="info" />
+        <UnusedClass errorLevel="info" />
+        <UnusedVariable errorLevel="info" />
+        <UnusedDocblockParam errorLevel="info" />
+        <UnnecessaryVarAnnotation errorLevel="info" />
+        <PossiblyUnusedProperty errorLevel="info" />
+        <UnusedParam errorLevel="info" />
+        
     </issueHandlers>
 </psalm>

@@ -89,7 +89,7 @@ abstract class AcceptedRatePlanController extends OrganizationAwareEntityControl
 
         $tmp = json_decode($payload, true);
 
-        $payload = json_encode($tmp);
+        $payload = (string) json_encode($tmp);
 
         $response = $this->client->post($this->getBaseEndpointUri(), $payload);
         $this->getEntitySerializer()->setPropertiesFromResponse($response, $acceptedRatePlan);
@@ -144,7 +144,7 @@ abstract class AcceptedRatePlanController extends OrganizationAwareEntityControl
      * @param array $query_params
      *   Additional query parameters.
      *
-     * @return \Apigee\Edge\Api\ApigeeX\Entity\AcceptedRatePlanInterface[]
+     * @return AcceptedRatePlanInterface[]
      *
      * @psalm-suppress PossiblyNullArrayOffset - id() does not return null here.
      */
