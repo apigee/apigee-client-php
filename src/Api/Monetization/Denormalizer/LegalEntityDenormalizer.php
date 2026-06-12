@@ -68,9 +68,9 @@ class LegalEntityDenormalizer extends ObjectDenormalizer
     {
         if ($data->isCompany) {
             return parent::denormalize($data, $this->companyClass, $format, $context);
-        } else {
-            return parent::denormalize($data, $this->developerClass, $format, $context);
         }
+
+        return parent::denormalize($data, $this->developerClass, $format, $context);
     }
 
     /**
@@ -83,6 +83,6 @@ class LegalEntityDenormalizer extends ObjectDenormalizer
             return false;
         }
 
-        return LegalEntityInterface::class === $type || $type instanceof LegalEntityInterface || in_array(LegalEntityInterface::class, class_implements($type));
+        return LegalEntityInterface::class === $type || $type instanceof LegalEntityInterface || in_array(LegalEntityInterface::class, class_implements($type) ?: []);
     }
 }

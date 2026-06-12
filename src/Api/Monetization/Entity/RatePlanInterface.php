@@ -160,7 +160,7 @@ interface RatePlanInterface extends
     public function setPublished(bool $published): void;
 
     /**
-     * @return \Apigee\Edge\Api\Monetization\Structure\RatePlanDetail[]
+     * @return RatePlanDetail[]
      */
     public function getRatePlanDetails(): array;
 

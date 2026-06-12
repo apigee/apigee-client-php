@@ -37,7 +37,7 @@ interface PrepaidBalanceControllerInterface extends EntityControllerInterface, P
     /**
      * Gets prepaid balances.
      *
-     * @return \Apigee\Edge\Api\ApigeeX\Entity\PrepaidBalanceInterface[]
+     * @return PrepaidBalanceInterface[]
      */
     public function getPrepaidBalance(): array;
 }

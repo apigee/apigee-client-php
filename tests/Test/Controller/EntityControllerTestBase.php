@@ -66,10 +66,8 @@ abstract class EntityControllerTestBase extends ControllerTestBase
             // a controller.
             $ro = new ReflectionObject(static::entityController());
             $property = $ro->getProperty('decorated');
-            $property->setAccessible(true);
             $ro = new ReflectionObject($property->getValue(static::entityController()));
             $rm = $ro->getMethod('getEntitySerializer');
-            $rm->setAccessible(true);
 
             static::$instance = $rm->invoke($property->getValue(static::entityController()));
         }

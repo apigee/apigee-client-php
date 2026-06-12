@@ -52,6 +52,6 @@ class SupportedCurrencyDenormalizer extends ObjectDenormalizer
             return false;
         }
 
-        return SupportedCurrencyInterface::class === $type || $type instanceof SupportedCurrencyInterface || in_array(SupportedCurrencyInterface::class, class_implements($type));
+        return SupportedCurrencyInterface::class === $type || $type instanceof SupportedCurrencyInterface || in_array(SupportedCurrencyInterface::class, class_implements($type) ?: []);
     }
 }

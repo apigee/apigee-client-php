@@ -31,7 +31,6 @@ trait ObjectCopyHelperTrait
     {
         $ro = new ReflectionObject($this);
         foreach ($ro->getProperties() as $property) {
-            $property->setAccessible(true);
             $value = $property->getValue($this);
             if (is_object($value)) {
                 $property->setValue($this, clone $value);

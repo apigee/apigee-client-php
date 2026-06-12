@@ -52,6 +52,6 @@ class BalanceDenormalizer extends ObjectDenormalizer
             return false;
         }
 
-        return BalanceInterface::class === $type || $type instanceof BalanceInterface || in_array(BalanceInterface::class, class_implements($type));
+        return BalanceInterface::class === $type || $type instanceof BalanceInterface || in_array(BalanceInterface::class, class_implements($type) ?: []);
     }
 }

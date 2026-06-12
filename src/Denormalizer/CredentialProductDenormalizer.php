@@ -37,7 +37,7 @@ class CredentialProductDenormalizer implements DenormalizerInterface
             return false;
         }
 
-        return CredentialProductInterface::class === $type || $type instanceof CredentialProductInterface || in_array(CredentialProductInterface::class, class_implements($type));
+        return CredentialProductInterface::class === $type || $type instanceof CredentialProductInterface || in_array(CredentialProductInterface::class, class_implements($type) ?: []);
     }
 
     /**

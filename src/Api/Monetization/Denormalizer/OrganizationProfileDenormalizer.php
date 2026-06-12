@@ -52,6 +52,6 @@ class OrganizationProfileDenormalizer extends ObjectDenormalizer
             return false;
         }
 
-        return OrganizationProfileInterface::class === $type || $type instanceof OrganizationProfileInterface || in_array(OrganizationProfileInterface::class, class_implements($type));
+        return OrganizationProfileInterface::class === $type || $type instanceof OrganizationProfileInterface || in_array(OrganizationProfileInterface::class, class_implements($type) ?: []);
     }
 }

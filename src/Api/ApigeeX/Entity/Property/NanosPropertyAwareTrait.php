@@ -33,9 +33,9 @@ trait NanosPropertyAwareTrait
      */
     public function getNanos(): ?float
     {
-        $nanos = $this->nanos ?? 0;
+        $nanos = $this->nanos ?? 0.0;
 
-        return $nanos * pow(10, -9);
+        return $nanos * 1e-9;
     }
 
     /**

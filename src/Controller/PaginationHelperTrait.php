@@ -111,11 +111,10 @@ trait PaginationHelperTrait
 
         if (OrganizationFeatures::isPaginationAvailable($organization)) {
             return $this->listEntitiesWithCps($pager, $query_params, $key_provider);
-        } else {
-            $this->triggerCpsSimulationNotice($pager);
-
-            return $this->listEntitiesWithoutCps($pager, $query_params, $key_provider);
         }
+        $this->triggerCpsSimulationNotice($pager);
+
+        return $this->listEntitiesWithoutCps($pager, $query_params, $key_provider);
     }
 
     /**
@@ -136,11 +135,10 @@ trait PaginationHelperTrait
 
         if (OrganizationFeatures::isCpsEnabled($organization)) {
             return $this->listEntityIdsWithCps($pager, $query_params);
-        } else {
-            $this->triggerCpsSimulationNotice($pager);
-
-            return $this->listEntityIdsWithoutCps($pager, $query_params);
         }
+        $this->triggerCpsSimulationNotice($pager);
+
+        return $this->listEntityIdsWithoutCps($pager, $query_params);
     }
 
     /**
@@ -178,46 +176,45 @@ trait PaginationHelperTrait
             $responseArray = $this->getResultsInRange($pager, $query_params);
             // Ignore entity type key from response, ex.: developer,
             // apiproduct, etc.
-            $responseArray = reset($responseArray);
+            $responseArray = reset($responseArray) ?: [];
 
             return $this->responseArrayToArrayOfEntities($responseArray, $key_provider);
-        } else {
-            // Pass an empty pager to load all entities.
-            $responseArray = $this->getResultsInRange($this->createPager(), $query_params);
-            // Ignore entity type key from response, ex.: developer, apiproduct,
-            // etc.
-            $responseArray = reset($responseArray);
-            if (empty($responseArray)) {
-                return [];
-            }
-            $entities = $this->responseArrayToArrayOfEntities($responseArray, $key_provider);
-            $lastEntity = end($entities);
-            $lastId = $lastEntity->{$key_provider}();
-            do {
-                $tmp = $this->getResultsInRange($this->createPager(0, $lastId), $query_params);
-                // Ignore entity type key from response, ex.: developer,
-                // apiproduct, etc.
-                $tmp = reset($tmp);
-                // Remove the first item from the list because it is the same
-                // as the last item of $entities at this moment.
-                // Apigee Edge response always starts with the requested entity
-                // (startKey).
-                array_shift($tmp);
-                $tmpEntities = $this->responseArrayToArrayOfEntities((array) $tmp, $key_provider);
-
-                if (count($tmpEntities) > 0) {
-                    // The returned entity array is keyed by entity id which
-                    // is unique so we can do this.
-                    $entities += $tmpEntities;
-                    $lastEntity = end($tmpEntities);
-                    $lastId = $lastEntity->{$key_provider}();
-                } else {
-                    $lastId = false;
-                }
-            } while ($lastId);
-
-            return $entities;
         }
+        // Pass an empty pager to load all entities.
+        $responseArray = $this->getResultsInRange($this->createPager(), $query_params);
+        // Ignore entity type key from response, ex.: developer, apiproduct,
+        // etc.
+        $responseArray = reset($responseArray) ?: [];
+        if (empty($responseArray)) {
+            return [];
+        }
+        $entities = $this->responseArrayToArrayOfEntities($responseArray, $key_provider);
+        $lastEntity = end($entities);
+        $lastId = $lastEntity->{$key_provider}();
+        do {
+            $tmp = $this->getResultsInRange($this->createPager(0, $lastId), $query_params);
+            // Ignore entity type key from response, ex.: developer,
+            // apiproduct, etc.
+            $tmp = reset($tmp) ?: [];
+            // Remove the first item from the list because it is the same
+            // as the last item of $entities at this moment.
+            // Apigee Edge response always starts with the requested entity
+            // (startKey).
+            array_shift($tmp);
+            $tmpEntities = $this->responseArrayToArrayOfEntities((array) $tmp, $key_provider);
+
+            if (count($tmpEntities) > 0) {
+                // The returned entity array is keyed by entity id which
+                // is unique so we can do this.
+                $entities += $tmpEntities;
+                $lastEntity = end($tmpEntities);
+                $lastId = $lastEntity->{$key_provider}();
+            } else {
+                $lastId = false;
+            }
+        } while ($lastId);
+
+        return $entities;
     }
 
     /**
@@ -245,7 +242,7 @@ trait PaginationHelperTrait
         $response = $this->getClient()->get($uri);
         $responseArray = $this->responseToArray($response);
         // Ignore entity type key from response, ex.: apiProduct.
-        $responseArray = reset($responseArray);
+        $responseArray = reset($responseArray) ?: [];
 
         $entities = $this->responseArrayToArrayOfEntities($responseArray, $key_provider);
 
@@ -322,30 +319,29 @@ trait PaginationHelperTrait
         $expandCompatibility = str_ends_with($this->getClient()->getEndpoint(), $baseDomain);
         if ($pager) {
             return $this->getResultsInRange($pager, $query_params, $expandCompatibility);
-        } else {
-            $ids = $this->getResultsInRange($this->createPager(), $query_params, $expandCompatibility);
-            if (empty($ids)) {
-                return [];
-            }
-            $lastId = end($ids);
-            do {
-                $tmp = $this->getResultsInRange($this->createPager(0, $lastId), $query_params, $expandCompatibility);
-                // Remove the first item from the list because it is the same
-                // as the current last item of $ids.
-                // Apigee Edge response always starts with the requested entity
-                // id (startKey).
-                array_shift($tmp);
-
-                if (count($tmp) > 0) {
-                    $ids = array_merge($ids, $tmp);
-                    $lastId = end($tmp);
-                } else {
-                    $lastId = false;
-                }
-            } while ($lastId);
-
-            return $ids;
         }
+        $ids = $this->getResultsInRange($this->createPager(), $query_params, $expandCompatibility);
+        if (empty($ids)) {
+            return [];
+        }
+        $lastId = end($ids);
+        do {
+            $tmp = $this->getResultsInRange($this->createPager(0, $lastId), $query_params, $expandCompatibility);
+            // Remove the first item from the list because it is the same
+            // as the current last item of $ids.
+            // Apigee Edge response always starts with the requested entity
+            // id (startKey).
+            array_shift($tmp);
+
+            if (count($tmp) > 0) {
+                $ids = array_merge($ids, $tmp);
+                $lastId = end($tmp);
+            } else {
+                $lastId = false;
+            }
+        } while ($lastId);
+
+        return $ids;
     }
 
     /**
@@ -394,7 +390,7 @@ trait PaginationHelperTrait
         $array_search_haystack = $array_search_haystack ?? $result;
         // If start key is null let's set it to the first key in the
         // result just like the API would do.
-        $start_key = $pager->getStartKey() ?? reset($array_search_haystack);
+        $start_key = $pager->getStartKey() ?? (reset($array_search_haystack) ?: '');
         $offset = array_search($start_key, $array_search_haystack);
         // Start key has not been found in the response. Apigee Edge with
         // CPS enabled would return an HTTP 404, with error code

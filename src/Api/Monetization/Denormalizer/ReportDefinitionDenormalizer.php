@@ -52,6 +52,6 @@ class ReportDefinitionDenormalizer extends ObjectDenormalizer
             return false;
         }
 
-        return ReportDefinitionInterface::class === $type || $type instanceof ReportDefinitionInterface || in_array(ReportDefinitionInterface::class, class_implements($type));
+        return ReportDefinitionInterface::class === $type || $type instanceof ReportDefinitionInterface || in_array(ReportDefinitionInterface::class, class_implements($type) ?: []);
     }
 }
