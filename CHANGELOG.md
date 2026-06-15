@@ -1,4 +1,7 @@
 # CHANGELOG
+## [3.1.0](https://github.com/apigee/apigee-client-php/milestone/44?closed=1)
+* [#478] Added PHP 8.4 support.
+
 ## [3.0.12](https://github.com/apigee/apigee-client-php/milestone/41?closed=1)
 * [#470] Fixed warning while creating a new team.
 
