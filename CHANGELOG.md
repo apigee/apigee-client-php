@@ -1,5 +1,5 @@
 # CHANGELOG
-## [4.0.6](https://github.com/apigee/apigee-client-php/milestone/43?closed=1)
+## [4.1.0](https://github.com/apigee/apigee-client-php/milestone/43?closed=1)
 * [#477] Added Support for PHP 8.4 and PHP 8.5.
 
 ## [4.0.5](https://github.com/apigee/apigee-client-php/milestone/42?closed=1)
